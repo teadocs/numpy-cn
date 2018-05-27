@@ -6,13 +6,14 @@
 
 - 关于NumPy中文文档
 
-用户指南：
+NumPy用户指南：
 
+- 介绍
 - 安装
 - 快速入门教程
 - NumPy基础知识
-- Numpy用于Matlab
-- 从源码编译NumPy
+- Numpy对于Matlab用户
+- 从源代码构建
 
 NumPy参考手册：
 
