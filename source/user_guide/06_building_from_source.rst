@@ -33,3 +33,91 @@
 ----------------------------------
 
 要安装NumPy运行：
+
+.. code-block:: python
+
+    > python setup.py install
+
+To perform an in-place build that can be run from the source folder run:
+
+.. code-block:: python
+
+    > python setup.py build_ext --inplace
+
+The NumPy build system uses ``setuptools`` (from numpy 1.11.0, before that it was plain ``distutils``) and ``numpy.distutils``. Using ``virtualenv`` should work as expected.
+
+*Note: for build instructions to do development work on NumPy itself, see Setting up and using your development environment.*
+
+----------------------------------
+Parallel builds
+----------------------------------
+
+From NumPy 1.10.0 on its also possible to do a parallel build with:
+
+.. code-block:: python
+
+ 	> python setup.py build -j 4 install --prefix $HOME/.local
+
+This will compile numpy on 4 CPUs and install it into the specified prefix. to perform a parallel in-place build, run:
+
+.. code-block:: python
+
+ 	> python setup.py build_ext --inplace -j 4
+
+The number of build jobs can also be specified via the environment variable ``NPY_NUM_BUILD_JOBS`` .
+
+----------------------------------
+FORTRAN ABI mismatch
+----------------------------------
+
+The two most popular open source fortran compilers are g77 and gfortran. Unfortunately, they are not ABI compatible, which means that concretely you should avoid mixing libraries built with one with another. In particular, if your blas/lapack/atlas is built with g77, you must use g77 when building numpy and scipy; on the contrary, if your atlas is built with gfortran, you must build numpy/scipy with gfortran. This applies for most other cases where different FORTRAN compilers might have been used.
+
+----------------------------------
+Choosing the fortran compiler
+----------------------------------
+
+To build with gfortran:
+
+.. code-block:: python
+
+	> python setup.py build --fcompiler=gnu95
+
+For more information see:
+
+.. code-block:: python
+
+	> python setup.py build --help-fcompiler
+
+------------------------------------------
+How to check the ABI of blas/lapack/atlas
+------------------------------------------
+One relatively simple and reliable way to check for the compiler used to build a library is to use ldd on the library. If libg2c.so is a dependency, this means that g77 has been used. If libgfortran.so is a dependency, gfortran has been used. If both are dependencies, this means both have been used, which is almost always a very bad idea.
+
+-------------------------------------------------------
+Disabling ATLAS and other accelerated libraries
+-------------------------------------------------------
+Usage of ATLAS and other accelerated libraries in NumPy can be disabled via:
+
+.. code-block:: python
+
+	> BLAS=None LAPACK=None ATLAS=None python setup.py build
+
+--------------------------------------------
+Supplying additional compiler flags
+--------------------------------------------
+
+Additional compiler flags can be supplied by setting the ``OPT``, ``FOPT`` (for Fortran), and ``CC`` environment variables.
+
+--------------------------------------------
+Building with ATLAS support
+--------------------------------------------
+
+^^^^^^^^^^^^^^^^
+Ubuntu
+^^^^^^^^^^^^^^^^
+
+You can install the necessary package for optimized ATLAS with this command:
+
+.. code-block:: python
+
+	> sudo apt-get install libatlas-base-dev

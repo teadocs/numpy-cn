@@ -28,7 +28,7 @@
 
 .. code-block:: python
 
-    >>> python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
+    > python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
 
 我们建议使用普通用户来安装你所需的包。
 
@@ -48,7 +48,7 @@ Ubuntu & Debian
 
 .. code-block:: python
 
-    >>> sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+    > sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
 
 用户也可能想添加 `Neuro Debian <http://neuro.debian.net/>`_ 来获取更多的SciPy包。
 
@@ -60,7 +60,7 @@ Fedora 22及更高版本：
 
 .. code-block:: python
 
-    >>> sudo dnf install numpy scipy python-matplotlib ipython python-pandas sympy python-nose atlas-devel
+    > sudo dnf install numpy scipy python-matplotlib ipython python-pandas sympy python-nose atlas-devel
 
 ----------------------------------
 Mac系统的安装方式
@@ -76,7 +76,7 @@ Macports
 
 .. code-block:: python
 
-    >>> sudo port install py35-numpy py35-scipy py35-matplotlib py35-ipython +notebook py35-pandas py35-sympy py35-nose
+    > sudo port install py35-numpy py35-scipy py35-matplotlib py35-ipython +notebook py35-pandas py35-sympy py35-nose
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Homebrew
@@ -86,7 +86,7 @@ Homebrew
 
 .. code-block:: python
 
-    >>> brew tap homebrew/science && brew install python numpy scipy matplotlib
+    > brew tap homebrew/science && brew install python numpy scipy matplotlib
 
 ----------------------------------
 其他的选择

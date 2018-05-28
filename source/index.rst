@@ -15,3 +15,4 @@ Contents:
    
    preface
    user_guide
+   reference_manual

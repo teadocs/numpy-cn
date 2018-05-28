@@ -17,6 +17,8 @@ NumPy用户指南：
 - NumPy基础知识
 - Numpy对于Matlab用户
 - 从源代码构建
+- 使用NumPy C-API
+- 其他
 
 NumPy参考手册：
 

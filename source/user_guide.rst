@@ -15,3 +15,5 @@ NumPy用户指南
    ./user_guide/04_numpy_basics
    ./user_guide/05_numpy_for_matlab_users
    ./user_guide/06_building_from_source
+   ./user_guide/07_using_numpy_capi
+   ./user_guide/08_miscellaneous
