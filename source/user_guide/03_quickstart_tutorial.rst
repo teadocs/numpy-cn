@@ -232,7 +232,7 @@ NumPy的数组类被称为ndarray。别名为 ``array``。 请注意，``numpy.a
     >>> a<35
     array([ True, True, False, False])
 
-Unlike in many matrix languages, the product operator ``*`` operates elementwise in NumPy arrays. The matrix product can be performed using the ``dot`` function or method:
+与许多矩阵语言不同，乘法运算符 ``*`` 的运算在NumPy数组中是元素级别的。矩阵乘积可以使用 ``dot`` 函数或方法执行：
 
 .. code-block:: python
 
@@ -250,7 +250,7 @@ Unlike in many matrix languages, the product operator ``*`` operates elementwise
     array([[5, 4],
            [3, 4]])
 
-Some operations, such as += and \*=, act in place to modify an existing array rather than create a new one.
+某些操作（例如+=和*=）适用于修改现有数组，而不是创建新数组。
 
 .. code-block:: python
 
@@ -269,7 +269,7 @@ Some operations, such as += and \*=, act in place to modify an existing array ra
       ...
     TypeError: Cannot cast ufunc add output from dtype('float64') to dtype('int64') with casting rule 'same_kind'
 
-When operating with arrays of different types, the type of the resulting array corresponds to the more general or precise one (a behavior known as upcasting).
+当使用不同类型的数组操作时，结果数组的类型对应于更一般或更精确的数组（称为向上转换的行为）。
 
 .. code-block:: python
 
@@ -289,7 +289,7 @@ When operating with arrays of different types, the type of the resulting array c
     >>> d.dtype.name
     'complex128'
 
-Many unary operations, such as computing the sum of all the elements in the array, are implemented as methods of the ``ndarray`` class.
+许多一元运算，例如计算数组中所有元素的总和，都是作为 ``ndarray`` 类的方法实现的。
 
 .. code-block:: python
 
@@ -304,7 +304,7 @@ Many unary operations, such as computing the sum of all the elements in the arra
     >>> a.max()
     0.6852195003967595
 
-By default, these operations apply to the array as though it were a list of numbers, regardless of its shape. However, by specifying the axis parameter you can apply an operation along the specified axis of an array:
+默认情况下，这些操作适用于数组，就好像它是数字列表一样，无论其形状如何。但是，通过指定 ``axis`` 参数，你可以沿着数组的指定轴应用操作：
 
 .. code-block:: python
 
@@ -326,9 +326,9 @@ By default, these operations apply to the array as though it were a list of numb
            [ 8, 17, 27, 38]])
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Universal Functions
+通用函数
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-NumPy provides familiar mathematical functions such as sin, cos, and exp. In NumPy, these are called “universal functions”( ``ufunc`` ). Within NumPy, these functions operate elementwise on an array, producing an array as output.
+NumPy提供了常见的数学函数，如sin，cos和exp。In NumPy, these are called “universal functions”( ``ufunc`` ). 在NumPy中，这些函数在数组上按元素级别操作，产生一个数组作为输出。
 
 .. code-block:: python
 
@@ -348,9 +348,10 @@ NumPy provides familiar mathematical functions such as sin, cos, and exp. In Num
     all, any, apply_along_axis, argmax, argmin, argsort, average, bincount, ceil, clip, conj, corrcoef, cov, cross, cumprod, cumsum, diff, dot, floor, inner, inv, lexsort, max, maximum, mean, median, min, minimum, nonzero, outer, prod, re, round, sort, std, sum, trace, transpose, var, vdot, vectorize, where
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Indexing, Slicing and Iterating
+索引、切片和迭代
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-**One-dimensional** arrays can be indexed, sliced and iterated over, much like lists and other Python sequences.
+
+一维数组可以被索引，切片和迭代，就像列出和其他Python序列一样。
 
 .. code-block:: python
 
@@ -380,7 +381,7 @@ Indexing, Slicing and Iterating
     8.0
     9.0
 
-**Multidimensional** arrays can have one index per axis. These indices are given in a tuple separated by commas:
+**多维（Multidimensional）** 数组每个轴可以有一个索引。 这些索在元组中以逗号分隔给出：
 
 .. code-block:: python
 
@@ -404,20 +405,20 @@ Indexing, Slicing and Iterating
     array([[10, 11, 12, 13],
            [20, 21, 22, 23]])
 
-When fewer indices are provided than the number of axes, the missing indices are considered complete slices ``:``
+当提供比轴数更少的索引时，缺失的索引被认为是一个完整切片 ``:``
 
 .. code-block:: python
 
     >>> b[-1]                                  # the last row. Equivalent to b[-1,:]
     array([40, 41, 42, 43])
 
-The expression within brackets in ``b[i]`` is treated as an ``i`` followed by as many instances of ``:`` as needed to represent the remaining axes. NumPy also allows you to write this using dots as ``b[i,...]``.
+``b[i]`` 方括号中的表达式 ``i`` 被视为后面紧跟着 ``:`` 的多个实例，用于表示剩余轴。NumPy也允许你使用三个点写为 ``b[i,...]``。
 
-The **dots** (``...``) represent as many colons as needed to produce a complete indexing tuple. For example, if ``x`` is an array with 5 axes, then
+三个点（ ``...`` ）表示产生完整索引元组所需的冒号。例如，如果 ``x`` 是rank为的5数组（即，它具有5个轴），则
 
-* ``x[1,2,...]`` is equivalent to ``x[1,2,:,:,:]``,
-* ``x[...,3]`` to ``x[:,:,:,:,3]`` and
-* ``x[4,...,5,:]`` to ``x[4,:,:,5,:]``.
+* ``x[1,2,...]`` 等于 ``x[1,2,:,:,:]``。
+* ``x[...,3]`` 等效于 ``x[:,:,:,:,3]``。
+* ``x[4,...,5,:]`` 等效于 ``x[4,:,:,5,:]``。
 
 .. code-block:: python
 
@@ -434,7 +435,7 @@ The **dots** (``...``) represent as many colons as needed to produce a complete 
     array([[  2,  13],
            [102, 113]])
 
-**Iterating** over multidimensional arrays is done with respect to the first axis:
+**迭代（Iterating）** 多维数组是相对于第一个轴完成的：
 
 .. code-block:: python
 
@@ -447,7 +448,7 @@ The **dots** (``...``) represent as many colons as needed to produce a complete 
     [30 31 32 33]
     [40 41 42 43]
 
-However, if one wants to perform an operation on each element in the array, one can use the flat attribute which is an iterator over all the elements of the array:
+但是，如果想要对数组中的每个元素执行操作，可以使用 ``flat`` 属性，该属性是数组中所有元素的迭代器：
 
 .. code-block:: python
 
@@ -480,13 +481,13 @@ However, if one wants to perform an operation on each element in the array, one 
     Indexing, Indexing (reference), newaxis, ndenumerate, indices
 
 ----------------------------------
-Shape Manipulation
+形状操作
 ----------------------------------
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Changing the shape of an array
+更改数组的形状
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-An array has a shape given by the number of elements along each axis:
+一个数组具有由每个轴上的元素数量给出的形状：
 
 .. code-block:: python
 
@@ -498,7 +499,7 @@ An array has a shape given by the number of elements along each axis:
     >>> a.shape
     (3, 4)
 
-The shape of an array can be changed with various commands. Note that the following three commands all return a modified array, but do not change the original array:
+数组的形状可以通过各种命令进行更改。请注意，以下三个命令都返回一个修改后的数组，但不要更改原始数组：
 
 .. code-block:: python
 
@@ -521,9 +522,9 @@ The shape of an array can be changed with various commands. Note that the follow
     >>> a.shape
     (3, 4)
 
-The order of the elements in the array resulting from ravel() is normally “C-style”, that is, the rightmost index “changes the fastest”, so the element after a[0,0] is a[0,1]. If the array is reshaped to some other shape, again the array is treated as “C-style”. NumPy normally creates arrays stored in this order, so ravel() will usually not need to copy its argument, but if the array was made by taking slices of another array or created with unusual options, it may need to be copied. The functions ravel() and reshape() can also be instructed, using an optional argument, to use FORTRAN-style arrays, in which the leftmost index changes the fastest.
+由ravel()产生的数组中元素的顺序通常是“C风格”，也就是说，最右边的索引“改变最快”，所以[0,0]之后的元素是[0,1] 。如果数组被重新塑造成其他形状，数组又被视为“C-style”。NumPy通常创建按此顺序存储的数组，因此ravel()通常不需要复制其参数，但如果数组是通过切片另一个数组或使用不寻常选项创建的，则可能需要复制它。函数ravel()和reshape()也可以通过使用可选参数来指示使用FORTRAN风格的数组，其中最左侧的索引更改速度最快。
 
-The ``reshape`` function returns its argument with a modified shape, whereas the ``ndarray.resize`` method modifies the array itself:
+``reshape`` 函数返回具有修改形状的参数，而 ``ndarray.resize`` 方法修改数组本身：
 
 .. code-block:: python
 
@@ -536,10 +537,11 @@ The ``reshape`` function returns its argument with a modified shape, whereas the
     array([[ 2.,  8.,  0.,  6.,  4.,  5.],
            [ 1.,  1.,  8.,  9.,  3.,  6.]])
 
-If a dimension is given as -1 in a reshaping operation, the other dimensions are automatically calculated:>>> a.reshape(3,-1)
+如果在reshape操作中将维度指定为-1，则会自动计算其他维度：
 
 .. code-block:: python
 
+    >>> a.reshape(3,-1)
     array([[ 2.,  8.,  0.,  6.],
            [ 4.,  5.,  1.,  1.],
            [ 8.,  9.,  3.,  6.]])
@@ -549,10 +551,10 @@ If a dimension is given as -1 in a reshaping operation, the other dimensions are
     ndarray.shape, reshape, resize, ravel
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Stacking together different arrays
+将不同数组堆叠在一起
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Several arrays can be stacked together along different axes:
+几个数组可以沿不同的轴堆叠在一起：
 
 .. code-block:: python
 
@@ -573,7 +575,7 @@ Several arrays can be stacked together along different axes:
     array([[ 8.,  8.,  1.,  8.],
            [ 0.,  0.,  0.,  4.]])
 
-he function ``column_stack`` stacks 1D arrays as columns into a 2D array. It is equivalent to ``hstack`` only for 2D arrays:
+函数 ``column_stack`` 将1D数组作为列叠加到2D数组中。它相当于仅用于二维数组的 ``hstack``：
 
 .. code-block:: python
 
@@ -598,28 +600,28 @@ he function ``column_stack`` stacks 1D arrays as columns into a 2D array. It is 
     array([[ 4.,  3.],
            [ 2.,  8.]])
 
-On the other hand, the function ``row_stack`` is equivalent to ``vstack`` for any input arrays. In general, for arrays of with more than two dimensions, ``hstack`` stacks along their second axes, ``vstack`` stacks along their first axes, and ``concatenate`` allows for an optional arguments giving the number of the axis along which the concatenation should happen.
+另一方面，对于任何输入数组，函数 ``row_stack`` 相当于 ``vstack``。一般来说，对于具有两个以上维度的数组，``hstack`` 沿第二轴堆叠，``vstack`` 沿第一轴堆叠，``concatenate`` 允许一个可选参数，给出串接应该发生的轴。
 
-**Note**
+**请注意**
 
-In complex cases, ``r_`` and ``c_`` are useful for creating arrays by stacking numbers along one axis. They allow the use of range literals (“:”)
+在复杂情况下，``r_`` 和 ``c_`` 可用于通过沿一个轴叠加数字来创建数组。它们允许使用范围字面量（“：”）
 
 .. code-block:: python
 
     >>> np.r_[1:4,0,4]
     array([1, 2, 3, 0, 4])
 
-When used with arrays as arguments, ``r_`` and ``c_`` are similar to ``vstack`` and ``hstack`` in their default behavior, but allow for an optional argument giving the number of the axis along which to concatenate.
+当以数组作为参数使用时，``r_`` 和 ``c_`` 类似于其默认行为中的 ``vstack`` 和 ``hstack`` ，但是允许一个可选参数给出要沿其连接的轴的编号。
 
 另见：
 
     hstack, vstack, column_stack, concatenate, c\_, r\_
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Splitting one array into several smaller ones
+将一个数组分成几个较小的数组
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Using ``hsplit``, you can split an array along its horizontal axis, either by specifying the number of equally shaped arrays to return, or by specifying the columns after which the division should occur:
+使用 ``hsplit`` ，可以沿其水平轴拆分数组，通过指定要返回的均匀划分的数组数量，或通过指定要在其后进行划分的列：
 
 .. code-block:: python
 
@@ -638,19 +640,19 @@ Using ``hsplit``, you can split an array along its horizontal axis, either by sp
            [ 2.]]), array([[ 6.,  8.,  0.,  7.,  9.,  7.,  2.,  7.],
            [ 2.,  1.,  0.,  6.,  2.,  2.,  4.,  0.]])]
 
-``vsplit`` splits along the vertical axis, and ``array_split`` allows one to specify along which axis to split.
+``vsplit`` 沿纵轴分割，并且 ``array_split`` 允许指定沿哪个轴分割。
 
 ----------------------------------
-Copies and Views
+复制和视图
 ----------------------------------
 
-When operating and manipulating arrays, their data is sometimes copied into a new array and sometimes not. This is often a source of confusion for beginners. There are three cases:
+当计算和操作数组时，它们的数据有时被复制到新的数组中，有时不复制。对于初学者来说，这经常是一个混乱的来源。有三种情况：
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-No Copy at All
+完全不复制
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Simple assignments make no copy of array objects or of their data.
+简单赋值不会创建数组对象或其数据的拷贝。
 
 .. code-block:: python
 
@@ -662,7 +664,7 @@ Simple assignments make no copy of array objects or of their data.
     >>> a.shape
     (3, 4)
 
-Python passes mutable objects as references, so function calls make no copy.
+Python将可变对象作为引用传递，所以函数调用不会复制。
 
 .. code-block:: python
 
@@ -675,10 +677,10 @@ Python passes mutable objects as references, so function calls make no copy.
     148293216
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-View or Shallow Copy
+视图或浅复制
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Different array objects can share the same data. The ``view`` method creates a new array object that looks at the same data.
+不同的数组对象可以共享相同的数据。 ``view`` 方法创建一个新的数组对象，它查看相同的数据。
 
 .. code-block:: python
 
@@ -699,7 +701,7 @@ Different array objects can share the same data. The ``view`` method creates a n
            [1234,    5,    6,    7],
            [   8,    9,   10,   11]])
 
-Slicing an array returns a view of it:
+对数组切片返回一个视图：
 
 .. code-block:: python
 
@@ -711,10 +713,10 @@ Slicing an array returns a view of it:
            [   8,   10,   10,   11]])
 
 ----------------------------------
-Deep Copy
+深拷贝
 ----------------------------------
 
-The copy method makes a complete copy of the array and its data.
+``copy`` 方法生成数组及其数据的完整拷贝。
 
 .. code-block:: python
 
@@ -731,59 +733,59 @@ The copy method makes a complete copy of the array and its data.
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Functions and Methods Overview
+函数和方法概述
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Here is a list of some useful NumPy functions and methods names ordered in categories. See Routines for the full list.
+这里列出了一些根据类别排列的有用的NumPy函数和方法名称。完整列表见Routines。
 
-Array Creation
+数组创建
     arange, array, copy, empty, empty_like, eye, fromfile, fromfunction, identity, linspace, logspace, mgrid, ogrid, ones, ones_like, r, zeros, zeros_like
 
-Conversions
+转换
     ndarray.astype, atleast_1d, atleast_2d, atleast_3d, mat
 
-anipulations
+手法
     array_split, column_stack, concatenate, diagonal, dsplit, dstack, hsplit, hstack, ndarray.item, newaxis, ravel, repeat, reshape, resize, squeeze, swapaxes, take, transpose, vsplit, vstack
 
-Questions
+问题
     all, any, nonzero, where
 
-Ordering
+顺序
     argmax, argmin, argsort, max, min, ptp, searchsorted, sort
 
-Operations
+操作
     choose, compress, cumprod, cumsum, inner, ndarray.fill, imag, prod, put, putmask, real, sum
 
-Basic Statistics
+基本统计
     cov, mean, std, var
 
-Basic Linear Algebra
+基本线性代数
     cross, dot, outer, linalg.svd, vdot
 
 ----------------------------------
-Less Basic
+Less 基础
 ----------------------------------
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Broadcasting rules
+广播（Broadcasting）规则
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Broadcasting allows universal functions to deal in a meaningful way with inputs that do not have exactly the same shape.
+Broadcasting允许通用函数以有意义的方式处理具有不完全相同形状的输入。
 
-The first rule of broadcasting is that if all input arrays do not have the same number of dimensions, a “1” will be repeatedly prepended to the shapes of the smaller arrays until all the arrays have the same number of dimensions.
+Broadcasting的第一个规则是，如果所有输入数组不具有相同数量的维度，则“1”将被重复地添加到较小数组的形状，直到所有数组具有相同数量的维度。
 
-The second rule of broadcasting ensures that arrays with a size of 1 along a particular dimension act as if they had the size of the array with the largest shape along that dimension. The value of the array element is assumed to be the same along that dimension for the “broadcast” array.
+Broadcasting的第二个规则确保沿着特定维度具有大小为1的数组表现得好像它们具有沿着该维度具有最大形状的数组的大小。假定数组元素的值沿“Broadcasting”数组的该维度相同。
 
-After application of the broadcasting rules, the sizes of all arrays must match. More details can be found in Broadcasting.
+在应用广播规则之后，所有阵列的大小必须匹配。更多细节可以在 Broadcasting 中找到。
 
 ----------------------------------
-Fancy indexing and index tricks
+花式索引和索引技巧
 ----------------------------------
 
-NumPy offers more indexing facilities than regular Python sequences. In addition to indexing by integers and slices, as we saw before, arrays can be indexed by arrays of integers and arrays of booleans.
+NumPy提供了比常规Python序列更多的索引能力。正如我们前面看到的，除了通过整数和切片进行索引之外，还可以使用整数数组和布尔数组进行索引。
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Indexing with Arrays of Indices
+使用索引数组索引
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
@@ -798,7 +800,7 @@ Indexing with Arrays of Indices
     array([[ 9, 16],
            [81, 49]])
 
-When the indexed array ``a`` is multidimensional, a single array of indices refers to the first dimension of ``a``. The following example shows this behavior by converting an image of labels into a color image using a palette.
+当被索引的数组 ``a`` 是一个多维数组，单个索引数组指的是 ``a`` 的第一个维度。以下示例通过使用调色板将标签图像转换为彩色图像来作为举例。
 
 .. code-block:: python
 
@@ -819,7 +821,7 @@ When the indexed array ``a`` is multidimensional, a single array of indices refe
             [255, 255, 255],
             [  0,   0,   0]]])
 
-We can also give indexes for more than one dimension. The arrays of indices for each dimension must have the same shape.
+我们也可以给出多个维度的索引。每个维度的索引数组必须具有相同的形状。
 
 .. code-block:: python
 
@@ -849,7 +851,7 @@ We can also give indexes for more than one dimension. The arrays of indices for 
            [[10,  9],
             [11, 11]]])
 
-Naturally, we can put ``i`` and ``j`` in a sequence (say a list) and then do the indexing with the list.
+当然，我们可以把 ``i`` 和 ``j`` 放在一个序列中(比如一个列表),然后用列表进行索引。
 
 .. code-block:: python
 
@@ -858,7 +860,7 @@ Naturally, we can put ``i`` and ``j`` in a sequence (say a list) and then do the
     array([[ 2,  5],
            [ 7, 11]])
 
-However, we can not do this by putting `i` and `j` into an array, because this array will be interpreted as indexing the first dimension of a.
+然而，我们不能将 ``i`` 和 ``j`` 放入一个数组中，因为这个数组将被解释为索引第一个维度。
 
 .. code-block:: python
 
@@ -872,7 +874,7 @@ However, we can not do this by putting `i` and `j` into an array, because this a
     array([[ 2,  5],
            [ 7, 11]])
 
-Another common use of indexing with arrays is the search of the maximum value of time-dependent series:
+索引数组的另一个常见用途是搜索时间相关序列的最大值：
 
 .. code-block:: python
 
@@ -903,7 +905,7 @@ Another common use of indexing with arrays is the search of the maximum value of
     >>> np.all(data_max == data.max(axis=0))
     True
 
-You can also use indexing with arrays as a target to assign to:
+你还可以使用数组索引作为目标来赋值：
 
 .. code-block:: python
 
@@ -914,7 +916,7 @@ You can also use indexing with arrays as a target to assign to:
     >>> a
     array([0, 0, 2, 0, 0])
 
-However, when the list of indices contains repetitions, the assignment is done several times, leaving behind the last value:
+然而，当索引列表包含重复时，赋值完成多次，留下最后一个值：
 
 .. code-block:: python
 
@@ -923,7 +925,7 @@ However, when the list of indices contains repetitions, the assignment is done s
     >>> a
     array([2, 1, 3, 3, 4])
 
-This is reasonable enough, but watch out if you want to use Python’s ``+=`` construct, as it may not do what you expect:
+这相当合理，但如果你想使用Python的 ``+=`` 构造要小心，因为这可能得不到你想要的效果：
 
 .. code-block:: python
 
@@ -932,16 +934,15 @@ This is reasonable enough, but watch out if you want to use Python’s ``+=`` co
     >>> a
     array([1, 1, 3, 3, 4])
 
-Even though 0 occurs twice in the list of indices, the 0th element is only incremented once. This is because Python requires “a+=1” to be equivalent to “a = a + 1”.
-
+即使0在索引列表中出现两次，第0个元素只会增加一次。这是因为Python要求“a + = 1”等同于“a = a + 1”。
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Indexing with Boolean Arrays
+使用布尔值作为数组索引
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When we index arrays with arrays of (integer) indices we are providing the list of indices to pick. With boolean indices the approach is different; we explicitly choose which items in the array we want and which ones we don’t.
+当我们用（整数）索引数组索引数组时，我们提供了要选择的索引列表。使用布尔值作为索引时，方法是不同的；我们明确地选择数组中的哪些元素我们想要的，哪些不是。
 
-The most natural way one can think of for boolean indexing is to use boolean arrays that have the same shape as the original array:
+我们可以想到的布尔索引最自然的方式是使用与原始数组具有相同形状的布尔数组：
 
 .. code-block:: python
 
@@ -954,7 +955,7 @@ The most natural way one can think of for boolean indexing is to use boolean arr
     >>> a[b]                                       # 1d array with the selected elements
     array([ 5,  6,  7,  8,  9, 10, 11])
 
-This property can be very useful in assignments:
+此属性在赋值时非常有用：
 
 .. code-block:: python
 
@@ -964,7 +965,7 @@ This property can be very useful in assignments:
            [4, 0, 0, 0],
            [0, 0, 0, 0]])
 
-You can look at the following example to see how to use boolean indexing to generate an image of the Mandelbrot set:
+你可以查看以下示例，了解如何使用布尔索引生成 Mandelbrot 集的图像：
 
 .. code-block:: python
 
@@ -990,7 +991,7 @@ You can look at the following example to see how to use boolean indexing to gene
 
 .. image:: ../../static/images/quickstart-1.png
 
-The second way of indexing with booleans is more similar to integer indexing; for each dimension of the array we give a 1D boolean array selecting the slices we want:
+第二种使用布尔索引的方法更类似于整数索引;对于数组的每个维度，我们给出一个一维布尔数组，选择我们想要的切片：
 
 .. code-block:: python
 
@@ -1014,12 +1015,13 @@ The second way of indexing with booleans is more similar to integer indexing; fo
     >>> a[b1,b2]                                  # a weird thing to do
     array([ 4, 10])
 
-Note that the length of the 1D boolean array must coincide with the length of the dimension (or axis) you want to slice. In the previous example, ``b1`` has length 3 (the number of rows in ``a`` ), and ``b2`` (of length 4) is suitable to index the 2nd axis (columns) of ``a``.
+请注意，1D布尔数组的长度必须与你要切片的维度（或轴）的长度一致。在前面的示例中， ``b1`` 是rank为1的数组，其长度为3（ ``a`` 中行的数量）， ``b2`` （长度4）适合于索引 ``a`` 的第二个rank（列）。
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The ix_() function
+ix_()函数
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The ``ix_`` function can be used to combine different vectors so as to obtain the result for each n-uplet. For example, if you want to compute all the a+b*c for all the triplets taken from each of the vectors a, b and c:
+
+可以使用 ``ix_`` 函数来组合不同的向量以获得每个n-uplet的结果。例如，如果要计算从向量a、b和c中的取得的所有三元组的所有a + b * c：
 
 .. code-block:: python
 
@@ -1059,7 +1061,7 @@ The ``ix_`` function can be used to combine different vectors so as to obtain th
     >>> a[3]+b[2]*c[4]
     17
 
-You could also implement the reduce as follows:
+你还可以如下实现reduce：
 
 .. code-block:: python
 
@@ -1070,7 +1072,7 @@ You could also implement the reduce as follows:
     ...        r = ufct(r,v)
     ...    return r
 
-and then use it as:
+然后将其用作：
 
 .. code-block:: python
 
@@ -1088,24 +1090,23 @@ and then use it as:
             [15, 14, 16, 18, 13],
             [14, 13, 15, 17, 12]]])
 
-The advantage of this version of reduce compared to the normal ufunc.reduce is that it makes use of the Broadcasting Rules in order to avoid creating an argument array the size of the output times the number of vectors.
+与正常的ufunc.reduce相比，这个版本的reduce的优点是它使用Broadcasting规则，以避免创建参数数组输出的大小乘以向量的数量。
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Indexing with strings
+使用字符串索引
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-See Structured arrays.
+请参见结构化数组。
 
 ----------------------------------
 线性代数
 ----------------------------------
-Work in progress. Basic linear algebra to be included here.
+工作正在进行中。这里包含基本的线性代数。
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Simple Array Operations
+简单数组操作
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-See linalg.py in numpy folder for more.
+有关更多信息，请参阅numpy目录中的linalg.py。
 
 .. code-block:: python
 
@@ -1156,14 +1157,14 @@ See linalg.py in numpy folder for more.
         eigenvalue ``w[i]`` .
 
 ----------------------------------
-Tricks and Tips
+技巧和提示
 ----------------------------------
-Here we give a list of short and useful tips.
+在这里，我们列出一些简短而有用的提示。
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-“Automatic” Reshaping
+“自动”重定义数组形状
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-To change the dimensions of an array, you can omit one of the sizes which will then be deduced automatically:
+要更改数组的大小，你可以省略其中一个size，它将被自动推导出来：
 
 .. code-block:: python
 
@@ -1184,9 +1185,9 @@ To change the dimensions of an array, you can omit one of the sizes which will t
             [27, 28, 29]]])
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Vector Stacking
+向量堆叠
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-How do we construct a 2D array from a list of equally-sized row vectors? In MATLAB this is quite easy: if ``x`` and ``y`` are two vectors of the same length you only need do ``m=[x;y]``. In NumPy this works via the functions ``column_stack``, ``dstack``, ``hstack`` and ``vstack``, depending on the dimension in which the stacking is to be done. For example:
+我们如何从一个相同大小的行向量列表构造一个二维数组？在MATLAB中，这很容易：如果x和y是两个长度相同的向量，那么只需要 ``m=[x;y]`` 。在NumPy中，这通过函数 ``column_stack`` ，``dstack`` ，``hstack`` 和 ``vstack`` 工作，具体取决于要做什么堆叠。例如：
 
 .. code-block:: python
 
@@ -1196,16 +1197,16 @@ How do we construct a 2D array from a list of equally-sized row vectors? In MATL
                                               #     [0,1,2,3,4]])
     xy = np.hstack([x,y])                     # xy =([0,2,4,6,8,0,1,2,3,4])
 
-The logic behind those functions in more than two dimensions can be strange.
+这些功能背后的逻辑可能很奇怪。
 
 另见：
 
     NumPy for Matlab users
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Histograms
+直方图
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The NumPy ``histogram`` function applied to an array returns a pair of vectors: the histogram of the array and the vector of bins. Beware: ``matplotlib`` also has a function to build histograms (called ``hist``, as in Matlab) that differs from the one in NumPy. The main difference is that ``pylab.hist`` plots the histogram automatically, while ``numpy.histogram`` only generates the data.
+NumPy的 ``histogram`` 函数应用于一个数组，并返回一对向量：数组的histogram和向量的bin。注意： ``matplotlib`` 也具有构建histograms的函数（在Matlab中称为 ``hist`` ），它与NumPy中的不同。主要区别是 ``pylab.hist`` 自动绘制histogram，而 ``numpy.histogram`` 仅生成数据。
 
 .. code-block:: python
 
@@ -1232,8 +1233,8 @@ The NumPy ``histogram`` function applied to an array returns a pair of vectors: 
 ----------------------------------
 进一步阅读
 ----------------------------------
-* The `Python tutorial <http://docs.python.org/tutorial/>`_
-* NumPy Reference
-* `SciPy Tutorial <https://docs.scipy.org/doc/scipy/reference/tutorial/index.html>`_
-* `SciPy Lecture Notes <http://www.scipy-lectures.org/>`_ 
-* A `matlab, R, IDL, NumPy/SciPy <http://mathesaurus.sourceforge.net/>`_  dictionary
+* `Python教程 <http://docs.python.org/tutorial/>`_
+* NumPy参考
+* `SciPy教程 <https://docs.scipy.org/doc/scipy/reference/tutorial/index.html>`_
+* `SciPy讲义 <http://www.scipy-lectures.org/>`_ 
+* `matlab, R, IDL, NumPy/SciPy <http://mathesaurus.sourceforge.net/>`_  字典
