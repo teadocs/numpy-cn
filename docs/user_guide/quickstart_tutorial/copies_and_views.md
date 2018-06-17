@@ -6,7 +6,7 @@
 
 简单赋值不会创建数组对象或其数据的拷贝。
 
-```
+```python
 >>> a = np.arange(12)
 >>> b = a            # no new object is created
 >>> b is a           # a and b are two names for the same ndarray object
@@ -18,7 +18,7 @@ True
 
 Python将可变对象作为引用传递，所以函数调用不会复制。
 
-```
+```python
 >>> def f(x):
 ...     print(id(x))
 ...
@@ -32,7 +32,7 @@ Python将可变对象作为引用传递，所以函数调用不会复制。
 
 不同的数组对象可以共享相同的数据。 ``view`` 方法创建一个新的数组对象，它查看相同的数据。
 
-```
+```python
 >>> c = a.view()
 >>> c is a
 False
@@ -53,7 +53,7 @@ array([[   0,    1,    2,    3],
 
 对数组切片返回一个视图：
 
-```
+```python
 >>> s = a[ : , 1:3]     # spaces added for clarity; could also be written "s = a[:,1:3]"
 >>> s[:] = 10           # s[:] is a view of s. Note the difference between s=10 and s[:]=10
 >>> a

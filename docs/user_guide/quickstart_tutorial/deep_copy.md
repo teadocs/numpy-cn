@@ -2,7 +2,7 @@
 
 ``copy`` 方法生成数组及其数据的完整拷贝。
 
-```
+```python
 >>> d = a.copy()                          # a new array object with new data is created
 >>> d is a
 False

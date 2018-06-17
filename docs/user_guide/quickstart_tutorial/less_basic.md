@@ -16,7 +16,7 @@ NumPy提供了比常规Python序列更多的索引能力。正如我们前面看
 
 ## 使用索引数组索引
 
-```
+```python
 >>> a = np.arange(12)**2                       # the first 12 square numbers
 >>> i = np.array( [ 1,1,3,8,5 ] )              # an array of indices
 >>> a[i]                                       # the elements of a at the positions i
@@ -30,7 +30,7 @@ array([[ 9, 16],
 
 当被索引的数组 ``a`` 是一个多维数组，单个索引数组指的是 ``a`` 的第一个维度。以下示例通过使用调色板将标签图像转换为彩色图像来作为举例。
 
-```
+```python
 >>> palette = np.array( [ [0,0,0],                # black
 ...                       [255,0,0],              # red
 ...                       [0,255,0],              # green
@@ -51,7 +51,7 @@ array([[[  0,   0,   0],
 
 我们也可以给出多个维度的索引。每个维度的索引数组必须具有相同的形状。
 
-```
+```python
 >>> a = np.arange(12).reshape(3,4)
 >>> a
 array([[ 0,  1,  2,  3],
@@ -81,7 +81,7 @@ array([[[ 2,  1],
 
 当然，我们可以把 ``i`` 和 ``j`` 放在一个序列中(比如一个列表),然后用列表进行索引。
 
-```
+```python
 >>> l = [i,j]
 >>> a[l]                                       # equivalent to a[i,j]
 array([[ 2,  5],
@@ -90,7 +90,7 @@ array([[ 2,  5],
 
 然而，我们不能将 ``i`` 和 ``j`` 放入一个数组中，因为这个数组将被解释为索引第一个维度。
 
-```
+```python
 >>> s = np.array( [i,j] )
 >>> a[s]                                       # not what we want
 Traceback (most recent call last):
@@ -104,7 +104,7 @@ array([[ 2,  5],
 
 索引数组的另一个常见用途是搜索时间相关序列的最大值：
 
-```
+```python
 >>> time = np.linspace(20, 145, 5)                 # time scale
 >>> data = np.sin(np.arange(20)).reshape(5,4)      # 4 time-dependent series
 >>> time
@@ -135,7 +135,7 @@ True
 
 你还可以使用数组索引作为目标来赋值：
 
-```
+```python
 >>> a = np.arange(5)
 >>> a
 array([0, 1, 2, 3, 4])
@@ -146,7 +146,7 @@ array([0, 0, 2, 0, 0])
 
 然而，当索引列表包含重复时，赋值完成多次，留下最后一个值：
 
-```
+```python
 >>> a = np.arange(5)
 >>> a[[0,0,2]]=[1,2,3]
 >>> a
@@ -155,7 +155,7 @@ array([2, 1, 3, 3, 4])
 
 这相当合理，但如果你想使用Python的 ``+=`` 构造要小心，因为这可能得不到你想要的效果：
 
-```
+```python
 >>> a = np.arange(5)
 >>> a[[0,0,2]]+=1
 >>> a
@@ -170,7 +170,7 @@ array([1, 1, 3, 3, 4])
 
 我们可以想到的布尔索引最自然的方式是使用与原始数组具有相同形状的布尔数组：
 
-```
+```python
 >>> a = np.arange(12).reshape(3,4)
 >>> b = a > 4
 >>> b                                          # b is a boolean with a's shape
@@ -183,7 +183,7 @@ array([ 5,  6,  7,  8,  9, 10, 11])
 
 ## 此属性在赋值时非常有用：
 
-```
+```python
     >>> a[b] = 0                                   # All elements of 'a' higher than 4 become 0
     >>> a
     array([[0, 1, 2, 3],
@@ -193,7 +193,7 @@ array([ 5,  6,  7,  8,  9, 10, 11])
 
 你可以查看以下示例，了解如何使用布尔索引生成 Mandelbrot 集的图像：
 
-```
+```python
 >>> import numpy as np
 >>> import matplotlib.pyplot as plt
 >>> def mandelbrot( h,w, maxit=20 ):
@@ -219,7 +219,7 @@ array([ 5,  6,  7,  8,  9, 10, 11])
 
 第二种使用布尔索引的方法更类似于整数索引;对于数组的每个维度，我们给出一个一维布尔数组，选择我们想要的切片：
 
-```
+```python
 >>> a = np.arange(12).reshape(3,4)
 >>> b1 = np.array([False,True,True])             # first dim selection
 >>> b2 = np.array([True,False,True,False])       # second dim selection
@@ -247,7 +247,7 @@ array([ 4, 10])
 
 可以使用 ``ix_`` 函数来组合不同的向量以获得每个n-uplet的结果。例如，如果要计算从向量a、b和c中的取得的所有三元组的所有a + b * c：
 
-```
+```python
 >>> a = np.array([2,3,4,5])
 >>> b = np.array([8,5,4])
 >>> c = np.array([5,4,6,8,3])
@@ -287,7 +287,7 @@ array([[[42, 34, 50, 66, 26],
 
 你还可以如下实现reduce：
 
-```
+```python
 >>> def ufunc_reduce(ufct, *vectors):
 ...    vs = np.ix_(*vectors)
 ...    r = ufct.identity
@@ -298,7 +298,7 @@ array([[[42, 34, 50, 66, 26],
 
 然后将其用作：
 
-```
+```python
 >>> ufunc_reduce(np.add,a,b,c)
 array([[[15, 14, 16, 18, 13],
         [12, 11, 13, 15, 10],

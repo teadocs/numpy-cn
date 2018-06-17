@@ -6,7 +6,7 @@
 
 有关更多信息，请参阅numpy目录中的linalg.py。
 
-```
+```python
 >>> import numpy as np
 >>> a = np.array([[1.0, 2.0], [3.0, 4.0]])
 >>> print(a)
