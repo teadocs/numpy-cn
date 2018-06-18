@@ -16,7 +16,7 @@
         - [数组创建](/user_guide/numpy_basics/array_creation)
         - [NumPy I/O操作](/user_guide/numpy_basics/io_with_numPy)
         - [索引](/user_guide/numpy_basics/indexing)
-        - [Broadcasting](/user_guide/numpy_basics/broadcasting)
+        - [广播(Broadcasting)](/user_guide/numpy_basics/broadcasting)
         - [字节交换](/user_guide/numpy_basics/byte_swapping)
         - [结构化数组](/user_guide/numpy_basics/structured_arrays)
         - [子类化ndarray](/user_guide/numpy_basics/subclassing_ndarray)

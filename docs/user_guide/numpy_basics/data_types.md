@@ -1,6 +1,6 @@
 # 数据类型
 
-另见
+另见：
 
 > Data type objects
 
