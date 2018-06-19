@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Structured arrays are ndarrays whose datatype is a composition of simpler datatypes organized as a sequence of named fields. For example,
+结构化数组其实就是ndarrays，其数据类型是由组成一系列命名字段的简单数据类型组成的。 例如：
 
 ```python
 >>> x = np.array([('Rex', 9, 81.0), ('Fido', 3, 27.0)],
@@ -12,16 +12,16 @@ array([('Rex', 9, 81.0), ('Fido', 3, 27.0)],
       dtype=[('name', 'S10'), ('age', '<i4'), ('weight', '<f4')])
 ```
 
-Here ``x`` is a one-dimensional array of length two whose datatype is a structure with three fields: 1. A string of length 10 or less named ‘name’, 2. a 32-bit integer named ‘age’, and 3. a 32-bit float named ‘weight’.
+这里``x``是长度为2的一维数组，其数据类型是具有三个字段的结构：1、名为'name'的长度为10或更小的字符串。2、名为'age'的32位整数。3、名为'weight'的32位浮点数。
 
-If you index ``x`` at position 1 you get a structure:
+如果你的索引``x``是1，你会看到这样的结构：
 
 ```python
 >>> x[1]
 ('Fido', 3, 27.0)
 ```
 
-You can access and modify individual fields of a structured array by indexing with the field name:
+你可以通过使用字段名称进行索引来访问和修改结构化数组的各个字段的值：
 
 ```python
 >>> x['age']
@@ -32,22 +32,23 @@ array([('Rex', 5, 81.0), ('Fido', 5, 27.0)],
       dtype=[('name', 'S10'), ('age', '<i4'), ('weight', '<f4')])
 ```
 
-Structured arrays are designed for low-level manipulation of structured data, for example, for interpreting binary blobs. Structured datatypes are designed to mimic ‘structs’ in the C language, making them also useful for interfacing with C code. For these purposes, numpy supports specialized features such as subarrays and nested datatypes, and allows manual control over the memory layout of the structure.
+结构化数组设计用于结构化数据的底层操作，例如解释编译二进制数据块。结构化数据类型旨在模仿C语言中的 “structs”，使它们对于与C代码接口也很有用。 为了达到这些目的，numpy支持诸如子阵列和嵌套数据类型之类的特殊功能，并允许手动控制结构的内存布局。
 
-For simple manipulation of tabular data other pydata projects, such as pandas, xarray, or DataArray, provide higher-level interfaces that may be more suitable. These projects may also give better performance for tabular data analysis because the C-struct-like memory layout of structured arrays can lead to poor cache behavior.
+如果你想进行表格数据的简单操作，那么其他 pydata 项目（例如pandas，xarray或DataArray）将为你提供更适合的更高级别的接口。 这些包也可以为表格数据分析提供更好的性能，因为NumPy中的结构化数组的类C结构内存布局会导致缓存行为不佳。
 
-## Structured Datatypes
+## 结构化数据类型
 
-To use structured arrays one first needs to define a structured datatype.
+要使用结构化数组，首先需要定义结构化数据类型。
 
-A structured datatype can be thought of as a sequence of bytes of a certain length (the structure’s itemsize) which is interpreted as a collection of fields. Each field has a name, a datatype, and a byte offset within the structure. The datatype of a field may be any numpy datatype including other structured datatypes, and it may also be a sub-array which behaves like an ndarray of a specified shape. The offsets of the fields are arbitrary, and fields may even overlap. These offsets are usually determined automatically by numpy, but can also be specified.
+结构化数据类型可以被认为是一定长度的字节序列（结构的itemsize），它被解释为一个字段集合。 每个字段在结构中都有一个名称，一个数据类型和一个字节偏移量。 字段的数据类型可以是任何numpy数据类型，包括其他结构化数据类型，它也可以是一个子数组，其行为类似于指定形状的ndarray。 字段的偏移是任意的，并且字段甚至可以重叠。 这些偏移通常由numpy自动确定，但也可以指定。
 
-### Structured Datatype Creation
+### 结构化数据类型创建
 
-Structured datatypes may be created using the function ``numpy.dtype``. There are 4 alternative forms of specification which vary in flexibility and conciseness. These are further documented in the [Data Type Objects](https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#arrays-dtypes-constructing) reference page, and in summary they are:
+结构化数据类型可以使用函数``numpy.dtype``创建。 有4种可选形式的规范，其灵活性和简洁性各不相同。 这些在[数据类型对象](https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#arrays-dtypes-constructing)参考页面中都有进一步的记录，总之它们是：
 
-1. **A list of tuples, one tuple per field**
-    Each tuple has the form ``(fieldname, datatype, shape)`` where shape is optional. ``fieldname`` is a string (or tuple if titles are used, see Field Titles below), ``datatype`` may be any object convertible to a datatype, and ``shape`` is a tuple of integers specifying subarray shape.
+1. **元组列表，每个字段一个元组**
+
+    每个元组都有这些属性``（fieldname，datatype，shape）``，其中shape是可选的。 ``fieldname``是一个字符串（或元组，如果使用标题，请参阅下面的字段标题），``datatype``可以是任何可转换为数据类型的对象，``shape``是指定子阵列形状的整数元组。
 
     ```python
     >>> np.dtype([('x', 'f4'), ('y', np.float32), ('z', 'f4', (2,2))])
@@ -55,15 +56,16 @@ Structured datatypes may be created using the function ``numpy.dtype``. There ar
     ```
     If ``fieldname`` is the empty string ``''``, the field will be given a default name of the form ``f#``, where ``#`` is the integer index of the field, counting from 0 from the left:
 
+    如果``fieldname``是空字符串``''``，那么该字段将被赋予一个默认名称形式``f#``，其中``#``是该字段的整数索引，从左边以0开始计数：
+
     ```python
     >>> np.dtype([('x', 'f4'),('', 'i4'),('z', 'i8')])
     dtype([('x', '<f4'), ('f1', '<i4'), ('z', '<i8')])
-    The byte offsets of the fields within the structure and the total structure itemsize are determined automatically.
     ```
+    
+    结构中字段的字节偏移量和总体结构中元素的大小是自动确定的。
 
-    The byte offsets of the fields within the structure and the total structure itemsize are determined automatically.
-
-1. **A string of comma-separated dtype specifications**
+1. **一串用逗号分隔的dtype规范**
 
     In this shorthand notation any of the [string dtype specifications](https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#arrays-dtypes-constructing) may be used in a string and separated by commas. The itemsize and byte offsets of the fields are determined automatically, and the field names are given the default names ``f0``, ``f1``, etc.
     
@@ -74,7 +76,7 @@ Structured datatypes may be created using the function ``numpy.dtype``. There ar
     dtype([('f0', 'i1', 3), ('f1', '<f4'), ('f2', '<f8', (2, 3))])
     ```
 
-3. **A dictionary of field parameter arrays**
+3. **字段参数数组的字典**
 
     This is the most flexible form of specification since it allows control over the byte-offsets of the fields and the itemsize of the structure.
 
@@ -96,7 +98,7 @@ Structured datatypes may be created using the function ``numpy.dtype``. There ar
 
     The optional ‘titles’ value should be a list of titles of the same length as ‘names’, see [Field Titles](https://docs.scipy.org/doc/numpy/user/basics.rec.html#titles) below.
 
-4. **A dictionary of field names**
+4. **字段名称的字典**
 
     The use of this form of specification is discouraged, but documented here because older numpy code may use it. The keys of the dictionary are the field names and the values are tuples specifying type and offset:
 
