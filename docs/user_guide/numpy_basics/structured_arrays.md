@@ -54,7 +54,6 @@ array([('Rex', 5, 81.0), ('Fido', 5, 27.0)],
     >>> np.dtype([('x', 'f4'), ('y', np.float32), ('z', 'f4', (2,2))])
     dtype=[('x', '<f4'), ('y', '<f4'), ('z', '<f4', (2, 2))])
     ```
-    If ``fieldname`` is the empty string ``''``, the field will be given a default name of the form ``f#``, where ``#`` is the integer index of the field, counting from 0 from the left:
 
     如果``fieldname``是空字符串``''``，那么该字段将被赋予一个默认名称形式``f#``，其中``#``是该字段的整数索引，从左边以0开始计数：
 
@@ -67,8 +66,8 @@ array([('Rex', 5, 81.0), ('Fido', 5, 27.0)],
 
 1. **一串用逗号分隔的dtype规范**
 
-    In this shorthand notation any of the [string dtype specifications](https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#arrays-dtypes-constructing) may be used in a string and separated by commas. The itemsize and byte offsets of the fields are determined automatically, and the field names are given the default names ``f0``, ``f1``, etc.
-    
+    在这种简写表示法中，任何 [string dtype specifications](https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#arrays-dtypes-constructing) 都可以在字符串中使用逗号分隔，字段的元素大小（itemsize）和字节偏移量是自动确定的，并且字段名称被赋予默认名称如":“f0”、“f1” 等。 
+
     ```python
     >>> np.dtype('i8,f4,S3')
     dtype([('f0', '<i8'), ('f1', '<f4'), ('f2', 'S3')])
@@ -78,7 +77,7 @@ array([('Rex', 5, 81.0), ('Fido', 5, 27.0)],
 
 3. **字段参数数组的字典**
 
-    This is the most flexible form of specification since it allows control over the byte-offsets of the fields and the itemsize of the structure.
+    这是最灵活的规范形式，因为它允许控制字段的字节偏移量和结构中的元素大小（itemsize）。
 
     The dictionary has two required keys, ‘names’ and ‘formats’, and four optional keys, ‘offsets’, ‘itemsize’, ‘aligned’ and ‘titles’. The values for ‘names’ and ‘formats’ should respectively be a list of field names and a list of dtype specifications, of the same length. The optional ‘offsets’ value should be a list of integer byte-offsets, one for each field within the structure. If ‘offsets’ is not given the offsets are determined automatically. The optional ‘itemsize’ value should be an integer describing the total size in bytes of the dtype, which must be large enough to contain all the fields.
 
