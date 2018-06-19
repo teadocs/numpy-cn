@@ -81,6 +81,8 @@ array([('Rex', 5, 81.0), ('Fido', 5, 27.0)],
 
     The dictionary has two required keys, ‘names’ and ‘formats’, and four optional keys, ‘offsets’, ‘itemsize’, ‘aligned’ and ‘titles’. The values for ‘names’ and ‘formats’ should respectively be a list of field names and a list of dtype specifications, of the same length. The optional ‘offsets’ value should be a list of integer byte-offsets, one for each field within the structure. If ‘offsets’ is not given the offsets are determined automatically. The optional ‘itemsize’ value should be an integer describing the total size in bytes of the dtype, which must be large enough to contain all the fields.
 
+    字典有两个必需的键，'names' 和 'formats'，以及四个可选键，'offsets'，'itemsize'，'aligned' 和 'titles'。 'names' 和 'formats' 的值应该分别是长度相同的字段名称列表和dtype规范列表。 可选的 'offsets' 值应该是整数字节偏移量的列表，结构中的每个字段都有一个偏移量。 如果没有给出 'offsets'，则自动确定偏移量。 可选的 'itemsize' 值应该是一个描述dtype的总大小（以字节为单位）的整数，它必须足够大以包含所有字段。
+
     ```python
     >>> np.dtype({'names': ['col1', 'col2'], 'formats': ['i4','f4']})
     dtype([('col1', '<i4'), ('col2', '<f4')])
