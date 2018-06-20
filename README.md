@@ -1,30 +1,30 @@
+<<<<<<< HEAD
 # NumPy 中文文档
 ## 二级标题
 ### 三级标题
 #### 四级标题
 ##### 五级标题
 ###### 六级标题
+=======
+# numpy-cn
+> Chinese (zh-cn) translation of the NumPy docs
+>>>>>>> dev
 
-文档在线浏览地址：
-http://numpy.org.cn/
+# 访问
+[NumPy中文文档](http://numpy.org.cn/)
 
-### 文档目录：
+# 构建
 
-前言：
+本文档是基于[Teadocs](https://github.com/lisniuse/teadocs)所构建。
 
-- 关于NumPy中文文档
+构建命令：
 
-NumPy用户指南：
+```
+teadocs build
+```
 
-- 介绍
-- 安装
-- 快速入门教程
-- NumPy基础知识
-- Numpy对于Matlab用户
-- 从源代码构建
-- 使用NumPy C-API
-- 其他
 
+<<<<<<< HEAD
 NumPy参考手册：
 
 - 数组对象
@@ -67,3 +67,5 @@ NumPy参考手册：
 	- 统计相关API
 	- 测试相关API
 	- 窗函数
+=======
+>>>>>>> dev
