@@ -23,7 +23,7 @@
     - [Numpy对于Matlab用户](/user_guide/numpy_for_matlab_users)
     - [从源代码构建](/user_guide/building_from_source)
     - [使用NumPy C-API](/user_guide/using_numpy_capi)
-    - [其他](/user_guide/miscellaneous)
+    - [其他杂项](/user_guide/miscellaneous)
 - +NumPy参考手册
     - 数组对象
     - 通用功能

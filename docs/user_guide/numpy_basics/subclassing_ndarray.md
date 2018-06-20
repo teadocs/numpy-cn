@@ -8,7 +8,7 @@ Subclassing ndarray is relatively simple, but it has some complications compared
 
 Subclassing ndarray is complicated by the fact that new instances of ndarray classes can come about in three different ways. These are:
 
-1. Explicit constructor call - as in MySubClass(params). This is the usual route to Python instance creation.
+1. Explicit constructor call - as in ``MySubClass(params)``. This is the usual route to Python instance creation.
 1. View casting - casting an existing ndarray as a given subclass
 1. New from template - creating a new instance from a template instance. Examples include returning slices from a subclassed array, creating return types from ufuncs, and copying arrays. See Creating new from template for more details
 
@@ -42,9 +42,9 @@ New instances of an ndarray subclass can also come about by a very similar mecha
 False
 ```
 
-The slice is a view onto the original c_arr data. So, when we take a view from the ndarray, we return a new ndarray, of the same class, that points to the data in the original.
+The slice is a view onto the original ``c_arr`` data. So, when we take a view from the ndarray, we return a new ndarray, of the same class, that points to the data in the original.
 
-There are other points in the use of ndarrays where we need such views, such as copying arrays (c_arr.copy()), creating ufunc output arrays (see also __array_wrap__ for ufuncs and other functions), and reducing methods (like c_arr.mean().
+There are other points in the use of ndarrays where we need such views, such as copying arrays (``c_arr.copy()``), creating ufunc output arrays (see also __array_wrap__ for ufuncs and other functions), and reducing methods (like ``c_arr.mean()``.
 
 ## Relationship of view casting and new-from-template
 
@@ -56,11 +56,11 @@ If we subclass ndarray, we need to deal not only with explicit construction of o
 
 There are two aspects to the machinery that ndarray uses to support views and new-from-template in subclasses.
 
-The first is the use of the ndarray.__new__ method for the main work of object initialization, rather then the more usual __init__ method. The second is the use of the __array_finalize__ method to allow subclasses to clean up after the creation of views and new instances from templates.
+The first is the use of the ``ndarray.__new__`` method for the main work of object initialization, rather then the more usual ``__init__`` method. The second is the use of the ``__array_finalize__`` method to allow subclasses to clean up after the creation of views and new instances from templates.
 
-### A brief Python primer on __new__ and __init__
+### A brief Python primer on ``__new__`` and ``__init__``
 
-__new__ is a standard Python method, and, if present, is called before __init__ when we create a class instance. See the python __new__ documentation for more detail.
+``__new__`` is a standard Python method, and, if present, is called before ``__init__`` when we create a class instance. See the python __new__ documentation for more detail.
 
 For example, consider the following Python code:
 
@@ -86,11 +86,11 @@ type(self) in __init__: <class 'C'>
 Args in __init__: ('hello',)
 ```
 
-When we call C('hello'), the __new__ method gets its own class as first argument, and the passed argument, which is the string 'hello'. After python calls __new__, it usually (see below) calls our __init__ method, with the output of __new__ as the first argument (now a class instance), and the passed arguments following.
+When we call ``C('hello')``, the ``__new__`` method gets its own class as first argument, and the passed argument, which is the string ``'hello'``. After python calls ``__new__``, it usually (see below) calls our ``__init__`` method, with the output of ``__new__`` as the first argument (now a class instance), and the passed arguments following.
 
-As you can see, the object can be initialized in the __new__ method or the __init__ method, or both, and in fact ndarray does not have an __init__ method, because all the initialization is done in the __new__ method.
+As you can see, the object can be initialized in the ``__new__`` method or the ``__init__`` method, or both, and in fact ndarray does not have an ``__init__`` method, because all the initialization is done in the ``__new__`` method.
 
-Why use __new__ rather than just the usual __init__? Because in some cases, as for ndarray, we want to be able to return an object of some other class. Consider the following:
+Why use ``__new__`` rather than just the usual ``__init__``? Because in some cases, as for ndarray, we want to be able to return an object of some other class. Consider the following:
 
 ```python
 class D(C):
@@ -116,30 +116,33 @@ Args in __new__: ('hello',)
 <class 'C'>
 ```
 
-The definition of C is the same as before, but for D, the __new__ method returns an instance of class C rather than D. Note that the __init__ method of D does not get called. In general, when the __new__ method returns an object of class other than the class in which it is defined, the __init__ method of that class is not called.
+The definition of ``C`` is the same as before, but for ``D``, the ``__new__`` method returns an instance of class ``C`` rather than ``D``. Note that the ``__init__`` method of ``D`` does not get called. In general, when the ``__new__`` method returns an object of class other than the class in which it is defined, the ``__init__`` method of that class is not called.
 
 This is how subclasses of the ndarray class are able to return views that preserve the class type. When taking a view, the standard ndarray machinery creates the new ndarray object with something like:
 
+```python
 obj = ndarray.__new__(subtype, shape, ...
-where subdtype is the subclass. Thus the returned view is of the same class as the subclass, rather than being of class ndarray.
+```
 
-That solves the problem of returning views of the same type, but now we have a new problem. The machinery of ndarray can set the class this way, in its standard methods for taking views, but the ndarray __new__ method knows nothing of what we have done in our own __new__ method in order to set attributes, and so on. (Aside - why not call obj = subdtype.__new__(... then? Because we may not have a __new__ method with the same call signature).
+where ``subdtype`` is the subclass. Thus the returned view is of the same class as the subclass, rather than being of class ``ndarray``.
 
-### The role of __array_finalize__
+That solves the problem of returning views of the same type, but now we have a new problem. The machinery of ndarray can set the class this way, in its standard methods for taking views, but the ndarray ``__new__`` method knows nothing of what we have done in our own ``__new__`` method in order to set attributes, and so on. (Aside - why not call ``obj = subdtype.__new__(...`` then? Because we may not have a ``__new__`` method with the same call signature).
 
-__array_finalize__ is the mechanism that numpy provides to allow subclasses to handle the various ways that new instances get created.
+### The role of ``__array_finalize__``
+
+``__array_finalize__`` is the mechanism that numpy provides to allow subclasses to handle the various ways that new instances get created.
 
 Remember that subclass instances can come about in these three ways:
 
-1. explicit constructor call (obj = MySubClass(params)). This will call the usual sequence of MySubClass.__new__ then (if it exists) MySubClass.__init__.
+1. explicit constructor call (``obj = MySubClass(params)``). This will call the usual sequence of ``MySubClass.__new__`` then (if it exists) ``MySubClass.__init__``.
 1. View casting
 1. Creating new from template
 
-Our MySubClass.__new__ method only gets called in the case of the explicit constructor call, so we can’t rely on MySubClass.__new__ or MySubClass.__init__ to deal with the view casting and new-from-template. It turns out that MySubClass.__array_finalize__ does get called for all three methods of object creation, so this is where our object creation housekeeping usually goes.
+Our ``MySubClass.__new__`` method only gets called in the case of the explicit constructor call, so we can’t rely on ``MySubClass.__new__`` or ``MySubClass.__init__`` to deal with the view casting and new-from-template. It turns out that ``MySubClass.__array_finalize__`` does get called for all three methods of object creation, so this is where our object creation housekeeping usually goes.
 
-- For the explicit constructor call, our subclass will need to create a new ndarray instance of its own class. In practice this means that we, the authors of the code, will need to make a call to ndarray.__new__(MySubClass,...), a class-hierarchy prepared call to super(MySubClass, cls).__new__(cls, ...), or do view casting of an existing array (see below)
-- For view casting and new-from-template, the equivalent of ndarray.__new__(MySubClass,... is called, at the C level.
-The arguments that __array_finalize__ receives differ for the three methods of instance creation above.
+- For the explicit constructor call, our subclass will need to create a new ndarray instance of its own class. In practice this means that we, the authors of the code, will need to make a call to ``ndarray.__new__(MySubClass,...)``, a class-hierarchy prepared call to ``super(MySubClass, cls).__new__(cls, ...``), or do view casting of an existing array (see below)
+- For view casting and new-from-template, the equivalent of ``ndarray.__new__(MySubClass,...`` is called, at the C level.
+The arguments that ``__array_finalize__`` receives differ for the three methods of instance creation above.
 
 The following code allows us to look at the call sequences and arguments:
 
@@ -191,13 +194,13 @@ The signature of ``__array_finalize__ is``:
 def __array_finalize__(self, obj):
 ```
 
-One sees that the super call, which goes to ndarray.__new__, passes __array_finalize__ the new object, of our own class (self) as well as the object from which the view has been taken (obj). As you can see from the output above, the self is always a newly created instance of our subclass, and the type of obj differs for the three instance creation methods:
+One sees that the ``super`` call, which goes to ``ndarray.__new__``, passes ``__array_finalize__`` the new object, of our own class (``self``) as well as the object from which the view has been taken (``obj``). As you can see from the output above, the ``self`` is always a newly created instance of our subclass, and the type of ``obj`` differs for the three instance creation methods:
 
-- When called from the explicit constructor, obj is None
-- When called from view casting, obj can be an instance of any subclass of ndarray, including our own.
-- When called in new-from-template, obj is another instance of our own subclass, that we might use to update the new self instance.
+- When called from the explicit constructor, ``obj`` is ``None``
+- When called from view casting, ``obj`` can be an instance of any subclass of ndarray, including our own.
+- When called in new-from-template, ``obj`` is another instance of our own subclass, that we might use to update the new ``self`` instance.
 
-Because __array_finalize__ is the only method that always sees new instances being created, it is the sensible place to fill in instance defaults for new object attributes, among other tasks.
+Because ``__array_finalize__`` is the only method that always sees new instances being created, it is the sensible place to fill in instance defaults for new object attributes, among other tasks.
 
 This may be clearer with an example.
 
@@ -320,9 +323,9 @@ So:
 
 > New in version 1.13.
 
-A subclass can override what happens when executing numpy ufuncs on it by overriding the default ndarray.__array_ufunc__ method. This method is executed instead of the ufunc and should return either the result of the operation, or NotImplemented if the operation requested is not implemented.
+A subclass can override what happens when executing numpy ufuncs on it by overriding the ``default ndarray.__array_ufunc__`` method. This method is executed instead of the ufunc and should return either the result of the operation, or ``NotImplemented`` if the operation requested is not implemented.
 
-The signature of __array_ufunc__ is:
+The signature of ``__array_ufunc__`` is:
 
 ```python
 def __array_ufunc__(ufunc, method, *inputs, **kwargs):
@@ -338,7 +341,7 @@ def __array_ufunc__(ufunc, method, *inputs, **kwargs):
   contained in a tuple.
 ```
 
-A typical implementation would convert any inputs or ouputs that are instances of one’s own class, pass everything on to a superclass using super(), and finally return the results after possible back-conversion. An example, taken from the test case test_ufunc_override_with_super in core/tests/test_umath.py, is the following.
+A typical implementation would convert any inputs or ouputs that are instances of one’s own class, pass everything on to a superclass using ``super()``, and finally return the results after possible back-conversion. An example, taken from the test case ``test_ufunc_override_with_super`` in ``core/tests/test_umath.py``, is the following.
 
 ```python
 input numpy as np
@@ -396,7 +399,7 @@ class A(np.ndarray):
         return results[0] if len(results) == 1 else results
 ```
 
-So, this class does not actually do anything interesting: it just converts any instances of its own to regular ndarray (otherwise, we’d get infinite recursion!), and adds an info dictionary that tells which inputs and outputs it converted. Hence, e.g.,
+So, this class does not actually do anything interesting: it just converts any instances of its own to regular ndarray (otherwise, we’d get infinite recursion!), and adds an ``info`` dictionary that tells which inputs and outputs it converted. Hence, e.g.,
 
 ```python
 >>> a = np.arange(5.).view(A)
@@ -416,17 +419,17 @@ So, this class does not actually do anything interesting: it just converts any i
 {'inputs': [0, 1], 'outputs': [0]}
 ```
 
-Note that another approach would be to to use getattr(ufunc, methods)(*inputs, **kwargs) instead of the super call. For this example, the result would be identical, but there is a difference if another operand also defines __array_ufunc__. E.g., lets assume that we evalulate np.add(a, b), where b is an instance of another class B that has an override. If you use super as in the example, ndarray.__array_ufunc__ will notice that b has an override, which means it cannot evaluate the result itself. Thus, it will return NotImplemented and so will our class A. Then, control will be passed over to b, which either knows how to deal with us and produces a result, or does not and returns NotImplemented, raising a TypeError.
+Note that another approach would be to to use ``getattr(ufunc, methods)(*inputs, **kwargs)`` instead of the ``super`` call. For this example, the result would be identical, but there is a difference if another operand also defines ``__array_ufunc__``. E.g., lets assume that we evalulate ``np.add(a, b)``, where ``b`` is an instance of another class B that has an override. If you use ``super`` as in the example, ``ndarray.__array_ufunc__`` will notice that ``b`` has an override, which means it cannot evaluate the result itself. Thus, it will return NotImplemented and so will our class ``A``. Then, control will be passed over to ``b``, which either knows how to deal with us and produces a result, or does not and returns NotImplemented, raising a ``TypeError``.
 
-If instead, we replace our super call with getattr(ufunc, method), we effectively do np.add(a.view(np.ndarray), b). Again, B.__array_ufunc__ will be called, but now it sees an ndarray as the other argument. Likely, it will know how to handle this, and return a new instance of the B class to us. Our example class is not set up to handle this, but it might well be the best approach if, e.g., one were to re-implement MaskedArray using __array_ufunc__.
+If instead, we replace our ``super`` call with ``getattr(ufunc, method)``, we effectively do ``np.add(a.view(np.ndarray), b)``. Again, ``B.__array_ufunc__`` will be called, but now it sees an ndarray as the other argument. Likely, it will know how to handle this, and return a new instance of the ``B`` class to us. Our example class is not set up to handle this, but it might well be the best approach if, e.g., one were to re-implement ``MaskedArray`` using ``__array_ufunc__``.
 
-As a final note: if the super route is suited to a given class, an advantage of using it is that it helps in constructing class hierarchies. E.g., suppose that our other class B also used the super in its __array_ufunc__ implementation, and we created a class C that depended on both, i.e., class C(A, B) (with, for simplicity, not another __array_ufunc__ override). Then any ufunc on an instance of C would pass on to A.__array_ufunc__, the super call in A would go to B.__array_ufunc__, and the super call in B would go to ndarray.__array_ufunc__, thus allowing A and B to collaborate.
+As a final note: if the ``super`` route is suited to a given class, an advantage of using it is that it helps in constructing class hierarchies. E.g., suppose that our other class ``B`` also used the ``super`` in its ``__array_ufunc__`` implementation, and we created a class ``C`` that depended on both, i.e., ``class C(A, B)`` (with, for simplicity, not another ``__array_ufunc__`` override). Then any ufunc on an instance of ``C`` would pass on to ``A.__array_ufunc__``, the ``super`` call in ``A`` would go to ``B.__array_ufunc__``, and the ``super`` call in ``B`` would go to ``ndarray.__array_ufunc__``, thus allowing ``A`` and ``B`` to collaborate.
 
 ## ``__array_wrap__`` for ufuncs and other functions
 
-Prior to numpy 1.13, the behaviour of ufuncs could only be tuned using __array_wrap__ and __array_prepare__. These two allowed one to change the output type of a ufunc, but, in constrast to __array_ufunc__, did not allow one to make any changes to the inputs. It is hoped to eventually deprecate these, but __array_wrap__ is also used by other numpy functions and methods, such as squeeze, so at the present time is still needed for full functionality.
+Prior to numpy 1.13, the behaviour of ufuncs could only be tuned using ``__array_wrap__`` and ``__array_prepare__``. These two allowed one to change the output type of a ufunc, but, in constrast to ``__array_ufunc__``, did not allow one to make any changes to the inputs. It is hoped to eventually deprecate these, but ``__array_wrap__`` is also used by other numpy functions and methods, such as ``squeeze``, so at the present time is still needed for full functionality.
 
-Conceptually, __array_wrap__ “wraps up the action” in the sense of allowing a subclass to set the type of the return value and update attributes and metadata. Let’s show how this works with an example. First we return to the simpler example subclass, but with a different name and some print statements:
+Conceptually, ``__array_wrap__`` “wraps up the action” in the sense of allowing a subclass to set the type of the return value and update attributes and metadata. Let’s show how this works with an example. First we return to the simpler example subclass, but with a different name and some print statements:
 
 ```python
 import numpy as np
@@ -474,7 +477,7 @@ MySubClass([1, 3, 5, 7, 9])
 'spam'
 ```
 
-Note that the ufunc (np.add) has called the __array_wrap__ method with arguments self as obj, and out_arr as the (ndarray) result of the addition. In turn, the default __array_wrap__ (ndarray.__array_wrap__) has cast the result to class MySubClass, and called __array_finalize__ - hence the copying of the info attribute. This has all happened at the C level.
+Note that the ufunc (``np.add``) has called the ``__array_wrap__`` method with arguments ``self`` as ``obj``, and ``out_arr`` as the (ndarray) result of the addition. In turn, the default ``__array_wrap__`` (ndarray.``__array_wrap__``) has cast the result to class MySubClass, and called ``__array_finalize__`` - hence the copying of the ``info`` attribute. This has all happened at the C level.
 
 But, we could do anything we wanted:
 
@@ -491,13 +494,13 @@ class SillySubClass(np.ndarray):
 'I lost your data'
 ```
 
-So, by defining a specific __array_wrap__ method for our subclass, we can tweak the output from ufuncs. The __array_wrap__ method requires self, then an argument - which is the result of the ufunc - and an optional parameter context. This parameter is returned by ufuncs as a 3-element tuple: (name of the ufunc, arguments of the ufunc, domain of the ufunc), but is not set by other numpy functions. Though, as seen above, it is possible to do otherwise, __array_wrap__ should return an instance of its containing class. See the masked array subclass for an implementation.
+So, by defining a specific ``__array_wrap__`` method for our subclass, we can tweak the output from ufuncs. The ``__array_wrap__`` method requires ``self``, then an argument - which is the result of the ufunc - and an optional parameter context. This parameter is returned by ufuncs as a 3-element tuple: (name of the ufunc, arguments of the ufunc, domain of the ufunc), but is not set by other numpy functions. Though, as seen above, it is possible to do otherwise, ``__array_wrap__`` should return an instance of its containing class. See the masked array subclass for an implementation.
 
-In addition to __array_wrap__, which is called on the way out of the ufunc, there is also an __array_prepare__ method which is called on the way into the ufunc, after the output arrays are created but before any computation has been performed. The default implementation does nothing but pass through the array. __array_prepare__ should not attempt to access the array data or resize the array, it is intended for setting the output array type, updating attributes and metadata, and performing any checks based on the input that may be desired before computation begins. Like __array_wrap__, __array_prepare__ must return an ndarray or subclass thereof or raise an error.
+In addition to ``__array_wrap__``, which is called on the way out of the ufunc, there is also an ``__array_prepare__`` method which is called on the way into the ufunc, after the output arrays are created but before any computation has been performed. The default implementation does nothing but pass through the array. ``__array_prepare__`` should not attempt to access the array data or resize the array, it is intended for setting the output array type, updating attributes and metadata, and performing any checks based on the input that may be desired before computation begins. Like ``__array_wrap__``, ``__array_prepare__`` must return an ndarray or subclass thereof or raise an error.
 
-## Extra gotchas - custom __del__ methods and ndarray.base
+## Extra gotchas - custom ``__del__`` methods and ndarray.base
 
-One of the problems that ndarray solves is keeping track of memory ownership of ndarrays and their views. Consider the case where we have created an ndarray, arr and have taken a slice with v = arr[1:]. The two objects are looking at the same memory. NumPy keeps track of where the data came from for a particular array or view, with the base attribute:
+One of the problems that ndarray solves is keeping track of memory ownership of ndarrays and their views. Consider the case where we have created an ndarray, ``arr`` and have taken a slice with ``v = arr[1:]``. The two objects are looking at the same memory. NumPy keeps track of where the data came from for a particular array or view, with the ``base`` attribute:
 
 ```python
 >>> # A normal ndarray, that owns its own data
@@ -517,22 +520,22 @@ True
 True
 ```
 
-In general, if the array owns its own memory, as for arr in this case, then arr.base will be None - there are some exceptions to this - see the numpy book for more details.
+In general, if the array owns its own memory, as for ``arr`` in this case, then ``arr.base`` will be None - there are some exceptions to this - see the numpy book for more details.
 
-The base attribute is useful in being able to tell whether we have a view or the original array. This in turn can be useful if we need to know whether or not to do some specific cleanup when the subclassed array is deleted. For example, we may only want to do the cleanup if the original array is deleted, but not the views. For an example of how this can work, have a look at the memmap class in numpy.core.
+The ``base`` attribute is useful in being able to tell whether we have a view or the original array. This in turn can be useful if we need to know whether or not to do some specific cleanup when the subclassed array is deleted. For example, we may only want to do the cleanup if the original array is deleted, but not the views. For an example of how this can work, have a look at the ``memmap`` class in ``numpy.core``.
 
 ## Subclassing and Downstream Compatibility
 
-When sub-classing ndarray or creating duck-types that mimic the ndarray interface, it is your responsibility to decide how aligned your APIs will be with those of numpy. For convenience, many numpy functions that have a corresponding ndarray method (e.g., sum, mean, take, reshape) work by checking if the first argument to a function has a method of the same name. If it exists, the method is called instead of coercing the arguments to a numpy array.
+When sub-classing ``ndarray`` or creating duck-types that mimic the ``ndarray`` interface, it is your responsibility to decide how aligned your APIs will be with those of numpy. For convenience, many numpy functions that have a corresponding ``ndarray`` method (e.g., ``sum``, ``mean``, ``take``, ``reshape``) work by checking if the first argument to a function has a method of the same name. If it exists, the method is called instead of coercing the arguments to a numpy array.
 
-For example, if you want your sub-class or duck-type to be compatible with numpy’s sum function, the method signature for this object’s sum method should be the following:
+For example, if you want your sub-class or duck-type to be compatible with numpy’s sum function, the method signature for this object’s ``sum`` method should be the following:
 
 ```python
 def sum(self, axis=None, dtype=None, out=None, keepdims=False):
 ...
 ```
 
-This is the exact same method signature for np.sum, so now if a user calls np.sum on this object, numpy will call the object’s own sum method and pass in these arguments enumerated above in the signature, and no errors will be raised because the signatures are completely compatible with each other.
+This is the exact same method signature for ``np.sum``, so now if a user calls ``np.sum`` on this object, numpy will call the object’s own ``sum`` method and pass in these arguments enumerated above in the signature, and no errors will be raised because the signatures are completely compatible with each other.
 
 If, however, you decide to deviate from this signature and do something like this:
 
@@ -541,7 +544,7 @@ def sum(self, axis=None, dtype=None):
 ...
 ```
 
-This object is no longer compatible with np.sum because if you call np.sum, it will pass in unexpected arguments out and keepdims, causing a TypeError to be raised.
+This object is no longer compatible with ``np.sum`` because if you call ``np.sum``, it will pass in unexpected arguments ``out`` and ``keepdims``, causing a TypeError to be raised.
 
 If you wish to maintain compatibility with numpy and its subsequent versions (which might add new keyword arguments) but do not want to surface all of numpy’s arguments, your function’s signature should accept **kwargs. For example:
 
@@ -550,4 +553,4 @@ def sum(self, axis=None, dtype=None, **unused_kwargs):
 ...
 ```
 
-This object is now compatible with np.sum again because any extraneous arguments (i.e. keywords that are not axis or dtype) will be hidden away in the **unused_kwargs parameter.
+This object is now compatible with ``np.sum`` again because any extraneous arguments (i.e. keywords that are not ``axis`` or ``dtype``) will be hidden away in the ``**unused_kwargs`` parameter.
