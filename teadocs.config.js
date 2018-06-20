@@ -18,7 +18,7 @@ module.exports = {
         <meta name="keywords" content="NumPy教程, NumPy文档, NumPy中文文档, NumPy, Python, Python科学计算, 机器学习科学计算, 深度学习科学计算" />
         `,
         footHtml: "",
-        isMinify: false, 
+        isMinify: true, 
         rootPath: "/"
     },
     nav: {
