@@ -1,7 +1,6 @@
 
 # numpy-cn
 > Chinese (zh-cn) translation of the NumPy docs
->>>>>>> dev
 
 # 访问
 [NumPy中文文档](http://numpy.org.cn/)
