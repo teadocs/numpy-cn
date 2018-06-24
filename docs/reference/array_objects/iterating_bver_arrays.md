@@ -112,7 +112,7 @@ The Python interactive interpreter unfortunately prints out the values of expres
 >>> a = np.arange(6).reshape(2,3)
 >>> it = np.nditer(a, flags=['f_index'])
 >>> while not it.finished:
-...     print "%d <%d>" % (it[0], it.index),
+...     print "%d < %d>" % (it[0], it.index),
 ...     it.iternext()
 ...
 0 <0> 1 <2> 2 <4> 3 <1> 4 <3> 5 <5>
@@ -121,7 +121,7 @@ The Python interactive interpreter unfortunately prints out the values of expres
 ```python
 >>> it = np.nditer(a, flags=['multi_index'])
 >>> while not it.finished:
-...     print "%d <%s>" % (it[0], it.multi_index),
+...     print "%d < %s>" % (it[0], it.multi_index),
 ...     it.iternext()
 ...
 0 <(0, 0)> 1 <(0, 1)> 2 <(0, 2)> 3 <(1, 0)> 4 <(1, 1)> 5 <(1, 2)>
