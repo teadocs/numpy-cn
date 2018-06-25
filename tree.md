@@ -1,4 +1,4 @@
-- [nupmy中文文档](/index)
+- [numpy中文文档](/index)
 - [+NumPy用户指南](/user_guide/index)
     - [介绍](/user_guide/setting_up)
     - [安装](/user_guide/installing_packages)
