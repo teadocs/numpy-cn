@@ -1,1 +1,5 @@
 # 使用内部缓冲区
+
+Internally, buffers are used for misaligned data, swapped data, and data that has to be converted from one data type to another. The size of internal buffers is settable on a per-thread basis. There can be up to 2 (n_{\mathrm{inputs}} + n_{\mathrm{outputs}}) buffers of the specified size created to handle the data from all the inputs and outputs of a ufunc. The default size of a buffer is 10,000 elements. Whenever buffer-based calculation would be needed, but all input arrays are smaller than the buffer size, those misbehaved or incorrectly-typed arrays will be copied before the calculation proceeds. Adjusting the size of the buffer may therefore alter the speed at which ufunc calculations of various sorts are completed. A simple interface for setting this variable is accessible using the function
+
+- ``setbufsize``(size)	Set the size of the buffer used in ufuncs.

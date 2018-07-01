@@ -1,1 +1,7 @@
 # 确定输出类型
+
+The output of the ufunc (and its methods) is not necessarily an ``ndarray``, if all input arguments are not ``ndarrays``. Indeed, if any input defines an ``__array_ufunc__`` method, control will be passed completely to that function, i.e., the ufunc is overridden.
+
+If none of the inputs overrides the ufunc, then all output arrays will be passed to the ``__array_prepare__`` and ``__array_wrap__`` methods of the input (besides ndarrays, and scalars) that defines it and has the highest ``__array_priority__`` of any other input to the universal function. The default ``__array_priority__`` of the ndarray is 0.0, and the default ``__array_priority__`` of a subtype is 1.0. Matrices have ``__array_priority__`` equal to 10.0.
+
+All ufuncs can also take output arguments. If necessary, output will be cast to the data-type(s) of the provided output array(s). If a class with an ``__array__`` method is used for the output, results will be written to the object returned by ``__array__``. Then, if the class also has an ``__array_prepare__`` method, it is called so metadata may be determined based on the context of the ufunc (the context consisting of the ufunc itself, the arguments passed to the ufunc, and the ufunc domain.) The array object returned by ``__array_prepare__`` is passed to the ufunc for computation. Finally, if the class also has an ``__array_wrap__`` method, the returned ndarray result will be passed to that method just before passing control back to the caller.
