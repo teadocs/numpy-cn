@@ -1,1 +1,12 @@
 # 时间日期操作
+
+- datetime_as_string(arr[, unit, timezone, …])	Convert an array of datetimes into an array of strings.
+- datetime_data(dtype, /)	Get information about the step size of a date or time type.
+
+## Business Day Functions
+
+- busdaycalendar([weekmask, holidays])	A business day calendar object that efficiently stores information defining valid days for the busday family of functions.
+- is_busday(dates[, weekmask, holidays, …])	Calculates which of the given dates are valid days, and which are not.
+- busday_offset(dates, offsets[, roll, …])	First adjusts the date to fall on a valid day according to the roll rule, then applies offsets to the given dates counted in valid days.
+- busday_count(begindates, enddates[, …])	Counts the number of valid days between begindates and enddates, not including the day of enddates.
+Table Of Contents
