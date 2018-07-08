@@ -1,14 +1,17 @@
 # Numpy对于Matlab用户
 
-## Introduction
+## 介绍
 
 MATLAB® and NumPy/SciPy have a lot in common. But there are many differences. NumPy and SciPy were created to do numerical and scientific computing in the most natural way with Python, not to be MATLAB® clones. This page is intended to be a place to collect wisdom about the differences, mostly for the purpose of helping proficient MATLAB® users become proficient NumPy and SciPy users.
 
-## Some Key Differences
+
+MATLAB®和 NumPy/SciPy 有很多共同之处。但是也有很多不同之处。创建NumPy和SciPy是为了用Python最自然的方式进行数值和科学计算，而不是 MATLAB® 的克隆版。本章节旨在收集有关两者的差异，主要是为了帮助熟练的MATLAB®用户成为熟练的NumPy和SciPy用户。
+
+## 一些关键的差异
 
 MATLAB | NumPy
 ---|---
-In MATLAB®, the basic data type is a multidimensional array of double precision floating point numbers. Most expressions take such arrays and return such arrays. Operations on the 2-D instances of these arrays are designed to act more or less like matrix operations in linear algebra. | In NumPy the basic type is a multidimensional ``array``. Operations on these arrays in all dimensionalities including 2D are element-wise operations. However, there is a special ``matrix`` type for doing linear algebra, which is just a subclass of the ``array`` class. Operations on matrix-class arrays are linear algebra operations.
+在MATLAB®中，基本数据类型是双精度浮点数的多维数组。大多数表达式采用这样的数组并且也返回这样的数，操作这些数组的2-D实例的的方式被设计成或多或少地像线性代数中的矩阵运算一样。 | In NumPy the basic type is a multidimensional ``array``. Operations on these arrays in all dimensionalities including 2D are element-wise operations. However, there is a special ``matrix`` type for doing linear algebra, which is just a subclass of the ``array`` class. Operations on matrix-class arrays are linear algebra operations.
 MATLAB® uses 1 (one) based indexing. The initial element of a sequence is found using a(1). See note INDEXING | Python uses 0 (zero) based indexing. The initial element of a sequence is found using a[0].
 MATLAB®’s scripting language was created for doing linear algebra. The syntax for basic matrix operations is nice and clean, but the API for adding GUIs and making full-fledged applications is more or less an afterthought. | NumPy is based on Python, which was designed from the outset to be an excellent general-purpose programming language. While Matlab’s syntax for some array manipulations is more compact than NumPy’s, NumPy (by virtue of being an add-on to Python) can do many things that Matlab just cannot, for instance subclassing the main array type to do both array and matrix math cleanly.
 In MATLAB®, arrays have pass-by-value semantics, with a lazy copy-on-write scheme to prevent actually creating copies until they are actually needed. Slice operations copy parts of the array. | In NumPy arrays have pass-by-reference semantics. Slice operations are views into an array.
