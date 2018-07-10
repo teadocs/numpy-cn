@@ -2,37 +2,34 @@
 
 ## 介绍
 
-MATLAB® and NumPy/SciPy have a lot in common. But there are many differences. NumPy and SciPy were created to do numerical and scientific computing in the most natural way with Python, not to be MATLAB® clones. This page is intended to be a place to collect wisdom about the differences, mostly for the purpose of helping proficient MATLAB® users become proficient NumPy and SciPy users.
-
-
 MATLAB®和 NumPy/SciPy 有很多共同之处。但是也有很多不同之处。创建NumPy和SciPy是为了用Python最自然的方式进行数值和科学计算，而不是 MATLAB® 的克隆版。本章节旨在收集有关两者的差异，主要是为了帮助熟练的MATLAB®用户成为熟练的NumPy和SciPy用户。
 
 ## 一些关键的差异
 
 MATLAB | NumPy
 ---|---
-在MATLAB®中，基本数据类型是双精度浮点数的多维数组。大多数表达式采用这样的数组并且也返回这样的数，操作这些数组的2-D实例的的方式被设计成或多或少地像线性代数中的矩阵运算一样。 | In NumPy the basic type is a multidimensional ``array``. Operations on these arrays in all dimensionalities including 2D are element-wise operations. However, there is a special ``matrix`` type for doing linear algebra, which is just a subclass of the ``array`` class. Operations on matrix-class arrays are linear algebra operations.
-MATLAB® uses 1 (one) based indexing. The initial element of a sequence is found using a(1). See note INDEXING | Python uses 0 (zero) based indexing. The initial element of a sequence is found using a[0].
-MATLAB®’s scripting language was created for doing linear algebra. The syntax for basic matrix operations is nice and clean, but the API for adding GUIs and making full-fledged applications is more or less an afterthought. | NumPy is based on Python, which was designed from the outset to be an excellent general-purpose programming language. While Matlab’s syntax for some array manipulations is more compact than NumPy’s, NumPy (by virtue of being an add-on to Python) can do many things that Matlab just cannot, for instance subclassing the main array type to do both array and matrix math cleanly.
-In MATLAB®, arrays have pass-by-value semantics, with a lazy copy-on-write scheme to prevent actually creating copies until they are actually needed. Slice operations copy parts of the array. | In NumPy arrays have pass-by-reference semantics. Slice operations are views into an array.
+在MATLAB®中，基本数据类型是双精度浮点数的多维数组。大多数表达式采用这样的数组并且也返回这样的数据类型，操作这些数组的2-D实例的的方式被设计成或多或少地像线性代数中的矩阵运算一样。 | 在NumPy中，基本类型是多维``数组``。在所有维度(包括2D)上对这些数组的操作都是元素级的操作。但是，有一种特殊的``矩阵``类型用于做线性代数，它只是``array``类的一个子类。矩阵类数组的运算是线性代数运算.
+MATLAB®是使用基于1（1）的索引。 使用（1）下标作为元素的初始位置。 请参阅 索引 | Python使用基于0(零)的索引。序列的初始元素使用[0]来查找。
+MATLAB的脚本语言是为做线性代数而创建的。基本矩阵操作的语法很好也很干净，但是用于添加GUI和制作成熟应用程序的API或多或少是事后才想到的。| NumPy基于Python，它从一开始就被设计为一种优秀的通用编程语言。 虽然Matlab的一些数组操作的语法比NumPy更紧凑，但NumPy（由于是Python的附加组件）可以做许多Matlab所不能做的事情，例如将主数组类型子类化为干净地进行数组和矩阵数学运算。
+在 MATLAB® 中，数组具有按值传递的语义，并有一个懒散的写拷贝方案，以防止在真正需要副本之前实际创建副本。使用切片操作复制数组的部分。 | 在NumPy数组，数组只是内存中的引用而已。 切片只是操作数组的视图层面而已。
 
-## ‘array’ or ‘matrix’? Which should I use?
+## ‘array’ 和 ‘matrix’? 我应该选谁?
 
-NumPy provides, in addition to ``np.ndarray``, an additional matrix type that you may see used in some existing code. Which one to use?
+除了 ``np.ndarray`` 之外，NumPy还提供了一种额外的矩阵类型，您可以在一些现有代码中看到这种类型。想用哪一个呢？
 
-### Short answer
+### 简要的回答
 
-**Use arrays.**
+**使用 arrays.**
 
-- They are the standard vector/matrix/tensor type of numpy. Many numpy functions return arrays, not matrices.
-- There is a clear distinction between element-wise operations and linear algebra operations.
-- You can have standard vectors or row/column vectors if you like.
+- 它们是numpy的标准向量/矩阵/张量类型。许多numpy函数返回的是数组，而不是矩阵。
+- 元素级运算和线性代数运算之间有着明确的区别。
+- 如果你愿意，可以使用标准向量或行/列向量。
 
-Until Python 3.5 the only disadvantage of using the array type was that you had to use ``dot`` instead of ``*`` to multiply (reduce) two tensors (scalar product, matrix vector multiplication etc.). Since Python 3.5 you can use the matrix multiplication ``@`` operator.
+直到Python3.5，使用数组类型的唯一缺点是您必须使用 ``dot`` 而不是 ``*`` 来将两个张量(标量乘积、矩阵向量乘法等)相乘(减少)。从 Python3.5 之后，您就可以使用矩阵乘法 ``@`` 运算符。
 
-### Long answer
+### 详细的回答
 
-NumPy contains both an ``array`` class and a ``matrix`` class. The ``array`` class is intended to be a general-purpose n-dimensional array for many kinds of numerical computing, while ``matrix`` is intended to facilitate linear algebra computations specifically. In practice there are only a handful of key differences between the two.
+NumPy包含 ``array`` 类和 ``Matrix`` 类。 ``array`` 类旨在成为用于多种数值计算的通用n维数组，而 ``matrix`` 类则专门用于促进线性代数计算。实际上，两者之间只有少数几个关键区别。
 
 - Operator ``*``, ``dot()``, and ``multiply()``:
     - For ``array``, ‘``*``’ means element-wise multiplication, and the ``dot()`` function is used for matrix multiplication.
