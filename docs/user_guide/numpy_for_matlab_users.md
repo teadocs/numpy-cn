@@ -31,50 +31,52 @@ MATLAB的脚本语言是为做线性代数而创建的。基本矩阵操作的�
 
 NumPy包含 ``array`` 类和 ``Matrix`` 类。 ``array`` 类旨在成为用于多种数值计算的通用n维数组，而 ``matrix`` 类则专门用于促进线性代数计算。实际上，两者之间只有少数几个关键区别。
 
-- Operator ``*``, ``dot()``, and ``multiply()``:
-    - For ``array``, ‘``*``’ means element-wise multiplication, and the ``dot()`` function is used for matrix multiplication.
-    - For ``matrix``, ‘``*``’ means matrix multiplication, and the ``multiply()`` function is used for element-wise multiplication.
-- Handling of vectors (one-dimensional arrays)
-    - For array, the vector shapes 1xN, Nx1, and N are all different things. Operations like A[:,1] return a one-dimensional array of shape N, not a two-dimensional array of shape Nx1. Transpose on a one-dimensional array does nothing.
-    - For matrix, one-dimensional arrays are always upconverted to 1xN or Nx1 matrices (row or column vectors). A[:,1] returns a two-dimensional matrix of shape Nx1.
-- Handling of higher-dimensional arrays (ndim > 2)
-    - array objects can have number of dimensions > 2;
-    - matrix objects always have exactly two dimensions.
-- Convenience attributes
-    - array has a .T attribute, which returns the transpose of the data.
-    - matrix also has .H, .I, and .A attributes, which return the conjugate transpose, inverse, and asarray() of the matrix, respectively.
-- Convenience constructor
-    - The array constructor takes (nested) Python sequences as initializers. As in, array([[1,2,3],[4,5,6]]).
-    - The matrix constructor additionally takes a convenient string initializer. As in matrix("[1 2 3; 4 5 6]").
+- 操作符 ``*``, ``dot()``, 和 ``multiply()``:
+    - 对于数组， ``*`` 表示逐元素乘法，而 ``dot()`` 函数用于矩阵乘法。
+    - 对于矩阵， ``*`` 表示矩阵乘法， ``multiply()`` 函数用于逐元素乘法。
+- 矢量处理（一维数组）
+    - 对于数组，向量形状1xN，Nx1和N都是不同的东西。像A [:,1]这样的操作返回形状N的一维数组，而不是形状Nx1的二维数组。
+一维数组上的转置不起任何作用。
+    - 对于矩阵，一维数组总是向上转换为1xN或Nx1矩阵（行或列向量）。A [:,1] 返回形状为Nx1的二维矩阵。
+- 处理更高维数组（ndim> 2）
+    - 数组对象的维数可以> 2;
+    - 矩阵对象总是具有两个维度。
+- 便捷的属性
+    - ``array``有一个.T属性，它返回数据的转置。
+    - ``矩阵``还具有.H，.I和.A属性，分别返回矩阵的共轭转置，反转和 ``asarray()``。
+- 便捷的构造器
+    - ``数组``构造函数接受(嵌套的)Pythonseqxues作为初始化器。如 ``array([1,2,3], [4,5,6])``。
+    - ``矩阵``构造器另外采用方便的字符串初始化器（传入的参数是字符串）。如 ``matrix("[1 2 3; 4 5 6]")``。
 
-There are pros and cons to using both:
+使用这两种方法有好处也有坏处：
 
-- array
-    - :) You can treat one-dimensional arrays as either row or column vectors. dot(A,v) treats v as a column vector, while dot(v,A) treats v as a row vector. This can save you having to type a lot of transposes.
-    - <:( Having to use the dot() function for matrix-multiply is messy – dot(dot(A,B),C) vs. A*B*C. This isn’t an issue with Python >= 3.5 because the @ operator allows it to be written as A @ B @ C.
-    - :) Element-wise multiplication is easy: A*B.
-    - :) array is the “default” NumPy type, so it gets the most testing, and is the type most likely to be returned by 3rd party code that uses NumPy.
-    - :) Is quite at home handling data of any number of dimensions.
-    - :) Closer in semantics to tensor algebra, if you are familiar with that.
-    - :) All operations (*, /, +, - etc.) are element-wise.
-- matrix
-    - :\\ Behavior is more like that of MATLAB® matrices.
-    - <:( Maximum of two-dimensional. To hold three-dimensional data you need array or perhaps a Python list of matrix.
-    - <:( Minimum of two-dimensional. You cannot have vectors. They must be cast as single-column or single-row matrices.
-    - <:( Since array is the default in NumPy, some functions may return an array even if you give them a matrix as an argument. This shouldn’t happen with NumPy functions (if it does it’s a bug), but 3rd party code based on NumPy may not honor type preservation like NumPy does.
-    - :) A*B is matrix multiplication, so more convenient for linear algebra (For Python >= 3.5 plain arrays have the same convenience with the @ operator).
-    - <:( Element-wise multiplication requires calling a function, multiply(A,B).
-    - <:( The use of operator overloading is a bit illogical: * does not work element-wise but / does.
+- 数组
+    - :) 你可以将一维数组视为行或列向量。dot(A, v)将v视为列向量，而 ``dot(v，A)``将``v``视为行向量。这可以让你少传入许多的转置。
+    - <:( 必须使用 dot() 函数进行矩阵乘法是很麻烦的 – ``dot(dot(A,B),C)`` vs. ``A*B*C``. 这不是Python> = 3.5的问题，因为``@``运算符允许它写成``A @ B @ C``.
+    - :) 元素乘法很容易，直接：``A*B`` 就好.
+    - :) ``array``是 "默认" 的NumPy类型，因此它获得的支持最多，并且大量的NumPy的第三方包都使用了这个类型。
+    - :) 它可以更稳定的处理任意数量级的数据。
+    - :) 如果是熟悉的话，其实它的语义更接近张量代数。
+    - :) 所有的运算符 (``*``, ``/``, ``+``, ``-``) 都是元素级别的。
+- 矩阵
+    - :\\ 行为更像MATLAB®矩阵。
+    - <:( 它的维度最大为二维，如果你想保存三维数据，你需要数组或者一个矩阵列表。
+    - <:( 它的维度最少也是二维，你不能有向量还必须将它们转换为单列或单行矩阵。
+    - <:( 由于 ``array`` 类型是NumPy中的默认类型，因此即使你将``矩阵``作为参数传入，某些函数也可能返回一个 ``array``类型。
+在NumPy的内部函数中应该没有出现可以接受矩阵作为参数的情况（如果有，那它可能是一个bug），但基于NumPy的第三方包可能不像NumPy那样遵守类型规则。
+    - :) ``A*B`` 是矩阵乘法，因此线性代数更方便(对于Python >= 3.5 的版本，普通数组与 ``@`` 运算符具有同样的方便性)。
+    - <:( 元素级乘法要求调用乘法函数： ``multiply(A,B)``。
+    - <:( 操作符重载的使用有点不合逻辑：元素级别中``*``运算符并不会生效， 但是``/``运算符却可以。
 
-The ``array`` is thus much more advisable to use.
+因此使用``array``是更为可取的。
 
-## Facilities for Matrix Users
+## 使用Matrix的用户的福音
 
-NumPy has some features that facilitate the use of the ``matrix`` type, which hopefully make things easier for Matlab converts.
+NumPy有一些特性，可以方便地使用``matrix``类型，这有望使Matlab的用户转化过来更为容易。
 
-- A ``matlib`` module has been added that contains matrix versions of common array constructors like ones(), zeros(), empty(), eye(), rand(), repmat(), etc. Normally these functions return arrays, but the matlib versions return matrix objects.
-- mat has been changed to be a synonym for asmatrix, rather than matrix, thus making it a concise way to convert an array to a matrix without copying the data.
-- Some top-level functions have been removed. For example numpy.rand() now needs to be accessed as numpy.random.rand(). Or use the rand() from the matlib module. But the “numpythonic” way is to use numpy.random.random(), which takes a tuple for the shape, like other numpy functions.
+- 新增了一个``matlib``模块，该模块包含常用数组构造函数的矩阵版本，如one()、zeros()、empty()、view()、rand()、repmat()等。通常，这些函数返回数组，但matlib版本返回矩阵对象。
+- ``mat`` 已被更改为``asmatrix``的同义词，而不是矩阵，从而使其成为将数组转换为矩阵而不复制数据的简洁方法。
+- 一些顶级的函数已被删除。例如，``numpy.rand()``现在需要作为``numpy.random.rand()``访问。或者使用``matlib``模块中的``rand()``。但是“numpythonic”方式是使用``numpy.random.random()``，它为元组数据类型作为shape（形状），就像其他numpy函数一样。
 
 ## Table of Rough MATLAB-NumPy Equivalents
 
