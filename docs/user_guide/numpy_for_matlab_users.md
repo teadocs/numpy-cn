@@ -78,56 +78,56 @@ NumPy有一些特性，可以方便地使用``matrix``类型，这有望使Matla
 - ``mat`` 已被更改为``asmatrix``的同义词，而不是矩阵，从而使其成为将数组转换为矩阵而不复制数据的简洁方法。
 - 一些顶级的函数已被删除。例如，``numpy.rand()``现在需要作为``numpy.random.rand()``访问。或者使用``matlib``模块中的``rand()``。但是“numpythonic”方式是使用``numpy.random.random()``，它为元组数据类型作为shape（形状），就像其他numpy函数一样。
 
-## Table of Rough MATLAB-NumPy Equivalents
+## MATLAB和NumPy粗略的功能对应表
 
-The table below gives rough equivalents for some common MATLAB® expressions. **These are not exact equivalents**, but rather should be taken as hints to get you going in the right direction. For more detail read the built-in documentation on the NumPy functions.
+下表粗略的反应了一些常见MATLAB表达式的大致对应关系。**但这些并不完全等同**，而是作为一种指引，指引读者一个正确的反向。有关更多详细信息，请参阅NumPy函数的内置文档。
 
-Some care is necessary when writing functions that take arrays or matrices as arguments — if you are expecting an ``array`` and are given a ``matrix``, or vice versa, then ‘*’ (multiplication) will give you unexpected results. You can convert back and forth between arrays and matrices using
+在编写以数组或矩阵作为参数的函数时，需要注意一点，就算如果您期望函数返回一个 ``array``， 传入的参数却是一个 ``matrix``，或反之亦然，那么 ``*`` (乘法运算符) 会给您带来意想不到的惊喜。它可以在数组和矩阵之间来回转换。
 
-- ``asarray``: always returns an object of type ``array``
-- ``asmatrix`` or ``mat``: always return an object of type ``matrix``
-- ``asanyarray``: always returns an array object or a subclass derived from it, depending on the input. For instance if you pass in a ``matrix`` it returns a ``matrix``.
+- ``asarray``: 总是返回一个 ``array`` 类型的对象。
+- ``asmatrix`` 或 ``mat``: 总是返回一个  ``matrix`` 类型的对象。
+- ``asanyarray``: 始终返回数组对象或数组对象派生的子类，具体取决于传入的类型。例如，如果传入一个``matrix``，它将返回一个``matrix``。
 
-These functions all accept both arrays and matrices (among other things like Python lists), and thus are useful when writing functions that should accept any array-like object.
+这些函数都接受数组和矩阵(除了别的类型哈，比如Python的list类型之类的)，因此在编写应该接受任何类似数组的对象的函数时很有用。
 
-In the table below, it is assumed that you have executed the following commands in Python:
+在下表中，假设你已经在Python中执行了以下命令：
 
 ```python
 from numpy import *
 import scipy.linalg
 ```
 
-Also assume below that if the Notes talk about “matrix” that the arguments are two-dimensional entities.
+另外如果下表中的``注释``这一列的内容是和``matrix``有关的话，那么参数一定是二维的形式。
 
-### General Purpose Equivalents
+### 一般功能的对应表
 
-MATLAB | NumPy | Notes
+MATLAB | NumPy | 注释
 ---|---|---
-``help func`` | ``info(func)`` or ``help(func)`` or ``func?`` (in Ipython) | get help on the function func
-``which func`` | see note HELP | find out where func is defined 
-``type func`` | ``source(func)`` or ``func??`` (in Ipython) | print source for func (if not a native function)
-``a && b`` | ``a and b`` | short-circuiting logical AND operator (Python native operator); scalar arguments only
-``a \|\| b`` | ``a or b`` | short-circuiting logical OR operator (Python native operator); scalar arguments only
-``1*i, 1*j, 1i, 1j`` | ``1j`` | complex numbers
-``eps`` | ``np.spacing(1)`` | Distance between 1 and the nearest floating point number.
-``ode45`` | ``scipy.integrate.solve_ivp(f)`` | integrate an ODE with Runge-Kutta 4,5
-``ode15s`` | ``scipy.integrate.solve_ivp(f, method='BDF')`` | integrate an ODE with BDF method
+``help func`` | ``info(func)`` 或 ``help(func)`` 或 ``func?`` (在 Ipython 中) | 获得函数func的帮助。
+``which func`` | see note HELP（译者注：在里的原链接已经失效。） | 找出func定义的位置。
+``type func`` | ``source(func)`` 或 ``func??`` (在 Ipython 中) | 打印func的源代码(如果不是原生函数的话)。
+``a && b`` | ``a and b`` | 短路逻辑 AND 运算符 (Python 原生运算符); 仅限标量参数。
+``a \|\| b`` | ``a or b`` | 短路逻辑 OR 运算符 (Python 原生运算符); 仅限标量参数。
+``1*i, 1*j, 1i, 1j`` | ``1j`` | 复数。
+``eps`` | ``np.spacing(1)`` | 数字1和最近的浮点数之间的距离。
+``ode45`` | ``scipy.integrate.solve_ivp(f)`` | 将ODE与Runge-Kutta 4,5整合在一起。
+``ode15s`` | ``scipy.integrate.solve_ivp(f, method='BDF')`` | 用BDF方法整合ODE。
 
-### Linear Algebra Equivalents
+### 线性代数功能对应表
 
-MATLAB | NumPy | Notes
+MATLAB | NumPy | 注释
 ---|---|---
-ndims(a) | ndim(a) or a.ndim | get the number of dimensions of an array
-numel(a) | size(a) or a.size | get the number of elements of an array
-size(a) | shape(a) or a.shape | get the “size” of the matrix
-size(a,n) | a.shape[n-1] | get the number of elements of the n-th dimension of array a. (Note that MATLAB® uses 1 based indexing while Python uses 0 based indexing, See note INDEXING)
-[ 1 2 3; 4 5 6 ] | array([[1.,2.,3.], [4.,5.,6.]]) | 2x3 matrix literal
-[ a b; c d ] | vstack([hstack([a,b]), hstack([c,d])]) or bmat('a b; c d').A | construct a matrix from blocks a, b, c, and d
-a(end) | a[-1] | access last element in the 1xn matrix a
-a(2,5) | a[1,4] | access element in second row, fifth column
-a(2,:) | a[1] or a[1,:] | entire second row of a
-a(1:5,:) | a[0:5] or a[:5] or a[0:5,:] | the first five rows of a
-a(end-4:end,:) | a[-5:] | the last five rows of a
+ndims(a) | ndim(a) 或 a.ndim | 获取数组的维数。
+numel(a) | size(a) 或 a.size | 获取数组的元素个数。
+size(a) | shape(a) 或 a.shape | 求矩阵的“大小”
+size(a,n) | a.shape[n-1] | 获取数组a的n维元素数量。(请注意，MATLAB使用基于1的索引，而Python使用基于0的索引，请参见注释索引)。
+[ 1 2 3; 4 5 6 ] | array([[1.,2.,3.], [4.,5.,6.]]) | 一个 2x3 矩阵的字面量。
+[ a b; c d ] | vstack([hstack([a,b]), hstack([c,d])]) 或 bmat('a b; c d').A | 从快a、b、c和d构造矩阵。
+a(end) | a[-1] | 访问1xn矩阵a中的最后一个元素。
+a(2,5) | a[1,4] | 访问第二行，第五列中的元素。
+a(2,:) | a[1] or a[1,:] | 取得a数组第二个元素全部（译者注：第二个元素如果是数组，则返回这个数组）
+a(1:5,:) | a[0:5] or a[:5] or a[0:5,:] | 取得a数组的前五行。
+a(end-4:end,:) | a[-5:] | 取得a数组的后五行。
 a(1:3,5:9) | a[0:3][:,4:9] | rows one to three and columns five to nine of a. This gives read-only access.
 a([2,4,5],[1,3]) | a[ix_([1,3,4],[0,2])] | rows 2,4 and 5 and columns 1 and 3. This allows the matrix to be modified, and doesn’t require a regular slice.
 a(3:2:21,:) | a[ 2:21:2,:] | every other row of a, starting with the third and going to the twenty-first
