@@ -128,50 +128,50 @@ a(2,5) | a[1,4] | 访问第二行，第五列中的元素。
 a(2,:) | a[1] or a[1,:] | 取得a数组第二个元素全部（译者注：第二个元素如果是数组，则返回这个数组）
 a(1:5,:) | a[0:5] or a[:5] or a[0:5,:] | 取得a数组的前五行。
 a(end-4:end,:) | a[-5:] | 取得a数组的后五行。
-a(1:3,5:9) | a[0:3][:,4:9] | rows one to three and columns five to nine of a. This gives read-only access.
-a([2,4,5],[1,3]) | a[ix_([1,3,4],[0,2])] | rows 2,4 and 5 and columns 1 and 3. This allows the matrix to be modified, and doesn’t require a regular slice.
-a(3:2:21,:) | a[ 2:21:2,:] | every other row of a, starting with the third and going to the twenty-first
-a(1:2:end,:) | a[ ::2,:] | every other row of a, starting with the first
-a(end:-1:1,:) or flipud(a) | a[ ::-1,:] | a with rows in reverse order
-a([1:end 1],:) | a[r_[:len(a),0]] | a with copy of the first row appended to the end
-a.' | a.transpose() or a.T | transpose of a
-a' | a.conj().transpose() or a.conj().T | conjugate transpose of a
-a * b | a.dot(b) | matrix multiply
-a .* b | a * b | element-wise multiply
-a./b | a/b | element-wise divide
-a.^3 | a**3 | element-wise exponentiation
-(a>0.5) | (a>0.5) | matrix whose i,jth element is (a_ij > 0.5). The Matlab result is an array of 0s and 1s. The NumPy result is an array of the boolean values False and True.
-find(a>0.5) | nonzero(a>0.5) | find the indices where (a > 0.5)
-a(:,find(v>0.5)) | a[:,nonzero(v>0.5)[0]] | extract the columms of a where vector v > 0.5
-a(:,find(v>0.5)) | a[:,v.T>0.5] | extract the columms of a where column vector v > 0.5
-a(a<0.5)=0 | a[a<0.5]=0 | a with elements less than 0.5 zeroed out
-a .* (a>0.5) | a * (a>0.5) | a with elements less than 0.5 zeroed out
-a(:) = 3 | a[:] = 3 | set all values to the same scalar value
-y=x | y = x.copy() | numpy assigns by reference
-y=x(2,:) | y = x[1,:].copy() | numpy slices are by reference
-y=x(:) | y = x.flatten() | turn array into vector (note that this forces a copy)
-1:10 | arange(1.,11.) or r_[1.:11.] or r_[1:10:10j] | create an increasing vector (see note RANGES)
-0:9 | arange(10.) or r_[:10.] or r_[:9:10j] | create an increasing vector (see note RANGES)
-[1:10]' | arange(1.,11.)[:, newaxis] | create a column vector
-zeros(3,4) | zeros((3,4)) | 3x4 two-dimensional array full of 64-bit floating point zeros
-zeros(3,4,5) | zeros((3,4,5)) | 3x4x5 three-dimensional array full of 64-bit floating point zeros
-ones(3,4) | ones((3,4)) | 3x4 two-dimensional array full of 64-bit floating point ones
-eye(3) | eye(3) | 3x3 identity matrix
-diag(a) | diag(a) | vector of diagonal elements of a
-diag(a,0) | diag(a,0) | square diagonal matrix whose nonzero values are the elements of a
-rand(3,4) | random.rand(3,4) | random 3x4 matrix
-linspace(1,3,4) | linspace(1,3,4) | 4 equally spaced samples between 1 and 3, inclusive
-[x,y]=meshgrid(0:8,0:5) | mgrid[0:9.,0:6.] or meshgrid(r_[0:9.],r_[0:6.] | two 2D arrays: one of x values, the other of y values
-  | ogrid[0:9.,0:6.] or ix_(r_[0:9.],r_[0:6.] | the best way to eval functions on a grid
-[x,y]=meshgrid([1,2,4],[2,4,5]) | meshgrid([1,2,4],[2,4,5]) |  
-  | ix_([1,2,4],[2,4,5]) | the best way to eval functions on a grid
-repmat(a, m, n) | tile(a, (m, n)) | create m by n copies of a
-[a b] | concatenate((a,b),1) or hstack((a,b)) or column_stack((a,b)) or c_[a,b] | concatenate columns of a and b
-[a; b] | concatenate((a,b)) or vstack((a,b)) or r_[a,b] | concatenate rows of a and b
-max(max(a)) | a.max() | maximum element of a (with ndims(a)<=2 for matlab)
-max(a) | a.max(0) | maximum element of each column of matrix a
-max(a,[],2) | a.max(1) | maximum element of each row of matrix a
-max(a,b) | maximum(a, b) | compares a and b element-wise, and returns the maximum value from each pair
+a(1:3,5:9) | a[0:3][:,4:9] | a数组的第1行到第3行和第5到第9列，这种方式只允许读取。
+a([2,4,5],[1,3]) | a[ix_([1,3,4],[0,2])] | 行2,4和5以及第1列和第3列。这允许修改矩阵，并且不需要常规切片方式。
+a(3:2:21,:) | a[ 2:21:2,:] | a数组每隔一行，从第三行开始，一直到第二十一行。
+a(1:2:end,:) | a[ ::2,:] | a数组从第一行开始，每隔一行。
+a(end:-1:1,:) or flipud(a) | a[ ::-1,:] | 反转a数组的顺序。
+a([1:end 1],:) | a[r_[:len(a),0]] | 将a数组的第一行的副本添加到数组末尾。
+a.' | a.transpose() or a.T | a数组的转置。
+a' | a.conj().transpose() or a.conj().T | a数组的共轭转置。
+a * b | a.dot(b) | 矩阵乘法。
+a .* b | a * b | 元素相乘。
+a./b | a/b | 元素相除。
+a.^3 | a**3 | 元素指数运算。
+(a>0.5) | (a>0.5) | 其i, th元素为(a_ij > 0.5)的矩阵。Matlab的结果是一个0和1的数组。NumPy结果是一个布尔值false和True的数组。
+find(a>0.5) | nonzero(a>0.5) | 找到条件满足 (a > 0.5) 的索引。
+a(:,find(v>0.5)) | a[:,nonzero(v>0.5)[0]] | 找到满足条件 向量v > 0.5 的列。
+a(:,find(v>0.5)) | a[:,v.T>0.5] |  找到满足条件 列向量v > 0.5 的列。
+a(a<0.5)=0 | a[a<0.5]=0 | 元素小于0.5 赋为 0。
+a .* (a>0.5) | a * (a>0.5) | （译者注：应该是a乘上a中大于0.5的值的矩阵）
+a(:) = 3 | a[:] = 3 | 将所有值设置为相同的标量值
+y=x | y = x.copy() | numpy 通过拷贝引用来赋值。
+y=x(2,:) | y = x[1,:].copy() | numpy 通过拷贝引用来切片操作。
+y=x(:) | y = x.flatten() | 将数组转换为向量(请注意，这将强制拷贝)。
+1:10 | arange(1.,11.) or r_[1.:11.] or r_[1:10:10j] | 创建一个可增长的向量 (参见下面的[注释](#note)章节)
+0:9 | arange(10.) or r_[:10.] or r_[:9:10j] | 创建一个可增长的向量 (参见下面的[注释](#note)章节)
+[1:10]' | arange(1.,11.)[:, newaxis] | 创建一个列向量。
+zeros(3,4) | zeros((3,4)) | 创建一个全是0的填充的 3x4 的64位浮点类型的二维数组。
+zeros(3,4,5) | zeros((3,4,5)) | 创建一个全是0的填充的 3x4x5 的64位浮点类型的三维数组。
+ones(3,4) | ones((3,4)) | 创建一个全是 1 的填充的 3x4 的64位浮点类型的二维数组。
+eye(3) | eye(3) | 创建一个3x3恒等矩阵。
+diag(a) | diag(a) | 创建a数组的对角元素向量。
+diag(a,0) | diag(a,0) | 创建方形对角矩阵，其非零值是a的所有元素。
+rand(3,4) | random.rand(3,4) | 创建一个随机的 3x4 矩阵
+linspace(1,3,4) | linspace(1,3,4) | 创建4个等间距的样本，介于1和3之间。
+[x,y]=meshgrid(0:8,0:5) | mgrid[0:9.,0:6.] 或 meshgrid(r_[0:9.],r_[0:6.] | 两个2维数组：一个是x值，另一个是y值。
+ - | ogrid[0:9.,0:6.] or ix_(r_[0:9.],r_[0:6.] | 最好的方法是在一个网格上执行函数。
+[x,y]=meshgrid([1,2,4],[2,4,5]) | meshgrid([1,2,4],[2,4,5]) |  - 
+ - | ix_([1,2,4],[2,4,5]) | 最好的方法是在网格上执行函数。
+repmat(a, m, n) | tile(a, (m, n)) | 通过n份a的拷贝创建m。
+[a b] | concatenate((a,b),1) or hstack((a,b)) or column_stack((a,b)) or c_[a,b] | 连接a和b的列。
+[a; b] | concatenate((a,b)) or vstack((a,b)) or r_[a,b] | 连接a和b的行。
+max(max(a)) | a.max() | 取a数组的中的最大元素（对于matlab来说，ndims(a) <= 2）
+max(a) | a.max(0) | 求各列的最大值。
+max(a,[],2) | a.max(1) | 求各行最大值。
+max(a,b) | maximum(a, b) | 比较a和b元素，并返回每对中的最大值。
 norm(v) | sqrt(dot(v,v)) or np.linalg.norm(v) | L2 norm of vector v
 a & b | logical_and(a,b) | element-by-element AND operator (NumPy ufunc) See note LOGICOPS
 a | b | logical_or(a,b) | element-by-element OR operator (NumPy ufunc) See note LOGICOPS
