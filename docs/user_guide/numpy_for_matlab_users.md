@@ -125,17 +125,17 @@ size(a,n) | a.shape[n-1] | 获取数组a的n维元素数量。(请注意，MATLA
 [ a b; c d ] | vstack([hstack([a,b]), hstack([c,d])]) 或 bmat('a b; c d').A | 从快a、b、c和d构造矩阵。
 a(end) | a[-1] | 访问1xn矩阵a中的最后一个元素。
 a(2,5) | a[1,4] | 访问第二行，第五列中的元素。
-a(2,:) | a[1] or a[1,:] | 取得a数组第二个元素全部（译者注：第二个元素如果是数组，则返回这个数组）
-a(1:5,:) | a[0:5] or a[:5] or a[0:5,:] | 取得a数组的前五行。
+a(2,:) | a[1] 或 a[1,:] | 取得a数组第二个元素全部（译者注：第二个元素如果是数组，则返回这个数组）
+a(1:5,:) | a[0:5] 或 a[:5] 或 a[0:5,:] | 取得a数组的前五行。
 a(end-4:end,:) | a[-5:] | 取得a数组的后五行。
 a(1:3,5:9) | a[0:3][:,4:9] | a数组的第1行到第3行和第5到第9列，这种方式只允许读取。
 a([2,4,5],[1,3]) | a[ix_([1,3,4],[0,2])] | 行2,4和5以及第1列和第3列。这允许修改矩阵，并且不需要常规切片方式。
 a(3:2:21,:) | a[ 2:21:2,:] | a数组每隔一行，从第三行开始，一直到第二十一行。
 a(1:2:end,:) | a[ ::2,:] | a数组从第一行开始，每隔一行。
-a(end:-1:1,:) or flipud(a) | a[ ::-1,:] | 反转a数组的顺序。
+a(end:-1:1,:) 或 flipud(a) | a[ ::-1,:] | 反转a数组的顺序。
 a([1:end 1],:) | a[r_[:len(a),0]] | 将a数组的第一行的副本添加到数组末尾。
-a.' | a.transpose() or a.T | a数组的转置。
-a' | a.conj().transpose() or a.conj().T | a数组的共轭转置。
+a.' | a.transpose() 或 a.T | a数组的转置。
+a' | a.conj().transpose() 或 a.conj().T | a数组的共轭转置。
 a * b | a.dot(b) | 矩阵乘法。
 a .* b | a * b | 元素相乘。
 a./b | a/b | 元素相除。
@@ -150,8 +150,8 @@ a(:) = 3 | a[:] = 3 | 将所有值设置为相同的标量值
 y=x | y = x.copy() | numpy 通过拷贝引用来赋值。
 y=x(2,:) | y = x[1,:].copy() | numpy 通过拷贝引用来切片操作。
 y=x(:) | y = x.flatten() | 将数组转换为向量(请注意，这将强制拷贝)。
-1:10 | arange(1.,11.) or r_[1.:11.] or r_[1:10:10j] | 创建一个可增长的向量 (参见下面的[注释](#note)章节)
-0:9 | arange(10.) or r_[:10.] or r_[:9:10j] | 创建一个可增长的向量 (参见下面的[注释](#note)章节)
+1:10 | arange(1.,11.) 或 r_[1.:11.] 或 r_[1:10:10j] | 创建一个可增长的向量 (参见下面的[注释](#note)章节)
+0:9 | arange(10.) 或 r_[:10.] 或 r_[:9:10j] | 创建一个可增长的向量 (参见下面的[注释](#note)章节)
 [1:10]' | arange(1.,11.)[:, newaxis] | 创建一个列向量。
 zeros(3,4) | zeros((3,4)) | 创建一个全是0的填充的 3x4 的64位浮点类型的二维数组。
 zeros(3,4,5) | zeros((3,4,5)) | 创建一个全是0的填充的 3x4x5 的64位浮点类型的三维数组。
@@ -162,46 +162,46 @@ diag(a,0) | diag(a,0) | 创建方形对角矩阵，其非零值是a的所有元�
 rand(3,4) | random.rand(3,4) | 创建一个随机的 3x4 矩阵
 linspace(1,3,4) | linspace(1,3,4) | 创建4个等间距的样本，介于1和3之间。
 [x,y]=meshgrid(0:8,0:5) | mgrid[0:9.,0:6.] 或 meshgrid(r_[0:9.],r_[0:6.] | 两个2维数组：一个是x值，另一个是y值。
- - | ogrid[0:9.,0:6.] or ix_(r_[0:9.],r_[0:6.] | 最好的方法是在一个网格上执行函数。
+ - | ogrid[0:9.,0:6.] 或 ix_(r_[0:9.],r_[0:6.] | 最好的方法是在一个网格上执行函数。
 [x,y]=meshgrid([1,2,4],[2,4,5]) | meshgrid([1,2,4],[2,4,5]) |  - 
  - | ix_([1,2,4],[2,4,5]) | 最好的方法是在网格上执行函数。
 repmat(a, m, n) | tile(a, (m, n)) | 通过n份a的拷贝创建m。
-[a b] | concatenate((a,b),1) or hstack((a,b)) or column_stack((a,b)) or c_[a,b] | 连接a和b的列。
-[a; b] | concatenate((a,b)) or vstack((a,b)) or r_[a,b] | 连接a和b的行。
+[a b] | concatenate((a,b),1) 或 hstack((a,b)) 或 column_stack((a,b)) or c_[a,b] | 连接a和b的列。
+[a; b] | concatenate((a,b)) 或 vstack((a,b)) 或 r_[a,b] | 连接a和b的行。
 max(max(a)) | a.max() | 取a数组的中的最大元素（对于matlab来说，ndims(a) <= 2）
 max(a) | a.max(0) | 求各列的最大值。
 max(a,[],2) | a.max(1) | 求各行最大值。
 max(a,b) | maximum(a, b) | 比较a和b元素，并返回每对中的最大值。
-norm(v) | sqrt(dot(v,v)) or np.linalg.norm(v) | L2 norm of vector v
-a & b | logical_and(a,b) | element-by-element AND operator (NumPy ufunc) See note LOGICOPS
-a | b | logical_or(a,b) | element-by-element OR operator (NumPy ufunc) See note LOGICOPS
-bitand(a,b) | a & b | bitwise AND operator (Python native and NumPy ufunc)
-bitor(a,b) | a | b | bitwise OR operator (Python native and NumPy ufunc)
-inv(a) | linalg.inv(a) | inverse of square matrix a
-pinv(a) | linalg.pinv(a) | pseudo-inverse of matrix a
-rank(a) | linalg.matrix_rank(a) | matrix rank of a 2D array / matrix a
-a\b | linalg.solve(a,b) if a is square; linalg.lstsq(a,b) otherwise | solution of a x = b for x
-b/a | Solve a.T x.T = b.T instead | solution of x a = b for x
-[U,S,V]=svd(a) | U, S, Vh = linalg.svd(a), V = Vh.T | singular value decomposition of a
-chol(a) | linalg.cholesky(a).T | cholesky factorization of a matrix (chol(a) in matlab returns an upper triangular matrix, but linalg.cholesky(a) returns a lower triangular matrix)
-[V,D]=eig(a) | D,V = linalg.eig(a) | eigenvalues and eigenvectors of a
-[V,D]=eig(a,b) | V,D = np.linalg.eig(a,b) | eigenvalues and eigenvectors of a, b
-[V,D]=eigs(a,k) |   | find the k largest eigenvalues and eigenvectors of a
-[Q,R,P]=qr(a,0) | Q,R = scipy.linalg.qr(a) | QR decomposition
-[L,U,P]=lu(a) | L,U = scipy.linalg.lu(a) or LU,P=scipy.linalg.lu_factor(a) | LU decomposition (note: P(Matlab) == transpose(P(numpy)) )
-conjgrad | scipy.sparse.linalg.cg | Conjugate gradients solver
-fft(a) | fft(a) | Fourier transform of a
-ifft(a) | ifft(a) | inverse Fourier transform of a
-sort(a) | sort(a) or a.sort() | sort the matrix
-[b,I] = sortrows(a,i) | I = argsort(a[:,i]), b=a[I,:] | sort the rows of the matrix
-regress(y,X) | linalg.lstsq(X,y) | multilinear regression
-decimate(x, q) | scipy.signal.resample(x, len(x)/q) | downsample with low-pass filtering
-``unique(a)`` | ``unique(a)`` |  
-``squeeze(a)`` | ``a.squeeze()`` |  
+norm(v) | sqrt(dot(v,v)) 或 np.linalg.norm(v) | 向量v的L2范数
+a & b | logical_and(a,b) | 逐元素使用 AND 运算符 (NumPy ufunc) (参见下面的[注释](#note)章节)
+a | b | logical_or(a,b) | 逐元素使用 OR 运算符 (NumPy ufunc) (参见下面的[注释](#note)章节)
+bitand(a,b) | a & b | 按位AND运算符  (Python原生 和 NumPy ufunc)
+bitor(a,b) | a | b | 按位OR运算符 (Python原生 和 NumPy ufunc)
+inv(a) | linalg.inv(a) | 矩阵a的逆运算
+pinv(a) | linalg.pinv(a) | 矩阵a的反逆运算
+rank(a) | linalg.matrix_rank(a) | 二维数组或者矩阵的矩阵rank。
+a\b | 如果a是方形矩阵 linalg.solve(a,b) ，否则：linalg.lstsq(a,b)  | 对于x，x = b的解
+b/a | Solve a.T x.T = b.T instead | 对于x，x a = b的解
+[U,S,V]=svd(a) | U, S, Vh = linalg.svd(a), V = Vh.T | a数组的奇值分解
+chol(a) | linalg.cholesky(a).T | 矩阵的cholesky分解（matlab中的``chol(a)``返回一个上三角矩阵，但``linalg.cholesky(a)``返回一个下三角矩阵）
+[V,D]=eig(a) | D,V = linalg.eig(a) | a数组的特征值和特征向量
+[V,D]=eig(a,b) | V,D = np.linalg.eig(a,b) | a，b数组的特征值和特征向量
+[V,D]=eigs(a,k) | - | 找到a的k个最大特征值和特征向量
+[Q,R,P]=qr(a,0) | Q,R = scipy.linalg.qr(a) | Q，R 的分解
+[L,U,P]=lu(a) | L,U = scipy.linalg.lu(a) or LU,P=scipy.linalg.lu_factor(a) | LU 分解 (注意: P(Matlab) == transpose(P(numpy)) )
+conjgrad | scipy.sparse.linalg.cg | 共轭渐变求解器
+fft(a) | fft(a) | a数组的傅立叶变换
+ifft(a) | ifft(a) | a的逆逆傅里叶变换
+sort(a) | sort(a) or a.sort() | 对矩阵或者数组进行排序
+[b,I] = sortrows(a,i) | I = argsort(a[:,i]), b=a[I,:] | 对矩阵或数组的行进行排序
+regress(y,X) | linalg.lstsq(X,y) | 多线性回归
+decimate(x, q) | scipy.signal.resample(x, len(x)/q) | 采用低通滤波的下采样
+``unique(a)`` | ``unique(a)`` |  -
+``squeeze(a)`` | ``a.squeeze()`` | -  
 
 ## Notes
 
-**Submatrix**: Assignment to a submatrix can be done with lists of indexes using the ix_ command. E.g., for 2d array a, one might do: ``ind=[1,3]; a[np.ix_(ind,ind)]+=100``.
+**子矩阵**: 可以使用ix_命令使用索引列表完成对子矩阵的分配。例如，对于2d阵列a，有人可能会这样做： ``ind=[1,3]; a[np.ix_(ind,ind)]+=100``.
 
 **HELP**: There is no direct equivalent of MATLAB’s ``which`` command, but the commands ``help`` and ``source`` will usually list the filename where the function is located. Python also has an inspect module (do ``import inspect``) which provides a ``getfile`` that often works.
 
