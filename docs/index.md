@@ -2,13 +2,13 @@
 
 ## 项目主页
 - github地址：https://github.com/lisniuse/numpy-cn
-- 域名访问：http://numpy.org.cn
+- 域名访问：https://numpy.org.cn
 
 ## 译者的话
 
 人生苦短，我用 Python！
 
-译者一直坚信Python可以改变世界，所以一直在自学数据科学以及机器学习，但是介于国内互联网上没有一个完整的numpy中文文档，所以就决定和NumPy官方合作翻译了官方的英文文档，毕竟官方的才是最正统权威的嘛。
+这里是numpy官方中国开源小组在负责的翻译项目。
 
 文档会同步官方英文版进行更新，供大家学习、和查阅。
 
