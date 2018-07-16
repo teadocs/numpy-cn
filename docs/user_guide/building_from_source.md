@@ -9,7 +9,7 @@
 
     在Debian和其衍生版本（Ubuntu）中需要：python，python-dev（或python3-dev）。
 
-    在Windows上：www.python.org上的官方python安装程序就足够了。
+    在Windows上：[www.python.org](http://www.python.org/)上的官方python安装程序就足够了。
  
     在继续之前，请确保已安装Python包distutils。 例如，在Debian GNU / Linux中，安装python-dev也会安装distutils。
 
