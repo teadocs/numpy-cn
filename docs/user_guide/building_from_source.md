@@ -6,7 +6,8 @@
 构建NumPy需要安装以下软件：
 
 1. Python 2.7.x、3.4.x的版本或是最新版本。
-    关于Debian和其衍生版本（Ubuntu）：python，python-dev（或python3-dev）。
+
+    在Debian和其衍生版本（Ubuntu）中需要：python，python-dev（或python3-dev）。
 
     在Windows上：www.python.org上的官方python安装程序就足够了。
  
