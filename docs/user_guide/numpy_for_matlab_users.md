@@ -215,20 +215,20 @@ decimate(x, q) | scipy.signal.resample(x, len(x)/q) | 采用低通滤波的下�
 优先级：NumPy的＆运算符优先于<和>之类的逻辑运算符; Matlab是相反的。
 如果你知道你有布尔参数，你可以使用NumPy的按位运算符，但要注意括号，如：z =（x> 1）＆（x <2）。 缺少NumPy运算符形式的logical_and和logical_or是Python设计的一个不幸结果。
 
-**重塑与线性索引**: Matlab总是允许使用标量或线性索引访问多维数组，而NumPy则不然。 线性索引在Matlab程序中很常见，例如 矩阵上的find()返回它们，而NumPy的查找行为则不同。 在转换Matlab代码时，可能需要首先将矩阵重塑为线性序列，执行一些索引操作然后再重塑。 由于重塑（通常）会在同一存储上生成视图，因此应该可以相当有效地执行此操作。 请注意，在NumPy中重塑使用的扫描顺序默认为'C'顺序，而Matlab使用Fortran顺序。 如果您只是简单地转换为线性序列，那么这无关紧要。 但是如果要从依赖于扫描顺序的Matlab代码转换重构，那么这个Matlab代码：z = reshape(x, 3,4); 应该在NumPy中变成z = x.reshape(3,4, order ='F').copy()。
+**重塑与线性索引**: Matlab总是允许使用标量或线性索引访问多维数组，而NumPy则不然。 线性索引在Matlab程序中很常见，例如：矩阵上的find()函数就会返回这在类型，而NumPy的查找行为则不同。 在转换Matlab代码时，可能需要首先将矩阵重塑为线性序列，执行一些索引操作然后再重塑。 由于重塑（通常）会在同一存储上生成视图，因此应该可以相当有效地执行此操作。 请注意，在NumPy中重塑使用的扫描顺序默认为'C'顺序，而Matlab使用Fortran顺序。 如果您只是简单地转换为线性序列，那么这无关紧要。 但是如果要从依赖于扫描顺序的Matlab代码转换重构，那么这个Matlab代码：z = reshape(x, 3,4); 应该在NumPy中变成z = x.reshape(3,4, order ='F').copy()。
 
 ## 自定义环境
 
-在MATLAB®中，可用于自定义环境的主要工具是修改你喜欢的功能的位置的搜索路径。 您可以将这些自定义放入启动脚本中，MATLAB将在启动时运行该脚本。
+在MATLAB®中，可用于自定义环境的主要工具是修改你喜欢的功能的位置的搜索路径（环境变量）。您可以将这些自定义放入启动脚本中，MATLAB将在启动时运行该脚本。
 
-NumPy, or rather Python, has similar facilities.
+NumPy，或者更确切地说是Python，具有类似的功能。
 
-- To modify your Python search path to include the locations of your own modules, define the ``PYTHONPATH`` environment variable.
-- To have a particular script file executed when the interactive Python interpreter is started, define the ``PYTHONSTARTUP`` environment variable to contain the name of your startup script.
+- 要修改Python搜索路径以包含自己模块的位置，请定义``PYTHONPATH``的环境变量。
+- 要在启动交互式Python解释器时执行特定的脚本文件，请定义“PYTHONSTARTUP”环境变量以包含启动脚本的名称。
 
-Unlike MATLAB®, where anything on your path can be called immediately, with Python you need to first do an ‘import’ statement to make functions in a particular file accessible.
+与MATLAB®不同，可以立即调用路径上的任何内容，使用Python，您需要先执行“import”语句，以使特定文件中的函数可访问。
 
-For example you might make a startup script that looks like this (Note: this is just an example, not a statement of “best practices”):
+例如，您可能会创建一个类似于下面代码的启动脚本（注意：这只是一个示例，而不是“最佳做法”的声明）：
 
 ```python
 # Make all numpy available via shorter 'num' prefix
@@ -247,10 +247,10 @@ T = num.transpose
 H = hermitian
 ```
 
-## Links
+## 链接
 
-See [http://mathesaurus.sf.net/](http://mathesaurus.sf.net/) for another MATLAB®/NumPy cross-reference.
+有关另一个MATLAB®/ NumPy交叉引用， 请参见[http://mathesaurus.sf.net/](http://mathesaurus.sf.net/)。
 
-An extensive list of tools for scientific work with python can be found in the topical [software page](http://scipy.org/topical-software.html).
+可以在主题[软件页面](http://scipy.org/topical-software.html).中找到用于python科学工作的更多工具列表。
 
-MATLAB® and SimuLink® are registered trademarks of The MathWorks.
+MATLAB®和SimuLink®是The MathWorks的注册商标。

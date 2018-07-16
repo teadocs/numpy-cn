@@ -1,20 +1,20 @@
 # 从源代码构建
 
-A general overview of building NumPy from source is given here, with detailed instructions for specific platforms given separately.
+此处给出了从源代码构建NumPy的一般概述，以及单独给出的特定平台的详细说明。
 
-## Prerequisites
-Building NumPy requires the following software installed:
+## 先决条件
+构建NumPy需要安装以下软件：
 
-1. Python 2.7.x, 3.4.x or newer
-    On Debian and derivatives (Ubuntu): python, python-dev (or python3-dev)
+1. Python 2.7.x、3.4.x的版本或是最新版本。
+    关于Debian和其衍生版本（Ubuntu）：python，python-dev（或python3-dev）。
 
-    On Windows: the official python installer at www.python.org is enough
+    在Windows上：www.python.org上的官方python安装程序就足够了。
+ 
+    在继续之前，请确保已安装Python包distutils。 例如，在Debian GNU / Linux中，安装python-dev也会安装distutils。
 
-    Make sure that the Python package distutils is installed before continuing. For example, in Debian GNU/Linux, installing python-dev also installs distutils.
+    还必须在启用zlib模块的情况下编译Python。对于预先包装好的Pythons来说，必要模块几乎已经全部搞定。
 
-    Python must also be compiled with the zlib module enabled. This is practically always the case with pre-packaged Pythons.
-
-1. Compilers
+1. 编译程序
     To build any extension modules for Python, you’ll need a C compiler. Various NumPy modules use FORTRAN 77 libraries, so you’ll also need a FORTRAN 77 compiler installed.
 
     Note that NumPy is developed mainly using GNU compilers. Compilers from other vendors such as Intel, Absoft, Sun, NAG, Compaq, Vast, Portland, Lahey, HP, IBM, Microsoft are only supported in the form of community feedback, and may not work out of the box. GCC 4.x (and later) compilers are recommended.
