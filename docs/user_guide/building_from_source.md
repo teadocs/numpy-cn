@@ -16,91 +16,91 @@
     还必须在启用zlib模块的情况下编译Python。对于预先包装好的Pythons来说，必要模块几乎已经全部搞定。
 
 1. 编译程序
-    To build any extension modules for Python, you’ll need a C compiler. Various NumPy modules use FORTRAN 77 libraries, so you’ll also need a FORTRAN 77 compiler installed.
+    要为Python构建任何扩展模块，你需要一个C编译器。NumPy的各种模块使用都使用了 FORTRAN 77 库，因此你还需要安装FORTRAN 77的编译器。
 
-    Note that NumPy is developed mainly using GNU compilers. Compilers from other vendors such as Intel, Absoft, Sun, NAG, Compaq, Vast, Portland, Lahey, HP, IBM, Microsoft are only supported in the form of community feedback, and may not work out of the box. GCC 4.x (and later) compilers are recommended.
+    请注意，NumPy主要是使用GNU编译器开发的。 其他供应商（如Intel，Absoft，Sun，NAG，Compaq，Vast，Portland，Lahey，HP，IBM，Microsoft）的编译器仅以社区反馈的形式提供支持，并且可能无法开箱即用。 建议使用GCC 4.x（及更高版本）编译器。
 
-1. Linear Algebra libraries
-    NumPy does not require any external linear algebra libraries to be installed. However, if these are available, NumPy’s setup script can detect them and use them for building. A number of different LAPACK library setups can be used, including optimized LAPACK libraries such as ATLAS, MKL or the Accelerate/vecLib framework on OS X.
+1. 线性代数库
+    NumPy不需要安装任何额外线性代数库。但是，如果你有一些可用的库，NumPy的安装脚本也可以检测到它们并将它们构建到numpy里面。你可以使用许多不同的LAPACK库设置，包括优化的LAPACK库，如ATLAS，MKL或OS X上的Accelerate/vecLib框架。
 
 1. Cython
-    To build development versions of NumPy, you’ll need a recent version of Cython. Released NumPy sources on PyPi include the C files generated from Cython code, so for released versions having Cython installed isn’t needed.
+    要构建NumPy的开发版本，你需要一个Cython的最新版本。PyPI上发布的NumPy源代码包括了Cython代码生成的C文件，因此不需要安装具有Cython的发行版本。
 
-## Basic Installation
+## 基本安装
 
-To install NumPy run:
+安装NumPy运行下面的命令:
 
-```sh
+```
 python setup.py install
 ```
 
-To perform an in-place build that can be run from the source folder run:
+如果要就地构建，可以从源代码文件夹里运行：
 
-```sh
+```
 python setup.py build_ext --inplace
 ```
 
-The NumPy build system uses ``setuptools`` (from numpy 1.11.0, before that it was plain distutils) and numpy.distutils. Using ``virtualenv`` should work as expected.
+NumPy的构建系统使用的是``setuptools`` (从numpy 1.11.0开始, 之前都是用很普通的 distutils) 和 numpy.distutils. 使用 ``virtualenv`` 会按照预期的那样进行。
 
-*Note: for build instructions to do development work on NumPy itself, see* [Setting up and using your development environment](https://docs.scipy.org/doc/numpy/dev/development_environment.html#development-environment).
+*请注意: 有关在NumPy本身进行开发工作的构建的说明，请参阅* [设置和使用开发环境](https://docs.scipy.org/doc/numpy/dev/development_environment.html#development-environment).
 
-### Parallel builds
+### 并行构建
 
-From NumPy 1.10.0 on it’s also possible to do a parallel build with:
+在NumPy 1.10.0上，还可以使用以下命令进行并行构建：
 
-```sh
+```
 python setup.py build -j 4 install --prefix $HOME/.local
 ```
 
-This will compile numpy on 4 CPUs and install it into the specified prefix. to perform a parallel in-place build, run:
+这将在4个CPU上编译numpy并将其安装到指定的前缀中。 要执行并行的就地构建，请运行：
 
-```sh
+```
 python setup.py build_ext --inplace -j 4
 ```
 
-The number of build jobs can also be specified via the environment variable ``NPY_NUM_BUILD_JOBS``.
+也可以通过环境变量``NPY_NUM_BUILD_JOBS``来指定构建作业的数量。
 
 
-## FORTRAN ABI mismatch
+## FORTRAN ABI 不匹配
 
-The two most popular open source fortran compilers are g77 and gfortran. Unfortunately, they are not ABI compatible, which means that concretely you should avoid mixing libraries built with one with another. In particular, if your blas/lapack/atlas is built with g77, you must use g77 when building numpy and scipy; on the contrary, if your atlas is built with gfortran, you must build numpy/scipy with gfortran. This applies for most other cases where different FORTRAN compilers might have been used.
+两个最受欢迎的开源fortran编译器是g77和gfortran。 不幸的是，它们不兼容ABI，这意味着你应该避免混合使用彼此构建的库。特别是，如果你的blas/lapack/atlas是使用g77构建的，那么在构建numpy和scipy时必须使用g77; 相反，如果你的atlas是用gfortran构建的，你必须用gfortran建立numpy/scipy。这适用于可能使用了不同FORTRAN编译器的大多数其他情况。
 
-### Choosing the fortran compiler
+### 选择fortran编译器
 
-To build with gfortran:
+使用gfortran来构建:
 
-```sh
+```
 python setup.py build --fcompiler=gnu95
 ```
 
-For more information see:
+查看更多信息请运行:
 
-```sh
+```
 python setup.py build --help-fcompiler
 ```
 
-### How to check the ABI of blas/lapack/atlas
+### 如何检查 blas/lapack/atlas 的 ABI
 
-One relatively simple and reliable way to check for the compiler used to build a library is to use ldd on the library. If libg2c.so is a dependency, this means that g77 has been used. If libgfortran.so is a dependency, gfortran has been used. If both are dependencies, this means both have been used, which is almost always a very bad idea.
+检查用于构建库的编译器的一种相对简单且可靠的方法是在库上使用ldd。 如果libg2c.so是依赖项，则表示已使用g77。 如果libgfortran.so是依赖项，则使用gfortran。如果两者都是依赖关系，这意味着两者都被使用，不过这绝对是一个非常傻比的想法。
 
-## Disabling ATLAS and other accelerated libraries
+## 禁用 ATLAS 和其他加速库
 
-Usage of ATLAS and other accelerated libraries in NumPy can be disabled via:
+可以通过以下方式禁用NumPy中ATLAS和其他加速库的使用：
 
-```sh
+```
 BLAS=None LAPACK=None ATLAS=None python setup.py build
 ```
 
-## Supplying additional compiler flags
+## 提供额外的编译器标志
 
-Additional compiler flags can be supplied by setting the ``OPT``, ``FOPT`` (for Fortran), and ``CC`` environment variables.
+可以通过设置``OPT``，``FOPT``（对于Fortran）和``CC``环境变量来提供额外的编译器标志。
 
-## Building with ATLAS support
+## 通过ATLAS的支持来构建
 
 ### Ubuntu
 
-You can install the necessary package for optimized ATLAS with this command:
+你可以使用以下命令为优化后的ATLAS安装必要的包：
 
-```sh
+```
 sudo apt-get install libatlas-base-dev
 ```
