@@ -21,7 +21,7 @@
 ## 译者联系方式
 
 - NumPy中文文档交流QQ群：294639068
-- 邮箱：lisniuse@qq.com
+- 邮箱：l@numpy.org.cn
 - 微信：iamnotahacker
 
 ## 文档生成
