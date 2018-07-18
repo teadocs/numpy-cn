@@ -1,12 +1,12 @@
 # Miscellaneous
 
-## IEEE 754 Floating Point Special Values
+## IEEE 754浮点特殊值
 
-Special values defined in numpy: nan, inf,
+在numpy中特殊值定义为: nan, inf,
 
-NaNs can be used as a poor-man's mask (if you don't care what the original value was)
+NaNs 可用作一种简陋的掩饰物 (如果你并不在乎初始的值是什么的话)
 
-Note: cannot use equality to test NaNs. E.g.:
+注意：不能使用等号运算符来测试NAN。例如：
 
 ```python
 >>> myarr = np.array([1., 0., np.nan, 3.])
@@ -22,7 +22,7 @@ array([  1.,   0.,  NaN,   3.])
 array([ 1.,  0.,  0.,  3.])
 ```
 
-Other related special value functions:
+其他的相关的特殊值判断函数
 
 ```python
 isinf():    True if value is inf
@@ -30,7 +30,7 @@ isfinite(): True if not nan or inf
 nan_to_num(): Map nan to 0, inf to max float, -inf to min float
 ```
 
-The following corresponds to the usual functions except that nans are excluded from the results:
+除了从结果中排除nans之外，下是对应的常用函数：
 
 ```python
 nansum()
@@ -47,26 +47,26 @@ nan
 42.0
 ```
 
-## How numpy handles numerical exceptions
+## numpy是如何处理数字异常的
 
-The default is to ``'warn'`` for ``invalid``, ``divide``, and ``overflow`` and ``'ignore'`` for ``underflow``. But this can be changed, and it can be set individually for different kinds of exceptions. The different behaviors are:
+默认``invalid`` 是 ``'warn'``, ``divide``, ``underflow`` 是 ``overflow`` 和 ``'ignore'``。 但是这可以改变，并且可以针对不同类型的异常单独设置。有以下不同的行为模式：
 
-> - 'ignore' : Take no action when the exception occurs.
-> - 'warn' : Print a RuntimeWarning (via the Python ``warnings`` module).
-> - 'raise' : Raise a FloatingPointError.
-> - 'call' : Call a function specified using the seterrcall function.
-> - 'print' : Print a warning directly to ``stdout``.
-> - 'log' : Record error in a Log object specified by seterrcall.
+> - 'ignore' : 当异常发生时，不作任何动作。
+> - 'warn' : 打印一个RuntimeWarning(通过Python ``warnings`` 模块)。
+> - 'raise' : 抛出一个FloatingPointError。
+> - 'call' : 调用使用seterrall函数指定的函数。
+> - 'print' : 直接将警告打印到 ``stdout``。
+> - 'log' : 在seterrall指定的日志对象中记录错误。
 
-These behaviors can be set for all kinds of errors or specific ones:
+可以为所有类型的错误或特定错误设置以下行为：
 
-> - all : apply to all numeric exceptions
-> - invalid : when NaNs are generated
-> - divide : divide by zero (for integers as well!)
-> - overflow : floating point overflows
-> - underflow : floating point underflows
+> - all : 适用于所有数值异常。
+> - invalid : 生成nans时。
+> - divide : 除以零(整数也是如此！)
+> - overflow : 浮点溢出。
+> - underflow : 浮点下溢。
 
-Note that integer divide-by-zero is handled by the same machinery. These behaviors are set on a per-thread basis.
+请注意，整数除零由相同的机器处理。 这些行为是基于每个线程设置的。
 
 ## Examples
 
