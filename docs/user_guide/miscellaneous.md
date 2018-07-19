@@ -66,9 +66,9 @@ nan
 > - overflow : 浮点溢出。
 > - underflow : 浮点下溢。
 
-请注意，整数除零由相同的机器处理。 这些行为是基于每个线程设置的。
+请注意，整数除零由相同的处理器处理，且这些行为是基于每个线程设置的。
 
-## Examples
+## 例子
 
 ```python
 >>> oldsettings = np.seterr(all='warn')
@@ -91,40 +91,40 @@ saw stupid error!
 ...                              # error-handling settings
 ```
 
-## Interfacing to C
+## 与C相关的接口
 
-Only a survey of the choices. Little detail on how each works.
+只针对下列选项进行阐述，阐述每一项工作原理的部分细节。
 
-1. Bare metal, wrap your own C-code manually.
-    > - Plusses:
-    >   - Efficient
-    >   - No dependencies on other tools
-    > - Minuses:
-    >   - Lots of learning overhead:
-    >   - need to learn basics of Python C API
-    >   - need to learn basics of numpy C API
-    >   - need to learn how to handle reference counting and love it.
-    >   - Reference counting often difficult to get right.
-    >   - getting it wrong leads to memory leaks, and worse, segfaults
-    >   - API will change for Python 3.0!
+1. 不借助任何工具, 手动打包你的C语言代码。
+    > - 加分项（优点）:
+    >   - 高效
+    >   - 不依赖其他的工具
+    > - 减分项（缺点）:
+    >   - 大量的学习开销。
+    >   - 需要学习Python C API的基础知识。
+    >   - 需要学习numpy C API的基础知识。
+    >   - 需要学习如何处理引用计数并且熟练掌握。
+    >   - 引用计数通常很难做到正确。
+    >   - 错误导致内存泄漏，更糟糕的是段错误。
+    >   - Python 3.0的API变化会很大。
 1. Cython
-    > - Plusses:
-    >   - avoid learning C API's
-    >   - no dealing with reference counting
-    >   - can code in pseudo python and generate C code
-    >   - can also interface to existing C code
-    >   - should shield you from changes to Python C api
-    >   - has become the de-facto standard within the scientific Python community
-    >   - fast indexing support for arrays
-    > - Minuses:
-    >   - Can write code in non-standard form which may become obsolete
-    >   - Not as flexible as manual wrapping
+    > - 加分项（优点）:
+    >   - 避免学习C API。
+    >   - 不需要处理引用计数。
+    >   - 可以在伪python中编码并生成C代码。
+    >   - 还可以接入现有的C代码的接口。
+    >   - 即便是Python的api改变了也不会对你有任何影响。
+    >   - 已经成为了科学Python社区中的权威标准。
+    >   - 对数组的快速索引的支持。
+    > - 减分项（缺点）:
+    >   - 可以用非标准形式编写可能过时的代码。
+    >   - 不如手动打包灵活。
 1. ctypes
-    > - Plusses:
-    >   - part of Python standard library
-    >   - good for interfacing to existing sharable libraries, particularly Windows DLLs
-    >   - avoids API/reference counting issues
-    >   - good numpy support: arrays have all these in their ctypes attribute:
+    > - 加分项（优点）:
+    >   - Python标准库的一部分
+    >   - 适用于连接现有的可共享库，尤其是Windows DLL
+    >   - 避免 API/reference 的引用计数问题。
+    >   - 良好的numpy支持：数组在ctypes属性中包含所有这些：
     >       ```python
     >       a.ctypes.data              a.ctypes.get_strides
     >       a.ctypes.data_as           a.ctypes.shape
@@ -132,44 +132,44 @@ Only a survey of the choices. Little detail on how each works.
     >       a.ctypes.get_data          a.ctypes.strides
     >       a.ctypes.get_shape         a.ctypes.strides_as
     >       ```
-    > - Minuses:
-    >   - can't use for writing code to be turned into C extensions, only a wrapper tool.
-1. SWIG (automatic wrapper generator)
-    > - Plusses:
-    >   - around a long time
-    >   - multiple scripting language support
-    >   - C++ support
-    >   - Good for wrapping large (many functions) existing C libraries
-    > - Minuses:
-    >   - generates lots of code between Python and the C code
-    >   - can cause performance problems that are nearly impossible to optimize out
-    >   - interface files can be hard to write
-    >   - doesn't necessarily avoid reference counting issues or needing to know API's
+    > - 减分项（缺点）:
+    >   - 不能把编写代码转换为C的扩展，只能用于打包工具。
+1. SWIG (自动打包工具)
+    > - 加分项（优点）:
+    >   - 耗时长。
+    >   - 多脚本语言支持
+    >   - C++ 支持
+    >   - 适用于打包大型的（包含许多函数）现有C库。
+    > - 减分项（缺点）:
+    >   - 在Python和C代码之间生成大量代码
+    >   - 可能导致几乎无法优化的性能问题
+    >   - 接口文件很难写
+    >   - 不一定避免引用计数问题　或　必须要了解大部分的API。
 1. scipy.weave
-    > - Plusses:
-    >   - can turn many numpy expressions into C code
-    >   - dynamic compiling and loading of generated C code
-    >   - can embed pure C code in Python module and have weave extract, generate interfaces and compile, etc.
-    > - Minuses:
-    >   - Future very uncertain: it's the only part of Scipy not ported to Python 3 and is effectively - deprecated in favor of Cython.
+    > - 加分项（优点）:
+    >   - 可以将许多numpy表达式转换为C代码
+    >   - 动态编译和加载生成的C代码
+    >   - 可在Python模块中嵌入纯C代码，并具有编织、提取、生成接口和编译等功能。
+    > - 减分项（缺点）:
+    >   - 未来非常不确定：它是Scipy中唯一没有移植到Python 3的部分，并且实际上已被弃用且不支持Cython。
 1. Psyco
-    > - Plusses:
-    >   - Turns pure python into efficient machine code through jit-like optimizations
-    >   - very fast when it optimizes well
-    > - Minuses:
-    >   - Only on intel (windows?)
-    >   - Doesn't do much for numpy?
+    > - 加分项（优点）:
+    >   - 通过类似jit的优化将纯python转换为高效的机器代码
+    >   - 当它优化得很好时非常快
+    > - 减分项（缺点）:
+    >   - 只在intel（也许是只能在windows上）上
+    >   - 对numpy没有多大作用？
 
-## Interfacing to Fortran:
+## 与Fortran的接口：
 
-The clear choice to wrap Fortran code is f2py.
+包装Fortran代码的明确选择是f2py。
 
-Pyfort is an older alternative, but not supported any longer. Fwrap is a newer project that looked promising but isn't being developed any longer.
+Pyfort是一个较落后的选择，而且很长的时间已经没有人维护了。Fwrap是一个看起来很有希望但已经流产了的项目。
 
-## Interfacing to C++:
+## 与C++的接口:
 
 > 1. Cython
 > 1. CXX
 > 1. Boost.python
 > 1. SWIG
-> 1. SIP (used mainly in PyQT)
+> 1. SIP (主要用于PyQT)
