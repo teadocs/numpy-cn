@@ -1,6 +1,6 @@
 # 结构化数组
 
-## Introduction
+## 介绍
 
 结构化数组其实就是ndarrays，其数据类型是由组成一系列命名字段的简单数据类型组成的。 例如：
 
@@ -79,8 +79,6 @@ array([('Rex', 5, 81.0), ('Fido', 5, 27.0)],
 
     这是最灵活的规范形式，因为它允许控制字段的字节偏移量和结构中的元素大小（itemsize）。
 
-    The dictionary has two required keys, ‘names’ and ‘formats’, and four optional keys, ‘offsets’, ‘itemsize’, ‘aligned’ and ‘titles’. The values for ‘names’ and ‘formats’ should respectively be a list of field names and a list of dtype specifications, of the same length. The optional ‘offsets’ value should be a list of integer byte-offsets, one for each field within the structure. If ‘offsets’ is not given the offsets are determined automatically. The optional ‘itemsize’ value should be an integer describing the total size in bytes of the dtype, which must be large enough to contain all the fields.
-
     字典有两个必需的键，'names' 和 'formats'，以及四个可选键，'offsets'，'itemsize'，'aligned' 和 'titles'。 'names' 和 'formats' 的值应该分别是长度相同的字段名称列表和dtype规范列表。 可选的 'offsets' 值应该是整数字节偏移量的列表，结构中的每个字段都有一个偏移量。 如果没有给出 'offsets'，则自动确定偏移量。 可选的 'itemsize' 值应该是一个描述dtype的总大小（以字节为单位）的整数，它必须足够大以包含所有字段。
 
     ```python
@@ -93,26 +91,26 @@ array([('Rex', 5, 81.0), ('Fido', 5, 27.0)],
     dtype({'names':['col1','col2'], 'formats':['<i4','<f4'], 'offsets':[0,4], 'itemsize':12})
     ```
 
-    Offsets may be chosen such that the fields overlap, though this will mean that assigning to one field may clobber any overlapping field’s data. As an exception, fields of ``numpy.object`` type cannot overlap with other fields, because of the risk of clobbering the internal object pointer and then dereferencing it.
+    可以选择偏移使得字段重叠，但这意味着分配给一个字段可能破坏任何重叠字段的数据。 作为一个例外，``numpy.object``类型的字段不能与其他字段重叠，因为存在破坏内部对象指针然后解除引用的风险。
+    
+    可选的 “aligned” 值可以设置为True，以使自动偏移计算使用对齐的偏移（请参阅[自动字节偏移和对齐](https://docs.scipy.org/doc/numpy/user/basics.rec.html#offsets-and-alignment)），就好像numpy.dtype的'align'关键字参数已设置为True。
 
-    The optional ‘aligned’ value can be set to ``True`` to make the automatic offset computation use aligned offsets (see [Automatic Byte Offsets and Alignment](https://docs.scipy.org/doc/numpy/user/basics.rec.html#offsets-and-alignment)), as if the ‘align’ keyword argument of ``numpy.dtype`` had been set to True.
-
-    The optional ‘titles’ value should be a list of titles of the same length as ‘names’, see [Field Titles](https://docs.scipy.org/doc/numpy/user/basics.rec.html#titles) below.
+    可选的 “titles” 值应该是与 “names” 长度相同的标题列表，请参阅的[字段标题](https://docs.scipy.org/doc/numpy/user/basics.rec.html#titles)。
 
 4. **字段名称的字典**
 
-    The use of this form of specification is discouraged, but documented here because older numpy code may use it. The keys of the dictionary are the field names and the values are tuples specifying type and offset:
+    不鼓励使用这种形式的规范，但也在此列出，因为较旧的numpy代码可能会使用它。字典的键是字段名称，值是指定类型和偏移量的元组：
 
     ```python
     >>> np.dtype=({'col1': ('i1',0), 'col2': ('f4',1)})
     dtype([(('col1'), 'i1'), (('col2'), '>f4')])
     ```
     
-    This form is discouraged because Python dictionaries do not preserve order in Python versions before Python 3.6, and the order of the fields in a structured dtype has meaning. [Field Titles](https://docs.scipy.org/doc/numpy/user/basics.rec.html#titles) may be specified by using a 3-tuple, see below.
+    不鼓励使用这种形式，因为Python的字典类型在Python3.6之前没有保留Python版本中的顺序，并且结构化dtype中字段的顺序具有意义。[字段标题](https://docs.scipy.org/doc/numpy/user/basics.rec.html#titles)可以通过使用3元组来指定，请参见下面的内容.
 
-### Manipulating and Displaying Structured Datatypes
+### 操作和显示结构化数据类型
 
-The list of field names of a structured datatype can be found in the ``names`` attribute of the dtype object:
+可以在dtype对象的``names``属性中找到结构化数据类型的字段名称列表：
 
 ```python
 >>> d = np.dtype([('x', 'i8'), ('y', 'f4')])
@@ -120,24 +118,24 @@ The list of field names of a structured datatype can be found in the ``names`` a
 ('x', 'y')
 ```
 
-The field names may be modified by assigning to the ``names`` attribute using a sequence of strings of the same length.
+可以通过使用相同长度的字符串序列分配 ``names`` 属性来修改字段名称。
 
-The dtype object also has a dictionary-like attribute, ``fields``, whose keys are the field names (and [Field Titles](https://docs.scipy.org/doc/numpy/user/basics.rec.html#titles), see below) and whose values are tuples containing the dtype and byte offset of each field.
+dtype对象还有一个类似字典的属性fields，其键是字段名称（和[Field Titles](https://docs.scipy.org/doc/numpy/user/basics.rec.html#titles)，见下文），其值是包含每个字段的dtype和byte偏移量的元组。
 
 ```python
 >>> d.fields
 mappingproxy({'x': (dtype('int64'), 0), 'y': (dtype('float32'), 8)})
 ```
 
-Both the ``names`` and ``fields`` attributes will equal ``None`` for unstructured arrays.
+对于非结构化数组，``names``和``fields`` 属性都是 ``None``。
 
-The string representation of a structured datatype is shown in the “list of tuples” form if possible, otherwise numpy falls back to using the more general dictionary form.
+如果可能，结构化数据类型的字符串表示形式为“元组列表”的形式，否则numpy将回退到使用更通用的字典的形式。
 
-### Manipulating and Displaying Structured Datatypes
+### 自动字节偏移和对齐
 
-Numpy uses one of two methods to automatically determine the field byte offsets and the overall itemsize of a structured datatype, depending on whether ``align=True`` was specified as a keyword argument to ``numpy.dtype``.
+Numpy使用两种方法中的一个来自动确定字节字节偏移量和结构化数据类型的整体项目大小，具体取决于是否将``align = True``指定为``numpy.dtype``的关键字参数。
 
-By default (``align=False``), numpy will pack the fields together such that each field starts at the byte offset the previous field ended, and the fields are contiguous in memory.
+默认情况下（``align = False``），numpy将字段打包在一起，使得每个字段从前一个字段结束的字节偏移开始，并且字段在内存中是连续的。
 
 ```python
 >>> def print_offsets(d):
@@ -148,7 +146,7 @@ offsets: [0, 1, 2, 6, 7, 15]
 itemsize: 17
 ```
 
-If ``align=True`` is set, numpy will pad the structure in the same way many C compilers would pad a C-struct. Aligned structures can give a performance improvement in some cases, at the cost of increased datatype size. Padding bytes are inserted between fields such that each field’s byte offset will be a multiple of that field’s alignment, which is usually equal to the field’s size in bytes for simple datatypes, see ``PyArray_Descr.alignment``. The structure will also have trailing padding added so that its itemsize is a multiple of the largest field’s alignment.
+如果设置``align = True``，numpy将以与许多C编译器填充C结构相同的方式填充结构。 在某些情况下，对齐结构可以提高性能，但代价是增加了数据的大小。 在字段之间插入填充字节，使得每个字段的字节偏移量将是该字段对齐的倍数，对于简单数据类型，通常等于字段的字节大小，请参阅“PyArray_Descr.alignment”。 该结构还将添加尾随填充，以使其itemsize是最大字段对齐的倍数。
 
 ```python
 >>> print_offsets(np.dtype('u1,u1,i4,u1,i8,u2', align=True))
@@ -156,15 +154,15 @@ offsets: [0, 1, 4, 8, 16, 24]
 itemsize: 32
 ```
 
-Note that although almost all modern C compilers pad in this way by default, padding in C structs is C-implementation-dependent so this memory layout is not guaranteed to exactly match that of a corresponding struct in a C program. Some work may be needed, either on the numpy side or the C side, to obtain exact correspondence.
+请注意，尽管默认情况下几乎所有现代C编译器都以这种方式填充，但C结构中的填充依赖于C实现，因此不能保证此内存布局与C程序中相应结构的内容完全匹配。 为了获得确切的对应关系，可能需要在numpy或C这边进行一些工作。
 
-If offsets were specified using the optional ``offsets`` key in the dictionary-based dtype specification, setting ``align=True`` will check that each field’s offset is a multiple of its size and that the itemsize is a multiple of the largest field size, and raise an exception if not.
+如果在基于字典的dtype规范中使用可选的``offsets``键指定了偏移量，设置``align = True``将检查每个字段的偏移量是否为其大小的倍数，项大小是否为最大字段大小的倍数，如果不是，则引发异常。
 
-If the offsets of the fields and itemsize of a structured array satisfy the alignment conditions, the array will have the ``ALIGNED`` flag set.
+如果结构化数组的字段和项目大小的偏移满足对齐条件，则数组将设置 ``ALIGNED`` 标志。
 
-A convenience function ``numpy.lib.recfunctions.repack_fields`` converts an aligned dtype or array to a packed one and vice versa. It takes either a dtype or structured ndarray as an argument, and returns a copy with fields re-packed, with or without padding bytes.
+便捷函数``numpy.lib.recfunctions.repack_fields``将对齐的dtype或数组转换为已打包的dtype或数组，反之亦然。它接受dtype或结构化ndarray作为参数，并返回一个带有重新打包的字段的副本，无论是否有填充字节。
 
-### Field Titles
+### 字段标题
 
 In addition to field names, fields may also have an associated title, an alternate name, which is sometimes used as an additional description or alias for the field. The title may be used to index an array, just like a field name.
 
