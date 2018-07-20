@@ -22,3 +22,4 @@ teadocs build
 昵称/机构 | 网站 | 备注
 ---|---|---
 Lisniuse | [https://tiesec.org/](https://tiesec.org/) | numpy中文文档创始者
+numpy官方 | [http://www.numpy.org/](http://www.numpy.org/) | numpy官方支持
