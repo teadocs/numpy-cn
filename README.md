@@ -4,10 +4,10 @@
 
 目前文档还处在翻译阶段，翻译程度大概在50%，基础功能基本都已翻译完毕，可以放心预览，下面是文档在线预览的地址。劳烦大家扩散以及传播本文档让更多的机器学习爱好者收益。
 
-# 访问
+## 访问
 [NumPy中文文档](http://numpy.org.cn/)
 
-# 贡献翻译与构建
+## 贡献翻译与构建
 
 本文档是基于[Teadocs](https://github.com/lisniuse/teadocs)所构建。
 
@@ -18,7 +18,7 @@
 teadocs build
 ```
 
-# 支持者名单
+## 支持者名单
 昵称/机构 | 网站 | 备注
 ---|---|---
 Lisniuse | [https://tiesec.org/](https://tiesec.org/) | numpy中文文档创始者

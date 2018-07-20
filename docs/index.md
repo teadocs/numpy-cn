@@ -28,7 +28,7 @@
 
 本文档自豪的使用 [Teadocs](https://github.com/lisniuse/teadocs) 文档生成工具生成。
 
-# 支持者名单
+## 支持者名单
 昵称/机构 | 网站 | 备注
 ---|---|---
 Lisniuse | [https://tiesec.org/](https://tiesec.org/) | numpy中文文档创始者
