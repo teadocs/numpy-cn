@@ -164,40 +164,40 @@ itemsize: 32
 
 ### 字段标题
 
-In addition to field names, fields may also have an associated title, an alternate name, which is sometimes used as an additional description or alias for the field. The title may be used to index an array, just like a field name.
+除了字段名称之外，字段还可以具有关联的标题，备用名称，有时用作字段的附加说明或别名。 标题可用于索引数组，就像字段名一样。
 
-To add titles when using the list-of-tuples form of dtype specification, the field name may be be specified as a tuple of two strings instead of a single string, which will be the field’s title and field name respectively. For example:
+要在使用dtype规范的list-of-tuples形式时添加标题，可以将字段名称指定为两个字符串的元组而不是单个字符串，它们分别是字段的标题和字段名称。 例如：
 
 ```python
 >>> np.dtype([(('my title', 'name'), 'f4')])
 ```
 
-When using the first form of dictionary-based specification, the ``titles`` may be supplied as an extra 'titles' key as described above. When using the second (discouraged) dictionary-based specification, the title can be supplied by providing a 3-element tuple ``(datatype, offset, title)`` instead of the usual 2-element tuple:
+当使用第一种形式的基于字典的规范时，``标题``可以作为额外的“标题”作为键提供，如上所述。 当使用第二个（不鼓励的）基于字典的规范时，可以通过提供3元素元组``（数据类型，偏移量，标题）``而不是通常的2元素元组来提供标题：
 
 ```python
 >>> np.dtype({'name': ('i4', 0, 'my title')})
-```
+``` 
 
-The ``dtype.fields`` dictionary will contain titles as keys, if any titles are used. This means effectively that a field with a title will be represented twice in the fields dictionary. The tuple values for these fields will also have a third element, the field title. Because of this, and because the ``names`` attribute preserves the field order while the ``fields`` attribute may not, it is recommended to iterate through the fields of a dtype using the ``names`` attribute of the dtype, which will not list titles, as in:
+如果使用了标题，``dtype.field``字典将包含作为键的标题。这意味着具有标题的字段将在字段字典中表示两次。这些字段的元组值还有第三个元素，字段标题。因此，由于``name``属性保留了字段顺序，而``field``属性可能不能，建议使用dtype的``name``属性迭代dtype的字段，该属性不会列出标题，如下所示：
 
 ```python
 >>> for name in d.names:
 ...     print(d.fields[name][:2])
 ```
 
-### Union types
+### 联合类型
 
-Structured datatypes are implemented in numpy to have base type ``numpy.void`` by default, but it is possible to interpret other numpy types as structured types using the ``(base_dtype, dtype)`` form of dtype specification described in Data Type Objects. Here, ``base_dtype`` is the desired underlying dtype, and fields and flags will be copied from ``dtype``. This dtype is similar to a ‘union’ in C.
+结构化数据类型在numpy中实现，默认情况下具有基类型``numpy.void``，但是可以使用数据类型对象中描述的dtype规范的``（base_dtype，dtype）``形式将其他numpy类型解释为结构化类型。 这里，``base_dtype``是所需的底层``dtype``，字段和标志将从dtype复制。 这个dtype类似于C中的'union'。
 
-## Indexing and Assignment to Structured arrays
+## 结构化数组的索引和分配
 
-### Assigning data to a Structured Array
+### 将数据分配给结构化数组
 
-There are a number of ways to assign values to a structured array: Using python tuples, using scalar values, or using other structured arrays.
+有许多方法可以为结构化数组赋值：使用python元组、使用标量值或使用其他结构化数组。
 
-#### Assignment from Python Native Types (Tuples)
+#### 使用Python原生类型(元组)来赋值
 
-The simplest way to assign values to a structured array is using python tuples. Each assigned value should be a tuple of length equal to the number of fields in the array, and not a list or array as these will trigger numpy’s broadcasting rules. The tuple’s elements are assigned to the successive fields of the array, from left to right:
+将值赋给结构化数组的最简单方法是使用python元组。 每个赋值应该是一个长度等于数组中字段数的元组，而不是列表或数组，因为它们将触发numpy的广播规则。 元组的元素从左到右分配给数组的连续字段：
 
 ```python
 >>> x = np.array([(1,2,3),(4,5,6)], dtype='i8,f4,f8')
@@ -207,9 +207,9 @@ array([(1, 2., 3.), (7, 8., 9.)],
      dtype=[('f0', '<i8'), ('f1', '<f4'), ('f2', '<f8')])
 ```
 
-#### Assignment from Scalars
+#### 通过标量赋值
 
-A scalar assigned to a structured element will be assigned to all fields. This happens when a scalar is assigned to a structured array, or when an unstructured array is assigned to a structured array:
+分配给结构化元素的标量将分配给所有字段。 将标量分配给结构化数组时，或者将非结构化数组分配给结构化数组时，会发生这种情况：
 
 ```python
 >>> x = np.zeros(2, dtype='i8,f4,?,S1')
@@ -223,7 +223,7 @@ array([(0, 0.0, False, b'0'), (1, 1.0, True, b'1')],
       dtype=[('f0', '<i8'), ('f1', '<f4'), ('f2', '?'), ('f3', 'S1')])
 ```
 
-Structured arrays can also be assigned to unstructured arrays, but only if the structured datatype has just a single field:
+结构化数组也可以分配给非结构化数组，但前提是结构化数据类型只有一个字段：
 
 ```python
 >>> twofield = np.zeros(2, dtype=[('A', 'i4'), ('B', 'i4')])
@@ -236,9 +236,9 @@ ValueError: Can't cast from structure to non-structure, except if the structure 
 array([0, 0], dtype=int32)
 ```
 
-#### Assignment from other Structured Arrays
+#### 来自其他结构化数组的赋值
 
-Assignment between two structured arrays occurs as if the source elements had been converted to tuples and then assigned to the destination elements. That is, the first field of the source array is assigned to the first field of the destination array, and the second field likewise, and so on, regardless of field names. Structured arrays with a different number of fields cannot be assigned to each other. Bytes of the destination structure which are not included in any of the fields are unaffected.
+两个结构化数组之间的分配就像源元素已转换为元组然后分配给目标元素一样。 也就是说，源阵列的第一个字段分配给目标数组的第一个字段，第二个字段同样分配，依此类推，而不管字段名称如何。 具有不同数量的字段的结构化数组不能彼此分配。 未包含在任何字段中的目标结构的字节不受影响。
 
 ```python
 >>> a = np.zeros(3, dtype=[('a', 'i8'), ('b', 'f4'), ('c', 'S3')])
@@ -249,15 +249,15 @@ array([(0.0, b'0.0', b''), (0.0, b'0.0', b''), (0.0, b'0.0', b'')],
       dtype=[('x', '<f4'), ('y', 'S3'), ('z', 'O')])
 ```
 
-#### Assignment involving subarrays
+#### 子阵列的赋值
 
-When assigning to fields which are subarrays, the assigned value will first be broadcast to the shape of the subarray.
+分配给子阵列的字段时，首先将指定的值广播到子阵列的形状。
 
-### Indexing Structured Arrays
+### 索引结构化数组
 
-#### Accessing Individual Fields
+#### 访问单个字段
 
-Individual fields of a structured array may be accessed and modified by indexing the array with the field name.
+可以通过使用字段名称索引数组来访问和修改结构化数组的各个字段。
 
 ```python
 >>> x = np.array([(1,2),(3,4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
@@ -269,7 +269,7 @@ array([(10, 2.), (10, 4.)],
       dtype=[('foo', '<i8'), ('bar', '<f4')])
 ```
 
-The resulting array is a view into the original array. It shares the same memory locations and writing to the view will modify the original array.
+可以通过使用字段名称索引数组来访问和修改结构化数组的各个字段。
 
 ```python
 >>> y = x['bar']
@@ -279,24 +279,24 @@ array([(10, 5.), (10, 5.)],
       dtype=[('foo', '<i8'), ('bar', '<f4')])
 ```
 
-This view has the same dtype and itemsize as the indexed field, so it is typically a non-structured array, except in the case of nested structures.
+此视图与索引字段具有相同的dtype和itemsize，因此它通常是非结构化数组，但嵌套结构除外。
 
 ```python
 >>> y.dtype, y.shape, y.strides
 (dtype('float32'), (2,), (12,))
 ```
 
-#### Accessing Multiple Fields
+#### 访问多个字段
 
-One can index and assign to a structured array with a multi-field index, where the index is a list of field names.
+可以索引并分配具有多字段索引的结构化数组，其中索引是字段名称列表
 
 <div class="warning-warp">
-<b>Warning</b>
+<b>警告</b>
 
-<p>The behavior of multi-field indexes will change from Numpy 1.14 to Numpy 1.15.</p>
+<p>多字段索引的说明将从Numpy 1.14升级Numpy 1.15。</p>
 </div>
 
-In Numpy 1.15, the result of indexing with a multi-field index will be a view into the original array, as follows:
+在Numpy 1.15中，使用多字段索引进行索引的结果将是原始数组的视图，如下所示：
 
 ```python
 >>> a = np.zeros(3, dtype=[('a', 'i4'), ('b', 'i4'), ('c', 'f4')])
@@ -305,19 +305,19 @@ array([(0, 0.), (0, 0.), (0, 0.)],
      dtype={'names':['a','c'], 'formats':['<i4','<f4'], 'offsets':[0,8], 'itemsize':12})
 ```
 
-Assignment to the view modifies the original array. The view’s fields will be in the order they were indexed. Note that unlike for single-field indexing, the view’s dtype has the same itemsize as the original array, and has fields at the same offsets as in the original array, and unindexed fields are merely missing.
+对视图的赋值会修改原始数组。 视图的字段将按索引编号的顺序排列。 请注意，与单字段索引不同，视图的dtype与原始数组具有相同的项目大小，并且具有与原始数组中相同的偏移量的字段，并且仅缺少未编入索引的字段。
 
-In Numpy 1.14, indexing an array with a multi-field index returns a copy of the result above for 1.15, but with fields packed together in memory as if passed through ``numpy.lib.recfunctions.repack_fields``. This is the behavior of Numpy 1.7 to 1.13.
+在Numpy 1.14中，索引具有多字段索引的数组将返回上述结果的副本(对于1.15)，但将字段打包在内存中，就好像通过了``numpy.lib.recFunctions.repack_field``。这是Numpy 1.7到1.13的行为。
 
 <div class="warning-warp">
-<b>Warning</b>
-<p>The new behavior in Numpy 1.15 leads to extra “padding” bytes at the location of unindexed fields. You will need to update any code which depends on the data having a “packed” layout. For instance code such as:</p>
+<b>警告</b>
+<p>Numpy 1.15中的新行为导致在未索引字段的位置出现额外的“填充”字节。您将需要更新所有的代码，这取决于具有“打包”布局的数据。例如下面的代码：</p>
 <pre class="prettyprint language-python">
 <code class="hljs">>>> a[['a','c']].view('i8')  # will fail in Numpy 1.15
 ValueError: When changing to a smaller dtype, its size must be a divisor of the size of original dtype</code>
 </pre>
-<p>will need to be changed. This code has raised a <code>FutureWarning</code> since Numpy 1.12.</p>
-<p>The following is a recommended fix, which will behave identically in Numpy 1.14 and Numpy 1.15:</p>
+<p>需要升级。这段代码从Numpy 1.12开始引发了 <code>FutureWarning</code> 的错误 </p>
+<p>以下是修复性建议，下面这段代码在Numpy 1.14和Numpy 1.15中的作用相同：</p>
 <pre class="prettyprint language-python">
 <code class="hljs">>>> from numpy.lib.recfunctions import repack_fields
 >>> repack_fields(a[['a','c']]).view('i8')  # supported 1.14 and 1.15
@@ -325,7 +325,7 @@ array([0, 0, 0])</code>
 </pre>
 </div>
 
-Assigning to an array with a multi-field index will behave the same in Numpy 1.14 and Numpy 1.15. In both versions the assignment will modify the original array:
+赋值给具有多字段索引的数组在Numpy 1.14和Numpy 1.15中的作用相同。在两个版本中，赋值都将修改原始数组：
 
 ```python
 >>> a[['a', 'c']] = (2, 3)
@@ -334,15 +334,15 @@ array([(2, 0, 3.0), (2, 0, 3.0), (2, 0, 3.0)],
       dtype=[('a', '<i8'), ('b', '<i4'), ('c', '<f8')])
 ```
 
-This obeys the structured array assignment rules described above. For example, this means that one can swap the values of two fields using appropriate multi-field indexes:
+这遵循上述结构化阵列赋值规则。 例如，这意味着可以使用适当的多字段索引交换两个字段的值：
 
 ```python
 >>> a[['a', 'c']] = a[['c', 'a']]
 ```
 
-#### Indexing with an Integer to get a Structured Scalar
+#### 用整数索引获取结构化标量
 
-Indexing a single element of a structured array (with an integer index) returns a structured scalar:
+索引结构化数组的单个元素(带有整数索引)返回结构化标量：
 
 ```python
 >>> x = np.array([(1, 2., 3.)], dtype='i,f,f')
@@ -353,7 +353,7 @@ Indexing a single element of a structured array (with an integer index) returns 
 numpy.void
 ```
 
-Unlike other numpy scalars, structured scalars are mutable and act like views into the original array, such that modifying the scalar will modify the original array. Structured scalars also support access and assignment by field name:
+与其他数值标量不同的是，结构化标量是可变的，并且像原始数组中的视图一样，因此修改标量将修改原始数组。结构化标量还支持按字段名进行访问和赋值：
 
 ```python
 >>> x = np.array([(1,2),(3,4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
@@ -364,7 +364,7 @@ array([(1, 100.), (3, 4.)],
       dtype=[('foo', '<i8'), ('bar', '<f4')])
 ```
 
-Similarly to tuples, structured scalars can also be indexed with an integer:
+与元组类似，结构化标量也可以用整数索引：
 
 ```python
 >>> scalar = np.array([(1, 2., 3.)], dtype='i,f,f')[0]
@@ -373,20 +373,20 @@ Similarly to tuples, structured scalars can also be indexed with an integer:
 >>> scalar[1] = 4
 ```
 
-Thus, tuples might be thought of as the native Python equivalent to numpy’s structured types, much like native python integers are the equivalent to numpy’s integer types. Structured scalars may be converted to a tuple by calling ndarray.item:
+因此，元组可能被认为是原生Python中等同于numpy的结构化的类型，就像原生python整数相当于numpy的整数类型。 可以通过调用ndarray.item将结构化标量转换为元组：
 
 ```python
 >>> scalar.item(), type(scalar.item())
 ((1, 2.0, 3.0), tuple)
 ```
 
-### Viewing Structured Arrays Containing Objects
+### 查看包含对象的结构化数组
 
-In order to prevent clobbering object pointers in fields of ``numpy.object`` type, numpy currently does not allow views of structured arrays containing objects.
+为了防止在```numpy.Object``类型的字段中阻塞对象指针，numpy目前不允许包含对象的结构化数组的视图。
 
-### Structure Comparison
+### 结构比较
 
-If the dtypes of two void structured arrays are equal, testing the equality of the arrays will result in a boolean array with the dimensions of the original arrays, with elements set to True where all fields of the corresponding structures are equal. Structured dtypes are equal if the field names, dtypes and titles are the same, ignoring endianness, and the fields are in the same order:
+如果两个空结构数组的dtype相等，则测试数组的相等性将生成一个具有原始数组的维度的布尔数组，元素设置为True，其中相应结构的所有字段都相等。如果字段名称、dtype和标题相同，而忽略endianness，且字段的顺序相同，则结构化dtype是相等的：
 
 ```python
 >>> a = np.zeros(2, dtype=[('a', 'i4'), ('b', 'i4')])
@@ -395,15 +395,18 @@ If the dtypes of two void structured arrays are equal, testing the equality of t
 array([False, False])
 ```
 
-Currently, if the dtypes of two void structured arrays are not equivalent the comparison fails, returning the scalar value ``False``. This behavior is deprecated as of numpy 1.10 and will raise an error or perform elementwise comparison in the future.
+目前，如果两个void结构化数组的dtypes不相等，则比较失败返回标量值“False”。 从numpy 1.10开始不推荐使用这种方式，并且这种方式将来会引发错误或执行元素比较。
+
 
 The ``<`` and ``>`` operators always return ``False`` when comparing void structured arrays, and arithmetic and bitwise operations are not supported.
 
-## Record Arrays
+在比较空结构数组时，``<`` 和 ``>`` 操作符总是返回 ``False``，并且不支持算术和位运算符。
 
-As an optional convenience numpy provides an ndarray subclass, ``numpy.recarray``, and associated helper functions in the ``numpy.rec`` submodule, that allows access to fields of structured arrays by attribute instead of only by index. Record arrays also use a special datatype, ``numpy.record``, that allows field access by attribute on the structured scalars obtained from the array.
+## 记录数组
 
-The simplest way to create a record array is with ``numpy.rec.array``:
+作为一个可选的方便的选项，numpy提供了一个ndarray子类 ``numpy.recarray``，以及 ``numpy.rec``子模块中的相关帮助函数，它允许通过属性访问结构化数组的字段，而不仅仅是通过索引。记录数组还使用一种特殊的数据类型 ``numpy.Record``，它允许通过属性对从数组获得的结构化标量进行字段访问。
+
+创建记录数组的最简单方法是使用 ``numpy.rec.array``, 像下面这样：
 
 ```python
 >>> recordarr = np.rec.array([(1,2.,'Hello'),(2,3.,"World")],
@@ -421,7 +424,7 @@ array([2], dtype=int32)
 'World'
 ```
 
-``numpy.rec.array`` can convert a wide variety of arguments into record arrays, including structured arrays:
+``numpy.rec.array`` 可以将各种参数转换为记录数组，包括结构化数组：
 
 ```python
 >>> arr = array([(1,2.,'Hello'),(2,3.,"World")],
@@ -429,9 +432,9 @@ array([2], dtype=int32)
 >>> recordarr = np.rec.array(arr)
 ```
 
-The ``numpy.rec`` module provides a number of other convenience functions for creating record arrays, see [record array creation routines](https://docs.scipy.org/doc/numpy/reference/routines.array-creation.html#routines-array-creation-rec).
+numpy.rec模块提供了许多其他便捷的函数来创建记录数组，[请参阅记录数组创建API]((https://docs.scipy.org/doc/numpy/reference/routines.array-creation.html#routines-array-creation-rec))。
 
-A record array representation of a structured array can be obtained using the appropriate view:
+可以使用适当的视图获取结构化数组的记录数组表示：
 
 ```python
 >>> arr = np.array([(1,2.,'Hello'),(2,3.,"World")],
@@ -440,7 +443,7 @@ A record array representation of a structured array can be obtained using the ap
 ...                      type=np.recarray)
 ```
 
-For convenience, viewing an ndarray as type ``np.recarray`` will automatically convert to ``np.record`` datatype, so the dtype can be left out of the view:
+为方便起见，查看类型为``np.recarray``的ndarray会自动转换为``np.record``数据类型，因此dtype可以不在视图之外：
 
 ```python
 >>> recordarr = arr.view(np.recarray)
@@ -448,13 +451,13 @@ For convenience, viewing an ndarray as type ``np.recarray`` will automatically c
 dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 ```
 
-To get back to a plain ndarray both the dtype and type must be reset. The following view does so, taking into account the unusual case that the recordarr was not a structured type:
+要返回普通的ndarray，必须重置dtype和type。 以下视图是这样做的，考虑到recordarr不是结构化类型的异常情况：
 
 ```python
 >>> arr2 = recordarr.view(recordarr.dtype.fields or recordarr.dtype, np.ndarray)
 ```
 
-Record array fields accessed by index or by attribute are returned as a record array if the field has a structured type but as a plain ndarray otherwise.
+如果字段具有结构化类型，则返回由index或by属性访问的记录数组字段作为记录数组，否则返回普通ndarray。
 
 ```python
 >>> recordarr = np.rec.array([('Hello', (1,2)),("World", (3,4))],
@@ -465,4 +468,4 @@ Record array fields accessed by index or by attribute are returned as a record a
 <class 'numpy.core.records.recarray'>
 ```
 
-Note that if a field has the same name as an ndarray attribute, the ndarray attribute takes precedence. Such fields will be inaccessible by attribute but will still be accessible by index.
+请注意，如果字段与ndarray属性具有相同的名称，则ndarray属性优先。 这些字段将无法通过属性访问，但仍可通过索引访问。
