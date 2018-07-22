@@ -1,22 +1,22 @@
 # 子类化ndarray
 
-## Introduction
+## 介绍
 
-Subclassing ndarray is relatively simple, but it has some complications compared to other Python objects. On this page we explain the machinery that allows you to subclass ndarray, and the implications for implementing a subclass.
+子类化ndarray相对简单，但与其他Python对象相比，它有一些复杂性。 在这个页面上，我们解释了允许你子类化ndarray的机制，以及实现子类的含义。
 
-### ndarrays and object creation
+### ndarrays和对象创建
 
-Subclassing ndarray is complicated by the fact that new instances of ndarray classes can come about in three different ways. These are:
+ndarray的子类化很复杂，因为ndarray类的新实例可以以三种不同的方式出现。 这些是：
 
-1. Explicit constructor call - as in ``MySubClass(params)``. This is the usual route to Python instance creation.
-1. View casting - casting an existing ndarray as a given subclass
-1. New from template - creating a new instance from a template instance. Examples include returning slices from a subclassed array, creating return types from ufuncs, and copying arrays. See Creating new from template for more details
+1. 显式构造函数调用 - 如``MySubClass（params）``。 这是创建Python实例的常用途径。
+1. 查看转换 - 将现有的ndarray转换为给定的子类。
+1. 从模板创建新实例-从模板实例创建新实例。示例包括从子类数组返回片、从uFuncs创建返回类型和复制数组。有关更多详细信息，请参见[从模板创建](#从模版创建)。
 
-The last two are characteristics of ndarrays - in order to support things like array slicing. The complications of subclassing ndarray are due to the mechanisms numpy has to support these latter two routes of instance creation.
+最后两个是ndarrays的特征 - 为了支持数组切片之类的东西。 子类化ndarray的复杂性是由于numpy必须支持后两种实例创建路径的机制。
 
-## View casting
+## 视图投影
 
-View casting is the standard ndarray mechanism by which you take an ndarray of any subclass, and return a view of the array as another (specified) subclass:
+视图投影是标准的ndarray机制，通过它您可以获取任何子类的ndarray，并将该数组的视图作为另一个（指定的）子类返回：
 
 ```python
 >>> import numpy as np
@@ -30,9 +30,9 @@ View casting is the standard ndarray mechanism by which you take an ndarray of a
 <class 'C'>
 ```
 
-## Creating new from template
+## 从模版创建
 
-New instances of an ndarray subclass can also come about by a very similar mechanism to View casting, when numpy finds it needs to create a new instance from a template instance. The most obvious place this has to happen is when you are taking slices of subclassed arrays. For example:
+当numpy发现它需要从模板实例创建新实例时，ndarray子类的新实例也可以通过与视图转换非常相似的机制来实现。 这个情况的最明显的时候是你正为子类阵列切片的时候。例如：
 
 ```python
 >>> v = c_arr[1:]
@@ -42,27 +42,29 @@ New instances of an ndarray subclass can also come about by a very similar mecha
 False
 ```
 
-The slice is a view onto the original ``c_arr`` data. So, when we take a view from the ndarray, we return a new ndarray, of the same class, that points to the data in the original.
+切片是原始 ``C_ARR`` 数据的视图。因此，当我们从ndarray获取视图时，我们返回一个新的ndarray，它属于同一个类，指向原始的数据。
 
 There are other points in the use of ndarrays where we need such views, such as copying arrays (``c_arr.copy()``), creating ufunc output arrays (see also __array_wrap__ for ufuncs and other functions), and reducing methods (like ``c_arr.mean()``.
 
-## Relationship of view casting and new-from-template
+在使用ndarray时，我们还需要这样的视图，比如复制数组(``C_arr.Copy()``)、创建ufunc输出数组(关于uFunc函数和其他函数，也请参阅_array_warp___)和简化方法(比如`C_arr.Means()‘)。
 
-These paths both use the same machinery. We make the distinction here, because they result in different input to your methods. Specifically, View casting means you have created a new instance of your array type from any potential subclass of ndarray. Creating new from template means you have created a new instance of your class from a pre-existing instance, allowing you - for example - to copy across attributes that are particular to your subclass.
+## 视图投影和从模版创建的关系
 
-## Implications for subclassing
+这些路径都使用相同的机制。我们在这里进行区分，因为它们会为您的方法产生不同的输入。 具体来说，View转换意味着您已从ndarray的任何潜在子类创建了数组类型的新实例。从模板创建新意味着您已从预先存在的实例创建了类的新实例，例如，允许您跨特定于您的子类的属性进行复制。
 
-If we subclass ndarray, we need to deal not only with explicit construction of our array type, but also View casting or Creating new from template. NumPy has the machinery to do this, and this machinery that makes subclassing slightly non-standard.
+## 子类化的含义
 
-There are two aspects to the machinery that ndarray uses to support views and new-from-template in subclasses.
+如果我们继承ndarray，我们不仅需要处理数组类型的显式构造，还需要处理视图投影或从模板创建。NumPy有这样的机制，这种机制使子类略微不标准。
 
-The first is the use of the ``ndarray.__new__`` method for the main work of object initialization, rather then the more usual ``__init__`` method. The second is the use of the ``__array_finalize__`` method to allow subclasses to clean up after the creation of views and new instances from templates.
+ndarray用于支持视图和子类中的new-from-template（从模版创建）的机制有两个方面。
 
-### A brief Python primer on ``__new__`` and ``__init__``
+第一个是使用``ndarray .__ new__``方法进行对象初始化的主要工作，而不是更常用的``__init__``方法。 第二个是使用``__array_finalize__``方法，允许子类在创建视图和模板中的新实例后进行内存清除。
 
-``__new__`` is a standard Python method, and, if present, is called before ``__init__`` when we create a class instance. See the python __new__ documentation for more detail.
+### 关于在Python中的 ``__new__`` 和 ``__init__`` 的简短入门
 
-For example, consider the following Python code:
+``__ new__``是一个标准的Python方法，如果存在，在创建类实例时在``__init__``之前调用。 有关更多详细信息，请参阅 [python __new__文档](https://docs.python.org/3/reference/datamodel.html#object.__new__)。
+
+例如，请思考以下Python代码：
 
 ```python
 class C(object):
@@ -76,7 +78,7 @@ class C(object):
         print('Args in __init__:', args)
 ```
 
-meaning that we get:
+思考后我们可以得到：
 
 ```python
 >>> c = C('hello')
