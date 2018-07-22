@@ -44,9 +44,7 @@ False
 
 切片是原始 ``C_ARR`` 数据的视图。因此，当我们从ndarray获取视图时，我们返回一个新的ndarray，它属于同一个类，指向原始的数据。
 
-There are other points in the use of ndarrays where we need such views, such as copying arrays (``c_arr.copy()``), creating ufunc output arrays (see also __array_wrap__ for ufuncs and other functions), and reducing methods (like ``c_arr.mean()``.
-
-在使用ndarray时，我们还需要这样的视图，比如复制数组(``C_arr.Copy()``)、创建ufunc输出数组(关于uFunc函数和其他函数，也请参阅_array_warp___)和简化方法(比如`C_arr.Means()‘)。
+在使用ndarray时，我们还需要这样的视图，比如复制数组(``C_arr.Copy()``)、创建ufunc输出数组(关于uFunc函数和其他函数，也请参阅_array_warp___ )和简化方法(比如 ``C_arr.Means()`` )。
 
 ## 视图投影和从模版创建的关系
 
