@@ -86,11 +86,11 @@ type(self) in __init__: <class 'C'>
 Args in __init__: ('hello',)
 ```
 
-When we call ``C('hello')``, the ``__new__`` method gets its own class as first argument, and the passed argument, which is the string ``'hello'``. After python calls ``__new__``, it usually (see below) calls our ``__init__`` method, with the output of ``__new__`` as the first argument (now a class instance), and the passed arguments following.
+当我们调用``C（'hello'）``时，``__ new__``方法将自己的类作为第一个参数，并传递参数，即字符串``'hello'``。 在python调用 ``__new__`` 之后，它通常（见下文）调用我们的 ``__init__`` 方法，将``__new__`` 的输出作为第一个参数（现在是一个类实例），然后传递参数。
 
-As you can see, the object can be initialized in the ``__new__`` method or the ``__init__`` method, or both, and in fact ndarray does not have an ``__init__`` method, because all the initialization is done in the ``__new__`` method.
+正如你所看到的，对象可以在`__new__``方法或``__init__``方法中初始化，或两者兼而有之，实际上ndarray没有``__init__``方法，因为所有的初始化都是 在``__new__``方法中完成。
 
-Why use ``__new__`` rather than just the usual ``__init__``? Because in some cases, as for ndarray, we want to be able to return an object of some other class. Consider the following:
+为什么要使用``__new__``而不是通常的``__init__``？ 因为在某些情况下，对于ndarray，我们希望能够返回其他类的对象。 考虑以下：
 
 ```python
 class D(C):
@@ -104,7 +104,7 @@ class D(C):
         print('In D __init__')
 ```
 
-meaning that:
+实践后：
 
 ```python
 >>> obj = D('hello')
@@ -116,35 +116,35 @@ Args in __new__: ('hello',)
 <class 'C'>
 ```
 
-The definition of ``C`` is the same as before, but for ``D``, the ``__new__`` method returns an instance of class ``C`` rather than ``D``. Note that the ``__init__`` method of ``D`` does not get called. In general, when the ``__new__`` method returns an object of class other than the class in which it is defined, the ``__init__`` method of that class is not called.
+``C``的定义与之前相同，但对于``D``，``__new__``方法返回类``C``而不是``D``的实例。 请注意，``D``的``__init__``方法不会被调用。 通常，当``__new__``方法返回除定义它的类之外的类的对象时，不调用该类的``__init__``方法。
 
-This is how subclasses of the ndarray class are able to return views that preserve the class type. When taking a view, the standard ndarray machinery creates the new ndarray object with something like:
+这就是ndarray类的子类如何能够返回保留类类型的视图。 在观察时，标准的ndarray机器创建了新的ndarray对象，例如：
 
 ```python
 obj = ndarray.__new__(subtype, shape, ...
 ```
 
-where ``subdtype`` is the subclass. Thus the returned view is of the same class as the subclass, rather than being of class ``ndarray``.
+其中``subdtype``是子类。 因此，返回的视图与子类属于同一类，而不是类``ndarray``。
 
-That solves the problem of returning views of the same type, but now we have a new problem. The machinery of ndarray can set the class this way, in its standard methods for taking views, but the ndarray ``__new__`` method knows nothing of what we have done in our own ``__new__`` method in order to set attributes, and so on. (Aside - why not call ``obj = subdtype.__new__(...`` then? Because we may not have a ``__new__`` method with the same call signature).
+这解决了返回相同类型视图的问题，但现在我们遇到了一个新问题。 ndarray的机制可以用这种方式设置类，在它的标准方法中获取视图，但是ndarray``__new__``方法不知道我们在自己的``__new__``方法中做了什么来设置属性， 等等。 （旁白 - 为什么不调用``obj = subdtype .__ new __（...``那么？因为我们可能没有一个带有相同调用特征的`__new__``方法）。
 
-### The role of ``__array_finalize__``
+### ``__array_finalize__`` 的作用
 
-``__array_finalize__`` is the mechanism that numpy provides to allow subclasses to handle the various ways that new instances get created.
+``__array_finalize__``是numpy提供的机制，允许子类处理创建新实例的各种方法。
 
-Remember that subclass instances can come about in these three ways:
+请记住，子类实例可以通过以下三种方式实现：
 
-1. explicit constructor call (``obj = MySubClass(params)``). This will call the usual sequence of ``MySubClass.__new__`` then (if it exists) ``MySubClass.__init__``.
-1. View casting
-1. Creating new from template
+1. 显式构造函数调用（``obj = MySubClass（params）``）。 这将调用通常的``MySubClass .__ new__``方法，然后再调用（如果存在）``MySubClass .__ init__``。
+1. 视图投影。
+1. 从模板创建。
 
-Our ``MySubClass.__new__`` method only gets called in the case of the explicit constructor call, so we can’t rely on ``MySubClass.__new__`` or ``MySubClass.__init__`` to deal with the view casting and new-from-template. It turns out that ``MySubClass.__array_finalize__`` does get called for all three methods of object creation, so this is where our object creation housekeeping usually goes.
+我们的``MySubClass .__ new__``方法仅在显式构造函数调用的情况下被调用，因此我们不能依赖于``MySubClass .__ new__``或``MySubClass .__ init__``来处理视图投影和“从模板创建”。 事实证明，对于所有三种对象创建方法都会调用``MySubClass .__ array_finalize__``，所以这就是我们的对象从内部创建理通常会发生的情况。
 
-- For the explicit constructor call, our subclass will need to create a new ndarray instance of its own class. In practice this means that we, the authors of the code, will need to make a call to ``ndarray.__new__(MySubClass,...)``, a class-hierarchy prepared call to ``super(MySubClass, cls).__new__(cls, ...``), or do view casting of an existing array (see below)
-- For view casting and new-from-template, the equivalent of ``ndarray.__new__(MySubClass,...`` is called, at the C level.
-The arguments that ``__array_finalize__`` receives differ for the three methods of instance creation above.
+- 对于显式构造函数调用，我们的子类需要创建自己的类的新ndarray实例。 在实践中，这意味着我们作为代码的编写者，需要调用``ndarray .__ new __（MySubClass，...）``，一个类的层次结构会调用``super（MySubClass，cls） .__ new __（cls，...``），或查看现有数组的视图投影（见下文）
+- 对于视图投影和“从模板创建”，相当于``ndarray .__ new __（MySubClass，...``在C级的调用。
+“__array_finalize__``收到的参数因上面三种实例创建方法而异。
 
-The following code allows us to look at the call sequences and arguments:
+以下代码允许我们查看调用顺序和参数：
 
 ```python
 import numpy as np
@@ -165,7 +165,7 @@ class C(np.ndarray):
         print('   obj type is %s' % type(obj))
 ```
 
-Now:
+现在看:
 
 ```python
 >>> # Explicit constructor
@@ -188,23 +188,23 @@ In array_finalize:
    obj type is <class 'C'>
 ```
 
-The signature of ``__array_finalize__ is``:
+``__array_finalize__ `` 的特征是:
 
 ```python
 def __array_finalize__(self, obj):
 ```
 
-One sees that the ``super`` call, which goes to ``ndarray.__new__``, passes ``__array_finalize__`` the new object, of our own class (``self``) as well as the object from which the view has been taken (``obj``). As you can see from the output above, the ``self`` is always a newly created instance of our subclass, and the type of ``obj`` differs for the three instance creation methods:
+可以看到``super``调用，它转到``ndarray .__ new__``，将``__array_finalize__``传递给我们自己的类（``self``）的新对象以及来自的对象 视图已被采用（``obj``）。 从上面的输出中可以看出，``self``始终是我们子类的新创建的实例，而``obj``的类型对于三个实例创建方法是不同的：
 
-- When called from the explicit constructor, ``obj`` is ``None``
-- When called from view casting, ``obj`` can be an instance of any subclass of ndarray, including our own.
-- When called in new-from-template, ``obj`` is another instance of our own subclass, that we might use to update the new ``self`` instance.
+- 当从显式构造函数调用时，“obj”是“None”。
+- 当从视图转换调用时，``obj``可以是ndarray的任何子类的实例，包括我们自己的子类。
+- 当在新模板中调用时，``obj``是我们自己子类的另一个实例，我们可以用它来更新的``self``实例。
 
-Because ``__array_finalize__`` is the only method that always sees new instances being created, it is the sensible place to fill in instance defaults for new object attributes, among other tasks.
+因为``__array_finalize__``是唯一始终看到正在创建新实例的方法，所以它是填充新对象属性的实例的默认值以及其他任务的合适的位置。
 
-This may be clearer with an example.
+通过示例可能更清楚。
 
-## Simple example - adding an extra attribute to ndarray
+## 简单示例 - 向ndarray添加额外属性
 
 ```python
 import numpy as np
@@ -253,7 +253,7 @@ class InfoArray(np.ndarray):
         # We do not need to return anything
 ```
 
-Using the object looks like this:
+使用该对象如下所示：
 
 ```python
 >>> obj = InfoArray(shape=(3,)) # explicit constructor
@@ -277,11 +277,11 @@ True
 True
 ```
 
-This class isn’t very useful, because it has the same constructor as the bare ndarray object, including passing in buffers and shapes and so on. We would probably prefer the constructor to be able to take an already formed ndarray from the usual numpy calls to ``np.array`` and return an object.
+这个类不是很有用，因为它与裸ndarray对象具有相同的构造函数，包括传入缓冲区和形状等等。我们可能更偏向于希望构造函数能够将已经构成的ndarray类型通过常用的numpy的``np.array``来调用并返回一个对象。
 
-## Slightly more realistic example - attribute added to existing array
+## 更真实的示例 - 添加到现有数组的属性
 
-Here is a class that takes a standard ndarray that already exists, casts as our type, and adds an extra attribute.
+这是一个类，它采用已经存在的标准ndarray，转换为我们的类型，并添加一个额外的属性。
 
 ```python
 import numpy as np
@@ -303,7 +303,7 @@ class RealisticInfoArray(np.ndarray):
         self.info = getattr(obj, 'info', None)
 ```
 
-So:
+所以:
 
 ```python
 >>> arr = np.arange(5)
@@ -319,29 +319,24 @@ So:
 'information'
 ```
 
-## ``__array_ufunc__`` for ufuncs
+## ufuncs的``__array_ufunc__``
 
-> New in version 1.13.
+> 版本1.13中的新功能。
 
-A subclass can override what happens when executing numpy ufuncs on it by overriding the ``default ndarray.__array_ufunc__`` method. This method is executed instead of the ufunc and should return either the result of the operation, or ``NotImplemented`` if the operation requested is not implemented.
+子类可以通过重写默认的``ndarray.__arrayufunc_``方法来重写在其上执行numpy uFunc函数时的行为。此方法将代替ufunc执行，如果未实现所请求的操作，则应返回操作结果或`NotImplemented``。
 
-The signature of ``__array_ufunc__`` is:
+``__array_ufunc__`` 的特征是:
 
 ```python
 def __array_ufunc__(ufunc, method, *inputs, **kwargs):
 
-- *ufunc* is the ufunc object that was called.
-- *method* is a string indicating how the Ufunc was called, either
-  ``"__call__"`` to indicate it was called directly, or one of its
-  :ref:`methods<ufuncs.methods>`: ``"reduce"``, ``"accumulate"``,
-  ``"reduceat"``, ``"outer"``, or ``"at"``.
-- *inputs* is a tuple of the input arguments to the ``ufunc``
-- *kwargs* contains any optional or keyword arguments passed to the
-  function. This includes any ``out`` arguments, which are always
-  contained in a tuple.
+- *ufunc* 是被调用的ufunc对象。
+- *method* 是一个字符串，指示如何调用Ufunc。“__call__” 表示它是直接调用的，或者是下面的其中一个：`methods <ufuncs.methods>`：“reduce”，“accumulate”，“reduceat”，“outer” 或 “at” 等属性。
+- *inputs* 是 “ufunc” 的类型为元组的输入参数。
+- *kwargs* A包含传递给函数的任何可选或关键字参数。 这包括任何``out``参数，并且它们总是包含在元组中。
 ```
 
-A typical implementation would convert any inputs or ouputs that are instances of one’s own class, pass everything on to a superclass using ``super()``, and finally return the results after possible back-conversion. An example, taken from the test case ``test_ufunc_override_with_super`` in ``core/tests/test_umath.py``, is the following.
+典型的实现将转换任何作为自己类的实例的输入或输出，使用``super()``方法将所有内容传递给超类，最后在可能的反向转换后返回结果。 从``core / tests / test_umath.py``中的测试用例``test_ufunc_override_with_super``获取的示例如下。
 
 ```python
 input numpy as np
@@ -399,7 +394,7 @@ class A(np.ndarray):
         return results[0] if len(results) == 1 else results
 ```
 
-So, this class does not actually do anything interesting: it just converts any instances of its own to regular ndarray (otherwise, we’d get infinite recursion!), and adds an ``info`` dictionary that tells which inputs and outputs it converted. Hence, e.g.,
+所以，这个类实际上没有做任何有趣的事情：它只是将它自己的任何实例转换为常规的ndarray（否则，我们会得到无限的递归！），并添加一个``info``字典，告诉哪些输入和输出它转换。因此，例如：
 
 ```python
 >>> a = np.arange(5.).view(A)
