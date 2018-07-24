@@ -413,18 +413,17 @@ class A(np.ndarray):
 >>> a.info
 {'inputs': [0, 1], 'outputs': [0]}
 ```
+注意，另一种方法是使用 ``getattr(ufunc, methods)(*inputs, **kwargs)`` 而不是调用 ``super`` 。对于此示例，结果将是相同的，但如果另一个运算数也定义 ``__array_ufunc__`` 则会存在差异。 例如，假设我们执行 ``np.add(a, b)``，其中b是另一个重写功能的b类的实例。如果你在示例中调用 ``super``， ``ndarray .__ array_ufunc__`` 会注意到b有一个覆盖，这意味着它无法评估结果本身。因此，它将返回NotImplemented，我们的类``A``也将返回。然后，控制权将传递给``b``，它知道如何处理我们并生成结果，或者不知道并返回NotImplemented，从而引发``TypeError``。
 
-Note that another approach would be to to use ``getattr(ufunc, methods)(*inputs, **kwargs)`` instead of the ``super`` call. For this example, the result would be identical, but there is a difference if another operand also defines ``__array_ufunc__``. E.g., lets assume that we evalulate ``np.add(a, b)``, where ``b`` is an instance of another class B that has an override. If you use ``super`` as in the example, ``ndarray.__array_ufunc__`` will notice that ``b`` has an override, which means it cannot evaluate the result itself. Thus, it will return NotImplemented and so will our class ``A``. Then, control will be passed over to ``b``, which either knows how to deal with us and produces a result, or does not and returns NotImplemented, raising a ``TypeError``.
+如果相反，我们用 ``getattr(ufunc, method)`` 替换我们的 ``Super`` 调用，那么我们实际上执行了``np.add(a.view(np.ndarray), b)``。同样，``b.arrayufunc_``将被调用，但现在它将一个ndarray作为另一个参数。很可能，它将知道如何处理这个问题，并将``B``类的一个新实例返回给我们。我们的示例类并不是为处理这个问题而设置的，但是，如果要使用``___array_`___ufunc_``重新实现 ``MaskedArray``，那么它很可能是最好的方法。
 
-If instead, we replace our ``super`` call with ``getattr(ufunc, method)``, we effectively do ``np.add(a.view(np.ndarray), b)``. Again, ``B.__array_ufunc__`` will be called, but now it sees an ndarray as the other argument. Likely, it will know how to handle this, and return a new instance of the ``B`` class to us. Our example class is not set up to handle this, but it might well be the best approach if, e.g., one were to re-implement ``MaskedArray`` using ``__array_ufunc__``.
+最后要注意：如果走``super``的路线适合给定的类，使用它的一个优点是它有助于构造类层次结构。例如，假设我们的其他类``B``在其``__array_ufunc__``实现中也使用了``super``，我们创建了一个依赖于它们的类``C``，即``class C （A，B）``（为简单起见，不是另一个``__array_ufunc__``覆盖）。 那么``C``实例上的任何ufunc都会传递给``A .__ array_ufunc__``，``A``中的``super``调用将转到``B .__ array_ufunc__``，并且 ``B``中的``super``调用将转到``ndarray .__ array_ufunc__``，从而允许``A``和`````进行协作。
 
-As a final note: if the ``super`` route is suited to a given class, an advantage of using it is that it helps in constructing class hierarchies. E.g., suppose that our other class ``B`` also used the ``super`` in its ``__array_ufunc__`` implementation, and we created a class ``C`` that depended on both, i.e., ``class C(A, B)`` (with, for simplicity, not another ``__array_ufunc__`` override). Then any ufunc on an instance of ``C`` would pass on to ``A.__array_ufunc__``, the ``super`` call in ``A`` would go to ``B.__array_ufunc__``, and the ``super`` call in ``B`` would go to ``ndarray.__array_ufunc__``, thus allowing ``A`` and ``B`` to collaborate.
+## ``__array_wrap__``用于ufuncs和其他函数
 
-## ``__array_wrap__`` for ufuncs and other functions
+在numpy 1.13之前，ufuncs的行为只能使用`__array_wrap__``和`__array_prepare__``进行调整。这两个允许一个更改ufunc的输出类型，但是，与前两者相反，`__array_ufunc__``，它不允许对输入进行任何更改。它希望最终弃能弃用这些功能，但是``__array_wrap__``也被其他numpy函数和方法使用，比如``squeeze``，所以目前仍需要完整的功能。
 
-Prior to numpy 1.13, the behaviour of ufuncs could only be tuned using ``__array_wrap__`` and ``__array_prepare__``. These two allowed one to change the output type of a ufunc, but, in constrast to ``__array_ufunc__``, did not allow one to make any changes to the inputs. It is hoped to eventually deprecate these, but ``__array_wrap__`` is also used by other numpy functions and methods, such as ``squeeze``, so at the present time is still needed for full functionality.
-
-Conceptually, ``__array_wrap__`` “wraps up the action” in the sense of allowing a subclass to set the type of the return value and update attributes and metadata. Let’s show how this works with an example. First we return to the simpler example subclass, but with a different name and some print statements:
+从概念上讲，`__array_wrap__``“包含动作”是允许子类设置返回值的类型并更新属性和元数据。让我们用一个例子来说明这是如何工作的。 首先，我们返回更简单的示例子类，但使用不同的名称和一些print语句：
 
 ```python
 import numpy as np
@@ -451,7 +450,7 @@ class MySubClass(np.ndarray):
         return super(MySubClass, self).__array_wrap__(self, out_arr, context)
 ```
 
-We run a ufunc on an instance of our new array:
+我们在新数组的实例上运行ufunc：
 
 ```python
 >>> obj = MySubClass(np.arange(5), info='spam')
@@ -472,9 +471,9 @@ MySubClass([1, 3, 5, 7, 9])
 'spam'
 ```
 
-Note that the ufunc (``np.add``) has called the ``__array_wrap__`` method with arguments ``self`` as ``obj``, and ``out_arr`` as the (ndarray) result of the addition. In turn, the default ``__array_wrap__`` (ndarray.``__array_wrap__``) has cast the result to class MySubClass, and called ``__array_finalize__`` - hence the copying of the ``info`` attribute. This has all happened at the C level.
+请注意，ufunc (``np.add``) 调用了```__array_wack__``方法，其参数 ``self`` 作为 ``obj``，``out_arr```为该加法的(ndarray)结果。反过来，默认的 ``__array_wirp_`` (ndarray.``arraray_wirp_``) 已将结果转换为类MySubClass，名为 ``_array_radline_``` - 因此复制了``info`` 属性。这一切都发生在C级。
 
-But, we could do anything we wanted:
+但是，我们可以做任何我们想做的事：
 
 ```python
 class SillySubClass(np.ndarray):
@@ -489,13 +488,13 @@ class SillySubClass(np.ndarray):
 'I lost your data'
 ```
 
-So, by defining a specific ``__array_wrap__`` method for our subclass, we can tweak the output from ufuncs. The ``__array_wrap__`` method requires ``self``, then an argument - which is the result of the ufunc - and an optional parameter context. This parameter is returned by ufuncs as a 3-element tuple: (name of the ufunc, arguments of the ufunc, domain of the ufunc), but is not set by other numpy functions. Though, as seen above, it is possible to do otherwise, ``__array_wrap__`` should return an instance of its containing class. See the masked array subclass for an implementation.
+因此，通过为我们的子类定义一个特定的``__array_wrap__``方法，我们可以调整ufuncs的输出。 ``__array_wrap__``方法需要``self``，然后是一个参数 - 这是ufunc的结果 - 和一个可选的参数上下文。 ufuncs将此参数作为3元素元组返回:( ufunc的名称，ufunc的参数，ufunc的域），但不是由其他numpy函数设置的。 但是，如上所述，可以这样做，``__ array_wrap__``应返回其包含类的实例。 有关实现，请参阅masked数组子类。
 
-In addition to ``__array_wrap__``, which is called on the way out of the ufunc, there is also an ``__array_prepare__`` method which is called on the way into the ufunc, after the output arrays are created but before any computation has been performed. The default implementation does nothing but pass through the array. ``__array_prepare__`` should not attempt to access the array data or resize the array, it is intended for setting the output array type, updating attributes and metadata, and performing any checks based on the input that may be desired before computation begins. Like ``__array_wrap__``, ``__array_prepare__`` must return an ndarray or subclass thereof or raise an error.
+除了在退出ufunc时调用的 ``__array_wrap__`` 之外，还存在一个 ``__array_prepare__`` 方法，该方法在创建输出数组之后但在执行任何计算之前，在进入ufunc的过程中被调用。默认实现除了传递数组之外什么都不做。``__array_prepare__`` 不应该尝试访问数组数据或调整数组大小，它的目的是设置输出数组类型，更新属性和元数据，并根据在计算开始之前需要的输入执行任何检查。与 ``__array_wrap__`` 一样，``__array_prepare__`` 必须返回一个ndarray或其子类，或引发一个错误。
 
-## Extra gotchas - custom ``__del__`` methods and ndarray.base
+## 额外的坑 - 自定义``__del__``方法 和 ndarray.base
 
-One of the problems that ndarray solves is keeping track of memory ownership of ndarrays and their views. Consider the case where we have created an ndarray, ``arr`` and have taken a slice with ``v = arr[1:]``. The two objects are looking at the same memory. NumPy keeps track of where the data came from for a particular array or view, with the ``base`` attribute:
+darray解决的问题之一是跟踪ndarray的内存所有权和它们的视图。考虑这样一个例子：我们创建了一个ndarray，``arr``，并用 ``v=arr[1：]`` 取了一个切片。这两个对象看到的是相同的内存。NumPy使用 ``base`` 属性跟踪特定数组或视图的数据来源：
 
 ```python
 >>> # A normal ndarray, that owns its own data
@@ -515,37 +514,37 @@ True
 True
 ```
 
-In general, if the array owns its own memory, as for ``arr`` in this case, then ``arr.base`` will be None - there are some exceptions to this - see the numpy book for more details.
+一般来说，如果数组拥有自己的内存，就像在这种情况下的 ``arr`` 一样，那么 ``arr.base`` 将是None - 这方面有一些例外 - 更多细节请参见 Numpy 的书籍。
 
-The ``base`` attribute is useful in being able to tell whether we have a view or the original array. This in turn can be useful if we need to know whether or not to do some specific cleanup when the subclassed array is deleted. For example, we may only want to do the cleanup if the original array is deleted, but not the views. For an example of how this can work, have a look at the ``memmap`` class in ``numpy.core``.
+``base``属性可以告诉我们是否有视图或原始数组。 如果我们需要知道在删除子类数组时是否进行某些特定的清理，这反过来会很有用。 例如，如果删除原始数组，我们可能只想进行清理，而不是视图。 有关它如何工作的示例，请查看``numpy.core``中的``memmap``类。
 
-## Subclassing and Downstream Compatibility
+## 子类和下游兼容性
 
-When sub-classing ``ndarray`` or creating duck-types that mimic the ``ndarray`` interface, it is your responsibility to decide how aligned your APIs will be with those of numpy. For convenience, many numpy functions that have a corresponding ``ndarray`` method (e.g., ``sum``, ``mean``, ``take``, ``reshape``) work by checking if the first argument to a function has a method of the same name. If it exists, the method is called instead of coercing the arguments to a numpy array.
+当对``ndarray``进行子类化或创建模仿``ndarray``接口的duck-types时，你有责任决定你的API与numpy的对齐方式。 为方便起见，许多具有相应``ndarray``方法的numpy函数（例如，``sum``，``mean``，``take``，``reshape``）都会检查第一个参数，看是否一个函数有一个同名的方法。如果是，则调用该方法，反之则将参数强制转换为numpy数组。
 
-For example, if you want your sub-class or duck-type to be compatible with numpy’s sum function, the method signature for this object’s ``sum`` method should be the following:
+例如，如果你希望子类或duck-type与numpy的sum函数兼容，则此对象的`sum``方法的方法特征应如下所示：
 
 ```python
 def sum(self, axis=None, dtype=None, out=None, keepdims=False):
 ...
 ```
 
-This is the exact same method signature for ``np.sum``, so now if a user calls ``np.sum`` on this object, numpy will call the object’s own ``sum`` method and pass in these arguments enumerated above in the signature, and no errors will be raised because the signatures are completely compatible with each other.
+这是``np.sum``的完全相同的方法特征，所以现在如果用户在这个对象上调用``np.sum``，numpy将调用该对象自己的``sum``方法并传入这些参数，在特征上枚举，并且不会引起任何错误，因为他们的特征彼此完全兼容。
 
-If, however, you decide to deviate from this signature and do something like this:
+但是，如果您决定偏离相关特征并执行以下操作：
 
 ```python
 def sum(self, axis=None, dtype=None):
 ...
 ```
 
-This object is no longer compatible with ``np.sum`` because if you call ``np.sum``, it will pass in unexpected arguments ``out`` and ``keepdims``, causing a TypeError to be raised.
+这个对象不再与``np.sum``兼容，因为如果你调用``np.sum``，它将传递意外的参数``out``和``keepdims``，导致引发TypeError的错误。
 
-If you wish to maintain compatibility with numpy and its subsequent versions (which might add new keyword arguments) but do not want to surface all of numpy’s arguments, your function’s signature should accept **kwargs. For example:
+如果你希望保持与numpy及其后续版本（可能会添加新的关键字参数）的兼容性，但又不想显示所有numpy的参数，那么你的函数的特征应该接受 ** kwargs。 例如：
 
 ```python
 def sum(self, axis=None, dtype=None, **unused_kwargs):
 ...
 ```
 
-This object is now compatible with ``np.sum`` again because any extraneous arguments (i.e. keywords that are not ``axis`` or ``dtype``) will be hidden away in the ``**unused_kwargs`` parameter.
+此对象现在再次与``np.sum``兼容，因为任何无关的参数（即不是``axis``或``dtype``的关键字）将被隐藏在``** unused_kwargs``参数中。
