@@ -1,14 +1,14 @@
 # N维数组(``ndarray``)
 
-An ``ndarray`` is a (usually fixed-size) multidimensional container of items of the same type and size. The number of dimensions and items in an array is defined by its ``shape``, which is a ``tuple`` of N positive integers that specify the sizes of each dimension. The type of items in the array is specified by a separate data-type object (dtype), one of which is associated with each ndarray.
+``ndarray``是具有相同类型和大小的项目的（通常是固定大小的）多维容器。数组中的维和项的数量由其``shape``（形状）定义，该形状是指定每个维的大小的N个正整数的 ``元组`` 数组中的项类型由单独的数据类型对象（dtype）指定，其中一个对象与每个ndarray关联。
 
-As with other container objects in Python, the contents of an ``ndarray`` can be accessed and modified by indexing or slicing the array (using, for example, N integers), and via the methods and attributes of the ``ndarray``.
+与Python中的其他容器对象一样，可以通过对数组进行索引或切片(例如，使用整数n)，以及通过 ``ndarray`` 的方法和属性来访问和修改 ``ndarray`` 的内容。
 
-Different ``ndarrays`` can share the same data, so that changes made in one ``ndarray`` may be visible in another. That is, an ndarray can be a “view” to another ndarray, and the data it is referring to is taken care of by the “base” ndarray. ndarrays can also be views to memory owned by Python ``strings`` or objects implementing the ``buffer`` or array interfaces
+不同的``ndarrays``可以共享相同的数据，因此在一个``ndarray``中所做的更改可能在另一个中可见。 也就是说，ndarray可以是另一个ndarray的“视图”，它所指的数据由“base”ndarray处理。 ndarrays也可以是Python``chace``所拥有的内存视图或实现``buffer``或数组接口的对象
 
-**Example**
+**例子**
 
-A 2-dimensional array of size 2 x 3, composed of 4-byte integer elements:
+大小为2 x 3的二维数组，由4字节整数元素组成：
 
 ```python
 >>> x = np.array([[1, 2, 3], [4, 5, 6]], np.int32)
@@ -20,14 +20,14 @@ A 2-dimensional array of size 2 x 3, composed of 4-byte integer elements:
 dtype('int32')
 ```
 
-The array can be indexed using Python container-like syntax:
+可以使用类似Python容器的语法对数组建立索引：
 
 ```python
 >>> # The element of x in the *second* row, *third* column, namely, 6.
 >>> x[1, 2]
 ```
 
-For example slicing can produce views of the array:
+例如，切片可以生成数组的视图：
 
 ```python
 >>> y = x[:,1]
@@ -41,15 +41,15 @@ array([[1, 9, 3],
        [4, 5, 6]])
 ```
 
-## Constructing arrays
+## 构造数组
 
-New arrays can be constructed using the routines detailed in Array creation routines, and also by using the low-level ndarray constructor:
+可以参考Array创建API中详细介绍的API以及使用低级ndarray构造函数构建新数组：
 
-ndarray(shape[, dtype, buffer, offset, …])	An array object represents a multidimensional, homogeneous array of fixed-size items.
+ndarray(shape[, dtype, buffer, offset, …]) 数组对象表示一个多维的、同构的固定大小的项。
 
-## Indexing arrays
+## 数组的索引
 
-rrays can be indexed using an extended Python slicing syntax, array[selection]. Similar syntax is also used for accessing fields in a structured array.
+数组可以使用扩展的Python切片语法-array[selection（查询选择语法）] 来索引。类似的语法也用于访问结构化数组中的字段。
 
 另见
 

@@ -1,9 +1,9 @@
 # 数组对象
 
-NumPy provides an N-dimensional array type, the ndarray, which describes a collection of “items” of the same type. The items can be indexed using for example N integers.
+NumPy提供了一个N维数组的类型，即ndarray，它描述了相同类型的“items”的集合。 可以使用例如整数的N来索引项目（items）。
 
-All ndarrays are homogenous: every item takes up the same size block of memory, and all blocks are interpreted in exactly the same way. How each item in the array is to be interpreted is specified by a separate data-type object, one of which is associated with every array. In addition to basic types (integers, floats, etc.), the data type objects can also represent data structures.
+所有的ndarray都是同质的：每个条目占用相同大小的内存块，并且所有块都以完全相同的方式进行解释。如何解释数组中的每个项是由一个单独的数据类型对象指定的，其中一个对象与每个数组相关联。除了基本类型(整数、浮点数等)之外，数据类型对象还可以表示数据结构。
 
-An item extracted from an array, e.g., by indexing, is represented by a Python object whose type is one of the array scalar types built in NumPy. The array scalars allow easy manipulation of also more complicated arrangements of data.
+从数组中提取的项（例如，通过索引）由Python对象表示，其类型是在NumPy中构建的阵列标量类型之一。 阵列标量允许容易地操纵更复杂的数据排列。
  
 ![数组对象](/static/images/threefundamental.png)
