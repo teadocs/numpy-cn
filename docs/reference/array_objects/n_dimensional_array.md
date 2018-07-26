@@ -55,55 +55,53 @@ ndarray(shape[, dtype, buffer, offset, …]) 数组对象表示一个多维的�
 
 > Array Indexing.
 
-## Internal memory layout of an ndarray
+## ndarray在内存中的设计原理
 
-An instance of class ndarray consists of a contiguous one-dimensional segment of computer memory (owned by the array, or by some other object), combined with an indexing scheme that maps N integers into the location of an item in the block. The ranges in which the indices can vary is specified by the shape of the array. How many bytes each item takes and how the bytes are interpreted is defined by the data-type object associated with the array.
+类ndarray的实例由一个连续的一维计算机内存段(由数组或其他对象拥有)和一个索引方案组合而成，该索引方案将N个整数映射到块中一个项的位置。索引可以变化的范围由数组的形状指定。每个项需要多少字节以及如何解释这些字节是由与数组关联的数据类型对象定义的。
 
-A segment of memory is inherently 1-dimensional, and there are many different schemes for arranging the items of an N-dimensional array in a 1-dimensional block. NumPy is flexible, and ndarray objects can accommodate any strided indexing scheme. In a strided scheme, the N-dimensional index (n_0, n_1, ..., n_{N-1}) corresponds to the offset (in bytes):
+内存段本质上是一维的，在一维块中排列N维数组中的项有许多不同的方案。NumPy非常灵活，ndarray对象可以适应任何跨步索引方案。在跨步方案中，N维索引（n_0，n_1，...，n_ {N-1}）对应于偏移量（以字节为单位）：
 
 ![公式](/static/images/1388948b609ce9a1d9ae0380d361628d6b385812.svg)
 
-from the beginning of the memory block associated with the array. Here, s_k are integers which specify the strides of the array. The column-major order (used, for example, in the Fortran language and in Matlab) and row-major order (used in C) schemes are just specific kinds of strided scheme, and correspond to memory that can be addressed by the strides:
+从与数组关联的内存块的开头。 这里，s_k是指定数组步长的整数。 列主要顺序（例如，在Fortran语言和Matlab中使用）和行主要顺序（在C中使用）方案只是特定种类的跨步方案，并且对应于可由步幅解决的内存：
 
 ![公式](/static/images/af328186eedd2e4200b34e0e6a31acae4dbc9d20.svg)
 
-where d_j = self.shape[j].
+条件 d_j = self.shape[j].
 
-Both the C and Fortran orders are contiguous, i.e., single-segment, memory layouts, in which every part of the memory block can be accessed by some combination of the indices.
+C和Fortran顺序都是连续的，即单段存储器布局，其中存储器块的每个部分可以通过索引的某种组合来访问。
 
-While a C-style and Fortran-style contiguous array, which has the corresponding flags set, can be addressed with the above strides, the actual strides may be different. This can happen in two cases:
+虽然具有相应标志集的C风格和Fortran风格的连续数组可以通过上述步骤来解决，但实际步幅可能不同。 这可能发生在两种情况：
 
-> 1. If self.shape[k] == 1 then for any legal index index[k] == 0. This means that in the formula for the offset n_k = 0 and thus s_k n_k = 0 and the value of s_k = self.strides[k] is arbitrary.
-> 1. If an array has no elements (self.size == 0) there is no legal index and the strides are never used. Any array with no elements may be considered C-style and Fortran-style contiguous.
+> 1. 如果self.shape [k] == 1那么对于任何合法索引索引[k] == 0.这意味着在偏移量n_k = 0的公式中，因此s_k n_k = 0，s_k = self.strides的值 [k]是任意的。
+> 1. 如果数组没有元素（self.size == 0），则没有合法索引，并且从不使用步幅。 任何没有元素的数组都可以被认为是C风格和Fortran风格的连续数组。
 
-Point 1. means that self and self.squeeze() always have the same contiguity and aligned flags value. This also means that even a high dimensional array could be C-style and Fortran-style contiguous at the same time.
+第一条中，表示 self 和 self.squeeze() 始终具有相同的连续性和对齐的标志值。这也意味着即使是高维数组也可能同时是C风格和Fortran风格的连续。
 
-An array is considered aligned if the memory offsets for all elements and the base offset itself is a multiple of self.itemsize.
+如果所有元素的内存偏移量和基本偏移量本身是self.itemsize的倍数，则认为数组是对齐的。
 
-> **Note**
-> Points (1) and (2) are not yet applied by default. Beginning with NumPy 1.8.0, they are applied consistently only if the environment variable NPY_RELAXED_STRIDES_CHECKING=1 was defined when NumPy was built. Eventually this will become the default.
+> **注意**
+> 默认情况下尚未应用第一条和第二条. 从NumPy 1.8.0开始，只有在构建NumPy时定义了环境变量NPY_RELAXED_STRIDES_CHECKING = 1时才会一致地应用它们。逐步的会成为默认值。
 > 
-> You can check whether this option was enabled when your NumPy was built by looking at the value of np.ones((10,1), order='C').flags.f_contiguous. If this is True, then your NumPy has relaxed strides checking enabled.
+> 您可以通过查看np.ones((10,1), order = 'C').flags.f_contiguous 的值来检查在构建NumPy时是否启用了此选项。如果是True，那么你的NumPy就没有启用步幅检查的功能。
 
 <div class="warning-warp">
-<b>Warning</b>
-
-<p>It does not generally hold that <code>self.strides[-1] == self.itemsize</code> for C-style contiguous arrays or <code>self.strides[0] == self.itemsize</code> for Fortran-style contiguous arrays is true.</p>
-
+<b>警告</b>
+<p>对于C风格的连续数组，它通常不认为 <code>self.strides[-1] == self.itemsize</code> 的值是True，或者对于Fortran风格的连续数组，<code>self.strides [0] == self.itemsize</code> 的值是True。</p>
 </div>
 
-Data in new ndarrays is in the row-major (C) order, unless otherwise specified, but, for example, basic array slicing often produces views in a different scheme.
+除非另有说明，否则新ndarray中的数据采用行主（C）顺序，但是，例如，基本数组切片通常会以不同的方案生成视图。
 
-> **Note**
-> Several algorithms in NumPy work on arbitrarily strided arrays. However, some algorithms require single-segment arrays. When an irregularly strided array is passed in to such algorithms, a copy is automatically made.
+> **注意**
+> NumPy中的几种算法适用于任意跨步数组。但是，某些算法需要单段数组。当将不规则跨越的阵列传递给这样的算法时，会自动进行复制。
 
-## Array attributes
+## 数组属性
 
-Array attributes reflect information that is intrinsic to the array itself. Generally, accessing an array through its attributes allows you to get and sometimes set intrinsic properties of the array without creating a new array. The exposed attributes are the core parts of an array and only some of them can be reset meaningfully without creating a new array. Information on each attribute is given below.
+数组属性反映数组本身固有的信息。通常，通过数组的属性访问它，您可以获取并设置数组的内部属性，而无需创建新的数组。公开的属性是数组的核心部分，只有其中一些属性可以在不创建新数组的情况下进行有意义的重置。每个属性的信息如下。
 
-### Memory layout
+### 内存相关的属性
 
-The following attributes contain information about the memory layout of the array:
+以下属性包含有关数组内存的信息：
 
 - ``ndarray.flags``	Information about the memory layout of the array.
 - ``ndarray.shape``	Tuple of array dimensions.
@@ -115,7 +113,7 @@ The following attributes contain information about the memory layout of the arra
 - ``ndarray.nbytes``	Total bytes consumed by the elements of the array.
 - ``ndarray.base``	Base object if memory is from some other object.
 
-### Data type
+### 数据类型
 
 另见：
 
