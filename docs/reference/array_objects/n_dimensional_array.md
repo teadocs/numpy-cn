@@ -103,15 +103,15 @@ C和Fortran顺序都是连续的，即单段存储器布局，其中存储器块
 
 以下属性包含有关数组内存的信息：
 
-- ``ndarray.flags``	Information about the memory layout of the array.
-- ``ndarray.shape``	Tuple of array dimensions.
-- ``ndarray.strides``	Tuple of bytes to step in each dimension when traversing an array.
-- ``ndarray.ndim``	Number of array dimensions.
-- ``ndarray.data``	Python buffer object pointing to the start of the array’s data.
-- ``ndarray.size``	Number of elements in the array.
-- ``ndarray.itemsize``	Length of one array element in bytes.
-- ``ndarray.nbytes``	Total bytes consumed by the elements of the array.
-- ``ndarray.base``	Base object if memory is from some other object.
+- ``ndarray.flags``	有关数组内存分布的信息。
+- ``ndarray.shape``	数组维度的元组。
+- ``ndarray.strides``	遍历数组时要在每个维度中执行的字节元组。
+- ``ndarray.ndim``	数组维数。
+- ``ndarray.data``	指向数组数据开始的Python缓冲区对象。
+- ``ndarray.size``	数组中的元素数。
+- ``ndarray.itemsize``	一个数组元素的长度(以字节为单位)。
+- ``ndarray.nbytes``	数组元素消耗的总字节。
+- ``ndarray.base``	如果内存来自其他对象，则为基本对象。
 
 ### 数据类型
 
@@ -119,58 +119,58 @@ C和Fortran顺序都是连续的，即单段存储器布局，其中存储器块
 
 > Data type objects
 
-The data type object associated with the array can be found in the ``dtype`` attribute:
+与数组关联的数据类型对象可以在 ``dtype`` 属性中找到：
 
-``ndarray.dtype`` Data-type of the array’s elements.
+``ndarray.dtype``数组元素的数据类型。
 
-### Other attributes
+### 其他属性
 
-- ``ndarray.T``	Same as self.transpose(), except that self is returned if self.ndim < 2.
-- ``ndarray.real``	The real part of the array.
-- ``ndarray.imag``	The imaginary part of the array.
-- ``ndarray.flat``	A 1-D iterator over the array.
-- ``ndarray.ctypes``	An object to simplify the interaction of the array with the ctypes module.
+- ``ndarray.T``	        与 self.transpose()相同，只是如果 self.ndim <2 则返回自己。
+- ``ndarray.real``	数组的真实部分。
+- ``ndarray.imag``	数组的虚部。
+- ``ndarray.flat``	数组上的一维迭代器。
+- ``ndarray.ctypes``	一个简化数组与ctypes模块交互的对象。
 
-### Array interface
+### 数组接口
 
 另见：
 
 > The Array Interface.
 
-``__array_interface__``	Python-side of the array interface
-``__array_struct__``	C-side of the array interface
+``__array_interface__``	数组接口的Python端。
+``__array_struct__``	数组接口的C端。
 
-### ``ctypes`` foreign function interface
+### ``ctypes`` 外来函数接口
 
-``ndarray.ctypes``	An object to simplify the interaction of the array with the ctypes module.
+``ndarray.ctypes``	一个简化数组与ctypes模块交互的对象。
 
-## Array methods
+## 数组的方法
 
-An ``ndarray`` object has many methods which operate on or with the array in some fashion, typically returning an array result. These methods are briefly explained below. (Each method’s docstring has a more complete description.)
+``ndarray`` 对象有许多方法以某种方式对数组进行操作或与数组一起操作，通常返回数组结果。 下面简要说明这些方法。（每个方法的文档都有更完整的描述。）
 
-For the following methods there are also corresponding functions in numpy: all, any, argmax, argmin, argpartition, argsort, choose, clip, compress, copy, cumprod, cumsum, diagonal, imag, max, mean, min, nonzero, partition, prod, ptp, put, ravel, real, repeat, reshape, round, searchsorted, sort, squeeze, std, sum, swapaxes, take, trace, transpose, var.
+对于以下方法，numpy中还有相应的函数：all，any，argmax，argmin，argpartition，argsort，choose，clip，compress，copy，cumprod，cumsum，diagonal，imag，max，mean，min，nonzero，partition， prod，ptp，put，ravel，real，repeat，reshape，round，searchsorted，sort，squeeze，std，sum，swapaxes，take，trace，transpose，var。
 
-### Array conversion
+### 数组转换
 
-- ndarray.item(*args)	Copy an element of an array to a standard Python scalar and return it.
-- ndarray.tolist()	Return the array as a (possibly nested) list.
-- ndarray.itemset(*args)	Insert scalar into an array (scalar is cast to array’s dtype, if possible)
-- ndarray.tostring([order])	Construct Python bytes containing the raw data bytes in the array.
-- ndarray.tobytes([order])	Construct Python bytes containing the raw data bytes in the array.
-- ndarray.tofile(fid[, sep, format])	Write array to a file as text or binary (default).
-- ndarray.dump(file)	Dump a pickle of the array to the specified file.
-- ndarray.dumps()	Returns the pickle of the array as a string.
-- ndarray.astype(dtype[, order, casting, …])	Copy of the array, cast to a specified type.
-- ndarray.byteswap([inplace])	Swap the bytes of the array elements
-- ndarray.copy([order])	Return a copy of the array.
-- ndarray.view([dtype, type])	New view of array with the same data.
-- ndarray.getfield(dtype[, offset])	Returns a field of the given array as a certain type.
-- ndarray.setflags([write, align, uic])	Set array flags WRITEABLE, ALIGNED, (WRITEBACKIFCOPY and UPDATEIFCOPY), respectively.
-- ndarray.fill(value)	Fill the array with a scalar value.
+- ndarray.item(*args)	将数组元素复制到标准Python标量并返回它。
+- ndarray.tolist()	将数组作为（可能是嵌套的）列表返回。
+- ndarray.itemset(*args)	将标量插入数组（如果可能，将标量转换为数组的dtype）
+- ndarray.tostring([order])	构造包含数组中原始数据字节的Python字节。
+- ndarray.tobytes([order])	构造包含数组中原始数据字节的Python字节。
+- ndarray.tofile(fid[, sep, format])	将数组作为文本或二进制写入文件（默认）。
+- ndarray.dump(file)	将数组的pickle转储到指定的文件。
+- ndarray.dumps()	以字符串形式返回数组的pickle。
+- ndarray.astype(dtype[, order, casting, …])	数组的副本，强制转换为指定的类型。
+- ndarray.byteswap([inplace])	交换数组元素的字节
+- ndarray.copy([order])	返回数组的副本。
+- ndarray.view([dtype, type])	具有相同数据的数组的新视图。
+- ndarray.getfield(dtype[, offset])	返回给定数组的字段作为特定类型。
+- ndarray.setflags([write, align, uic])	分别设置数组标志WRITEABLE，ALIGNED，（WRITEBACKIFCOPY和UPDATEIFCOPY）。
+- ndarray.fill(value)	使用标量值填充数组。
 
-### Item selection and manipulation
+### 项目选择和操作
 
-For array methods that take an axis keyword, it defaults to None. If axis is None, then the array is treated as a 1-D array. Any other value for axis represents the dimension along which the operation should proceed.
+对于采用axis关键字的数组方法，默认为None。 如果axis为None，则将数组视为1维数组。轴的任何其他值表示操作应该沿着的维度。
 
 - ndarray.take(indices[, axis, out, mode])	Return an array formed from the elements of a at the given indices.
 - ndarray.put(indices, values[, mode])	Set a.flat[n] = values[n] for all n in indices.
