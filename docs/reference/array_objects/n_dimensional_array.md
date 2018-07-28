@@ -172,29 +172,29 @@ C和Fortran顺序都是连续的，即单段存储器布局，其中存储器块
 
 对于采用axis关键字的数组方法，默认为None。 如果axis为None，则将数组视为1维数组。轴的任何其他值表示操作应该沿着的维度。
 
-- ndarray.take(indices[, axis, out, mode])	Return an array formed from the elements of a at the given indices.
-- ndarray.put(indices, values[, mode])	Set a.flat[n] = values[n] for all n in indices.
-- ndarray.repeat(repeats[, axis])	Repeat elements of an array.
-- ndarray.choose(choices[, out, mode])	Use an index array to construct a new array from a set of choices.
-- ndarray.sort([axis, kind, order])	Sort an array, in-place.
-- ndarray.argsort([axis, kind, order])	Returns the indices that would sort this array.
-- ndarray.partition(kth[, axis, kind, order])	Rearranges the elements in the array in such a way that value of the element in kth position is in the position it would be in a sorted array.
-- ndarray.argpartition(kth[, axis, kind, order])	Returns the indices that would partition this array.
-- ndarray.searchsorted(v[, side, sorter])	Find indices where elements of v should be inserted in a to maintain order.
-- ndarray.nonzero()	Return the indices of the elements that are non-zero.
-- ndarray.compress(condition[, axis, out])	Return selected slices of this array along given axis.
-- ndarray.diagonal([offset, axis1, axis2])	Return specified diagonals.
+- ndarray.take(indices[, axis, out, mode])	返回由给定索引处的a元素组成的数组。
+- ndarray.put(indices, values[, mode])	为索引中的所有n设置 a.flat[n] = values[n]。
+- ndarray.repeat(repeats[, axis])	重复数组的元素。
+- ndarray.choose(choices[, out, mode])	使用索引数组从一组选项中构造新数组。
+- ndarray.sort([axis, kind, order])	就地对数组进行排序。
+- ndarray.argsort([axis, kind, order])	返回将对此数组进行排序的索引。
+- ndarray.partition(kth[, axis, kind, order])	重新排列数组中的元素，使得第k个位置的元素值处于排序数组中的位置。
+- ndarray.argpartition(kth[, axis, kind, order])	重新排列数组中的元素，使得第k个位置的元素值处于排序数组中的位置。
+- ndarray.searchsorted(v[, side, sorter])	查找应在其中插入v的元素以维护顺序的索引。
+- ndarray.nonzero()	返回非零元素的索引。
+- ndarray.compress(condition[, axis, out])	沿给定轴返回此数组的选定切片。
+- ndarray.diagonal([offset, axis1, axis2])	返回指定的对角线。
 
-### Calculation
+### 计算
 
-Many of these methods take an argument named axis. In such cases,
+在下面这种情况下，其中许多方法都采用名为axis的参数。 
 
-- If axis is None (the default), the array is treated as a 1-D array and the operation is performed over the entire array. This behavior is also the default if self is a 0-dimensional array or array scalar. (An array scalar is an instance of the types/classes float32, float64, etc., whereas a 0-dimensional array is an ndarray instance containing precisely one array scalar.)
-- If axis is an integer, then the operation is done over the given axis (for each 1-D subarray that can be created along the given axis).
+- 如果axis为None（默认值），则将数组视为1-D数组，并对整个数组执行操作。 如果self是0维数组或数组标量，则此行为也是默认行为。 （数组标量是类型/类float32，float64等的实例，而0维数组是包含恰好一个数组标量的ndarray实例。）
+- 如果axis是整数，则操作在给定轴上完成（对于可沿给定轴创建的每个1维的子阵列）
 
-**Example of the axis argument**
+**轴参数的示例**
 
-A 3-dimensional array of size 3 x 3 x 3, summed over each of its three axes
+一个尺寸为3 x 3 x 3的三维阵列，在其三个轴中的每个轴上求和。
 
 ```python
 >>> x
@@ -225,133 +225,134 @@ array([[27, 30, 33],
         [57, 66, 75]]))
 ```
 
-The parameter dtype specifies the data type over which a reduction operation (like summing) should take place. The default reduce data type is the same as the data type of self. To avoid overflow, it can be useful to perform the reduction using a larger data type.
+参数dtype指定应在其上进行缩减操作（如求和）的数据类型。 默认的reduce数据类型与self的数据类型相同。 为避免溢出，使用更大的数据类型执行缩减可能很有用。
 
-For several methods, an optional out argument can also be provided and the result will be placed into the output array given. The out argument must be an ``ndarray`` and have the same number of elements. It can have a different data type in which case casting will be performed.
+对于多种方法，还可以提供可选的out参数，并将结果放入给定的输出数组中。 out参数必须是 ``ndarray`` 并且具有相同数量的元素。 它可以具有不同的数据类型，在这种情况下将执行转换。
 
-- ndarray.argmax([axis, out])	Return indices of the maximum values along the given axis.
-- ndarray.min([axis, out, keepdims])	Return the minimum along a given axis.
-- ndarray.argmin([axis, out])	Return indices of the minimum values along the given axis of a.
-- ndarray.ptp([axis, out])	Peak to peak (maximum - minimum) value along a given axis.
-- ndarray.clip([min, max, out])	Return an array whose values are limited to [min, max].
-- ndarray.conj()	Complex-conjugate all elements.
-- ndarray.round([decimals, out])	Return a with each element rounded to the given number of decimals.
-- ndarray.trace([offset, axis1, axis2, dtype, out])	Return the sum along diagonals of the array.
-- ndarray.sum([axis, dtype, out, keepdims])	Return the sum of the array elements over the given axis.
-- ndarray.cumsum([axis, dtype, out])	Return the cumulative sum of the elements along the given axis.
-- ndarray.mean([axis, dtype, out, keepdims])	Returns the average of the array elements along given axis.
-- ndarray.var([axis, dtype, out, ddof, keepdims])	Returns the variance of the array elements, along given axis.
-- ndarray.std([axis, dtype, out, ddof, keepdims])	Returns the standard deviation of the array elements along given axis.
-- ndarray.prod([axis, dtype, out, keepdims])	Return the product of the array elements over the given axis
-- ndarray.cumprod([axis, dtype, out])	Return the cumulative product of the elements along the given axis.
-- ndarray.all([axis, out, keepdims])	Returns True if all elements evaluate to True.
-- ndarray.any([axis, out, keepdims])	Returns True if any of the elements of a evaluate to True.
+- ndarray.argmax([axis, out])	返回给定轴的最大值索引。
+- ndarray.min([axis, out, keepdims])	沿给定轴返回最小值。
+- ndarray.argmin([axis, out])	沿a的给定轴返回最小值的索引。
+- ndarray.ptp([axis, out])	沿给定轴的峰峰值（最大值 - 最小值）。
+- ndarray.clip([min, max, out])	返回其值限制为 [min, max] 的数组。
+- ndarray.conj()	复合共轭所有元素。
+- ndarray.round([decimals, out])	返回a，每个元素四舍五入到给定的小数位数。
+- ndarray.trace([offset, axis1, axis2, dtype, out])	返回数组对角线的总和。
+- ndarray.sum([axis, dtype, out, keepdims])	返回给定轴上的数组元素的总和。
+- ndarray.cumsum([axis, dtype, out])	返回给定轴上元素的累积和。
+- ndarray.mean([axis, dtype, out, keepdims])	返回给定轴上数组元素的平均值。
+- ndarray.var([axis, dtype, out, ddof, keepdims])	返回给定轴的数组元素的方差。
+- ndarray.std([axis, dtype, out, ddof, keepdims])	返回给定轴的数组元素的标准偏差。
+- ndarray.prod([axis, dtype, out, keepdims])	返回给定轴上的数组元素的乘积
+- ndarray.cumprod([axis, dtype, out])	返回沿给定轴的元素的累积乘积。
+- ndarray.all([axis, out, keepdims])	如果所有元素都计算为True，则返回True。
+- ndarray.any([axis, out, keepdims])	如果求值的任何元素为True，则返回True。
 
-## Arithmetic, matrix multiplication, and comparison operations
+## 算术，矩阵乘法和比较运算
 
-Arithmetic and comparison operations on ndarrays are defined as element-wise operations, and generally yield ndarray objects as results.
+ndarrays上的算术和比较操作被定义为元素操作，并且通常将ndarray对象作为结果产生。
 
-Each of the arithmetic operations (+, -, *, /, //, %, divmod(), ** or pow(), <<, >>, &, ^, |, ~) and the comparisons (==, <, >, <=, >=, !=) is equivalent to the corresponding universal function (or ufunc for short) in NumPy. For more information, see the section on Universal Functions.
+每个算术运算（+， - ，*，/，//，％，divmod（），**或pow（），<<，>>，＆，^，|，〜）和比较运算符（== ，<，>，<=，> =，！=）相当于NumPy中相应的通用函数（或简称为ufunc）。 有关更多信息，请参阅[通用功能部分](https://docs.scipy.org/doc/numpy/reference/ufuncs.html#ufuncs)。
 
-Comparison operators:
+比较运算符:
 
-- ndarray.__lt__($self, value, /)	Return self<value.
-- ndarray.__le__($self, value, /)	Return self<=value.
-- ndarray.__gt__($self, value, /)	Return self>value.
-- ndarray.__ge__($self, value, /)	Return self>=value.
-- ndarray.__eq__($self, value, /)	Return self==value.
-- ndarray.__ne__($self, value, /)	Return self!=value.
+- ndarray.__lt__($self, value, /)	返回 self<value.
+- ndarray.__le__($self, value, /)	返回 self<=value.
+- ndarray.__gt__($self, value, /)	返回 self>value.
+- ndarray.__ge__($self, value, /)	返回 self>=value.
+- ndarray.__eq__($self, value, /)	返回 self==value.
+- ndarray.__ne__($self, value, /)	返回 self!=value.
 
-Truth value of an array (``bool``):
+数组的真值(``bool``)：
 
 ``ndarray.__nonzero__``
 
-> **Note**
-> Truth-value testing of an array invokes ndarray.__nonzero__, which raises an error if the number of elements in the array is larger than 1, because the truth value of such arrays is ambiguous. Use .any() and .all() instead to be clear about what is meant in such cases. (If the number of elements is 0, the array evaluates to False.)
+> **注意**
+> 数组的真值测试会调用 ndarray.__nonzero__，如果数组中的元素数大于1，则会引发错误，因为此类数组的真值是不明确的。使用.any()和.all()代替清楚这种情况下的含义。（如果元素数为0，则数组的计算结果为False。）
 
-Unary operations:
+一元操作：
 
 - ndarray.__neg__($self, /)	-self
 - ndarray.__pos__($self, /)	+self
 - ndarray.__abs__(self)	
 - ndarray.__invert__($self, /)	~self
 
-Arithmetic:
+算术运算：
 
-- ndarray.__add__($self, value, /)	Return self+value.
-- ndarray.__sub__($self, value, /)	Return self-value.
-- ndarray.__mul__($self, value, /)	Return self*value.
+- ndarray.__add__($self, value, /)	返回 self+value.
+- ndarray.__sub__($self, value, /)	返回 self-value.
+- ndarray.__mul__($self, value, /)	返回 self*value.
 - ndarray.__div__	
-- ndarray.__truediv__($self, value, /)	Return self/value.
-- ndarray.__floordiv__($self, value, /)	Return self//value.
-- ndarray.__mod__($self, value, /)	Return self%value.
-- ndarray.__divmod__($self, value, /)	Return divmod(self, value).
-- ndarray.__pow__($self, value[, mod])	Return pow(self, value, mod).
-- ndarray.__lshift__($self, value, /)	Return self<<value.
-- ndarray.__rshift__($self, value, /)	Return self>>value.
-- ndarray.__and__($self, value, /)	Return self&value.
-- ndarray.__or__($self, value, /)	Return self|value.
-- ndarray.__xor__($self, value, /)	Return self^value.
+- ndarray.__truediv__($self, value, /)	返回 self/value.
+- ndarray.__floordiv__($self, value, /)	返回 self//value.
+- ndarray.__mod__($self, value, /)	返回 self%value.
+- ndarray.__divmod__($self, value, /)	返回 divmod(self, value).
+- ndarray.__pow__($self, value[, mod])	返回 pow(self, value, mod).
+- ndarray.__lshift__($self, value, /)	返回 self<<value.
+- ndarray.__rshift__($self, value, /)	返回 self>>value.
+- ndarray.__and__($self, value, /)	返回 self&value.
+- ndarray.__or__($self, value, /)	返回 self|value.
+- ndarray.__xor__($self, value, /)	返回 self^value.
 
-> **Note**
-> - Any third argument to pow is silently ignored, as the underlying ufunc takes only two arguments.
-> - he three division operators are all defined; div is active by default, truediv is active when __future__ division is in effect.
-> - Because ndarray is a built-in type (written in C), the __r{op}__ special methods are not directly defined.
-> - The functions called to implement many arithmetic special methods for arrays can be modified using set_numeric_ops.
+> **注意**
+> - pow的任何第三个参数都会被默认忽略，因为底层的ufunc只接受两个参数。
+> - 他划分了三个除法运算符; div默认处于活动状态，当__future__除法生效时，truediv处于活动状态。
+> - 因为ndarray是内置类型（用C编写），所以不直接定义 __r{op}__ 特殊方法。
+> - 可以使用set_numeric_ops修改为数组实现许多算术特殊方法的函数。
 
-Arithmetic, in-place:
+就地算数运算：
 
-- ndarray.__iadd__($self, value, /)	Return self+=value.
-- ndarray.__isub__($self, value, /)	Return self-=value.
-- ndarray.__imul__($self, value, /)	Return self*=value.
+- ndarray.__iadd__($self, value, /)	返回 self+=value.
+- ndarray.__isub__($self, value, /)	返回 self-=value.
+- ndarray.__imul__($self, value, /)	返回 self*=value.
 - ndarray.__idiv__	
-- ndarray.__itruediv__($self, value, /)	Return self/=value.
+- ndarray.__itruediv__($self, value, /)	返回 self/=value.
 - ndarray.__ifloordiv__($self, value, /)	Return self//=value.
-- ndarray.__imod__($self, value, /)	Return self%=value.
-- ndarray.__ipow__($self, value, /)	Return self**=value.
-- ndarray.__ilshift__($self, value, /)	Return self<<=value.
-- ndarray.__irshift__($self, value, /)	Return self>>=value.
-- ndarray.__iand__($self, value, /)	Return self&=value.
-- ndarray.__ior__($self, value, /)	Return self|=value.
-- ndarray.__ixor__($self, value, /)	Return self^=value.
+- ndarray.__imod__($self, value, /)	返回 self%=value.
+- ndarray.__ipow__($self, value, /)	返回 self**=value.
+- ndarray.__ilshift__($self, value, /)	返回 self<<=value.
+- ndarray.__irshift__($self, value, /)	返回 self>>=value.
+- ndarray.__iand__($self, value, /)	返回 self&=value.
+- ndarray.__ior__($self, value, /)	返回 self|=value.
+- ndarray.__ixor__($self, value, /)	返回 self^=value.
 
 <div class="warning-warp">
-<b>Warning</b>
+<b>警告</b>
 
-<p>In place operations will perform the calculation using the precision decided by the data type of the two operands, but will silently downcast the result (if necessary) so it can fit back into the array. Therefore, for mixed precision calculations, A {op}= B can be different than A = A {op} B. For example, suppose a = ones((3,3)). Then, a += 3j is different than a = a + 3j: while they both perform the same computation, a += 3 casts the result to fit back in a, whereas a = a + 3j re-binds the name a to the result.</p>
+<p>就地操作将使用由两个操作数的数据类型决定的精度来执行计算，但是将静默地向下转换结果（如果需要），以便它可以适合回到数组中。 因此，对于混合精度计算，A {op} = B 可以与 A = A {op} B 不同。例如，假设 a = ones((3,3))。然后，a+= 3j 与 a = a + 3j 不同：虽然它们都执行相同的计算，但是 a += 3 将结果投射回适合a，而 a = a + 3j 将名称a重新绑定到 a 的结果。
+</p>
 
 </div>
 
-Matrix Multiplication:
+矩阵乘法：
 
-``ndarray.__matmul__``($self, value, /)	Return self@value.
+``ndarray.__matmul__``($self, value, /)	返回 self@value.
 
-> **Note**
-> Matrix operators @ and @= were introduced in Python 3.5 following PEP465. NumPy 1.10.0 has a preliminary implementation of @ for testing purposes. Further documentation can be found in the matmul documentation.
+> **注意**
+> 矩阵运算符@和@ =是在PEP465之后的Python 3.5中引入的。 NumPy 1.10.0初步实现了@用于测试目的。 更多文档可以在[matmul](https://docs.scipy.org/doc/numpy/reference/generated/numpy.matmul.html#numpy.matmul)档中找到。
 
-## Special methods
+## 特殊方法
 
-For standard library functions:
+标准库函数：
 
-- ndarray.__copy__()	Used if copy.copy is called on an array.
-- ndarray.__deepcopy__(memo, /)	Used if copy.deepcopy is called on an array.
-- ndarray.__reduce__()	For pickling.
-- ndarray.__setstate__(state, /)	For unpickling.
+- ndarray.__copy__()	如果在数组上调用copy.copy，则使用此方法。
+- ndarray.__deepcopy__(memo, /)	如果在数组上调用copy.deepcopy，则使用此方法。
+- ndarray.__reduce__() 用于腌制（译者注：很形象）。
+- ndarray.__setstate__(state, /) 用于反腌制。
 
-Basic customization:
+基本的定制：
 
-- ndarray.__new__($type, *args, **kwargs)	Create and return a new object.
-- ndarray.__array__(|dtype)	Returns either a new reference to self if dtype is not given or a new array of provided data type if dtype is different from the current dtype of the array.
+- ndarray.__new__($type, *args, **kwargs)	创建并返回一个新对象。
+- ndarray.__array__(|dtype)	如果没有给出dtype，则返回对self的新引用;如果dtype与数组的当前dtype不同，则返回提供的数据类型的新数组。
 - ndarray.__array_wrap__(obj)	
 
-Container customization: (see Indexing)
+容器的定制: (参见索引）
 
-- ndarray.__len__($self, /)	Return len(self).
-- ndarray.__getitem__($self, key, /)	Return self[key].
-- ndarray.__setitem__($self, key, value, /)	Set self[key] to value.
-- ndarray.__contains__($self, key, /)	Return key in self.
+- ndarray.__len__($self, /)	返回 len(self).
+- ndarray.__getitem__($self, key, /)	返回 self[key].
+- ndarray.__setitem__($self, key, value, /)	给 self[key] 设置一个值。
+- ndarray.__contains__($self, key, /)	返回 自身的关键索引。
 
-Conversion; the operations complex, int, long, float, oct, and hex. They work only on arrays that have one element in them and return the appropriate scalar.
+转换;操作complex，int，long，float，oct和hex。它们位于数组中，其中包含一个元素并返回相应的标量。
 
 - ndarray.__int__(self)	
 - ndarray.__long__	
@@ -359,7 +360,7 @@ Conversion; the operations complex, int, long, float, oct, and hex. They work on
 - ndarray.__oct__	
 - ndarray.__hex__	
 
-String representations:
+字符串表示：
 
-- ndarray.__str__($self, /)	Return str(self).
-- ndarray.__repr__($self, /)	Return repr(self).
+- ndarray.__str__($self, /)	返回 str(self).
+- ndarray.__repr__($self, /)	返回 repr(self).
