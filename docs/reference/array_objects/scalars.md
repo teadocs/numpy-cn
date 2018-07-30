@@ -6,8 +6,6 @@ Python只定义了一种特定数据类（只有一种整数类型，一种浮�
 
 数组标量与ndarray具有相同的属性和方法。[1]这使得人们可以在与数组相同的基础上处理数组中的部分项，从而平滑混合标量和数组操作时产生的粗糙边缘。
 
-Array scalars live in a hierarchy (see the Figure below) of data types. They can be detected using the hierarchy: For example, isinstance(val, np.generic) will return True if val is an array scalar object. Alternatively, what kind of array scalar is present can be determined using other members of the data type hierarchy. Thus, for example isinstance(val, np.complexfloating) will return True if val is a complex valued type, while isinstance(val, np.flexible) will return true if val is one of the flexible itemsize array types (string, unicode, void).
-
 数组标量存在于数据类型的层次结构中（请参见下图）。 可以使用层次结构检测它们：例如，如果val是数组标量对象，则isinstance(val, np.generic)将返回True。 或者，可以使用数据类型层次结构的其他成员来确定存在何种类型的数组标量。 因此，例如，如果val是复值类型，则isinstance(val, np.complexfloating)将返回True，而如果val是灵活的itemsize数组类型之一，则isinstance(val, np.flexible)将返回true（string，unicode，void）。
 
 ![标量](/static/images/dtype-hierarchy.png)
