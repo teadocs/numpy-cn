@@ -213,19 +213,17 @@ array([[4, 5]])
 
 **例子**
 
-Let ``x.shape`` be (10,20,30,40,50) and suppose ind_1 and ind_2 can be broadcast to the shape (2,3,4). Then x[:,ind_1,ind_2] has shape (10,2,3,4,40,50) because the (20,30)-shaped subspace from X has been replaced with the (2,3,4) subspace from the indices. However, x[:,ind_1,:,ind_2] has shape (2,3,4,10,30,50) because there is no unambiguous place to drop in the indexing subspace, thus it is tacked-on to the beginning. It is always possible to use .transpose() to move the subspace anywhere desired. Note that this example cannot be replicated using take.
-
 设``x.shape``为(10, 20, 30, 40, 50)并假设ind_1和ind_2可以广播到形状(2, 3, 4)。然后x[:, ind_1，ind_2] 具有形状 (10, 2, 3, 4, 40, 50)，因为来自X的(20, 30)-shaped 子空间已被替换为来自 (2,3,4)的子空间 指数。但是，x[:, ind_1, :, ind_2]具有形状(2, 3, 4, 10, 30, 50)，因为在索引子空间中没有明确的位置，因此它被添加到开头。始终可以使用.transpose()在任何需要的位置移动子空间。请注意，此示例无法使用take进行复制。
 
 ### 布尔数组索引
 
-This advanced indexing occurs when obj is an array object of Boolean type, such as may be returned from comparison operators. A single boolean index array is practically identical to ``x[obj.nonzero()]`` where, as described above, obj.nonzero() returns a tuple (of length obj.ndim) of integer index arrays showing the True elements of obj. However, it is faster when ``obj.shape == x.shape``.
+当obj是布尔类型的数组对象时，会发生此高级索引，例如可能从比较运算符返回。单个布尔索引数组实际上与``x [obj.nonzero()]``相同，其中，如上所述，Obj.nonzero() 返回一个整数索引数组的元组（长度为obj.ndim），显示True元素 对象 但是，当``obj.shape == x.shape``时它会更快。
 
-If obj.ndim == x.ndim, x[obj] returns a 1-dimensional array filled with the elements of x corresponding to the True values of obj. The search order will be row-major, C-style. If obj has True values at entries that are outside of the bounds of x, then an index error will be raised. If obj is smaller than x it is identical to filling it with False.
+如果obj.ndim == x.ndim，则x [obj]返回一个1维数组，该数组填充了与obj的True值对应的x元素。 搜索顺序为行主，C风格。 如果obj在x的边界之外的条目处具有True值，则将引发索引错误。 如果obj小于x，则与填充False相同。
 
-**Example**
+**例子**
 
-A common use case for this is filtering for desired element values. For example one may wish to select all entries from an array which are not NaN:
+一个常见的用例是过滤所需的元素值。 例如，可能希望从阵列中选择非NaN的所有条目：
 
 ```python
 >>> x = np.array([[1., 2.], [np.nan, 3.], [np.nan, np.nan]])
@@ -233,7 +231,7 @@ A common use case for this is filtering for desired element values. For example 
 array([ 1.,  2.,  3.])
 ```
 
-Or wish to add a constant to all negative elements:
+或者希望为所有负面元素添加常量：
 
 ```python
 >>> x = np.array([1., -1., -2., 3])
@@ -242,13 +240,13 @@ Or wish to add a constant to all negative elements:
 array([  1.,  19.,  18.,   3.])
 ```
 
-In general if an index includes a Boolean array, the result will be identical to inserting obj.nonzero() into the same position and using the integer array indexing mechanism described above. x[ind_1, boolean_array, ind_2] is equivalent to ``x[(ind_1,) + boolean_array.nonzero() + (ind_2,)]``.
+通常，如果索引包括布尔数组，则结果与将obj.nonzero()插入相同位置并使用上述整数数组索引机制相同。 x[ind_1, boolean_array, ind_2]相当于``x[(ind_1, ) + boolean_array.nonzero() +(ind_2, )]``。
 
-If there is only one Boolean array and no integer indexing array present, this is straight forward. Care must only be taken to make sure that the boolean index has exactly as many dimensions as it is supposed to work with.
+如果只有一个布尔数组且没有整数索引数组，则这是直截了当的。 必须注意确保布尔索引具有与其应该使用的维度完全相同的维度。
 
-**Example**
+**例子**
 
-From an array, select all rows which sum up to less or equal two:
+从数组中，选择总和小于或等于2的所有行：
 
 ```python
 >>> x = np.array([[0, 1], [1, 1], [2, 2]])
@@ -258,7 +256,7 @@ array([[0, 1],
        [1, 1]])
 ```
 
-But if ``rowsum`` would have two dimensions as well:
+但是如果``rowsum``也有两个维度：
 
 ```python
 >>> rowsum = x.sum(-1, keepdims=True)
@@ -270,13 +268,13 @@ IndexError: too many indices
 array([0, 1])
 ```
 
-The last one giving only the first elements because of the extra dimension. Compare ``rowsum.nonzero()`` to understand this example.
+由于额外的维度，最后一个只给出了第一个元素。 比较``rowsum.nonzero()``来理解这个例子。
 
-Combining multiple Boolean indexing arrays or a Boolean with an integer indexing array can best be understood with the ``obj.nonzero()``analogy. The function ``ix_`` also supports boolean arrays and will work without any surprises.
+将多个布尔索引数组或布尔值与整数索引数组合在一起，可以用``obj.nonzero()``类比来理解。 函数``ix_``也支持布尔数组，并且可以毫无意外地工作。
 
-**Example**
+**例子**
 
-Use boolean indexing to select all rows adding up to an even number. At the same time columns 0 and 2 should be selected with an advanced integer index. Using the ``ix_`` function this can be done with:
+使用布尔索引选择加起来为偶数的所有行。 同时，应使用高级整数索引选择列0和2。 使用``ix_``函数可以通过以下方式完成：
 
 ```python
 >>> x = array([[ 0,  1,  2],
@@ -292,9 +290,9 @@ array([[ 3,  5],
        [ 9, 11]])
 ```
 
-Without the ``np.ix_`` call or only the diagonal elements would be selected.
+没有``np.ix_``调用或只选择对角线元素。
 
-Or without ``np.ix_`` (compare the integer array examples):
+或者没有``np.ix_``（比较整数数组的例子）：
 
 ```python
 >>> rows = rows.nonzero()[0]
@@ -303,43 +301,43 @@ array([[ 3,  5],
        [ 9, 11]])
 ```
 
-## Detailed notes
+## 详细说明
 
-These are some detailed notes, which are not of importance for day to day indexing (in no particular order):
+这些是一些详细的注释，对于日常索引（无特定顺序）并不重要：
 
-- The native NumPy indexing type is ``intp`` and may differ from the default integer array type. ``intp`` is the smallest data type sufficient to safely index any array; for advanced indexing it may be faster than other types.
+- 本机NumPy索引类型是``intp``，可能与默认的整数数组类型不同。 ``intp``是足以安全索引任何数组的最小数据类型; 对于高级索引，它可能比其他类型更快。
 
-- For advanced assignments, there is in general no guarantee for the iteration order. This means that if an element is set more than once, it is not possible to predict the final result.
+- 对于高级分配，通常不保证迭代顺序。 这意味着如果元素被设置多次，则无法预测最终结果。
 
-- An empty (tuple) index is a full scalar index into a zero dimensional array. x[()] returns a scalar if x is zero dimensional and a view otherwise. On the other hand x[...] always returns a view.
+- 空（元组）索引是零维数组的完整标量索引。 如果x是零维，则 x[()]返回标量，否则返回视图。 另一方面，x[...]总是返回一个视图。
 
-- If a zero dimensional array is present in the index and it is a full integer index the result will be a scalar and not a zero dimensional array. (Advanced indexing is not triggered.)
-When an ellipsis (...) is present but has no size (i.e. replaces zero :) the result will still always be an array. A view if no advanced index is present, otherwise a copy.
+- 如果索引中存在零维数组并且它是完整的整数索引，则结果将是标量而不是零维数组。 （不会触发高级索引。）
+当省略号（...）存在但没有大小（即替换为零）时，结果仍将始终为数组。 如果没有高级索引，则为视图，否则为副本。
 
-- the ``nonzero`` equivalence for Boolean arrays does not hold for zero dimensional boolean arrays.
+- 布尔数组的``nonzero``等价不适用于零维布尔数组。
 
-- When the result of an advanced indexing operation has no elements but an individual index is out of bounds, whether or not an IndexError is raised is undefined (e.g. x[[], [123]] with 123 being out of bounds).
-When a casting error occurs during assignment (for example updating a numerical array using a sequence of strings), the array being assigned to may end up in an unpredictable partially updated state. However, if any other error (such as an out of bounds index) occurs, the array will remain unchanged.
+- 当高级索引操作的结果没有元素但单个索引超出范围时，是否引发IndexError是未定义的（例如 x[[]，[123]]，其中123超出界限）。
+当在赋值期间发生转换错误时（例如，使用字符串序列更新数值数组），被分配的数组可能最终处于不可预测的部分更新状态。 但是，如果发生任何其他错误（例如超出范围索引），则数组将保持不变。
 
-- The memory layout of an advanced indexing result is optimized for each indexing operation and no particular memory order can be assumed.
+- 高级索引结果的内存布局针对每个索引操作进行了优化，并且不能假设特定的内存顺序。
 
-- When using a subclass (especially one which manipulates its shape), the default ndarray.__setitem__ behaviour will call __getitem__ for basic indexing but not for advanced indexing. For such a subclass it may be preferable to call ndarray.__setitem__ with a base class ndarray view on the data. This must be done if the subclasses __getitem__ does not return views.
+- 当使用子类（尤其是操纵其形状的子类）时，默认的ndarray .__ setitem__行为将调用__getitem__进行基本索引，但不调用高级索引。 对于这样的子类，最好使用数据的基类ndarray视图调用ndarray .__ setitem__。 如果子类__getitem__没有返回视图，则必须执行此操作。
 
 ## Field Access
 
 另见：
 
-> Data type objects (dtype), Scalars
+> 数据类型对象(Dtype)，标量
 
-If the ``ndarray`` object is a structured array the fields of the array can be accessed by indexing the array with strings, dictionary-like.
+如果 ``ndarray`` 对象是一个结构化数组，则可以通过对数组中的字符串、类似字典的数组进行索引来访问数组的字段。
 
-Indexing ``x['field-name']`` returns a new view to the array, which is of the same shape as x (except when the field is a sub-array) but of data type ``x.dtype['field-name']`` and contains only the part of the data in the specified field. Also record array scalars can be “indexed” this way.
+索引``x['field-name']``返回一个数组的新视图，它与x的形状相同（当字段是子数组时除外）但数据类型为``x.dtype [ 'field-name']``并且只包含指定字段中的部分数据。 记录数组标量也可以这种方式“索引”。
 
-Indexing into a structured array can also be done with a list of field names, e.g. ``x[['field-name1','field-name2']]``. Currently this returns a new array containing a copy of the values in the fields specified in the list. As of NumPy 1.7, returning a copy is being deprecated in favor of returning a view. A copy will continue to be returned for now, but a FutureWarning will be issued when writing to the copy. If you depend on the current behavior, then we suggest copying the returned array explicitly, i.e. use x[[‘field-name1’,’field-name2’]].copy(). This will work with both past and future versions of NumPy.
+索引到结构化数组也可以使用字段名称列表来完成，例如，``×[['字段名1', '字段名2']]``。 目前，这将返回一个新数组，其中包含列表中指定的字段中的值的副本。 从NumPy 1.7开始，不推荐返回副本以支持返回视图。 现在将继续返回副本，但在写入副本时将发出FutureWarning。 如果依赖于当前行为，那么我们建议显式复制返回的数组，即使用x [['field-name1'，'field-name2']]。copy（）。 这将适用于NumPy的过去和未来版本。
 
-If the accessed field is a sub-array, the dimensions of the sub-array are appended to the shape of the result.
+如果访问的字段是子数组，则子数组的维度将附加到结果的形状。
 
-**Example**
+**例子**
 
 ```python
 >>> x = np.zeros((2,2), dtype=[('a', np.int32), ('b', np.float64, (3,3))])
@@ -353,6 +351,6 @@ dtype('int32')
 dtype('float64')
 ```
 
-## Flat Iterator indexing
+## 扁平转子标引
 
-``x.flat`` returns an iterator that will iterate over the entire array (in C-contiguous style with the last index varying the fastest). This iterator object can also be indexed using basic slicing or advanced indexing as long as the selection object is not a tuple. This should be clear from the fact that ``x.flat`` is a 1-dimensional view. It can be used for integer indexing with 1-dimensional C-style-flat indices. The shape of any returned array is therefore the shape of the integer indexing object.
+``x.flat``返回一个迭代器，它将迭代整个数组（以C-contiguous样式，最后一个索引变化最快）。 只要选择对象不是元组，也可以使用基本切片或高级索引对此迭代器对象建立索引。 从“x.flat`”是一维视图的事实可以清楚地看出这一点。 它可用于具有1维C风格平面索引的整数索引。 因此，任何返回数组的形状都是整数索引对象的形状。
