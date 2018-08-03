@@ -1,12 +1,12 @@
 # 迭代数组
 
-The iterator object ``nditer``, introduced in NumPy 1.6, provides many flexible ways to visit all the elements of one or more arrays in a systematic fashion. This page introduces some basic ways to use the object for computations on arrays in Python, then concludes with how one can accelerate the inner loop in Cython. Since the Python exposure of ``nditer`` is a relatively straightforward mapping of the C array iterator API, these ideas will also provide help working with array iteration from C or C++.
+NumPy 1.6中引入的迭代器对象``nditer``提供了许多灵活的方式来以系统的方式访问一个或多个数组的所有元素。 本页介绍了在Python中使用该对象进行数组计算的一些基本方法，然后总结了如何在Cython中加速内部循环。 由于``nditer``的Python曝光是C数组迭代器API的相对简单的映射，因此这些想法还将提供有关使用C或C ++的数组迭代的帮助。
 
-## Single Array Iteration
+## 单数组迭代
 
-The most basic task that can be done with the ``nditer`` is to visit every element of an array. Each element is provided one by one using the standard Python iterator interface.
+使用``nditer``可以完成的最基本的任务是访问数组的每个元素。 使用标准Python迭代器接口逐个提供每个元素。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3)
@@ -16,9 +16,9 @@ The most basic task that can be done with the ``nditer`` is to visit every eleme
 0 1 2 3 4 5
 ```
 
-An important thing to be aware of for this iteration is that the order is chosen to match the memory layout of the array instead of using a standard C or Fortran ordering. This is done for access efficiency, reflecting the idea that by default one simply wants to visit each element without concern for a particular ordering. We can see this by iterating over the transpose of our previous array, compared to taking a copy of that transpose in C order.
+要注意这个迭代，重要的是选择顺序来匹配数组的内存布局，而不是使用标准的C或Fortran排序。 这样做是为了提高访问效率，反映了默认情况下只需要访问每个元素而不关心特定排序的想法。 我们可以通过迭代前一个数组的转置来看到这一点，而不是以C顺序获取该转置的副本。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3)
@@ -32,13 +32,13 @@ An important thing to be aware of for this iteration is that the order is chosen
 0 3 1 4 2 5
 ```
 
-The elements of both a and a.T get traversed in the same order, namely the order they are stored in memory, whereas the elements of *a.T.copy(order=’C’)* get visited in a different order because they have been put into a different memory layout.
+a和aT的元素以相同的顺序遍历，即它们存储在内存中的顺序，而* aTcopy（order ='C'）*的元素以不同的顺序访问，因为它们已被放入 不同的内存布局。
 
-### Controlling Iteration Order
+### 控制迭代顺序
 
-There are times when it is important to visit the elements of an array in a specific order, irrespective of the layout of the elements in memory. The ``nditer`` object provides an order parameter to control this aspect of iteration. The default, having the behavior described above, is order=’K’ to keep the existing order. This can be overridden with order=’C’ for C order and order=’F’ for Fortran order.
+有时，以特定顺序访问数组的元素很重要，而不管内存中元素的布局如何。 ``nditer``对象提供了一个order参数来控制迭代的这个方面。 具有上述行为的默认值是order ='K'以保持现有订单。 对于C顺序，可以使用order ='C'覆盖它，对于Fortran顺序，可以使用order ='F'覆盖它。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3)
@@ -52,13 +52,13 @@ There are times when it is important to visit the elements of an array in a spec
 0 3 1 4 2 5
 ```
 
-### Modifying Array Values
+### 修改数组值
 
-By default, the ``nditer`` treats the input array as a read-only object. To modify the array elements, you must specify either read-write or write-only mode. This is controlled with per-operand flags.
+默认情况下，``nditer``将输入数组视为只读对象。 要修改数组元素，必须指定读写或只写模式。 这是用每操作数标志控制的。
 
-Regular assignment in Python simply changes a reference in the local or global variable dictionary instead of modifying an existing variable in place. This means that simply assigning to x will not place the value into the element of the array, but rather switch x from being an array element reference to being a reference to the value you assigned. To actually modify the element of the array, x should be indexed with the ellipsis.
+Python中的常规赋值只是更改本地或全局变量字典中的引用，而不是修改现有变量。 这意味着简单地分配给x不会将值放入数组的元素中，而是将x作为数组元素引用切换为对指定值的引用。 要实际修改数组的元素，x应该用省略号索引。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3)
@@ -73,15 +73,15 @@ array([[ 0,  2,  4],
        [ 6,  8, 10]])
 ```
 
-### Using an External Loop
+### 使用外部循环
 
-In all the examples so far, the elements of a are provided by the iterator one at a time, because all the looping logic is internal to the iterator. While this is simple and convenient, it is not very efficient. A better approach is to move the one-dimensional innermost loop into your code, external to the iterator. This way, NumPy’s vectorized operations can be used on larger chunks of the elements being visited.
+在目前为止的所有示例中，a的元素由迭代器一次提供一个，因为所有循环逻辑都是迭代器的内部逻辑。 虽然这很简单方便，但效率不高。 更好的方法是将一维最内层循环移动到迭代器外部的代码中。 这样，NumPy的矢量化操作可以用在被访问元素的较大块上。
 
-The ``nditer`` will try to provide chunks that are as large as possible to the inner loop. By forcing ‘C’ and ‘F’ order, we get different external loop sizes. This mode is enabled by specifying an iterator flag.
+``nditer``将尝试提供尽可能大的内部循环块。 通过强制'C'和'F'顺序，我们得到不同的外部循环大小。 通过指定迭代器标志来启用此模式。
 
-Observe that with the default of keeping native memory order, the iterator is able to provide a single one-dimensional chunk, whereas when forcing Fortran order, it has to provide three chunks of two elements each.
+观察到默认情况下保持本机内存顺序，迭代器能够提供单个一维块，而在强制Fortran命令时，它必须提供三个块，每个块有两个元素。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3)
@@ -98,15 +98,15 @@ Observe that with the default of keeping native memory order, the iterator is ab
 [0 3] [1 4] [2 5]
 ```
 
-### Tracking an Index or Multi-Index
+### 跟踪索引或多索引
 
-During iteration, you may want to use the index of the current element in a computation. For example, you may want to visit the elements of an array in memory order, but use a C-order, Fortran-order, or multidimensional index to look up values in a different array.
+在迭代期间，您可能希望在计算中使用当前元素的索引。 例如，您可能希望按内存顺序访问数组的元素，但使用C顺序，Fortran顺序或多维索引来查找不同数组中的值。
 
-The Python iterator protocol doesn’t have a natural way to query these additional values from the iterator, so we introduce an alternate syntax for iterating with an ``nditer``. This syntax explicitly works with the iterator object itself, so its properties are readily accessible during iteration. With this looping construct, the current value is accessible by indexing into the iterator, and the index being tracked is the property index or multi_index depending on what was requested.
+Python迭代器协议没有一种从迭代器查询这些附加值的自然方法，因此我们引入了一种用``nditer``迭代的替代语法。 此语法显式使用迭代器对象本身，因此在迭代期间可以轻松访问其属性。 使用此循环结构，可以通过索引到迭代器来访问当前值，并且正在跟踪的索引是属性索引或multi_index，具体取决于请求的内容。
 
-The Python interactive interpreter unfortunately prints out the values of expressions inside the while loop during each iteration of the loop. We have modified the output in the examples using this looping construct in order to be more readable.
+遗憾的是，Python交互式解释器在循环的每次迭代期间打印出while循环内的表达式的值。 我们使用这个循环结构修改了示例中的输出，以便更具可读性。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3)
@@ -138,9 +138,9 @@ array([[ 0,  1,  2],
        [-1,  0,  1]])
 ```
 
-Tracking an index or multi-index is incompatible with using an external loop, because it requires a different index value per element. If you try to combine these flags, the ``nditer`` object will raise an exception
+跟踪索引或多索引与使用外部循环不兼容，因为它需要每个元素具有不同的索引值。 如果您尝试组合这些标志，``nditer``对象将引发异常
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.zeros((2,3))
@@ -150,13 +150,13 @@ Traceback (most recent call last):
 ValueError: Iterator flag EXTERNAL_LOOP cannot be used if an index or multi-index is being tracked
 ```
 
-### Buffering the Array Elements
+### 缓冲数组元素
 
-When forcing an iteration order, we observed that the external loop option may provide the elements in smaller chunks because the elements can’t be visited in the appropriate order with a constant stride. When writing C code, this is generally fine, however in pure Python code this can cause a significant reduction in performance.
+当强制迭代次序时，我们观察到外部循环选项可以以较小的块提供元素，因为不能以恒定的步幅以适当的顺序访问元素。 编写C代码时，这通常很好，但在纯Python代码中，这可能会导致性能显着降低。
 
-By enabling buffering mode, the chunks provided by the iterator to the inner loop can be made larger, significantly reducing the overhead of the Python interpreter. In the example forcing Fortran iteration order, the inner loop gets to see all the elements in one go when buffering is enabled.
+通过启用缓冲模式，迭代器提供给内部循环的块可以变得更大，从而显着减少Python解释器的开销。 在强制Fortran迭代顺序的示例中，当启用缓冲时，内部循环可以一次性查看所有元素。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3)
@@ -173,17 +173,17 @@ By enabling buffering mode, the chunks provided by the iterator to the inner loo
 [0 3 1 4 2 5]
 ```
 
-### Iterating as a Specific Data Type
+### 迭代为特定数据类型
 
-There are times when it is necessary to treat an array as a different data type than it is stored as. For instance, one may want to do all computations on 64-bit floats, even if the arrays being manipulated are 32-bit floats. Except when writing low-level C code, it’s generally better to let the iterator handle the copying or buffering instead of casting the data type yourself in the inner loop.
+有时需要将数组视为与存储数据类型不同的数据类型。 例如，即使被操作的数组是32位浮点数，也可能希望对64位浮点数进行所有计算。 除了在编写低级C代码时，通常最好让迭代器处理复制或缓冲，而不是在内部循环中自己转换数据类型。
 
-There are two mechanisms which allow this to be done, temporary copies and buffering mode. With temporary copies, a copy of the entire array is made with the new data type, then iteration is done in the copy. Write access is permitted through a mode which updates the original array after all the iteration is complete. The major drawback of temporary copies is that the temporary copy may consume a large amount of memory, particularly if the iteration data type has a larger itemsize than the original one.
+有两种机制允许这样做，临时副本和缓冲模式。 对于临时副本，使用新数据类型创建整个数组的副本，然后在副本中完成迭代。 通过在所有迭代完成后更新原始数组的模式允许写访问。 临时副本的主要缺点是临时副本可能消耗大量内存，特别是如果迭代数据类型具有比原始类型更大的项目大小。
 
-Buffering mode mitigates the memory usage issue and is more cache-friendly than making temporary copies. Except for special cases, where the whole array is needed at once outside the iterator, buffering is recommended over temporary copying. Within NumPy, buffering is used by the ufuncs and other functions to support flexible inputs with minimal memory overhead.
+缓冲模式减轻了内存使用问题，并且比制作临时副本更加缓存友好。 除特殊情况外，在迭代器外部需要立即使用整个数组，建议使用缓冲而不是临时复制。 在NumPy中，ufuncs和其他函数使用缓冲来支持灵活的输入，并且内存开销最小。
 
-In our examples, we will treat the input array with a complex data type, so that we can take square roots of negative numbers. Without enabling copies or buffering mode, the iterator will raise an exception if the data type doesn’t match precisely.
+在我们的示例中，我们将使用复杂数据类型处理输入数组，以便我们可以取负数的平方根。 如果没有启用副本或缓冲模式，如果数据类型不精确匹配，迭代器将引发异常。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3) - 3
