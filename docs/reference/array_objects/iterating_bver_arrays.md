@@ -402,9 +402,9 @@ array(276)
 276
 ```
 
-Things are a little bit more tricky when combining reduction and allocated operands. Before iteration is started, any reduction operand must be initialized to its starting values. Here’s how we can do this, taking sums along the last axis of a.
+在组合缩减和分配的操作数时，事情会有点棘手。 在迭代开始之前，必须将任何减少操作数初始化为其起始值。 这是我们如何做到这一点，沿着a的最后一个轴取总和。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(24).reshape(2,3,4)
