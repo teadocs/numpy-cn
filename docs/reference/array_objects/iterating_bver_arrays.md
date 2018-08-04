@@ -195,9 +195,9 @@ Traceback (most recent call last):
 TypeError: Iterator operand required copying or buffering, but neither copying nor buffering was enabled
 ```
 
-In copying mode, ‘copy’ is specified as a per-operand flag. This is done to provide control in a per-operand fashion. Buffering mode is specified as an iterator flag.
+在复制模式下，'copy'被指定为每操作数标志。 这样做是为了以每操作数的方式提供控制。 缓冲模式被指定为迭代器标志。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6).reshape(2,3) - 3
@@ -215,9 +215,9 @@ In copying mode, ‘copy’ is specified as a per-operand flag. This is done to 
 1.73205080757j 1.41421356237j 1j 0j (1+0j) (1.41421356237+0j)
 ```
 
-The iterator uses NumPy’s casting rules to determine whether a specific conversion is permitted. By default, it enforces ‘safe’ casting. This means, for example, that it will raise an exception if you try to treat a 64-bit float array as a 32-bit float array. In many cases, the rule ‘same_kind’ is the most reasonable rule to use, since it will allow conversion from 64 to 32-bit float, but not from float to int or from complex to float.
+迭代器使用NumPy的转换规则来确定是否允许特定转换。 默认情况下，它会强制执行“安全”转换。 这意味着，例如，如果您尝试将64位浮点数组视为32位浮点数组，则会引发异常。 在许多情况下，规则'same_kind'是最合理的规则，因为它允许从64位转换为32位浮点数，但不允许从float转换为int或从complex转换为float。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6.)
@@ -243,9 +243,9 @@ Traceback (most recent call last):
 TypeError: Iterator operand 0 dtype could not be cast from dtype('float64') to dtype('int32') according to the rule 'same_kind'
 ```
 
-One thing to watch out for is conversions back to the original data type when using a read-write or write-only operand. A common case is to implement the inner loop in terms of 64-bit floats, and use ‘same_kind’ casting to allow the other floating-point types to be processed as well. While in read-only mode, an integer array could be provided, read-write mode will raise an exception because conversion back to the array would violate the casting rule.
+需要注意的一点是，在使用读写或只写操作数时，将转换回原始数据类型。 一个常见的情况是根据64位浮点数实现内部循环，并使用“same_kind”强制转换来允许处理其他浮点类型。 在只读模式下，可以提供整数数组，读写模式会引发异常，因为转换回数组会违反转换规则。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(6)
@@ -258,13 +258,13 @@ Traceback (most recent call last):
 TypeError: Iterator requested dtype could not be cast from dtype('float64') to dtype('int64'), the operand 0 dtype, according to the rule 'same_kind'
 ```
 
-## Broadcasting Array Iteration
+## 广播数组迭代
 
-NumPy has a set of rules for dealing with arrays that have differing shapes which are applied whenever functions take multiple operands which combine element-wise. This is called broadcasting. The ``nditer`` object can apply these rules for you when you need to write such a function.
+NumPy有一套规则来处理具有不同形状的数组，只要函数采用多个组合元素的操作数，就会应用这些规则。 这称为广播。 当您需要编写这样的函数时，``nditer``对象可以为您应用这些规则。
 
-As an example, we print out the result of broadcasting a one and a two dimensional array together.
+作为示例，我们打印出一维和二维阵列一起广播的结果。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(3)
@@ -275,9 +275,9 @@ As an example, we print out the result of broadcasting a one and a two dimension
 0:0 1:1 2:2 0:3 1:4 2:5
 ```
 
-When a broadcasting error occurs, the iterator raises an exception which includes the input shapes to help diagnose the problem.
+当发生广播错误时，迭代器引发一个异常，其中包括输入形状以帮助诊断问题。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(2)
@@ -290,13 +290,13 @@ Traceback (most recent call last):
 ValueError: operands could not be broadcast together with shapes (2) (2,3)
 ```
 
-### Iterator-Allocated Output Arrays
+### 迭代器分配的输出数组
 
-A common case in NumPy functions is to have outputs allocated based on the broadcasting of the input, and additionally have an optional parameter called ‘out’ where the result will be placed when it is provided. The ``nditer`` object provides a convenient idiom that makes it very easy to support this mechanism.
+NumPy函数的一个常见情况是根据输入的广播分配输出，另外还有一个名为'out'的可选参数，其中结果将在提供时放置。 ``nditer``对象提供了一个方便的习惯用法，使得它很容易支持这种机制。
 
-We’ll show how this works by creating a function ``square`` which squares its input. Let’s start with a minimal function definition excluding ‘out’ parameter support.
+我们将通过创建一个函数``square``来显示它是如何工作的，该函数将其输入平方。 让我们从最小的函数定义开始，不包括'out'参数支持。
 
-**Example**
+**例子**
 
 ```python
 >>> def square(a):
@@ -309,15 +309,15 @@ We’ll show how this works by creating a function ``square`` which squares its 
 array([1, 4, 9])
 ```
 
-By default, the ``nditer`` uses the flags ‘allocate’ and ‘writeonly’ for operands that are passed in as None. This means we were able to provide just the two operands to the iterator, and it handled the rest.
+默认情况下，``nditer``对于作为None传入的操作数使用标志'allocate'和'writeonly'。 这意味着我们只能为迭代器提供两个操作数，并处理其余的操作数。
 
-When adding the ‘out’ parameter, we have to explicitly provide those flags, because if someone passes in an array as ‘out’, the iterator will default to ‘readonly’, and our inner loop would fail. The reason ‘readonly’ is the default for input arrays is to prevent confusion about unintentionally triggering a reduction operation. If the default were ‘readwrite’, any broadcasting operation would also trigger a reduction, a topic which is covered later in this document.
+添加'out'参数时，我们必须显式提供这些标志，因为如果有人将数组作为'out'传入，迭代器将默认为'readonly'，而我们的内部循环将失败。 'readonly'是输入数组的默认值的原因是为了防止无意中触发减少操作的混淆。 如果默认为“readwrite”，则任何广播操作也会触发减少，这个主题将在本文档的后面部分介绍。
 
-While we’re at it, let’s also introduce the ‘no_broadcast’ flag, which will prevent the output from being broadcast. This is important, because we only want one input value for each output. Aggregating more than one input value is a reduction operation which requires special handling. It would already raise an error because reductions must be explicitly enabled in an iterator flag, but the error message that results from disabling broadcasting is much more understandable for end-users. To see how to generalize the square function to a reduction, look at the sum of squares function in the section about Cython.
+虽然我们正在使用它，但我们还会引入'no_broadcast'标志，这将阻止输出被广播。 这很重要，因为我们只需要每个输出一个输入值。 聚合多个输入值是减少操作，需要特殊处理。 它已经引发错误，因为必须在迭代器标志中显式启用减少，但是对于最终用户来说，禁用广播导致的错误消息更容易理解。 要了解如何将square函数推广到缩减，请查看有关Cython的部分中的平方和函数。
 
-For completeness, we’ll also add the ‘external_loop’ and ‘buffered’ flags, as these are what you will typically want for performance reasons.
+为了完整起见，我们还将添加'external_loop'和'buffered'标志，因为出于性能原因，这些标志通常是您需要的。
 
-**Example**
+**例子**
 
 ```python
 >>> def square(a, out=None):
@@ -352,17 +352,17 @@ Traceback (most recent call last):
 ValueError: non-broadcastable output operand with shape (3) doesn't match the broadcast shape (2,3)
 ```
 
-### Outer Product Iteration
+### 外部产品迭代
 
-Any binary operation can be extended to an array operation in an outer product fashion ``like`` in outer, and the ``nditer`` object provides a way to accomplish this by explicitly mapping the axes of the operands. It is also possible to do this with ``newaxis`` indexing, but we will show you how to directly use the nditer op_axes parameter to accomplish this with no intermediate views.
+任何二进制操作都可以在外部以外部产品``like``扩展到数组操作，而``nditer``对象提供了一种通过显式映射操作数的轴来实现这一目的的方法。 也可以使用``newaxis``索引来完成此操作，但我们将向您展示如何直接使用nditer op_axes参数来完成此操作而不使用中间视图。
 
-We’ll do a simple outer product, placing the dimensions of the first operand before the dimensions of the second operand. The op_axes parameter needs one list of axes for each operand, and provides a mapping from the iterator’s axes to the axes of the operand.
+我们将做一个简单的外部产品，将第一个操作数的尺寸放在第二个操作数的尺寸之前。 op_axes参数需要每个操作数的一个轴列表，并提供从迭代器轴到操作数轴的映射。
 
-Suppose the first operand is one dimensional and the second operand is two dimensional. The iterator will have three dimensions, so op_axes will have two 3-element lists. The first list picks out the one axis of the first operand, and is -1 for the rest of the iterator axes, with a final result of [0, -1, -1]. The second list picks out the two axes of the second operand, but shouldn’t overlap with the axes picked out in the first operand. Its list is [-1, 0, 1]. The output operand maps onto the iterator axes in the standard manner, so we can provide None instead of constructing another list.
+假设第一个操作数是一维的，第二个操作数是二维的。 迭代器将具有三个维度，因此op_axes将具有两个3元素列表。 第一个列表选出第一个操作数的一个轴，其余的迭代器轴为-1，最终结果为[0，-1，-1]。 第二个列表选出第二个操作数的两个轴，但不应与第一个操作数中选取的轴重叠。 它的列表是[-1,0,1]。 输出操作数以标准方式映射到迭代器轴，因此我们可以提供None而不是构造另一个列表。
 
-The operation in the inner loop is a straightforward multiplication. Everything to do with the outer product is handled by the iterator setup.
+内循环中的操作是简单的乘法。 与外部产品有关的一切都由迭代器设置处理。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(3)
@@ -381,13 +381,13 @@ array([[[ 0,  0,  0,  0],
         [ 8, 10, 12, 14]]])
 ```
 
-### Reduction Iteration
+### 减少迭代
 
-Whenever a writeable operand has fewer elements than the full iteration space, that operand is undergoing a reduction. The ``nditer`` object requires that any reduction operand be flagged as read-write, and only allows reductions when ‘reduce_ok’ is provided as an iterator flag.
+只要可写操作数的元素少于完整迭代空间，该操作数就会减少。 ``nditer``对象要求将任何减少操作数标记为读写，并且仅当'reduce_ok'作为迭代器标志提供时才允许减少。
 
-For a simple example, consider taking the sum of all elements in an array.
+举一个简单的例子，考虑获取数组中所有元素的总和。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(24).reshape(2,3,4)
