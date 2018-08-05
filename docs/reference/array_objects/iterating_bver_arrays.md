@@ -423,11 +423,11 @@ array([[ 6, 22, 38],
        [54, 70, 86]])
 ```
 
-To do buffered reduction requires yet another adjustment during the setup. Normally the iterator construction involves copying the first buffer of data from the readable arrays into the buffer. Any reduction operand is readable, so it may be read into a buffer. Unfortunately, initialization of the operand after this buffering operation is complete will not be reflected in the buffer that the iteration starts with, and garbage results will be produced.
+要进行缓冲还原，需要在设置过程中进行另一次调整。 通常，迭代器构造涉及将第一个数据缓冲区从可读数组复制到缓冲区中。 任何减少操作数都是可读的，因此可以将其读入缓冲区。 不幸的是，在完成缓冲操作之后初始化操作数将不会反映在迭代开始的缓冲区中，并且将产生垃圾结果。
 
-The iterator flag “delay_bufalloc” is there to allow iterator-allocated reduction operands to exist together with buffering. When this flag is set, the iterator will leave its buffers uninitialized until it receives a reset, after which it will be ready for regular iteration. Here’s how the previous example looks if we also enable buffering.
+迭代器标志“delay_bufalloc”允许迭代器分配的缩减操作数与缓冲一起存在。 设置此标志后，迭代器将使其缓冲区保持未初始化状态，直到它收到重置为止，之后它将为常规迭代做好准备。 如果我们也启用缓冲，下面是前面的示例。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(24).reshape(2,3,4)
@@ -445,13 +445,13 @@ array([[ 6, 22, 38],
        [54, 70, 86]])
 ```
 
-## Putting the Inner Loop in Cython
+## 将内循环放在Cython中
 
-Those who want really good performance out of their low level operations should strongly consider directly using the iteration API provided in C, but for those who are not comfortable with C or C++, Cython is a good middle ground with reasonable performance tradeoffs. For the ``nditer`` object, this means letting the iterator take care of broadcasting, dtype conversion, and buffering, while giving the inner loop to Cython.
+那些希望从低级操作中获得真正良好性能的人应该强烈考虑直接使用C中提供的迭代API，但对于那些不熟悉C或C ++的人来说，Cython是一个很好的中间地带，具有合理的性能权衡。 对于``nditer``对象，这意味着让迭代器处理广播，dtype转换和缓冲，同时给Cython提供内部循环。
 
-For our example, we’ll create a sum of squares function. To start, let’s implement this function in straightforward Python. We want to support an ‘axis’ parameter similar to the numpy ``sum`` function, so we will need to construct a list for the op_axes parameter. Here’s how this looks.
+对于我们的例子，我们将创建一个平方和函数。 首先，让我们在简单的Python中实现这个功能。 我们想要支持类似于numpy``sum``函数的'axis'参数，因此我们需要为op_axes参数构造一个列表。 这是这个看起来如何。
 
-**Example**
+**例子**
 
 ```python
 >>> def axis_to_axeslist(axis, ndim):
@@ -490,9 +490,9 @@ array(55.0)
 array([  5.,  50.])
 ```
 
-To Cython-ize this function, we replace the inner loop (y[…] += x*x) with Cython code that’s specialized for the float64 dtype. With the ‘external_loop’ flag enabled, the arrays provided to the inner loop will always be one-dimensional, so very little checking needs to be done.
+为了Cython-ize这个函数，我们用Cython代码替换内部循环（y [...] + = x * x），这些代码专门用于float64 dtype。 启用“external_loop”标志后，提供给内部循环的数组将始终为一维，因此需要进行的检查非常少。
 
-Here’s the listing of sum_squares.pyx:
+这是sum_squares.pyx的列表：
 
 ```python
 import numpy as np
@@ -540,16 +540,16 @@ def sum_squares_cy(arr, axis=None, out=None):
     return it.operands[1]
 ```
 
-On this machine, building the .pyx file into a module looked like the following, but you may have to find some Cython tutorials to tell you the specifics for your system configuration.:
+在这台机器上，将.pyx文件构建到模块中如下所示，但您可能需要找到一些Cython教程来告诉您系统配置的具体信息：
 
 ```sh
 $ cython sum_squares.pyx
 $ gcc -shared -pthread -fPIC -fwrapv -O2 -Wall -I/usr/include/python2.7 -fno-strict-aliasing -o sum_squares.so sum_squares.c
 ```
 
-Running this from the Python interpreter produces the same answers as our native Python/NumPy code did.
+从Python解释器运行它会产生与我们的本机Python / NumPy代码相同的答案。
 
-**Example**
+**例子**
 
 ```python
 >>> from sum_squares import sum_squares_cy
@@ -560,7 +560,7 @@ array(55.0)
 array([  5.,  50.])
 ```
 
-Doing a little timing in IPython shows that the reduced overhead and memory allocation of the Cython inner loop is providing a very nice speedup over both the straightforward Python code and an expression using NumPy’s built-in sum function.:
+在IPython中做一点时间表明，Cython内部循环的减少的开销和内存分配提供了一个非常好的加速比直接的Python代码和使用NumPy的内置和函数的表达式：
 
 ```python
 >>> a = np.random.rand(1000,1000)
