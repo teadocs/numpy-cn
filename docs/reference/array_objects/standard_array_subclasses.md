@@ -1,64 +1,65 @@
 # 标准数组子类
 
-The ``ndarray`` in NumPy is a “new-style” Python built-in-type. Therefore, it can be inherited from (in Python or in C) if desired. Therefore, it can form a foundation for many useful classes. Often whether to sub-class the array object or to simply use the core array component as an internal part of a new class is a difficult decision, and can be simply a matter of choice. NumPy has several tools for simplifying how your new object interacts with other array objects, and so the choice may not be significant in the end. One way to simplify the question is by asking yourself if the object you are interested in can be replaced as a single array or does it really require two or more arrays at its core.
+NumPy中的``ndarray``是一种“新式”Python内置类型。 因此，如果需要，它可以从（在Python或C中）继承。 因此，它可以为许多有用的类奠定基础。 通常，是否对数组对象进行子类化或简单地将核心数组组件用作新类的内部部分是一个困难的决定，并且可以简单地作为选择问题。 NumPy有几个工具可以简化新对象与其他数组对象的交互方式，因此最终选择可能并不重要。 简化问题的一种方法是问自己，您感兴趣的对象是否可以替换为单个数组，还是确实需要两个或更多数组。
 
-Note that ``asarray`` always returns the base-class ndarray. If you are confident that your use of the array object can handle any subclass of an ndarray, then ``asanyarray`` can be used to allow subclasses to propagate more cleanly through your subroutine. In principal a subclass could redefine any aspect of the array and therefore, under strict guidelines, ``asanyarray`` would rarely be useful. However, most subclasses of the array object will not redefine certain aspects of the array object such as the buffer interface, or the attributes of the array. One important example, however, of why your subroutine may not be able to handle an arbitrary subclass of an array is that matrices redefine the “*” operator to be matrix-multiplication, rather than element-by-element multiplication.
+请注意，``asarray``始终返回基类ndarray。 如果您确信使用数组对象可以处理ndarray的任何子类，则可以使用``asanyarray``来允许子类在子例程中更加干净地传播。 原则上，子类可以重新定义数组的任何方面，因此，在严格的指导下，“asanyarray”将很少有用。 但是，数组对象的大多数子类都不会重新定义数组对象的某些方面，例如缓冲区接口或数组的属性。 然而，一个重要的例子是你的子程序可能无法处理数组的任意子类的原因是矩阵将“*”运算符重新定义为矩阵乘法，而不是逐个元素乘法。
 
-## Special attributes and methods
+## 特殊属性和方法
 
 另见：
 
 > Subclassing ndarray
 
-NumPy provides several hooks that classes can customize:
+NumPy提供了几个类可以自定义的钩子：
 
 ### ``class.__array_ufunc__`` *(ufunc, method, \*inputs, \*\*kwargs)*
-*New in version 1.13.*
+*版本1.13中的新功能。*
 
-> **Note**
-> The API is provisional, i.e., we do not yet guarantee backward compatibility.
+> **注意**
+> API是临时的，即我们尚不保证向后兼容性。
 
-Any class, ndarray subclass or not, can define this method or set it to ``None`` in order to override the behavior of NumPy’s ufuncs. This works quite similarly to Python’s ``__mul__`` and other binary operation routines.
+任何类，ndarray子类或非类，都可以定义此方法或将其设置为“无”以覆盖NumPy的ufuncs的行为。 这与Python的`__mul__``和其他二进制操作例程非常相似。
 
-- ufunc is the ufunc object that was called.
-- method is a string indicating which Ufunc method was called (one of ``"__call__"``, ``"reduce"``, ``"reduceat"``, ``"accumulate"``, ``"outer"``, ``"inner"``).
-- inputs is a tuple of the input arguments to the ``ufunc``.
-- kwargs is a dictionary containing the optional input arguments of the ufunc. If given, any ``out`` arguments, both positional and keyword, are passed as a ``tuple`` in kwargs. See the discussion in Universal functions (ufunc) for details.
+- ufunc是被调用的ufunc对象。
+- method是一个字符串，表示调用了哪个Ufunc方法（``__call__``，``reduce``，``reduceat``，``accumulate``，``outer``，``内在``）。
+- inputs是``ufunc``的输入参数的元组。
+- kwargs是一个包含ufunc的可选输入参数的字典。 如果给出，任何``out``参数，无论是位置还是关键字，都会在kwargs中作为``tuple``传递。 有关详细信息，请参阅通用函数（ufunc）中的讨论。
 
-The method should return either the result of the operation, or ``NotImplemented`` if the operation requested is not implemented.
+如果未执行请求的操作，该方法应该返回操作的结果，或者返回“NotImplemented”。
 
-If one of the input or output arguments has a ``__array_ufunc__`` method, it is executed instead of the ufunc. If more than one of the arguments implements ``__array_ufunc__``, they are tried in the order: subclasses before superclasses, inputs before outputs, otherwise left to right. The first routine returning something other than ``NotImplemented`` determines the result. If all of the ``__array_ufunc__`` operations return NotImplemented, a ``TypeError`` is raised.
+如果输入或输出参数之一具有`__array_ufunc__``方法，则执行它而不是ufunc。 如果多个参数实现``__array_ufunc__``，则按顺序尝试它们：超类之前的子类，输出之前的输入，否则从左到右。 返回“NotImplemented”之外的第一个例程确定结果。 如果所有``__array_ufunc__``操作都返回NotImplemented，则会引发``TypeError``。
 
-> **Note**
-> We intend to re-implement numpy functions as (generalized) Ufunc, in which case it will become possible for them to be overridden by the ``__array_ufunc__`` method. A prime candidate is ``matmul``, which currently is not a Ufunc, but could be relatively easily be rewritten as a (set of) generalized Ufuncs. The same may happen with functions such as ``median``, ``min``, and ``argsort``.
+> **注意**
+> 我们打算将numpy函数重新实现为（generalized）Ufunc，在这种情况下，它们可以被``__array_ufunc__``方法覆盖。 一个主要的候选者是``matmul``，它当前不是Ufunc，但可以相对容易地被重写为（一组）广义Ufuncs。 使用诸如``median``，``min``和``argsort``等功能也可能发生同样的情况。
 
-Like with some other special methods in python, such as ``__hash__`` and ``__iter__``, it is possible to indicate that your class does not support ufuncs by setting ``__array_ufunc__`` = None. Ufuncs always raise TypeError when called on an object that sets ``__array_ufunc__`` = None.
+与python中的一些其他特殊方法一样，例如``__hash__``和``__iter__``，可以通过设置`__array_ufunc__`` = None来指示你的类不支持ufunc。 在设置``__array_ufunc__`` = None的对象上调用时，Ufuncs总是引发TypeError。
 
-The presence of ``__array_ufunc__`` also influences how ``ndarray`` handles binary operations like ``arr + obj`` and arr < obj when arr is an ndarray and obj is an instance of a custom class. There are two possibilities. If obj.__array_ufunc__ is present and not None, then ndarray.__add__ and friends will delegate to the ufunc machinery, meaning that arr + obj becomes np.add(arr, obj), and then add invokes obj.__array_ufunc__. This is useful if you want to define an object that acts like an array.
+`__array_ufunc__``的存在也会影响``ndarray``如何处理二进制操作，如``arr + obj``和arr <obj，当arr是一个ndarray而obj是一个自定义类的实例。 有两种可能性。 如果obj .__ array_ufunc__存在而不是None，则ndarray .__ add__和friends将委托给ufunc机制，这意味着arr + obj变为np.add（arr，obj），然后添加调用obj .__ array_ufunc__。 如果要定义一个类似于数组的对象，这将非常有用。
 
-Alternatively, if obj.__array_ufunc__ is set to None, then as a special case, special methods like ndarray.__add__ will notice this and unconditionally raise TypeError. This is useful if you want to create objects that interact with arrays via binary operations, but are not themselves arrays. For example, a units handling system might have an object m representing the “meters” unit, and want to support the syntax arr * m to represent that the array has units of “meters”, but not want to otherwise interact with arrays via ufuncs or otherwise. This can be done by setting __array_ufunc__ = None and defining __mul__ and __rmul__ methods. (Note that this means that writing an __array_ufunc__ that always returns NotImplemented is not quite the same as setting __array_ufunc__ = None: in the former case, arr + obj will raise TypeError, while in the latter case it is possible to define a __radd__ method to prevent this.)
+或者，如果obj .__ array_ufunc__设置为None，那么作为一种特殊情况，像ndarray .__ add__这样的特殊方法会注意到这一点并无条件地引发TypeError。 如果要创建通过二进制操作与数组交互的对象，但这些对象本身不是数组，则此选项非常有用。 例如，单位处理系统可能有一个对象m代表“米”单位，并希望支持语法arr * m来表示该数组具有“米”单位，但不希望以其他方式通过ufuncs与数组交互 或者其他。 这可以通过设置__array_ufunc__ = None并定义__mul__和__rmul__方法来完成。 （注意，这意味着编写始终返回NotImplemented的__array_ufunc__与设置__array_ufunc__ = None不完全相同：在前一种情况下，arr + obj将引发TypeError，而在后一种情况下，可以定义__radd__方法 防止这种情况。）
 
-The above does not hold for in-place operators, for which ndarray never returns NotImplemented. Hence, arr += obj would always lead to a TypeError. This is because for arrays in-place operations cannot generically be replaced by a simple reverse operation. (For instance, by default, arr += obj would be translated to arr = arr + obj, i.e., arr would be replaced, contrary to what is expected for in-place array operations.)
+以上内容不适用于就地运算符，ndarray永远不会返回NotImplemented。 因此，arr + = obj总是会导致TypeError。 这是因为对于阵列就地操作一般不能用简单的反向操作代替。 （例如，默认情况下，arr + = obj将转换为arr = arr + obj，即arr将被替换，与内部数组操作的预期相反。）
 
-> **Note**
-> If you define __array_ufunc__:
+> **注意**
+> 如果你定义__array_ufunc__：
 
-> - If you are not a subclass of ndarray, we recommend your class define special methods like __add__ and __lt__ that delegate to ufuncs just like ndarray does. An easy way to do this is to subclass from ``NDArrayOperatorsMixin``.
-> - If you subclass ``ndarray``, we recommend that you put all your override logic in __array_ufunc__ and not also override special methods. This ensures the class hierarchy is determined in only one place rather than separately by the ufunc machinery and by the binary operation rules (which gives preference to special methods of subclasses; the alternative way to enforce a one-place only hierarchy, of setting __array_ufunc__ to None, would seem very unexpected and thus confusing, as then the subclass would not work at all with ufuncs).
-> - ``ndarray`` defines its own __array_ufunc__, which, evaluates the ufunc if no arguments have overrides, and returns NotImplemented otherwise. This may be useful for subclasses for which __array_ufunc__ converts any instances of its own class to ndarray: it can then pass these on to its superclass using super().__array_ufunc__(*inputs, **kwargs), and finally return the results after possible back-conversion. The advantage of this practice is that it ensures that it is possible to have a hierarchy of subclasses that extend the behaviour. See Subclassing ndarray for details.
+> - 如果你不是ndarray的子类，我们建议你的类定义像_dadray那样委托给ufuncs的特殊方法，比如__add__和__lt__。一个简单的方法是从``NDArrayOperatorsMixin``继承。
+> - 如果您继承``ndarray``，我们建议您将所有覆盖逻辑放在__array_ufunc__中，而不是覆盖特殊方法。 这确保了类层次结构只在一个地方确定，而不是由ufunc机制和二进制操作规则（它优先考虑子类的特殊方法;强制执行单一地方层次结构的另一种方法，将__array_ufunc__设置为 没有，看起来非常意外，因而令人困惑，因为那时子类根本无法使用ufuncs）。
+> - ``ndarray``定义了自己的__array_ufunc__，如果没有参数覆盖，则计算ufunc，否则返回NotImplemented。 这对于__array_ufunc__将其自己的类的任何实例转换为ndarray的子类可能很有用：然后它可以使用super（）.__ array_ufunc __（* inputs，** kwargs）将它们传递给它的超类，最后在可能之后返回结果反变换。 这种做法的优点是它确保可以有一个扩展行为的子类层次结构。 有关详细信息，请参阅子类化ndarray。
 
-> **Note**
-> If a class defines the ``__array_ufunc__`` method, this disables the ``__array_wrap__``, ``__array_prepare__``, ``__array_priority__`` mechanism described below for ufuncs (which may eventually be deprecated).
+> **注意**
+> 如果一个类定义了``__array_ufunc__``方法，则会禁用下面针对ufuncs描述的`__array_wrap__``，`__array_prepare__``，``__array_priority__``机制（最终可能会弃用）。
 
 ### ``class.__array_finalize__``(obj)
 
-This method is called whenever the system internally allocates a new array from obj, where obj is a subclass (subtype) of the ndarray. It can be used to change attributes of self after construction (so as to ensure a 2-d matrix for example), or to update meta-information from the “parent.” Subclasses inherit a default implementation of this method that does nothing.
+只要系统在内部从obj分配一个新数组，就会调用此方法，其中obj是ndarray的子类（子类型）。 它可以用于在构造之后更改self的属性（例如，以确保2-d矩阵），或者从“父”更新元信息。子类继承此方法的默认实现，该方法不执行任何操作。
 
 ### ``class.__array_prepare__``(array, context=None)
-At the beginning of every ufunc, this method is called on the input object with the highest array priority, or the output object if one was specified. The output array is passed in and whatever is returned is passed to the ufunc. Subclasses inherit a default implementation of this method which simply returns the output array unmodified. Subclasses may opt to use this method to transform the output array into an instance of the subclass and update metadata before returning the array to the ufunc for computation.
 
-> **Note**
-> For ufuncs, it is hoped to eventually deprecate this method in favour of __array_ufunc__.
+在每个ufunc的开头，在具有最高数组优先级的输入对象上调用此方法，或者在指定了一个输出对象的情况下调用此方法。 传入输出数组，返回的任何内容都传递给ufunc。 子类继承此方法的默认实现，它只返回未修改的输出数组。 子类可以选择使用此方法将输出数组转换为子类的实例，并在将数组返回到ufunc进行计算之前更新元数据。
+
+> **注意**
+> 对于ufuncs，希望最终弃用这个方法，而不是__array_ufunc__。
 
 ### ``class.__array_wrap__``(array, context=None)
 
