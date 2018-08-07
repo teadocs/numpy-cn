@@ -63,56 +63,56 @@ NumPy提供了几个类可以自定义的钩子：
 
 ### ``class.__array_wrap__``(array, context=None)
 
-At the end of every ufunc, this method is called on the input object with the highest array priority, or the output object if one was specified. The ufunc-computed array is passed in and whatever is returned is passed to the user. Subclasses inherit a default implementation of this method, which transforms the array into a new instance of the object’s class. Subclasses may opt to use this method to transform the output array into an instance of the subclass and update metadata before returning the array to the user.
+在每个ufunc的末尾，在具有最高数组优先级的输入对象上调用此方法，如果指定了一个输出对象，则调用此方法。 传入ufunc-computed数组，并将返回的任何内容传递给用户。 子类继承此方法的默认实现，该实现将数组转换为对象类的新实例。 子类可以选择使用此方法将输出数组转换为子类的实例，并在将数组返回给用户之前更新元数据。
 
-> **Note**
-> For ufuncs, it is hoped to eventually deprecate this method in favour of ``__array_ufunc__``.
+> **注意**
+> 对于ufuncs，希望最终弃用这个方法而不是`__array_ufunc__``。
 
 ### ``class.__array_priority__``
-The value of this attribute is used to determine what type of object to return in situations where there is more than one possibility for the Python type of the returned object. Subclasses inherit a default value of 0.0 for this attribute.
+此属性的值用于确定在返回对象的Python类型有多种可能性的情况下要返回的对象类型。 子类为此属性继承默认值0.0。
 
-> **Note**
-> For ufuncs, it is hoped to eventually deprecate this method in favour of __array_ufunc__.
+> **注意**
+> 对于ufuncs，希望最终弃用这个方法，而不是__array_ufunc__。
 
 ### ``class.__array__``([dtype])
 
-If a class (ndarray subclass or not) having the ``__array__`` method is used as the output object of an ufunc, results will be written to the object returned by ``__array__``. Similar conversion is done on input arrays.
+如果使用具有`__array__``方法的类（ndarray子类）作为ufunc的输出对象，则结果将被写入由`__array__``返回的对象。 在输入数组上进行类似的转换。
 
-## Matrix objects
+## 矩阵对象
 
-``matrix`` objects inherit from the ndarray and therefore, they have the same attributes and methods of ndarrays. There are six important differences of matrix objects, however, that may lead to unexpected results when you use matrices but expect them to act like arrays:
+``matrix``对象继承自ndarray，因此，它们具有相同的ndarrays属性和方法。 但是，矩阵对象有六个重要区别，当您使用矩阵但希望它们像数组一样时，可能会导致意外结果：
 
-1. Matrix objects can be created using a string notation to allow Matlab-style syntax where spaces separate columns and semicolons (‘;’) separate rows.
+1. 可以使用字符串表示法创建Matrix对象，以允许使用Matlab样式的语法，其中空格分隔列和分号（';'）分隔行。
 
-1. Matrix objects are always two-dimensional. This has far-reaching implications, in that m.ravel() is still two-dimensional (with a 1 in the first dimension) and item selection returns two-dimensional objects so that sequence behavior is fundamentally different than arrays.
+1. Matrix对象始终是二维的。 这具有深远意义，因为m.ravel()仍然是二维的（第一维中为1），项选择返回二维对象，因此序列行为与数组根本不同。
 
-1. Matrix objects over-ride multiplication to be matrix-multiplication. Make sure you understand this for functions that you may want to receive matrices. Especially in light of the fact that asanyarray(m) returns a matrix when m is a matrix.
+1. 矩阵对象覆盖乘法是矩阵乘法。 确保您对可能希望接收矩阵的函数有所了解。 特别是考虑到当m是矩阵时asanyarray（m）返回矩阵的事实。
 
-1. Matrix objects over-ride power to be matrix raised to a power. The same warning about using power inside a function that uses asanyarray(…) to get an array object holds for this fact.
+1. 矩阵物体覆盖功率以使矩阵升高为功率。 关于在使用asanyarray(...)获取数组对象的函数内部使用电源的相同警告适用于此事实。
 
-1. The default __array_priority__ of matrix objects is 10.0, and therefore mixed operations with ndarrays always produce matrices.
+1. 矩阵对象的默认__array_priority__是10.0，因此与ndarrays的混合操作总是产生矩阵。
 
-1. Matrices have special attributes which make calculations easier. These are
+1. 矩阵具有特殊属性，使计算更容易。这些是
 
-    ``matrix.T``	Returns the transpose of the matrix.
-    ``matrix.H``	Returns the (complex) conjugate transpose of self.
-    ``matrix.I``	Returns the (multiplicative) inverse of invertible self.
-    ``matrix.A``	Return self as an ndarray object.
+    ``matrix.T``	返回矩阵的转置。
+    ``matrix.H``	返回self的（复数）共轭转置。
+    ``matrix.I``	返回可逆self的（乘法）逆。
+    ``matrix.A``	将自己作为ndarray对象返回。
 
 
 <div class="warning-warp">
-<b>Warning</b>
+<b>警告</b>
 
-<p>Matrix objects over-ride multiplication, ‘*’, and power, ‘**’, to be matrix-multiplication and matrix power, respectively. If your subroutine can accept sub-classes and you do not convert to base- class arrays, then you must use the ufuncs multiply and power to be sure that you are performing the correct operation for all inputs.</p>
+<p>矩阵对象覆盖乘法，'*'和幂，'**'分别是矩阵乘法和矩阵幂。 如果您的子例程可以接受子类并且您没有转换为基类数组，则必须使用ufuncs multiply和power来确保您对所有输入执行正确的操作。</p>
 </div>
 
-The matrix class is a Python subclass of the ndarray and can be used as a reference for how to construct your own subclass of the ndarray. Matrices can be created from other matrices, strings, and anything else that can be converted to an ndarray . The name “mat “is an alias for “matrix “in NumPy.
+矩阵类是ndarray的Python子类，可以用作如何构造自己的ndarray子类的参考。 可以从其他矩阵，字符串以及可以转换为ndarray的任何其他内容创建矩阵。 名称“mat”是NumPy中“matrix”的别名。
 
-``matrix``(data[, dtype, copy])	Returns a matrix from an array-like object, or from a string of data.
-``asmatrix``(data[, dtype])	Interpret the input as a matrix.
-``bmat``(obj[, ldict, gdict])	Build a matrix object from a string, nested sequence, or array.
+``matrix``(data[, dtype, copy])	从类数组对象或数据字符串返回矩阵。
+``asmatrix``(data[, dtype])	将输入解释为矩阵。
+``bmat``(obj[, ldict, gdict]) 从字符串，嵌套序列或数组构建矩阵对象。
 
-Example 1: Matrix creation from a string
+示例1：从字符串创建矩阵
 
 ```python
 >>> a=mat('1 2 3; 4 5 3')
@@ -121,7 +121,7 @@ Example 1: Matrix creation from a string
  [-0.1345  0.0819]]
 ```
 
-Example 2: Matrix creation from nested sequence
+示例2：从嵌套序列创建矩阵
 
 ```python
 >>> mat([[1,5,10],[1.0,3,4j]])
@@ -129,7 +129,7 @@ matrix([[  1.+0.j,   5.+0.j,  10.+0.j],
         [  1.+0.j,   3.+0.j,   0.+4.j]])
 ```
 
-Example 3: Matrix creation from an array
+示例3：从数组创建矩阵
 
 ```python
 >>> mat(random.rand(3,3)).T
@@ -138,16 +138,16 @@ matrix([[ 0.7699,  0.7922,  0.3294],
         [ 0.3398,  0.7571,  0.8197]])
 ```
 
-## Memory-mapped file arrays
+## 内存映射文件数组
 
-Memory-mapped files are useful for reading and/or modifying small segments of a large file with regular layout, without reading the entire file into memory. A simple subclass of the ndarray uses a memory-mapped file for the data buffer of the array. For small files, the over-head of reading the entire file into memory is typically not significant, however for large files using memory mapping can save considerable resources.
+内存映射文件对于使用常规布局读取和/或修改大文件的小段非常有用，而无需将整个文件读入内存。 ndarray的一个简单子类使用内存映射文件作为数组的数据缓冲区。 对于小文件，将整个文件读入内存的开销通常并不重要，但是对于使用内存映射的大型文件可以节省大量资源。
 
-Memory-mapped-file arrays have one additional method (besides those they inherit from the ndarray): .flush() which must be called manually by the user to ensure that any changes to the array actually get written to disk.
+内存映射文件数组有一个额外的方法（除了它们从ndarray继承的那些）：。flush()必须由用户手动调用，以确保对数组的任何更改实际上都写入磁盘。
 
-``memmap``	Create a memory-map to an array stored in a binary file on disk.
-``memmap.flush``()	Write any changes in the array to the file on disk.
+``memmap``	为存储在磁盘上的二进制文件中的数组创建内存映射。
+``memmap.flush``()	将数组中的任何更改写入磁盘上的文件。
 
-Example:
+例子：
 
 ```python
 >>> a = memmap('newfile.dat', dtype=float, mode='w+', shape=1000)
