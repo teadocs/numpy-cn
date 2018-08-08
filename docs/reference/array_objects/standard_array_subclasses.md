@@ -168,42 +168,42 @@ matrix([[ 0.7699,  0.7922,  0.3294],
 
 > Creating character arrays (numpy.char)
 
-> **Note**
-> The chararray class exists for backwards compatibility with Numarray, it is not recommended for new development. Starting from numpy 1.4, if one needs arrays of strings, it is recommended to use arrays of dtype object_, string_ or unicode_, and use the free functions in the numpy.char module for fast vectorized string operations.
+> **注意**
+> chararray类的存在是为了向后兼容Numarray，不建议用于新开发。 从numpy 1.4开始，如果需要字符串数组，建议使用dtype object_，string_或unicode_的数组，并使用numpy.char模块中的free函数进行快速矢量化字符串操作。
 
-These are enhanced arrays of either string_ type or unicode_ type. These arrays inherit from the ndarray, but specially-define the operations +, *, and % on a (broadcasting) element-by-element basis. These operations are not available on the standard ndarray of character type. In addition, the chararray has all of the standard string (and unicode) methods, executing them on an element-by-element basis. Perhaps the easiest way to create a chararray is to use self.view(chararray) where self is an ndarray of str or unicode data-type. However, a chararray can also be created using the numpy.chararray constructor, or via the numpy.char.array function:
+这些是string_type或unicode_类型的增强数组。 这些数组继承自ndarray，但是在（逐个）元素的基础上特别定义了操作+，*和％。 这些操作在字符类型的标准ndarray上不可用。 此外，chararray具有所有标准字符串（和unicode）方法，在逐个元素的基础上执行它们。 也许创建chararray的最简单方法是使用self.view（chararray），其中self是str或unicode数据类型的ndarray。 但是，也可以使用numpy.chararray构造函数或通过numpy.char.array函数创建chararray：
 
-- ``chararray``(shape[, itemsize, unicode, …])	Provides a convenient view on arrays of string and unicode values.
-- ``core.defchararray.array``(obj[, itemsize, …])	Create a ``chararray``.
+- ``chararray``(shape[, itemsize，unicode, ...])提供字符串和unicode值数组的方便视图。
+- ``core.defchararray.array``(obj[, itemsize, ...]) 创建一个 ``chararray``.
 
-Another difference with the standard ndarray of str data-type is that the chararray inherits the feature introduced by Numarray that white-space at the end of any element in the array will be ignored on item retrieval and comparison operations.
+与str数据类型的标准ndarray的另一个不同之处在于chararray继承了Numarray引入的特性，即在项检索和比较操作中将忽略数组中任何元素末尾的空白空间。
 
-## Record arrays (``numpy.rec``)
+## 记录数组(``numpy.rec``)
 
 另见:
 
-> Creating record arrays (numpy.rec), Data type routines, Data type objects (dtype).
+> 创建记录数组（numpy.rec），数据类型例程，数据类型对象（dtype）。
 
-NumPy provides the ``recarray`` class which allows accessing the fields of a structured array as attributes, and a corresponding scalar data type object record.
+NumPy提供了``recarray``类，它允许访问结构化数组的字段作为属性，以及相应的标量数据类型对象记录。
 
-- ``recarray``	Construct an ndarray that allows field access using attributes.
-- ``record``	A data-type scalar that allows field access as attribute lookup.
+- ``recarray``	构造一个允许使用属性进行字段访问的ndarray。
+- ``record``	一种数据类型标量，允许字段访问作为属性查找。
 
-## Masked arrays (``numpy.ma``)
+## 掩码数组 (``numpy.ma``)
 
 另见：
 
 > Masked arrays
 
-## Standard container class
+## 标准容器类
 
-For backward compatibility and as a standard “container “class, the UserArray from Numeric has been brought over to NumPy and named ``numpy.lib.user_array.container`` The container class is a Python class whose self.array attribute is an ndarray. Multiple inheritance is probably easier with numpy.lib.user_array.container than with the ndarray itself and so it is included by default. It is not documented here beyond mentioning its existence because you are encouraged to use the ndarray class directly if you can.
+为了向后兼容并作为标准的“容器”类，Numeric的UserArray已经被带到NumPy并命名为``numpy.lib.user_array.container``容器类是一个Python类，其self.array属性是一个ndarray。 使用numpy.lib.user_array.container比使用ndarray本身更容易进行多重继承，因此默认包含它。 除了提及它的存在之外，这里没有记录，因为如果可以的话，我们鼓励你直接使用ndarray类。
 
-``numpy.lib.user_array.container``(data[, …])	Standard container-class for easy multiple-inheritance.
+``numpy.lib.user_array.container``(data[, …]) 标准容器类，便于多重继承。
 
-## Array Iterators
+## 数组迭代器
 
-Iterators are a powerful concept for array processing. Essentially, iterators implement a generalized for-loop. If myiter is an iterator object, then the Python code:
+迭代器是数组处理的强大概念。 本质上，迭代器实现了一个通用的for循环。 如果myiter是一个迭代器对象，那么Python代码：
 
 ```python
 for val in myiter:
@@ -212,18 +212,18 @@ for val in myiter:
     ...
 ```
 
-calls ``val = myiter.next()`` repeatedly until ``StopIteration`` is raised by the iterator. There are several ways to iterate over an array that may be useful: default iteration, flat iteration, and N-dimensional enumeration.
+重复调用``val = myiter.next()``直到迭代器引发``StopIteration``。有几种方法可以迭代可能有用的数组：默认迭代，平面迭代和N维枚举。
 
-### Default iteration
+### 默认迭代
 
-The default iterator of an ndarray object is the default Python iterator of a sequence type. Thus, when the array object itself is used as an iterator. The default behavior is equivalent to:
+ndarray对象的默认迭代器是序列类型的默认Python迭代器。 因此，当数组对象本身用作迭代器时。 默认行为等效于：
 
 ```python
 for i in range(arr.shape[0]):
     val = arr[i]
 ```
 
-This default iterator selects a sub-array of dimension N-1 from the array. This can be a useful construct for defining recursive algorithms. To loop over the entire array requires N for-loops.
+此默认迭代器从数组中选择维度为N-1的子数组。 这可以是用于定义递归算法的有用构造。 要遍历整个数组，需要N个for循环。
 
 ```python
 >>> a = arange(24).reshape(3,2,4)+10
@@ -237,11 +237,11 @@ item: [[26 27 28 29]
  [30 31 32 33]]
 ```
 
-### Flat iteration
+### 平面迭代
 
-- ``ndarray.flat``	A 1-D iterator over the array.
+- ``ndarray.flat`` 数组上的一维迭代器。
 
-As mentioned previously, the flat attribute of ndarray objects returns an iterator that will cycle over the entire array in C-style contiguous order.
+如前所述，ndarray对象的flat属性返回一个迭代器，它将以C风格的连续顺序循环遍历整个数组。
 
 ```python
 >>> for i, val in enumerate(a.flat):
@@ -253,13 +253,13 @@ As mentioned previously, the flat attribute of ndarray objects returns an iterat
 20 30
 ```
 
-Here, I’ve used the built-in enumerate iterator to return the iterator index as well as the value.
+在这里，我使用了内置的枚举迭代器来返回迭代器索引以及值。
 
-### N-dimensional enumeration
+### N维枚举
 
-- ``ndenumerate``(arr)	Multidimensional index iterator.
+- ``ndenumerate``(arr) 多维索引迭代器。
 
-Sometimes it may be useful to get the N-dimensional index while iterating. The ndenumerate iterator can achieve this.
+有时在迭代时获得N维索引可能很有用。 ndenumerate迭代器可以实现这一点。
 
 ```python
 >>> for i, val in ndenumerate(a):
@@ -270,11 +270,11 @@ Sometimes it may be useful to get the N-dimensional index while iterating. The n
 (2, 1, 2) 32
 ```
 
-### Iterator for broadcasting
+### 广播迭代器
 
-- ``broadcast``	Produce an object that mimics broadcasting.
+- ``broadcast``	制作一个模仿广播的对象。
 
-The general concept of broadcasting is also available from Python using the ``broadcast`` iterator. This object takes N objects as inputs and returns an iterator that returns tuples providing each of the input sequence elements in the broadcasted result.
+广播的一般概念也可以使用``broadcast``迭代器从Python获得。 此对象将N个对象作为输入，并返回一个迭代器，该迭代器返回元组，提供广播结果中的每个输入序列元素。
 
 ```python
 >>> for val in broadcast([[1,0],[2,3]],[0,1]):
