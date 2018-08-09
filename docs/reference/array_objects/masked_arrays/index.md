@@ -1,4 +1,3 @@
 # 掩码数组
 
-Masked arrays are arrays that may have missing or invalid entries. The numpy.ma module provides a nearly work-alike replacement for numpy that supports data arrays with masks.
-
+掩码数组是可能包含丢失或无效条目的数组。numpy.ma模块为numpy提供了这种数组结构的支持。

@@ -2,17 +2,17 @@
 
 ## 解释
 
-Masked arrays are arrays that may have missing or invalid entries. The ``numpy.ma`` module provides a nearly work-alike replacement for numpy that supports data arrays with masks.
+掩码数组是可能包含丢失或无效条目的数组。numpy.ma模块为numpy提供了这种数组结构的支持。
 
-## What is a masked array?
+## 什么是掩码数组？
 
-In many circumstances, datasets can be incomplete or tainted by the presence of invalid data. For example, a sensor may have failed to record a data, or recorded an invalid value. The ``numpy.ma`` module provides a convenient way to address this issue, by introducing masked arrays.
+在许多情况下，数据集可能不完整或因无效数据的存在而受到污染。 例如，传感器可能无法记录数据或记录无效值。 ``numpy.ma``模块通过引入掩码数组提供了解决此问题的便捷方法。
 
-A masked array is the combination of a standard ``numpy.ndarray`` and a mask. A mask is either ``nomask``, indicating that no value of the associated array is invalid, or an array of booleans that determines for each element of the associated array whether the value is valid or not. When an element of the mask is ``False``, the corresponding element of the associated array is valid and is said to be unmasked. When an element of the mask is ``True``, the corresponding element of the associated array is said to be masked (invalid).
+蒙面数组是标准``numpy.ndarray``和掩码的组合。掩码其中一个意思是“nomask”，表示关联数组的值无效，另外一个意思是布尔数组，它确定关联数组的每个元素是否有效。 当掩码的一个元素是``False``时，相关数组的相应元素是有效的，并且被称为未屏蔽。 当掩码的元素为``True``时，相关数组的相应元素被称为掩码（无效）。
 
-The package ensures that masked entries are not used in computations.
+该包确保在计算中不使用被屏蔽的项目。
 
-As an illustration, let’s consider the following dataset:
+作为示例，让我们考虑以下数据集：
 
 ```python
 >>> import numpy as np
@@ -20,40 +20,40 @@ As an illustration, let’s consider the following dataset:
 >>> x = np.array([1, 2, 3, -1, 5])
 ```
 
-We wish to mark the fourth entry as invalid. The easiest is to create a masked array:
+我们希望将第四个条目标记为无效。 最简单的方法是创建一个掩码数组：
 
 ```python
 >>> mx = ma.masked_array(x, mask=[0, 0, 0, 1, 0])
 ```
 
-We can now compute the mean of the dataset, without taking the invalid data into account:
+我们现在可以计算数据集的平均值，而无需考虑无效数据：
 
 ```python
 >>> mx.mean()
 2.75
 ```
 
-## The ``numpy.ma`` module
+## ``numpy.ma`` 模块
 
-The main feature of the ``numpy.ma`` module is the ``MaskedArray`` class, which is a subclass of ``numpy.ndarray``. The class, its attributes and methods are described in more details in the MaskedArray class section.
+``numpy.ma``模块的主要特性是``MaskedArray``类，它是``numpy.ndarray``的子类。 在MaskedArray类部分中更详细地描述了类，其属性和方法。
 
-The ``numpy.ma`` module can be used as an addition to ``numpy``:
+``numpy.ma``模块可以用作``numpy``的补充：
 
 ```python
 >>> import numpy as np
 >>> import numpy.ma as ma
 ```
 
-To create an array with the second element invalid, we would do:
+要创建第二个元素无效的数组，我们会这样做：
 
 ```python
 >>> y = ma.array([1, 2, 3], mask = [0, 1, 0])
 ```
 
-To create a masked array where all values close to 1.e20 are invalid, we would do:
+要创建一个掩盖数组，其中所有接近1.e20的值都无效，我们会这样做：
 
 ```python
 >>> z = masked_values([1.0, 1.e20, 3.0, 4.0], 1.e20)
 ```
 
-For a complete discussion of creation methods for masked arrays please see section Constructing masked arrays.
+有关掩码数组创建方法的完整讨论，请参阅掩码数组下面的章节。
