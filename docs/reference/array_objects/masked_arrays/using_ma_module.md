@@ -1,17 +1,16 @@
 # 使用numpy.ma
 
-## Constructing masked arrays
+## 构造掩码数组
 
-There are several ways to construct a masked array.
+有几种构造掩码数组的方法。
 
-- A first possibility is to directly invoke the ``MaskedArray`` class.
+- 第一种可能性是直接调用``MastedArray‘类。
 
-- A second possibility is to use the two masked array constructors, ``array`` and ``masked_array``.
-    - ``array``(data[, dtype, copy, order, mask, …])	An array class with possibly masked values.
-    - ``masked_array``	alias of ``numpy.ma.core.MaskedArray``
+- 第二种可能性是使用两个带掩码的数组构造函数，``array`` 和 ``msued_array``。
+    - ``数组`` (数据[、dtype、复制、顺序、掩码、…]) 可能带有掩码值的数组类。
+    - ``mabed_array`` 别名 ``numpy.ma.core.MastedArray``
 
-
-- A third option is to take the view of an existing array. In that case, the mask of the view is set to ``nomask`` if the array has no named fields, or an array of boolean with the same structure as the array otherwise.
+- 第三种选择是获取现有数组的视图。在这种情况下，如果数组没有命名字段，则视图的掩码设置为 ``nomask``，否则设置为与数组结构相同的布尔数组。
 
     ```python
     >>> x = np.array([1, 2, 3])
@@ -27,43 +26,43 @@ There are several ways to construct a masked array.
                 dtype = [('a', '<i4'), ('b', '<f8')])
     ```
 
-- Yet another possibility is to use any of the following functions:
-    - ``asarray``(a[, dtype, order])	Convert the input to a masked array of the given data-type.
-    - ``asanyarray``(a[, dtype])	Convert the input to a masked array, conserving subclasses.
-    - ``fix_invalid``(a[, mask, copy, fill_value])	Return input with invalid data masked and replaced by a fill value.
-    - ``masked_equal``(x, value[, copy])	Mask an array where equal to a given value.
-    - ``masked_greater``(x, value[, copy])	Mask an array where greater than a given value.
-    - ``masked_greater_equal``(x, value[, copy])	Mask an array where greater than or equal to a given value.
-    - ``masked_inside``(x, v1, v2[, copy])	Mask an array inside a given interval.
-    - ``masked_invalid``(a[, copy])	Mask an array where invalid values occur (NaNs or infs).
-    - ``masked_less``(x, value[, copy])	Mask an array where less than a given value.
-    - ``masked_less_equal``(x, value[, copy])	Mask an array where less than or equal to a given value.
-    - ``masked_not_equal``(x, value[, copy])	Mask an array where not equal to a given value.
-    - ``masked_object``(x, value[, copy, shrink])	Mask the array x where the data are exactly equal to value.
-    - ``masked_outside``(x, v1, v2[, copy])	Mask an array outside a given interval.
-    - ``masked_values``(x, value[, rtol, atol, copy, …])	Mask using floating point equality.
-    - ``masked_where``(condition, a[, copy])	Mask an array where a condition is met.
+- 另一种可能性是使用以下任何功能：
+    - ``asarray``(a[, dtype, order]) 将输入转换为给定数据类型的掩码数组。
+    - ``asanyarray``(a[, dtype])	将输入转换为掩码数组，保留子类。
+    - ``fix_invalid``(a[, mask, copy, fill_value]) 返回带有无效数据的输入，并用填充值替换。
+    - ``masked_equal``(x, value[, copy])	掩盖一个等于给定值的数组。
+    - ``masked_greater``(x, value[, copy])	掩盖大于给定值的数组。
+    - ``masked_greater_equal``(x, value[, copy])	掩盖大于或等于给定值的数组。
+    - ``masked_inside``(x, v1, v2[, copy])	在给定间隔内掩盖数组。
+    - ``masked_invalid``(a[, copy])	Mask an array 无效值出现的地方（NaN或infs）。
+    - ``masked_less``(x, value[, copy])	掩盖小于给定值的数组。
+    - ``masked_less_equal``(x, value[, copy])	掩盖小于或等于给定值的数组。
+    - ``masked_not_equal``(x, value[, copy])	掩盖不等于给定值的数组。
+    - ``masked_object``(x, value[, copy, shrink])	掩盖数组x，其中数据正好等于value。
+    - ``masked_outside``(x, v1, v2[, copy])	掩盖给定的数组之外的数组interval.
+    - ``masked_values``(x, value[, rtol, atol, copy, …])	掩码使用浮点相等。
+    - ``masked_where``(condition, a[, copy])	掩盖满足条件的数组。
 
-## Accessing the data
+## 访问数据
 
-The underlying data of a masked array can be accessed in several ways:
+可以通过多种方式访问掩码数组的基础数据：
 
-- through the data attribute. The output is a view of the array as a numpy.ndarray or one of its subclasses, depending on the type of the underlying data at the masked array creation.
-- through the __array__ method. The output is then a numpy.ndarray.
-- by directly taking a view of the masked array as a numpy.ndarray or one of its subclass (which is actually what using the data attribute does).
-- by using the getdata function.
+- 通过数据属性。 输出是数组的视图，作为numpy.ndarray或其子类之一，具体取决于掩码数组创建时基础数据的类型。
+- 通过__array__方法。 输出然后是numpy.ndarray。
+- 通过直接将掩盖的数组视图作为numpy.ndarray或其子类之一（实际上是使用data属性的那个）。
+- 通过使用getdata函数。
 
-None of these methods is completely satisfactory if some entries have been marked as invalid. As a general rule, where a representation of the array is required without any masked entries, it is recommended to fill the array with the filled method.
+如果某些条目被标记为无效，则这些方法都不是完全令人满意的。作为一般规则，在不需要任何屏蔽条目的情况下需要表示数组时，建议使用填充方法填充数组。
 
-## Accessing the mask
+## 访问 mask
 
-The mask of a masked array is accessible through its ``mask`` attribute. We must keep in mind that a True entry in the mask indicates an invalid data.
+掩码数组的掩码可通过其``mask``属性访问。 我们必须记住，掩码中的True条目表示无效数据。
 
-Another possibility is to use the ``getmask`` and ``getmaskarray`` functions. ``getmask(x)`` outputs the mask of x if x is a masked array, and the special value ``nomask`` otherwise. ``getmaskarray(x)`` outputs the mask of ``x`` if ``x`` is a masked array. If x has no invalid entry or is not a masked array, the function outputs a boolean array of ``False`` with as many elements as x.
+另一种可能性是使用``getmask``和``getmaskarray``函数。 如果x是一个掩码数组，``getmask（x）``输出x的掩码，否则输出特殊值``nomask``。 如果``x``是一个掩码数组，``getmaskarray（x）``输出``x``的掩码。 如果x没有无效条目或者不是掩码数组，则该函数输出一个“False”的布尔数组，其元素与x一样多。
 
-## Accessing only the valid entries
+## 仅访问有效条目
 
-To retrieve only the valid entries, we can use the inverse of the mask as an index. The inverse of the mask can be calculated with the ``numpy.logical_not`` function or simply with the ~ operator:
+要仅检索有效条目，我们可以使用掩码的反转作为索引。 掩码的逆可以用``numpy.logical_not``函数计算，或者只用〜运算符计算：
 
 ```python
 >>> x = ma.array([[1, 2], [3, 4]], mask=[[0, 1], [1, 0]])
@@ -73,20 +72,20 @@ masked_array(data = [1 4],
        fill_value = 999999)
 ```
 
-Another way to retrieve the valid data is to use the ``compressed`` method, which returns a one-dimensional ``ndarray`` (or one of its subclasses, depending on the value of the ``baseclass`` attribute):
+另一种检索有效数据的方法是使用``compressed``方法，该方法返回一维``ndarray``（或其子类之一，具体取决于``baseclass``属性的值）：
 
 ```python
 >>> x.compressed()
 array([1, 4])
 ```
 
-Note that the output of ``compressed`` is always 1D.
+请注意，``compressed``的输出始终为1D。
 
-## Modifying the mask
+## 修改 mask
 
-###Masking an entry
+### 掩盖一个条目
 
-The recommended way to mark one or several specific entries of a masked array as invalid is to assign the special value ``masked`` to them:
+将掩码数组的一个或多个特定条目标记为无效的推荐方法是为它们分配特殊值``masked``：
 
 ```python
 >>> x = ma.array([1, 2, 3])
@@ -115,12 +114,12 @@ masked_array(data = [-- -- 3 4],
        fill_value = 999999)
 ```
 
-A second possibility is to modify the ``mask`` directly, but this usage is discouraged.
+第二种可能性是直接修改``mask``，但不鼓励这种用法。
 
-> **Note**
-> When creating a new masked array with a simple, non-structured datatype, the mask is initially set to the special value ``nomask``, that corresponds roughly to the boolean ``False``. Trying to set an element of ``nomask`` will fail with a ``TypeError`` exception, as a boolean does not support item assignment.
+> **注意**
+> 当使用简单的非结构化数据类型创建新的掩码数组时，掩码最初设置为特殊值 ``nomask``，大致对应于布尔值``False``。尝试设置``nomask``元素将失败并出现``TypeError``异常，因为布尔值不支持项目赋值。
 
-All the entries of an array can be masked at once by assigning ``True`` to the mask:
+通过为掩码指定 ``True``，可以立即屏蔽数组的所有条目：
 
 ```python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1])
