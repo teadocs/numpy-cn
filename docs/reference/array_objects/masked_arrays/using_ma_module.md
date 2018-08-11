@@ -130,7 +130,7 @@ masked_array(data = [-- -- --],
        fill_value = 999999)
 ```
 
-Finally, specific entries can be masked and/or unmasked by assigning to the mask a sequence of booleans:
+最后，通过为掩码分配一系列布尔值，可以屏蔽和/或取消屏蔽特定条目：
 
 ```python
 >>> x = ma.array([1, 2, 3])
@@ -141,9 +141,9 @@ masked_array(data = [1 -- 3],
        fill_value = 999999)
 ```
 
-### Unmasking an entry
+### 取消屏蔽条目
 
-To unmask one or several specific entries, we can just assign one or several new valid values to them:
+要取消屏蔽一个或多个特定条目，我们可以为它们分配一个或多个新的有效值：
 
 ```python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1])
@@ -158,8 +158,8 @@ masked_array(data = [1 2 5],
        fill_value = 999999)
 ```
 
-> **Note**
-> Unmasking an entry by direct assignment will silently fail if the masked array has a hard mask, as shown by the ``hardmask`` attribute. This feature was introduced to prevent overwriting the mask. To force the unmasking of an entry where the array has a hard mask, the mask must first to be softened using the ``soften_mask`` method before the allocation. It can be re-hardened with ``harden_mask``:
+> **注意**
+> 如果屏蔽数组具有硬掩码，则通过直接赋值取消屏蔽条目将悄无声息地失败，如``hardmask``属性所示。 引入此功能是为了防止覆盖掩码。 要强制取消屏蔽数组具有硬掩码的条目，必须首先在分配之前使用``soften_mask``方法软化掩码。 它可以用``harden_mask``重新硬化：:
 
 ```python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1], hard_mask=True)
@@ -181,7 +181,7 @@ masked_array(data = [1 2 5],
 >>> x.harden_mask()
 ```
 
-To unmask all masked entries of a masked array (provided the mask isn’t a hard mask), the simplest solution is to assign the constant ``nomask`` to the mask:
+要取消屏蔽掩码数组的所有掩码条目（假设掩码不是硬掩码），最简单的解决方案是将常量“nomask”分配给掩码：
 
 ```python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1])
@@ -196,11 +196,11 @@ masked_array(data = [1 2 3],
        fill_value = 999999)
 ```
 
-## Indexing and slicing
+## 索引和切片
 
-As a ``MaskedArray`` is a subclass of ``numpy.ndarray``, it inherits its mechanisms for indexing and slicing.
+由于``MaskedArray``是``numpy.ndarray``的子类，它继承了索引和切片的机制。
 
-When accessing a single entry of a masked array with no named fields, the output is either a scalar (if the corresponding entry of the mask is ``False``) or the special value ``masked`` (if the corresponding entry of the mask is True):
+当访问没有命名字段的掩码数组的单个条目时，输出是标量（如果掩码的相应条目是``False``）或特殊值``masked``（如果相应的条目 mask 的值是 true）：
 
 ```python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1])
@@ -214,7 +214,7 @@ masked_array(data = --,
 True
 ```
 
-If the masked array has named fields, accessing a single entry returns a ``numpy.void`` object if none of the fields are masked, or a 0d masked array with the same dtype as the initial array if at least one of the fields is masked.
+如果掩码数组已命名字段，访问单个条目将返回一个 ``numpy.void`` 对象(如果没有字段被掩蔽)，或者返回一个0d掩码数组，如果至少有一个字段被掩蔽，则返回与初始数组具有相同dtype的0d掩码数组。
 
 ```python
 >>> y = ma.masked_array([(1,2), (3, 4)],
@@ -229,7 +229,7 @@ masked_array(data = (3, --),
             dtype = [('a', '<i4'), ('b', '<i4')])
 ```
 
-When accessing a slice, the output is a masked array whose ``data`` attribute is a view of the original data, and whose mask is either ``nomask`` (if there was no invalid entries in the original array) or a view of the corresponding slice of the original mask. The view is required to ensure propagation of any modification of the mask to the original.
+当访问一个切片时，输出是一个掩码数组，它的 ``data`` 属性是原始数据的视图，其掩码是 ``nomasks`` (如果原始数组中没有无效的条目)，或者是原始掩码的相应切片的视图。需要查看该视图以确保将掩码的任何修改传播到原始版本。
 
 ```python
 >>> x = ma.array([1, 2, 3, 4, 5], mask=[0, 1, 0, 0, 1])
@@ -249,19 +249,19 @@ array([False,  True, False, False,  True])
 array([ 1, -1,  3,  4,  5])
 ```
 
-Accessing a field of a masked array with structured datatype returns a MaskedArray.
+使用结构化数据类型访问掩码数组的字段将返回一个MaskedArray。
 
-## Operations on masked arrays
+## 对掩码数组的操作
 
-Arithmetic and comparison operations are supported by masked arrays. As much as possible, invalid entries of a masked array are not processed, meaning that the corresponding ``data`` entries should be the same before and after the operation.
+掩码数组支持算术和比较操作。尽可能不处理掩码数组的无效条目，这意味着相应的 ``data`` 条目在操作之前和之后应该是相同的。
 
 <div class="warning-warp">
-<b>Warning</b>
+<b>警告</b>
 
-<p>We need to stress that this behavior may not be systematic, that masked data may be affected by the operation in some cases and therefore users should not rely on this data remaining unchanged.</p>
+<p>我们需要强调的是，这种行为可能不是系统性的，在某些情况下，掩盖数据可能会受到操作的影响，因此用户不应该依赖这些数据保持不变。</p>
 </div>
 
-The numpy.ma module comes with a specific implementation of most ufuncs. Unary and binary functions that have a validity domain (such as log or divide) return the masked constant whenever the input is masked or falls outside the validity domain:
+numpy.ma模块附带了大多数ufunc的特定实现。 只要输入被掩盖或超出有效域，具有有效域（例如log或divide）的一元和二元函数就会返回掩码的常量：
 
 ```python
 >>> ma.log([-1, 0, 1, 2])
@@ -270,7 +270,7 @@ masked_array(data = [-- -- 0.0 0.69314718056],
        fill_value = 1e+20)
 ```
 
-Masked arrays also support standard numpy ufuncs. The output is then a masked array. The result of a unary ufunc is masked wherever the input is masked. The result of a binary ufunc is masked wherever any of the input is masked. If the ufunc also returns the optional context output (a 3-element tuple containing the name of the ufunc, its arguments and its domain), the context is processed and entries of the output masked array are masked wherever the corresponding input fall outside the validity domain:
+掩码数组还支持标准的numpy函数。然后输出是一个掩码数组。只要输入被屏蔽，一元ufunc的结果就会被屏蔽。二进制ufunc的结果在任何输入被屏蔽的地方都会被屏蔽。如果ufunc还返回可选的上下文输出(包含ufunc名称、其参数和域的3个元素元组)，则处理上下文并屏蔽输出掩码数组的条目，只要相应的输入位于有效性域之外：
 
 ```python
 >>> x = ma.array([-1, 1, 0, 2, 3], mask=[0, 0, 0, 0, 1])
