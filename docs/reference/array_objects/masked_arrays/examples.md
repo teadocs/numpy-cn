@@ -1,8 +1,8 @@
 # 例子 
 
-## Data with a given value representing missing data
+## 具有给定值的数据，表示缺少的数据。
 
-Let’s consider a list of elements, ``x``, where values of -9999. represent missing data. We wish to compute the average value of the data and the vector of anomalies (deviations from the average):
+让我们考虑一个元素列表，``x``，其中值为-9999。 代表缺失的数据。 我们希望计算数据的平均值和异常矢量（偏离平均值）：
 
 ```python
 >>> import numpy.ma as ma
@@ -16,17 +16,18 @@ Let’s consider a list of elements, ``x``, where values of -9999. represent mis
 [-2.0 -1.0 -- 1.0 2.0]
 ```
 
-## Filling in the missing data
-Suppose now that we wish to print that same data, but with the missing values replaced by the average value.
+## 填充缺失的数据
+
+假设现在我们希望打印相同的数据，但是，是用平均值替换缺失的值。
 
 ```python
 >>> print mx.filled(mx.mean())
 [ 0.  1.  2.  3.  4.]
 ```
 
-## Numerical operations
+## 数值运算
 
-Numerical operations can be easily performed without worrying about missing values, dividing by zero, square roots of negative numbers, etc.:
+可以轻松地进行数值运算，而不必担心丢失的值、除以零、负数的平方根等等：
 
 ```python
 >>> import numpy as np, numpy.ma as ma
@@ -36,11 +37,11 @@ Numerical operations can be easily performed without worrying about missing valu
 [1.0 -- -- 1.0 -- --]
 ```
 
-Four values of the output are invalid: the first one comes from taking the square root of a negative number, the second from the division by zero, and the last two where the inputs were masked.
+输出的四个值无效：第一个值来自于取负数的平方根，第二个值来自于被0除的值，最后两个值来自于隐藏输入的值。
 
-## Ignoring extreme values
+## 忽略极值
 
-Let’s consider an array ``d`` of random floats between 0 and 1. We wish to compute the average of the values of d while ignoring any data outside the range ``[0.1, 0.9]``:
+让我们考虑一个由0到1之间的随机浮动组成的数组``d``。我们希望计算d值的平均值，而忽略``[0.1，0.9]``范围以外的任何数据：
 
 ```python
 >>> print ma.masked_outside(d, 0.1, 0.9).mean()
