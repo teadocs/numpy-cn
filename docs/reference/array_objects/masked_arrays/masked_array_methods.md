@@ -4,103 +4,102 @@
 
 > Array methods
 
-## Conversion
+## 转换
 
-- MaskedArray.__float__()Convert to float.
+- MaskedArray.__float__() 转换为浮点类型。
 - MaskedArray.__hex__	
-- MaskedArray.__int__()	Convert to int.
-- MaskedArray.__long__()	Convert to long.
+- MaskedArray.__int__()	转换为int类型。
+- MaskedArray.__long__()	转换为long类型.
 - MaskedArray.__oct__	
-- MaskedArray.view([dtype, type])	New view of array with the same data.
-- MaskedArray.astype(newtype)	Returns a copy of the MaskedArray cast to given newtype.
-- MaskedArray.byteswap([inplace])	Swap the bytes of the array elements
-- MaskedArray.compressed()	Return all the non-masked data as a 1-D array.
-- MaskedArray.filled([fill_value])	Return a copy of self, with masked values filled with a given value.
+- MaskedArray.view([dtype, type])	具有相同数据的数组的新视图。
+- MaskedArray.astype(newtype)	返回MaskedArray强制转换为给定newtype的副本。
+- MaskedArray.byteswap([inplace])	交换数组元素的字节。
+- MaskedArray.compressed()	将所有未屏蔽的数据作为1-D数组返回。
+- MaskedArray.filled([fill_value])	返回self的副本，其中屏蔽值填充给定值。
+- MaskedArray.tofile(fid[, sep, format]) 将掩码数组以二进制格式保存到文件中。
+- MaskedArray.toflex()	将掩码数组转换为灵活类型数组。
+- MaskedArray.tolist([fill_value]) 将掩码数组的数据部分作为分层Python列表返回。
 
-- MaskedArray.tofile(fid[, sep, format])	Save a masked array to a file in binary format.
-- MaskedArray.toflex()	Transforms a masked array into a flexible-type array.
-- MaskedArray.tolist([fill_value])	Return the data portion of the masked array as a hierarchical Python list.
+- MaskedArray.torecords() 将掩码数组转换为灵活类型数组。
+- MaskedArray.tostring([fill_value, order])	此函数是tobytes的兼容性别名。
+- MaskedArray.tobytes([fill_value, order])	将数组数据作为包含数组中原始字节的字符串返回。
 
-- MaskedArray.torecords()	Transforms a masked array into a flexible-type array.
-- MaskedArray.tostring([fill_value, order])	This function is a compatibility alias for tobytes.
-- MaskedArray.tobytes([fill_value, order])	Return the array data as a string containing the raw bytes in the array.
+## 形状操纵
 
-## Shape manipulation
+对于重新整形，调整大小和转置，单个元组参数可以用n个整数替换，这些整数将被解释为n元组。
 
-For reshape, resize, and transpose, the single tuple argument may be replaced with n integers which will be interpreted as an n-tuple.
-
-- MaskedArray.flatten([order])	Return a copy of the array collapsed into one dimension.
-- MaskedArray.ravel([order])	Returns a 1D version of self, as a view.
-- MaskedArray.reshape(*s, **kwargs)	Give a new shape to the array without changing its data.
-- MaskedArray.resize(newshape[, refcheck, order])	
-- MaskedArray.squeeze([axis])	Remove single-dimensional entries from the shape of a.
-- MaskedArray.swapaxes(axis1, axis2)	Return a view of the array with axis1 and axis2 interchanged.
-- MaskedArray.transpose(*axes)	Returns a view of the array with axes transposed.
+- MaskedArray.flatten([order])	将折叠的数组的副本返回到一个维度。
+- MaskedArray.ravel([order])	作为视图返回self的1D版本。
+- MaskedArray.reshape(*s, **kwargs)	为数组赋予新形状而不更改其数据。
+- MaskedArray.resize(newshape[, refcheck, order]) 
+- MaskedArray.squeeze([axis])	从a的形状中删除一维条目。
+- MaskedArray.swapaxes(axis1, axis2)	返回数组的视图，其中axis1和axis2互换。
+- MaskedArray.transpose(*axes)	返回轴转置的数组视图。
 - MaskedArray.T	
 
-## Item selection and manipulation
+## 项目选择和操作
 
-For array methods that take an axis keyword, it defaults to None. If axis is None, then the array is treated as a 1-D array. Any other value for axis represents the dimension along which the operation should proceed.
+对于采用axis关键字的数组方法，默认为None。 如果axis为None，则将数组视为1-D数组。 轴的任何其他值表示操作应继续进行的维度。
 
-- MaskedArray.argmax([axis, fill_value, out])	Returns array of indices of the maximum values along the given axis.
-- MaskedArray.argmin([axis, fill_value, out])	Return array of indices to the minimum values along the given axis.
-- MaskedArray.argsort([axis, kind, order, …])	Return an ndarray of indices that sort the array along the specified axis.
-- MaskedArray.choose(choices[, out, mode])	Use an index array to construct a new array from a set of choices.
-- MaskedArray.compress(condition[, axis, out])	Return a where condition is True.
-- MaskedArray.diagonal([offset, axis1, axis2])	Return specified diagonals.
-- MaskedArray.fill(value)	Fill the array with a scalar value.
-- MaskedArray.item(*args)	Copy an element of an array to a standard Python scalar and return it.
-- MaskedArray.nonzero()	Return the indices of unmasked elements that are not zero.
-- MaskedArray.put(indices, values[, mode])	Set storage-indexed locations to corresponding values.
-- MaskedArray.repeat(repeats[, axis])	Repeat elements of an array.
-- MaskedArray.searchsorted(v[, side, sorter])	Find indices where elements of v should be inserted in a to maintain order.
-- MaskedArray.sort([axis, kind, order, …])	Sort the array, in-place
+- MaskedArray.argmax([axis, fill_value, out])	返回沿给定轴的最大值的索引数组。
+- MaskedArray.argmin([axis, fill_value, out])	将索引数组返回到给定轴的最小值。
+- MaskedArray.argsort([axis, kind, order, …])	返回一个索引的ndarray，它沿着指定的轴对数组进行排序。
+- MaskedArray.choose(choices[, out, mode])	使用索引数组从一组选项中构造新数组。
+- MaskedArray.compress(condition[, axis, out])	返回where条件为True。
+- MaskedArray.diagonal([offset, axis1, axis2])	返回指定的对角线。
+- MaskedArray.fill(value)	使用标量值填充数组。
+- MaskedArray.item(*args)	将数组元素复制到标准Python标量并返回它。
+- MaskedArray.nonzero()	返回非零的未屏蔽元素的索引。
+- MaskedArray.put(indices, values[, mode])	将存储索引位置设置为相应的值。
+- MaskedArray.repeat(repeats[, axis])	重复数组的元素。
+- MaskedArray.searchsorted(v[, side, sorter])	查找应在其中插入v的元素以维护顺序的索引。
+- MaskedArray.sort([axis, kind, order, …]) 就地对阵列进行排序
 - MaskedArray.take(indices[, axis, out, mode])	
 
-## Pickling and copy
+## 腌制和拷贝
 
-- MaskedArray.copy([order])	Return a copy of the array.
-- MaskedArray.dump(file)	Dump a pickle of the array to the specified file.
-- MaskedArray.dumps()	Returns the pickle of the array as a string.
+- MaskedArray.copy([order])	返回数组的拷贝。
+- MaskedArray.dump(file)	将数组的腌制转储到指定的文件。
+- MaskedArray.dumps()	以字符串形式返回数组的腌制。
 
 ## Calculations
 
-- MaskedArray.all([axis, out, keepdims])	Returns True if all elements evaluate to True.
-- MaskedArray.anom([axis, dtype])	Compute the anomalies (deviations from the arithmetic mean) along the given axis.
-- MaskedArray.any([axis, out, keepdims])	Returns True if any of the elements of a evaluate to True.
-- MaskedArray.clip([min, max, out])	Return an array whose values are limited to [min, max].
-- MaskedArray.conj()	Complex-conjugate all elements.
-- MaskedArray.conjugate()	Return the complex conjugate, element-wise.
-- MaskedArray.cumprod([axis, dtype, out])	Return the cumulative product of the array elements over the given axis.
-- MaskedArray.cumsum([axis, dtype, out])	Return the cumulative sum of the array elements over the given axis.
-- MaskedArray.max([axis, out, fill_value, …])	Return the maximum along a given axis.
-- MaskedArray.mean([axis, dtype, out, keepdims])	Returns the average of the array elements along given axis.
-- MaskedArray.min([axis, out, fill_value, …])	Return the minimum along a given axis.
-- MaskedArray.prod([axis, dtype, out, keepdims])	Return the product of the array elements over the given axis.
-- MaskedArray.product([axis, dtype, out, keepdims])	Return the product of the array elements over the given axis.
-- MaskedArray.ptp([axis, out, fill_value])	Return (maximum - minimum) along the given dimension (i.e.
-- MaskedArray.round([decimals, out])	Return each element rounded to the given number of decimals.
-- MaskedArray.std([axis, dtype, out, ddof, …])	Returns the standard deviation of the array elements along given axis.
-- MaskedArray.sum([axis, dtype, out, keepdims])	Return the sum of the array elements over the given axis.
-- MaskedArray.trace([offset, axis1, axis2, …])	Return the sum along diagonals of the array.
-- MaskedArray.var([axis, dtype, out, ddof, …])	Compute the variance along the specified axis.
+- MaskedArray.all([axis, out, keepdims])	如果所有元素都计算为True，则返回True。
+- MaskedArray.anom([axis, dtype])	计算沿给定轴的异常（与算术平均值的偏差）。
+- MaskedArray.any([axis, out, keepdims])	如果求值的任何元素为True，则返回True。
+- MaskedArray.clip([min, max, out])	返回其值限制为[min, max]的数组。
+- MaskedArray.conj()	复合共轭所有元素。
+- MaskedArray.conjugate()	以元素方式返回复共轭。
+- MaskedArray.cumprod([axis, dtype, out]) 返回给定轴上的数组元素的累积乘积。
+- MaskedArray.cumsum([axis, dtype, out]) 返回给定轴上的数组元素的累积和。
+- MaskedArray.max([axis, out, fill_value, …]) 沿给定轴返回最大值。
+- MaskedArray.mean([axis, dtype, out, keepdims]) 返回给定轴上数组元素的平均值。
+- MaskedArray.min([axis, out, fill_value, …])	沿给定轴返回最小值。
+- MaskedArray.prod([axis, dtype, out, keepdims]) 返回给定轴上的数组元素的乘积。
+- MaskedArray.product([axis, dtype, out, keepdims])	返回给定轴上的数组元素的乘积。
+- MaskedArray.ptp([axis, out, fill_value])	沿着给定的维数返回(最大值 - 最小值)。
+- MaskedArray.round([decimals, out])	返回舍入到给定小数位数的每个元素。
+- MaskedArray.std([axis, dtype, out, ddof, …])	返回给定轴的数组元素的标准偏差。
+- MaskedArray.sum([axis, dtype, out, keepdims])	返回给定轴上的数组元素的总和。
+- MaskedArray.trace([offset, axis1, axis2, …])	返回数组对角线的总和。
+- MaskedArray.var([axis, dtype, out, ddof, …])	计算沿指定轴的方差。
 
-## Arithmetic and comparison operations
+## 算术和比较运算
 
-### Comparison operators:
+### 比较运算符：
 
-- MaskedArray.__lt__($self, value, /)	Return self<value.
-- MaskedArray.__le__($self, value, /)	Return self<=value.
-- MaskedArray.__gt__($self, value, /)	Return self>value.
-- MaskedArray.__ge__($self, value, /)	Return self>=value.
-- MaskedArray.__eq__(other)	Check whether other equals self elementwise.
-- MaskedArray.__ne__(other)	Check whether other does not equal self elementwise.
+- MaskedArray.__lt__($self, value, /)	返回 self<value.
+- MaskedArray.__le__($self, value, /)	返回 self<=value.
+- MaskedArray.__gt__($self, value, /)	返回 self>value.
+- MaskedArray.__ge__($self, value, /)	返回 self>=value.
+- MaskedArray.__eq__(other)	检查其他是否等于self elementwise。
+- MaskedArray.__ne__(other)	检查其他元素是否与元素相等。
 
-### Truth value of an array (``bool``):
+### 数组的真假值(``bool``):
 
 - MaskedArray.__nonzero__	
 
-### Arithmetic:
+### 算术运算符:
 
 - MaskedArray.__abs__(self)	
 - MaskedArray.__add__(other)	Add self to other, and return a new masked array.
