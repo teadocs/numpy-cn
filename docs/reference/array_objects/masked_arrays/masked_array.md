@@ -47,7 +47,7 @@ array([False, False,  True, False, False])
 
 ### ``MaskedArray.fill_value``
 
-返回用于填充掩码数组的无效条目的值。该值可以是标量（如果屏蔽数组没有命名字段），也可以是具有与屏蔽数组相同的``dtype``的0-D ndarray（如果它具有命名字段）。
+返回用于填充掩码数组的无效条目的值。该值可以是标量（如果掩码数组没有命名字段），也可以是具有与掩码数组相同的``dtype``的0-D ndarray（如果它具有命名字段）。
 
 默认填充值取决于数组的数据类型：
 
@@ -78,7 +78,7 @@ string | ‘N/A’
 
 返回蒙版是硬（True）还是软（False）。 当掩码很难时，掩码条目不能被掩盖。
 
-由于``MaskedArray``是``ndarray``的子类，因此屏蔽数组也继承了ndarray实例的所有属性和属性。
+由于``MaskedArray``是``ndarray``的子类，因此掩码数组也继承了ndarray实例的所有属性和属性。
 
 方法 | 描述
 ---|---

@@ -102,73 +102,73 @@
 ### 算术运算符:
 
 - MaskedArray.__abs__(self)	
-- MaskedArray.__add__(other)	Add self to other, and return a new masked array.
-- MaskedArray.__radd__(other)	Add other to self, and return a new masked array.
-- MaskedArray.__sub__(other)	Subtract other from self, and return a new masked array.
-- MaskedArray.__rsub__(other)	Subtract self from other, and return a new masked array.
-- MaskedArray.__mul__(other)	Multiply self by other, and return a new masked array.
-- MaskedArray.__rmul__(other)	Multiply other by self, and return a new masked array.
-- MaskedArray.__div__(other)	Divide other into self, and return a new masked array.
+- MaskedArray.__add__(other)	将self添加到其他，并返回一个新的掩码数组。
+- MaskedArray.__radd__(other)	将其他内容添加到self，并返回一个新的掩码数组。
+- MaskedArray.__sub__(other)	从self中减去其他值，并返回一个新的掩码数组。
+- MaskedArray.__rsub__(other)	从其他减去self，并返回一个新的掩码数组。
+- MaskedArray.__mul__(other)	由其他人乘以自我，并返回一个新的掩码数组。
+- MaskedArray.__rmul__(other)	将其他自身相乘，并返回一个新的掩码数组。
+- MaskedArray.__div__(other)	将其他分为self，并返回一个新的掩码数组。
 - MaskedArray.__rdiv__	
-- MaskedArray.__truediv__(other)	Divide other into self, and return a new masked array.
-- MaskedArray.__rtruediv__(other)	Divide self into other, and return a new masked array.
-- MaskedArray.__floordiv__(other)	Divide other into self, and return a new masked array.
-- MaskedArray.__rfloordiv__(other)	Divide self into other, and return a new masked array.
-- MaskedArray.__mod__($self, value, /)	Return self%value.
-- MaskedArray.__rmod__($self, value, /)	Return value%self.
-- MaskedArray.__divmod__($self, value, /)	Return divmod(self, value).
-- MaskedArray.__rdivmod__($self, value, /)	Return divmod(value, self).
-- MaskedArray.__pow__(other)	Raise self to the power other, masking the potential NaNs/Infs
-- MaskedArray.__rpow__(other)	Raise other to the power self, masking the potential NaNs/Infs
-- MaskedArray.__lshift__($self, value, /)	Return self<<value.
-- MaskedArray.__rlshift__($self, value, /)	Return value<<self.
-- MaskedArray.__rshift__($self, value, /)	Return self>>value.
-- MaskedArray.__rrshift__($self, value, /)	Return value>>self.
-- MaskedArray.__and__($self, value, /)	Return self&value.
-- MaskedArray.__rand__($self, value, /)	Return value&self.
-- MaskedArray.__or__($self, value, /)	Return self|value.
-- MaskedArray.__ror__($self, value, /)	Return value|self.
-- MaskedArray.__xor__($self, value, /)	Return self^value.
-- MaskedArray.__rxor__($self, value, /)	Return value^self.
+- MaskedArray.__truediv__(other)	将其他分为self，并返回一个新的掩码数组。
+- MaskedArray.__rtruediv__(other)	将self划分为其他，并返回一个新的掩码数组。
+- MaskedArray.__floordiv__(other)	将其他分为self，并返回一个新的掩码数组。
+- MaskedArray.__rfloordiv__(other)	将self划分为其他，并返回一个新的掩码数组。
+- MaskedArray.__mod__($self, value, /)	返回 self％value。
+- MaskedArray.__rmod__($self, value, /)	返回 value%self。
+- MaskedArray.__divmod__($self, value, /)	返回 divmod(self, value)。
+- MaskedArray.__rdivmod__($self, value, /)	返回 divmod(value, self)。
+- MaskedArray.__pow__(other)	将自我提升到其他权力，掩盖潜在的NaNs / Infs。
+- MaskedArray.__rpow__(other)	提升其他权力自我，掩盖潜在的NaNs / Infs。
+- MaskedArray.__lshift__($self, value, /)	返回 self<<value.
+- MaskedArray.__rlshift__($self, value, /)	返回 value<<self.
+- MaskedArray.__rshift__($self, value, /)	返回 self>>value.
+- MaskedArray.__rrshift__($self, value, /)	返回 value>>self.
+- MaskedArray.__and__($self, value, /)	返回 self&value.
+- MaskedArray.__rand__($self, value, /)	返回 value&self.
+- MaskedArray.__or__($self, value, /)	返回 self|value.
+- MaskedArray.__ror__($self, value, /)	返回 value|self.
+- MaskedArray.__xor__($self, value, /)	返回 self^value.
+- MaskedArray.__rxor__($self, value, /)	返回 value^self.
 
-### Arithmetic, in-place:
+### 就地算术运算符：
 
-- MaskedArray.__iadd__(other)	Add other to self in-place.
-- MaskedArray.__isub__(other)	Subtract other from self in-place.
-- MaskedArray.__imul__(other)	Multiply self by other in-place.
-- MaskedArray.__idiv__(other)	Divide self by other in-place.
-- MaskedArray.__itruediv__(other)	True divide self by other in-place.
-- MaskedArray.__ifloordiv__(other)	Floor divide self by other in-place.
-- MaskedArray.__imod__($self, value, /)	Return self%=value.
-- MaskedArray.__ipow__(other)	Raise self to the power other, in place.
-- MaskedArray.__ilshift__($self, value, /)	Return self<<=value.
-- MaskedArray.__irshift__($self, value, /)	Return self>>=value.
-- MaskedArray.__iand__($self, value, /)	Return self&=value.
-- MaskedArray.__ior__($self, value, /)	Return self|=value.
-- MaskedArray.__ixor__($self, value, /)	Return self^=value.
+- MaskedArray.__iadd__(other)	将其他内容添加到就地。
+- MaskedArray.__isub__(other)	就地从self中减去其他的。
+- MaskedArray.__imul__(other)	就地的从slef中乘以其他。
+- MaskedArray.__idiv__(other)	就地从self中划分其他。
+- MaskedArray.__itruediv__(other)	就地的从self中划分True值。
+- MaskedArray.__ifloordiv__(other)	就地的从self中划分Floor divide self by other in-place.
+- MaskedArray.__imod__($self, value, /)	返回 self%=value.
+- MaskedArray.__ipow__(other)  就地将自self提升到其他权限。
+- MaskedArray.__ilshift__($self, value, /)	返回 self<<=value.
+- MaskedArray.__irshift__($self, value, /)	返回 self>>=value.
+- MaskedArray.__iand__($self, value, /)	返回 self&=value.
+- MaskedArray.__ior__($self, value, /)	返回 self|=value.
+- MaskedArray.__ixor__($self, value, /)	返回 self^=value.
 
-## Representation
+## 表示
 
-- MaskedArray.__repr__()	Literal string representation.
-- MaskedArray.__str__()	Return str(self).
-- MaskedArray.ids()	Return the addresses of the data and mask areas.
-- MaskedArray.iscontiguous()	Return a boolean indicating whether the data is contiguous.
+- MaskedArray.__repr__() 文字字符串表示。
+- MaskedArray.__str__()	返回 str(self).
+- MaskedArray.ids()	返回数据的地址和掩码区域。
+- MaskedArray.iscontiguous() 返回一个布尔值，指示数据是否连续。
 
-## Special methods
+## 特殊方法
 
-For standard library functions:
+对于标准库函数：
 
-- MaskedArray.__copy__()	Used if copy.copy is called on an array.
-- MaskedArray.__deepcopy__(memo, /)	Used if copy.deepcopy is called on an array.
-- MaskedArray.__getstate__()	Return the internal state of the masked array, for pickling purposes.
-- MaskedArray.__reduce__()	Return a 3-tuple for pickling a MaskedArray.
-- MaskedArray.__setstate__(state)	Restore the internal state of the masked array, for pickling purposes.
+- MaskedArray.__copy__()	如果在数组上调用copy.copy，则使用此方法。
+- MaskedArray.__deepcopy__(memo, /) 如果在数组上调用copy.deepcopy，则使用此方法
+- MaskedArray.__getstate__()	返回被掩码数组的内部状态，用于腌制目的。
+- MaskedArray.__reduce__()	返回一个3元组来腌制MaskedArray。
+- MaskedArray.__setstate__(state)	恢复被遮罩数组的内部状态，用于腌制目的。
 
-Basic customization:
+基本定制：
 
-- MaskedArray.__new__([data, mask, dtype, …])	Create a new masked array from scratch.
-- MaskedArray.__array__(|dtype)	Returns either a new reference to self if dtype is not given or a new array of provided data type if dtype is different from the current dtype of the array.
-- MaskedArray.__array_wrap__(obj[, context])	Special hook for ufuncs.
+- MaskedArray.__new__([data, mask, dtype, …])	从头开始创建一个新的掩码数组。
+- MaskedArray.__array__(|dtype)	如果没有给出dtype，则返回对self的新引用;如果dtype与数组的当前dtype不同，则返回提供的数据类型的新数组。
+- MaskedArray.__array_wrap__(obj[, context])	ufuncs的特殊钩子。
 
 Container customization: (see Indexing)
 
@@ -178,23 +178,23 @@ Container customization: (see Indexing)
 - MaskedArray.__delitem__($self, key, /)	Delete self[key].
 - MaskedArray.__contains__($self, key, /)	Return key in self.
 
-## Specific methods
+## 特殊方法
 
-### Handling the mask
+### 掩码处理方法
 
-The following methods can be used to access information about the mask or to manipulate the mask.
+可以使用以下方法访问有关掩码的信息或操作掩码。
 
-- ``MaskedArray.__setmask__``(mask[, copy])	Set the mask.
-- ``MaskedArray.harden_mask``()	Force the mask to hard.
-- ``MaskedArray.soften_mask``()	Force the mask to soft.
-- ``MaskedArray.unshare_mask``()	Copy the mask and set the sharedmask flag to False.
-- ``MaskedArray.shrink_mask``()	Reduce a mask to nomask when possible.
+- ``MaskedArray.__setmask__``(mask[, copy])	设置掩码.
+- ``MaskedArray.harden_mask``()	强制掩码变坚硬。
+- ``MaskedArray.soften_mask``()	强制掩码变柔软.
+- ``MaskedArray.unshare_mask``() 复制掩码并将sharedmask标志设置为False。
+- ``MaskedArray.shrink_mask``()	尽可能将掩码减少到nomask。
 
-### Handling the fill_value
+### 处理fill_value
 
-- ``MaskedArray.get_fill_value``()	Return the filling value of the masked array.
-- ``MaskedArray.set_fill_value``([value])	Set the filling value of the masked array.
+- ``MaskedArray.get_fill_value``()	返回掩码数组的填充值。
+- ``MaskedArray.set_fill_value``([value])	设置掩码数组的填充值。
 
-### Counting the missing elements
+### 计算缺失的元素
 
-- ``MaskedArray.count``([axis, keepdims])	Count the non-masked elements of the array along the given axis.
+- ``MaskedArray.count``([axis, keepdims])	沿给定轴计算数组的非掩码元素。

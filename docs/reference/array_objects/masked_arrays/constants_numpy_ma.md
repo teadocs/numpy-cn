@@ -19,7 +19,7 @@ masked_array(data = [1 -- --],
 
 ## ``numpy.ma.nomask``
 
-表示被屏蔽数组没有无效条目的值。 内部使用``nomask``来加速不需要掩码时的计算。
+表示被掩码数组没有无效条目的值。 内部使用``nomask``来加速不需要掩码时的计算。
 
 ## ``numpy.ma.masked_print_options``
 
