@@ -1,59 +1,59 @@
 # 数组接口
 
-> **Note**
-> This page describes the numpy-specific API for accessing the contents of a numpy array from other C extensions. PEP 3118 – The Revised Buffer Protocol introduces similar, standardized API to Python 2.6 and 3.0 for any extension module to use. Cython’s buffer array support uses the PEP 3118 API; see the Cython numpy tutorial. Cython provides a way to write code that supports the buffer protocol with Python versions older than 2.6 because it has a backward-compatible implementation utilizing the array interface described here.
+> **注意**
+> 本页描述了特定于numpy的API，用于从其他C扩展访问numpy数组的内容。PEP 3118-修订后的缓冲区协议为Python2.6和3.0引入了类似的标准化API，可供任何扩展模块使用。Cython的缓冲区数组支持使用PEP3118API；请参阅Cython numpy教程。Cython提供了一种编写支持缓冲区协议的代码的方法，它的Python版本超过了2.6版本，因为它有一个向后兼容的实现，它使用了这里描述的数组接口。
 
-**version: 3**
+**版本: 3**
 
-The array interface (sometimes called array protocol) was created in 2005 as a means for array-like Python objects to re-use each other’s data buffers intelligently whenever possible. The homogeneous N-dimensional array interface is a default mechanism for objects to share N-dimensional array memory and information. The interface consists of a Python-side and a C-side using two attributes. Objects wishing to be considered an N-dimensional array in application code should support at least one of these attributes. Objects wishing to support an N-dimensional array in application code should look for at least one of these attributes and use the information provided appropriately.
+数组接口(有时称为数组协议)创建于2005年，作为类似数组的Python对象的一种手段，只要有可能，就可以明智地重用彼此的数据缓冲区。同构N维数组接口是对象共享N维数组内存和信息的默认机制。该接口由Python端和C端组成，使用两个属性。希望在应用程序代码中被视为N维数组的对象应该至少支持这些属性中的一个。希望在应用程序代码中支持N维数组的对象应该至少查找这些属性中的一个，并适当地使用所提供的信息。
 
-This interface describes homogeneous arrays in the sense that each item of the array has the same “type”. This type can be very simple or it can be a quite arbitrary and complicated C-like structure.
+此接口描述同构数组，即数组的每个项具有相同的“类型”。这种类型可以是非常简单的，也可以是相当任意和复杂的类C结构。
 
-There are two ways to use the interface: A Python side and a C-side. Both are separate attributes.
+有两种使用接口的方法：Python端和C端。两者都是独立的属性。
 
-## Python side
+## Python中
 
-This approach to the interface consists of the object having an ``__array_interface__`` attribute.
+这种接口方法由具有 ``__array_interface__`` 属性的对象组成。
 
 ``__array_interface__``
 
-A dictionary of items (3 required and 5 optional). The optional keys in the dictionary have implied defaults if they are not provided.
+项目字典（需要3个，5个可选）。 如果未提供字典，则字典中的可选键隐含默认值。
 
-The keys are:
+关键字是：
 
-**shape** (required)
+**shape** (必须)
 
-> Tuple whose elements are the array size in each dimension. Each entry is an integer (a Python int or long). Note that these integers could be larger than the platform “int” or “long” could hold (a Python int is a C long). It is up to the code using this attribute to handle this appropriately; either by raising an error when overflow is possible, or by using Py_LONG_LONG as the C type for the shapes.
+> 元组，其元素是每个维度中的数组大小。每个条目都是一个整数(Python、int或Long)。请注意，这些整数可能大于平台“int”或“Long”所能容纳的大小(Pythonint是C长)。这取决于使用此属性的代码来适当地处理此问题；可以在可能发生溢出时引发错误，也可以使用Py_LONG_LONG作为形状的C类型。
 
-**typestr** (required)
+**typestr** (必须)
 
-> A string providing the basic type of the homogenous array The basic string format consists of 3 parts: a character describing the byteorder of the data (<: little-endian, >: big-endian, |: not-relevant), a character code giving the basic type of the array, and an integer providing the number of bytes the type uses.
+> 提供同构数组基本类型的字符串基本字符串格式由3部分组成：描述数据字节顺序的字符 (<：little-endian>:big-endian,|:not-relevant)，字符代码 给出数组的基本类型，以及提供类型使用的字节数的整数。
 > 
-> The basic type character codes are:
+> 基本类型字符代码是：
 > 
-> - t	Bit field (following integer gives the number of bits in the bit field).
-> - b	Boolean (integer type where all values are only True or False)
-> - i	Integer
-> - u	Unsigned integer
-> - f	Floating point
-> - c	Complex floating point
-> - m	Timedelta
-> - M	Datetime
-> - O	Object (i.e. the memory contains a pointer to PyObject)
-> - S	String (fixed-length sequence of char)
-> - U	Unicode (fixed-length sequence of Py_UNICODE)
-> - V	Other (void * – each item is a fixed-size chunk of memory)
+> - t	位字段(后面的整数给出位字段中的位数)。
+> - b	布尔型(整数类型，其中所有值仅为True或false)
+> - i	整数型
+> - u	无符号整数型
+> - f	浮点型
+> - c	复杂浮点型
+> - m	Timedelta型
+> - M	日期时间型
+> - O	对象（即内存包含指向PyObject的指针）
+> - S	字符串（固定长度的char序列）
+> - U	Unicode（Py_UNICODE的固定长度序列）
+> - V	其他（void * - 每个项目都是固定大小的内存块）
 
-**descr** (optional)
+**descr** (可选)
 
-> A list of tuples providing a more detailed description of the memory layout for each item in the homogeneous array. Each tuple in the list has two or three elements. Normally, this attribute would be used when typestr is V[0-9]+, but this is not a requirement. The only requirement is that the number of bytes represented in the typestr key is the same as the total number of bytes represented here. The idea is to support descriptions of C-like structs that make up array elements. The elements of each tuple in the list are
+> 元组列表，提供同类数组中每个项的内存布局的更详细描述。 列表中的每个元组都有两个或三个元素。 通常，当typestr为V[0-9]+时，将使用此属性，但这不是必需的。 唯一的要求是typestr键中表示的字节数与此处表示的总字节数相同。 这个想法是支持构成数组元素的类C结构的描述。列表中每个元组的元素是：
 > 
-> 1. A string providing a name associated with this portion of the datatype. This could also be a tuple of ('full name', 'basic_name') where basic name would be a valid Python variable name representing the full name of the field.
-> 1. Either a basic-type description string as in typestr or another list (for nested structured types)
-> 1. An optional shape tuple providing how many times this part of the structure should be repeated. No repeats are assumed if this is not given. Very complicated structures can be described using this generic interface. Notice, however, that each element of the array is still of the same data-type. Some examples of using this interface are given below.
+> 1. 提供与此数据类型部分关联的名称的字符串。 这也可以是（'full name'，'basic_name'）的元组，其中基本名称将是表示字段全名的有效Python变量名称。
+> 1. 在typestr或另一个列表中的基本类型描述字符串（对于嵌套的结构化类型）
+> 1. 一个可选的形状元组，提供应重复此部分结构的次数。 如果没有给出，则不假设重复。 使用这种通用接口可以描述非常复杂的结构。 但请注意，数组的每个元素仍然具有相同的数据类型。 下面给出了使用该接口的一些示例。
 > **Default:** ``[('', typestr)]``
 
-**data** (optional)
+**data** (可选)
 
 > A 2-tuple whose first argument is an integer (a long integer if necessary) that points to the data-area storing the array contents. This pointer must point to the first element of data (in other words any offset is always ignored in this case). The second entry in the tuple is a read-only flag (true means the data area is read-only).
 > 
