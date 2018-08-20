@@ -86,186 +86,186 @@
 
 ### 组合数组
 
-- ma.column_stack(tup)	Stack 1-D arrays as columns into a 2-D array.
-- ma.concatenate(arrays[, axis])	Concatenate a sequence of arrays along the given axis.
-- ma.append(a, b[, axis])	Append values to the end of an array.
-- ma.dstack(tup)	Stack arrays in sequence depth wise (along third axis).
-- ma.hstack(tup)	Stack arrays in sequence horizontally (column wise).
-- ma.vstack(tup)	Stack arrays in sequence vertically (row wise).
+- ma.column_stack(tup)	1-D阵列作为列堆叠成2-D阵列。
+- ma.concatenate(arrays[, axis])	沿给定轴连接一系列数组。
+- ma.append(a, b[, axis])	将值附加到数组的末尾。
+- ma.dstack(tup)	按顺序深度堆叠阵列（沿第三轴）。
+- ma.hstack(tup)	按顺序堆叠数组（列式）。
+- ma.vstack(tup)	垂直堆叠数组（行方式）。
 
-## Operations on masks
+## 掩码操作
 
-### Creating a mask
+### 创建掩码
 
-- ma.make_mask(m[, copy, shrink, dtype])	Create a boolean mask from an array.
-- ma.make_mask_none(newshape[, dtype])	Return a boolean mask of the given shape, filled with False.
-- ma.mask_or(m1, m2[, copy, shrink])	Combine two masks with the logical_or operator.
-- ma.make_mask_descr(ndtype)	Construct a dtype description list from a given dtype.
+- ma.make_mask(m[, copy, shrink, dtype])	从数组创建布尔掩码。
+- ma.make_mask_none(newshape[, dtype])	返回给定形状的布尔掩码，填充False。
+- ma.mask_or(m1, m2[, copy, shrink])	使用logical_or运算符组合两个掩码。
+- ma.make_mask_descr(ndtype)	从给定的dtype构造一个dtype描述列表。
 
-### Accessing a mask
+### 访问掩码
 
-- ma.getmask(a)	Return the mask of a masked array, or nomask.
-- ma.getmaskarray(arr)	Return the mask of a masked array, or full boolean array of False.
-- ma.masked_array.mask	Mask
+- ma.getmask(a)	返回掩码数组或nomask的掩码。
+- ma.getmaskarray(arr)	返回掩码数组的掩码，或False的完整布尔数组。
+- ma.masked_array.mask Mask
 
-### Finding masked data
+### 查找掩码数据
 
-- ma.flatnotmasked_contiguous(a)	Find contiguous unmasked data in a masked array along the given axis.
-- ma.flatnotmasked_edges(a)	Find the indices of the first and last unmasked values.
-- ma.notmasked_contiguous(a[, axis])	Find contiguous unmasked data in a masked array along the given axis.
-- ma.notmasked_edges(a[, axis])	Find the indices of the first and last unmasked values along an axis.
-- ma.clump_masked(a)	Returns a list of slices corresponding to the masked clumps of a 1-D array.
-- ma.clump_unmasked(a)	Return list of slices corresponding to the unmasked clumps of a 1-D array.
+- ma.flatnotmasked_contiguous(a)	沿给定轴在掩码数组中查找连续的未屏蔽数据。
+- ma.flatnotmasked_edges(a)	查找第一个和最后一个未屏蔽值的索引。
+- ma.notmasked_contiguous(a[, axis])	沿给定轴在掩码数组中查找连续的未屏蔽数据。
+- ma.notmasked_edges(a[, axis])	查找沿轴的第一个和最后一个未屏蔽值的索引。
+- ma.clump_masked(a)	返回与1-D数组的掩码块对应的切片列表。
+- ma.clump_unmasked(a)	返回与1-D阵列的未掩蔽块相对应的切片列表。
 
-### Modifying a mask
+### 修改掩码
 
-- ma.mask_cols(a[, axis])	Mask columns of a 2D array that contain masked values.
-- ma.mask_or(m1, m2[, copy, shrink])	Combine two masks with the logical_or operator.
-- ma.mask_rowcols(a[, axis])	Mask rows and/or columns of a 2D array that contain masked values.
-- ma.mask_rows(a[, axis])	Mask rows of a 2D array that contain masked values.
-- ma.harden_mask(self)	Force the mask to hard.
-- ma.soften_mask(self)	Force the mask to soft.
-- ma.MaskedArray.harden_mask()	Force the mask to hard.
-- ma.MaskedArray.soften_mask()	Force the mask to soft.
-- ma.MaskedArray.shrink_mask()	Reduce a mask to nomask when possible.
-- ma.MaskedArray.unshare_mask()	Copy the mask and set the sharedmask flag to False.
+- ma.mask_cols(a[, axis])	屏蔽包含掩码值的2D数组的列。
+- ma.mask_or(m1, m2[, copy, shrink])	使用logical_or运算符组合两个掩码。
+- ma.mask_rowcols(a[, axis])	屏蔽包含掩码值的2D数组的行和/或列。
+- ma.mask_row···s(a[, axis])	屏蔽包含掩码值的2D数组的行。
+- ma.harden_mask(self) 强制掩码变坚硬。
+- ma.soften_mask(self)	强制掩码变柔软。
+- ma.MaskedArray.harden_mask()	强制掩码变坚硬。
+- ma.MaskedArray.soften_mask()	强制掩码变柔软。
+- ma.MaskedArray.shrink_mask() 尽可能将掩码减少到nomask。
+- ma.MaskedArray.unshare_mask()	复制掩码并将sharedmask标志设置为False。
 
-## Conversion operations
+## 转换操作
 
-### \> to a masked array
+### \> 变成掩码数组
 
-- ma.asarray(a[, dtype, order])	Convert the input to a masked array of the given data-type.
-- ma.asanyarray(a[, dtype])	Convert the input to a masked array, conserving subclasses.
-- ma.fix_invalid(a[, mask, copy, fill_value])	Return input with invalid data masked and replaced by a fill value.
-- ma.masked_equal(x, value[, copy])	Mask an array where equal to a given value.
-- ma.masked_greater(x, value[, copy])	Mask an array where greater than a given value.
-- ma.masked_greater_equal(x, value[, copy])	Mask an array where greater than or equal to a given value.
-- ma.masked_inside(x, v1, v2[, copy])	Mask an array inside a given interval.
-- ma.masked_invalid(a[, copy])	Mask an array where invalid values occur (NaNs or infs).
-- ma.masked_less(x, value[, copy])	Mask an array where less than a given value.
-- ma.masked_less_equal(x, value[, copy])	Mask an array where less than or equal to a given value.
-- ma.masked_not_equal(x, value[, copy])	Mask an array where not equal to a given value.
-- ma.masked_object(x, value[, copy, shrink])	Mask the array x where the data are exactly equal to value.
-- ma.masked_outside(x, v1, v2[, copy])	Mask an array outside a given interval.
-- ma.masked_values(x, value[, rtol, atol, …])	Mask using floating point equality.
-- ma.masked_where(condition, a[, copy])	Mask an array where a condition is met.
+- ma.asarray(a[, dtype, order])	将输入转换为给定数据类型的掩码数组。
+- ma.asanyarray(a[, dtype])	将输入转换为掩码数组，保留子类。
+- ma.fix_invalid(a[, mask, copy, fill_value])	返回带有无效数据的输入，并用填充值替换。
+- ma.masked_equal(x, value[, copy])	屏蔽一个等于给定值的数组。
+- ma.masked_greater(x, value[, copy])	屏蔽大于给定值的数组
+- ma.masked_greater_equal(x, value[, copy])	屏蔽大于或等于给定值的数组。
+- ma.masked_inside(x, v1, v2[, copy])	给定间隔内屏蔽数组。
+- ma.masked_invalid(a[, copy])	屏蔽出现无效值的数组（NaN或infs）。
+- ma.masked_less(x, value[, copy])	屏蔽小于给定值的数组。
+- ma.masked_less_equal(x, value[, copy])	屏蔽小于或等于给定值的数组。
+- ma.masked_not_equal(x, value[, copy])	屏蔽不等于给定值的数组。
+- ma.masked_object(x, value[, copy, shrink])	屏蔽数组x，其中数据正好等于value。
+- ma.masked_outside(x, v1, v2[, copy])	在给定间隔之外屏蔽数组。
+- ma.masked_values(x, value[, rtol, atol, …])	掩码使用浮点相等。
+    - ma.masked_where(condition, a[, copy])	屏蔽满足条件的数组。
 
-### \> to a ndarray
+### \> 变成一个numpy的数组
 
-- ma.compress_cols(a)	Suppress whole columns of a 2-D array that contain masked values.
-- ma.compress_rowcols(x[, axis])	Suppress the rows and/or columns of a 2-D array that contain masked values.
-- ma.compress_rows(a)	Suppress whole rows of a 2-D array that contain masked values.
-- ma.compressed(x)	Return all the non-masked data as a 1-D array.
-- ma.filled(a[, fill_value])	Return input as an array with masked data replaced by a fill value.
-- ma.MaskedArray.compressed()	Return all the non-masked data as a 1-D array.
-- ma.MaskedArray.filled([fill_value])	Return a copy of self, with masked values filled with a given value.
+- ma.compress_cols(a)	抑制包含掩码值的二维数组的整列。
+- ma.compress_rowcols(x[, axis])	禁止包含掩码值的二维数组的行和/或列。
+- ma.compress_rows(a)	抑制包含掩码值的2-D数组的整行。
+- ma.compressed(x)	将所有未屏蔽的数据作为1-D数组返回。
+- ma.filled(a[, fill_value])	将输入作为数组返回，屏蔽数据替换为填充值。
+- ma.MaskedArray.compressed()	将所有未屏蔽的数据作为1-D数组返回。
+- ma.MaskedArray.filled([fill_value])	返回self的副本，其中屏蔽值填充给定值。
 
-### \> to another object
+### \> 变成别的对象
 
-- ma.MaskedArray.tofile(fid[, sep, format])	Save a masked array to a file in binary format.
-- ma.MaskedArray.tolist([fill_value])	Return the data portion of the masked array as a hierarchical Python list.
-- ma.MaskedArray.torecords()	Transforms a masked array into a flexible-type array.
-- ma.MaskedArray.tobytes([fill_value, order])	Return the array data as a string containing the raw bytes in the array.
+- ma.MaskedArray.tofile(fid[, sep, format])	将掩码数组以二进制格式保存到文件中。
+- ma.MaskedArray.tolist([fill_value])	将掩码数组的数据部分作为分层Python列表返回。
+- ma.MaskedArray.torecords()	将掩码数组转换为灵活类型数组。
+- ma.MaskedArray.tobytes([fill_value, order])	将数组数据作为包含数组中原始字节的字符串返回。
 
-### Pickling and unpickling
+### 颜值和去皮
 
-- ma.dump(a, F)	Pickle a masked array to a file.
-- ma.dumps(a)	Return a string corresponding to the pickling of a masked array.
-- ma.load(F)	Wrapper around cPickle.load which accepts either a file-like object or a filename.
-- ma.loads(strg)	Load a pickle from the current string.
+- ma.dump(a, F)	将掩码数组腌制到文件中
+- ma.dumps(a)	返回与掩码数组的腌制相对应的字符串。
+- ma.load(F)	cPickle.load周围的包装器，它接受类似文件的对象或文件名。
+- ma.loads(strg)	从当前字符串加载腌制数组。
 
-### Filling a masked array
+### 填充蒙面数组
 
-- ma.common_fill_value(a, b)	Return the common filling value of two masked arrays, if any.
-- ma.default_fill_value(obj)	Return the default fill value for the argument object.
-- ma.maximum_fill_value(obj)	Return the minimum value that can be represented by the dtype of an object.
-- ma.maximum_fill_value(obj)	Return the minimum value that can be represented by the dtype of an object.
-- ma.set_fill_value(a, fill_value)	Set the filling value of a, if a is a masked array.
-- ma.MaskedArray.get_fill_value()	Return the filling value of the masked array.
-- ma.MaskedArray.set_fill_value([value])	Set the filling value of the masked array.
-- ma.MaskedArray.fill_value	Filling value.
+- ma.common_fill_value(a, b)	返回两个蒙版数组的公共填充值（如果有）。
+- ma.default_fill_value(obj)	返回参数对象的默认填充值。
+- ma.maximum_fill_value(obj)	返回可以由对象的dtype表示的最小值。
+- ma.set_fill_value(a, fill_value)	如果a是掩码数组，则设置a的填充值。
+- ma.MaskedArray.get_fill_value()	返回蒙版掩码的填充值。
+- ma.MaskedArray.set_fill_value([value])	设置掩码数组的填充值。
+- ma.MaskedArray.fill_value	填充值。
 
-## Masked arrays arithmetics
+## 掩码数组
 
-### Arithmetics
+### 算术
 
-- ma.anom(self[, axis, dtype])	Compute the anomalies (deviations from the arithmetic mean) along the given axis.
-- ma.anomalies(self[, axis, dtype])	Compute the anomalies (deviations from the arithmetic mean) along the given axis.
-- ma.average(a[, axis, weights, returned])	Return the weighted average of array over the given axis.
-- ma.conjugate(x, /[, out, where, casting, …])	Return the complex conjugate, element-wise.
-- ma.corrcoef(x[, y, rowvar, bias, …])	Return Pearson product-moment correlation coefficients.
-- ma.cov(x[, y, rowvar, bias, allow_masked, ddof])	Estimate the covariance matrix.
-- ma.cumsum(self[, axis, dtype, out])	Return the cumulative sum of the array elements over the given axis.
-- ma.cumprod(self[, axis, dtype, out])	Return the cumulative product of the array elements over the given axis.
-- ma.mean(self[, axis, dtype, out, keepdims])	Returns the average of the array elements along given axis.
-- ma.median(a[, axis, out, overwrite_input, …])	Compute the median along the specified axis.
-- ma.power(a, b[, third])	Returns element-wise base array raised to power from second array.
-- ma.prod(self[, axis, dtype, out, keepdims])	Return the product of the array elements over the given axis.
-- ma.std(self[, axis, dtype, out, ddof, keepdims])	Returns the standard deviation of the array elements along given axis.
-- ma.sum(self[, axis, dtype, out, keepdims])	Return the sum of the array elements over the given axis.
-- ma.var(self[, axis, dtype, out, ddof, keepdims])	Compute the variance along the specified axis.
-- ma.MaskedArray.anom([axis, dtype])	Compute the anomalies (deviations from the arithmetic mean) along the given axis.
-- ma.MaskedArray.cumprod([axis, dtype, out])	Return the cumulative product of the array elements over the given axis.
-- ma.MaskedArray.cumsum([axis, dtype, out])	Return the cumulative sum of the array elements over the given axis.
-- ma.MaskedArray.mean([axis, dtype, out, keepdims])	Returns the average of the array elements along given axis.
-- ma.MaskedArray.prod([axis, dtype, out, keepdims])	Return the product of the array elements over the given axis.
-- ma.MaskedArray.std([axis, dtype, out, ddof, …])	Returns the standard deviation of the array elements along given axis.
-- ma.MaskedArray.sum([axis, dtype, out, keepdims])	Return the sum of the array elements over the given axis.
-- ma.MaskedArray.var([axis, dtype, out, ddof, …])	Compute the variance along the specified axis.
+- ma.anom(self[, axis, dtype])	计算沿给定轴的异常（与算术平均值的偏差）。
+- ma.anomalies(self[, axis, dtype])	计算沿给定轴的异常（与算术平均值的偏差）。
+- ma.average(a[, axis, weights, returned])	返回给定轴上的数组的加权平均值。
+- ma.conjugate(x, /[, out, where, casting, …])	以元素方式返回复共轭。
+- ma.corrcoef(x[, y, rowvar, bias, …])	返回Pearson乘积矩相关系数。
+- ma.cov(x[, y, rowvar, bias, allow_masked, ddof])	估计协方差矩阵。
+- ma.cumsum(self[, axis, dtype, out])	返回给定轴上的数组元素的累积和。
+- ma.cumprod(self[, axis, dtype, out])	返回给定轴上的数组元素的累积乘积。
+- ma.mean(self[, axis, dtype, out, keepdims])	返回给定轴上数组元素的平均值。
+- ma.median(a[, axis, out, overwrite_input, …])	计算沿指定轴的中位数。
+- ma.power(a, b[, third])	返回从第二个数组提升到幂的基于元素的基本数组。
+- ma.prod(self[, axis, dtype, out, keepdims])	返回给定轴上的数组元素的乘积。
+- ma.std(self[, axis, dtype, out, ddof, keepdims])	返回给定轴的数组元素的标准偏差。
+- ma.sum(self[, axis, dtype, out, keepdims])	返回给定轴上的数组元素的总和。
+- ma.var(self[, axis, dtype, out, ddof, keepdims])	计算沿指定轴的方差。
+- ma.MaskedArray.anom([axis, dtype])	计算沿给定轴的异常（与算术平均值的偏差）。
+- ma.MaskedArray.cumprod([axis, dtype, out])	返回给定轴上的数组元素的累积乘积。
+- ma.MaskedArray.cumsum([axis, dtype, out])	返回给定轴上的数组元素的累积和。
+- ma.MaskedArray.mean([axis, dtype, out, keepdims])	返回给定轴上数组元素的平均值。
+- ma.MaskedArray.prod([axis, dtype, out, keepdims])	返回给定轴上的数组元素的乘积。
+- ma.MaskedArray.std([axis, dtype, out, ddof, …])	返回给定轴的数组元素的标准偏差。
+- ma.MaskedArray.sum([axis, dtype, out, keepdims])	返回给定轴上的数组元素的总和。
+- ma.MaskedArray.var([axis, dtype, out, ddof, …])	计算沿指定轴的方差。
 
-### Minimum/maximum
+### 最小/最大
 
-- ma.argmax(self[, axis, fill_value, out])	Returns array of indices of the maximum values along the given axis.
-- ma.argmin(self[, axis, fill_value, out])	Return array of indices to the minimum values along the given axis.
-- ma.max(obj[, axis, out, fill_value, keepdims])	Return the maximum along a given axis.
-- ma.min(obj[, axis, out, fill_value, keepdims])	Return the minimum along a given axis.
-- ma.ptp(obj[, axis, out, fill_value])	Return (maximum - minimum) along the given dimension (i.e.
-- ma.MaskedArray.argmax([axis, fill_value, out])	Returns array of indices of the maximum values along the given axis.
-- ma.MaskedArray.argmin([axis, fill_value, out])	Return array of indices to the minimum values along the given axis.
-- ma.MaskedArray.max([axis, out, fill_value, …])	Return the maximum along a given axis.
-- ma.MaskedArray.min([axis, out, fill_value, …])	Return the minimum along a given axis.
-- ma.MaskedArray.ptp([axis, out, fill_value])	Return (maximum - minimum) along the given dimension (i.e.
+- ma.argmax(self[, axis, fill_value, out])	返回沿给定轴的最大值的索引数组。
+- ma.argmin(self[, axis, fill_value, out])	将索引数组返回到给定轴的最小值。
+- ma.max(obj[, axis, out, fill_value, keepdims])	沿给定轴返回最大值。
+- ma.min(obj[, axis, out, fill_value, keepdims])	沿给定轴返回最小值。
+- ma.ptp(obj[, axis, out, fill_value])	沿给定维度返回（最大 - 最小）。
+- ma.MaskedArray.argmax([axis, fill_value, out])	返回沿给定轴的最大值的索引数组。
+- ma.MaskedArray.argmin([axis, fill_value, out])	将索引数组返回到给定轴的最小值。
+- ma.MaskedArray.max([axis, out, fill_value, …])	沿给定轴返回最大值。
+- ma.MaskedArray.min([axis, out, fill_value, …])	沿给定轴返回最小值。
+- ma.MaskedArray.ptp([axis, out, fill_value])	沿给定维度返回（最大 - 最小）。
 
-### Sorting
+### 排序
 
-- ma.argsort(a[, axis, kind, order, endwith, …])	Return an ndarray of indices that sort the array along the specified axis.
-- ma.sort(a[, axis, kind, order, endwith, …])	Sort the array, in-place
-- ma.MaskedArray.argsort([axis, kind, order, …])	Return an ndarray of indices that sort the array along the specified axis.
-- ma.MaskedArray.sort([axis, kind, order, …])	Sort the array, in-place
+- ma.argsort(a[, axis, kind, order, endwith, …])	返回一个索引的ndarray，它沿着指定的轴对数组进行排序。
+- ma.sort(a[, axis, kind, order, endwith, …])	就地对阵列进行排序。
+- ma.MaskedArray.argsort([axis, kind, order, …])	对数组进行排序，in-Return一个索引的ndarray，它沿着指定的轴对数组进行排序。
+- ma.MaskedArray.sort([axis, kind, order, …])	就地对阵列进行排序。
 
-### Algebra
+### 代数
 
-- ma.diag(v[, k])	Extract a diagonal or construct a diagonal array.
-- ma.dot(a, b[, strict, out])	Return the dot product of two arrays.
-- ma.identity(n[, dtype])	Return the identity array.
-- ma.inner(a, b)	Inner product of two arrays.
-- ma.innerproduct(a, b)	Inner product of two arrays.
-- ma.outer(a, b)	Compute the outer product of two vectors.
-- ma.outerproduct(a, b)	Compute the outer product of two vectors.
-- ma.trace(self[, offset, axis1, axis2, …])	Return the sum along diagonals of the array.
-- ma.transpose(a[, axes])	Permute the dimensions of an array.
-- ma.MaskedArray.trace([offset, axis1, axis2, …])	Return the sum along diagonals of the array.
-- ma.MaskedArray.transpose(*axes)	Returns a view of the array with axes transposed.
-Polynomial fit¶
-- ma.vander(x[, n])	Generate a Vandermonde matrix.
-- ma.polyfit(x, y, deg[, rcond, full, w, cov])	Least squares polynomial fit.
+- ma.diag(v[, k])	提取对角线或构造对角线阵列。
+- ma.dot(a, b[, strict, out])	返回两个数组的点积。
+- ma.identity(n[, dtype])	返回标识数组。
+- ma.inner(a, b)	两个数组的内积。
+- ma.innerproduct(a, b)	两个数组的内积。
+- ma.outer(a, b)	计算两个向量的外积。
+- ma.outerproduct(a, b)	计算两个向量的外积。
+- ma.trace(self[, offset, axis1, axis2, …])	返回数组对角线的总和。
+- ma.transpose(a[, axes])	置换数组的维度。
+- ma.MaskedArray.trace([offset, axis1, axis2, …])	返回数组对角线的总和。
+- ma.MaskedArray.transpose(*axes)	返回轴转置的数组视图。
 
-### Clipping and rounding
+### 多项式拟合
 
-- ma.around	Round an array to the given number of decimals.
-- ma.clip(a, a_min, a_max[, out])	Clip (limit) the values in an array.
-- ma.round(a[, decimals, out])	Return a copy of a, rounded to ‘decimals’ places.
-[ ma.MaskedArray.clip([min, max, out])	Return an array whose values are limited to [min, max].
-- ma.MaskedArray.round([decimals, out])	Return each element rounded to the given number of 
-decimals.
+- ma.vander(x[, n])	生成Vandermonde矩阵。
+- ma.polyfit(x, y, deg[, rcond, full, w, cov])	最小二乘多项式拟合。
 
-### Miscellanea
+### 剪裁和舍入
 
-- ma.allequal(a, b[, fill_value])	Return True if all entries of a and b are equal, using fill_value as a truth value where either or both are masked.
-- ma.allclose(a, b[, masked_equal, rtol, atol])	Returns True if two arrays are element-wise equal within a tolerance.
-- ma.apply_along_axis(func1d, axis, arr, …)	Apply a function to 1-D slices along the given axis.
-- ma.arange([start,] stop[, step,][, dtype])	Return evenly spaced values within a given interval.
-- ma.choose(indices, choices[, out, mode])	Use an index array to construct a new array from a set of choices.
-- ma.ediff1d(arr[, to_end, to_begin])	Compute the differences between consecutive elements of an array.
-- ma.indices(dimensions[, dtype])	Return an array representing the indices of a grid.
-- ma.where(condition[, x, y])	Return a masked array with elements from x or y, depending on condition.
+- ma.around	将数组舍入到给定的小数位数。
+- ma.clip(a, a_min, a_max[, out])	剪辑（限制）数组中的值。
+- ma.round(a[, decimals, out])	返回a的副本，四舍五入到“小数”位置。
+[ ma.MaskedArray.clip([min, max, out])	返回其值限制为[min，max]的数组。
+- ma.MaskedArray.round([decimals, out])	返回舍入到给定小数位数的每个元素。
+
+### 杂项
+
+- ma.allequal(a, b[, fill_value])	如果a和b的所有条目相等，则返回True，使用fill_value作为掩盖其中一个或两个的真值。
+- ma.allclose(a, b[, masked_equal, rtol, atol])	如果两个数组在容差范围内在元素方面相等，则返回True。
+- ma.apply_along_axis(func1d, axis, arr, …)	将函数应用于沿给定轴的1-D切片。
+- ma.arange([start,] stop[, step,][, dtype])	在给定间隔内返回均匀间隔的值。
+- ma.choose(indices, choices[, out, mode])	使用索引数组从一组选项中构造新数组。
+- ma.ediff1d(arr[, to_end, to_begin])	计算数组的连续元素之间的差异。
+- ma.indices(dimensions[, dtype])	返回表示网格索引的数组。
+- ma.where(condition[, x, y])	返回带有x或y元素的蒙版数组，具体取决于条件。
