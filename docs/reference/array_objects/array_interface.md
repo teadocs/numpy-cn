@@ -55,43 +55,43 @@
 
 **data** (可选)
 
-> A 2-tuple whose first argument is an integer (a long integer if necessary) that points to the data-area storing the array contents. This pointer must point to the first element of data (in other words any offset is always ignored in this case). The second entry in the tuple is a read-only flag (true means the data area is read-only).
+> 一个2元组，其第一个参数是一个整数（必要时是一个长整数），指向存储数组内容的数据区。 该指针必须指向数据的第一个元素（换句话说，在这种情况下总是忽略任何偏移）。 一个2元组，其第一个参数是一个整数（必要时是一个长整数），指向存储数组内容的数据区。 该指针必须指向数据的第一个元素（换句话说，在这种情况下总是忽略任何偏移）。 元组中的第二个条目是只读标志（true表示数据区域是只读的。）元组中的第二个条目是只读标志（true表示数据区域是只读的）。
 > 
-> This attribute can also be an object exposing the buffer interface which will be used to share the data. If this key is not present (or returns None), then memory sharing will be done through the buffer interface of the object itself. In this case, the offset key can be used to indicate the start of the buffer. A reference to the object exposing the array interface must be stored by the new object if the memory area is to be secured.
+> 该属性也可以是暴露将用于共享数据的缓冲区接口的对象。 如果此键不存在（或返回None），则将通过对象本身的缓冲区接口完成内存共享。 在这种情况下，偏移键可用于指示缓冲区的开始。 如果要保护存储区，则必须由新对象存储对暴露数组接口的对象的引用。
 > 
 > **Default**: ``None``
 
-**strides** (optional)
+**strides** (可选)
 
-> Either ``None`` to indicate a C-style contiguous array or a Tuple of strides which provides the number of bytes needed to jump to the next array element in the corresponding dimension. Each entry must be an integer (a Python int or long). As with shape, the values may be larger than can be represented by a C “int” or “long”; the calling code should handle this appropriately, either by raising an error, or by using Py_LONG_LONG in C. The default is None which implies a C-style contiguous memory buffer. In this model, the last dimension of the array varies the fastest. For example, the default strides tuple for an object whose array entries are 8 bytes long and whose shape is (10,20,30) would be (4800, 240, 8)
+> ``None``表示C风格的连续数组或步长元组，它提供跳转到相应维度中下一个数组元素所需的字节数。 每个条目必须是整数（Python int或long）。 与形状一样，值可以大于可由C“int”或“long”表示的值; 调用代码应该通过引发错误或在C中使用Py_LONG_LONG来适当地处理它。默认值为None，这意味着C风格的连续内存缓冲区。 在此模型中，阵列的最后一个维度变化最快。 例如，对于数组条目长度为8个字节且形状为（10,20,30）的对象的默认步长元组将为（4800,240,8）
 > 
 > **Default:** ``None`` (C-style contiguous)
 
-**mask** (optional)
+**mask** (可选)
 
-> ``None`` or an object exposing the array interface. All elements of the mask array should be interpreted only as true or not true indicating which elements of this array are valid. The shape of this object should be “broadcastable” to the shape of the original array.
+> ``None``或暴露数组接口的对象。 掩码数组的所有元素应仅解释为true或不为true，指示此数组的哪些元素有效。 该对象的形状应该是“可广播”到原始数组的形状。
 > 
-> Default: None (All array values are valid)
+> Default: None (所有数组值都有效)
 
-**offset** (optional)
+**offset** (可选))
 
-> An integer offset into the array data region. This can only be used when data is ``None`` or returns a ``buffer`` object.
+> 数组数据区域中的整数偏移量。 这只能在数据为“None”时返回或返回“缓冲区”对象时使用。
 > 
 > **Default**: 0.
 
-**version** (required)
+**version** (必须)
 
-> An integer showing the version of the interface (i.e. 3 for this version). Be careful not to use this to invalidate objects exposing future versions of the interface.
+> 显示接口版本的整数（即此版本为3）。 注意不要使用它来使暴露未来版本的接口的对象无效。
 
-## C-struct access
+## C结构的访问
 
-This approach to the array interface allows for faster access to an array using only one attribute lookup and a well-defined C-structure.
+这种数组接口方法允许仅使用一个属性查找和明确定义的C结构能更快地访问数组。
 
 ``__array_struct__``
 
-A :c:type: PyCObject whose voidptr member contains a pointer to a filled PyArrayInterface structure. Memory for the structure is dynamically created and the PyCObject is also created with an appropriate destructor so the retriever of this attribute simply has to apply Py_DECREF to the object returned by this attribute when it is finished. Also, either the data needs to be copied out, or a reference to the object exposing this attribute must be held to ensure the data is not freed. Objects exposing the __array_struct__ interface must also not reallocate their memory if other objects are referencing them.
+A :C:type:PyCObject，其voidptr成员包含一个指向已填充的PyArrayInterface结构的指针。结构的内存是动态创建的，PyCObject也是用适当的析构函数创建的，因此该属性的检索器只需在完成时将Py_DECREF应用于该属性返回的对象。另外，需要将数据复制出来，或者必须保留对暴露此属性的对象的引用，以确保数据未被释放。如果其他对象正在引用它们，则暴露__arraystruct__接口的对象也不能重新分配它们的内存。
 
-The PyArrayInterface structure is defined in ``numpy/ndarrayobject.h`` as:
+PyArrayInterface结构在 ``numpy/ndarrayObject.`` 中定义为：
 
 ```c
 typedef struct {
@@ -110,17 +110,17 @@ typedef struct {
 } PyArrayInterface;
 ```
 
-The flags member may consist of 5 bits showing how the data should be interpreted and one bit showing how the Interface should be interpreted. The data-bits are CONTIGUOUS (0x1), FORTRAN (0x2), ALIGNED (0x100), NOTSWAPPED (0x200), and WRITEABLE (0x400). A final flag ARR_HAS_DESCR (0x800) indicates whether or not this structure has the arrdescr field. The field should not be accessed unless this flag is present.
+标志成员可以由表示如何解释数据的5位和表示如何解释接口的一位组成。数据位是连续的(0x1)、FORTRAN(0x2)、对齐(0x100)、NOTSWAPPED(0x200)和可写(0x400)。最后一个标志ARR_HAS_DISDISR(0x800)指示该结构是否有arrdesr字段。除非出现此标志，否则不应访问该字段。
 
-**New since June 16, 2006:**
+**2006年6月16日以来的新特性：**
 
-In the past most implementations used the “desc” member of the PyCObject itself (do not confuse this with the “descr” member of the PyArrayInterface structure above — they are two separate things) to hold the pointer to the object exposing the interface. This is now an explicit part of the interface. Be sure to own a reference to the object when the PyCObject is created using PyCObject_FromVoidPtrAndDesc.
+在过去，大多数实现使用PyCObject本身的“desc”成员(不要将其与上面PyArrayInterface结构的“下降”成员混淆-它们是两个独立的东西)来保存指向暴露接口的对象的指针。这现在是接口的显式部分。当使用PyCObject_FromVoidPtrAndDesc创建PyCObject时，请确保拥有对该对象的引用。
 
-## Type description examples
+## 类型描述实例
 
-For clarity it is useful to provide some examples of the type description and corresponding ``__array_interface__`` ‘descr’ entries. Thanks to Scott Gilbert for these examples:
+为清楚起见，提供类型描述和相应的 ``__array_interface__`` 'descr'条目的一些示例是有用的。感谢Scott Gilbert的这些例子：
 
-In every case, the ‘descr’ key is optional, but of course provides more information which may be important for various applications:
+在每种情况下，'descr'键都是可选的，但当然提供了对于各种应用可能很重要的更多信息：
 
 ```python
 * Float data
@@ -168,16 +168,16 @@ In every case, the ‘descr’ key is optional, but of course provides more info
     descr == [('ival','>i4'),('','|V4'),('dval','>f8')]
 ```
 
-It should be clear that any structured type could be described using this interface.
+应该清楚的是，可以使用该接口来描述任何结构化类型。
 
-## Differences with Array interface (Version 2)
+## 与Array接口（版本2）的差异
 
-The version 2 interface was very similar. The differences were largely aesthetic. In particular:
+版本2界面非常相似。差异主要是审美。尤其是：
 
-1. The PyArrayInterface structure had no descr member at the end (and therefore no flag ARR_HAS_DESCR)
-1. The desc member of the PyCObject returned from __array_struct__ was not specified. Usually, it was the object exposing the array (so that a reference to it could be kept and destroyed when the C-object was destroyed). Now it must be a tuple whose first element is a string with “PyArrayInterface Version #” and whose second element is the object exposing the array.
-1. The tuple returned from __array_interface__[‘data’] used to be a hex-string (now it is an integer or a long integer).
-1. There was no __array_interface__ attribute instead all of the keys (except for version) in the __array_interface__ dictionary were their own attribute: Thus to obtain the Python-side information you had to access separately the attributes:
+1. PyArrayInterface结构最后没有descr成员（因此没有标志ARR_HAS_DESCR）
+1. 未指定从__array_struct__返回的PyCObject的desc成员。 通常，它是暴露数组的对象（因此当C对象被销毁时，可以保留和销毁对它的引用）。 现在它必须是一个元组，其第一个元素是带有“PyArrayInterface Version＃”的字符串，其第二个元素是暴露数组的对象。
+1. 从__array_interface __ ['data']返回的元组曾经是一个十六进制字符串（现在它是一个整数或一个长整数）。
+1. 没有__array_interface__属性，而__array_interface__字典中的所有键（版本除外）都是它们自己的属性：因此要获取Python端信息，您必须单独访问属性：
     - __array_data__
     - __array_shape__
     - __array_strides__
