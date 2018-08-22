@@ -2,47 +2,48 @@
 
 *版本1.7.0中的新功能。*
 
-Starting in NumPy 1.7, there are core array data types which natively support datetime functionality. The data type is called “datetime64”, so named because “datetime” is already taken by the datetime library included in Python.
+从NumPy 1.7开始，有核心数组数据类型本身支持日期时间功能。 数据类型称为“datetime64”，因为“datetime”已被Python中包含的日期时间库占用。
 
-> **Note**
-> The datetime API is experimental in 1.7.0, and may undergo changes in future versions of NumPy.
+> **注意**
+> datetime API在1.7.0中是实验性的，并且可能在未来版本的NumPy中进行更改。
 
-## Basic Datetimes
+## 基本的日期时间
 
-The most basic way to create datetimes is from strings in ISO 8601 date or datetime format. The unit for internal storage is automatically selected from the form of the string, and can be either a date unit or a time unit. The date units are years (‘Y’), months (‘M’), weeks (‘W’), and days (‘D’), while the time units are hours (‘h’), minutes (‘m’), seconds (‘s’), milliseconds (‘ms’), and some additional SI-prefix seconds-based units.
+创建日期时间的最基本方法是使用ISO 8601日期或日期时间格式的字符串。 内部存储单元自动从字符串的形式中选择，可以是日期单位或时间单位。 日期单位是年（'Y'），月（'M'），周（'W'）和天（'D'），而时间单位是小时（'h'），分钟（'m'） ），秒（'s'），毫秒（'ms'）和一些额外的SI前缀基于秒的单位。
 
-**Example**
-A simple ISO date:
+**例子**
+
+一个简单的ISO日期：
 
 ```python
 >>> np.datetime64('2005-02-25')
 numpy.datetime64('2005-02-25')
 ```
 
-Using months for the unit:
+使用月份为单位：
 
 ```python
 >>> np.datetime64('2005-02')
 numpy.datetime64('2005-02')
 ```
 
-Specifying just the month, but forcing a ‘days’ unit:
+仅指定月份，但强制“天”单位：
 
 ```python
 >>> np.datetime64('2005-02', 'D')
 numpy.datetime64('2005-02-01')
 ```
 
-From a date and time:
+从日期和时间：
 
 ```python
 >>> np.datetime64('2005-02-25T03:30')
 numpy.datetime64('2005-02-25T03:30')
 ```
 
-When creating an array of datetimes from a string, it is still possible to automatically select the unit from the inputs, by using the datetime type with generic units.
+从字符串创建日期时间数组时，仍然可以通过使用带有通用单位的日期时间类型从输入中自动选择单位。
 
-**Example**
+**例子**
 
 ```python
 >>> np.array(['2007-07-13', '2006-01-13', '2010-08-13'], dtype='datetime64')
@@ -54,11 +55,11 @@ array(['2007-07-13', '2006-01-13', '2010-08-13'], dtype='datetime64[D]')
 array(['2001-01-01T12:00:00.000-0600', '2002-02-03T13:56:03.172-0600'], dtype='datetime64[ms]')
 ```
 
-The datetime type works with many common NumPy functions, for example arange can be used to generate ranges of dates.
+datetime类型适用于许多常见的NumPy函数，例如，可以使用arange来生成日期范围。
 
-**Example**
+**例子**
 
-All the dates for one month:
+所有日期为一个月：
 
 ```python
 >>> np.arange('2005-02', '2005-03', dtype='datetime64[D]')
@@ -72,9 +73,9 @@ array(['2005-02-01', '2005-02-02', '2005-02-03', '2005-02-04',
        dtype='datetime64[D]')
 ```
 
-The datetime object represents a single moment in time. If two datetimes have different units, they may still be representing the same moment of time, and converting from a bigger unit like months to a smaller unit like days is considered a ‘safe’ cast because the moment of time is still being represented exactly.
+datetime对象表示单个时刻。 如果两个日期时间具有不同的单位，它们可能仍然代表相同的时刻，并且从较大的单位（如月份）转换为较小的单位（如天数）被视为“安全”演员，因为时刻仍在准确表示。
 
-**Example**
+**例子**
 
 ```python
 >>> np.datetime64('2005') == np.datetime64('2005-01-01')
@@ -86,13 +87,13 @@ True
 True
 ```
 
-## Datetime and Timedelta Arithmetic
+## Datetime和Timedelta算术运算
 
-NumPy allows the subtraction of two Datetime values, an operation which produces a number with a time unit. Because NumPy doesn’t have a physical quantities system in its core, the timedelta64 data type was created to complement datetime64.
+NumPy允许减去两个Datetime值，这个操作产生一个带有时间单位的数字。 由于NumPy的核心没有物理量系统，因此创建了timedelta64数据类型以补充datetime64。
 
-Datetimes and Timedeltas work together to provide ways for simple datetime calculations.
+Datetimes和Timedeltas一起工作，为简单的日期时间计算提供方法。
 
-**Example**
+**例子**
 
 ```python
 >>> np.datetime64('2009-01-01') - np.datetime64('2008-01-01')
@@ -111,9 +112,9 @@ numpy.datetime64('2011-06-15T12:00-0500')
 7.0
 ```
 
-There are two Timedelta units (‘Y’, years and ‘M’, months) which are treated specially, because how much time they represent changes depending on when they are used. While a timedelta day unit is equivalent to 24 hours, there is no way to convert a month unit into days, because different months have different numbers of days.
+有两个Timedelta单位（'Y'，年和'M'，几个月）被特别处理，因为他们代表的时间根据使用时间而变化。 虽然timedelta日单位相当于24小时，但无法将月份单位转换为天数，因为不同的月份具有不同的天数。
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.timedelta64(1, 'Y')
@@ -128,49 +129,50 @@ numpy.timedelta64(12,'M')
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: Cannot cast NumPy timedelta64 scalar from metadata [Y] to [D] according to the rule 'same_kind'
+```
 
-## Datetime Units
+## 日期时间单位
 
-The Datetime and Timedelta data types support a large number of time units, as well as generic units which can be coerced into any of the other units based on input data.
+Datetime和Timedelta数据类型支持大量时间单位，以及可以根据输入数据强制转换为任何其他单位的通用单位。
 
-Datetimes are always stored based on POSIX time (though having a TAI mode which allows for accounting of leap-seconds is proposed), with an epoch of 1970-01-01T00:00Z. This means the supported dates are always a symmetric interval around the epoch, called “time span” in the table below.
+始终基于POSIX时间存储日期时间（尽管具有允许计算闰秒的TAI模式），具有1970-01-01T00：00Z的时期。 这意味着支持的日期总是围绕时期的对称间隔，在下表中称为“时间跨度”。
 
-The length of the span is the range of a 64-bit integer times the length of the date or unit. For example, the time span for ‘W’ (week) is exactly 7 times longer than the time span for ‘D’ (day), and the time span for ‘D’ (day) is exactly 24 times longer than the time span for ‘h’ (hour).
+跨度的长度是64位整数乘以日期或单位长度的范围。 例如，'W'（周）的时间跨度恰好是'D'（日）的时间跨度的7倍，'D'（日）的时间跨度恰好是时间跨度的24倍 为'h'（小时）。
 
-Here are the date units:
+以下是日期单位：
 
-Code | Meaning | Time span (relative) | Time span (absolute)
+代码 | 含义 | 时间跨度（相对） | 时间跨度（绝对）
 ---|---|---|---
-Y | year | +/- 9.2e18 years | [9.2e18 BC, 9.2e18 AD]
-M | month | +/- 7.6e17 years | [7.6e17 BC, 7.6e17 AD]
-W | week | +/- 1.7e17 years | [1.7e17 BC, 1.7e17 AD]
-D | day | +/- 2.5e16 years | [2.5e16 BC, 2.5e16 AD]
+Y | 年 | +/- 9.2e18 years | [9.2e18 BC, 9.2e18 AD]
+M | 月 | +/- 7.6e17 years | [7.6e17 BC, 7.6e17 AD]
+W | 周 | +/- 1.7e17 years | [1.7e17 BC, 1.7e17 AD]
+D | 日 | +/- 2.5e16 years | [2.5e16 BC, 2.5e16 AD]
 
-And here are the time units:
+以下是时间单位：
 
-Code | Meaning | Time span (relative) | Time span (absolute)
+代码 | 含义 | 时间跨度（相对） | 时间跨度（绝对）
 ---|---|---|---
-h | hour | +/- 1.0e15 years | [1.0e15 BC, 1.0e15 AD]
-m | minute | +/- 1.7e13 years | [1.7e13 BC, 1.7e13 AD]
-s | second | +/- 2.9e11 years | [2.9e11 BC, 2.9e11 AD]
-ms | millisecond | +/- 2.9e8 years | [ 2.9e8 BC, 2.9e8 AD]
-us | microsecond | +/- 2.9e5 years | [290301 BC, 294241 AD]
-ns | nanosecond | +/- 292 years | [ 1678 AD, 2262 AD]
-ps | picosecond | +/- 106 days | [ 1969 AD, 1970 AD]
-fs | femtosecond | +/- 2.6 hours | [ 1969 AD, 1970 AD]
-as | attosecond | +/- 9.2 seconds | [ 1969 AD, 1970 AD]
+h | 小时 | +/- 1.0e15 years | [1.0e15 BC, 1.0e15 AD]
+m | 分钟 | +/- 1.7e13 years | [1.7e13 BC, 1.7e13 AD]
+s | 秒 | +/- 2.9e11 years | [2.9e11 BC, 2.9e11 AD]
+ms | 毫秒 | +/- 2.9e8 years | [ 2.9e8 BC, 2.9e8 AD]
+us | 微秒 | +/- 2.9e5 years | [290301 BC, 294241 AD]
+ns | 纳秒 | +/- 292 years | [ 1678 AD, 2262 AD]
+ps | 皮秒 | +/- 106 days | [ 1969 AD, 1970 AD]
+fs | 飞秒 | +/- 2.6 hours | [ 1969 AD, 1970 AD]
+as | 阿秒 | +/- 9.2 seconds | [ 1969 AD, 1970 AD]
 
-## Business Day Functionality
+## 工作日功能
 
-To allow the datetime to be used in contexts where only certain days of the week are valid, NumPy includes a set of “busday” (business day) functions.
+为了允许在只有一周中某些日子有效的上下文中使用日期时间，NumPy包含一组“busday”（工作日）功能。
 
-The default for busday functions is that the only valid days are Monday through Friday (the usual business days). The implementation is based on a “weekmask” containing 7 Boolean flags to indicate valid days; custom weekmasks are possible that specify other sets of valid days.
+busday功能的默认值是唯一有效的日期是周一到周五（通常的工作日）。 该实现基于一个“weekmask”，包含7个布尔标志，用于指示有效天数; 可以指定其他有效天数集。
 
-The “busday” functions can additionally check a list of “holiday” dates, specific dates that are not valid days.
+“busday”功能还可以检查“假日”日期列表，特定日期是无效日期。
 
-The function ``busday_offset`` allows you to apply offsets specified in business days to datetimes with a unit of ‘D’ (day).
+函数``busday_offset``允许您将工作日中指定的偏移量应用于日期时间，单位为“D”（天）。
 
-**Example**
+**例子**
 
 ```python
 >>> np.busday_offset('2011-06-23', 1)
@@ -182,9 +184,9 @@ numpy.datetime64('2011-06-24')
 numpy.datetime64('2011-06-27')
 ```
 
-When an input date falls on the weekend or a holiday, ``busday_offset`` first applies a rule to roll the date to a valid business day, then applies the offset. The default rule is ‘raise’, which simply raises an exception. The rules most typically used are ‘forward’ and ‘backward’.
+当输入日期落在周末或假日时，``busday_offset``首先应用规则将日期滚动到有效的工作日，然后应用偏移量。 默认规则是'raise'，它只会引发异常。 最常用的规则是“前进”和“后退”。
 
-**Example**
+**例子**
 
 ```python
 >>> np.busday_offset('2011-06-25', 2)
@@ -213,11 +215,11 @@ numpy.datetime64('2011-06-24')
 numpy.datetime64('2011-06-28')
 ```
 
-In some cases, an appropriate use of the roll and the offset is necessary to get a desired answer.
+在某些情况下，需要适当使用滚动和偏移以获得所需的答案。
 
-**Example**
+**例子**
 
-The first business day on or after a date:
+日期或之后的第一个工作日：
 
 ```python
 >>> np.busday_offset('2011-03-20', 0, roll='forward')
@@ -226,7 +228,7 @@ numpy.datetime64('2011-03-21','D')
 numpy.datetime64('2011-03-22','D')
 ```
 
-The first business day strictly after a date:
+严格遵守日期后的第一个工作日：
 
 ```python
 >>> np.busday_offset('2011-03-20', 1, roll='backward')
@@ -235,22 +237,22 @@ numpy.datetime64('2011-03-21','D')
 numpy.datetime64('2011-03-23','D')
 ```
 
-The function is also useful for computing some kinds of days like holidays. In Canada and the U.S., Mother’s day is on the second Sunday in May, which can be computed with a custom weekmask.
+该功能对于计算某些日子如假期也很有用。 在加拿大和美国，母亲节是在5月的第二个星期天，可以使用自定义的周掩码来计算。
 
-**Example**
+**例子**
 
 ```python
 >>> np.busday_offset('2012-05', 1, roll='forward', weekmask='Sun')
 numpy.datetime64('2012-05-13','D')
 ```
 
-When performance is important for manipulating many business dates with one particular choice of weekmask and holidays, there is an object ``busdaycalendar`` which stores the data necessary in an optimized form.
+当性能对于使用一个特定选择的周掩码和假日来操纵许多业务日期很重要时，有一个对象``busdaycalendar``，它以优化的形式存储必要的数据。
 
 ### np.is_busday():
 
-To test a datetime64 value to see if it is a valid day, use is_busday.
+要测试datetime64值以查看它是否为有效日期，请使用is_busday。
 
-**Example**
+**例子**
 
 ```python
 >>> np.is_busday(np.datetime64('2011-07-15'))  # a Friday
