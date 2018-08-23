@@ -267,9 +267,9 @@ array([ True,  True,  True,  True,  True, False, False], dtype='bool')
 ```
 ### np.busday_count():
 
-To find how many valid days there are in a specified range of datetime64 dates, use busday_count:
+要查找指定日期时间64日期范围内有效天数，请使用busday_count：
 
-**Example**
+**例子**
 
 ```python
 >>> np.busday_count(np.datetime64('2011-07-11'), np.datetime64('2011-07-18'))
@@ -278,9 +278,9 @@ To find how many valid days there are in a specified range of datetime64 dates, 
 -5
 ```
 
-If you have an array of datetime64 day values, and you want a count of how many of them are valid dates, you can do this:
+如果您有一组datetime64天值，并且您想要计算其中有多少是有效日期，则可以执行以下操作：
 
-**Example**
+**例子**
 
 ```python
 >>> a = np.arange(np.datetime64('2011-07-11'), np.datetime64('2011-07-18'))
@@ -288,11 +288,11 @@ If you have an array of datetime64 day values, and you want a count of how many 
 5
 ```
 
-#### Custom Weekmasks
+#### 自定义Weekmasks
 
-Here are several examples of custom weekmask values. These examples specify the “busday” default of Monday through Friday being valid days.
+以下是自定义周掩码值的几个示例。 这些示例指定周一至周五的“busday”默认值为有效天数。
 
-Some examples:
+一些例子:
 
 ```python
 # Positional sequences; positions are Monday through Sunday.
@@ -308,9 +308,9 @@ weekmask = "Mon Tue Wed Thu Fri"
 weekmask = "MonTue Wed  Thu\tFri"
 ```
 
-## Changes with NumPy 1.11
+## 使用NumPy 1.11进行更改
 
-In prior versions of NumPy, the datetime64 type always stored times in UTC. By default, creating a datetime64 object from a string or printing it would convert from or to local time:
+在NumPy的早期版本中，datetime64类型始终以UTC格式存储。 默认情况下，从字符串创建datetime64对象或打印它将从或转换为本地时间：
 
 ```python
 # old behavior
@@ -318,14 +318,14 @@ In prior versions of NumPy, the datetime64 type always stored times in UTC. By d
 numpy.datetime64('2000-01-01T00:00:00-0800')  # note the timezone offset -08:00
 ```
 
-A consensus of datetime64 users agreed that this behavior is undesirable and at odds with how datetime64 is usually used (e.g., by pandas). For most use cases, a timezone naive datetime type is preferred, similar to the datetime.datetime type in the Python standard library. Accordingly, datetime64 no longer assumes that input is in local time, nor does it print local times:
+datetime64用户的共识认为这种行为是不可取的，并且与通常使用datetime64的方式不一致（例如，通过pandas）。 对于大多数用例，首选的是时区天真日期时间类型，类似于Python标准库中的datetime.datetime类型。 因此，datetime64不再假定输入是在本地时间，也不是打印本地时间：
 
 ```python
 >>>> np.datetime64('2000-01-01T00:00:00')
 numpy.datetime64('2000-01-01T00:00:00')
 ```
 
-For backwards compatibility, datetime64 still parses timezone offsets, which it handles by converting to UTC. However, the resulting datetime is timezone naive:
+为了向后兼容，datetime64仍解析时区偏移，它通过转换为UTC来处理。 但是，生成的日期时间是时区的天真：
 
 ```python
 >>> np.datetime64('2000-01-01T00:00:00-08')
@@ -333,15 +333,15 @@ DeprecationWarning: parsing timezone aware datetimes is deprecated; this will ra
 numpy.datetime64('2000-01-01T08:00:00')
 ```
 
-As a corollary to this change, we no longer prohibit casting between datetimes with date units and datetimes with timeunits. With timezone naive datetimes, the rule for casting from dates to times is no longer ambiguous.
+作为此更改的必然结果，我们不再禁止在日期时间与日期单位和日期时间与时间单位之间进行转换。 对于时区天真的日期时间，从日期到时间的投射规则不再模糊。
 
-## Differences Between 1.6 and 1.7 Datetimes
+## 1.6和1.7日期时间之间的差异
 
-The NumPy 1.6 release includes a more primitive datetime data type than 1.7. This section documents many of the changes that have taken place.
+NumPy 1.6版本包含比1.7更原始的日期时间数据类型。 本节介绍了许多已发生的变化。
 
-### String Parsing
+### 字符串解析
 
-The datetime string parser in NumPy 1.6 is very liberal in what it accepts, and silently allows invalid input without raising errors. The parser in NumPy 1.7 is quite strict about only accepting ISO 8601 dates, with a few convenience extensions. 1.6 always creates microsecond (us) units by default, whereas 1.7 detects a unit based on the format of the string. Here is a comparison.:
+NumPy 1.6中的日期时间字符串解析器在它接受的内容中非常自由，并且默默地允许无效输入而不会引发错误。 NumPy 1.7中的解析器对于仅接受ISO 8601日期非常严格，只有一些便利扩展。 1.6默认情况下始终创建微秒（us）单位，而1.7则根据字符串的格式检测单位。 这是一个比较：
 
 ```python
 # NumPy 1.6.1
@@ -411,9 +411,9 @@ array(['1979-03-22T12-0500'], dtype='datetime64[h]')
 array(['1979-03-22T12-0500'], dtype='datetime64[h]')
 ```
 
-### Unit Conversion
+### 单位转换
 
-The 1.6 implementation of datetime does not convert between units correctly.:
+日期时间的1.6实现不能正确转换单位：
 
 ```python
 # NumPy 1.6.1, the representation value is untouched
@@ -428,9 +428,9 @@ array(['1979-03-22'], dtype='datetime64[D]')
 array(['1979-03'], dtype='datetime64[M]')
 ```
 
-### Datetime Arithmetic
+### 日期算术运算
 
-The 1.6 implementation of datetime only works correctly for a small subset of arithmetic operations. Here we show some simple cases.:
+日期时间的1.6实现仅适用于一小部分算术运算。这里我们展示一些简单的案例：
 
 ```python
 # NumPy 1.6.1, produces invalid results if units are incompatible
