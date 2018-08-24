@@ -1,5 +1,5 @@
 # 通用功能(ufuns)
 
-A universal function (or ufunc for short) is a function that operates on ndarrays in an element-by-element fashion, supporting array broadcasting, type casting, and several other standard features. That is, a ufunc is a “vectorized” wrapper for a function that takes a fixed number of specific inputs and produces a fixed number of specific outputs.
+通用函数（或简称为ufunc）是一种以元素为单位对ndarray进行操作的函数，支持数组广播，类型转换和其他一些标准特性。 也就是说，ufunc是一个函数的“矢量化”包装器，它接受固定数量的特定输入并产生固定数量的特定输出。
 
-In NumPy, universal functions are instances of the numpy.ufunc class. Many of the built-in functions are implemented in compiled C code. The basic ufuncs operate on scalars, but there is also a generalized kind for which the basic elements are sub-arrays (vectors, matrices, etc.), and broadcasting is done over other dimensions. One can also produce custom ufunc instances using the frompyfunc factory function.
+在NumPy中，通用函数是numpy.ufunc类的实例。 许多内置函数都是在编译的C代码中实现的。 基本的ufuncs对标量进行操作，但也有一种通用类型，基本元素是子数组（向量，矩阵等），广播是在其他维度上完成的。 也可以使用frompyfunc工厂函数生成自定义ufunc实例。

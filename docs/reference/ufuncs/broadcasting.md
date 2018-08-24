@@ -1,25 +1,25 @@
 # 广播
 
-Each universal function takes array inputs and produces array outputs by performing the core function element-wise on the inputs (where an element is generally a scalar, but can be a vector or higher-order sub-array for generalized ufuncs). Standard broadcasting rules are applied so that inputs not sharing exactly the same shapes can still be usefully operated on. Broadcasting can be understood by four rules:
+每个通用函数接受数组输入并通过在输入上逐元素地执行核心功能来生成数组输出(其中元素通常是标量，但可以是用于广义ufunc的向量或更高阶子数组)。 应用标准广播规则，以便仍然可以有效地操作不共享完全相同形状的输入。 广播可以通过四个规则来理解：
 
-1. All input arrays with ndim smaller than the input array of largest ndim, have 1’s prepended to their shapes.
-1. The size in each dimension of the output shape is the maximum of all the input sizes in that dimension.
-1. An input can be used in the calculation if its size in a particular dimension either matches the output size in that dimension, or has value exactly 1.
-1. If an input has a dimension size of 1 in its shape, the first data entry in that dimension will be used for all calculations along that dimension. In other words, the stepping machinery of the ufunc will simply not step along that dimension (the stride will be 0 for that dimension).
+1. 所有ndim小于最大ndim输入数组的输入数组，其形状都有1的前置值。
+1. 输出形状的每个维度中的大小是该维度中所有输入大小的最大值。
+1. 如果输入在特定维度中的大小与该维度中的输出大小匹配，或者其值正好为1，则可以在计算中使用输入。
+1. 如果输入的形状中的维度大小为1，则该维度中的第一个数据项将用于该维度的所有计算。换句话说，ufunc的步进机械不会沿着该维度前进(该维度的步长将为0)。
 
-Broadcasting is used throughout NumPy to decide how to handle disparately shaped arrays; for example, all arithmetic operations (+, -, *, …) between ndarrays broadcast the arrays before operation.
+广播在整个NumPy中用于决定如何处理形状迥异的数组；例如，所有算术运算(+，-，*，…)在操作前在两道射线之间播送阵列。
 
-A set of arrays is called “broadcastable” to the same shape if the above rules produce a valid result, i.e., one of the following is true:
+如果上述规则产生有效的结果，即下列情况之一为真，则将一组数组称为“可广播的”，其形状相同：
 
-1. The arrays all have exactly the same shape.
-1. The arrays all have the same number of dimensions and the length of each dimensions is either a common length or 1.
-1. The arrays that have too few dimensions can have their shapes prepended with a dimension of length 1 to satisfy property 2.
+1. 这些阵列都具有完全相同的形状。
+1. 阵列都具有相同的维数，每个维度的长度是常用长度或1。
+1. 尺寸太小的阵列可以使其形状前面加上长度为1的尺寸以满足属性2。
 
-**Example**
+**例子**
 
-If ``a.shape`` is (5,1), ``b.shape`` is (1,6), ``c.shape`` is (6,) and ``d.shape`` is () so that d is a scalar, then a, b, c, and d are all broadcastable to dimension (5,6); and
+如果``a.shape``是(5,1)，``b.shape``是(1,6)，``c.shape``是(6，)，``d.shape``是 () 使得d是标量，然后a，b，c和d都可以广播到维度(5,6); 和
 
-- a acts like a (5,6) array where ``a[:,0]`` is broadcast to the other columns,
-- b acts like a (5,6) array where ``b[0,:]`` is broadcast to the other rows,
-- c acts like a (1,6) array and therefore like a (5,6) array where ``c[:]`` is broadcast to every row, and finally,
-- d acts like a (5,6) array where the single value is repeated.
+- 一个像(5,6)数组的行为，其中``a[:, 0]``被广播到其他列，
+- b的作用类似于(5, 6)数组，其中``b[0, :]``广播到其他行，
+- c就像一个(1, 6)数组，因此像一个(5, 6)数组，其中``c[:]``广播到每一行，最后，
+- d的作用类似于(5, 6)数组，其中重复单个值。
