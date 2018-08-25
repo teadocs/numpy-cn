@@ -1,5 +1,9 @@
 # 使用内部缓冲区
 
-Internally, buffers are used for misaligned data, swapped data, and data that has to be converted from one data type to another. The size of internal buffers is settable on a per-thread basis. There can be up to 2 (n_{\mathrm{inputs}} + n_{\mathrm{outputs}}) buffers of the specified size created to handle the data from all the inputs and outputs of a ufunc. The default size of a buffer is 10,000 elements. Whenever buffer-based calculation would be needed, but all input arrays are smaller than the buffer size, those misbehaved or incorrectly-typed arrays will be copied before the calculation proceeds. Adjusting the size of the buffer may therefore alter the speed at which ufunc calculations of various sorts are completed. A simple interface for setting this variable is accessible using the function
+在内部，缓冲区用于不对齐数据、交换数据和必须从一种数据类型转换到另一种数据类型的数据。内部缓冲区的大小可以在每个线程的基础上设置。可以有最多2个指定大小的缓冲区
 
-- ``setbufsize``(size)	Set the size of the buffer used in ufuncs.
+![公式](/static/images/70520d47cfe4175f84138a50a9859e3af5da3c66.svg)
+
+以处理ufunc的所有输入和输出的数据。缓冲区的默认大小为10，000个元素。每当需要基于缓冲区的计算，但所有输入数组都小于缓冲区大小时，那些行为不当或类型不正确的数组将在计算继续之前被复制。因此，调整缓冲区的大小可能会改变完成各种ufunc计算的速度。可以使用以下函数访问用于设置此变量的简单接口
+
+- ``setbufsize``(size) 设置ufuns中使用的缓冲区的大小。
