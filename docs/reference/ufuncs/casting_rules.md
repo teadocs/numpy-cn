@@ -1,20 +1,20 @@
 # 规则变换
 
-> Note
-> In NumPy 1.6.0, a type promotion API was created to encapsulate the mechanism for determining output types. See the functions ``result_type``, ``promote_types``, and ``min_scalar_type`` for more details.
+> 注意
+> 在NumPy 1.6.0中，创建了一个类型提升API来封装用于确定输出类型的机制。 有关详细信息，请参阅函数``result_type``，``promote_types``和``min_scalar_type``。
 
-At the core of every ufunc is a one-dimensional strided loop that implements the actual function for a specific type combination. When a ufunc is created, it is given a static list of inner loops and a corresponding list of type signatures over which the ufunc operates. The ufunc machinery uses this list to determine which inner loop to use for a particular case. You can inspect the ``.types`` attribute for a particular ufunc to see which type combinations have a defined inner loop and which output type they produce (character codes are used in said output for brevity).
+每个ufunc的核心是一个一维的跨行循环，它实现特定类型组合的实际函数。当创建一个ufunc时，会给它一个内部循环的静态列表和一个对应的类型签名列表，ufunc对此进行操作。ufunc机器使用此列表来确定对特定情况使用哪个内部循环。您可以检查特定ufunc的“.type”属性，以查看哪些类型组合具有定义的内环，以及它们产生的输出类型(为简洁起见，在所述输出中使用字符代码)。
 
-Casting must be done on one or more of the inputs whenever the ufunc does not have a core loop implementation for the input types provided. If an implementation for the input types cannot be found, then the algorithm searches for an implementation with a type signature to which all of the inputs can be cast “safely.” The first one it finds in its internal list of loops is selected and performed, after all necessary type casting. Recall that internal copies during ufuncs (even for casting) are limited to the size of an internal buffer (which is user settable).
+只要ufunc没有提供输入类型的核心循环实现，就必须对一个或多个输入进行转换。如果找不到输入类型的实现，则该算法搜索具有类型签名的实现，所有输入都可以“安全地”转换到该实现。在所有必要的类型转换之后，选择并执行在循环的内部列表中找到的第一个类型。回想一下，在ufuns期间(甚至对于转换)，内部副本被限制为一个内部缓冲区的大小(这是用户可设置的)。
 
-> **Note**
-> Universal functions in NumPy are flexible enough to have mixed type signatures. Thus, for example, a universal function could be defined that works with floating-point and integer values. See ``ldexp`` for an example.
+> **注意**
+> NumPy中的通用函数足够灵活，可以具有混合类型签名。因此，例如，可以定义一个通用函数来处理浮点值和整数值。见``ldexp``的例子。
 
-By the above description, the casting rules are essentially implemented by the question of when a data type can be cast “safely” to another data type. The answer to this question can be determined in Python with a function call: ``can_cast(fromtype, totype)``. The Figure below shows the results of this call for the 24 internally supported types on the author’s 64-bit system. You can generate this table for your system with the code given in the Figure.
+通过上面的描述，转换规则本质上是由一个数据类型何时可以“安全地”转换为另一个数据类型的问题来实现的。这个问题的答案可以在Python中通过函数调用来确定：“can_cast(From type，totype)”。下图显示了作者64位系统上24种内部支持类型的调用结果。您可以使用图中给出的代码为您的系统生成此表。
 
-**Figure：**
+**图形：**
 
-Code segment showing the “can cast safely” table for a 32-bit system.
+代码段显示一个32位系统的“可以安全地转换”表。
 
 ```python
 >>> def print_table(ntypes):
@@ -56,6 +56,6 @@ M 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
 m 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 ```
 
-You should note that, while included in the table for completeness, the ‘S’, ‘U’, and ‘V’ types cannot be operated on by ufuncs. Also, note that on a 32-bit system the integer types may have different sizes, resulting in a slightly altered table.
+您应该注意到，虽然表中包含了“S”、“U”和“V”类型，但不能由ufuns对它们进行操作。另外，请注意，在32位系统中，整数类型可能有不同的大小，导致表略有改变。
 
-Mixed scalar-array operations use a different set of casting rules that ensure that a scalar cannot “upcast” an array unless the scalar is of a fundamentally different kind of data (i.e., under a different hierarchy in the data-type hierarchy) than the array. This rule enables you to use scalar constants in your code (which, as Python types, are interpreted accordingly in ufuncs) without worrying about whether the precision of the scalar constant will cause upcasting on your large (small precision) array.
+混合标量数组操作使用一组不同的转换规则，以确保标量不能“向上转换”数组，除非标量与数组具有根本不同的数据类型(即数据类型层次结构中的不同层次结构)。这条规则使您可以在代码中使用标量常量(作为Python类型，在函数中相应地进行解释)，而不必担心标量常量的精度是否会导致大(小精度)数组的上行。
