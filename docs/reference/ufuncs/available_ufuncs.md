@@ -1,99 +1,101 @@
 # 可用的通用函数列表
 
-There are currently more than 60 universal functions defined in ``numpy`` on one or more types, covering a wide variety of operations. Some of these ufuncs are called automatically on arrays when the relevant infix notation is used (e.g., ``add(a, b)`` is called internally when ``a + b`` is written and a or b is an ``ndarray``). Nevertheless, you may still want to use the ufunc call in order to use the optional output argument(s) to place the output(s) in an object (or objects) of your choice.
+目前在一种或多种类型的``numpy``中定义了60多个通用函数，涵盖了各种各样的操作。 当使用相关的中缀符号时，这些ufunc中的一些会在数组上自动调用（例如，当``a + b``写入时，``add（a，b）``在内部调用，而a或b是``ndarray``）。 不过，您可能仍希望使用ufunc调用以使用可选的输出参数将输出放置在您选择的对象（或多个对象）中。
 
-Recall that each ufunc operates element-by-element. Therefore, each scalar ufunc will be described as if acting on a set of scalar inputs to return a set of scalar outputs.
+回想一下，每个ufunc都是逐个元素运行的。 因此，每个标量ufunc将被描述为如果作用于一组标量输入以返回一组标量输出。
 
-> **Note**
-> The ufunc still returns its output(s) even if you use the optional output argument(s).
+> **注意**
+> 即使您使用可选的输出参数，ufunc仍会返回其输出。
 
-## Math operations
+## 数学运算
 
-method | desc
+方法 | 描述
 ---|---
-add(x1, x2, /[, out, where, casting, order, …]) | Add arguments element-wise.
-subtract(x1, x2, /[, out, where, casting, …]) | Subtract arguments, element-wise.
-multiply(x1, x2, /[, out, where, casting, …]) | Multiply arguments element-wise.
-divide(x1, x2, /[, out, where, casting, …]) | Returns a true division of the inputs, element-wise.
-logaddexp(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs.
-logaddexp2(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs in base-2.
-true_divide(x1, x2, /[, out, where, …]) | Returns a true division of the inputs, element-wise.
-floor_divide(x1, x2, /[, out, where, …]) | Return the largest integer smaller or equal to the division of the inputs.
-negative(x, /[, out, where, casting, order, …]) | Numerical negative, element-wise.
-positive(x, /[, out, where, casting, order, …]) | Numerical positive, element-wise.
-power(x1, x2, /[, out, where, casting, …]) | First array elements raised to powers from second array, element-wise.
-remainder(x1, x2, /[, out, where, casting, …]) | Return element-wise remainder of division.
-mod(x1, x2, /[, out, where, casting, order, …]) | Return element-wise remainder of division.
-fmod(x1, x2, /[, out, where, casting, …]) | Return the element-wise remainder of division.
-divmod(x1, x2[, out1, out2], / [[, out, …]) | Return element-wise quotient and remainder simultaneously.
-absolute(x, /[, out, where, casting, order, …]) | Calculate the absolute value element-wise.
-fabs(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
-rint(x, /[, out, where, casting, order, …]) | Round elements of the array to the nearest integer.
-sign(x, /[, out, where, casting, order, …]) | Returns an element-wise indication of the sign of a number.
-heaviside(x1, x2, /[, out, where, casting, …]) | Compute the Heaviside step function.
-conj(x, /[, out, where, casting, order, …]) | Return the complex conjugate, element-wise.
-exp(x, /[, out, where, casting, order, …]) | Calculate the exponential of all elements in the input array.
-exp2(x, /[, out, where, casting, order, …]) | Calculate 2**p for all p in the input array.
-log(x, /[, out, where, casting, order, …]) | Natural logarithm, element-wise.
-log2(x, /[, out, where, casting, order, …]) | Base-2 logarithm of x.
-log10(x, /[, out, where, casting, order, …]) | Return the base 10 logarithm of the input array, element-wise.
-expm1(x, /[, out, where, casting, order, …]) | Calculate exp(x) - 1 for all elements in the array.
-log1p(x, /[, out, where, casting, order, …]) | Return the natural logarithm of one plus the input array, element-wise.
-sqrt(x, /[, out, where, casting, order, …]) | Return the positive square-root of an array, element-wise.
-square(x, /[, out, where, casting, order, …]) | Return the element-wise square of the input.
-cbrt(x, /[, out, where, casting, order, …]) | Return the cube-root of an array, element-wise.
-reciprocal(x, /[, out, where, casting, …]) | Return the reciprocal of the argument, element-wise.
+add(x1, x2, /[, out, where, casting, order, …]) | 按元素添加参数。
+subtract(x1, x2, /[, out, where, casting, …]) | 从元素方面减去参数。
+multiply(x1, x2, /[, out, where, casting, …]) | 按元素计算多个参数。
+divide(x1, x2, /[, out, where, casting, …]) | 逐个元素方式返回输入的真正除法。
+logaddexp(x1, x2, /[, out, where, casting, …]) | 输入的指数之和的对数。
+logaddexp2(x1, x2, /[, out, where, casting, …]) | 以-2为基的输入的指数和的对数。
+true_divide(x1, x2, /[, out, where, …]) | 以元素方式返回输入的真正除法。
+floor_divide(x1, x2, /[, out, where, …]) | 返回小于或等于输入除法的最大整数。
+negative(x, /[, out, where, casting, order, …]) | 数字否定，元素方面。
+positive(x, /[, out, where, casting, order, …]) | 数字正面，元素方面。
+power(x1, x2, /[, out, where, casting, …]) | 第一个数组元素从第二个数组提升到幂，逐个元素。
+remainder(x1, x2, /[, out, where, casting, …]) | 返回除法元素的余数。
+mod(x1, x2, /[, out, where, casting, order, …]) | 返回除法元素的余数。
+fmod(x1, x2, /[, out, where, casting, …]) | 返回除法的元素余数。
+divmod(x1, x2[, out1, out2], / [[, out, …]) | 同时返回逐元素的商和余数。
+absolute(x, /[, out, where, casting, order, …]) | 逐个元素地计算绝对值。
+fabs(x, /[, out, where, casting, order, …]) | 以元素方式计算绝对值。
+rint(x, /[, out, where, casting, order, …]) | 将数组的元素舍入为最接近的整数。
+sign(x, /[, out, where, casting, order, …]) | 返回数字符号的元素指示。
+heaviside(x1, x2, /[, out, where, casting, …]) | 计算Heaviside阶跃函数。
+conj(x, /[, out, where, casting, order, …]) | 以元素方式返回复共轭。
+exp(x, /[, out, where, casting, order, …]) | 计算输入数组中所有元素的指数。
+exp2(x, /[, out, where, casting, order, …]) | 计算输入数组中所有p的2**p。
+log(x, /[, out, where, casting, order, …]) | 自然对数，元素方面。
+log2(x, /[, out, where, casting, order, …]) | x的基数为2的对数。
+log10(x, /[, out, where, casting, order, …]) | 以元素方式返回输入数组的基数10对数。
+expm1(x, /[, out, where, casting, order, …]) | 计算数组中所有元素的exp(x)-1。
+log1p(x, /[, out, where, casting, order, …]) | 返回一个加上输入数组的自然对数，逐个元素。
+sqrt(x, /[, out, where, casting, order, …]) | 以元素方式返回数组的正平方根。
+square(x, /[, out, where, casting, order, …]) | 返回输入的元素方块。
+cbrt(x, /[, out, where, casting, order, …]) | 以元素方式返回数组的立方根。
+reciprocal(x, /[, out, where, casting, …]) | 以元素为单位返回参数的倒数。
 
-**Tip:**
+**小贴士:**
 
 The optional output arguments can be used to help you save memory for large calculations. If your arrays are large, complicated expressions can take longer than absolutely necessary due to the creation and (later) destruction of temporary calculation spaces. For example, the expression ``G = a * b + c`` is equivalent to ``t1 = A * B; G = T1 + C; del t1``. It will be more quickly executed as ``G = A * B; add(G, C, G)`` which is the same as ``G = A * B; G += C``.
 
-## Trigonometric functions
+可选的输出参数可用于帮助您节省大型计算的内存。 如果您的数组很大，由于临时计算空间的创建和（稍后）破坏，复杂的表达式可能需要比绝对必要的时间更长的时间。 例如，表达式 ``G = a * b + c`` 相当于 ``t1 = A * B; G = T1 + C; del t1``。 它将更快地执行为``G = A * B; add（G，C，G）`` 与 ``G = A * B; G + = C`` 相同。
 
-All trigonometric functions use radians when an angle is called for. The ratio of degrees to radians is 180°/π.
+## 三角函数
 
-method | desc
+当需要角度时，所有三角函数都使用弧度。 度与弧度之比为180°/π。
+
+方法 | 描述
 ---|---
-sin(x, /[, out, where, casting, order, …]) | Trigonometric sine, element-wise.
-cos(x, /[, out, where, casting, order, …]) | Cosine element-wise.
-tan(x, /[, out, where, casting, order, …]) | Compute tangent element-wise.
-arcsin(x, /[, out, where, casting, order, …]) | Inverse sine, element-wise.
-arccos(x, /[, out, where, casting, order, …]) | Trigonometric inverse cosine, element-wise.
-arctan(x, /[, out, where, casting, order, …]) | Trigonometric inverse tangent, element-wise.
-arctan2(x1, x2, /[, out, where, casting, …]) | Element-wise arc tangent of x1/x2 choosing the quadrant correctly.
-hypot(x1, x2, /[, out, where, casting, …]) | Given the “legs” of a right triangle, return its hypotenuse.
-sinh(x, /[, out, where, casting, order, …]) | Hyperbolic sine, element-wise.
-cosh(x, /[, out, where, casting, order, …]) | Hyperbolic cosine, element-wise.
-tanh(x, /[, out, where, casting, order, …]) | Compute hyperbolic tangent element-wise.
-arcsinh(x, /[, out, where, casting, order, …]) | Inverse hyperbolic sine element-wise.
-arccosh(x, /[, out, where, casting, order, …]) | Inverse hyperbolic cosine, element-wise.
-arctanh(x, /[, out, where, casting, order, …]) | Inverse hyperbolic tangent element-wise.
-deg2rad(x, /[, out, where, casting, order, …]) | Convert angles from degrees to radians.
-rad2deg(x, /[, out, where, casting, order, …]) | Convert angles from radians to degrees.
+sin(x, /[, out, where, casting, order, …]) | 三角正弦，逐元素。
+cos(x, /[, out, where, casting, order, …]) | 余弦元素。
+tan(x, /[, out, where, casting, order, …]) | 计算切线元素。
+arcsin(x, /[, out, where, casting, order, …]) | 反正弦，逐元素。
+arccos(x, /[, out, where, casting, order, …]) | 三角反余弦，逐元素。
+arctan(x, /[, out, where, casting, order, …]) | 三角反正切，逐元素。
+arctan2(x1, x2, /[, out, where, casting, …]) | x1 / x2的逐元素反正切正确选择象限。
+hypot(x1, x2, /[, out, where, casting, …]) | 给定直角三角形的“腿”，返回其斜边。
+sinh(x, /[, out, where, casting, order, …]) | 双曲正弦，逐元素。
+cosh(x, /[, out, where, casting, order, …]) | 双曲余弦，逐元素。
+tanh(x, /[, out, where, casting, order, …]) | 计算双曲正切元素。
+arcsinh(x, /[, out, where, casting, order, …]) | 逐元素逆双曲正弦。
+arccosh(x, /[, out, where, casting, order, …]) | 逐元素反双曲余弦。
+arctanh(x, /[, out, where, casting, order, …]) | 逐元素逆双曲正切。
+deg2rad(x, /[, out, where, casting, order, …]) | 将角度从度数转换为弧度。
+rad2deg(x, /[, out, where, casting, order, …]) | 将角度从弧度转换为度数。
 
-## Bit-twiddling functions
+## 比特功能
 
-These function all require integer arguments and they manipulate the bit-pattern of those arguments.
+这些函数都需要整数参数，并且它们操纵这些参数的位模式。
 
-method | desc
+方法 | 描述
 ---|---
-bitwise_and(x1, x2, /[, out, where, …]) | Compute the bit-wise AND of two arrays element-wise.
-bitwise_or(x1, x2, /[, out, where, casting, …]) | Compute the bit-wise OR of two arrays element-wise.
-bitwise_xor(x1, x2, /[, out, where, …]) | Compute the bit-wise XOR of two arrays element-wise.
-invert(x, /[, out, where, casting, order, …]) | Compute bit-wise inversion, or bit-wise NOT, element-wise.
-left_shift(x1, x2, /[, out, where, casting, …]) | Shift the bits of an integer to the left.
-right_shift(x1, x2, /[, out, where, …]) | Shift the bits of an integer to the right.
+bitwise_and(x1, x2, /[, out, where, …]) | 逐个元素地计算两个数组的逐位AND。
+bitwise_or(x1, x2, /[, out, where, casting, …]) | 逐个元素地计算两个数组的逐位OR。
+bitwise_xor(x1, x2, /[, out, where, …]) | 计算两个数组的逐位XOR元素。
+invert(x, /[, out, where, casting, order, …]) | 按位元素计算逐位反转或逐位NOT。
+left_shift(x1, x2, /[, out, where, casting, …]) | 将整数位移到左侧。
+right_shift(x1, x2, /[, out, where, …]) | 将整数位移到右侧。
 
-## Comparison functions
+## 比较功能
 
-method | desc
+方法 | 描述
 ---|---
-greater(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 > x2) element-wise.
-greater_equal(x1, x2, /[, out, where, …]) | Return the truth value of (x1 >= x2) element-wise.
-less(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 < x2) element-wise.
-less_equal(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 =< x2) element-wise.
-not_equal(x1, x2, /[, out, where, casting, …]) | Return (x1 != x2) element-wise.
-equal(x1, x2, /[, out, where, casting, …]) | Return (x1 == x2) element-wise.
+greater(x1, x2, /[, out, where, casting, …]) | 逐元素方式返回（x1> x2）的真值。
+greater_equal(x1, x2, /[, out, where, …]) | 逐元素方式返回（x1> = x2）的真值。
+less(x1, x2, /[, out, where, casting, …]) | 逐元素方式返回（x1 <x2）的真值。
+less_equal(x1, x2, /[, out, where, casting, …]) | 逐元素方式返回（x1 = <x2）的真值。
+not_equal(x1, x2, /[, out, where, casting, …]) | 逐元素方式返回（x1！= x2）。
+equal(x1, x2, /[, out, where, casting, …]) | 逐元素方式返回（x1 == x2）。
 
 <div class="warning-warp">
 <b>Warning</b>
