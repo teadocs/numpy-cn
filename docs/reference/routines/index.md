@@ -1,9 +1,9 @@
 # 常用API
 
-In this chapter routine docstrings are presented, grouped by functionality. Many docstrings contain example code, which demonstrates basic usage of the routine. The examples assume that NumPy is imported with:
+在本章中，将介绍常规文档字符串，按功能分组。许多文档字符串包含示例代码，它演示了例程的基本用法。这些示例假定NumPy是通过以下方式导入的：
 
-```pyhton
+```
 >>> import numpy as np
 ```
 
-A convenient way to execute examples is the ``%doctest_mode`` mode of IPython, which allows for pasting of multi-line examples and preserves indentation.
+执行示例的一种便捷方式是IPython的 ``％doctest_mode`` 模式，它允许粘贴多行示例并保留缩进。

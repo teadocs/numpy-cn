@@ -46,8 +46,6 @@ reciprocal(x, /[, out, where, casting, …]) | 以元素为单位返回参数的
 
 **小贴士:**
 
-The optional output arguments can be used to help you save memory for large calculations. If your arrays are large, complicated expressions can take longer than absolutely necessary due to the creation and (later) destruction of temporary calculation spaces. For example, the expression ``G = a * b + c`` is equivalent to ``t1 = A * B; G = T1 + C; del t1``. It will be more quickly executed as ``G = A * B; add(G, C, G)`` which is the same as ``G = A * B; G += C``.
-
 可选的输出参数可用于帮助您节省大型计算的内存。 如果您的数组很大，由于临时计算空间的创建和（稍后）破坏，复杂的表达式可能需要比绝对必要的时间更长的时间。 例如，表达式 ``G = a * b + c`` 相当于 ``t1 = A * B; G = T1 + C; del t1``。 它将更快地执行为``G = A * B; add（G，C，G）`` 与 ``G = A * B; G + = C`` 相同。
 
 ## 三角函数
