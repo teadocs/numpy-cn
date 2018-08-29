@@ -1,7 +1,7 @@
 # 前言 
 
 ## 项目主页
-- github地址：https://github.com/lisniuse/numpy-cn
+- github地址：https://github.com/teadocs/numpy-cn
 - 域名访问：https://numpy.org.cn
 
 ## 译者的话
