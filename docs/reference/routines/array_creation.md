@@ -4,72 +4,72 @@
 
 > Array creation
 
-## Ones and zeros
+## Ones 和 zeros 方法
 
-- empty(shape[, dtype, order])	Return a new array of given shape and type, without initializing entries.
-- empty_like(a[, dtype, order, subok])	Return a new array with the same shape and type as a given array.
-- eye(N[, M, k, dtype, order])	Return a 2-D array with ones on the diagonal and zeros elsewhere.
-- identity(n[, dtype])	Return the identity array.
-- ones(shape[, dtype, order])	Return a new array of given shape and type, filled with ones.
-- ones_like(a[, dtype, order, subok])	Return an array of ones with the same shape and type as a given array.
-- zeros(shape[, dtype, order])	Return a new array of given shape and type, filled with zeros.
-- zeros_like(a[, dtype, order, subok])	Return an array of zeros with the same shape and type as a given array.
-- full(shape, fill_value[, dtype, order])	Return a new array of given shape and type, filled with fill_value.
-- full_like(a, fill_value[, dtype, order, subok])	Return a full array with the same shape and type as a given array.
+- empty(shape[, dtype, order])	返回给定形状和类型的新数组，而不初始化条目。
+- empty_like(a[, dtype, order, subok])	返回一个与给定数组具有相同形状和类型的新数组。
+- eye(N[, M, k, dtype, order])	返回一个二维数组，其中对角线为1，零点为零。
+- identity(n[, dtype])	返回标识数组。
+- ones(shape[, dtype, order])	返回一个给定形状和类型的新数组，用一个填充。
+- ones_like(a[, dtype, order, subok])	返回与给定数组具有相同形状和类型的数组。
+- zeros(shape[, dtype, order])	返回给定形状和类型的新数组，用零填充。
+- zeros_like(a[, dtype, order, subok])	返回与给定数组具有相同形状和类型的零数组。
+- full(shape, fill_value[, dtype, order])	返回给定形状和类型的新数组，填充fill_value。
+- full_like(a, fill_value[, dtype, order, subok])	返回与给定数组具有相同形状和类型的完整数组。
 
-## From existing data
+## 利用现有数据
 
-- array(object[, dtype, copy, order, subok, ndmin])	Create an array.
-- asarray(a[, dtype, order])	Convert the input to an array.
-- asanyarray(a[, dtype, order])	Convert the input to an ndarray, but pass ndarray subclasses through.
-- ascontiguousarray(a[, dtype])	Return a contiguous array in memory (C order).
-- asmatrix(data[, dtype])	Interpret the input as a matrix.
-- copy(a[, order])	Return an array copy of the given object.
-- frombuffer(buffer[, dtype, count, offset])	Interpret a buffer as a 1-dimensional array.
-- fromfile(file[, dtype, count, sep])	Construct an array from data in a text or binary file.
-- fromfunction(function, shape, **kwargs)	Construct an array by executing a function over each coordinate.
-- fromiter(iterable, dtype[, count])	Create a new 1-dimensional array from an iterable object.
-- fromstring(string[, dtype, count, sep])	A new 1-D array initialized from text data in a string.
-- loadtxt(fname[, dtype, comments, delimiter, …])	Load data from a text file.
+- array(object[, dtype, copy, order, subok, ndmin])	创建一个新的数组。
+- asarray(a[, dtype, order])	将输入的参数转换为数组。
+- asanyarray(a[, dtype, order])	将输入转换为ndarray，但通过ndarray子类传递。
+- ascontiguousarray(a[, dtype])	在内存中返回连续数组(C顺序)。
+- asmatrix(data[, dtype])	将输入转换为矩阵。
+- copy(a[, order])	返回给定对象的数组副本。
+- frombuffer(buffer[, dtype, count, offset])	将缓冲区转换为一维数组。
+- fromfile(file[, dtype, count, sep])	从文本或二进制文件中的数据构造数组。
+- fromfunction(function, shape, **kwargs)	通过在每个坐标上执行函数来构造数组。
+- fromiter(iterable, dtype[, count])	从可迭代对象创建一个新的一维数组。
+- fromstring(string[, dtype, count, sep])	从字符串中的文本数据初始化的新的一维数组.
+- loadtxt(fname[, dtype, comments, delimiter, …])	从文本文件加载数据。
 - Creating record arrays (numpy.rec)
 
-> **Note**
-> ``numpy.rec`` is the preferred alias for numpy.core.records.
+> **注意**
+> ``numpy.rec`` 是numpy.core.records的首选别名。
 
-- core.records.array(obj[, dtype, shape, …])	Construct a record array from a wide-variety of objects.
-- core.records.fromarrays(arrayList[, dtype, …])	create a record array from a (flat) list of arrays
-- core.records.fromrecords(recList[, dtype, …])	create a - recarray from a list of records in text form
-- core.records.fromstring(datastring[, dtype, …])	create a (read-only) record array from binary data contained in a string
-core.records.fromfile(fd[, dtype, shape, …])	Create an array from binary file data
+- core.records.array(obj[, dtype, shape, …])	从各种各样的对象构造一个记录数组。
+- core.records.fromarrays(arrayList[, dtype, …])	从数组的(平面)列表创建记录数组
+- core.records.fromrecords(recList[, dtype, …])	 从文本形式的记录列表中创建一个重新数组
+- core.records.fromstring(datastring[, dtype, …])	从字符串中包含的二进制数据创建(只读)记录数组。
+core.records.fromfile(fd[, dtype, shape, …])	从二进制文件数据创建数组
 
-## Creating character arrays (``numpy.char``)
+## 创建字符数组(``numpy.charr``)
 
-> **Note**
-> ``numpy.char`` is the preferred alias for ``numpy.core.defchararray``.
+> **注意**
+> ``numpy.char`` 是 ``numpy.core.defchararra`` 的首选别名。
 
-- core.defchararray.array(obj[, itemsize, …])	Create a chararray.
-- core.defchararray.asarray(obj[, itemsize, …])	Convert the input to a chararray, copying the data only if necessary.
+- core.defchararray.array(obj[, itemsize, …])	创建一个字符数组。
+- core.defchararray.asarray(obj[, itemsize, …])	将输入转换为字符数组，只在必要时复制数据。
 
-## Numerical ranges
+## 数值范围
 
-- arange([start,] stop[, step,][, dtype])	Return evenly spaced values within a given interval.
-- linspace(start, stop[, num, endpoint, …])	Return evenly spaced numbers over a specified interval.
-- logspace(start, stop[, num, endpoint, base, …])	Return numbers spaced evenly on a log scale.
-- geomspace(start, stop[, num, endpoint, dtype])	Return numbers spaced evenly on a log scale (a geometric progression).
-- meshgrid(*xi, **kwargs)	Return coordinate matrices from coordinate vectors.
-- mgrid	nd_grid instance which returns a dense multi-dimensional “meshgrid”.
-- ogrid	nd_grid instance which returns an open multi-dimensional “meshgrid”.
+- arange([start,] stop[, step,][, dtype])	在给定的间隔内返回均匀间隔的值。
+- linspace(start, stop[, num, endpoint, …])	在指定的间隔内返回均匀间隔的数字。
+- logspace(start, stop[, num, endpoint, base, …])	返回数在对数刻度上均匀分布。
+- geomspace(start, stop[, num, endpoint, dtype])	返回数在对数尺度上均匀分布(几何级数)。
+- meshgrid(*xi, **kwargs)	从坐标向量返回坐标矩阵。
+- mgrid nd_grid 实例，它返回一个密集的多维“meshgrid”。
+- ogrid nd_grid 实例，它返回一个开放的多维“meshgrid”。
 
-## Building matrices
+## 构建矩阵
 
-- diag(v[, k])	Extract a diagonal or construct a diagonal array.
-- diagflat(v[, k])	Create a two-dimensional array with the flattened input as a diagonal.
-- tri(N[, M, k, dtype])	An array with ones at and below the given diagonal and zeros  elsewhere.
-- tril(m[, k])	Lower triangle of an array.
-- triu(m[, k])	Upper triangle of an array.
-- vander(x[, N, increasing])	Generate a Vandermonde matrix.
+- diag(v[, k])	提取对角线或构造对角线阵列。
+- diagflat(v[, k])	使用展平输入创建二维数组作为对角线。
+- tri(N[, M, k, dtype])	一个数组，其中包含给定对角线和低于给定对角线的数字，其他地方为零
+- tril(m[, k])	数组的下三角形。
+- triu(m[, k])	数组的上三角形。
+- vander(x[, N, increasing])	生成Vandermonde矩阵。
 
-## The Matrix class
+## 矩阵类
 
-- mat(data[, dtype])	Interpret the input as a matrix.
-- bmat(obj[, ldict, gdict])	Build a matrix object from a string, nested sequence, or array.
+- mat(data[, dtype])	将输入解释为矩阵。
+- bmat(obj[, ldict, gdict])	 从字符串、嵌套序列或数组生成矩阵对象。
