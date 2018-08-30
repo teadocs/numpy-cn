@@ -20,11 +20,12 @@ teadocs build
 
 ## 支持者名单
 
-如果您把我们的地址加入到您的网站中去，请联系我，我会把你加入支持者名单。
+如果您把我们的地址加入到您的网站中去，请联系我，我会把你加入支持者名单。（以下排名按照时间顺序排列）
 
-昵称/机构 | 网站 | 备注
----|---|---
-Lisniuse | [https://tiesec.org/](https://tiesec.org/) | numpy中文文档创始者
-numpy官方 | [http://www.numpy.org/](http://www.numpy.org/) | numpy官方支持
-ptorch | [https://ptorch.com/](https://ptorch.com/) | 友情链接支持
-ricequant | [https://www.ricequant.com/](https://www.ricequant.com/) | RiceQuant米筐量化交易平台，合作伙伴链接支持。
+昵称/机构 | 网站 | 备注 | logo
+---|---|---|---
+Lisniuse | [https://tiesec.org/](https://tiesec.org/) | numpy中文文档创始者 | -
+[numpy官方文档](http://www.numpy.org/) | [http://www.numpy.org/](http://www.numpy.org/) | numpy官方支持 | -
+[ptorch](https://ptorch.com/) | [https://ptorch.com/](https://ptorch.com/) | 友情链接支持 | -
+[ricequant](https://www.ricequant.com/) | [https://www.ricequant.com/](https://www.ricequant.com/) | RiceQuant米筐量化交易平台，合作伙伴链接支持。| -
+[景略集智](https://jizhi.im) | [https://jizhi.im](https://jizhi.im) | 底部合作伙伴支持 | ![景略集智](/static/images/jizhi.im.logo.jpg)
