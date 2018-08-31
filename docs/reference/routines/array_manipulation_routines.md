@@ -1,82 +1,84 @@
 # 数组操作
 
-## Basic operations
+## 基本操作
 
-- copyto(dst, src[, casting, where])	Copies values from one array to another, broadcasting as necessary.
+- copyto(dst, src[, casting, where]) 将值从一个数组复制到另一个数组，并根据需要进行广播。
 
-## Changing array shape
+## 改变数组形状
 
-- reshape(a, newshape[, order])	Gives a new shape to an array without changing its data.
-- ravel(a[, order])	Return a contiguous flattened array.
-- ndarray.flat	A 1-D iterator over the array.
-- ndarray.flatten([order])	Return a copy of the array collapsed into one dimension.
+- reshape(a, newshape[, order])	为数组提供新形状而不更改其数据。
+- ravel(a[, order])	返回一个连续的扁平数组。
+- ndarray.flat	数组上的一维迭代器.
+- ndarray.flatten([order])	返回折叠成一维的数组的副本。
+ss
+## 转置式运算
 
-## Transpose-like operations
+- moveaxis(a, source, destination)	将数组的轴移动到新位置。
+- rollaxis(a, axis[, start])	向后滚动指定的轴，直到它位于给定位置。
+- swapaxes(a, axis1, axis2)	交换数组的两个轴。
+- ndarray.T	与self.transpose() 相同，只是如果self.ndim < 2 则返回self。
+- transpose(a[, axes])	置换数组的维度。
 
-- moveaxis(a, source, destination)	Move axes of an array to new positions.
-- rollaxis(a, axis[, start])	Roll the specified axis backwards, until it lies in a given position.
-- swapaxes(a, axis1, axis2)	Interchange two axes of an array.
-- ndarray.T	Same as self.transpose(), except that self is returned if self.ndim < 2.
-- transpose(a[, axes])	Permute the dimensions of an array.
+## 更改尺寸数量
 
-## Changing number of dimensions
+- atleast_1d(*arys)	将输入转换为至少具有一个维度的数组。
+- atleast_2d(*arys)	将输入视为具有至少两个维度的数组。
+- atleast_3d(*arys)	将输入视为具有至少三维的数组。
+- broadcast	制作一个模仿广播的对象。
+- broadcast_to(array, shape[, subok])	将数组广播到新形状。
+- broadcast_arrays(*args, **kwargs)	相互广播任意数量的数组。
+- expand_dims(a, axis)	展开数组的形状。
+- squeeze(a[, axis])	展开数组的形状。
 
-- atleast_1d(*arys)	Convert inputs to arrays with at least one dimension.
-- atleast_2d(*arys)	View inputs as arrays with at least two dimensions.
-- atleast_3d(*arys)	View inputs as arrays with at least three dimensions.
-broadcast	Produce an object that mimics broadcasting.
-- broadcast_to(array, shape[, subok])	Broadcast an array to a new shape.
-- broadcast_arrays(*args, **kwargs)	Broadcast any number of arrays against each other.
-- expand_dims(a, axis)	Expand the shape of an array.
-- squeeze(a[, axis])	Remove single-dimensional entries from the shape of an array.
+## 改变阵列的种类
 
-## Changing kind of array
+- asarray(a[, dtype, order])	将输入转换为数组。
+- asanyarray(a[, dtype, order])	将输入转换为ndarray，但通过ndarray子类。
+- asmatrix(data[, dtype])	将输入解释为矩阵。
+- asfarray(a[, dtype])	返回转换为float类型的数组。
+- asfortranarray(a[, dtype])	返回在内存中以Fortran顺序布局的数组。
+- ascontiguousarray(a[, dtype])	在内存中返回一个连续的数组（C顺序）。
+- asarray_chkfinite(a[, dtype, order])	将输入转换为数组，检查NaN或Infs。
+- asscalar(a) 将大小为1的数组转换为标量等效数组。
+- require(a[, dtype, requirements])	返回满足要求的提供类型的ndarray。
 
-- asarray(a[, dtype, order])	Convert the input to an array.
-- asanyarray(a[, dtype, order])	Convert the input to an ndarray, but pass ndarray subclasses through.
-- asmatrix(data[, dtype])	Interpret the input as a matrix.
-- asfarray(a[, dtype])	Return an array converted to a float type.
-- asfortranarray(a[, dtype])	Return an array laid out in Fortran order in memory.
-- ascontiguousarray(a[, dtype])	Return a contiguous array in memory (C order).
-- asarray_chkfinite(a[, dtype, order])	Convert the input to an array, checking for NaNs or Infs.
-asscalar(a)	Convert an array of size 1 to its scalar equivalent.
-- require(a[, dtype, requirements])	Return an ndarray of the provided type that satisfies requirements.
+## 加入数组
 
-## Joining arrays
+- concatenate((a1, a2, …)[, axis, out])	沿现有轴加入一系列数组。
+- stack(arrays[, axis, out])	沿新轴加入一系列数组。
+- column_stack(tup)	将1-D阵列作为列堆叠成2-D阵列。
+- dstack(tup)	按顺序深度堆叠阵列（沿第三轴）。
+- hstack(tup)	按顺序堆叠数组（列式）。
+- vstack(tup)	垂直堆叠数组（行方式）。
+- block(arrays)	从嵌套的块列表中组装nd数组。
 
-- concatenate((a1, a2, …)[, axis, out])	Join a sequence of arrays along an existing axis.
-- stack(arrays[, axis, out])	Join a sequence of arrays along a new axis.
-- column_stack(tup)	Stack 1-D arrays as columns into a 2-D array.
-- dstack(tup)	Stack arrays in sequence depth wise (along third axis).
-- hstack(tup)	Stack arrays in sequence horizontally (column wise).
-- vstack(tup)	Stack arrays in sequence vertically (row wise).
-- block(arrays)	Assemble an nd-array from nested lists of blocks.
+## 拆分数组
 
-## Splitting arrays
+- split(ary, indices_or_sections[, axis])	将数组拆分为多个子数组。
+- array_split(ary, indices_or_sections[, axis])	将数组拆分为多个子数组。
+- dsplit(ary, indices_or_sections)	沿第3轴（深度）将数组拆分为多个子数组。
+- hsplit(ary, indices_or_sections)	将数组水平拆分为多个子数组（按列）。
+- vsplit(ary, indices_or_sections)	将数组垂直拆分为多个子数组（逐行）。
 
-- split(ary, indices_or_sections[, axis])	Split an array into multiple sub-arrays.
-- array_split(ary, indices_or_sections[, axis])	Split an array into multiple sub-arrays.
-- dsplit(ary, indices_or_sections)	Split array into multiple sub-arrays along the 3rd axis (depth).
-- hsplit(ary, indices_or_sections)	Split an array into multiple sub-arrays horizontally (column-wise).
-- vsplit(ary, indices_or_sections)	Split an array into multiple sub-arrays vertically (row-wise).
+## 平铺阵列
 
-## Tiling arrays
+- tile(A, reps)	通过重复A重复给出的次数来构造数组。
+- repeat(a, repeats[, axis])	重复数组的元素。
 
-- tile(A, reps)	Construct an array by repeating A the number of times given by reps.
-- repeat(a, repeats[, axis])	Repeat elements of an array.
-Adding and removing elements
-- delete(arr, obj[, axis])	Return a new array with sub-arrays along an axis deleted.
-- insert(arr, obj, values[, axis])	Insert values along the given axis before the given indices.
-- append(arr, values[, axis])	Append values to the end of an array.
-- resize(a, new_shape)	Return a new array with the specified shape.
-- trim_zeros(filt[, trim])	Trim the leading and/or trailing zeros from a 1-D array or sequence.
-- unique(ar[, return_index, return_inverse, …])	Find the unique elements of an array.
+## Adding and removing elements
 
-## Rearranging elements
+- delete(arr, obj[, axis])	返回一个新数组，其子轴数组沿轴被删除。
+- insert(arr, obj, values[, axis])	在给定索引之前沿给定轴插入值。
+- append(arr, values[, axis])	将值附加到数组的末尾。
+- resize(a, new_shape)	返回具有指定形状的新数组。
+- trim_zeros(filt[, trim])	从1-D数组或序列中修剪前导和/或尾随零。
+- unique(ar[, return_index, return_inverse, …])	找到数组的唯一元素。
 
-- flip(m, axis)	Reverse the order of elements in an array along the given axis.
-- fliplr(m)	Flip array in the left/right direction.
-- flipud(m)	Flip array in the up/down direction.
-- reshape(a, newshape[, order])	Gives a new shape to an array without changing its data.
-- roll(a, shift[, axis])	Roll array elements along a given axis.
-- rot90(m[, k, axes])	Rotate an array by 90 degrees in the plane specified by axes.
+## 重新排列元素
+
+- flip(m, axis)	沿给定轴反转数组中元素的顺序。
+- fliplr(m)	向左/向右翻转阵列。
+- flipud(m)	向上/向下翻转阵列。
+- reshape(a, newshape[, order])	为数组提供新形状而不更改其数据。
+- roll(a, shift[, axis])	沿给定轴滚动数组元素。
+- rot90(m[, k, axes])	在轴指定的平面中将数组旋转90度。
