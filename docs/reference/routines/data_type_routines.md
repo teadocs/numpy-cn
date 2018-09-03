@@ -1,33 +1,33 @@
 # 数据类型操作
 
-- can_cast(from_, to[, casting])	Returns True if cast between data types can occur according to the casting rule.
-- promote_types(type1, type2)	Returns the data type with the smallest size and smallest scalar kind to which both type1 and type2 may be safely cast.
-- min_scalar_type(a)	For scalar a, returns the data type with the smallest size and smallest scalar kind which can hold its value.
-- result_type(*arrays_and_dtypes)	Returns the type that results from applying the NumPy type promotion rules to the arguments.
-- common_type(*arrays)	Return a scalar type which is common to the input arrays.
-- obj2sctype(rep[, default])	Return the scalar dtype or NumPy equivalent of Python type of an object.
+- can_cast(from_, to[, casting])	如果根据强制转换规则在数据类型之间进行转换，则返回True。
+- promote_types(type1, type2)	返回具有最小大小和最小标量种类的数据类型，可以安全地转换type1和type2。
+- min_scalar_type(a)	对于标量a，返回具有最小大小和最小标量类型的数据类型，该类型可以保存其值。
+- result_type(*arrays_and_dtypes)	返回将NumPy类型提升规则应用于参数所产生的类型。
+- common_type(*arrays)	返回输入数组所共有的标量类型。
+- obj2sctype(rep[, default])	返回对象的标量dtype或与Python类型等效的NumPy。
 
-## Creating data types
+## 创建数据类型
 
-- dtype(obj[, align, copy])	Create a data type object.
-- format_parser(formats, names, titles[, …])	Class to convert formats, names, titles description to a dtype.
+- dtype(obj[, align, copy])	创建数据类型对象。
+- format_parser(formats, names, titles[, …])	类将格式、名称、标题说明转换为dtype。
 
-## Data type information
+## 数据类型信息
 
-- finfo(dtype)	Machine limits for floating point types.
-- iinfo(type)	Machine limits for integer types.
-- MachAr([float_conv, int_conv, …])	Diagnosing machine parameters.
+- finfo(dtype)	浮点类型的机器限制。
+- iinfo(type)	整数类型的机器限制。
+- MachAr([float_conv, int_conv, …])	诊断机器参数。
 
-## Data type testing
+## 数据类型测试
 
-- issctype(rep)	Determines whether the given object represents a scalar data-type.
-- issubdtype(arg1, arg2)	Returns True if first argument is a typecode lower/equal in type hierarchy.
-- issubsctype(arg1, arg2)	Determine if the first argument is a subclass of the second argument.
-- issubclass_(arg1, arg2)	Determine if a class is a subclass of a second class.
-- find_common_type(array_types, scalar_types)	Determine common type following standard coercion rules.
+- issctype(rep)	确定给定对象是否表示标量数据类型。
+- issubdtype(arg1, arg2)	如果第一个参数是类型层次结构中的类型码较低/相等的类型，则返回True。
+- issubsctype(arg1, arg2)	确定第一个参数是否是第二个参数的子类。
+- issubclass_(arg1, arg2)	确定一个类是否是第二类的子类。
+- find_common_type(array_types, scalar_types)	根据标准强制规则确定常见类型。
 
-## Miscellaneous
+## 杂项
 
-- typename(char)	Return a description for the given data type code.
-- sctype2char(sctype)	Return the string representation of a scalar dtype.
-- mintypecode(typechars[, typeset, default])	Return the character for the minimum-size type to which given types can be safely cast.
+- typename(char)	返回给定数据类型代码的描述。
+- sctype2char(sctype)	返回标量dtype的字符串表示形式。
+- mintypecode(typechars[, typeset, default])	返回给定类型可以安全转换到的最小大小类型的字符。
