@@ -1,58 +1,58 @@
 # 线性代数
 
-## Matrix and vector products¶
+## 矩阵和矢量产品
 
-- dot(a, b[, out])	Dot product of two arrays.
-linalg.multi_dot(arrays)	Compute the dot product of two or more arrays in a single function call, while automatically selecting the fastest evaluation order.
-- vdot(a, b)	Return the dot product of two vectors.
-- inner(a, b)	Inner product of two arrays.
-- outer(a, b[, out])	Compute the outer product of two vectors.
-- matmul(a, b[, out])	Matrix product of two arrays.
-- tensordot(a, b[, axes])	Compute tensor dot product along specified axes for arrays >= 1-D.
-- einsum(subscripts, *operands[, out, dtype, …])	Evaluates the Einstein summation convention on the operands.
-- einsum_path(subscripts, *operands[, optimize])	Evaluates the lowest cost contraction order for an einsum expression by considering the creation of intermediate arrays.
-- linalg.matrix_power(M, n)	Raise a square matrix to the (integer) power n.
-- kron(a, b)	Kronecker product of two arrays.
+- dot(a, b[, out])	两个数组的点积。
+linalg.multi_dot(arrays)	在单个函数调用中计算两个或多个数组的点积，同时自动选择最快的求值顺序。
+- vdot(a, b)	返回两个向量的点积。
+- inner(a, b)	两个数组的内积。
+- outer(a, b[, out])	计算两个向量的外积。
+- matmul(a, b[, out])	两个数组的矩阵乘积。
+- tensordot(a, b[, axes])	对于数组> = 1-D，沿指定轴计算张量点积。
+- einsum(subscripts, *operands[, out, dtype, …])	评估操作数上的爱因斯坦求和约定。
+- einsum_path(subscripts, *operands[, optimize])	通过考虑中间数组的创建，评估einsum表达式的最低成本收缩顺序。
+- linalg.matrix_power(M, n)	将方阵提高到（整数）幂n。
+- kron(a, b)	两个阵列的Kronecker产品。
 
-## Decompositions
+## 分解
 
-- linalg.cholesky(a)	Cholesky decomposition.
-- linalg.qr(a[, mode])	Compute the qr factorization of a matrix.
-- linalg.svd(a[, full_matrices, compute_uv])	Singular Value Decomposition.
+- linalg.cholesky(a)	Cholesky分解。
+- linalg.qr(a[, mode])	计算矩阵的qr分解。
+- linalg.svd(a[, full_matrices, compute_uv])	奇异值分解。
 
-## Matrix eigenvalues
+## 矩阵特征值
 
-- linalg.eig(a)	Compute the eigenvalues and right eigenvectors of a square array.
-- linalg.eigh(a[, UPLO])	Return the eigenvalues and eigenvectors of a Hermitian or symmetric matrix.
-- linalg.eigvals(a)	Compute the eigenvalues of a general matrix.
-- linalg.eigvalsh(a[, UPLO])	Compute the eigenvalues of a Hermitian or real symmetric matrix.
+- linalg.eig(a)	计算正方形阵列的特征值和右特征向量。
+- linalg.eigh(a[, UPLO])	返回Hermitian或对称矩阵的特征值和特征向量。
+- linalg.eigvals(a)	计算一般矩阵的特征值。
+- linalg.eigvalsh(a[, UPLO])	计算Hermitian或实对称矩阵的特征值。
 
-## Norms and other numbers
+## 规范和其他数字
 
-- linalg.norm(x[, ord, axis, keepdims])	Matrix or vector norm.
-- linalg.cond(x[, p])	Compute the condition number of a matrix.
-- linalg.det(a)	Compute the determinant of an array.
-- linalg.matrix_rank(M[, tol, hermitian])	Return matrix rank of array using SVD method
-- linalg.slogdet(a)	Compute the sign and (natural) logarithm of the determinant of an array.
-- trace(a[, offset, axis1, axis2, dtype, out])	Return the sum along diagonals of the array.
+- linalg.norm(x[, ord, axis, keepdims])	矩阵或矢量规范。
+- linalg.cond(x[, p])	计算矩阵的条件数。
+- linalg.det(a)	计算数组的行列式。
+- linalg.matrix_rank(M[, tol, hermitian])	使用SVD方法返回阵列的矩阵等级
+- linalg.slogdet(a)	Compute the sign and (natural) 数组行列式的对数。
+- trace(a[, offset, axis1, axis2, dtype, out])	返回数组对角线的总和。
 
-## Solving equations and inverting matrices
+## 求解方程和反转矩阵
 
-- linalg.solve(a, b)	Solve a linear matrix equation, or system of linear scalar equations.
-- linalg.tensorsolve(a, b[, axes])	Solve the tensor equation a x = b for x.
-- linalg.lstsq(a, b[, rcond])	Return the least-squares solution to a linear matrix equation.
-- linalg.inv(a)	Compute the (multiplicative) inverse of a matrix.
-- linalg.pinv(a[, rcond])	Compute the (Moore-Penrose) pseudo-inverse of a matrix.
-- linalg.tensorinv(a[, ind])	Compute the ‘inverse’ of an N-dimensional array.
+- linalg.solve(a, b)	求解线性矩阵方程或线性标量方程组。
+- linalg.tensorsolve(a, b[, axes])	求解x的张量方程ax = b。
+- linalg.lstsq(a, b[, rcond])	将最小二乘解返回到线性矩阵方程。
+- linalg.inv(a)	计算矩阵的（乘法）逆。
+- linalg.pinv(a[, rcond])	计算矩阵的（Moore-Penrose）伪逆。
+- linalg.tensorinv(a[, ind])	计算N维数组的“逆”。
 
-## Exceptions
+## 例外
 
-- linalg.LinAlgError	Generic Python-exception-derived object raised by linalg functions.
+- linalg.LinAlgError	由linalg函数引发的通用Python异常派生对象。
 
-## Linear algebra on several matrices at once
+## 一次在几个矩阵上的线性代数
 
-*New in version 1.8.0*.
+*版本1.8.0的新特性*.
 
-Several of the linear algebra routines listed above are able to compute results for several matrices at once, if they are stacked into the same array.
+如果将多个矩阵堆叠到同一个数组中，则上面列出的几个线性代数例程能够一次计算多个矩阵的结果。
 
-This is indicated in the documentation via input parameter specifications such as ``a : (..., M, M) array_like``. This means that if for instance given an input array ``a.shape == (N, M, M)``, it is interpreted as a “stack” of N matrices, each of size M-by-M. Similar specification applies to return values, for instance the determinant has ``det : (...)`` and will in this case return an array of shape ``det(a).shape == (N,)``. This generalizes to linear algebra operations on higher-dimensional arrays: the last 1 or 2 dimensions of a multidimensional array are interpreted as vectors or matrices, as appropriate for each operation.
+这在文档中通过输入参数规范表示，例如``a:(..., M, M)array_like``。 这意味着如果给定一个输入数组``a.shape == (N, M,M)``，它被解释为N个矩阵的“堆栈”，每个矩阵的大小为M-by-M。 类似的规范适用于返回值，例如行列式具有``det : (...)``并且在这种情况下将返回一个形状为``det(a).shape == (N,)``的数组。 这推广到高维数组上的线性代数运算：多维数组的最后1或2维被解释为向量或矩阵，适用于每个操作。
