@@ -39,3 +39,4 @@ Lisniuse | [https://tiesec.org/](https://tiesec.org/) | numpy中文文档创始�
 [ricequant](https://www.ricequant.com/) | [https://www.ricequant.com/](https://www.ricequant.com/) | RiceQuant米筐量化交易平台，合作伙伴链接支持。| -
 [景略集智](https://jizhi.im) | [https://jizhi.im](https://jizhi.im) | 底部合作伙伴支持 | ![景略集智](/static/images/jizhi.im.logo.jpg)
 [极智能](https://www.ziiai.com/) | [https://www.ziiai.com/](https://www.ziiai.com/) | 专业ai技术社区，友情链接支持 | ![极智能](/static/images/ziiai.com.logo.png)
+[Tushare -财经数据接口包](http://tushare.org/) | [http://tushare.org/](http://tushare.org/) |  Tushare是一个免费、开源的python财经数据接口包，友情链接支持 | -
