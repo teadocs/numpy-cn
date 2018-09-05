@@ -1,14 +1,14 @@
 # 金融API
 
-## Simple financial functions
+## 简单的财务功能
 
-- fv(rate, nper, pmt, pv[, when])	Compute the future value.
-- pv(rate, nper, pmt[, fv, when])	Compute the present value.
-- npv(rate, values)	Returns the NPV (Net Present Value) of a cash flow series.
-- pmt(rate, nper, pv[, fv, when])	Compute the payment against loan principal plus interest.
-- ppmt(rate, per, nper, pv[, fv, when])	Compute the payment against loan principal.
-- ipmt(rate, per, nper, pv[, fv, when])	Compute the interest portion of a payment.
-- irr(values)	Return the Internal Rate of Return (IRR).
-- mirr(values, finance_rate, reinvest_rate)	Modified internal rate of return.
-- nper(rate, pmt, pv[, fv, when])	Compute the number of periodic payments.
-- rate(nper, pmt, pv, fv[, when, guess, tol, …])	Compute the rate of interest per period.
+- fv(rate, nper, pmt, pv[, when])	计算未来价值。
+- pv(rate, nper, pmt[, fv, when])	计算现值。
+- npv(rate, values)	返回现金流序列的NPV（净现值）。
+- pmt(rate, nper, pv[, fv, when])	计算贷款本金和利息的付款。
+- ppmt(rate, per, nper, pv[, fv, when])	计算贷款本金的付款。
+- ipmt(rate, per, nper, pv[, fv, when])	计算付款的利息部分。
+- irr(values)	返回内部收益率（IRR）。
+- mirr(values, finance_rate, reinvest_rate)	修改内部收益率。
+- nper(rate, pmt, pv[, fv, when])	计算定期付款的数量。
+- rate(nper, pmt, pv, fv[, when, guess, tol, …])	计算每个期间的利率。
