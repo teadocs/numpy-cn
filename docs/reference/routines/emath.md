@@ -1,11 +1,11 @@
 # 自动域数学函数
 
-> **Note**
-> ``numpy.emath`` is a preferred alias for ``numpy.lib.scimath``, available after ``numpy`` is imported.
+> **注意**
+> ``numpy.emath``是``numpy.lib.scimath``的首选别名，可在导入``numpy``后使用。
 
-Wrapper functions to more user-friendly calling of certain math functions whose output data-type is different than the input data-type in certain domains of the input.
+包装器用于更加用户友好地调用某些数学函数，这些函数的输出数据类型与输入的某些域中的输入数据类型不同。
 
-For example, for functions like ``log`` with branch cuts, the versions in this module provide the mathematically valid answers in the complex plane:
+例如，对于带有分支切割的``log``这样的函数，此模块中的版本在复杂平面中提供数学上有效的答案：
 
 ```python
 >>> import math
@@ -14,4 +14,4 @@ For example, for functions like ``log`` with branch cuts, the versions in this m
 True
 ```
 
-Similarly, ``sqrt``, other base logarithms, ``power`` and trig functions are correctly handled. See their respective docstrings for specific examples.
+类似地，正确处理``sqrt``和其他基本对数``power``和trig函数。有关具体示例，请参阅各自的文档。
