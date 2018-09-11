@@ -1,14 +1,14 @@
 # 浮点错误处理
 
-## Setting and getting error handling
+## 设置和获取错误处理
 
-- seterr([all, divide, over, under, invalid])	Set how floating-point errors are handled.
-- geterr()	Get the current way of handling floating-point errors.
-- seterrcall(func)	Set the floating-point error callback function or log object.
-- geterrcall()	Return the current callback function used on floating-point errors.
-- errstate(**kwargs)	Context manager for floating-point error handling.
+- seterr([all, divide, over, under, invalid])	设置如何处理浮点错误。
+- geterr()	获取当前处理浮点错误的方法。
+- seterrcall(func)	设置浮点错误回调函数或日志对象。
+- geterrcall()	返回用于浮点错误的当前回调函数。
+- errstate(**kwargs)	用于浮点错误处理的上下文管理器。
 
-## Internal functions
+## 内部功能
 
-- seterrobj(errobj)	Set the object that defines floating-point error handling.
-- geterrobj()	Return the current object that defines floating-point error handling.
+- seterrobj(errobj)	设置定义浮点错误处理的对象。
+- geterrobj()	返回定义浮点错误处理的当前对象。
