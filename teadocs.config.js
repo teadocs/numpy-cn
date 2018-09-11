@@ -78,6 +78,21 @@ module.exports = {
             }
         })(); 
         </script>
+        <script>
+        (function() {
+            var ipc = window.document.createElement("div");
+            ipc.id = "ipcBox";
+            ipc.style.fontSize = "14px";
+            ipc.style.maxWidth = "900px";
+            ipc.style.padding = "20px";  
+            ipc.style.boxSizing = "border-box";
+            ipc.style.margin = "0px";
+            ipc.style.textAlign = "center";
+            ipc.style.backgroundColor = "#fff";
+            ipc.innerHTML = "<span>@2018 numpy.org.cn </span><a href='http://www.miitbeian.gov.cn/' target='_blank'>粤ICP备16025085号-3</a>"
+            document.querySelector(".tea-container").appendChild(ipc);
+        })();
+        </script>
         `,
         isMinify: true, 
         rootPath: "/"
