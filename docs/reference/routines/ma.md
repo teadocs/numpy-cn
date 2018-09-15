@@ -1,56 +1,56 @@
 # 掩码数组操作
 
-## Constants
+## 常量
 
-- ma.MaskType	alias of numpy.bool_
+- ma.MaskType numpy.bool_ 的别名
 
-## Creation
+## 创造
 
-### From existing data
+### 根据现有数据
 
-- ma.masked_array	alias of numpy.ma.core.MaskedArray
-- ma.array(data[, dtype, copy, order, mask, …])	An array class with possibly masked values.
-- ma.copy(self, *args, **params) a.copy(order=)	Return a copy of the array.
-- ma.frombuffer(buffer[, dtype, count, offset])	Interpret a buffer as a 1-dimensional array.
-- ma.fromfunction(function, shape, **kwargs)	Construct an array by executing a function over each coordinate.
-- ma.MaskedArray.copy([order])	Return a copy of the array.
+- ma.masked_array numpy.ma.core.MaskedArray 的别名
+- ma.array(data[, dtype, copy, order, mask, …])	可能带有掩码值的数组类。
+- ma.copy(self, *args, **params) a.copy(order=)	返回数组的拷贝。
+- ma.frombuffer(buffer[, dtype, count, offset])	将缓冲区解释为一维数组。
+- ma.fromfunction(function, shape, **kwargs)	通过在每个坐标上执行函数来构造数组。
+- ma.MaskedArray.copy([order])	返回数组的副本。
 
-### Ones and zeros
+### Ones 和 zeros 方法
 
-- ma.empty(shape[, dtype, order])	Return a new array of given shape and type, without initializing entries.
-- ma.empty_like(a[, dtype, order, subok])	Return a new array with the same shape and type as a given array.
-- ma.masked_all(shape[, dtype])	Empty masked array with all elements masked.
-- ma.masked_all_like(arr)	Empty masked array with the properties of an existing array.
-- ma.ones(shape[, dtype, order])	Return a new array of given shape and type, filled with ones.
-- ma.zeros(shape[, dtype, order])	Return a new array of given shape and type, filled with zeros.
+- ma.empty(shape[, dtype, order])	返回给定形状和类型的新数组，而不初始化条目。
+- ma.empty_like(a[, dtype, order, subok])	返回一个与给定数组具有相同形状和类型的新数组。
+- ma.masked_all(shape[, dtype])	带所有元素的空掩码数组。
+- ma.masked_all_like(arr)	空掩码数组，具有现有数组的属性。
+- ma.ones(shape[, dtype, order])	返回一个给定形状和类型的新数组，其中填充了这些数组。
+- ma.zeros(shape[, dtype, order])	返回一个给定形状和类型的新数组，其中填充了零。
 
-### Inspecting the array
+### 检察数组
 
-- ma.all(self[, axis, out, keepdims])	Returns True if all elements evaluate to True.
-- ma.any(self[, axis, out, keepdims])	Returns True if any of the elements of a evaluate to True.
-- ma.count(self[, axis, keepdims])	Count the non-masked elements of the array along the given axis.
-- ma.count_masked(arr[, axis])	Count the number of masked elements along the given axis.
-- ma.getmask(a)	Return the mask of a masked array, or nomask.
-- ma.getmaskarray(arr)	Return the mask of a masked array, or full boolean array of False.
-- ma.getdata(a[, subok])	Return the data of a masked array as an ndarray.
-- ma.nonzero(self)	Return the indices of unmasked elements that are not zero.
-- ma.shape(obj)	Return the shape of an array.
-- ma.size(obj[, axis])	Return the number of elements along a given axis.
-- ma.is_masked(x)	Determine whether input has masked values.
-- ma.is_mask(m)	Return True if m is a valid, standard mask.
-- ma.MaskedArray.data	Return the current data, as a view of the original underlying data.
+- ma.all(self[, axis, out, keepdims])	如果所有元素都计算为True，则返回True。
+- ma.any(self[, axis, out, keepdims])	如果求值的任何元素为True，则返回True。
+- ma.count(self[, axis, keepdims])	沿给定轴计算数组的非掩码元素。
+- ma.count_masked(arr[, axis]) 计算沿给定轴的遮罩元素数。
+- ma.getmask(a)	返回掩码数组或nomask的掩码。
+- ma.getmaskarray(arr)	返回掩码数组的掩码，或False的完整布尔数组。
+- ma.getdata(a[, subok])	将掩码数组的数据作为ndarray返回。
+- ma.nonzero(self)	返回非零的未屏蔽元素的索引。
+- ma.shape(obj)	返回数组的形状。
+- ma.size(obj[, axis])	返回给定轴上的元素数。
+- ma.is_masked(x)	确定输入是否具有掩码值。
+- ma.is_mask(m)	如果m是有效的标准掩码，则返回True。
+- ma.MaskedArray.data	返回当前数据，作为原始基础数据的视图。
 - ma.MaskedArray.mask	Mask
-- ma.MaskedArray.recordmask	Return the mask of the records.
-- ma.MaskedArray.all([axis, out, keepdims])	Returns True if all elements evaluate to True.
-- ma.MaskedArray.any([axis, out, keepdims])	Returns True if any of the elements of a evaluate to True.
-- ma.MaskedArray.count([axis, keepdims])	Count the non-masked elements of the array along the given axis.
-- ma.MaskedArray.nonzero()	Return the indices of unmasked elements that are not zero.
-- ma.shape(obj)	Return the shape of an array.
-- ma.size(obj[, axis])	Return the number of elements along a given axis.
+- ma.MaskedArray.recordmask	返回记录的掩码。
+- ma.MaskedArray.all([axis, out, keepdims])	如果所有元素都计算为True，则返回True。
+- ma.MaskedArray.any([axis, out, keepdims])	果求值的任何元素为True，则返回True。
+- ma.MaskedArray.count([axis, keepdims])	沿给定轴计算数组的非掩码元素。
+- ma.MaskedArray.nonzero()	返回非零的未屏蔽元素的索引。
+- ma.shape(obj)	返回数组的形状。
+- ma.size(obj[, axis])	返回给定轴上的元素数。
 
-## Manipulating a MaskedArray
+## 操作掩码数组
 
-### Changing the shape
+### 改变形状
 
 - ma.ravel(self[, order])	Returns a 1D version of self, as a view.
 - ma.reshape(a, new_shape[, order])	Returns an array containing the same data with a new shape.
