@@ -52,83 +52,83 @@
 
 ### 改变形状
 
-- ma.ravel(self[, order])	Returns a 1D version of self, as a view.
-- ma.reshape(a, new_shape[, order])	Returns an array containing the same data with a new shape.
-- ma.resize(x, new_shape)	Return a new masked array with the specified size and shape.
-- ma.MaskedArray.flatten([order])	Return a copy of the array collapsed into one dimension.
-- ma.MaskedArray.ravel([order])	Returns a 1D version of self, as a view.
-- ma.MaskedArray.reshape(*s, **kwargs)	Give a new shape to the array without changing its data.
+- ma.ravel(self[, order])	以视图的形式返回Self的一维版本。
+- ma.reshape(a, new_shape[, order])	返回一个数组，该数组包含具有新形状的相同数据。
+- ma.resize(x, new_shape)	返回具有指定大小和形状的新掩码数组。
+- ma.MaskedArray.flatten([order])	返回折叠成一维的数组的副本。
+- ma.MaskedArray.ravel([order])	以视图的形式返回Self的一维版本。
+- ma.MaskedArray.reshape(*s, **kwargs)	给数组一个新的形状，而不改变它的数据。
 - ma.MaskedArray.resize(newshape[, refcheck, …])	
 
-### Modifying axes
+### 修改轴
 
-- ma.swapaxes(self, *args, …)	Return a view of the array with axis1 and axis2 interchanged.
-- ma.transpose(a[, axes])	Permute the dimensions of an array.
-- ma.MaskedArray.swapaxes(axis1, axis2)	Return a view of the array with axis1 and axis2 interchanged.
-- ma.MaskedArray.transpose(*axes)	Returns a view of the array with axes transposed.
+- ma.swapaxes(self, *args, …)	返回axis1和axis2互换后的数组视图。
+- ma.transpose(a[, axes])	排列数组的大小。
+- ma.MaskedArray.swapaxes(axis1, axis2)	返回axis1和axis2互换后的数组视图。
+- ma.MaskedArray.transpose(*axes)	返回已移置轴的数组视图。
 
-### Changing the number of dimensions
+### 改变维数
 
-- ma.atleast_1d(*arys)	Convert inputs to arrays with at least one dimension.
-- ma.atleast_2d(*arys)	View inputs as arrays with at least two dimensions.
-- ma.atleast_3d(*arys)	View inputs as arrays with at least three dimensions.
-- ma.expand_dims(x, axis)	Expand the shape of an array.
-- ma.squeeze(a[, axis])	Remove single-dimensional entries from the shape of an array.
-- ma.MaskedArray.squeeze([axis])	Remove single-dimensional entries from the shape of a.
-- ma.column_stack(tup)	Stack 1-D arrays as columns into a 2-D array.
-- ma.concatenate(arrays[, axis])	Concatenate a sequence of arrays along the given axis.
-- ma.dstack(tup)	Stack arrays in sequence depth wise (along third axis).
-- ma.hstack(tup)	Stack arrays in sequence horizontally (column wise).
-- ma.hsplit(ary, indices_or_sections)	Split an array into multiple sub-arrays horizontally (column-wise).
-- ma.mr_	Translate slice objects to concatenation along the first axis.
-- ma.row_stack(tup)	Stack arrays in sequence vertically (row wise).
-- ma.vstack(tup)	Stack arrays in sequence vertically (row wise).
+- ma.atleast_1d(*arys)	将输入转换为至少具有一维的数组。
+- ma.atleast_2d(*arys)	将输入视为至少具有两个维度的数组。
+- ma.atleast_3d(*arys)	将输入视为至少具有三个维度的数组。
+- ma.expand_dims(x, axis)	展开数组的形状。
+- ma.squeeze(a[, axis])	从数组的形状中移除一维项。
+- ma.MaskedArray.squeeze([axis])	对象的形状中移除一维项。
+- ma.column_stack(tup)	将一维数组作为列堆栈到二维数组中.
+- ma.concatenate(arrays[, axis])	沿着给定的轴连接数组序列。
+- ma.dstack(tup)	按序列深度排列数组(沿第三轴)。
+- ma.hstack(tup)	以水平顺序(列方式)将数组堆叠。
+- ma.hsplit(ary, indices_or_sections)	横向(按列)将数组拆分为多个子数组。
+- ma.mr_	沿第一轴将切片对象转换为串联。
+- ma.row_stack(tup)	按顺序垂直(行)排列数组。
+- ma.vstack(tup)	按顺序垂直(行)排列数组。
 - Joining arrays
-- ma.column_stack(tup)	Stack 1-D arrays as columns into a 2-D array.
-- ma.concatenate(arrays[, axis])	Concatenate a sequence of arrays along the given axis.
-- ma.append(a, b[, axis])	Append values to the end of an array.
-- ma.dstack(tup)	Stack arrays in sequence depth wise (along third axis).
-- ma.hstack(tup)	Stack arrays in sequence horizontally (column wise).
-- ma.vstack(tup)	Stack arrays in sequence vertically (row wise).
+- ma.column_stack(tup)	将一维数组作为列堆栈到二维数组中.
+- ma.concatenate(arrays[, axis])	沿着给定的轴连接数组序列。
+- ma.append(a, b[, axis])	将值追加到数组的末尾。
+- ma.dstack(tup)	按序列深度排列数组(沿第三轴)。
+- ma.hstack(tup)	以水平顺序(列方式)将数组堆叠。
+- ma.vstack(tup)	按顺序垂直(行)排列数组。
 
-## Operations on masks
+## 掩码操作
 
-### Creating a mask
+### 创建掩码
 
-- ma.make_mask(m[, copy, shrink, dtype])	Create a boolean mask from an array.
-- ma.make_mask_none(newshape[, dtype])	Return a boolean mask of the given shape, filled with False.
-- ma.mask_or(m1, m2[, copy, shrink])	Combine two masks with the logical_or operator.
-- ma.make_mask_descr(ndtype)	Construct a dtype description list from a given dtype.
+- ma.make_mask(m[, copy, shrink, dtype])	从数组创建布尔掩码。
+- ma.make_mask_none(newshape[, dtype])	返回给定形状的布尔掩码，填充False。
+- ma.mask_or(m1, m2[, copy, shrink])	使用logical_or运算符组合两个掩码。
+- ma.make_mask_descr(ndtype)	从给定的dtype构造一个dtype描述列表。
 
-### Accessing a mask
+### 访问掩码
 
-- ma.getmask(a)	Return the mask of a masked array, or nomask.
-- ma.getmaskarray(arr)	Return the mask of a masked array, or full boolean array of False.
+- ma.getmask(a)	返回蒙版数组或nomask的掩码。
+- ma.getmaskarray(arr)	返回掩码数组的掩码，或False的完整布尔数组。
 - ma.masked_array.mask	Mask
 
-### Finding masked data
+### 查找掩码数据
 
-- ma.flatnotmasked_contiguous(a)	Find contiguous unmasked data in a masked array along the given axis.
-- ma.flatnotmasked_edges(a)	Find the indices of the first and last unmasked values.
-- ma.notmasked_contiguous(a[, axis])	Find contiguous unmasked data in a masked array along the given axis.
-- ma.notmasked_edges(a[, axis])	Find the indices of the first and last unmasked values along an axis.
-- ma.clump_masked(a)	Returns a list of slices corresponding to the masked clumps of a 1-D array.
-- ma.clump_unmasked(a)	Return list of slices corresponding to the unmasked clumps of a 1-D array.
+- ma.flatnotmasked_contiguous(a)	沿给定轴在掩码数组中查找连续的未屏蔽数据。
+- ma.flatnotmasked_edges(a)	查找第一个和最后一个未屏蔽值的索引。
+- ma.notmasked_contiguous(a[, axis])	沿给定轴在掩码数组中查找连续的未屏蔽数据。
+- ma.notmasked_edges(a[, axis])	查找沿轴的第一个和最后一个未屏蔽值的索引。
+- ma.clump_masked(a)	返回与1-D数组的掩码块对应的切片列表。
+- ma.clump_unmasked(a)	返回与1-D阵列的未掩蔽块相对应的切片列表。
 
-### Modifying a mask
+### 修改掩码
 
-- ma.mask_cols(a[, axis])	Mask columns of a 2D array that contain masked values.
-- ma.mask_or(m1, m2[, copy, shrink])	Combine two masks with the logical_or operator.
-- ma.mask_rowcols(a[, axis])	Mask rows and/or columns of a 2D array that contain masked values.
-- ma.mask_rows(a[, axis])	Mask rows of a 2D array that contain masked values.
-- ma.harden_mask(self)	Force the mask to hard.
-- ma.soften_mask(self)	Force the mask to soft.
-- ma.MaskedArray.harden_mask()	Force the mask to hard.
-- ma.MaskedArray.soften_mask()	Force the mask to soft.
-- ma.MaskedArray.shrink_mask()	Reduce a mask to nomask when possible.
-- ma.MaskedArray.unshare_mask()	Copy the mask and set the sharedmask flag to False.
+- ma.mask_cols(a[, axis])	屏蔽包含屏蔽值的2D数组的列。
+- ma.mask_or(m1, m2[, copy, shrink])	使用logical_or运算符组合两个掩码。
+- ma.mask_rowcols(a[, axis])	屏蔽包含屏蔽值的2D数组的行和/或列。
+- ma.mask_rows(a[, axis])	屏蔽包含屏蔽值的2D数组的行。
+- ma.harden_mask(self)	硬化掩码。
+- ma.soften_mask(self)	软化掩码。
+- ma.MaskedArray.harden_mask()	硬化掩码。
+- ma.MaskedArray.soften_mask()	软化掩码。
+- ma.MaskedArray.shrink_mask()	尽可能将掩码减少到nomask。
+- ma.MaskedArray.unshare_mask()	复制掩码并将sharedmask标志设置为False。
 
-## Conversion operations
+## 转换操作
 
 ### \> to a masked array
 
