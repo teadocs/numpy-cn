@@ -130,47 +130,47 @@
 
 ## 转换操作
 
-### \> to a masked array
+### \> 转化为掩码数组
 
-- ma.asarray(a[, dtype, order])	Convert the input to a masked array of the given data-type.
-- ma.asanyarray(a[, dtype])	Convert the input to a masked array, conserving subclasses.
-- ma.fix_invalid(a[, mask, copy, fill_value])	Return input with invalid data masked and replaced by a fill value.
-- ma.masked_equal(x, value[, copy])	Mask an array where equal to a given value.
-- ma.masked_greater(x, value[, copy])	Mask an array where greater than a given value.
-- ma.masked_greater_equal(x, value[, copy])	Mask an array where greater than or equal to a given value.
-- ma.masked_inside(x, v1, v2[, copy])	Mask an array inside a given interval.
-- ma.masked_invalid(a[, copy])	Mask an array where invalid values occur (NaNs or infs).
-- ma.masked_less(x, value[, copy])	Mask an array where less than a given value.
-- ma.masked_less_equal(x, value[, copy])	Mask an array where less than or equal to a given value.
-- ma.masked_not_equal(x, value[, copy])	Mask an array where not equal to a given value.
-- ma.masked_object(x, value[, copy, shrink])	Mask the array x where the data are exactly equal to value.
-- ma.masked_outside(x, v1, v2[, copy])	Mask an array outside a given interval.
-- ma.masked_values(x, value[, rtol, atol, …])	Mask using floating point equality.
-- ma.masked_where(condition, a[, copy])	Mask an array where a condition is met.
+- ma.asarray(a[, dtype, order])	将输入转换为给定数据类型的掩码数组。
+- ma.asanyarray(a[, dtype])	将输入转换为掩码数组，保留子类。
+- ma.fix_invalid(a[, mask, copy, fill_value])	返回带有无效数据的输入，并用填充值替换。
+- ma.masked_equal(x, value[, copy])	掩盖一个等于给定值的数组。
+- ma.masked_greater(x, value[, copy])	掩盖大于给定值的数组。
+- ma.masked_greater_equal(x, value[, copy])	掩盖大于或等于给定值的数组。
+- ma.masked_inside(x, v1, v2[, copy])	在给定间隔内掩盖数组。
+- ma.masked_invalid(a[, copy])	掩盖出现无效值的数组（NaN或infs）。
+- ma.masked_less(x, value[, copy])	掩盖小于给定值的数组。
+- ma.masked_less_equal(x, value[, copy])	掩盖小于或等于给定值的数组。
+- ma.masked_not_equal(x, value[, copy])	掩盖不等于给定值的数组。
+- ma.masked_object(x, value[, copy, shrink])	掩盖数据正好等于值的数组x。
+- ma.masked_outside(x, v1, v2[, copy])	在给定间隔之外屏蔽数组。
+- ma.masked_values(x, value[, rtol, atol, …])	掩盖浮点数相等的数组。
+- ma.masked_where(condition, a[, copy])	掩盖满足条件的数组。
 
-### \> to a ndarray
+### \> 转化为一个numpy数组
 
-- ma.compress_cols(a)	Suppress whole columns of a 2-D array that contain masked values.
-- ma.compress_rowcols(x[, axis])	Suppress the rows and/or columns of a 2-D array that contain masked values.
-- ma.compress_rows(a)	Suppress whole rows of a 2-D array that contain masked values.
-- ma.compressed(x)	Return all the non-masked data as a 1-D array.
-- ma.filled(a[, fill_value])	Return input as an array with masked data replaced by a fill value.
-- ma.MaskedArray.compressed()	Return all the non-masked data as a 1-D array.
-- ma.MaskedArray.filled([fill_value])	Return a copy of self, with masked values filled with a given value.
+- ma.compress_cols(a)	取消包含掩码值的二维数组的整列。
+- ma.compress_rowcols(x[, axis])	取消二维数组中包含掩码值的行和/或列。
+- ma.compress_rows(a)	取消包含掩码值的二维数组的整行数据。
+- ma.compressed(x)	以一维数组的形式返回所有非掩码数据。
+- ma.filled(a[, fill_value])	以数组的形式返回输入，用填充值替换掩码数据。
+- ma.MaskedArray.compressed()	以一维数组的形式返回所有非掩码数据。
+- ma.MaskedArray.filled([fill_value])	返回Self的副本，并使用给定的值填充掩码值。
 
-### \> to another object
+### \> 转化为其他对象
 
-- ma.MaskedArray.tofile(fid[, sep, format])	Save a masked array to a file in binary format.
-- ma.MaskedArray.tolist([fill_value])	Return the data portion of the masked array as a hierarchical Python list.
-- ma.MaskedArray.torecords()	Transforms a masked array into a flexible-type array.
-- ma.MaskedArray.tobytes([fill_value, order])	Return the array data as a string containing the raw bytes in the array.
+- ma.MaskedArray.tofile(fid[, sep, format])	将掩码数组保存到二进制格式的文件中。
+- ma.MaskedArray.tolist([fill_value])	以层次化Python列表的形式返回掩码数组的数据部分。
+- ma.MaskedArray.torecords()	将掩码数组转换为灵活类型的数组。
+- ma.MaskedArray.tobytes([fill_value, order])	将数组数据作为包含数组中原始字节的字符串返回。
 
-### Pickling and unpickling
+### 腌制和反腌制
 
-- ma.dump(a, F)	Pickle a masked array to a file.
-- ma.dumps(a)	Return a string corresponding to the pickling of a masked array.
-- ma.load(F)	Wrapper around cPickle.load which accepts either a file-like object or a filename.
-- ma.loads(strg)	Load a pickle from the current string.
+- ma.dump(a, F)	腌制一个掩码数组并写入文件
+- ma.dumps(a)	返回与掩码数组的腌制相对应的字符串。
+- ma.load(F)	cPickle.load的包装器，它接受类似文件的对象或文件名。
+- ma.loads(strg)	从当前字符串加载腌制后的数组。
 
 ### Filling a masked array
 
