@@ -172,99 +172,99 @@
 - ma.load(F)	cPickle.load的包装器，它接受类似文件的对象或文件名。
 - ma.loads(strg)	从当前字符串加载腌制后的数组。
 
-### Filling a masked array
+### 填充掩码数组
 
-- ma.common_fill_value(a, b)	Return the common filling value of two masked arrays, if any.
-- ma.default_fill_value(obj)	Return the default fill value for the argument object.
-- ma.maximum_fill_value(obj)	Return the minimum value that can be represented by the dtype of an object.
-- ma.maximum_fill_value(obj)	Return the minimum value that can be represented by the dtype of an object.
-- ma.set_fill_value(a, fill_value)	Set the filling value of a, if a is a masked array.
-- ma.MaskedArray.get_fill_value()	Return the filling value of the masked array.
-- ma.MaskedArray.set_fill_value([value])	Set the filling value of the masked array.
+- ma.common_fill_value(a, b)	返回两个掩码数组的公共填充值(如果有的话)。
+- ma.default_fill_value(obj)	返回参数对象的默认填充值。
+- ma.maximum_fill_value(obj)	返回可以由对象的dtype表示的最小值。
+- ma.maximum_fill_value(obj)	返回可以由对象的dtype表示的最小值。
+- ma.set_fill_value(a, fill_value)	如果a是一个掩码数组，则设置a的填充值。
+- ma.MaskedArray.get_fill_value()	返回掩码数组的填充值。
+- ma.MaskedArray.set_fill_value([value])	设置掩码数组的填充值。
 - ma.MaskedArray.fill_value	Filling value.
 
-## Masked arrays arithmetics
+## 掩码数组算法
 
-### Arithmetics
+### 算法
 
-- ma.anom(self[, axis, dtype])	Compute the anomalies (deviations from the arithmetic mean) along the given axis.
-- ma.anomalies(self[, axis, dtype])	Compute the anomalies (deviations from the arithmetic mean) along the given axis.
-- ma.average(a[, axis, weights, returned])	Return the weighted average of array over the given axis.
-- ma.conjugate(x, /[, out, where, casting, …])	Return the complex conjugate, element-wise.
-- ma.corrcoef(x[, y, rowvar, bias, …])	Return Pearson product-moment correlation coefficients.
-- ma.cov(x[, y, rowvar, bias, allow_masked, ddof])	Estimate the covariance matrix.
-- ma.cumsum(self[, axis, dtype, out])	Return the cumulative sum of the array elements over the given axis.
-- ma.cumprod(self[, axis, dtype, out])	Return the cumulative product of the array elements over the given axis.
-- ma.mean(self[, axis, dtype, out, keepdims])	Returns the average of the array elements along given axis.
-- ma.median(a[, axis, out, overwrite_input, …])	Compute the median along the specified axis.
-- ma.power(a, b[, third])	Returns element-wise base array raised to power from second array.
-- ma.prod(self[, axis, dtype, out, keepdims])	Return the product of the array elements over the given axis.
-- ma.std(self[, axis, dtype, out, ddof, keepdims])	Returns the standard deviation of the array elements along given axis.
-- ma.sum(self[, axis, dtype, out, keepdims])	Return the sum of the array elements over the given axis.
-- ma.var(self[, axis, dtype, out, ddof, keepdims])	Compute the variance along the specified axis.
-- ma.MaskedArray.anom([axis, dtype])	Compute the anomalies (deviations from the arithmetic mean) along the given axis.
-- ma.MaskedArray.cumprod([axis, dtype, out])	Return the cumulative product of the array elements over the given axis.
-- ma.MaskedArray.cumsum([axis, dtype, out])	Return the cumulative sum of the array elements over the given axis.
-- ma.MaskedArray.mean([axis, dtype, out, keepdims])	Returns the average of the array elements along given axis.
-- ma.MaskedArray.prod([axis, dtype, out, keepdims])	Return the product of the array elements over the given axis.
-- ma.MaskedArray.std([axis, dtype, out, ddof, …])	Returns the standard deviation of the array elements along given axis.
-- ma.MaskedArray.sum([axis, dtype, out, keepdims])	Return the sum of the array elements over the given axis.
-- ma.MaskedArray.var([axis, dtype, out, ddof, …])	Compute the variance along the specified axis.
+- ma.anom(self[, axis, dtype])	沿着给定的轴计算异常(与算术平均值的偏差)。
+- ma.anomalies(self[, axis, dtype])	沿着给定的轴计算异常(与算术平均值的偏差)。
+- ma.average(a[, axis, weights, returned])	返回给定轴上数组的加权平均值。
+- ma.conjugate(x, /[, out, where, casting, …]) 返回复共轭元素。
+- ma.corrcoef(x[, y, rowvar, bias, …])	返回皮尔逊乘积-矩相关系数。
+- ma.cov(x[, y, rowvar, bias, allow_masked, ddof])	估计协方差矩阵。
+- ma.cumsum(self[, axis, dtype, out])	返回给定轴上数组元素的累积和。
+- ma.cumprod(self[, axis, dtype, out])	返回给定轴上数组元素的累积乘积。
+- ma.mean(self[, axis, dtype, out, keepdims])	返回沿给定轴排列的数组元素的平均值。
+- ma.median(a[, axis, out, overwrite_input, …])	沿指定轴计算中值。
+- ma.power(a, b[, third])	返回从第二个数组提升到幂的按元素划分的基数组。
+- ma.prod(self[, axis, dtype, out, keepdims])	返回给定轴上数组元素的乘积。
+- ma.std(self[, axis, dtype, out, ddof, keepdims])	返回数组元素沿给定轴的标准差。
+- ma.sum(self[, axis, dtype, out, keepdims])	返回给定轴上数组元素的和。
+- ma.var(self[, axis, dtype, out, ddof, keepdims])	计算沿指定轴的方差。
+- ma.MaskedArray.anom([axis, dtype])	沿着给定的轴计算异常(与算术平均值的偏差)。
+- ma.MaskedArray.cumprod([axis, dtype, out])	返回给定轴上数组元素的累积乘积。
+- ma.MaskedArray.cumsum([axis, dtype, out])	返回给定轴上数组元素的累积和。
+- ma.MaskedArray.mean([axis, dtype, out, keepdims])	返回沿给定轴排列的数组元素的平均值。
+- ma.MaskedArray.prod([axis, dtype, out, keepdims])	返回给定轴上数组元素的乘积。
+- ma.MaskedArray.std([axis, dtype, out, ddof, …])	返回数组元素沿给定轴的标准差。
+- ma.MaskedArray.sum([axis, dtype, out, keepdims])	返回给定轴上数组元素的和。
+- ma.MaskedArray.var([axis, dtype, out, ddof, …])	计算沿指定轴的方差。
 
-### Minimum/maximum
+### 最小/最大
 
-- ma.argmax(self[, axis, fill_value, out])	Returns array of indices of the maximum values along the given axis.
-- ma.argmin(self[, axis, fill_value, out])	Return array of indices to the minimum values along the given axis.
-- ma.max(obj[, axis, out, fill_value, keepdims])	Return the maximum along a given axis.
-- ma.min(obj[, axis, out, fill_value, keepdims])	Return the minimum along a given axis.
-- ma.ptp(obj[, axis, out, fill_value])	Return (maximum - minimum) along the given dimension (i.e.
-- ma.MaskedArray.argmax([axis, fill_value, out])	Returns array of indices of the maximum values along the given axis.
-- ma.MaskedArray.argmin([axis, fill_value, out])	Return array of indices to the minimum values along the given axis.
-- ma.MaskedArray.max([axis, out, fill_value, …])	Return the maximum along a given axis.
-- ma.MaskedArray.min([axis, out, fill_value, …])	Return the minimum along a given axis.
-- ma.MaskedArray.ptp([axis, out, fill_value])	Return (maximum - minimum) along the given dimension (i.e.
+- ma.argmax(self[, axis, fill_value, out])	返回沿给定轴的最大值的索引数组。
+- ma.argmin(self[, axis, fill_value, out])	沿着给定的轴将索引数组返回到最小值。
+- ma.max(obj[, axis, out, fill_value, keepdims])	沿着给定的轴返回最大值。
+- ma.min(obj[, axis, out, fill_value, keepdims])	沿着给定的轴返回最小值。
+- ma.ptp(obj[, axis, out, fill_value])	沿着给定的维数返回(最大值-最小值)
+- ma.MaskedArray.argmax([axis, fill_value, out])	返回沿给定轴的最大值的索引数组。
+- ma.MaskedArray.argmin([axis, fill_value, out])	沿着给定的轴将索引数组返回到最小值。
+- ma.MaskedArray.max([axis, out, fill_value, …])	沿着给定的轴返回最大值。
+- ma.MaskedArray.min([axis, out, fill_value, …])	沿着给定的轴返回最小值。
+- ma.MaskedArray.ptp([axis, out, fill_value])	沿着给定的维数返回(最大值-最小值)。
 
-### Sorting
+### 分拣
 
-- ma.argsort(a[, axis, kind, order, endwith, …])	Return an ndarray of indices that sort the array along the specified axis.
-- ma.sort(a[, axis, kind, order, endwith, …])	Sort the array, in-place
-- ma.MaskedArray.argsort([axis, kind, order, …])	Return an ndarray of indices that sort the array along the specified axis.
-- ma.MaskedArray.sort([axis, kind, order, …])	Sort the array, in-place
+- ma.argsort(a[, axis, kind, order, endwith, …])	返回按指定轴对数组进行排序的索引的ndarray。
+- ma.sort(a[, axis, kind, order, endwith, …])	就地对数组进行排序。
+- ma.MaskedArray.argsort([axis, kind, order, …])	返回按指定轴对数组进行排序的索引的ndarray。
+- ma.MaskedArray.sort([axis, kind, order, …])	就地对数组进行排序。
 
-### Algebra
+### 代数
 
-- ma.diag(v[, k])	Extract a diagonal or construct a diagonal array.
-- ma.dot(a, b[, strict, out])	Return the dot product of two arrays.
-- ma.identity(n[, dtype])	Return the identity array.
-- ma.inner(a, b)	Inner product of two arrays.
-- ma.innerproduct(a, b)	Inner product of two arrays.
-- ma.outer(a, b)	Compute the outer product of two vectors.
-- ma.outerproduct(a, b)	Compute the outer product of two vectors.
-- ma.trace(self[, offset, axis1, axis2, …])	Return the sum along diagonals of the array.
-- ma.transpose(a[, axes])	Permute the dimensions of an array.
-- ma.MaskedArray.trace([offset, axis1, axis2, …])	Return the sum along diagonals of the array.
-- ma.MaskedArray.transpose(*axes)	Returns a view of the array with axes transposed.
+- ma.diag(v[, k])	提取对角线或构造对角线数组。
+- ma.dot(a, b[, strict, out])	返回两个数组的点积。
+- ma.identity(n[, dtype])	返回标识数组。
+- ma.inner(a, b)	两个数组的内积。
+- ma.innerproduct(a, b)	两个数组的内积。
+- ma.outer(a, b)	计算两个向量的外积。
+- ma.outerproduct(a, b)	计算两个向量的外积。
+- ma.trace(self[, offset, axis1, axis2, …])	沿着数组的对角线返回和。
+- ma.transpose(a[, axes])	排列数组的大小。
+- ma.MaskedArray.trace([offset, axis1, axis2, …])	沿着数组的对角线返回和。
+- ma.MaskedArray.transpose(*axes)	返回已移置轴的数组视图。
 
-### Polynomial fit
+### 多项式拟合
 
-- ma.vander(x[, n])	Generate a Vandermonde matrix.
-- ma.polyfit(x, y, deg[, rcond, full, w, cov])	Least squares polynomial fit.
+- ma.vander(x[, n])	生成Vandermonde矩阵。
+- ma.polyfit(x, y, deg[, rcond, full, w, cov]) 最小二乘多项式拟合
 
-### Clipping and rounding
+### 裁剪和舍入
 
-- ma.around	Round an array to the given number of decimals.
-- ma.clip(a, a_min, a_max[, out])	Clip (limit) the values in an array.
-- ma.round(a[, decimals, out])	Return a copy of a, rounded to ‘decimals’ places.
-- ma.MaskedArray.clip([min, max, out])	Return an array whose values are limited to [min, max].
-- ma.MaskedArray.round([decimals, out])	Return each element rounded to the given number of decimals.
+- ma.around	将数组四舍五入到给定的小数位数。
+- ma.clip(a, a_min, a_max[, out])	剪辑(限制)数组中的值。
+- ma.round(a[, decimals, out])	返回a的副本，将其四舍五入为“小数”位。
+- ma.MaskedArray.clip([min, max, out])	返回值限制为[min，max]的数组。
+- ma.MaskedArray.round([decimals, out])	返回每个元素四舍五入到给定的小数位数。
 
-### Miscellanea
+### 杂项
 
-- ma.allequal(a, b[, fill_value])	Return True if all entries of a and b are equal, using fill_value as a truth value where either or both are masked.
-- ma.allclose(a, b[, masked_equal, rtol, atol])	Returns True if two arrays are element-wise equal within a tolerance.
-- ma.apply_along_axis(func1d, axis, arr, …)	Apply a function to 1-D slices along the given axis.
-- ma.arange([start,] stop[, step,][, dtype])	Return evenly spaced values within a given interval.
-- ma.choose(indices, choices[, out, mode])	Use an index array to construct a new array from a set of choices.
-- ma.ediff1d(arr[, to_end, to_begin])	Compute the differences between consecutive elements of an array.
-- ma.indices(dimensions[, dtype])	Return an array representing the indices of a grid.
-- ma.where(condition[, x, y])	Return a masked array with elements from x or y, depending on condition.
+- ma.allequal(a, b[, fill_value])	如果a和b的所有条目都相等，则返回True，使用Fill_VALUE作为真值，其中任一项或两者都被屏蔽。
+- ma.allclose(a, b[, masked_equal, rtol, atol])	如果两个数组在公差内按元素大小相等，则返回True。
+- ma.apply_along_axis(func1d, axis, arr, …)	沿着给定的轴向一维切片应用函数.
+- ma.arange([start,] stop[, step,][, dtype])	在给定的间隔内返回均匀间隔的值。
+- ma.choose(indices, choices[, out, mode])	使用索引数组从一组选择中构造新数组。
+- ma.ediff1d(arr[, to_end, to_begin])	计算数组中连续元素之间的差异。
+- ma.indices(dimensions[, dtype])	返回一个表示网格索引的数组。
+- ma.where(condition[, x, y])	根据条件返回包含x或y元素的掩码数组。
