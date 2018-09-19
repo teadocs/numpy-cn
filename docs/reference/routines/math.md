@@ -1,72 +1,72 @@
 # 数学函数
 
-## Trigonometric functions
+## 三角函数
 
-- sin(x, /[, out, where, casting, order, …])	Trigonometric sine, element-wise.
-- cos(x, /[, out, where, casting, order, …])	Cosine element-wise.
-- tan(x, /[, out, where, casting, order, …])	Compute tangent element-wise.
-- arcsin(x, /[, out, where, casting, order, …])	Inverse sine, element-wise.
-- arccos(x, /[, out, where, casting, order, …])	Trigonometric inverse cosine, element-wise.
-- arctan(x, /[, out, where, casting, order, …])	Trigonometric inverse tangent, element-wise.
-- hypot(x1, x2, /[, out, where, casting, …])	Given the “legs” of a right triangle, return its hypotenuse.
-- arctan2(x1, x2, /[, out, where, casting, …])	Element-wise arc tangent of x1/x2 choosing the quadrant correctly.
-- degrees(x, /[, out, where, casting, order, …])	Convert angles from radians to degrees.
-- radians(x, /[, out, where, casting, order, …])	Convert angles from degrees to radians.
-- unwrap(p[, discont, axis])	Unwrap by changing deltas between values to 2*pi complement.
-- deg2rad(x, /[, out, where, casting, order, …])	Convert angles from degrees to radians.
-- rad2deg(x, /[, out, where, casting, order, …])	Convert angles from radians to degrees.
+- sin(x, /[, out, where, casting, order, …])	逐个元素运算三角正弦函数。
+- cos(x, /[, out, where, casting, order, …])	逐个元素运算三角余弦函数。
+- tan(x, /[, out, where, casting, order, …])	逐个元素运算三角正切函数。
+- arcsin(x, /[, out, where, casting, order, …])	逐个元素运算三角反正弦函数。
+- arccos(x, /[, out, where, casting, order, …])	逐个元素运算三角反余弦函数。
+- arctan(x, /[, out, where, casting, order, …])	逐个元素运算三角反正切函数。
+- hypot(x1, x2, /[, out, where, casting, …])	给定直角三角形的“腿”，返回它的斜边。
+- arctan2(x1, x2, /[, out, where, casting, …])	元素弧切线x1/x2正确选择象限。
+- degrees(x, /[, out, where, casting, order, …])	将角度从弧度转换为度数。
+- radians(x, /[, out, where, casting, order, …])	将角度从度数转换为弧度。
+- unwrap(p[, discont, axis])	通过将值之间的差值更改为2*pi补码来展开。
+- deg2rad(x, /[, out, where, casting, order, …])	将角度从度数转换为弧度。
+- rad2deg(x, /[, out, where, casting, order, …])	将角度从弧度转换为度数。
 
-## Hyperbolic functions
+## 双曲函数
 
-- sinh(x, /[, out, where, casting, order, …])	Hyperbolic sine, element-wise.
-- cosh(x, /[, out, where, casting, order, …])	Hyperbolic cosine, element-wise.
-- tanh(x, /[, out, where, casting, order, …])	Compute hyperbolic tangent element-wise.
-- arcsinh(x, /[, out, where, casting, order, …])	Inverse hyperbolic sine element-wise.
-- arccosh(x, /[, out, where, casting, order, …])	Inverse hyperbolic cosine, element-wise.
-- arctanh(x, /[, out, where, casting, order, …])	Inverse hyperbolic tangent element-wise.
+- sinh(x, /[, out, where, casting, order, …])	逐个元素运算双曲正弦函数。
+- cosh(x, /[, out, where, casting, order, …])	逐个元素运算双曲余弦函数。
+- tanh(x, /[, out, where, casting, order, …])	逐个元素运算双曲正切函数。
+- arcsinh(x, /[, out, where, casting, order, …])	逐个元素运算逆双曲正弦函数。
+- arccosh(x, /[, out, where, casting, order, …])	逐个元素运算逆双曲正弦函数。
+- arctanh(x, /[, out, where, casting, order, …])	逐个元素运算逆双曲正弦函数。
 
-## Rounding
+## 小数操作
 
-- around(a[, decimals, out])	Evenly round to the given number of decimals.
-- round_(a[, decimals, out])	Round an array to the given number of decimals.
-- rint(x, /[, out, where, casting, order, …])	Round elements of the array to the nearest integer.
-- fix(x[, out])	Round to nearest integer towards zero.
-- floor(x, /[, out, where, casting, order, …])	Return the floor of the input, element-wise.
-- ceil(x, /[, out, where, casting, order, …])	Return the ceiling of the input, element-wise.
-- trunc(x, /[, out, where, casting, order, …])	Return the truncated value of the input, element-wise.
+- around(a[, decimals, out])	按给定的小数位数均匀地四舍五入。
+- round_(a[, decimals, out])	将数组舍入到给定的小数位数。
+- rint(x, /[, out, where, casting, order, …])	将数组的元素舍入为最接近的整数。
+- fix(x[, out])	向零舍入到最接近的整数。
+- floor(x, /[, out, where, casting, order, …])	逐个元素返回输入的下限。
+- ceil(x, /[, out, where, casting, order, …])	逐个元素返回输入的上限。
+- trunc(x, /[, out, where, casting, order, …])	逐个元素返回输入的截断值。
 
-## Sums, products, differences
+## 求总和, 求乘积, 求差异
 
-- prod(a[, axis, dtype, out, keepdims])	Return the product of array elements over a given axis.
-- sum(a[, axis, dtype, out, keepdims])	Sum of array elements over a given axis.
-- nanprod(a[, axis, dtype, out, keepdims])	Return the product of array elements over a given axis treating Not a Numbers (NaNs) as ones.
-- nansum(a[, axis, dtype, out, keepdims])	Return the sum of array elements over a given axis treating Not a Numbers (NaNs) as zero.
-- cumprod(a[, axis, dtype, out])	Return the cumulative product of elements along a given axis.
-- cumsum(a[, axis, dtype, out])	Return the cumulative sum of the elements along a given axis.
-- nancumprod(a[, axis, dtype, out])	Return the cumulative product of array elements over a given axis treating Not a Numbers (NaNs) as one.
-- nancumsum(a[, axis, dtype, out])	Return the cumulative sum of array elements over a given axis treating Not a Numbers (NaNs) as zero.
-- diff(a[, n, axis])	Calculate the n-th discrete difference along the given axis.
-- ediff1d(ary[, to_end, to_begin])	The differences between consecutive elements of an array.
-- gradient(f, *varargs, **kwargs)	Return the gradient of an N-dimensional array.
-- cross(a, b[, axisa, axisb, axisc, axis])	Return the cross product of two (arrays of) vectors.
-- trapz(y[, x, dx, axis])	Integrate along the given axis using the composite trapezoidal rule.
+- prod(a[, axis, dtype, out, keepdims])	返回给定轴上的数组元素的乘积。
+- sum(a[, axis, dtype, out, keepdims])	给定轴上的数组元素的总和。
+- nanprod(a[, axis, dtype, out, keepdims])	返回给定轴上的数组元素的乘积，将非数字（NaN）视为1。
+- nansum(a[, axis, dtype, out, keepdims])	返回给定轴上的数组元素的总和，将非数字（NaN）视为零。
+- cumprod(a[, axis, dtype, out])	返回给定轴上元素的累积乘积。
+- cumsum(a[, axis, dtype, out])	返回给定轴上元素的累积和。
+- nancumprod(a[, axis, dtype, out])	返回给定轴上的数组元素的累积乘积，将非数字（NaN）视为一个。
+- nancumsum(a[, axis, dtype, out])	返回给定轴上的数组元素的累积和，将非数字（NaN）视为零。
+- diff(a[, n, axis])	计算沿给定轴的第n个离散差。
+- ediff1d(ary[, to_end, to_begin]) 数组的连续元素之间的差异。
+- gradient(f, *varargs, **kwargs)	返回N维数组的渐变。
+- cross(a, b[, axisa, axisb, axisc, axis])	返回两个（数组）向量的叉积。
+- trapz(y[, x, dx, axis])	沿给定的轴积分使用复合梯形规则运算。
 
-## Exponents and logarithms
+## 指数和对数
 
-- exp(x, /[, out, where, casting, order, …])	Calculate the exponential of all elements in the input array.
-- expm1(x, /[, out, where, casting, order, …])	Calculate exp(x) - 1 for all elements in the array.
-- exp2(x, /[, out, where, casting, order, …])	Calculate 2**p for all p in the input array.
-- log(x, /[, out, where, casting, order, …])	Natural logarithm, element-wise.
-- log10(x, /[, out, where, casting, order, …])	Return the base 10 logarithm of the input array, element-wise.
-- log2(x, /[, out, where, casting, order, …])	Base-2 logarithm of x.
-- log1p(x, /[, out, where, casting, order, …])	Return the natural logarithm of one plus the input array, element-wise.
-- logaddexp(x1, x2, /[, out, where, casting, …])	Logarithm of the sum of exponentiations of the inputs.
-- logaddexp2(x1, x2, /[, out, where, casting, …])	Logarithm of the sum of exponentiations of the inputs in base-2.
+- exp(x, /[, out, where, casting, order, …])	计算输入数组中所有元素的指数。
+- expm1(x, /[, out, where, casting, order, …])	计算数组中所有元素的exp(X)-1。
+- exp2(x, /[, out, where, casting, order, …])	为输入数组中的所有p计算2**p。
+- log(x, /[, out, where, casting, order, …])	逐个元素计算自然对数。
+- log10(x, /[, out, where, casting, order, …])	逐个元素计算返回输入数组的以10为底的对数。
+- log2(x, /[, out, where, casting, order, …])	以-2为底的对数。
+- log1p(x, /[, out, where, casting, order, …])	逐个元素计算返回一个自然对数加上输入数组。
+- logaddexp(x1, x2, /[, out, where, casting, …])	输入的指数之和的对数。
+- logaddexp2(x1, x2, /[, out, where, casting, …])	以-2为基的输入的指数和的对数。
 
-## Other special functions
+## 其他的特殊函数
 
-- i0(x)	Modified Bessel function of the first kind, order 0.
-- sinc(x)	Return the sinc function.
+- i0(x)	修正的第一类贝塞尔函数，0阶。
+- sinc(x)	返回sinc函数。
 
 ## Floating point routines
 
