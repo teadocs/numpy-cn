@@ -68,54 +68,56 @@
 - i0(x)	修正的第一类贝塞尔函数，0阶。
 - sinc(x)	返回sinc函数。
 
-## Floating point routines
+## 浮点数操作
 
-- signbit(x, /[, out, where, casting, order, …])	Returns element-wise True where signbit is set (less than zero).
-- copysign(x1, x2, /[, out, where, casting, …])	Change the sign of x1 to that of x2, element-wise.
-- frexp(x[, out1, out2], / [[, out, where, …])	Decompose the elements of x into mantissa and twos exponent.
-- ldexp(x1, x2, /[, out, where, casting, …])	Returns x1 * 2**x2, element-wise.
-- nextafter(x1, x2, /[, out, where, casting, …])	Return the next floating-point value after x1 towards x2, element-wise.
-- spacing(x, /[, out, where, casting, order, …])	Return the distance between x and the nearest adjacent number.
+- signbit(x, /[, out, where, casting, order, …])	返回元素为True设置signbit（小于零）。
+- copysign(x1, x2, /[, out, where, casting, …])	逐个元素将x1的符号改为x2的符号。
+- frexp(x[, out1, out2], / [[, out, where, …])	将x的元素分解成尾数和TWOS指数。
+- ldexp(x1, x2, /[, out, where, casting, …])	逐个元素返回x1\*2*x2。
+- nextafter(x1, x2, /[, out, where, casting, …]) 逐个元素返回x1后的下一个浮点值到x2。
+- spacing(x, /[, out, where, casting, order, …])	返回x与最近邻数之间的距离。
 
-## Arithmetic operations
+## 算术运算
 
-- add(x1, x2, /[, out, where, casting, order, …])	Add arguments element-wise.
-- reciprocal(x, /[, out, where, casting, …])	Return the reciprocal of the argument, element-wise.
-- positive(x, /[, out, where, casting, order, …])	Numerical positive, element-wise.
-- negative(x, /[, out, where, casting, order, …])	Numerical negative, element-wise.
-- multiply(x1, x2, /[, out, where, casting, …])	Multiply arguments element-wise.
-- divide(x1, x2, /[, out, where, casting, …])	Returns a true division of the inputs, element-wise.
-- power(x1, x2, /[, out, where, casting, …])	First array elements raised to powers from second array, element-wise.
-- subtract(x1, x2, /[, out, where, casting, …])	Subtract arguments, element-wise.
-- true_divide(x1, x2, /[, out, where, …])	Returns a true division of the inputs, element-wise.
-- floor_divide(x1, x2, /[, out, where, …])	Return the largest integer smaller or equal to the division of the inputs.
-- float_power(x1, x2, /[, out, where, …])	First array elements raised to powers from second array, element-wise.
-- fmod(x1, x2, /[, out, where, casting, …])	Return the element-wise remainder of division.
-- mod(x1, x2, /[, out, where, casting, order, …])	Return element-wise remainder of division.
-- modf(x[, out1, out2], / [[, out, where, …])	Return the fractional and integral parts of an array, element-wise.
-- remainder(x1, x2, /[, out, where, casting, …])	Return element-wise remainder of division.
-- divmod(x1, x2[, out1, out2], / [[, out, …])	Return element-wise quotient and remainder simultaneously.
-- Handling complex numbers
-- angle(z[, deg])	Return the angle of the complex argument.
-- real(val)	Return the real part of the complex argument.
-- imag(val)	Return the imaginary part of the complex argument.
-- conj(x, /[, out, where, casting, order, …])	Return the complex conjugate, element-wise.
+- add(x1, x2, /[, out, where, casting, order, …])	按元素添加参数。
+- reciprocal(x, /[, out, where, casting, …])	逐元素计算返回参数的倒数。
+- positive(x, /[, out, where, casting, order, …])	逐元素正数计算
+- negative(x, /[, out, where, casting, order, …])	逐元素负数计算
+- multiply(x1, x2, /[, out, where, casting, …])	逐元素参数相乘
+- divide(x1, x2, /[, out, where, casting, …])	逐元素方式返回输入的真正除法。
+- power(x1, x2, /[, out, where, casting, …])	逐元素将第一个数组元素从第二个数组提升到幂。
+- subtract(x1, x2, /[, out, where, casting, …])	逐元素参数相减。
+- true_divide(x1, x2, /[, out, where, …])	按元素返回输入的真实相除。
+- floor_divide(x1, x2, /[, out, where, …])	返回小于或等于输入除法的最大整数。
+- float_power(x1, x2, /[, out, where, …])	逐元素将第一个数组元素从第二个数组提升到幂。
+- fmod(x1, x2, /[, out, where, casting, …])	返回除法的元素余数。
+- mod(x1, x2, /[, out, where, casting, order, …])	返回除法元素的余数。
+- modf(x[, out1, out2], / [[, out, where, …])	以元素方式返回数组的分数和整数部分。
+- remainder(x1, x2, /[, out, where, casting, …])	返回除法元素的余数。
+- divmod(x1, x2[, out1, out2], / [[, out, …])	同时返回逐元素的商和余数。
 
-## Miscellaneous
+## Handling complex numbers
 
-- convolve(a, v[, mode])	Returns the discrete, linear convolution of two one-dimensional sequences.
-- clip(a, a_min, a_max[, out])	Clip (limit) the values in an array.
-- sqrt(x, /[, out, where, casting, order, …])	Return the positive square-root of an array, element-wise.
-- cbrt(x, /[, out, where, casting, order, …])	Return the cube-root of an array, element-wise.
-- square(x, /[, out, where, casting, order, …])	Return the element-wise square of the input.
-- absolute(x, /[, out, where, casting, order, …])	Calculate the absolute value element-wise.
-- fabs(x, /[, out, where, casting, order, …])	Compute the absolute values element-wise.
-- sign(x, /[, out, where, casting, order, …])	Returns an element-wise indication of the sign of a number.
-- heaviside(x1, x2, /[, out, where, casting, …])	Compute the Heaviside step function.
-- maximum(x1, x2, /[, out, where, casting, …])	Element-wise maximum of array elements.
-- minimum(x1, x2, /[, out, where, casting, …])	Element-wise minimum of array elements.
-- fmax(x1, x2, /[, out, where, casting, …])	Element-wise maximum of array elements.
-- fmin(x1, x2, /[, out, where, casting, …])	Element-wise minimum of array elements.
-- nan_to_num(x[, copy])	Replace nan with zero and inf with large finite numbers.
-- real_if_close(a[, tol])	If complex input returns a real array if complex parts are close to zero.
-- interp(x, xp, fp[, left, right, period])	One-dimensional linear interpolation.
+- angle(z[, deg])	返回复杂参数的角度。
+- real(val) 返回复杂参数的实部。
+- imag(val)	返回复杂参数的虚部。
+- conj(x, /[, out, where, casting, order, …])	以元素方式返回复共轭。
+
+## 杂项
+
+- convolve(a, v[, mode])	返回两个一维序列的离散线性卷积。
+- clip(a, a_min, a_max[, out])	剪辑（限制）数组中的值。
+- sqrt(x, /[, out, where, casting, order, …])	逐个元素返回数组的正平方根。
+- cbrt(x, /[, out, where, casting, order, …])	逐个元素返回数组的立方根。
+- square(x, /[, out, where, casting, order, …])	返回输入的元素方块。
+- absolute(x, /[, out, where, casting, order, …])	逐个元素地计算绝对值。
+- fabs(x, /[, out, where, casting, order, …])	逐个元素计算绝对值。
+- sign(x, /[, out, where, casting, order, …])	返回数字符号的元素指示。
+- heaviside(x1, x2, /[, out, where, casting, …])	计算Heaviside阶跃函数。
+- maximum(x1, x2, /[, out, where, casting, …])	取数组中最大的元素。
+- minimum(x1, x2, /[, out, where, casting, …])	取数组中最小的元素。
+- fmax(x1, x2, /[, out, where, casting, …])	 取数组中最大的元素。
+- fmin(x1, x2, /[, out, where, casting, …])	取数组中最小的元素。
+- nan_to_num(x[, copy])	将nan替换为零，使用大的有限数替换inf。
+- real_if_close(a[, tol])	如果复杂输入返回真实数组，如果复杂零件接近于零。
+- interp(x, xp, fp[, left, right, period])	一维线性插值。
