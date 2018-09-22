@@ -1,9 +1,9 @@
 # 多项式
 
-Polynomials in NumPy can be created, manipulated, and even fitted using the Using the Convenience Classes of the ``numpy.polynomial`` package, introduced in NumPy 1.4.
+NumPy中的多项式可以使用NumPy 1.4中引入的``numpy.polynomial``包的使用方便类来创建，操作甚至拟合。
 
-Prior to NumPy 1.4, ``numpy.poly1d`` was the class of choice and it is still available in order to maintain backward compatibility. However, the newer Polynomial package is more complete than ``numpy.poly1d`` and its convenience classes are better behaved in the numpy environment. Therefore Polynomial is recommended for new coding.
+在NumPy 1.4之前，``numpy.poly1d``是首选类，它仍然可用以保持向后兼容性。 但是，较新的Polynomial包比``numpy.poly1d``更完整，并且它的便利类在numpy环境中表现得更好。 因此，建议使用多项式进行新的编码。
 
-## Transition notice
+## 过渡通知
 
-The various routines in the Polynomial package all deal with series whose coefficients go from degree zero upward, which is the reverse order of the Poly1d convention. The easy way to remember this is that indexes correspond to degree, i.e., coef[i] is the coefficient of the term of degree i.
+Polynomial包中的各种例程都处理系列，其系数从零度向上，这是Poly1d约定的逆序。 记住这一点的简单方法是索引对应于度，即，coef[i]是度i的项的系数。
