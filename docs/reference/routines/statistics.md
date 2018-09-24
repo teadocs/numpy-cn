@@ -1,37 +1,37 @@
 # 统计学
 
-## Order statistics
+## 顺序统计
 
-- amin(a[, axis, out, keepdims])	Return the minimum of an array or minimum along an axis.
-- amax(a[, axis, out, keepdims])	Return the maximum of an array or maximum along an axis.
-- nanmin(a[, axis, out, keepdims])	Return minimum of an array or minimum along an axis, ignoring any NaNs.
-- nanmax(a[, axis, out, keepdims])	Return the maximum of an array or maximum along an axis, ignoring any NaNs.
-- ptp(a[, axis, out])	Range of values (maximum - minimum) along an axis.
-- percentile(a, q[, axis, out, …])	Compute the qth percentile of the data along the specified axis.
-- nanpercentile(a, q[, axis, out, …])	Compute the qth percentile of the data along the specified axis, while ignoring nan values.
+- amin(a[, axis, out, keepdims])	返回数组的最小值或沿轴的最小值。
+- amax(a[, axis, out, keepdims])	返回数组的最大值或沿轴的最大值。
+- nanmin(a[, axis, out, keepdims])	返回数组的最小值或沿轴的最小值，忽略任何NAS。
+- nanmax(a[, axis, out, keepdims])	返回数组的最大值或沿轴方向的最大值，忽略任何NAS。
+- ptp(a[, axis, out])	沿轴的值的范围(最大值-最小值)。
+- percentile(a, q[, axis, out, …])	计算数据沿指定轴的第qth百分位数。
+- nanpercentile(a, q[, axis, out, …])	在忽略NaN值的情况下，沿着指定的轴计算数据的第qth百分位数。
 
-## Averages and variances
+## 平均数和差异
 
-- median(a[, axis, out, overwrite_input, keepdims])	Compute the median along the specified axis.
-- average(a[, axis, weights, returned])	Compute the weighted average along the specified axis.
-- mean(a[, axis, dtype, out, keepdims])	Compute the arithmetic mean along the specified axis.
-- std(a[, axis, dtype, out, ddof, keepdims])	Compute the standard deviation along the specified axis.
-- var(a[, axis, dtype, out, ddof, keepdims])	Compute the variance along the specified axis.
-- nanmedian(a[, axis, out, overwrite_input, …])	Compute the median along the specified axis, while ignoring NaNs.
-- nanmean(a[, axis, dtype, out, keepdims])	Compute the arithmetic mean along the specified axis, ignoring NaNs.
-- nanstd(a[, axis, dtype, out, ddof, keepdims])	Compute the standard deviation along the specified axis, while ignoring NaNs.
-- nanvar(a[, axis, dtype, out, ddof, keepdims])	Compute the variance along the specified axis, while ignoring NaNs.
+- median(a[, axis, out, overwrite_input, keepdims])	沿指定轴计算中值。
+- average(a[, axis, weights, returned])	计算沿指定轴的加权平均。
+- mean(a[, axis, dtype, out, keepdims])	沿指定的轴计算算术平均值。
+- std(a[, axis, dtype, out, ddof, keepdims])	计算沿指定轴的标准偏差。
+- var(a[, axis, dtype, out, ddof, keepdims])	计算沿指定轴的方差。
+- nanmedian(a[, axis, out, overwrite_input, …])	在忽略NAS的情况下，沿指定的轴计算中值。
+- nanmean(a[, axis, dtype, out, keepdims])	计算沿指定轴的算术平均值，忽略NAS。
+- nanstd(a[, axis, dtype, out, ddof, keepdims])	计算指定轴上的标准偏差，而忽略NAS。
+- nanvar(a[, axis, dtype, out, ddof, keepdims])	计算指定轴上的方差，同时忽略NAS。
 
-## Correlating
+## 关联
 
-- corrcoef(x[, y, rowvar, bias, ddof])	Return Pearson product-moment correlation coefficients.
-- correlate(a, v[, mode])	Cross-correlation of two 1-dimensional sequences.
-- cov(m[, y, rowvar, bias, ddof, fweights, …])	Estimate a covariance matrix, given data and weights.
+- corrcoef(x[, y, rowvar, bias, ddof])	返回Pearson乘积矩相关系数。
+- correlate(a, v[, mode]) 返回两个一维序列的交叉关系。
+- cov(m[, y, rowvar, bias, ddof, fweights, …])	估计协方差矩阵，给定数据和权重。
 
-## Histograms
+## 直方图📊
 
-- histogram(a[, bins, range, normed, weights, …])	Compute the histogram of a set of data.
-- histogram2d(x, y[, bins, range, normed, weights])	Compute the bi-dimensional histogram of two data samples.
-- histogramdd(sample[, bins, range, normed, …])	Compute the multidimensional histogram of some data.
-- bincount(x[, weights, minlength])	Count number of occurrences of each value in array of non-negative ints.
-- digitize(x, bins[, right])	Return the indices of the bins to which each value in input array belongs.
+- histogram(a[, bins, range, normed, weights, …])	计算一组数据的直方图。
+- histogram2d(x, y[, bins, range, normed, weights])	计算两个数据样本的二维直方图。
+- histogramdd(sample[, bins, range, normed, …])	计算某些数据的多维直方图。
+- bincount(x[, weights, minlength])	计算非负INT数组中每个值出现的次数。
+- digitize(x, bins[, right])	返回输入数组中每个值所属的bins的索引。

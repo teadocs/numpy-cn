@@ -15,7 +15,7 @@ module.exports = {
         title: "NumPy官方中文文档",
         headHtml: `
         <meta name="description" content="这是NumPy官方的中文文档，NumPy是用Python进行科学计算的基础软件包。" />
-        <meta name="keywords" content="numpy中文文档,numpy中文api,numpy中文手册,numpy中文教程" />
+        <meta name="keywords" content="numpy中文文档,numpy中文api,numpy中文手册,numpy中文教程,numpy" />
         <link rel="shortcut icon" href="/static/favicon.ico"/>
         `,
         footHtml: `
