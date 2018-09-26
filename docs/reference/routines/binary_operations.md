@@ -1,19 +1,19 @@
 # 二进制操作
 
-## Elementwise bit operations
+## 单元位运算
 
-- bitwise_and(x1, x2, /[, out, where, …])	Compute the bit-wise AND of two arrays element-wise.
-- bitwise_or(x1, x2, /[, out, where, casting, …])	Compute the bit-wise OR of two arrays element-wise.
-- bitwise_xor(x1, x2, /[, out, where, …])	Compute the bit-wise XOR of two arrays element-wise.
-- invert(x, /[, out, where, casting, order, …])	Compute bit-wise inversion, or bit-wise NOT, element-wise.
-- left_shift(x1, x2, /[, out, where, casting, …])	Shift the bits of an integer to the left.
-- right_shift(x1, x2, /[, out, where, …])	Shift the bits of an integer to the right.
+- bitwise_and(x1, x2, /[, out, where, …])	计算位和两个数组的元素。
+- bitwise_or(x1, x2, /[, out, where, casting, …])	计算两个数组元素的位或。
+- bitwise_xor(x1, x2, /[, out, where, …])	计算两个数组元素的位异或。
+- invert(x, /[, out, where, casting, order, …])	按位计算求逆，或按位求逆，按元素计算。
+- left_shift(x1, x2, /[, out, where, casting, …])	将整数的位向左移。
+- right_shift(x1, x2, /[, out, where, …])	将整数的位向右移。
 
-## Bit packing
+## Bit位打包
 
-- packbits(myarray[, axis])	Packs the elements of a binary-valued array into bits in a uint8 array.
-- unpackbits(myarray[, axis])	Unpacks elements of a uint8 array into a binary-valued output array.
+- packbits(myarray[, axis])	将二进制值数组的元素打包到uint8数组中的位中。
+- unpackbits(myarray[, axis])	将uint8数组的元素解包为二进制值输出数组。
 
-## Output formatting
+## 输出格式
 
-- binary_repr(num[, width])	Return the binary representation of the input number as a string.
+- binary_repr(num[, width])	将输入数字的二进制表示形式返回为字符串。
