@@ -1,9 +1,9 @@
 # 窗口函数
 
-## Various windows
+## 各种窗口函数
 
-- bartlett(M)	Return the Bartlett window.
-- blackman(M)	Return the Blackman window.
-- hamming(M)	Return the Hamming window.
-- hanning(M)	Return the Hanning window.
-- kaiser(M, beta)	Return the Kaiser window.
+- bartlett(M)	返回Bartlett窗口。
+- blackman(M)	返回Blackman窗口。
+- hamming(M)	返回Hamming窗口。
+- hanning(M)	返回Hanning窗口。
+- kaiser(M, beta)	返回Kaiser窗口。
