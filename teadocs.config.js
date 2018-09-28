@@ -73,7 +73,11 @@ module.exports = {
                     window.changyan.api.config({
                         appid: appid,
                         conf: conf
-                    })
+                    });
+                    setTimeout(function () {
+                        document.getElementById('feedAv').id="feedAvBak";
+                        document.getElementById('feedAvBak').style.display = "none";
+                    }, 100);
                 });
             }
         })(); 
