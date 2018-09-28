@@ -6,7 +6,7 @@ numpy中文文档是使用markdown编写的技术文档，目前文档还处在�
 
 ## 在线访问
 
-[NumPy中文文档](http://numpy.org.cn/)
+[NumPy中文文档](https://www.numpy.org.cn/)
 
 ## 贡献翻译与构建
 
