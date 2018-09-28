@@ -1,33 +1,33 @@
 # 可选的Scipy加速支持
 
-Aliases for functions which may be accelerated by Scipy.
+可以通过Scipy加速的函数的别名。
 
-[Scipy](http://www.scipy.org/) can be built to use accelerated or otherwise improved libraries for FFTs, linear algebra, and special functions. This module allows developers to transparently support these accelerated functions when scipy is available but still support users who have only installed NumPy.
+可以构建[Scipy](http://www.scipy.org/)以使用加速或其他改进的库来进行FFT，线性代数和特殊函数。 此模块允许开发人员在scipy可用时透明地支持这些加速功能，但仍支持仅安装了NumPy的用户
 
-## Linear algebra
+## 线性代数
 
-- cholesky(a)	Cholesky decomposition.
-- det(a)	Compute the determinant of an array.
-- eig(a)	Compute the eigenvalues and right eigenvectors of a square array.
-- eigh(a[, UPLO])	Return the eigenvalues and eigenvectors of a Hermitian or symmetric matrix.
-- eigvals(a)	Compute the eigenvalues of a general matrix.
-- eigvalsh(a[, UPLO])	Compute the eigenvalues of a Hermitian or real symmetric matrix.
-- inv(a)	Compute the (multiplicative) inverse of a matrix.
-- lstsq(a, b[, rcond])	Return the least-squares solution to a linear matrix equation.
-- norm(x[, ord, axis, keepdims])	Matrix or vector norm.
-- pinv(a[, rcond])	Compute the (Moore-Penrose) pseudo-inverse of a matrix.
-- solve(a, b)	Solve a linear matrix equation, or system of linear scalar equations.
-- svd(a[, full_matrices, compute_uv])	Singular Value Decomposition.
+- cholesky(a)	Cholesky分解。
+- det(a)	计算数组的行列式。
+- eig(a)	计算正方形阵列的特征值和右特征向量。
+- eigh(a[, UPLO])	返回Hermitian或对称矩阵的特征值和特征向量。
+- eigvals(a)	计算一般矩阵的特征值。
+- eigvalsh(a[, UPLO])	计算Hermitian或实对称矩阵的特征值。
+- inv(a)	计算矩阵的（乘法）逆。
+- lstsq(a, b[, rcond]) 将最小二乘解返回到线性矩阵方程。
+- norm(x[, ord, axis, keepdims])	矩阵或矢量规范。
+- pinv(a[, rcond])	计算矩阵的（Moore-Penrose）伪逆。
+- solve(a, b)	求解线性矩阵方程或线性标量方程组。
+- svd(a[, full_matrices, compute_uv])	奇异值分解。
 
 ## FFT
 
-- fft(a[, n, axis, norm])	Compute the one-dimensional discrete Fourier Transform.
-- fft2(a[, s, axes, norm])	Compute the 2-dimensional discrete Fourier Transform
-- fftn(a[, s, axes, norm])	Compute the N-dimensional discrete Fourier Transform.
-- ifft(a[, n, axis, norm])	Compute the one-dimensional inverse discrete Fourier Transform.
-- ifft2(a[, s, axes, norm])	Compute the 2-dimensional inverse discrete Fourier Transform.
-- ifftn(a[, s, axes, norm])	Compute the N-dimensional inverse discrete Fourier Transform.
+- fft(a[, n, axis, norm])	计算一维离散傅立叶变换。
+- fft2(a[, s, axes, norm])	计算二维离散傅立叶变换。
+- fftn(a[, s, axes, norm])	计算N维离散傅立叶变换。
+- ifft(a[, n, axis, norm])	计算一维离散傅里叶逆变换。
+- ifft2(a[, s, axes, norm])	计算二维逆离散傅立叶变换。
+- ifftn(a[, s, axes, norm])	计算N维逆离散傅立叶变换。
 
 ## Other
 
-- i0(x)	Modified Bessel function of the first kind, order 0.
+- i0(x) 修改了第一类贝塞尔函数，阶数为0。
