@@ -74,10 +74,14 @@ module.exports = {
                         appid: appid,
                         conf: conf
                     });
-                    setTimeout(function () {
-                        document.getElementById('feedAv').id="feedAvBak";
-                        document.getElementById('feedAvBak').style.display = "none";
-                    }, 100);
+                    var timer = setInterval(function() {
+                         var adEle = document.getElementById('feedAv') 
+                         if ( adEle ) {
+                            document.getElementById('feedAv').id="feedAvBak";
+                            document.getElementById('feedAvBak').style.display = "none";
+                            window.clearInterval(timer);
+                         }
+                    });
                 });
             }
         })(); 
