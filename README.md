@@ -41,4 +41,4 @@ ricequant | [https://www.ricequant.com/](https://www.ricequant.com/) | RiceQuant
 极智能 | [https://www.ziiai.com/](https://www.ziiai.com/) | 专业ai技术社区，友情链接支持 | ![极智能](/static/images/ziiai.com.logo.png)
 Tushare -财经数据接口包 | [http://tushare.org/](http://tushare.org/) |  Tushare是一个免费、开源的python财经数据接口包，友情链接支持 | -
 昂钛客AI | [http://www.angtk.com/](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答，友情链接支持 | -
-机器人库 | [http://www.jiqirenku.com/](http://www.jiqirenku.com/) | 机器人库信息平台，底部友情链接支持 | ![机器人库](/static/images/www.jiqirenku.com.logo.jpg)
+机器人库 | [http://www.jiqirenku.com/](http://www.jiqirenku.com/) | 领先的机器人互动媒体，底部友情链接支持 | ![机器人库](/static/images/www.jiqirenku.com.logo.jpg)
