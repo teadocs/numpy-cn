@@ -20,8 +20,8 @@ module.exports = {
         <link rel="shortcut icon" href="/static/favicon.ico"/>
         <style>
             #gg-box {
-                height: 120px;
-                width: 800px;
+                height: 130px;
+                width: 900px;
             }
 
             #gg-box img {
@@ -59,7 +59,7 @@ module.exports = {
             gg.style.boxSizing = "border-box";
             gg.style.textAlign = "center";
             gg.style.backgroundColor = "#fff";
-            gg.innerHTML = "<img style='height:130px;width:860px;' src='/static/images/gg-qiyue-1.png' onclick='${adJump}' />"
+            gg.innerHTML = "<img style='height:120px;width:800px;' src='/static/images/gg-qiyue-1.png' onclick='${adJump}' />"
             document.querySelector(".tea-container").appendChild(gg);
         })();
         </script>
