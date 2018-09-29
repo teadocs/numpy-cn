@@ -20,8 +20,8 @@ module.exports = {
         <link rel="shortcut icon" href="/static/favicon.ico"/>
         <style>
             #gg-box {
-                height: 130px;
-                width: 900px;
+                height: 120px;
+                width: 800px;
             }
 
             #gg-box img {
