@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-const adJump = "window.open(\\\"http:\/\/gg.numpy.org.cn\/jump.php?url=http%3a%2f%2fwww.julyedu.com%2fweekend%2ftrain6%3ffrom%3dnumpy\\\")";
+const adJump = "window.open(\\\"http:\/\/gg.numpy.org.cn\/jump.php?from=\\\"+window.location.href+\\\"&url=http%3a%2f%2fwww.julyedu.com%2fweekend%2ftrain6%3ffrom%3dnumpy\\\")";
 
 module.exports = {
     doc: {
