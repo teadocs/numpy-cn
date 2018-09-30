@@ -1,24 +1,24 @@
 # 杂项API
 
-## Buffer objects
+## Buffer 对象
 
-- getbuffer	
-- newbuffer	
+- getbuffer	（获取buffer）
+- newbuffer	（新建buffer）
 
-## Performance tuning
+## 性能调优
 
-- setbufsize(size)	Set the size of the buffer used in ufuncs.
-- getbufsize()	Return the size of the buffer used in ufuncs.
+- setbufsize(size)	设置ufuns中使用的缓冲区的大小。
+- getbufsize()	返回ufuns中使用的缓冲区的大小。
 
-## Memory ranges
+## 内存范围
 
-- shares_memory(a, b[, max_work])	Determine if two arrays share memory
-- may_share_memory(a, b[, max_work])	Determine if two arrays might share memory
+- shares_memory(a, b[, max_work])	确定两个数组是否共享内存
+- may_share_memory(a, b[, max_work])	确定两个数组是否可以共享内存
 
-## Array mixins
+## 数组混合器
 
-- lib.mixins.NDArrayOperatorsMixin	Mixin defining all operator special methods using __array_ufunc__.
+- lib.mixins.NDArrayOperatorsMixin	Mixin使用 __array_ufunc__ 定义所有运算符特殊方法。
 
-## NumPy version comparison
+## NumPy版本比较
 
-- lib.NumpyVersion(vstring)	Parse and compare numpy version strings.
+- lib.NumpyVersion(vstring)	解析并比较numpy版本字符串。
