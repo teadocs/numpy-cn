@@ -51,7 +51,7 @@ module.exports = {
             comments.id = "comments";
             document.querySelector(".tea-container").appendChild(comments);
         </script>
-        <script src="http://code.tellto.cn/dist/js/init.min.js" data-el="#comments"></script>
+        <script src="https://code.tellto.cn/dist/js/init.min.js" data-el="#comments"></script>
         <script>
         (function() {
             var ipc = window.document.createElement("div");
