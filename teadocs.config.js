@@ -34,7 +34,7 @@ module.exports = {
         <script>
         (function() {
             var ggStyle = window.document.createElement("style");
-            ggStyle.innerHTML = "#gg-box{max-width:900px;padding-left:50px;padding-right:50px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box img:hover{opacity:.9}"
+            ggStyle.innerHTML = "#gg-box{max-width:900px;padding-left:60px;padding-right:60px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box img:hover{opacity:.9}"
             document.querySelector(".tea-container").appendChild(ggStyle);
             var gg = window.document.createElement("div");
             gg.id = "gg-box";
