@@ -36,14 +36,22 @@ module.exports = {
             var ggStyle = window.document.createElement("style");
             ggStyle.innerHTML = "#gg-box{max-width:900px;padding-left:50px;padding-right:50px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box img:hover{opacity:.9}"
             document.querySelector(".tea-container").appendChild(ggStyle);
-
             var gg = window.document.createElement("div");
             gg.id = "gg-box";
             gg.innerHTML = "<img src='/static/images/gg-qiyue-1.png' onclick='${adJump}' />"
             document.querySelector(".tea-container").appendChild(gg);
         })();
         </script>
-        
+        <script>
+            var comments = window.document.createElement("div");
+            comments.style.maxWidth = "900px";
+            comments.style.backgroundColor = "#fff";
+            comments.style.padding = "20px";
+            comments.style.boxSizing = "border-box";
+            comments.id = "comments";
+            document.querySelector(".tea-container").appendChild(comments);
+        </script>
+        <script src="http://code.tellto.cn/dist/js/init.min.js" data-el="#comments"></script>
         <script>
         (function() {
             var ipc = window.document.createElement("div");
