@@ -56,14 +56,14 @@ module.exports = {
         (function() {
             var ipc = window.document.createElement("div");
             ipc.id = "ipcBox";
-            ipc.style.fontSize = "14px";
+            ipc.style.fontSize = "12px";
             ipc.style.maxWidth = "900px";
             ipc.style.padding = "20px";  
             ipc.style.boxSizing = "border-box";
             ipc.style.margin = "0px";
             ipc.style.textAlign = "center";
             ipc.style.backgroundColor = "#fff";
-            ipc.innerHTML = "<span>@2018 numpy.org.cn </span><a href='http://www.miitbeian.gov.cn/' target='_blank'>粤ICP备16025085号-3</a>"
+            ipc.innerHTML = "<span style='color: #bdbdbd;'>@2018 numpy.org.cn </span><a style='color: #bdbdbd;' href='http://www.miitbeian.gov.cn/' target='_blank'>粤ICP备16025085号-3</a>"
             document.querySelector(".tea-container").appendChild(ipc);
         })();
         </script>
