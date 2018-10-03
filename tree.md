@@ -20,7 +20,7 @@
         - [字节交换](/user_guide/numpy_basics/byte_swapping)
         - [结构化数组](/user_guide/numpy_basics/structured_arrays)
         - [子类化ndarray](/user_guide/numpy_basics/subclassing_ndarray)
-    - [NumPy对于Matlab用户](/user_guide/mumpy_for_matlab_users)
+    - [NumPy对于Matlab用户](/user_guide/numpy_for_matlab_users)
     - [从源代码构建](/user_guide/building_from_source)
     - [使用NumPy C-API](/user_guide/using_numpy_capi)
     - [其他杂项](/user_guide/miscellaneous)
