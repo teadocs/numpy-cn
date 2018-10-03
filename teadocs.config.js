@@ -28,7 +28,9 @@ module.exports = {
           var hm = document.createElement("script");
           hm.src = "https://hm.baidu.com/hm.js?a809b6f7e6517af8c15c6076273e80fe";
           var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
+          setTimeout(function () {
+            s.parentNode.insertBefore(hm, s);
+          }, 100);
         })();
         </script>
         <script>
@@ -51,7 +53,6 @@ module.exports = {
             comments.id = "comments";
             document.querySelector(".tea-container").appendChild(comments);
         </script>
-        <script src="https://code.tellto.cn/dist/js/init.min.js" data-el="#comments"></script>
         <script>
         (function() {
             var ipc = window.document.createElement("div");
@@ -66,6 +67,12 @@ module.exports = {
             ipc.innerHTML = "<span style='color: #bdbdbd;'>@2018 numpy.org.cn </span><a style='color: #bdbdbd;' href='http://www.miitbeian.gov.cn/' target='_blank'>粤ICP备16025085号-3</a>"
             document.querySelector(".tea-container").appendChild(ipc);
         })();
+        </script>
+        <script>
+            var script = document.createElement("script");
+            script.src = "https://code.tellto.cn/dist/js/init.min.js";
+            script.setAttribute('data-el', '#comments');
+            document.body.appendChild(script); 
         </script>
         `,
         isMinify: true, 
