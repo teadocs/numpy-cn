@@ -14,7 +14,7 @@
     - NumPy基础知识
         - [数据类型](/user_guide/numpy_basics/data_types)
         - [数组创建](/user_guide/numpy_basics/array_creation)
-        - [NumPy I/O操作](/user_guide/numpy_basics/io_with_numPy)
+        - [NumPy I/O操作](/user_guide/numpy_basics/io_with_numpy)
         - [索引](/user_guide/numpy_basics/indexing)
         - [广播(Broadcasting)](/user_guide/numpy_basics/broadcasting)
         - [字节交换](/user_guide/numpy_basics/byte_swapping)
