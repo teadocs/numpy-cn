@@ -7,7 +7,7 @@ const adJump = "window.open(\\\"http:\/\/gg.numpy.org.cn\/jump.php?from=\\\"+win
 module.exports = {
     doc: {
         name: "NumPy 中文文档",
-        description: "这是NumPy官方的中文文档，NumPy是用Python进行科学计算的基础软件包。",
+        description: "这是NumPy官方的中文文档，NumPy是用Python进行科学计算的基础软件包，文档详细的提供了从用户指南到参考手册全方位的内容，用户可以方便快速的查找numpy的api说明以及用法。",
         version: "1.14.0",
         dir: "",
         outDir: "",
