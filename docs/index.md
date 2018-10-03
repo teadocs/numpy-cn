@@ -1,14 +1,12 @@
 # 前言 
 
-## 项目主页
-- github地址：https://github.com/teadocs/numpy-cn
-- 域名访问：https://numpy.org.cn
-
 ## 译者的话
 
-人生苦短，我用 Python！
+各位练丹师，金融大鳄，数据游侠你们好！
 
-这里是numpy官方中国开源小组在负责的翻译项目。
+人生苦短，我们都要用 Python！
+
+这里是numpy的官方中文网站。
 
 文档会同步官方英文版进行更新，供大家学习、和查阅。
 
@@ -18,11 +16,17 @@
 
 如果文档对你有帮助，欢迎将网址收藏起来，也可以通过搜索引擎搜索“Numpy中文文档”来进行访问，本网站会永久免费提供文档。
 
-## 译者联系方式
+## 项目信息
+
+- github地址：https://github.com/teadocs/numpy-cn
+- 域名访问：https://www.numpy.org.cn
+- 文档下载：（后期会推出pdf版本供大家下载收藏，敬请期待）
+
+## 联系我们
 
 - NumPy中文文档交流QQ群：294639068
-- 邮箱：l@numpy.org.cn
-- 微信：iamnotahacker
+- 发起人邮箱：l@numpy.org.cn
+- 发起人微信：iamnotahacker
 
 ## 贡献翻译
 
@@ -30,7 +34,7 @@
 
 ## 文档生成
 
-本文档自豪的使用 [Teadocs](https://github.com/lisniuse/teadocs) 文档生成工具生成。
+本文档自豪的使用 [Teadocs](https://github.com/teadocs/teadocs) 文档生成工具生成。
 
 ## 版权信息
 
