@@ -35,6 +35,8 @@ module.exports = {
         </script>
         <script>
         (function() {
+            var pathName = window.location.pathname;
+            if ( pathName !== '/' && pathName !== '/index.html' ) {
             var ggStyle = window.document.createElement("style");
             ggStyle.innerHTML = "#gg-box{max-width:900px;padding-left:60px;padding-right:60px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box img:hover{opacity:.9}"
             document.querySelector(".tea-container").appendChild(ggStyle);
@@ -42,6 +44,7 @@ module.exports = {
             gg.id = "gg-box";
             gg.innerHTML = "<img src='/static/images/gg-qiyue-1.png' onclick='${adJump}' />"
             document.querySelector(".tea-container").appendChild(gg);
+            }
         })();
         </script>
         <script>
