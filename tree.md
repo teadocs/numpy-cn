@@ -2,6 +2,7 @@
 - [NumPy参考文章](/article/index)
     - [+基础篇](/article/basics/index)
         - [NumPy简单入门教程](/article/basics/an_introduction_to_scientific_python_numpy)
+        - [Python Numpy 教程](/article/basics/python-numpy-tutorial)
     - [进阶篇](/article/advanced/index)
     - [其他篇](/article/other/index)
 - [+NumPy用户指南](/user_guide/index)
