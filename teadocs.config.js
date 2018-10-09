@@ -1,9 +1,6 @@
 'use strict';
 const path = require('path');
 
-const adUrl = escape("http://www.julyedu.com/weekend/train6?from=numpy");
-const adJump = "window.open(\\\"http:\/\/gg.numpy.org.cn\/jump.php?from=\\\"+window.location.href+\\\"&url="+ adUrl +"\\\")";
-
 module.exports = {
     doc: {
         name: "NumPy 中文文档",
@@ -35,19 +32,6 @@ module.exports = {
         </script>
         <script>
         (function() {
-            var pathName = window.location.pathname;
-            if ( pathName !== '/' && pathName !== '/index.html' ) {
-            var ggStyle = window.document.createElement("style");
-            ggStyle.innerHTML = "#gg-box{max-width:900px;padding-left:60px;padding-right:60px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box img:hover{opacity:.9}"
-            document.querySelector(".tea-container").appendChild(ggStyle);
-            var gg = window.document.createElement("div");
-            gg.id = "gg-box";
-            gg.innerHTML = "<img src='/static/images/gg-qiyue-1.png' onclick='${adJump}' />"
-            document.querySelector(".tea-container").appendChild(gg);
-            }
-        })();
-        </script>
-        <script>
             var comments = window.document.createElement("div");
             comments.style.maxWidth = "900px";
             comments.style.backgroundColor = "#fff";
@@ -55,6 +39,7 @@ module.exports = {
             comments.style.boxSizing = "border-box";
             comments.id = "comments";
             document.querySelector(".tea-container").appendChild(comments);
+        })();
         </script>
         <script>
         (function() {
@@ -72,10 +57,19 @@ module.exports = {
         })();
         </script>
         <script>
+        (function() {
+            var script = document.createElement("script");
+            script.src = "/gg.js";
+            document.body.appendChild(script);
+        })();
+        </script>
+        <script>
+        (function() {
             var script = document.createElement("script");
             script.src = "https://code.tellto.cn/dist/js/init.min.js";
             script.setAttribute('data-el', '#comments');
-            document.body.appendChild(script); 
+            document.body.appendChild(script);
+        })();
         </script>
         `,
         isMinify: true, 
