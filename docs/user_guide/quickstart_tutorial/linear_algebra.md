@@ -1,3 +1,6 @@
+<title>numpy线性代数 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy线性代数" />
+
 # 线性代数
 
 让我们继续，这个部分包含了基本的线性代数。

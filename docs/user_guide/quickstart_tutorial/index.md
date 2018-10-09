@@ -1,3 +1,6 @@
+<title>numpy快速入门教程 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy快速入门教程" />
+
 # 快速入门教程
 
 ## 先决条件

@@ -1,3 +1,6 @@
+<title>numpy子类化ndarray数组 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy子类化ndarray数组" />
+
 # 子类化ndarray
 
 ## 介绍

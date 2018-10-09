@@ -1,3 +1,6 @@
+<title>numpy less 基础 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy索引,numpy花式索引,技巧" />
+
 # Less 基础
 
 ## 广播（Broadcasting）规则

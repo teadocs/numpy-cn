@@ -1,3 +1,6 @@
+<title>numpy创建数组 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy创建数组" />
+
 # 数组创建
 
 另见：

@@ -20,6 +20,6 @@ NumPy数组 和 标准Python Array（数组） 之间有几个重要的区别：
 
 在大多数使用场景中，在您的系统上安装NumPy的最好方法是使用预先构建的软件包在您的操作系统上运行。
 
-具体可以参考本手册的：NumPy用户指南->安装 。
+具体可以参考本手册的：[NumPy用户指南->NumPy安装](https://www.numpy.org.cn/user_guide/installing_packages.html) 。
 
-高级用户想知道如何从源码构建方面的说明，可以参考本手册的： NumPy用户指南->从源码编译NumPy。
+高级用户想知道如何从源码构建方面的说明，可以参考本手册的： [NumPy用户指南->从源码编译](https://www.numpy.org.cn/user_guide/building_from_source.html)。

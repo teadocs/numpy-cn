@@ -1,3 +1,6 @@
+<title>numpy其他技巧 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy其他技巧" />
+
 # 其他杂项
 
 ## IEEE 754浮点特殊值

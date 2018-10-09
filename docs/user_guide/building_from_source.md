@@ -1,3 +1,6 @@
+<title>numpy从源代码构建 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy从源代码构建" />
+
 # 从源代码构建
 
 此处给出了从源代码构建NumPy的一般概述，以及单独给出的特定平台的详细说明。

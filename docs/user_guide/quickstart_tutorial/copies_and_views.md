@@ -1,3 +1,6 @@
+<title>numpy数组浅拷贝 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy数组浅拷贝" />
+
 # 复制和视图
 
 当计算和操作数组时，它们的数据有时被复制到新的数组中，有时不复制。对于初学者来说，这经常是一个混乱的来源。有三种情况：

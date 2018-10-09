@@ -1,3 +1,6 @@
+<title>numpy索引与切片 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy索引与切片" />
+
 # 索引
 
 另见：

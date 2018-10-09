@@ -1,3 +1,6 @@
+<title>numpy字节排序 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy字节排序,numpy字节交换" />
+
 # 字节交换
 
 ## 字节排序和ndarrays简介

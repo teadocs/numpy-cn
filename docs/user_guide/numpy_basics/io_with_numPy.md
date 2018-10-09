@@ -1,3 +1,6 @@
+<title>numpy文件操作 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy文件操作" />
+
 # NumPy I/O操作
 
 ## 使用genfromtxt导入数据

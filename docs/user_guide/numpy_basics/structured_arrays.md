@@ -1,3 +1,6 @@
+<title>numpy结构化数组 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy结构化数组" />
+
 # 结构化数组
 
 ## 介绍

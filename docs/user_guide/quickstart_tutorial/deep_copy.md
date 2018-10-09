@@ -1,3 +1,6 @@
+<title>numpy数组深拷贝 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy数组深拷贝" />
+
 # 深拷贝
 
 ``copy`` 方法生成数组及其数据的完整拷贝。

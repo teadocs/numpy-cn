@@ -1,3 +1,6 @@
+<title>numpy数组形状操作 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy数组形状操作" />
+
 # 形状操作
 
 ## 更改数组的形状

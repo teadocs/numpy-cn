@@ -1,3 +1,6 @@
+<title>numpy技巧 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy技巧" />
+
 # 技巧和提示
 
 在这里，我们列出一些简短而有用的提示。

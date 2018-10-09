@@ -1,3 +1,6 @@
+<title>numpy广播(Broadcasting) - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy广播(Broadcasting)" />
+
 # 广播(Broadcasting)
 
 另见：

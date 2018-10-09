@@ -1,3 +1,6 @@
+<title>numpy基础知识 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy基础知识" />
+
 # 基础知识
 
 NumPy的主要对象是同类型的多维数组。它是一张表，所有元素（通常是数字）的类型都相同，并通过正整数元组索引。在NumPy中，维度称为轴。轴的数目为rank。

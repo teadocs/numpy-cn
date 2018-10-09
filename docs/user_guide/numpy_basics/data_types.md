@@ -1,3 +1,6 @@
+<title>numpy数据类型 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="numpy数据类型" />
+
 # 数据类型
 
 另见：
