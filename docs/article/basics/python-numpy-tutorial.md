@@ -1,4 +1,7 @@
-# Python Numpy 教程
+<title>Python与Numpy的教程 - <%-__DOC_NAME__ %></title>
+<meta name="keywords" content="Python的教程,numpy的教程" />
+
+# Python、Numpy 教程
 
 我们将在本课程的所有作业中使用Python编程语言。Python本身就是一种伟大的通用编程语言，并且它在一些其他流行的Python库(numpy、sciy、matplotlib)的帮助下，它成为了一个强大的科学计算环境。
 
@@ -81,11 +84,11 @@ print(type(y)) # Prints "<class 'float'>"
 print(y, y + 1, y * 2, y ** 2) # Prints "2.5 3.5 5.0 6.25"
 ```
 
-Note that unlike many languages, Python does not have unary increment (``x++``) or decrement (``x--``) operators.
+注意，与许多语言不同，Python没有一元增量(``x+``)或递减(``x-``)运算符。
 
-Python also has built-in types for complex numbers; you can find all of the details in [the documentation](https://docs.python.org/3.5/library/stdtypes.html#numeric-types-int-float-complex).
+Python还有用于复数的内置类型；你可以在[这篇文档](https://docs.python.org/3.5/library/stdtypes.html#numeric-types-int-float-complex)中找到所有的详细信息。
 
-**Booleans(布尔类型)**: Python implements all of the usual operators for Boolean logic, but uses English words rather than symbols (``&&``, ``||``, etc.):
+**Booleans(布尔类型)**: Python实现了所有常用的布尔逻辑运算符，但它使用的是英文单词而不是符号 (``&&``, ``||``, etc.)：
 
 ```python
 t = True
@@ -97,7 +100,7 @@ print(not t)   # Logical NOT; prints "False"
 print(t != f)  # Logical XOR; prints "True"
 ```
 
-**Strings(字符串类型)**：Python has great support for strings:
+**Strings(字符串类型)**：Python对字符串有很好的支持：
 
 ```python
 hello = 'hello'    # String literals can use single quotes
@@ -110,7 +113,7 @@ hw12 = '%s %s %d' % (hello, world, 12)  # sprintf style string formatting
 print(hw12)  # prints "hello world 12"
 ```
 
-String objects have a bunch of useful methods; for example:
+String对象有许多有用的方法；例如：
 
 ```python
 s = "hello"
@@ -123,15 +126,15 @@ print(s.replace('l', '(ell)'))  # Replace all instances of one substring with an
 print('  world '.strip())  # Strip leading and trailing whitespace; prints "world"
 ```
 
-You can find a list of all string methods in [the documentation](https://docs.python.org/3.5/library/stdtypes.html#string-methods).
+你可以在[这篇文档](https://docs.python.org/3.5/library/stdtypes.html#string-methods)中找到所有String方法的列表。
 
-### Containers
+### 容器(Containers)
 
-Python includes several built-in container types: lists, dictionaries, sets, and tuples.
+Python包含几种内置的容器类型：列表、字典、集合和元组。
 
-#### Lists
+#### 列表(Lists)
 
-A list is the Python equivalent of an array, but is resizeable and can contain elements of different types:
+列表其实就是Python中的数组，但是可以它可以动态的调整大小并且可以包含不同类型的元素：
 
 ```python
 xs = [3, 1, 2]    # Create a list
@@ -145,9 +148,9 @@ x = xs.pop()      # Remove and return the last element of the list
 print(x, xs)      # Prints "bar [3, 1, 'foo']"
 ```
 
-As usual, you can find all the gory details about lists in [the documentation](https://docs.python.org/3.5/tutorial/datastructures.html#more-on-lists).
+像往常一样，你可以在[这篇文档](https://docs.python.org/3.5/tutorial/datastructures.html#more-on-lists)中找到有关列表的所有详细信息。
 
-**Slicing**: In addition to accessing list elements one at a time, Python provides concise syntax to access sublists; this is known as slicing:
+**切片(Slicing)**: 除了一次访问一个列表元素之外，Python还提供了访问子列表的简明语法; 这被称为切片：
 
 ```python
 nums = list(range(5))     # range is a built-in function that creates a list of integers
@@ -161,9 +164,9 @@ nums[2:4] = [8, 9]        # Assign a new sublist to a slice
 print(nums)               # Prints "[0, 1, 8, 9, 4]"
 ```
 
-We will see slicing again in the context of numpy arrays.
+我们将在numpy数组的上下文中再次看到切片。
 
-**Loops**: You can loop over the elements of a list like this:
+**(循环)Loops**: 你可以循环遍历列表的元素，如下所示：
 
 ```python
 animals = ['cat', 'dog', 'monkey']
@@ -172,7 +175,7 @@ for animal in animals:
 # Prints "cat", "dog", "monkey", each on its own line.
 ```
 
-If you want access to the index of each element within the body of a loop, use the built-in ``enumerate`` function:
+如果要访问循环体内每个元素的索引，请使用内置的 ``enumerate`` 函数：
 
 ```python
 animals = ['cat', 'dog', 'monkey']
@@ -181,7 +184,7 @@ for idx, animal in enumerate(animals):
 # Prints "#1: cat", "#2: dog", "#3: monkey", each on its own line
 ```
 
-**List comprehensions**: When programming, frequently we want to transform one type of data into another. As a simple example, consider the following code that computes square numbers:
+**列表推导式(List comprehensions)**: 编程时，我们经常想要将一种数据转换为另一种数据。 举个简单的例子，思考以下计算平方数的代码：
 
 ```python
 nums = [0, 1, 2, 3, 4]
@@ -191,7 +194,7 @@ for x in nums:
 print(squares)   # Prints [0, 1, 4, 9, 16]
 ```
 
-You can make this code simpler using a **list comprehension**:
+你可以使用 **列表推导式** 使这段代码更简单:
 
 ```python
 nums = [0, 1, 2, 3, 4]
@@ -199,7 +202,7 @@ squares = [x ** 2 for x in nums]
 print(squares)   # Prints [0, 1, 4, 9, 16]
 ```
 
-List comprehensions can also contain conditions:
+列表推导还可以包含条件：
 
 ```
 nums = [0, 1, 2, 3, 4]
@@ -207,9 +210,9 @@ even_squares = [x ** 2 for x in nums if x % 2 == 0]
 print(even_squares)  # Prints "[0, 4, 16]"
 ```
 
-#### Dictionaries
+#### 字典
 
-A dictionary stores (key, value) pairs, similar to a ``Map`` in Java or an object in Javascript. You can use it like this:
+字典存储（键，值）对，类似于Java中的``Map``或Javascript中的对象。你可以像这样使用它：
 
 ```python
 d = {'cat': 'cute', 'dog': 'furry'}  # Create a new dictionary with some data
@@ -224,9 +227,9 @@ del d['fish']         # Remove an element from a dictionary
 print(d.get('fish', 'N/A')) # "fish" is no longer a key; prints "N/A"
 ```
 
-You can find all you need to know about dictionaries in [the documentation](https://docs.python.org/3.5/library/stdtypes.html#dict).
+您可以在[这篇文档](https://docs.python.org/3.5/library/stdtypes.html#dict)中找到有关字典的所有信息。
 
-**Loops**: It is easy to iterate over the keys in a dictionary:
+**(循环)Loops**: 迭代词典中的键很容易：
 
 ```python
 d = {'person': 2, 'cat': 4, 'spider': 8}
@@ -236,7 +239,7 @@ for animal in d:
 # Prints "A person has 2 legs", "A cat has 4 legs", "A spider has 8 legs"
 ```
 
-If you want access to keys and their corresponding values, use the ``items`` method:
+如果要访问键及其对应的值，请使用``items``方法：
 
 ```python
 d = {'person': 2, 'cat': 4, 'spider': 8}
@@ -245,7 +248,7 @@ for animal, legs in d.items():
 # Prints "A person has 2 legs", "A cat has 4 legs", "A spider has 8 legs"
 ```
 
-**Dictionary comprehensions**: These are similar to list comprehensions, but allow you to easily construct dictionaries. For example:
+**字典推导式(Dictionary comprehensions)**: 类似于列表推导式，可以让你轻松构建词典数据类型。例如：
 
 ```python
 nums = [0, 1, 2, 3, 4]
@@ -253,9 +256,9 @@ even_num_to_square = {x: x ** 2 for x in nums if x % 2 == 0}
 print(even_num_to_square)  # Prints "{0: 0, 2: 4, 4: 16}"
 ```
 
-#### Sets
+#### 集合(Sets)
 
-A set is an unordered collection of distinct elements. As a simple example, consider the following:
+集合是不同元素的无序集合。举个简单的例子，请思考下面的代码：
 
 ```python
 animals = {'cat', 'dog'}
@@ -270,9 +273,9 @@ animals.remove('cat')     # Remove an element from a set
 print(len(animals))       # Prints "2"
 ```
 
-As usual, everything you want to know about sets can be found [in the documentation](https://docs.python.org/3.5/library/stdtypes.html#set).
+与往常一样，您想知道的关于集合的所有内容都可以在[这篇文档](https://docs.python.org/3.5/library/stdtypes.html#set)中找到。
 
-**Loops**: Iterating over a set has the same syntax as iterating over a list; however since sets are unordered, you cannot make assumptions about the order in which you visit the elements of the set:
+**循环(Loops)**: 遍历集合的语法与遍历列表的语法相同；但是，由于集合是无序的，因此不能假设访问集合元素的顺序：
 
 ```python
 animals = {'cat', 'dog', 'fish'}
@@ -281,7 +284,7 @@ for idx, animal in enumerate(animals):
 # Prints "#1: fish", "#2: dog", "#3: cat"
 ```
 
-**Set comprehensions**: Like lists and dictionaries, we can easily construct sets using set comprehensions:
+**集合推导式(Set comprehensions)**: 就像列表和字典一样，我们可以很容易地使用集合理解来构造集合：
 
 ```python
 from math import sqrt
@@ -289,9 +292,9 @@ nums = {int(sqrt(x)) for x in range(30)}
 print(nums)  # Prints "{0, 1, 2, 3, 4, 5}"
 ```
 
-#### Tuples
+#### 元组(Tuples)
 
-A tuple is an (immutable) ordered list of values. A tuple is in many ways similar to a list; one of the most important differences is that tuples can be used as keys in dictionaries and as elements of sets, while lists cannot. Here is a trivial example:
+元组是（不可变的）有序值列表。 元组在很多方面类似于列表; 其中一个最重要的区别是元组可以用作字典中的键和集合的元素，而列表则不能。 这是一个简单的例子：
 
 ```python
 d = {(x, x + 1): x for x in range(10)}  # Create a dictionary with tuple keys
@@ -301,11 +304,11 @@ print(d[t])       # Prints "5"
 print(d[(1, 2)])  # Prints "1"
 ```
 
-[The documentation](https://docs.python.org/3.5/tutorial/datastructures.html#tuples-and-sequences) has more information about tuples.
+[这篇文档](https://docs.python.org/3.5/tutorial/datastructures.html#tuples-and-sequences)包含有关元组的更多信息。
 
-### Functions
+### 函数(Functions)
 
-Python functions are defined using the ``def`` keyword. For example:
+Python函数使用``def``关键字定义。例如：
 
 ```python
 def sign(x):
@@ -321,7 +324,7 @@ for x in [-1, 0, 1]:
 # Prints "negative", "zero", "positive"
 ```
 
-We will often define functions to take optional keyword arguments, like this:
+我们经常定义函数来获取可选的关键字参数，如下所示：
 
 ```python
 def hello(name, loud=False):
