@@ -227,7 +227,7 @@ del d['fish']         # Remove an element from a dictionary
 print(d.get('fish', 'N/A')) # "fish" is no longer a key; prints "N/A"
 ```
 
-您可以在[这篇文档](https://docs.python.org/3.5/library/stdtypes.html#dict)中找到有关字典的所有信息。
+你可以在[这篇文档](https://docs.python.org/3.5/library/stdtypes.html#dict)中找到有关字典的所有信息。
 
 **(循环)Loops**: 迭代词典中的键很容易：
 
@@ -273,7 +273,7 @@ animals.remove('cat')     # Remove an element from a set
 print(len(animals))       # Prints "2"
 ```
 
-与往常一样，您想知道的关于集合的所有内容都可以在[这篇文档](https://docs.python.org/3.5/library/stdtypes.html#set)中找到。
+与往常一样，你想知道的关于集合的所有内容都可以在[这篇文档](https://docs.python.org/3.5/library/stdtypes.html#set)中找到。
 
 **循环(Loops)**: 遍历集合的语法与遍历列表的语法相同；但是，由于集合是无序的，因此不能假设访问集合元素的顺序：
 
@@ -337,11 +337,11 @@ hello('Bob') # Prints "Hello, Bob"
 hello('Fred', loud=True)  # Prints "HELLO, FRED!"
 ```
 
-There is a lot more information about Python functions [in the documentation](https://docs.python.org/3.5/tutorial/controlflow.html#defining-functions).
+[这篇文档](https://docs.python.org/3.5/tutorial/controlflow.html#defining-functions)中有更多关于Python函数的信息。
 
-### Classes
+### 类(Classes)
 
-The syntax for defining classes in Python is straightforward:
+在Python中定义类的语法很简单：
 
 ```python
 class Greeter(object):
@@ -362,17 +362,17 @@ g.greet()            # Call an instance method; prints "Hello, Fred"
 g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
 ```
 
-You can read a lot more about Python classes [in the documentation](https://docs.python.org/3.5/tutorial/classes.html).
+你可以在[这篇文档](https://docs.python.org/3.5/tutorial/classes.html)中阅读更多关于Python类的内容。
 
 ## Numpy
 
-[Numpy](http://www.numpy.org/) is the core library for scientific computing in Python. It provides a high-performance multidimensional array object, and tools for working with these arrays. If you are already familiar with MATLAB, you might find [this tutorial useful](/user_guide/numpy_for_matlab_users.html) to get started with Numpy.
+[Numpy](http://www.numpy.org/)是Python中科学计算的核心库。它提供了一个高性能的多维数组对象，以及用于处理这些数组的工具。如果你已经熟悉MATLAB，你可能会发现[这篇教程](/user_guide/numpy_for_matlab_users.html)对于你从MATLAB切换到学习Numpy很有帮助。
 
-### Arrays
+### 数组(Arrays)
 
-A numpy array is a grid of values, all of the same type, and is indexed by a tuple of nonnegative integers. The number of dimensions is the rank of the array; the shape of an array is a tuple of integers giving the size of the array along each dimension.
+numpy数组是一个值网格，所有类型都相同，并由非负整数元组索引。 维数是数组的排名; 数组的形状是一个整数元组，给出了每个维度的数组大小。
 
-We can initialize numpy arrays from nested Python lists, and access elements using square brackets:
+我们可以从嵌套的Python列表初始化numpy数组，并使用方括号访问元素：
 
 ```python
 import numpy as np
@@ -389,7 +389,7 @@ print(b.shape)                     # Prints "(2, 3)"
 print(b[0, 0], b[0, 1], b[1, 0])   # Prints "1 2 4"
 ```
 
-Numpy also provides many functions to create arrays:
+Numpy还提供了许多创建数组的函数：
 
 ```python
 import numpy as np
@@ -414,13 +414,13 @@ print(e)                     # Might print "[[ 0.91940167  0.08143941]
                              #               [ 0.68744134  0.87236687]]"
 ```
 
-You can read about other methods of array creation [in the documentation](/user_guide/numpy_basics/array_creation.html).
+你可以在[这篇文档](/user_guide/numpy_basics/array_creation.html)中阅读有关其他数组创建方法的信息。
 
-### Array indexing
+### 数组索引(Array indexing)
 
-Numpy offers several ways to index into arrays.
+Numpy提供了几种索引数组的方法。
 
-**Slicing**: Similar to Python lists, numpy arrays can be sliced. Since arrays may be multidimensional, you must specify a slice for each dimension of the array:
+**切片(Slicing)**: 与Python列表类似，可以对numpy数组进行切片。由于数组可能是多维的，因此必须为数组的每个维指定一个切片：
 
 ```python
 import numpy as np
@@ -444,7 +444,7 @@ b[0, 0] = 77     # b[0, 0] is the same piece of data as a[0, 1]
 print(a[0, 1])   # Prints "77"
 ```
 
-You can also mix integer indexing with slice indexing. However, doing so will yield an array of lower rank than the original array. Note that this is quite different from the way that MATLAB handles array slicing:
+您还可以将整数索引与切片索引混合使用。 但是，这样做会产生比原始数组更低级别的数组。 请注意，这与MATLAB处理数组切片的方式完全不同：
 
 ```python
 import numpy as np
@@ -473,7 +473,7 @@ print(col_r2, col_r2.shape)  # Prints "[[ 2]
                              #          [10]] (3, 1)"
 ```
 
-**Integer array indexing**: When you index into numpy arrays using slicing, the resulting array view will always be a subarray of the original array. In contrast, integer array indexing allows you to construct arbitrary arrays using the data from another array. Here is an example:
+**整数数组索引**: 使用切片索引到numpy数组时，生成的数组视图将始终是原始数组的子数组。 相反，整数数组索引允许您使用另一个数组中的数据构造任意数组。 这是一个例子：
 
 ```python
 import numpy as np
@@ -495,7 +495,7 @@ print(a[[0, 0], [1, 1]])  # Prints "[2 2]"
 print(np.array([a[0, 1], a[0, 1]]))  # Prints "[2 2]"
 ```
 
-One useful trick with integer array indexing is selecting or mutating one element from each row of a matrix:
+整数数组索引的一个有用技巧是从矩阵的每一行中选择或改变一个元素：
 
 ```python
 import numpy as np
@@ -523,7 +523,7 @@ print(a)  # prints "array([[11,  2,  3],
           #                [10, 21, 12]])
 ```
 
-**Boolean array indexing**: Boolean array indexing lets you pick out arbitrary elements of an array. Frequently this type of indexing is used to select the elements of an array that satisfy some condition. Here is an example:
+**布尔数组索引**: 布尔数组索引允许您选择数组的任意元素。通常，这种类型的索引用于选择满足某些条件的数组元素。下面是一个例子：
 
 ```python
 import numpy as np
@@ -548,11 +548,11 @@ print(a[bool_idx])  # Prints "[3 4 5 6]"
 print(a[a > 2])     # Prints "[3 4 5 6]"
 ```
 
-For brevity we have left out a lot of details about numpy array indexing; if you want to know more you should [read the documentation](/reference/array_objects/indexing.html).
+为简洁起见，我们省略了很多关于numpy数组索引的细节; 如果你想了解更多，你应该阅读[这篇文档](/reference/array_objects/indexing.html)。
 
-### Datatypes
+### 数据类型
 
-Every numpy array is a grid of elements of the same type. Numpy provides a large set of numeric datatypes that you can use to construct arrays. Numpy tries to guess a datatype when you create an array, but functions that construct arrays usually also include an optional argument to explicitly specify the datatype. Here is an example:
+每个numpy数组都是相同类型元素的网格。Numpy提供了一组可用于构造数组的大量数值数据类型。Numpy在创建数组时尝试猜测数据类型，但构造数组的函数通常还包含一个可选参数来显式指定数据类型。这是一个例子：
 
 ```python
 import numpy as np
@@ -567,11 +567,11 @@ x = np.array([1, 2], dtype=np.int64)   # Force a particular datatype
 print(x.dtype)                         # Prints "int64"
 ```
 
-You can read all about numpy datatypes [in the documentation](/user_guide/numpy_basics/data_types.html).
+您可以在[这篇文档](/user_guide/numpy_basics/data_types.html)中阅读有关numpy数据类型的所有信息。
 
-### Array math
+### 数组中的数学
 
-Basic mathematical functions operate elementwise on arrays, and are available both as operator overloads and as functions in the numpy module:
+基本数学函数在数组上以元素方式运行，既可以作为运算符重载，也可以作为numpy模块中的函数：
 
 ```python
 import numpy as np
@@ -609,7 +609,7 @@ print(np.divide(x, y))
 print(np.sqrt(x))
 ```
 
-Note that unlike MATLAB, ``*`` is elementwise multiplication, not matrix multiplication. We instead use the ``dot`` function to compute inner products of vectors, to multiply a vector by a matrix, and to multiply matrices. ``dot`` is available both as a function in the numpy module and as an instance method of array objects:
+请注意，与MATLAB不同，``*``是元素乘法，而不是矩阵乘法。 我们使用``dot``函数来计算向量的内积，将向量乘以矩阵，并乘以矩阵。 ``dot``既可以作为numpy模块中的函数，也可以作为数组对象的实例方法：
 
 ```python
 import numpy as np
@@ -635,7 +635,7 @@ print(x.dot(y))
 print(np.dot(x, y))
 ```
 
-Numpy provides many useful functions for performing computations on arrays; one of the most useful is ``sum``:
+Numpy为在数组上执行计算提供了许多有用的函数；其中最有用的函数之一是 ``SUM``：
 
 ```python
 import numpy as np
@@ -647,9 +647,9 @@ print(np.sum(x, axis=0))  # Compute sum of each column; prints "[4 6]"
 print(np.sum(x, axis=1))  # Compute sum of each row; prints "[3 7]"
 ```
 
-You can find the full list of mathematical functions provided by numpy [in the documentation](/reference/routines/math.html).
+您可以在[这篇文档](/reference/routines/math.html)中找到numpy提供的数学函数的完整列表。
 
-Apart from computing mathematical functions using arrays, we frequently need to reshape or otherwise manipulate data in arrays. The simplest example of this type of operation is transposing a matrix; to transpose a matrix, simply use the ``T`` attribute of an array object:
+除了使用数组计算数学函数外，我们经常需要对数组中的数据进行整形或其他操作。这种操作的最简单的例子是转置一个矩阵；要转置一个矩阵，只需使用一个数组对象的``T``属性：
 
 ```python
 import numpy as np
@@ -666,13 +666,13 @@ print(v)    # Prints "[1 2 3]"
 print(v.T)  # Prints "[1 2 3]"
 ```
 
-Numpy provides many more functions for manipulating arrays; you can see the full list [in the documentation](/reference/routines/array_manipulation_routines.html).
+Numpy提供了许多用于操作数组的函数；您可以在[这篇文档](/reference/routines/array_manipulation_routines.html)中看到完整的列表。
 
-### Broadcasting
+### 广播(Broadcasting)
 
-Broadcasting is a powerful mechanism that allows numpy to work with arrays of different shapes when performing arithmetic operations. Frequently we have a smaller array and a larger array, and we want to use the smaller array multiple times to perform some operation on the larger array.
+广播是一种强大的机制，它允许numpy在执行算术运算时使用不同形状的数组。通常，我们有一个较小的数组和一个较大的数组，我们希望多次使用较小的数组来对较大的数组执行一些操作。
 
-For example, suppose that we want to add a constant vector to each row of a matrix. We could do it like this:
+例如，假设我们要向矩阵的每一行添加一个常数向量。我们可以这样做：
 
 ```python
 import numpy as np
@@ -695,7 +695,7 @@ for i in range(4):
 print(y)
 ```
 
-This works; however when the matrix ``x`` is very large, computing an explicit loop in Python could be slow. Note that adding the vector ``v`` to each row of the matrix ``x`` is equivalent to forming a matrix ``vv`` by stacking multiple copies of ``v`` vertically, then performing elementwise summation of ``x`` and ``vv``. We could implement this approach like this:
+这会凑效; 但是当矩阵 ``x`` 非常大时，在Python中计算显式循环可能会很慢。注意，向矩阵 ``x`` 的每一行添加向量 ``v`` 等同于通过垂直堆叠多个 ``v`` 副本来形成矩阵 ``vv``，然后执行元素的求和``x`` 和 ``vv``。 我们可以像如下这样实现这种方法：
 
 ```python
 import numpy as np
@@ -716,7 +716,7 @@ print(y)  # Prints "[[ 2  2  4
           #          [11 11 13]]"
 ```
 
-Numpy broadcasting allows us to perform this computation without actually creating multiple copies of ``v``. Consider this version, using broadcasting:
+Numpy广播允许我们在不实际创建``v``的多个副本的情况下执行此计算。考虑这个需求，使用广播如下：
 
 ```python
 import numpy as np
@@ -732,21 +732,21 @@ print(y)  # Prints "[[ 2  2  4]
           #          [11 11 13]]"
 ```
 
-The line ``y = x + v`` works even though ``x`` has shape ``(4, 3)`` and ``v`` has shape ``(3,)`` due to broadcasting; this line works as if ``v`` actually had shape ``(4, 3)``, where each row was a copy of ``v``, and the sum was performed elementwise.
+``y=x+v``行即使``x``具有形状``(4，3)``和``v``具有形状``(3,)``，但由于广播的关系，该行的工作方式就好像``v``实际上具有形状``(4，3)``，其中每一行都是``v``的副本，并且求和是按元素执行的。
 
-Broadcasting two arrays together follows these rules:
+将两个数组一起广播遵循以下规则：
 
-1. If the arrays do not have the same rank, prepend the shape of the lower rank array with 1s until both shapes have the same length.
-1. The two arrays are said to be compatible in a dimension if they have the same size in the dimension, or if one of the arrays has size 1 in that dimension.
-1. The arrays can be broadcast together if they are compatible in all dimensions.
-1. After broadcasting, each array behaves as if it had shape equal to the elementwise maximum of shapes of the two input arrays.
-1. In any dimension where one array had size 1 and the other array had size greater than 1, the first array behaves as if it were copied along that dimension
+1. 如果数组不具有相同的rank，则将较低等级数组的形状添加1，直到两个形状具有相同的长度。
+1. 如果两个数组在维度上具有相同的大小，或者如果其中一个数组在该维度中的大小为1，则称这两个数组在维度上是兼容的。
+1. 如果数组在所有维度上兼容，则可以一起广播。
+1. 广播之后，每个阵列的行为就好像它的形状等于两个输入数组的形状的元素最大值。
+1. 在一个数组的大小为1且另一个数组的大小大于1的任何维度中，第一个数组的行为就像沿着该维度复制一样
 
-If this explanation does not make sense, try reading the explanation [from the documentation](/user_guide/numpy_basics/broadcasting.html) or [this explanation](http://wiki.scipy.org/EricsBroadcastingDoc).
+如果对于以上的解释依然没有理解，请尝试阅读[这篇文档](/user_guide/numpy_basics/broadcasting.html)或[这篇解释](http://wiki.scipy.org/EricsBroadcastingDoc)中的说明。
 
-Functions that support broadcasting are known as universal functions. You can find the list of all universal functions [in the documentation](/reference/ufuncs/available_ufuncs.html).
+支持广播的功能称为通用功能。你可以在[这篇文档](/reference/ufuncs/available_ufuncs.html)中找到所有通用功能的列表。
 
-Here are some applications of broadcasting:
+以下是广播的一些应用：
 
 ```python
 import numpy as np
@@ -793,7 +793,7 @@ print(x + np.reshape(w, (2, 1)))
 print(x * 2)
 ```
 
-Broadcasting typically makes your code more concise and faster, so you should strive to use it where possible.
+广播通常会使你的代码更简洁，效率更高，因此你应该尽可能地使用它。
 
 ### Numpy Documentation
 
