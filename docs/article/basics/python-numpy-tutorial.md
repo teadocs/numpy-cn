@@ -444,7 +444,7 @@ b[0, 0] = 77     # b[0, 0] is the same piece of data as a[0, 1]
 print(a[0, 1])   # Prints "77"
 ```
 
-您还可以将整数索引与切片索引混合使用。 但是，这样做会产生比原始数组更低级别的数组。 请注意，这与MATLAB处理数组切片的方式完全不同：
+你还可以将整数索引与切片索引混合使用。 但是，这样做会产生比原始数组更低级别的数组。 请注意，这与MATLAB处理数组切片的方式完全不同：
 
 ```python
 import numpy as np
@@ -473,7 +473,7 @@ print(col_r2, col_r2.shape)  # Prints "[[ 2]
                              #          [10]] (3, 1)"
 ```
 
-**整数数组索引**: 使用切片索引到numpy数组时，生成的数组视图将始终是原始数组的子数组。 相反，整数数组索引允许您使用另一个数组中的数据构造任意数组。 这是一个例子：
+**整数数组索引**: 使用切片索引到numpy数组时，生成的数组视图将始终是原始数组的子数组。 相反，整数数组索引允许你使用另一个数组中的数据构造任意数组。 这是一个例子：
 
 ```python
 import numpy as np
@@ -523,7 +523,7 @@ print(a)  # prints "array([[11,  2,  3],
           #                [10, 21, 12]])
 ```
 
-**布尔数组索引**: 布尔数组索引允许您选择数组的任意元素。通常，这种类型的索引用于选择满足某些条件的数组元素。下面是一个例子：
+**布尔数组索引**: 布尔数组索引允许你选择数组的任意元素。通常，这种类型的索引用于选择满足某些条件的数组元素。下面是一个例子：
 
 ```python
 import numpy as np
@@ -567,7 +567,7 @@ x = np.array([1, 2], dtype=np.int64)   # Force a particular datatype
 print(x.dtype)                         # Prints "int64"
 ```
 
-您可以在[这篇文档](/user_guide/numpy_basics/data_types.html)中阅读有关numpy数据类型的所有信息。
+你可以在[这篇文档](/user_guide/numpy_basics/data_types.html)中阅读有关numpy数据类型的所有信息。
 
 ### 数组中的数学
 
@@ -647,7 +647,7 @@ print(np.sum(x, axis=0))  # Compute sum of each column; prints "[4 6]"
 print(np.sum(x, axis=1))  # Compute sum of each row; prints "[3 7]"
 ```
 
-您可以在[这篇文档](/reference/routines/math.html)中找到numpy提供的数学函数的完整列表。
+你可以在[这篇文档](/reference/routines/math.html)中找到numpy提供的数学函数的完整列表。
 
 除了使用数组计算数学函数外，我们经常需要对数组中的数据进行整形或其他操作。这种操作的最简单的例子是转置一个矩阵；要转置一个矩阵，只需使用一个数组对象的``T``属性：
 
@@ -666,7 +666,7 @@ print(v)    # Prints "[1 2 3]"
 print(v.T)  # Prints "[1 2 3]"
 ```
 
-Numpy提供了许多用于操作数组的函数；您可以在[这篇文档](/reference/routines/array_manipulation_routines.html)中看到完整的列表。
+Numpy提供了许多用于操作数组的函数；你可以在[这篇文档](/reference/routines/array_manipulation_routines.html)中看到完整的列表。
 
 ### 广播(Broadcasting)
 
@@ -795,19 +795,19 @@ print(x * 2)
 
 广播通常会使你的代码更简洁，效率更高，因此你应该尽可能地使用它。
 
-### Numpy Documentation
+### Numpy 的文档
 
-This brief overview has touched on many of the important things that you need to know about numpy, but is far from complete. Check out the [numpy reference](/reference/index.html) to find out much more about numpy.
+这个简短的概述说明了部分numpy相关的重要事项。查看[numpy参考手册](/reference/index.html)以了解有关numpy的更多信息。
 
 ## SciPy
 
-Numpy provides a high-performance multidimensional array and basic tools to compute with and manipulate these arrays. [SciPy](https://docs.scipy.org/doc/scipy/reference/) builds on this, and provides a large number of functions that operate on numpy arrays and are useful for different types of scientific and engineering applications.
+Numpy提供了一个高性能的多维数组和基本工具来计算和操作这些数组。 而[SciPy](https://docs.scipy.org/doc/scipy/reference/)以此为基础，提供了大量在numpy数组上运行的函数，可用于不同类型的科学和工程应用程序。
 
-The best way to get familiar with SciPy is to [browse the documentation](https://docs.scipy.org/doc/scipy/reference/index.html). We will highlight some parts of SciPy that you might find useful for this class.
+熟悉SciPy的最佳方法是浏览[它的文档](https://docs.scipy.org/doc/scipy/reference/index.html)。我们将重点介绍SciPy有关的对你有价值的部分内容。
 
-### Image operations
+### 图像操作
 
-SciPy provides some basic functions to work with images. For example, it has functions to read images from disk into numpy arrays, to write numpy arrays to disk as images, and to resize images. Here is a simple example that showcases these functions:
+SciPy提供了一些处理图像的基本函数。例如，它具有将映像从磁盘读入numpy数组、将numpy数组作为映像写入磁盘以及调整映像大小的功能。下面是一个演示这些函数的简单示例：
 
 ```python
 from scipy.misc import imread, imsave, imresize
@@ -833,17 +833,17 @@ imsave('assets/cat_tinted.jpg', img_tinted)
 
 ![猫咪](/static/images/article/cat.jpg) ![猫咪](/static/images/article/cat_tinted.jpg)
 
-Left: The original image. Right: The tinted and resized image.
+左：原始图像。右：着色和调整大小的图像。
 
-### MATLAB files
+### MATLAB 文件
 
-The functions ``scipy.io.loadmat`` and ``scipy.io.savemat`` allow you to read and write MATLAB files. You can read about them [in the documentation](https://docs.scipy.org/doc/scipy/reference/io.html).
+函数 ``scipy.io.loadmat`` 和 ``scipy.io.savemat`` 允许你读取和写入MATLAB文件。你可以在[这篇文档](https://docs.scipy.org/doc/scipy/reference/io.html)中学习相关操作。
 
-### Distance between points
+### 点之间的距离
 
-SciPy defines some useful functions for computing distances between sets of points.
+SciPy定义了一些用于计算点集之间距离的有用函数。
 
-The function ``scipy.spatial.distance.pdist`` computes the distance between all pairs of points in a given set:
+函数``scipy.spatial.distance.pdist``计算给定集合中所有点对之间的距离：
 
 ```python
 import numpy as np
@@ -866,17 +866,17 @@ d = squareform(pdist(x, 'euclidean'))
 print(d)
 ```
 
-You can read all the details about this function [in the documentation](http://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.pdist.html).
+你可以在[这篇文档](http://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.pdist.html)中阅读有关此功能的所有详细信息。
 
-A similar function (``scipy.spatial.distance.cdist``) computes the distance between all pairs across two sets of points; you can read about it [in the documentation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html).
+类似的函数（``scipy.spatial.distance.cdist``）计算两组点之间所有对之间的距离; 你可以在[这篇文档](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html)中阅读它。
 
 ## Matplotlib
 
-[Matplotlib](https://matplotlib.org/) is a plotting library. In this section give a brief introduction to the ``matplotlib.pyplot`` module, which provides a plotting system similar to that of MATLAB.
+[Matplotlib](https://matplotlib.org/)是一个绘图库。本节简要介绍 ``matplotlib.pyplot`` 模块，该模块提供了类似于MATLAB的绘图系统。
 
-### Plotting
+### 绘制
 
-The most important function in matplotlib is ``plot``, which allows you to plot 2D data. Here is a simple example:
+matplotlib中最重要的功能是``plot``，它允许你绘制2D数据的图像。这是一个简单的例子：
 
 ```python
 import numpy as np
@@ -891,11 +891,12 @@ plt.plot(x, y)
 plt.show()  # You must call plt.show() to make graphics appear.
 ```
 
-Running this code produces the following plot:
+运行此代码会生成以下图表：
 
 ![sine](/static/images/article/sine.png)
 
-With just a little bit of extra work we can easily plot multiple lines at once, and add a title, legend, and axis labels:
+通过一些额外的工作，我们可以轻松地一次绘制多条线，并添加标题，图例和轴标签：
+
 
 ```python
 import numpy as np
@@ -918,11 +919,11 @@ plt.show()
 
 ![sine_cosine](/static/images/article/sine_cosine.png)
 
-You can read much more about the ``plot`` function [in the documentation](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot).
+你可以在[这篇文档](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot)中阅读有关``绘图``功能的更多信息。
 
-### Subplots
+### 子图
 
-You can plot different things in the same figure using the ``subplot`` function. Here is an example:
+你可以使用``subplot``函数在同一个图中绘制不同的东西。 这是一个例子：
 
 ```python
 import numpy as np
@@ -952,11 +953,11 @@ plt.show()
 
 ![sine_cosine_subplot](/static/images/article/sine_cosine_subplot.png)
 
-You can read much more about the ``subplot`` function [in the documentation](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.subplot).
+你可以在[这篇文档](https://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.subplot)中阅读有关``子图``功能的更多信息。
 
-### Images
+### 图片
 
-You can use the ``imshow`` function to show images. Here is an example:
+你可以使用 ``imshow`` 函数来显示一张图片。 这是一个例子：
 
 ```python
 import numpy as np
