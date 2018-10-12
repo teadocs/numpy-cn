@@ -13,29 +13,29 @@
 
 **目录**：
 
-*   [Python](#python)
-    *   [Basic data types](#python-basic)
-    *   [Containers](#python-containers)
-        *   [Lists](#python-lists)
-        *   [Dictionaries](#python-dicts)
-        *   [Sets](#python-sets)
-        *   [Tuples](#python-tuples)
-    *   [Functions](#python-functions)
-    *   [Classes](#python-classes)
+*   [Python](#Python)
+    *   [基本数据类型](#基本数据类型)
+    *   [容器(Containers)](#容器(Containers))
+        *   [列表(Lists)](#列表(Lists))
+        *   [字典](#字典)
+        *   [集合(Sets)](#集合(Sets))
+        *   [元组(Tuples)](#元组(Tuples))
+    *   [函数(Functions)](#函数(Functions))
+    *   [类(Classes)](#类(Classes))
 *   [Numpy](#numpy)
-    *   [Arrays](#numpy-arrays)
-    *   [Array indexing](#numpy-array-indexing)
-    *   [Datatypes](#numpy-datatypes)
-    *   [Array math](#numpy-math)
-    *   [Broadcasting](#numpy-broadcasting)
+    *   [数组(Arrays)](#数组(Arrays))
+    *   [数组索引](#数组索引)
+    *   [数据类型](#数据类型)
+    *   [数组中的数学](#数组中的数学)
+    *   [广播(Broadcasting)](#广播(Broadcasting))
 *   [SciPy](#scipy)
-    *   [Image operations](#scipy-image)
-    *   [MATLAB files](#scipy-matlab)
-    *   [Distance between points](#scipy-dist)
-*   [Matplotlib](#matplotlib)
-    *   [Plotting](#matplotlib-plotting)
-    *   [Subplots](#matplotlib-subplots)
-    *   [Images](#matplotlib-images)
+    *   [图像操作](#图像操作)
+    *   [MATLAB文件](#MATLAB文件)
+    *   [点之间的距离](#点之间的距离)
+*   [Matplotlib](#Matplotlib)
+    *   [绘制](#绘制)
+    *   [子图](#子图)
+    *   [图片](#图片)
 
 ## Python
 
@@ -416,7 +416,7 @@ print(e)                     # Might print "[[ 0.91940167  0.08143941]
 
 你可以在[这篇文档](/user_guide/numpy_basics/array_creation.html)中阅读有关其他数组创建方法的信息。
 
-### 数组索引(Array indexing)
+### 数组索引
 
 Numpy提供了几种索引数组的方法。
 
