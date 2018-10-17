@@ -8,7 +8,7 @@ Numpy练习的目标仅作为学习numpy的参考，并让你脱离基础性的N
 
 **更新：**现在有一套类似的关于[pandas](https://www.machinelearningplus.com/python/101-pandas-exercises-python/)的练习。 
 
-## NumPy数据分析问答（以下内容处于翻译之中）
+## NumPy数据分析问答
 
 ### 1、导入numpy作为np，并查看版本
 
@@ -2035,12 +2035,13 @@ output
 
 **问题：**从以下URL导入图像并将其转换为numpy数组。
 
+```
 URL = 'https://upload.wikimedia.org/wikipedia/commons/8/8b/Denali_Mt_McKinley.jpg'
+```
 
 **答案：**
 
 ```python
-
 from io import BytesIO
 from PIL import Image
 import PIL, requests
