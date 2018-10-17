@@ -302,10 +302,10 @@ np.intersect1d(a,b)
 # > array([2, 4])
 ```
 
-### 12. How to remove from one array those items that exist in another?
+### 12. 如何从一个数组中删除存在于另一个数组中的项？
 **难度等级：**L2
 
-**问题：**From array a remove all items present in array b
+**问题：**从数组a中删除数组b中的所有项。
 
 **给定：**
 
@@ -331,10 +331,10 @@ np.setdiff1d(a,b)
 # > array([1, 2, 3, 4])
 ```
 
-### 13. How to get the positions where elements of two arrays match?
+### 13. 如何得到两个数组元素匹配的位置？
 **难度等级：**L2
 
-**问题：**Get the positions where elements of a and b match
+**问题：**获取a和b元素匹配的位置。
 
 **给定：**
 
@@ -358,10 +358,10 @@ np.where(a == b)
 # > (array([1, 3, 5, 7]),)
 ```
 
-### 14. How to extract all numbers between a given range from a numpy array?
+### 14. 如何从numpy数组中提取给定范围内的所有数字？
 **难度等级：**L2
 
-**问题：**Get all items between 5 and 10 from a.
+**问题：**获取5到10之间的所有项目。
 
 **给定：**
 
@@ -393,10 +393,10 @@ a[index]
 a[(a >= 5) & (a <= 10)]
 ```
 
-### 15. How to make a python function that handles scalars to work on numpy arrays?
+### 15. 如何创建一个python函数来处理scalars并在numpy数组上工作？
 **难度等级：**L2
 
-**问题：**Convert the function maxx that works on two scalars, to work on two arrays.
+**问题：**转换适用于两个标量的函数maxx，以处理两个数组。
 
 **给定：**
 
@@ -440,11 +440,13 @@ pair_max(a, b)
 # > array([ 6.,  7.,  9.,  8.,  9.,  7.,  5.])
 ```
 
-### 16. How to swap two columns in a 2d numpy array?
+### 16. 如何交换二维numpy数组中的两列？
 
 **难度等级：**L2
 
-**问题：**Swap columns 1 and 2 in the array arr.
+**问题：**在数组arr中交换列1和2。
+
+**给定：**
 
 ```python
 arr = np.arange(9).reshape(3,3)
@@ -465,10 +467,12 @@ arr[:, [1,0,2]]
 # >        [7, 6, 8]])
 ```
 
-### 17. How to swap two rows in a 2d numpy array?
+### 17. 如何交换二维numpy数组中的两行？
 **难度等级：**L2
 
-**问题：**Swap rows 1 and 2 in the array arr:
+**问题：**交换数组arr中的第1和第2行：
+
+**给定：**
 
 ```python
 arr = np.arange(9).reshape(3,3)
@@ -488,10 +492,12 @@ arr[[1,0,2], :]
 # >        [6, 7, 8]])
 ```
 
-### 18. How to reverse the rows of a 2D array?
+### 18. 如何反转二维数组的行？
 **难度等级：**L2
 
-**问题：**Reverse the rows of a 2D array arr.
+**问题：**反转二维数组arr的行。
+
+**给定：**
 
 ```python
 # Input
@@ -513,10 +519,12 @@ array([[6, 7, 8],
        [0, 1, 2]])
 ```
 
-### 19. How to reverse the columns of a 2D array?
+### 19. 如何反转二维数组的列？
 **难度等级：**L2
 
-**问题：**Reverse the columns of a 2D array arr.
+**问题：**反转二维数组arr的列。
+
+**给定：**
 
 ```python
 # Input
@@ -536,10 +544,10 @@ arr[:, ::-1]
 # >        [8, 7, 6]])
 ```
 
-### 20. How to create a 2D array containing random floats between 5 and 10?
+### 20. 如何创建包含5到10之间随机浮动的二维数组？
 **难度等级：**L2
 
-**问题：**Create a 2D array of shape 5x3 to contain random decimal numbers between 5 and 10.
+**问题：**创建一个形状为5x3的二维数组，以包含5到10之间的随机十进制数。
 
 **答案：**
 
@@ -561,10 +569,10 @@ print(rand_arr)
 # >  [ 8.0850361   5.56165518  7.31244004]]
 ```
 
-### 21. How to print only 3 decimal places in python numpy array?
+### 21. 如何在numpy数组中只打印小数点后三位？
 **难度等级：**L1
 
-**问题：**Print or show only 3 decimal places of the numpy array rand_arr.
+**问题：**只打印或显示numpy数组rand_arr的小数点后3位。
 
 **给定：**
 
@@ -589,10 +597,10 @@ rand_arr[:4]
 # >        [ 0.609,  0.518,  0.403]])
 ```
 
-### 22. How to pretty print a numpy array by suppressing the scientific notation (like 1e10)?
+### 22. 如何通过e式科学记数法（如1e10）来打印一个numpy数组？
 **难度等级：**L1
 
-**问题：**Pretty print rand_arr by suppressing the scientific notation (like 1e10)
+**问题：**通过e式科学记数法来打印rand_arr（如1e10）
 
 **给定：**
 
@@ -638,10 +646,10 @@ rand_arr
 # >        [ 0.000671,  0.000826,  0.000137]])
 ```
 
-### 23. How to limit the number of items printed in output of numpy array?
+### 23. 如何限制numpy数组输出中打印的项目数？
 **难度等级：**L1
 
-**问题：**Limit the number of items printed in python numpy array a to a maximum of 6 elements.
+**问题：**将numpy数组a中打印的项数限制为最多6个元素。
 
 **给定：**
 
@@ -665,10 +673,10 @@ a
 # > array([ 0,  1,  2, ..., 12, 13, 14])
 ```
 
-### 24. How to print the full numpy array without truncating
+### 24. 如何打印完整的numpy数组而不截断
 **难度等级：**L1
 
-**问题：**Print the full numpy array a without truncating.
+**问题：**打印完整的numpy数组a而不截断。
 
 **给定：**
 
@@ -699,10 +707,10 @@ a
 # > array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14])
 ```
 
-### 25. How to import a dataset with numbers and texts keeping the text intact in python numpy?
+### 25. 如何导入数字和文本的数据集保持文本在numpy数组中完好无损？
 **难度等级：**L2
 
-**问题：**Import the iris dataset keeping the text intact.
+**问题：**导入鸢尾属植物数据集，保持文本不变。
 
 **答案：**
 
@@ -719,10 +727,10 @@ iris[:3]
 # >        [b'4.7', b'3.2', b'1.3', b'0.2', b'Iris-setosa']], dtype=object)
 ```
 
-### 26. How to extract a particular column from 1D array of tuples?
+### 26. 如何从1维元组数组中提取特定列？
 **难度等级：**L2
 
-**问题：**Extract the text column species from the 1D iris imported in previous question.
+**问题：**从前面问题中导入的一维鸢尾属植物数据集中提取文本列的物种。
 
 **给定：**
 
@@ -748,10 +756,10 @@ species[:5]
 # >       dtype='|S18')
 ```
 
-### 27. How to convert a 1d array of tuples to a 2d numpy array?
+### 27. 如何将1维元组数组转换为2维numpy数组？
 **难度等级：**L2
 
-**问题：**Convert the 1D iris to 2D array iris_2d by omitting the species text field.
+**问题：**通过省略鸢尾属植物数据集种类的文本字段，将一维鸢尾属植物数据集转换为二维数组iris_2d。
 
 **给定：**
 
@@ -781,10 +789,12 @@ iris_2d[:4]
 # >        [ 4.6,  3.1,  1.5,  0.2]])
 ```
 
-### 28. How to compute the mean, median, standard deviation of a numpy array?
-Difficulty: L1
+### 28. 如何计算numpy数组的均值，中位数，标准差？
+**难度等级：**L1
 
-**问题：**Find the mean, median, standard deviation of iris's sepallength (1st column)
+**问题：**求出鸢尾属植物萼片长度的平均值、中位数和标准差(第1列)
+
+**给定：**
 
 ```python
 url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
@@ -805,10 +815,10 @@ print(mu, med, sd)
 # > 5.84333333333 5.8 0.825301291785
 ```
 
-### 29. How to normalize an array so the values range exactly between 0 and 1?
-Difficulty: L2
+### 29. 如何规范化数组，使数组的值正好介于0和1之间？
+**难度等级：**L2
 
-**问题：**Create a normalized form of iris's sepallength whose values range exactly between 0 and 1 so that the minimum has value 0 and maximum has value 1.
+**问题：**创建一种标准化形式的鸢尾属植物间隔长度，其值正好介于0和1之间，这样最小值为0，最大值为1。
 
 **给定：**
 
@@ -847,10 +857,12 @@ print(S)
 # >   0.667  0.722  0.417  0.694  0.667  0.667  0.556  0.611  0.528  0.444]
 ```
 
-### 30. How to compute the softmax score?
+### 30. 如何计算Softmax得分？
 **难度等级：**L3
 
-**问题：**Compute the softmax score of sepallength.
+**问题：**计算sepallength的softmax分数。
+
+**给定：**
 
 ```python
 url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
@@ -890,10 +902,12 @@ print(softmax(sepallength))
 # >   0.011  0.013  0.004  0.012  0.011  0.011  0.007  0.009  0.007  0.005]
 ```
 
-### 31. How to find the percentile scores of a numpy array?
+### 31. 如何找到numpy数组的百分位数？
 **难度等级：**L1
 
-**问题：**Find the 5th and 95th percentile of iris's sepallength
+**问题：**找到鸢尾属植物数据集的第5和第95百分位数
+
+**给定：**
 
 ```python
 url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
@@ -912,10 +926,12 @@ np.percentile(sepallength, q=[5, 95])
 # > array([ 4.6  ,  7.255])
 ```
 
-### 32. How to insert values at random positions in an array?
+### 32. 如何在数组中的随机位置插入值？
 **难度等级：**L2
 
-**问题：**Insert np.nan values at 20 random positions in iris_2d dataset
+**问题：**在iris_2d数据集中的20个随机位置插入np.nan值
+
+**给定：**
 
 ```python
 # Input
@@ -955,10 +971,12 @@ print(iris_2d[:10])
 # >  [b'4.9' b'3.1' b'1.5' b'0.1' b'Iris-setosa']]
 ```
 
-### 33. How to find the position of missing values in numpy array?
+### 33. 如何在numpy数组中找到缺失值的位置？
 **难度等级：**L2
 
-**问题：**Find the number and position of missing values in iris_2d's sepallength (1st column)
+**问题：**在iris_2d的sepallength中查找缺失值的数量和位置（第1列）
+
+**给定：**
 
 ```python
 # Input
@@ -984,10 +1002,12 @@ print("Position of missing values: \n", np.where(np.isnan(iris_2d[:, 0])))
 # >  (array([ 39,  88,  99, 130, 147]),)
 ```
 
-### 34. How to filter a numpy array based on two or more conditions?
+### 34. 如何根据两个或多个条件过滤numpy数组？
 **难度等级：**L3
 
-**问题：**Filter the rows of iris_2d that has petallength (3rd column) > 1.5 and sepallength (1st column) < 5.0
+**问题：**过滤具有petallength（第3列）> 1.5 和 sepallength（第1列）< 5.0 的iris_2d行
+
+**给定：**
 
 ```python
 # Input
@@ -1013,10 +1033,12 @@ iris_2d[condition]
 # >        [ 4.9,  2.5,  4.5,  1.7]])
 ```
 
-### 35. How to drop rows that contain a missing value from a numpy array?
+### 35. 如何从numpy数组中删除包含缺失值的行？
 **难度等级：**L3:
 
-**问题：**Select the rows of iris_2d that does not have any nan value.
+**问题：**选择没有任何nan值的iris_2d行。
+
+**给定：**
 
 ```python
 # Input
@@ -1047,10 +1069,12 @@ iris_2d[np.sum(np.isnan(iris_2d), axis = 1) == 0][:5]
 # >        [ 5.4,  3.9,  1.7,  0.4]])
 ```
 
-### 36. How to find the correlation between two columns of a numpy array?
+### 36. 如何找到numpy数组的两列之间的相关性？
 **难度等级：**L2
 
-**问题：**Find the correlation between SepalLength(1st column) and PetalLength(3rd column) in iris_2d
+**问题：**在iris_2d中找出SepalLength（第1列）和PetalLength（第3列）之间的相关性
+
+**给定：**
 
 ```python
 # Input
@@ -1083,10 +1107,12 @@ print(corr)
 # > 0.871754157305
 ```
 
-### 37. How to find if a given array has any null values?
+### 37. 如何查找给定数组是否具有任何空值？
 **难度等级：**L2
 
-**问题：**Find out if iris_2d has any missing values.
+**问题：**找出iris_2d是否有任何缺失值。
+
+**给定：**
 
 ```python
 # Input
@@ -1105,10 +1131,12 @@ np.isnan(iris_2d).any()
 # > False
 ```
 
-### 38. How to replace all missing values with 0 in a numpy array?
+### 38. 如何在numpy数组中用0替换所有缺失值？
 **难度等级：**L2
 
-**问题：**Replace all ccurrences of nan with 0 in numpy array
+**问题：**在numpy数组中将所有出现的nan替换为0
+
+**给定：**
 
 ```python
 # Input
@@ -1134,10 +1162,12 @@ iris_2d[:4]
 # >        [ 4.6,  3.1,  1.5,  0.2]])
 ```
 
-### 39. How to find the count of unique values in a numpy array?
+### 39. 如何在numpy数组中查找唯一值的计数？
 **难度等级：**L2
 
-**问题：**Find the unique values and the count of unique values in iris's species
+**问题：**找出鸢尾属植物物种中的独特值和独特值的数量
+
+**给定：**
 
 ```python
 # Input
@@ -1164,14 +1194,16 @@ np.unique(species, return_counts=True)
 # >        dtype='|S15'), array([50, 50, 50]))
 ```
 
-### 40. How to convert a numeric to a categorical (text) array?
+### 40. 如何将数字转换为分类（文本）数组？
 **难度等级：**L2
 
-**问题：**Bin the petal length (3rd) column of iris_2d to form a text array, such that if petal length is:
+**问题：**将iris_2d的花瓣长度（第3列）加入以形成文本数组，这样如果花瓣长度为：
 
 - Less than 3 --> 'small'
 - 3-5 --> 'medium'
 - '>=5 --> 'large'
+
+**给定：**
 
 ```python
 # Input
@@ -1200,10 +1232,12 @@ petal_length_cat[:4]
 <# > ['small', 'small', 'small', 'small']
 ```
 
-### 41. How to create a new column from existing columns of a numpy array?
+### 41. 如何从numpy数组的现有列创建新列？
 **难度等级：**L2
 
-**问题：**Create a new column for volume in iris_2d, where volume is ``(pi x petallength x sepal_length^2)/3``
+**问题：**在iris_2d中为卷创建一个新列，其中volume是``（pi x petallength x sepal_length ^ 2）/ 3``
+
+**给定：**
 
 ```python
 # Input
@@ -1239,10 +1273,12 @@ out[:4]
 # >        [b'4.6', b'3.1', b'1.5', b'0.2', b'Iris-setosa', 33.238050274980004]], dtype=object)
 ```
 
-### 42. How to do probabilistic sampling in numpy?
+### 42. 如何在numpy中进行概率抽样？
 **难度等级：**L3
 
-**问题：**Randomly sample iris's species such that setose is twice the number of versicolor and virginica
+**问题：**随机抽鸢尾属植物的种类，使得刚毛的数量是云芝和维吉尼亚的两倍
+
+**给定：**
 
 ```python
 # Import iris keeping the text column intact
@@ -1275,12 +1311,15 @@ print(np.unique(species_out, return_counts=True))
 
 # > (array([b'Iris-setosa', b'Iris-versicolor', b'Iris-virginica'], dtype=object), array([77, 37, 36]))
 ```
-Approach 2 is preferred because it creates an index variable that can be used to sample 2d tabular data.
 
-### 43. How to get the second largest value of an array when grouped by another array?
+方法2是首选方法，因为它创建了一个索引变量，该变量可用于取样2维表格数据。
+
+### 43. 如何在按另一个数组分组时获取数组的第二大值？
 **难度等级：**L2
 
-**问题：**What is the value of second longest petallength of species setosa
+**问题：**第二长的物种setosa的价值是多少
+
+**给定：**
 
 ```python
 # Input
@@ -1306,10 +1345,12 @@ np.unique(np.sort(petal_len_setosa))[-2]
 # > 1.7
 ```
 
-### 44. How to sort a 2D array by a column
+### 44. 如何按列对2D数组进行排序
 **难度等级：**L2
 
-**问题：**Sort the iris dataset based on sepallength column.
+**问题：**根据sepallength列对虹膜数据集进行排序。
+
+**给定：**
 
 ```python
 url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
@@ -1344,10 +1385,10 @@ print(iris[iris[:,0].argsort()][:20])
 # >  [b'4.9' b'3.1' b'1.5' b'0.1' b'Iris-setosa']]
 ```
 
-### 45. How to find the most frequent value in a numpy array?
+### 45. 如何在numpy数组中找到最常见的值？
 **难度等级：**L1
 
-**问题：**Find the most frequent value of petal length (3rd column) in iris dataset.
+**问题：**在鸢尾属植物数据集中找到最常见的花瓣长度值（第3列）。
 
 **给定：**
 
@@ -1370,10 +1411,10 @@ print(vals[np.argmax(counts)])
 # > b'1.5'
 ```
 
-### 46. How to find the position of the first occurrence of a value greater than a given value?
+### 46. 如何找到第一次出现的值大于给定值的位置？
 **难度等级：**L2
 
-**问题：**Find the position of the first occurrence of a value greater than 1.0 in petalwidth 4th column of iris dataset.
+**问题：**在虹膜数据集的petalwidth第4列中查找第一次出现的值大于1.0的位置。
 
 ```python
 # **给定：**
@@ -1393,10 +1434,10 @@ np.argwhere(iris[:, 3].astype(float) > 1.0)[0]
 # > 50
 ```
 
-### 47. How to replace all values greater than a given value to a given cutoff?
+### 47. 如何将大于给定值的所有值替换为给定的截止值？
 **难度等级：**L2
 
-**问题：**From the array a, replace all values greater than 30 to 30 and less than 10 to 10.
+**问题：**从数组a中，替换所有大于30到30和小于10到10的值。
 
 **给定：**
 ```python
@@ -1421,10 +1462,10 @@ print(np.where(a < 10, 10, np.where(a > 30, 30, a)))
 # >   11.25  10.08  10.    11.77  30.    30.    10.    30.    14.43]
 ```
 
-### 48. How to get the positions of top n values from a numpy array?
+### 48. 如何从numpy数组中获取最大n值的位置？
 **难度等级：**L2
 
-**问题：**Get the positions of top 5 maximum values in a given array a.
+**问题：**获取给定数组a中前5个最大值的位置。
 
 ```python
 np.random.seed(100)
@@ -1460,10 +1501,10 @@ np.partition(a, kth=-5)[-5:]
 a[np.argpartition(-a, 5)][:5]
 ```
 
-### 49. How to compute the row wise counts of all possible values in an array?
+### 49. 如何计算数组中所有可能值的行数？
 **难度等级：**L4
 
-**问题：**Compute the counts of unique values row-wise.
+**问题：**按行计算唯一值的计数。
 
 **给定：**
 
@@ -1490,8 +1531,8 @@ arr
 >  [1, 1, 1, 1, 1, 2, 0, 0, 2, 1]]
 ```
 
-Output contains 10 columns representing numbers from 1 to 10. The values are the counts of the numbers in the respective rows.
-For example, Cell(0,2) has the value 2, which means, the number 3 occurs exactly 2 times in the 1st row.
+输出包含10列，表示从1到10的数字。这些值是各行中数字的计数。
+例如，cell(0，2)的值为2，这意味着数字3在第一行中恰好出现了2次。
 
 **答案：**
 
@@ -1542,10 +1583,10 @@ counts_of_all_values_rowwise(arr)
 # >  [0, 4, 0, 0, 0, 0, 1, 1, 2, 2, 0, 0, 0, 0, 1, 1]]
 ```
 
-### 50. How to convert an array of arrays into a flat 1d array?
-**难度等级：**2
+### 50. 如何将数组转换为平面一维数组？
+**难度等级：**L2
 
-**问题：**Convert array_of_arrays into a flat linear 1d array.
+**问题：**将array_of_arrays转换为扁平线性1d数组。
 
 **给定：**
 
@@ -1587,10 +1628,10 @@ print(arr_2d)
 # > [0 1 2 3 4 5 6 7 8 9]
 ```
 
-### 51. How to generate one-hot encodings for an array in numpy?
-Difficulty Level L4
+### 51. 如何在numpy中为数组生成单热编码？
+**难度等级：**L4
 
-**问题：**Compute the one-hot encodings (dummy binary variables for each unique value in the array)
+**问题：**计算一次性编码(数组中每个唯一值的虚拟二进制变量)
 
 **给定：**
 
@@ -1601,7 +1642,7 @@ arr
 # > array([2, 3, 2, 2, 2, 1])
 ```
 
-Output:
+**期望输出：**
 
 ```python
 # > array([[ 0.,  1.,  0.],
@@ -1641,10 +1682,10 @@ one_hot_encodings(arr)
 (arr[:, None] == np.unique(arr)).view(np.int8)
 ```
 
-### 52. How to create row numbers grouped by a categorical variable?
+### 52. 如何创建按分类变量分组的行号？
 **难度等级：**L3
 
-**问题：**Create row numbers grouped by a categorical variable. Use the following sample from iris species as input.
+**问题：**创建按分类变量分组的行号。使用以下来自鸢尾属植物物种的样本作为输入。
 
 **给定：**
 
@@ -1695,10 +1736,10 @@ print([i for val in np.unique(species_small) for i, grp in enumerate(species_sma
 [0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5]
 ```
 
-### 53. How to create groud ids based on a given categorical variable?
+### 53. 如何根据给定的分类变量创建组ID？
 **难度等级：**L4
 
-**问题：**Create group ids based on a given categorical variable. Use the following sample from iris species as input.
+**问题：**根据给定的分类变量创建组ID。使用以下来自鸢尾属植物物种的样本作为输入。
 
 **给定：**
 
@@ -1758,10 +1799,10 @@ print(output)
 # > [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2]
 ```
 
-### 54. How to rank items in an array using numpy?
+### 54. 如何使用numpy对数组中的项进行排名？
 **难度等级：**L2
 
-**问题：**Create the ranks for the given numeric array a.
+**问题：**为给定的数字数组a创建排名。
 
 **给定：**
 
@@ -1772,7 +1813,7 @@ print(a)
 # > [ 9  4 15  0 17 16 17  8  9  0]
 ```
 
-Desired output:
+**期望输出：**
 
 ```python
 [4 2 6 0 8 7 9 3 5 1]
@@ -1793,10 +1834,10 @@ print('Array: ', a)
 # > Array:  [ 9  4 15  0 17 16 17  8  9  0]
 ```
 
-### 55. How to rank items in a multidimensional array using numpy?
+### 55. 如何使用numpy对多维数组中的项进行排名？
 **难度等级：**L3
 
-**问题：**Create a rank array of the same shape as a given numeric array a.
+**问题：**创建与给定数字数组a相同形状的排名数组。
 
 **给定：**
 
@@ -1808,7 +1849,7 @@ print(a)
 # >  [16 17  8  9  0]]
 ```
 
-Desired output:
+**期望输出：**
 
 ```python
 # > [[4 2 6 0 8]
@@ -1831,10 +1872,12 @@ print(a.ravel().argsort().argsort().reshape(a.shape))
 # >  [7 9 3 5 1]]
 ```
 
-### 56. How to find the maximum value in each row of a numpy array 2d?
-DifficultyLevel: L2
+### 56. 如何在二维numpy数组的每一行中找到最大值？
+**难度等级：**L2
 
-**问题：**Compute the maximum for each row in the given array.
+**问题：**计算给定数组中每行的最大值。
+
+**给定：**
 
 ```python
 np.random.seed(100)
@@ -1863,10 +1906,12 @@ np.apply_along_axis(np.max, arr=a, axis=1)
 # > array([9, 8, 6, 3, 9])
 ```
 
-### 57. How to compute the min-by-max for each row for a numpy array 2d?
-DifficultyLevel: L3
+### 57. 如何计算二维numpy数组每行的最小值？
+**难度等级：**L3
 
-**问题：**Compute the min-by-max for each row for given 2d numpy array.
+**问题：**为给定的二维numpy数组计算每行的最小值。
+
+**给定：**
 
 ```python
 np.random.seed(100)
@@ -1892,10 +1937,12 @@ np.apply_along_axis(lambda x: np.min(x)/np.max(x), arr=a, axis=1)
 # > array([ 0.44444444,  0.125     ,  0.5       ,  1.        ,  0.11111111])
 ```
 
-### 58. How to find the duplicate records in a numpy array?
+### 58. 如何在numpy数组中找到重复的记录？
 **难度等级：**L3
 
-**问题：**Find the duplicate entries (2nd occurrence onwards) in the given numpy array and mark them as True. First time occurrences should be False.
+**问题：**在给定的numpy数组中找到重复的条目(第二次出现以后)，并将它们标记为True。第一次出现应该是False的。
+
+**给定：**
 
 ```python
 # Input
@@ -1934,10 +1981,10 @@ print(out)
 # > [False  True False  True False False  True  True  True  True]
 ```
 
-### 59. How to find the grouped mean in numpy?
-Difficulty Level L3
+### 59. 如何找出数字的分组均值？
+**难度等级：**L3
 
-**问题：**Find the mean of a numeric column grouped by a categorical column in a 2D numpy array
+**问题：**在二维数字数组中查找按分类列分组的数值列的平均值
 
 **给定：**
 
@@ -1947,7 +1994,7 @@ iris = np.genfromtxt(url, delimiter=',', dtype='object')
 names = ('sepallength', 'sepalwidth', 'petallength', 'petalwidth', 'species')
 ```
 
-Desired Solution:
+**理想的输出：**
 
 ```python
 # > [[b'Iris-setosa', 3.418],
@@ -1983,10 +2030,10 @@ output
 # >  [b'Iris-virginica', 2.974]]
 ```
 
-### 60. How to convert a PIL image to numpy array?
+### 60. 如何将PIL图像转换为numpy数组？
 **难度等级：**L3
 
-**问题：**Import the image from the following URL and convert it to a numpy array.
+**问题：**从以下URL导入图像并将其转换为numpy数组。
 
 URL = 'https://upload.wikimedia.org/wikipedia/commons/8/8b/Denali_Mt_McKinley.jpg'
 
@@ -2016,10 +2063,10 @@ im = PIL.Image.fromarray(np.uint8(arr))
 Image.Image.show(im)
 ```
 
-### 61. How to drop all missing values from a numpy array?
+### 61. 如何删除numpy数组中所有缺少的值？
 **难度等级：**L2
 
-**问题：**Drop all nan values from a 1D numpy array
+**问题：**从一维numpy数组中删除所有NaN值
 
 **给定：**
 
@@ -2041,10 +2088,10 @@ a[~np.isnan(a)]
 # > array([ 1.,  2.,  3.,  5.,  6.,  7.])
 ```
 
-### 62. How to compute the euclidean distance between two arrays?
+### 62. 如何计算两个数组之间的欧氏距离？
 **难度等级：**L3
 
-**问题：**Compute the euclidean distance between two arrays a and b.
+**问题：**计算两个数组a和数组b之间的欧氏距离。
 
 **给定：**
 ```python
@@ -2065,10 +2112,10 @@ dist
 # > 6.7082039324993694
 ```
 
-### 63. How to find all the local maxima (or peaks) in a 1d array?
+### 63. 如何在一维数组中找到所有的局部极大值(或峰值)？
 **难度等级：**L4
 
-**问题：**Find all the peaks in a 1D numpy array a. Peaks are points surrounded by smaller values on both sides.
+**问题：**找到一个一维数字数组a中的所有峰值。峰顶是两边被较小数值包围的点。
 
 **给定：**
 ```python
@@ -2081,7 +2128,7 @@ a = np.array([1, 3, 7, 1, 2, 6, 0, 1])
 # > array([2, 5])
 ```
 
-where, 2 and 5 are the positions of peak values 7 and 6.
+其中，2和5是峰值7和6的位置。
 
 **答案：**
 
@@ -2093,10 +2140,10 @@ peak_locations
 # > array([2, 5])
 ```
 
-### 64. How to subtract a 1d array from a 2d array, where each item of 1d array subtracts from respective row?
+### 64. 如何从二维数组中减去一维数组，其中一维数组的每一项从各自的行中减去？
 **难度等级：**L2
 
-**问题：**Subtract the 1d array b_1d from the 2d array a_2d, such that each item of b_1d subtracts from respective row of a_2d.
+**问题：**从2d数组a_2d中减去一维数组b_1D，使得b_1D的每一项从a_2d的相应行中减去。
 
 ```python
 a_2d = np.array([[3,3,3],[4,4,4],[5,5,5]])
@@ -2125,10 +2172,10 @@ print(a_2d - b_1d[:,None])
 # >  [2 2 2]]
 ```
 
-### 65. How to find the index of n’th repetition of an item in an array
-Difficulty Level L2
+### 65. 如何查找数组中项的第n次重复索引？
+**难度等级：**L2
 
-**问题：**Find the index of 5th repetition of number 1 in x.
+**问题：**找出x中数字1的第5次重复的索引。
 
 ```python
 x = np.array([1, 2, 1, 1, 3, 4, 3, 1, 1, 2, 1, 1, 2])
@@ -2148,11 +2195,11 @@ np.where(x == 1)[0][n-1]
 # > 8
 ```
 
-### 66. How to convert numpy’s datetime64 object to datetime’s datetime object?
+### 66. 如何将numpy的datetime 64对象转换为datetime的datetime对象？
 
 **难度等级：**L2
 
-**问题：**Convert numpy's ``datetime64`` object to datetime's datetime object
+**问题：**将numpy的``datetime64``对象转换为datetime的datetime对象
 
 ```python
 # **给定：** a numpy datetime64 object
@@ -2175,10 +2222,10 @@ dt64.astype(datetime)
 # > datetime.datetime(2018, 2, 25, 22, 10, 10)
 ```
 
-### 67. How to compute the moving average of a numpy array?
+### 67. 如何计算numpy数组的移动平均值？
 **难度等级：**L3
 
-**问题：**Compute the moving average of window size 3, for the given 1D array.
+**问题：**对于给定的一维数组，计算窗口大小为3的移动平均值。
 
 **给定：**
 
@@ -2212,10 +2259,10 @@ np.convolve(Z, np.ones(3)/3, mode='valid') .
 # > moving average:  [ 6.33  6.    5.67  4.67  3.67  2.    3.67  3.  ]
 ```
 
-### 68. How to create a numpy array sequence given only the starting point, length and the step?
+### 68. 如何在给定起始点、长度和步骤的情况下创建一个numpy数组序列？
 **难度等级：**L2
 
-**问题：**Create a numpy array of length 10, starting from 5 and has a step of 3 between consecutive numbers
+**问题：**创建长度为10的numpy数组，从5开始，在连续的数字之间的步长为3。
 
 **答案：**
 
@@ -2232,10 +2279,10 @@ seq(start, length, step)
 # > array([ 5,  8, 11, 14, 17, 20, 23, 26, 29, 32])
 ```
 
-### 69. How to fill in missing dates in an irregular series of numpy dates?
+### 69. 如何填写不规则系列的numpy日期中的缺失日期？
 **难度等级：**L3
 
-**问题：**Given an array of a non-continuous sequence of dates. Make it a continuous sequence of dates, by filling in the missing dates.
+**问题：**给定一系列不连续的日期序列。填写缺失的日期，使其成为连续的日期序列。
 
 **给定：**
 
@@ -2284,10 +2331,10 @@ output
 # >        '2018-02-21', '2018-02-22', '2018-02-23'], dtype='datetime64[D]')
 ``` 
 
-### 70. How to create strides from a given 1D array?
+### 70. 如何从给定的一维数组创建步长？
 **难度等级：**L4
 
-**问题：**From the given 1d array arr, generate a 2d matrix using strides, with a window length of 4 and strides of 2, like [[0,1,2,3], [2,3,4,5], [4,5,6,7]..]
+**问题：**从给定的一维数组arr中，利用步进生成一个二维矩阵，窗口长度为4，步距为2，类似于 ``[[0,1,2,3], [2,3,4,5], [4,5,6,7]..]``
 
 **给定：**
 
