@@ -96,64 +96,66 @@ not_equal(x1, x2, /[, out, where, casting, …]) | 逐元素方式返回（x1！
 equal(x1, x2, /[, out, where, casting, …]) | 逐元素方式返回（x1 == x2）。
 
 <div class="warning-warp">
-<b>Warning</b>
-<p>Do not use the Python keywords and and or to combine logical array expressions. These keywords will test the truth value of the entire array (not element-by-element as you might expect). Use the bitwise operators & and | instead.</p>
+<b>警告</b>
+<p>不要使用Python关键字和/或组合逻辑数组表达式。 这些关键字将测试整个数组的真值（不是你想象的逐个元素）。 使用按位运算符＆和| 代替。</p>
 </div>
 
-method | desc
+方法 | 描述
 ---|---
-logical_and(x1, x2, /[, out, where, …]) | Compute the truth value of x1 AND x2 element-wise.
-logical_or(x1, x2, /[, out, where, casting, …]) | Compute the truth value of x1 OR x2 element-wise.
-logical_xor(x1, x2, /[, out, where, …]) | Compute the truth value of x1 XOR x2, element-wise.
-logical_not(x, /[, out, where, casting, …]) | Compute the truth value of NOT x element-wise.
+logical_and(x1, x2, /[, out, where, …]) | 计算x1和x2元素的真值。
+logical_or(x1, x2, /[, out, where, casting, …]) | 计算x1 OR x2元素的真值。
+logical_xor(x1, x2, /[, out, where, …]) | 以元素方式计算x1 XOR x2的真值。
+logical_not(x, /[, out, where, casting, …]) | 计算NOT x元素的真值。
 
 <div class="warning-warp">
-<b>Warning</b>
-<p>The bit-wise operators & and | are the proper way to perform element-by-element array comparisons. Be sure you understand the operator precedence: <code>(a &gt; 2) & (a &lt; 5)</code> is the proper syntax because <code>a &gt; 2 & a &lt; 5</code> will result in an error due to the fact that <code>2 & a</code> is evaluated first.</p>
-</div>
-
-method | desc
----|---
-maximum(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
-
-**Tip:**
-
-The Python function ``max()`` will find the maximum over a one-dimensional array, but it will do so using a slower sequence interface. The reduce method of the maximum ufunc is much faster. Also, the ``max()`` method will not give answers you might expect for arrays with greater than one dimension. The reduce method of minimum also allows you to compute a total minimum over an array.
-
-method | desc
----|---
-minimum(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
-
-<div class="warning-warp">
-<b>Warning</b>
-<p>the behavior of maximum(a, b) is different than that of max(a, b). As a ufunc, maximum(a, b) performs an element-by-element comparison of a and b and chooses each element of the result according to which element in the two arrays is larger. In contrast, max(a, b) treats the objects a and b as a whole, looks at the (total) truth value of a > b and uses it to return either a or b (as a whole). A similar difference exists between minimum(a, b) and min(a, b).
+<b>警告</b>
+<p>
+逐位运算符＆和| 是执行逐元素数组比较的正确方法。确保你理解运算符优先级：<code>(a &gt; 2 ) ＆(a &lt; 5 )</code>  是正确的语法，因为 <code>a &gt; 2 & a &lt; 5</code>将导致错误，因为首先计算<code>2 & a</code>。
 </p>
 </div>
 
-method | desc
+方法 | 描述
 ---|---
-fmax(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
-fmin(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
+maximum(x1, x2, /[, out, where, casting, …]) | 数组元素的元素最大值。
 
-## Floating functions
+**提示：**
 
-Recall that all of these functions work element-by-element over an array, returning an array output. The description details only a single operation.
+Python函数``max（）``将在一维数组中找到最大值，但它会使用较慢的序列接口。 最大ufunc的reduce方法要快得多。 此外，``max（）``方法不会给出具有多个维度的数组所期望的答案。 reduce的minimal方法还允许您计算数组的总最小值。
 
-method | desc
+方法 | 描述
 ---|---
-isfinite(x, /[, out, where, casting, order, …]) | Test element-wise for finiteness (not infinity or not Not a Number).
-isinf(x, /[, out, where, casting, order, …]) | Test element-wise for positive or negative infinity.
-isnan(x, /[, out, where, casting, order, …]) | Test element-wise for NaN and return result as a boolean array.
-isnat(x, /[, out, where, casting, order, …]) | Test element-wise for NaT (not a time) and return result as a boolean array.
-fabs(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
-signbit(x, /[, out, where, casting, order, …]) | Returns element-wise True where signbit is set (less than zero).
-copysign(x1, x2, /[, out, where, casting, …]) | Change the sign of x1 to that of x2, element-wise.
-nextafter(x1, x2, /[, out, where, casting, …]) | Return the next floating-point value after x1 towards x2, element-wise.
-spacing(x, /[, out, where, casting, order, …]) | Return the distance between x and the nearest adjacent number.
-modf(x[, out1, out2], / [[, out, where, …]) | Return the fractional and integral parts of an array, element-wise.
-ldexp(x1, x2, /[, out, where, casting, …]) | Returns x1 * 2**x2, element-wise.
-frexp(x[, out1, out2], / [[, out, where, …]) | Decompose the elements of x into mantissa and twos exponent.
-fmod(x1, x2, /[, out, where, casting, …]) | Return the element-wise remainder of division.
-floor(x, /[, out, where, casting, order, …]) | Return the floor of the input, element-wise.
-ceil(x, /[, out, where, casting, order, …]) | Return the ceiling of the input, element-wise.
-trunc(x, /[, out, where, casting, order, …]) | Return the truncated value of the input, element-wise.
+minimum(x1, x2, /[, out, where, casting, …]) | 元素最小的数组元素。
+
+<div class="warning-warp">
+<b>警告：</b>
+<p>最大值 (a, b) 的行为与 max(a, b)的行为不同。作为ufunc，maximum(a, b)执行a和b的逐元素比较，并根据两个数组中的哪个元素更大来选择结果的每个元素。 相反，max(a, b)将对象a和b视为一个整体，查看 a > b的（总）真值，并使用它返回a或b（作为一个整体）。 minimum(a, b) 和 min(a, b) 之间存在类似的差异。
+</p>
+</div>
+
+方法 | 描述
+---|---
+fmax(x1, x2, /[, out, where, casting, …]) | 数组元素的逐个元素运算取得最大值。
+fmin(x1, x2, /[, out, where, casting, …]) | 数组元素的逐个元素运算取得最小值。
+
+## 浮动函数
+
+回想一下，所有这些函数在一个数组上逐个元素运算，返回输出一个数组对象。下面的描述只详细说明了其中的一个操作。
+
+方法 | 描述
+---|---
+isfinite(x, /[, out, where, casting, order, …]) | 对有限性(不是无限或不是数字)的测试元素。
+isinf(x, /[, out, where, casting, order, …]) | 测试元件-对于正无穷大或负无穷大。
+isnan(x, /[, out, where, casting, order, …]) | 对NaN进行元素测试，并将结果作为布尔数组返回。
+isnat(x, /[, out, where, casting, order, …]) | 测试元素的NAT(不是时间)，并返回结果作为一个布尔数组。
+fabs(x, /[, out, where, casting, order, …]) | 逐个元素计算绝对值。
+signbit(x, /[, out, where, casting, order, …]) | 返回设置了符号位(小于零)的元素级True。
+copysign(x1, x2, /[, out, where, casting, …]) | 将x1的符号改为x2的符号，就元素而言。
+nextafter(x1, x2, /[, out, where, casting, …]) | 返回x1后的下一个浮点值到x2，元素级。
+spacing(x, /[, out, where, casting, order, …]) | 返回x与最近邻数之间的距离。
+modf(x[, out1, out2], / [[, out, where, …]) | 按元素返回数组的分数和整数部分.
+ldexp(x1, x2, /[, out, where, casting, …]) | 逐个元素返回 ``x1*2*x2``。
+frexp(x[, out1, out2], / [[, out, where, …]) | 将x的元素分解成尾数和TWOS指数。
+fmod(x1, x2, /[, out, where, casting, …]) | 返回除法的元素余数。
+floor(x, /[, out, where, casting, order, …]) | 返回输入的底面，按元素划分。
+ceil(x, /[, out, where, casting, order, …]) | 逐个元素方式返回输入的上限。
+trunc(x, /[, out, where, casting, order, …]) | 逐个元素方式返回输入的截断值。
