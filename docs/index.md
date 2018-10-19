@@ -17,7 +17,6 @@
 ## 联系方式
 
 - 发起人邮箱：l@numpy.org.cn
-- **发起人微信**：iamnotahacker
 
 ## 贡献翻译
 

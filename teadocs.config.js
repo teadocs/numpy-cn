@@ -35,7 +35,6 @@ module.exports = {
             var comments = window.document.createElement("div");
             comments.style.maxWidth = "900px";
             comments.style.backgroundColor = "#fff";
-            comments.style.padding = "20px";
             comments.style.boxSizing = "border-box";
             comments.id = "comments";
             document.querySelector(".tea-container").appendChild(comments);
