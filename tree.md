@@ -50,7 +50,7 @@
             - [操作掩码数组](/reference/array_objects/masked_arrays/masked_array_operations)
         - [数组接口](/reference/array_objects/array_interface)
         - [日期时间和时间增量](/reference/array_objects/datetime)
-    - [通用功能(ufuns)](/reference/ufuncs/index)
+    - [通用功能(ufunc)](/reference/ufuncs/index)
         - [广播](/reference/ufuncs/broadcasting)
         - [确定输出类型](/reference/ufuncs/output_type_determination)
         - [使用内部缓冲区](/reference/ufuncs/use_of_internal_buffers)
