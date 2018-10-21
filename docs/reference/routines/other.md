@@ -7,8 +7,8 @@
 
 ## 性能调优
 
-- setbufsize(size)	设置ufuns中使用的缓冲区的大小。
-- getbufsize()	返回ufuns中使用的缓冲区的大小。
+- setbufsize(size)	设置ufunc中使用的缓冲区的大小。
+- getbufsize()	返回ufunc中使用的缓冲区的大小。
 
 ## 内存范围
 
