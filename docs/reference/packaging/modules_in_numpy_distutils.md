@@ -43,7 +43,7 @@ numpy.distutils.misc_util.Configuration(package_name=None, parent_name=None, top
 
 ### 类的简介
 
-Construct a configuration instance for the given package name. If parent_name is not None, then construct the package as a sub-package of the parent_name package. If top_path and package_path are None then they are assumed equal to the path of the file this instance was created in. The setup.py files in the numpy distribution are good examples of how to use the [Configuration](https://docs.scipy.org/doc/numpy/reference/distutils.html#numpy.distutils.misc_util.Configuration) instance.
+构造给定包名称的配置实例。 如果parent_name不是None，则将包构造为parent_name包的子包。 如果top_path和package_path为None，则假定它们等于此实例创建的文件的路径.numpy发行版中的setup.py文件是如何使用[Configuration](https://docs.scipy.org/doc/numpy/reference/distutils.html#numpy.distutils.misc_util.Configuration)实例的很好示例。 
 
 ### 方法todict()
 
@@ -53,7 +53,7 @@ Construct a configuration instance for the given package name. If parent_name is
 
 #### 简介
 
-Return a dictionary compatible with the keyword arguments of distutils setup function.
+返回与distutils setup函数的关键字参数兼容的字典。
 
 #### 例子
 
@@ -69,7 +69,7 @@ Return a dictionary compatible with the keyword arguments of distutils setup fun
 
 #### 简介
 
-Return the distutils distribution object for self.
+返回distutils分发对象以供自己使用。
 
 ### 方法get_subpackage()
 
@@ -85,16 +85,16 @@ get_subpackage(subpackage_name, subpackage_path=None, parent_name=None, caller_l
 
 #### 简介
 
-Return list of subpackage configurations.
+返回子包配置列表。
 
 #### 参数说明
 
-- **subpackage_name** : str or None
-    Name of the subpackage to get the configuration. ‘*’ in subpackage_name is handled as a wildcard.
-- **subpackage_path** : str
-    If None, then the path is assumed to be the local path plus the subpackage_name. If a setup.py file is not found in the subpackage_path, then a default configuration is used.
-- **parent_name** : str
-    Parent name.
+- **subpackage_name** : 字符串 或者 None
+    获取配置的子包的名称。 subpackage_name中的'*'作为通配符处理。
+- **subpackage_path** : 字符串
+    如果为None，则假定路径为本地路径加上subpackage_name。 如果在subpackage_path中找不到setup.py文件，则使用默认配置。
+- **parent_name** : 字符串
+    顾名思义获取父名。
 
 ### 方法add_subpackage()
 
@@ -110,15 +110,15 @@ add_subpackage(subpackage_name, subpackage_path=None, standalone=False)
 
 #### 简介
 
-Add a sub-package to the current Configuration instance.
+将子包添加到当前的Configuration实例。
 
-This is useful in a setup.py script for adding sub-packages to a package.
+这在用于将子包添加到包的setup.py脚本中很有用。
 
 #### 参数说明
-- **subpackage_name** : str
-    name of the subpackage
-- **subpackage_path** : str
-    if given, the subpackage path such as the subpackage is in subpackage_path / subpackage_name. If None,the subpackage is assumed to be located in the local path / subpackage_name.
+- **subpackage_name** : 字符串
+    子包的名称
+- **subpackage_path** : 字符串
+    如果给定，则子包路径（例如子包）位于subpackage_path / subpackage_name中。 如果为None，则假定子包位于本地路径/ subpackage_name中。
 - **standalone** : bool
 
 ### 方法add_data_files()
@@ -135,22 +135,22 @@ add_data_files(*files)
 
 #### 简介
 
-Add data files to configuration data_files.
+将数据文件添加到配置data_files。
 
 #### 参数说明
 
-- **files** : sequence
-    Argument(s) can be either
-    - 2-sequence (< datadir prefix >,< path to data file(s) >)
-    - paths to data files where python datadir prefix defaults to package dir.
+- **files** : 序列
+    参数可以是
+    - 2元序列（< datadir prefix >，<数据文件的路径>）
+    - 数据文件的路径，其中python datadir前缀默认为package dir。
 
 #### 提示
 
-The form of each element of the files sequence is very flexible allowing many combinations of where to get the files from the package and where they should ultimately be installed on the system. The most basic usage is for an element of the files argument sequence to be a simple filename. This will cause that file from the local path to be installed to the installation path of the self.name package (package path). The file argument can also be a relative path in which case the entire relative path will be installed into the package directory. Finally, the file can be an absolute path name in which case the file will be found at the absolute path name but installed to the package path.
+文件序列的每个元素的形式非常灵活，允许从包中获取文件的位置以及最终应该在系统上安装的位置的许多组合。最基本的用法是将files参数序列的元素设置为简单文件名。这将导致将本地路径中的文件安装到self.name包的安装路径（包路径）。 file参数也可以是相对路径，在这种情况下，整个相对路径将安装到包目录中。最后，该文件可以是绝对路径名，在这种情况下，文件将在绝对路径名中找到，但安装到包路径。
 
-This basic behavior can be augmented by passing a 2-tuple in as the file argument. The first element of the tuple should specify the relative path (under the package install directory) where the remaining sequence of files should be installed to (it has nothing to do with the file-names in the source distribution). The second element of the tuple is the sequence of files that should be installed. The files in this sequence can be filenames, relative paths, or absolute paths. For absolute paths the file will be installed in the top-level package installation directory (regardless of the first argument). Filenames and relative path names will be installed in the package install directory under the path name given as the first element of the tuple.
+可以通过将2元组作为文件参数传递来增强此基本行为。元组的第一个元素应指定应安装其余文件序列的相对路径（在软件包安装目录下）（它与源代码分发中的文件名无关）。元组的第二个元素是应该安装的文件序列。此序列中的文件可以是文件名，相对路径或绝对路径。对于绝对路径，文件将安装在顶级包安装目录中（无论第一个参数如何）。文件名和相对路径名将安装在作为元组的第一个元素给出的路径名下的包安装目录中。
 
-Rules for installation paths:
+安装路径规则：
 
 1. file.txt -> (., file.txt)-> parent/file.txt
 1. foo/file.txt -> (foo, foo/file.txt) -> parent/foo/file.txt
@@ -165,11 +165,11 @@ Rules for installation paths:
 1. (sun, bar/*.txt) -> parent/sun/a.txt, parent/sun/b.txt
 1. (sun/*, */*.txt) -> parent/sun/c/a.txt, parent/d/b.txt
 
-An additional feature is that the path to a data-file can actually be a function that takes no arguments and returns the actual path(s) to the data-files. This is useful when the data files are generated while building the package.
+另一个特性是数据文件的路径实际上可以是不带参数的函数，并将实际路径返回给数据文件。 在构建程序包时生成数据文件时，这很有用。
 
 #### 例子
 
-Add files to the list of data_files to be included with the package.
+将文件添加到要包含在包中的data_files列表中。
 
 ```python
 >>>
@@ -179,7 +179,7 @@ Add files to the list of data_files to be included with the package.
 ...     '/full/path/to/can.dat') 
 ```
 
-will install these data files to:
+将这些数据文件安装到：
 
 ```
 <package install directory>/
@@ -194,7 +194,7 @@ will install these data files to:
  can.dat
 ```
 
-where < package install directory > is the package (or sub-package) directory such as ‘/usr/lib/python2.4/site-packages/mypackage’ (‘C: Python2.4 Lib site-packages mypackage’) or ‘/usr/lib/python2.4/site- packages/mypackage/mysubpackage’ (‘C: Python2.4 Lib site-packages mypackage mysubpackage’).
+其中 < package install directory > 是包（或子包）目录，例如 ‘/usr/lib/python2.4/site-packages/mypackage’ (‘C: Python2.4 Lib site-packages mypackage’) or ‘/usr/lib/python2.4/site- packages/mypackage/mysubpackage’ (‘C: Python2.4 Lib site-packages mypackage mysubpackage’).
 
 ### 方法add_data_dir()
 
@@ -210,20 +210,20 @@ add_data_dir(data_path)
 
 #### 简介
 
-Recursively add files under data_path to data_files list.
+递归地将data_path下的文件添加到data_files列表中。
 
-Recursively add files under data_path to the list of data_files to be installed (and distributed). The data_path can be either a relative path-name, or an absolute path-name, or a 2-tuple where the first argument shows where in the install directory the data directory should be installed to.
+递归地将data_path下的文件添加到要安装（和分发）的data_files列表中。 data_path可以是相对路径名，也可以是绝对路径名，也可以是2元组，其中第一个参数显示安装目录中应安装数据目录的位置。
 
 #### 参数说明
 
-- **data_path** : seq or str
-    Argument can be either
-    - 2-sequence (< datadir suffix >, < path to data directory >)
-    - path to data directory where python datadir suffix defaults to package dir.
+- **data_path** : 序列 或 字符串
+    参数可以是：
+    - 2元序列（< datadir suffix >，<数据目录的路径>）
+    - 数据目录的路径，其中python datadir后缀默认为package dir。
 
 #### 提示
 
-Rules for installation paths:
+安装路径规则：
 
 ```
 foo/bar -> (foo/bar, foo/bar) -> parent/foo/bar
@@ -238,7 +238,7 @@ foo/* -> (foo/a, foo/a), (foo/b, foo/b) -> parent/foo/a, parent/foo/b
 
 #### 例子
 
-For example suppose the source directory contains fun/foo.dat and fun/bar/car.dat:
+例如，假设源目录包含fun/foo.dat 和 fun/bar/car.dat：
 
 ```python
 >>> self.add_data_dir('fun')                       
@@ -246,7 +246,7 @@ For example suppose the source directory contains fun/foo.dat and fun/bar/car.da
 >>> self.add_data_dir(('gun', '/full/path/to/fun'))
 ```
 
-Will install data-files to the locations:
+将数据文件安装到位置：
 
 ```
 <package install directory>/
