@@ -277,9 +277,9 @@ add_include_dirs(*paths)
 
 #### 简介
 
-Add paths to configuration include directories.
+添加配置包含目录的路径。
 
-Add the given sequence of paths to the beginning of the include_dirs list. This list will be visible to all extension modules of the current package.
+将给定的路径序列添加到include_dirs列表的开头。 此列表将对当前包的所有扩展模块可见。
 
 ### 方法add_headers()
 
@@ -293,16 +293,16 @@ add_headers(*files)
 
 [点击查看源码](http://github.com/numpy/numpy/blob/v1.15.1/numpy/distutils/misc_util.py#L1367-L1399)
 
-Add installable headers to configuration.
+将可安装标头添加到配置中。
 
-Add the given sequence of files to the beginning of the headers list. By default, headers will be installed under < python- include >/< self.name.replace(‘.’,’/’) >/ directory. If an item of files is a tuple, then its first argument specifies the actual installation location relative to the < python-include > path.
+将给定的文件序列添加到标题列表的开头。 默认情况下，标题将安装在< python-include > / < self.name.replace（'。'，'/'）> /目录下。 如果文件项是元组，则其第一个参数指定相对于< python-include >路径的实际安装位置。
 
 #### 参数说明
 
-- **files** : str or seq
-    Argument(s) can be either:
-    - 2-sequence (< includedir suffix >,< path to header file(s) >)
-    - path(s) to header file(s) where python includedir suffix will default to package name.
+- **files** : 字符串 或 序列
+    参数可以是：
+    - 2元序列（< includedir后缀 >，< 头文件的路径 >）
+    - 路径（s）到头文件，其中python includedir后缀将默认为包名称。
 
 ### 方法add_extension()
 
@@ -318,16 +318,16 @@ add_extension(name, sources, **kw)
 
 #### 简介
 
-Add extension to configuration.
+添加扩展到配置。
 
-Create and add an Extension instance to the ext_modules list. This method also takes the following optional keyword arguments that are passed on to the Extension constructor.
+创建Extension实例并将其添加到ext_modules列表中。 此方法还采用传递给Extension构造函数的以下可选关键字参数。
 
 #### 参数说明
 
-- **name** : str
-    name of the extension
-- **sources** : seq
-    list of the sources. The list of sources may contain functions (called source generators) which must take an extension instance and a build directory as inputs and return a source file or list of source files or None. If None is returned then no sources are generated. If the Extension instance has no sources after processing all source generators, then no extension module is built.
+- **name** : 字符串
+    扩展名
+- **sources** : 序列
+    来源清单。 源列表可能包含函数（称为源生成器），它们必须将扩展实例和构建目录作为输入并返回源文件或源文件列表或None。 如果返回None，则不生成任何源。 如果Extension实例在处理完所有源生成器后没有源，则不会构建任何扩展模块。
 - **include_dirs** : （译者注：官方无介绍）
 - **define_macros** :（译者注：官方无介绍）
 - **undef_macros** :（译者注：官方无介绍）
@@ -342,16 +342,16 @@ Create and add an Extension instance to the ext_modules list. This method also t
 - **export_symbols** :（译者注：官方无介绍）
 - **swig_opts** :（译者注：官方无介绍）
 - **depends** :（译者注：官方无介绍）
-    The depends list contains paths to files or directories that the sources of the extension module depend on. If any path in the depends list is newer than the extension module, then the module will be rebuilt.
+    depends列表包含扩展模块的源所依赖的文件或目录的路径。 如果依赖列表中的任何路径比扩展模块更新，则将重建该模块。
 - **language** :（译者注：官方无介绍）
 - **f2py_options** :（译者注：官方无介绍）
 - **module_dirs** :（译者注：官方无介绍）
 - **extra_info** : dict or list
-    dict or list of dict of keywords to be appended to keywords.
+    要附加到关键字的关键字的字典或列表。
 
 #### 提示
 
-The self.paths(…) method is applied to all lists that may contain paths.
+self.paths（...）方法应用于可能包含路径的所有列表。
 
 ### 方法add_library()
 
@@ -367,16 +367,16 @@ add_library(name, sources, **build_info)
 
 #### 简介
 
-Add library to configuration.
+将库添加到配置中。
 
 #### 参数说明
 
-- **name** : str
-    Name of the extension.
-- **sources** : sequence
-    List of the sources. The list of sources may contain functions (called source generators) which must take an extension instance and a build directory as inputs and return a source file or list of source files or None. If None is returned then no sources are generated. If the Extension instance has no sources after processing all source generators, then no extension module is built.
-- **build_info** : dict, optional
-    - The following keys are allowed:
+- **name** : 字符串
+    扩展名。
+- **sources** : 序列
+    来源清单。 源列表可能包含函数（称为源生成器），它们必须将扩展实例和构建目录作为输入并返回源文件或源文件列表或None。 如果返回None，则不生成任何源。 如果Extension实例在处理完所有源生成器后没有源，则不会构建任何扩展模块。
+- **build_info** : 字典，可选
+    - 允许以下键：
         - depends
         - macros
         - include_dirs
@@ -400,9 +400,9 @@ add_scripts(*files)
 
 #### 简介
 
-Add scripts to configuration.
+添加脚本到配置。
 
-Add the sequence of files to the beginning of the scripts list. Scripts will be installed under the <prefix>/bin/ directory.
+将文件序列添加到脚本列表的开头。 脚本将安装在< prefix >/bin/目录下。
 
 ### 方法add_installed_library()
 
@@ -418,19 +418,19 @@ add_installed_library(name, sources, install_dir, build_info=None)
 
 #### 简介
 
-Similar to add_library, but the specified library is installed.
+与add_library类似，但安装了指定的库。
 
-Most C libraries used with distutils are only used to build python extensions, but libraries built through this method will be installed so that they can be reused by third-party packages.
+与distutils一起使用的大多数C库仅用于构建python扩展，但是将安装通过此方法构建的库，以便第三方包可以重用它们。
 
 #### 参数说明
-- **name** : str
-    Name of the installed library.
-- **sources** : sequence
-    List of the library’s source files. See add_library for details.
-- **install_dir** : str
-    Path to install the library, relative to the current sub-package.
-- **build_info** : dict, optional
-    - The following keys are allowed:
+- **name** : 字符串
+    已安装库的名称。
+- **sources** : 序列
+    库的源文件列表。 有关详细信息，请参阅add_library。
+- **install_dir** : 字符串
+    相对于当前子包安装库的路径。
+- **build_info** : 字典, 可选
+    - 允许以下键：
         - depends
         - macros
         - include_dirs
@@ -451,7 +451,7 @@ None
 
 #### 提示
 
-The best way to encode the options required to link against the specified C libraries is to use a “libname.ini” file, and use get_info to retrieve the required options (see add_npy_pkg_config for more information).
+编码链接指定C库所需选项的最佳方法是使用“libname.ini”文件，并使用get_info检索所需的选项（有关更多信息，请参阅add_npy_pkg_config）。
 
 ### 方法add_npy_pkg_config()
 
@@ -467,24 +467,24 @@ add_npy_pkg_config(template, install_dir, subst_dict=None)
 
 #### 简介
 
-Generate and install a npy-pkg config file from a template.
+从模板生成并安装npy-pkg配置文件。
 
-The config file generated from template is installed in the given install directory, using subst_dict for variable substitution.
+从模板生成的配置文件安装在给定的安装目录中，使用subst_dict进行变量替换。
 
 #### 参数说明
-- **template** : str
-    The path of the template, relatively to the current package path.
-- **install_dir** : str
-    Where to install the npy-pkg config file, relatively to the current package path.
-- **subst_dict** : dict, optional
-    If given, any string of the form @key@ will be replaced by subst_dict[key] in the template file when installed. The install prefix is always available through the variable @prefix@, since the install prefix is not easy to get reliably from setup.py.
+- **template** : 字符串
+    模板的路径，相对于当前包路径。
+- **install_dir** : 字符串
+    在哪里安装npy-pkg配置文件，相对于当前包路径。
+- **subst_dict** : 字典, 可选
+    如果给定，@key@形式的任何字符串将在安装时由模板文件中的 subst_dict[key] 替换。 安装前缀始终可以通过变量@prefix @获得，因为安装前缀不容易从setup.py中可靠地获得。
 
 另见：
 > add_installed_library, get_info
 
 #### 提示
 
-This works for both standard installs and in-place builds, i.e. the @prefix@ refer to the source directory for in-place builds.
+这适用于标准安装和就地构建，即@prefix@引用就地构建的源目录。
 
 #### 例子
 
@@ -492,7 +492,7 @@ This works for both standard installs and in-place builds, i.e. the @prefix@ ref
 config.add_npy_pkg_config('foo.ini.in', 'lib', {'foo': bar})
 ```
 
-Assuming the foo.ini.in file has the following content:
+假设foo.ini.in文件具有以下内容：
 
 ```
 [meta]
@@ -518,7 +518,7 @@ Cflags=-Iprefix_dir/include
 Libs=
 ```
 
-and will be installed as foo.ini in the ‘lib’ subpath.
+并将作为foo.ini安装在'lib'子路径中。
 
 ### 方法paths()
 
@@ -534,9 +534,9 @@ paths(*paths, **kws)
 
 #### 简介
 
-Apply glob to paths and prepend local_path if needed.
+将glob应用于路径并在需要时添加local_path。
 
-Applies glob.glob(…) to each path in the sequence (if needed) and pre-pends the local_path if needed. Because this is called on all source lists, this allows wildcard characters to be specified in lists of sources for extension modules and libraries and scripts and allows path-names be relative to the source directory.
+将glob.glob（...）应用于序列中的每个路径（如果需要），并在需要时预先挂起local_path。 因为这是在所有源列表上调用的，所以这允许在扩展模块和库和脚本的源列表中指定通配符，并允许路径名相对于源目录。
 
 ### 方法get_config_cmd()
 
@@ -546,7 +546,7 @@ Applies glob.glob(…) to each path in the sequence (if needed) and pre-pends th
 
 #### 简介
 
-Returns the numpy.distutils config command instance.
+返回numpy.distutils config命令实例。
 
 ### 方法get_build_temp_dir()
 
@@ -556,7 +556,7 @@ Returns the numpy.distutils config command instance.
 
 #### 简介
 
-Return a path to a temporary directory where temporary files should be placed.
+返回应该放置临时文件的临时目录的路径。
 
 ### 方法have_f77c()
 
@@ -566,13 +566,13 @@ Return a path to a temporary directory where temporary files should be placed.
 
 #### 简介
 
-Check for availability of Fortran 77 compiler.
+检查Fortran 77编译器的可用性。
 
-Use it inside source generating function to ensure that setup distribution instance has been initialized.
+在源生成函数中使用它以确保已初始化安装程序分发实例。
 
-Notes
+#### 提示
 
-True if a Fortran 77 compiler is available (because a simple Fortran 77 code was able to be compiled successfully).
+如果Fortran 77编译器可用，则为True（因为能够成功编译简单的Fortran 77代码）。
 
 ### 方法have_f90c()
 
@@ -582,13 +582,13 @@ True if a Fortran 77 compiler is available (because a simple Fortran 77 code was
 
 #### 简介
 
-Check for availability of Fortran 90 compiler.
+检查Fortran 90编译器的可用性。
 
-Use it inside source generating function to ensure that setup distribution instance has been initialized.
+在源生成函数中使用它以确保已初始化安装程序分发实例。
 
-Notes
+#### 提示
 
-True if a Fortran 90 compiler is available (because a simple Fortran 90 code was able to be compiled successfully)
+如果Fortran 90编译器可用，则为True（因为能够成功编译简单的Fortran 90代码）
 
 ### 方法get_version()
 
@@ -604,13 +604,13 @@ get_version(version_file=None, version_variable=None)
 
 #### 简介
 
-Try to get version string of a package.
+尝试获取包的版本字符串。
 
-Return a version string of the current package or None if the version information could not be detected.
+如果无法检测到版本信息，则返回当前包的版本字符串或None。
 
-Notes
+#### 提示
 
-This method scans files named __version__.py, < packagename >_version.py, version.py, and __svn_version__.py for string variables version, __version__, and < packagename >_version, until a version number is found.
+此方法扫描名为__version__.py，< packagename > _version.py，version.py和__svn_version__.py的文件，以查找字符串变量version，__ version__和< packagename > _version，直到找到版本号。
 
 ### 方法make_svn_version_py()
 
@@ -626,15 +626,15 @@ make_svn_version_py(delete=True)
 
 #### 简介
 
-Appends a data function to the data_files list that will generate __svn_version__.py file to the current package directory.
+将数据函数附加到data_files列表，该列表将生成__svn_version__.py文件到当前包目录。
 
-Generate package __svn_version__.py file from SVN revision number, it will be removed after python exits but will be available when sdist, etc commands are executed.
+从SVN版本号生成包__svn_version__.py文件，它将在python退出后删除，但在执行sdist等命令时可用。
 
-Notes
+#### 提示
 
-If __svn_version__.py existed before, nothing is done.
+如果之前存在 __svn_version__.py，则不执行任何操作。
 
-This is intended for working with source directories that are in an SVN repository.
+这适用于处理SVN存储库中的源目录。
 
 ### 方法make_config_py()
 
@@ -650,9 +650,9 @@ make_config_py(name='__config__')
 
 #### 简介
 
-Generate package __config__.py file containing system_info information used during building the package.
+生成包__config__.py文件，其中包含构建程序包时使用的system_info信息。
 
-This file is installed to the package installation directory.
+此文件安装在软件包安装目录中。
 
 ### 方法get_info()
 
@@ -668,14 +668,14 @@ get_info(*names)
 
 #### 简介
 
-Get resources information.
+获取资源信息。
 
-Return information (from system_info.get_info) for all of the names in the argument list in a single dictionary.
+返回单个字典中参数列表中所有名称的信息（来自system_info.get_info）。
 
 ## 其他模块
 
-- system_info.get_info(name[, notfound_action])	notfound_action: 0 - do nothing 1 - display warning message 2 - raise error
-- system_info.get_standard_file(fname)	Returns a list of files named ‘fname’ from 1) System-wide directory (directory-location of this module) 2) Users HOME directory (os.environ[‘HOME’]) 3) Local directory
+- system_info.get_info(name[, notfound_action])	notfound_action：0 - 什么也不做1 - 显示警告信息2 - 引发错误
+- system_info.get_standard_file(fname)	从1）返回名为'fname'的文件列表。系统范围的目录（该模块的目录位置）2）用户HOME目录（os.environ ['HOME']）3）本地目录
 - cpuinfo.cpu	
 - log.set_verbosity(v[, force])	
 - exec_command	exec_command
