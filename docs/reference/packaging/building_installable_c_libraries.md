@@ -26,7 +26,7 @@ cflags = -I${includedir}
 libs = -L${libdir} -lfoo
 ```
 
-Generally, the file needs to be generated during the build, since it needs some information known at build time only (e.g. prefix). This is mostly automatic if one uses the Configuration method add_npy_pkg_config. Assuming we have a template file foo.ini.in as follows:
+通常，需要在构建期间生成文件，因为它需要仅在构建时知道的一些信息（例如前缀）。如果使用配置方法add_npy_pkg_config，这通常是自动的。 假设我们有一个模板文件foo.ini.in如下：
 
 ```
 [meta]
