@@ -1,4 +1,6 @@
-# 前言 
+<title>numpy中文文档 - NumPy 中文文档</title>
+
+# 前言
 
 ## 译者的话
 
@@ -17,6 +19,8 @@
 ## 联系方式
 
 - 发起人邮箱：l@numpy.org.cn
+- 发起人微信号：iamnotahacker
+- QQ交流群：294639068
 
 ## 贡献翻译
 

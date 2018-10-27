@@ -1,4 +1,4 @@
-- [numpy中文文档](/index)
+- [关于中文文档](/index)
 - [NumPy参考文章](/article/index)
     - [+基础篇](/article/basics/index)
         - [NumPy简单入门教程](/article/basics/an_introduction_to_scientific_python_numpy)
