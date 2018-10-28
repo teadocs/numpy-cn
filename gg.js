@@ -27,15 +27,15 @@
             }
         })();
         //七月
-        (function() {
-            var ggStyle = window.document.createElement("style");
-            ggStyle.innerHTML = "#gg-box1{max-width:900px;padding-left:60px;padding-bottom:20px;padding-right:60px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box1 img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box1 img:hover{opacity:.9}"
-            document.querySelector(".tea-container").appendChild(ggStyle);
-            var gg = window.document.createElement("div");
-            gg.id = "gg-box1";
-            gg.innerHTML = "<img src='/static/images/gg-qiyue-1.png' onclick='_ggjump(0)' />";
-            document.querySelector(".tea-container").appendChild(gg);
-        })();
+        // (function() {
+        //     var ggStyle = window.document.createElement("style");
+        //     ggStyle.innerHTML = "#gg-box1{max-width:900px;padding-left:60px;padding-bottom:20px;padding-right:60px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box1 img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box1 img:hover{opacity:.9}"
+        //     document.querySelector(".tea-container").appendChild(ggStyle);
+        //     var gg = window.document.createElement("div");
+        //     gg.id = "gg-box1";
+        //     gg.innerHTML = "<img src='/static/images/gg-qiyue-1.png' onclick='_ggjump(0)' />";
+        //     document.querySelector(".tea-container").appendChild(gg);
+        // })();
         //楚才国科
         (function() {
             if ( randomNum(0, 10) > 8 ) {
