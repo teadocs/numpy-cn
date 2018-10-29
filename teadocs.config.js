@@ -58,7 +58,7 @@ module.exports = {
         <script>
         (function() {
             var script = document.createElement("script");
-            script.src = "/gg.js";
+            script.src = "/gg.js?time=" + (new Date()).getTime();
             document.body.appendChild(script);
         })();
         </script>
