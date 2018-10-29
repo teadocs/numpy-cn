@@ -1,21 +1,23 @@
+<meta name="keywords" content="OpenCV,OpenCV使用numpy操作图像" />
+
 # OpenCV中的图像的基本操作
 
 ## 目标
 
-Learn to:
+学到如下项目:
 
-- Access pixel values and modify them
-- Access image properties
-- Setting Region of Image (ROI)
-- Splitting and Merging images
+- 访问像素值并修改它们
+- 存取图像特性
+- 图像设置区域(ROI)
+- 分割和合并图像
 
-Almost all the operations in this section is mainly related to Numpy rather than OpenCV. A good knowledge of Numpy is required to write better optimized code with OpenCV.
+本节中的几乎所有操作都主要与``Numpy``有关，而不是OpenCV。要使用OpenCV编写更好的优化代码，需要对Numpy有很好的了解。
 
-*( Examples will be shown in Python terminal since most of them are just single line codes )*
+*(示例将在Python终端中显示，因为大多数示例都是单行代码)*
 
-## Accessing and Modifying pixel values
+## 访问和修改像素值
 
-Let’s load a color image first:
+让我们先加载一个彩色图像：
 
 ```python
 >>> import cv2
@@ -24,8 +26,8 @@ Let’s load a color image first:
 >>> img = cv2.imread('messi5.jpg')
 ```
 
-You can access a pixel value by its row and column coordinates. For BGR image, it returns an array of Blue, Green, Red values. For 
-grayscale image, just corresponding intensity is returned.
+你可以根据像素值的行和列坐标来访问它。对于BGR图像，它返回一个蓝色、绿色、红色值数组。为。
+灰度图像，只返回相应的亮度。
 
 ```python
 >>> px = img[100,100]
@@ -38,7 +40,7 @@ grayscale image, just corresponding intensity is returned.
 157
 ```
 
-You can modify the pixel values the same way.
+你可以同样的方式修改像素值。
 
 ```python
 >>> img[100,100] = [255,255,255]
@@ -49,12 +51,12 @@ You can modify the pixel values the same way.
 <div class="warning-warp">
 <b>警告</b>
 
-<p>Numpy is a optimized library for fast array calculations. So simply accessing each and every pixel values and modifying it will be very slow and it is discouraged.</p>
+<p>Numpy是一个用于快速数组计算的优化库。因此，使用原生python的数组简单地访问每个像素值，并修改它将非常缓慢，我们并不推荐这种方法。</p>
 </div>
 
-> **Note:** Above mentioned method is normally used for selecting a region of array, say first 5 rows and last 3 columns like that. For individual pixel access, Numpy array methods, array.item() and array.itemset() is considered to be better. But it always returns a scalar. So if you want to access all B,G,R values, you need to call array.item() separately for all.
+> **注意：** 上述方法通常用于选择数组区域，例如前5行和最后3列。对于单个像素访问，但用Numpy数组的方法、array.tem()和array.itemset() 会更适合。因为它总是返回一个标量。因此，如果您想访问所有的B，G，R值，您需要为所有人分别调用array.tem()。
 
-Better pixel accessing and editing method :
+更好的像素访问和编辑方法：
 
 ```python
 # accessing RED value
@@ -67,66 +69,66 @@ Better pixel accessing and editing method :
 100
 ```
 
-## Accessing Image Properties
+## 访问图像属性
 
-Image properties include number of rows, columns and channels, type of image data, number of pixels etc.
+图像属性包括行数，列数和通道数，图像数据类型，像素数等。
 
-Shape of image is accessed by img.shape. It returns a tuple of number of rows, columns and channels (if image is color):
+img.shape可以访问图像的形状。 它返回一组行，列和通道的元组（如果图像是彩色的）：
 
 ```python
 >>> print img.shape
 (342, 548, 3)
 ```
 
-> **Note:** If image is grayscale, tuple returned contains only number of rows and columns. So it is a good method to check if loaded image is grayscale or color image.
+> **注意：** 如果图像是灰度，则返回的元组仅包含行数和列数。因此，检查加载的图像是灰度还是彩色图像是一种很好的方法。
 
-Total number of pixels is accessed by img.size:
+img.size访问的像素总数：
 
 ```python
 >>> print img.size
 562248
 ```
 
-Image datatype is obtained by img.dtype:
+图像数据类型由img.dtype获得：
 
 ```python
 >>> print img.dtype
 uint8
 ```
 
-> **Note:** img.dtype is very important while debugging because a large number of errors in OpenCV-Python code is caused by invalid datatype.
+> **注意：** img.dtype在调试时非常重要，因为OpenCV-Python代码中的大量错误是由无效的数据类型引起的。
 
-## Image ROI
+## 图像 ROI
 
-Sometimes, you will have to play with certain region of images. For eye detection in images, first face detection is done all over the image and when face is obtained, we select the face region alone and search for eyes inside it instead of searching whole image. It improves accuracy (because eyes are always on faces :D ) and performance (because we search for a small area)
+有时，您必须使用某些图像区域。对于图像中的眼睛检测，在整个图像上进行第一次面部检测，并且当获得面部时，我们单独选择面部区域并搜索其内部的眼睛而不是搜索整个图像。它提高了准确性（因为眼睛总是在脸上：D）和表现（因为我们搜索的是一小块区域）
 
-ROI is again obtained using Numpy indexing. Here I am selecting the ball and copying it to another region in the image:
+使用Numpy索引再次获得ROI。在这里，我选择球并将其复制到图像中的另一个区域：
 
 ```python
 >>> ball = img[280:340, 330:390]
 >>> img[273:333, 100:160] = ball
 ```
 
-Check the results below:
+检查以下结果：
 
 ![roi](/static/images/roi.jpg)
 
-## Splitting and Merging Image Channels
+## 拆分和合并图像通道
 
-Sometimes you will need to work separately on B,G,R channels of image. Then you need to split the BGR images to single planes. Or another time, you may need to join these individual channels to BGR image. You can do it simply by:
+有时您需要在B,G,R通道图像上单独工作。然后，您需要将BGR图像分割为单个平面。或者，您可能需要将这些单独的通道连接到BGR图像。您可以通过以下方式完成：
 
 ```python
 >>> b,g,r = cv2.split(img)
 >>> img = cv2.merge((b,g,r))
 ```
 
-Or
+或者这样写：
 
 ```python
 >>> b = img[:,:,0]
 ```
 
-Suppose, you want to make all the red pixels to zero, you need not split like this and put it equal to zero. You can simply use Numpy indexing, and that is more faster.
+假设，您想要将所有红色像素设为零，您不需要像这样分割并将其等于零。 您可以简单地使用Numpy索引，这样更快。
 
 ```python
 >>> img[:,:,2] = 0
@@ -135,24 +137,24 @@ Suppose, you want to make all the red pixels to zero, you need not split like th
 <div class="warning-warp">
 <b>警告</b>
 
-<p>cv2.split() is a costly operation (in terms of time). So do it only if you need it. Otherwise go for Numpy indexing.</p>
+<p>cv2.split() 是一项代价昂贵的的操作（就运算时间而言）。所以只有在你需要时才使用这个方法。否则请使用Numpy索引。</p>
 </div>
 
-## Making Borders for Images (Padding)
+## 制作图像边框（填充）
 
-If you want to create a border around the image, something like a photo frame, you can use cv2.copyMakeBorder() function. But it has more applications for convolution operation, zero padding etc. This function takes following arguments:
+如果要在图像周围创建边框，比如相框，可以使用cv2.copyMakeBorder() 函数。但它有更多卷积运算，零填充等应用。该函数采用以下参数：
 
-- src - input image
-- top, bottom, left, right - border width in number of pixels in corresponding directions
-- borderType - Flag defining what kind of border to be added. It can be following types:
-    - cv2.BORDER_CONSTANT - Adds a constant colored border. The value should be given as next argument.
-    - cv2.BORDER_REFLECT - Border will be mirror reflection of the border elements, like this : fedcba|abcdefgh|hgfedcb
-    - cv2.BORDER_REFLECT_101 or cv2.BORDER_DEFAULT - Same as above, but with a slight change, like this : gfedcb|abcdefgh|gfedcba
-    - cv2.BORDER_REPLICATE - Last element is replicated throughout, like this: aaaaaa|abcdefgh|hhhhhhh
-    - cv2.BORDER_WRAP - Can’t explain, it will look like this : cdefgh|abcdefgh|abcdefg
-- value - Color of border if border type is cv2.BORDER_CONSTANT
+- src - 输入图像
+- top, bottom, left, right - 相应方向上的像素数的边界宽度
+- borderType - 标志定义要添加的边框类型。它可以是以下类型：
+    - cv2.BORDER_CONSTANT - 添加恒定的彩色边框。 该值应作为下一个参数给出。
+    - cv2.BORDER_REFLECT - 边框将镜像反射边界元素，如：fedcba | abcdefgh | hgfedcb
+    - cv2.BORDER_REFLECT_101 or cv2.BORDER_DEFAULT - 边框将镜像反射边界元素，如：fedcba | abcdefgh | hgfedcb
+    - cv2.BORDER_REPLICATE - 最后一个元素被复制，如下所示：aaaaaa | abcdefgh | hhhhhhh
+    - cv2.BORDER_WRAP - 无法解释，它看起来像这样：cdefgh | abcdefgh | abcdefg
+- value - 如果边框类型为cv2.BORDER_CONSTANT，则为边框颜色
 
-Below is a sample code demonstrating all these border types for better understanding:
+下面是一个示例代码，演示了所有这些边框类型，以便更好地理解：
 
 ```python
 import cv2
@@ -179,15 +181,15 @@ plt.subplot(236),plt.imshow(constant,'gray'),plt.title('CONSTANT')
 plt.show()
 ```
 
-See the result below. (Image is displayed with matplotlib. So RED and BLUE planes will be interchanged):
+请参阅下面的结果。（图像与matplotlib一起显示。因此RED和BLUE平面将互换）：
 
 ![border](/static/images/border.jpg)
 
-## Help and Feedback
+## 帮助和反馈
 
-You did not find what you were looking for?
-- Ask a question on the [Q&A forum](http://answers.opencv.org/).
-- If you think something is missing or wrong in the documentation, please file a [bug report](http://code.opencv.org/).
+你找不到你想要的东西？
+- 在[问答论坛](http://answers.opencv.org/)上提问。
+- 如果您认为文档中缺少某些内容或错误，请提交[错误报告](http://code.opencv.org/)。
 
 ## 文章出处
 
