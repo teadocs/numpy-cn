@@ -1,23 +1,24 @@
 # NumPy C语言代码解释
 
-> Fanaticism consists of redoubling your efforts when you have forgotten your aim. — George Santayana
-> An authority is a person who can tell you more about something than you really care to know. — Unknown
+> 名人名言：
+> 狂热包括当你忘记了你的目标时加倍努力。-乔治·桑塔亚纳。
+> 权威是一个人，他能告诉你比你真正想知道的更多的事情。-未知
 
-This Chapter attempts to explain the logic behind some of the new pieces of code. The purpose behind these explanations is to enable somebody to be able to understand the ideas behind the implementation somewhat more easily than just staring at the code. Perhaps in this way, the algorithms can be improved on, borrowed from, and/or optimized.
+本章试图解释一些新代码背后的逻辑。 这些解释背后的目的是让某人能够比仅仅盯着代码更容易理解实现背后的想法。 也许以这种方式，可以改进，借用和/或优化算法。
 
-## Memory model
+## 内存模型
 
-One fundamental aspect of the ndarray is that an array is seen as a “chunk” of memory starting at some location. The interpretation of this memory depends on the stride information. For each dimension in an N -dimensional array, an integer (stride) dictates how many bytes must be skipped to get to the next element in that dimension. Unless you have a single-segment array, this stride information must be consulted when traversing through an array. It is not difficult to write code that accepts strides, you just have to use (char *) pointers because strides are in units of bytes. Keep in mind also that strides do not have to be unit-multiples of the element size. Also, remember that if the number of dimensions of the array is 0 (sometimes called a rank-0 array), then the strides and dimensions variables are NULL.
+ndarray的一个基本方面是数组被视为从某个位置开始的内存“块”。这种内存的解释取决于步幅信息。对于N维数组中的每个维度，整数（stride）指示必须跳过多少字节才能到达该维度中的下一个元素。 除非您有单段数组，否则在遍历数组时必须查阅此步幅信息。 编写接受strides的代码并不困难，只需使用（char *）指针，因为strides以字节为单位。 还要记住，步幅不必是元素大小的单位倍数。 另外，请记住，如果数组的维数为0（有时称为rank-0数组），则strides和dimension变量为NULL。
 
-Besides the structural information contained in the strides and dimensions members of the [PyArrayObject](https://docs.scipy.org/doc/numpy/reference/c-api.types-and-structures.html#c.PyArrayObject), the flags contain important information about how the data may be accessed. In particular, the [NPY_ARRAY_ALIGNED](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_ALIGNED) flag is set when the memory is on a suitable boundary according to the data-type array. Even if you have a contiguous chunk of memory, you cannot just assume it is safe to dereference a data- type-specific pointer to an element. Only if the [NPY_ARRAY_ALIGNED](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_ALIGNED) flag is set is this a safe operation (on some platforms it will work but on others, like Solaris, it will cause a bus error). The [NPY_ARRAY_WRITEABLE](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_WRITEABLE) should also be ensured if you plan on writing to the memory area of the array. It is also possible to obtain a pointer to an unwritable memory area. Sometimes, writing to the memory area when the [NPY_ARRAY_WRITEABLE](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_WRITEABLE) flag is not set will just be rude. Other times it can cause program crashes ( e.g. a data-area that is a read-only memory-mapped file).
+除了[PyArrayObject](https://docs.scipy.org/doc/numpy/reference/c-api.types-and-structures.html#c.PyArrayObject)的步幅和维度成员中包含的结构信息之外，标志还包含有关如何访问数据的重要信息。 特别是，当内存根据数据类型数组位于合适的边界时，设置[NPY_ARRAY_ALIGNED](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_ALIGNED)标志。 即使你有一个连续的内存块，你也不能仅仅假设取消引用一个特定于数据类型的指向元素的指针是安全的。 只有设置了[NPY_ARRAY_ALIGNED](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_ALIGNED)标志才是安全操作（在某些平台上它可以工作，但在其他平台上，如Solaris，它会导致总线错误）。 如果您计划写入阵列的存储区，也应该确保[NPY_ARRAY_WRITEABLE](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_WRITEABLE)。 还可以获得指向不可写存储区的指针。 有时，当未设置[NPY_ARRAY_WRITEABLE](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_WRITEABLE)标志时写入存储区域将是粗鲁的。 其他时候它可能导致程序崩溃（例如，作为只读存储器映射文件的数据区）。
 
-## Data-type encapsulation
+## 数据类型封装
 
-The data-type is an important abstraction of the ndarray. Operations will look to the data-type to provide the key functionality that is needed to operate on the array. This functionality is provided in the list of function pointers pointed to by the ‘f’ member of the [PyArray_Descr](https://docs.scipy.org/doc/numpy/reference/c-api.types-and-structures.html#c.PyArray_Descr) structure. In this way, the number of data-types can be extended simply by providing a [PyArray_Descr](https://docs.scipy.org/doc/numpy/reference/c-api.types-and-structures.html#c.PyArray_Descr) structure with suitable function pointers in the ‘f’ member. For built-in types there are some optimizations that by-pass this mechanism, but the point of the data- type abstraction is to allow new data-types to be added.
+数据类型是ndarray的重要抽象。 操作将查看数据类型以提供操作阵列所需的关键功能。 此功能在[PyArray_Descr](https://docs.scipy.org/doc/numpy/reference/c-api.types-and-structures.html#c.PyArray_Descr) 结构的'f'成员指向的函数指针列表中提供。 通过这种方式，可以简单地通过在'f'成员中提供具有合适的函数指针的[PyArray_Descr](https://docs.scipy.org/doc/numpy/reference/c-api.types-and-structures.html#c.PyArray_Descr) 结构来扩展数据类型的数量。 对于内置类型，有一些优化绕过这种机制，但数据类型抽象的要点是允许添加新的数据类型。
 
-One of the built-in data-types, the void data-type allows for arbitrary structured types containing 1 or more fields as elements of the array. A field is simply another data-type object along with an offset into the current structured type. In order to support arbitrarily nested fields, several recursive implementations of data-type access are implemented for the void type. A common idiom is to cycle through the elements of the dictionary and perform a specific operation based on the data-type object stored at the given offset. These offsets can be arbitrary numbers. Therefore, the possibility of encountering mis- aligned data must be recognized and taken into account if necessary.
+作为内置数据类型之一，void data-type允许包含1个或多个字段的任意结构化类型作为数组的元素。 字段只是另一个数据类型对象以及当前结构化类型的偏移量。 为了支持任意嵌套字段，为void类型实现了数据类型访问的几个递归实现。 常见的习语是循环遍历字典的元素并基于存储在给定偏移处的数据类型对象执行特定操作。 这些偏移可以是任意数字。 因此，必要时必须识别并考虑到遇到错位数据的可能性。
 
-## N-D Iterators
+## N-D 迭代器
 
 A very common operation in much of NumPy code is the need to iterate over all the elements of a general, strided, N-dimensional array. This operation of a general-purpose N-dimensional loop is abstracted in the notion of an iterator object. To write an N-dimensional loop, you only have to create an iterator object from an ndarray, work with the dataptr member of the iterator object structure and call the macro [PyArray_ITER_NEXT](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.PyArray_ITER_NEXT) (it) on the iterator object to move to the next element. The “next” element is always in C-contiguous order. The macro works by first special casing the C-contiguous, 1-D, and 2-D cases which work very simply.
 
