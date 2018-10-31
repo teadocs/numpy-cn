@@ -1,5 +1,3 @@
-<title>numpy中文文档 - NumPy 中文文档</title>
-
 # 前言
 
 ## 译者的话
