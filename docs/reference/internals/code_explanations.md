@@ -8,9 +8,9 @@
 
 ## 内存模型
 
-ndarray的一个基本方面是数组被视为从某个位置开始的内存“块”。这种内存的解释取决于步幅信息。对于N维数组中的每个维度，整数（stride）指示必须跳过多少字节才能到达该维度中的下一个元素。 除非您有单段数组，否则在遍历数组时必须查阅此步幅信息。 编写接受strides的代码并不困难，只需使用（char *）指针，因为strides以字节为单位。 还要记住，步幅不必是元素大小的单位倍数。 另外，请记住，如果数组的维数为0（有时称为rank-0数组），则strides和dimension变量为NULL。
+ndarray的一个基本方面是数组被视为从某个位置开始的内存“块”。这种内存的解释取决于步幅信息。对于N维数组中的每个维度，整数（stride）指示必须跳过多少字节才能到达该维度中的下一个元素。 除非你有单段数组，否则在遍历数组时必须查阅此步幅信息。 编写接受strides的代码并不困难，只需使用（char *）指针，因为strides以字节为单位。 还要记住，步幅不必是元素大小的单位倍数。 另外，请记住，如果数组的维数为0（有时称为rank-0数组），则strides和dimension变量为NULL。
 
-除了[PyArrayObject](https://docs.scipy.org/doc/numpy/reference/c-api.types-and-structures.html#c.PyArrayObject)的步幅和维度成员中包含的结构信息之外，标志还包含有关如何访问数据的重要信息。 特别是，当内存根据数据类型数组位于合适的边界时，设置[NPY_ARRAY_ALIGNED](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_ALIGNED)标志。 即使你有一个连续的内存块，你也不能仅仅假设取消引用一个特定于数据类型的指向元素的指针是安全的。 只有设置了[NPY_ARRAY_ALIGNED](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_ALIGNED)标志才是安全操作（在某些平台上它可以工作，但在其他平台上，如Solaris，它会导致总线错误）。 如果您计划写入阵列的存储区，也应该确保[NPY_ARRAY_WRITEABLE](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_WRITEABLE)。 还可以获得指向不可写存储区的指针。 有时，当未设置[NPY_ARRAY_WRITEABLE](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_WRITEABLE)标志时写入存储区域将是粗鲁的。 其他时候它可能导致程序崩溃（例如，作为只读存储器映射文件的数据区）。
+除了[PyArrayObject](https://docs.scipy.org/doc/numpy/reference/c-api.types-and-structures.html#c.PyArrayObject)的步幅和维度成员中包含的结构信息之外，标志还包含有关如何访问数据的重要信息。 特别是，当内存根据数据类型数组位于合适的边界时，设置[NPY_ARRAY_ALIGNED](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_ALIGNED)标志。 即使你有一个连续的内存块，你也不能仅仅假设取消引用一个特定于数据类型的指向元素的指针是安全的。 只有设置了[NPY_ARRAY_ALIGNED](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_ALIGNED)标志才是安全操作（在某些平台上它可以工作，但在其他平台上，如Solaris，它会导致总线错误）。 如果你计划写入阵列的存储区，也应该确保[NPY_ARRAY_WRITEABLE](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_WRITEABLE)。 还可以获得指向不可写存储区的指针。 有时，当未设置[NPY_ARRAY_WRITEABLE](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.NPY_ARRAY_WRITEABLE)标志时写入存储区域将是粗鲁的。 其他时候它可能导致程序崩溃（例如，作为只读存储器映射文件的数据区）。
 
 ## 数据类型封装
 
@@ -36,7 +36,7 @@ ndarray的一个基本方面是数组被视为从某个位置开始的内存“�
 
 ## 数组标量
 
-数组标量提供了Python类型的层次结构，允许存储在数组中的数据类型与从数组中提取元素时返回的Python类型进行一对一的对应。这个规则的一个例外是对象数组。对象数组是任意Python对象的异构集合。当您从一个对象数组中选择一个项目时，您将获得原始的Python对象(而不是一个对象数组标量，该标量确实存在，但很少用于实际目的)。
+数组标量提供了Python类型的层次结构，允许存储在数组中的数据类型与从数组中提取元素时返回的Python类型进行一对一的对应。这个规则的一个例外是对象数组。对象数组是任意Python对象的异构集合。当你从一个对象数组中选择一个项目时，你将获得原始的Python对象(而不是一个对象数组标量，该标量确实存在，但很少用于实际目的)。
 
 数组标量还提供与数组相同的方法和属性，目的是使用相同的代码支持任意维(包括0维)。除了空标量之外，数组标量是只读的(不可变的)，它也可以被写入，以便结构化数组字段设置更自然地工作 (a[0][‘f1’] = ``value`` ).
 
@@ -58,7 +58,7 @@ ndarray的一个基本方面是数组被视为从某个位置开始的内存“�
 
 ### 高级索引
 
-到目前为止，最复杂的情况是高级索引，它可能与也可能不与典型的基于视图的索引相结合。 这里整数索引被解释为基于视图。 在尝试理解这一点之前，您可能想要熟悉它的细微之处。 高级索引代码有三个不同的分支和一个特例：
+到目前为止，最复杂的情况是高级索引，它可能与也可能不与典型的基于视图的索引相结合。 这里整数索引被解释为基于视图。 在尝试理解这一点之前，你可能想要熟悉它的细微之处。 高级索引代码有三个不同的分支和一个特例：
 
 - 有一个索引数组，它以及赋值数组可以简单地迭代。 例如，它们可能是连续的。 索引数组也必须是 **intp** 类型，赋值中的值数组应该是正确的类型。这纯粹是一条快速的道路。
 - 只有整数数组索引，因此不存在子数组。
@@ -76,7 +76,7 @@ ndarray的一个基本方面是数组被视为从某个位置开始的内存“�
 
 ## 建立
 
-每个ufunc计算都涉及与设置计算相关的一些开销。这种开销的实际意义在于，即使ufunc的实际计算速度非常快，您也可以编写数组和特定于类型的代码，这些代码对于小型数组而言比ufunc更快。特别是，使用ufuncs在0-D阵列上执行许多计算将比其他基于Python的解决方案慢（静默导入的scalarmath模块精确存在，以使阵列标量具有基于ufunc的计算的外观和显着降低的开销）。
+每个ufunc计算都涉及与设置计算相关的一些开销。这种开销的实际意义在于，即使ufunc的实际计算速度非常快，你也可以编写数组和特定于类型的代码，这些代码对于小型数组而言比ufunc更快。特别是，使用ufuncs在0-D阵列上执行许多计算将比其他基于Python的解决方案慢（静默导入的scalarmath模块精确存在，以使阵列标量具有基于ufunc的计算的外观和显着降低的开销）。
 
 当调用ufunc时，必须完成许多事情。从这些设置操作收集的信息存储在循环对象中。这个循环对象是一个C结构（它可以成为一个Python对象，但不会这样初始化，因为它只在内部使用）。此循环对象具有需要与PyArray_Broadcast一起使用的布局，以便可以以与在其他代码段中处理的方式相同的方式处理广播。
 
@@ -94,39 +94,39 @@ ndarray的一个基本方面是数组被视为从某个位置开始的内存“�
 
 最后，决定如何执行循环机制以确保输入数组的所有元素组合在一起以生成正确类型的输出数组。 循环执行的选项是单循环（对于连续，对齐和正确的数据类型），跨循环（对于非连续但仍对齐且正确的数据类型）和缓冲循环（对于错误对齐或不正确的数据） 类型情况）。 根据要求的执行方法，然后设置并计算循环。
 
-### Function call
+### 函数调用
 
-This section describes how the basic universal function computation loop is setup and executed for each of the three different kinds of execution. If **NPY_ALLOW_THREADS** is defined during compilation, then as long as no object arrays are involved, the Python Global Interpreter Lock (GIL) is released prior to calling the loops. It is re-acquired if necessary to handle error conditions. The hardware error flags are checked only after the 1-D loop is completed.
+本节描述如何为三种不同类型的执行中的每一种设置和执行基本的通用函数计算循环。如果在编译期间定义了**NPY_ALLOW_TRESOS**，那么只要不涉及对象数组，就会在调用循环之前释放Python全局解释器锁(GIL)。如果有必要，将重新获取它以处理错误情况。只有在完成一维循环之后，才会检查硬件错误标志.
 
-#### One Loop
+#### 单循环
 
-This is the simplest case of all. The ufunc is executed by calling the underlying 1-D loop exactly once. This is possible only when we have aligned data of the correct type (including byte-order) for both input and output and all arrays have uniform strides (either contiguous, 0-D, or 1-D). In this case, the 1-D computational loop is called once to compute the calculation for the entire array. Note that the hardware error flags are only checked after the entire calculation is complete.
+这是最简单的例子。ufunc通过调用底层的一维循环执行一次。只有当输入和输出都对齐了正确类型的数据(包括字节顺序)，并且所有数组都具有一致的步长(连续的、0-D或1-D)时，才有可能做到这一点。在这种情况下，一维计算循环只调用一次，以计算整个数组的计算。请注意，只有在完成整个计算之后，才会检查硬件错误标志。
 
-#### Strided Loop
+#### 跨步循环
 
-When the input and output arrays are aligned and of the correct type, but the striding is not uniform (non-contiguous and 2-D or larger), then a second looping structure is employed for the calculation. This approach converts all of the iterators for the input and output arguments to iterate over all but the largest dimension. The inner loop is then handled by the underlying 1-D computational loop. The outer loop is a standard iterator loop on the converted iterators. The hardware error flags are checked after each 1-D loop is completed.
+当输入和输出阵列对齐且类型正确时，但是跨步不均匀（非连续且2-D或更大），则采用第二循环结构进行计算。 此方法转换输入和输出参数的所有迭代器，以迭代除最大维之外的所有维度。 然后，内部循环由底层的1-D计算循环处理。 外部循环是转换迭代器上的标准迭代器循环。 每个1-D循环完成后，将检查硬件错误标志。
 
-#### Buffered Loop
+#### 缓冲循环
 
-This is the code that handles the situation whenever the input and/or output arrays are either misaligned or of the wrong data-type (including being byte-swapped) from what the underlying 1-D loop expects. The arrays are also assumed to be non-contiguous. The code works very much like the strided-loop except for the inner 1-D loop is modified so that pre-processing is performed on the inputs and post- processing is performed on the outputs in bufsize chunks (where bufsize is a user-settable parameter). The underlying 1-D computational loop is called on data that is copied over (if it needs to be). The setup code and the loop code is considerably more complicated in this case because it has to handle:
+这是在输入和/或输出数组未对齐或者与底层1-D循环期望的数据类型（包括字节交换）错误时处理这种情况的代码。 还假定阵列是非连续的。 除了内部1-D循环被修改以便对输入执行预处理并且在bufsize块中的输出上执行后处理（其中bufsize是用户可设置的）时，代码非常类似于跨步循环。 参数）。 在复制的数据上调用底层的1-D计算循环（如果需要的话）。 在这种情况下，设置代码和循环代码要复杂得多，因为它必须处理：
 
-- memory allocation of the temporary buffers
-- deciding whether or not to use buffers on the input and output data (mis-aligned and/or wrong data-type)
-- copying and possibly casting data for any inputs or outputs for which buffers are necessary.
-- special-casing Object arrays so that reference counts are properly handled when copies and/or casts are necessary.
-- breaking up the inner 1-D loop into bufsize chunks (with a possible remainder).
+- 临时缓冲区的内存分配
+- 决定是否在输入和输出数据上使用缓冲区（错误对齐和/或错误的数据类型）
+- 复制并可能为需要缓冲区的任何输入或输出转换数据。
+- 特殊外壳对象数组，以便在需要复制和/或强制转换时正确处理引用计数。
+- 将内部1-D循环分解为bufsize块（可能的余数）。
 
-Again, the hardware error flags are checked at the end of each 1-D loop.
+同样，在每个一维循环结束时检查硬件错误标志.
 
-### Final output manipulation
+### 最终输出操作
 
-Ufuncs allow other array-like classes to be passed seamlessly through the interface in that inputs of a particular class will induce the outputs to be of that same class. The mechanism by which this works is the following. If any of the inputs are not ndarrays and define the [__array_wrap__](https://docs.scipy.org/doc/numpy/reference/arrays.classes.html#numpy.class.__array_wrap__) method, then the class with the largest [__array_priority__](https://docs.scipy.org/doc/numpy/reference/arrays.classes.html#numpy.class.__array_priority__) attribute determines the type of all the outputs (with the exception of any output arrays passed in). The [__array_wrap__](https://docs.scipy.org/doc/numpy/reference/arrays.classes.html#numpy.class.__array_wrap__) method of the input array will be called with the ndarray being returned from the ufunc as it’s input. There are two calling styles of the [__array_wrap__](https://docs.scipy.org/doc/numpy/reference/arrays.classes.html#numpy.class.__array_wrap__) function supported. The first takes the ndarray as the first argument and a tuple of “context” as the second argument. The context is (ufunc, arguments, output argument number). This is the first call tried. If a TypeError occurs, then the function is called with just the ndarray as the first argument.
+用户函数允许其他类似数组的类无缝地通过接口传递，因为特定类的输入会将输出归纳为同一类的输出。其工作机制如下。如果其中的任何输入不是ndarray，并定义[__arrarayWRAP_](https：/docs.sciy.org/doc/numpy/Reference/arrays.classes.html#numpy.class._arrarar_wirp_)方法，则为，(https：/docs.sciy.org/doc/numpy/Reference/arrays.classes.html#numpy.class.然后，具有最大[__RARAY_PRERE__]属性的类(https：/docs.sciy.org/doc/numpy/Reference/arrays.classes.html#numpy.class._arrayererre__)属性确定所有输出的类型(传入的输出数组除外)。将调用输入数组的[__ARRAY_WREAL__](https：/docs.sciy.org/doc/numpy/Reference/arrays.classes.html#numpy.class._array.clack_)方法，并在输入时从ufunc返回ndarray。支持以下两种调用样式：[__arrayWRAP__](https：/docs.sciy.org/doc/numpy/Reference/arrays.classes.html#numpy.class._arrayarrarewirp__)函数(https：/docs.sciy.org/doc/numpy/Reference/arrays.classes.html。第一个以ndarray作为第一个参数，一个“上下文”的元组作为第二个参数。上下文是(ufunc、参数、输出参数编号)。这是第一次调用。如果发生TypeError，则调用函数时仅使用ndarray作为第一个参数。
 
-### Methods
+### 方法
 
-There are three methods of ufuncs that require calculation similar to the general-purpose ufuncs. These are reduce, accumulate, and reduceat. Each of these methods requires a setup command followed by a loop. There are four loop styles possible for the methods corresponding to no-elements, one-element, strided-loop, and buffered- loop. These are the same basic loop styles as implemented for the general purpose function call except for the no-element and one- element cases which are special-cases occurring when the input array objects have 0 and 1 elements respectively.
+有三种求函数的方法需要计算，类似于通用函数。这些都是减少，积累和减少。这些方法中的每一个都需要一个安装命令，然后是一个循环。对应于无元素的方法有四种可能的循环样式：单元素循环、步进循环和缓冲循环.。这些都是为通用函数调用实现的相同的基本循环样式，但无元素和单元素情况除外，这是当输入数组对象分别有0和1个元素时发生的特殊情况。
 
-#### Setup
+#### 布设
 
 The setup function for all three methods is ``construct_reduce``. This function creates a reducing loop object and fills it with parameters needed to complete the loop. All of the methods only work on ufuncs that take 2-inputs and return 1 output. Therefore, the underlying 1-D loop is selected assuming a signature of [ ``otype``, ``otype``, ``otype`` ] where ``otype`` is the requested reduction data-type. The buffer size and error handling is then retrieved from (per-thread) global storage. For small arrays that are mis-aligned or have incorrect data-type, a copy is made so that the un-buffered section of code is used. Then, the looping strategy is selected. If there is 1 element or 0 elements in the array, then a simple looping method is selected. If the array is not mis-aligned and has the correct data-type, then strided looping is selected. Otherwise, buffered looping must be performed. Looping parameters are then established, and the return array is constructed. The output array is of a different shape depending on whether the method is reduce, accumulate, or reduceat. If an output array is already provided, then it’s shape is checked. If the output array is not C-contiguous, aligned, and of the correct data type, then a temporary copy is made with the WRITEBACKIFCOPY flag set. In this way, the methods will be able to work with a well-behaved output array but the result will be copied back into the true output array when [PyArray_ResolveWritebackIfCopy](https://docs.scipy.org/doc/numpy/reference/c-api.array.html#c.PyArray_ResolveWritebackIfCopy) is called at function completion. Finally, iterators are set up to loop over the correct axis (depending on the value of axis provided to the method) and the setup routine returns to the actual computation routine.
 
