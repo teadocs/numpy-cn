@@ -3,7 +3,7 @@
     - [+基础篇](/article/basics/index)
         - [NumPy简单入门教程](/article/basics/an_introduction_to_scientific_python_numpy)
         - [Python Numpy 教程](/article/basics/python_numpy_tutorial)
-        - [numpy中的矩阵和向量](/article/basics/numpy_matrices_vectors)
+        - [NumPy中的矩阵和向量](/article/basics/numpy_matrices_vectors)
     - [+进阶篇](/article/advanced/index)
         - [NumPy数据分析练习](/article/advanced/numpy_exercises_for_data_analysis)
         - [NumPy神经网络](/article/advanced/neural_network_with_numpy)
