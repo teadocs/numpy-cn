@@ -2,108 +2,109 @@
 
 # numpy中的矩阵和向量
 
-The numpy ``ndarray`` class is used to represent both matrices and vectors. To construct a matrix in numpy we list the rows of the matrix in a list and pass that list to the numpy array constructor.
+numpy``ndarray``类用于表示矩阵和向量。要在numpy中构造矩阵，我们在列表中列出矩阵的行，并将该列表传递给numpy数组构造函数。
 
-For example, to construct a numpy array that corresponds to the matrix
+例如，构造与矩阵对应的numpy数组
 
 ![矩阵1](/static/images/article/numpyLA1.png)
 
-we would do
+我们会这样做
 
 ```python
 A = np.array([[1,-1,2],[3,2,0]])
 ```
 
-Vectors are just arrays with a single column. For example, to construct a vector
+向量只是具有单列的数组。 例如，构建向量
 
 ![矩阵2](/static/images/article/numpyLA2.png)
 
-we would do
+我们会这样做
 
 ```python
 v = np.array([[2],[1],[3]])
 ```
 
-A more convenient approach is to transpose the corresponding row vector. For example, to make the vector above we could instead transpose the row vector
+更方便的方法是转置相应的行向量。 例如，为了使上面的矢量，我们可以改为转置行向量
 
 ![矩阵3](/static/images/article/numpyLA3.png)
 
-The code for this is
+这个代码是
 
 ```python
 v = np.transpose(np.array([[2,1,3]]))
 ```
 
-numpy overloads the array index and slicing notations to access parts of a matrix. For example, to print the bottom right entry in the matrix A we would do
+numpy重载数组索引和切片符号以访问矩阵的各个部分。 例如，要打印矩阵A中的右下方条目，我们会这样做
 
 ```python
 print(A[1,2])
 ```
 
-To slice out the second column in the A matrix we would do
+要切出A矩阵中的第二列，我们会这样做
 
 ```python
 col = A[:,1:2]
 ```
 
-The first slice selects all rows in A, while the second slice selects just the middle entry in each row.
+第一个切片选择A中的所有行，而第二个切片仅选择每行中的中间条目。
 
-To do a matrix multiplication or a matrix-vector multiplication we use the np.dot() method.
+要进行矩阵乘法或矩阵向量乘法，我们使用np.dot()方法。
 
 ```python
 w = np.dot(A,v)
 ```
 
-## Solving systems of equations with numpy
+## 用numpy求解方程组
 
-One of the more common problems in linear algebra is solving a matrix-vector equation. Here is an example. We seek the vector x that solves the equation
+线性代数中比较常见的问题之一是求解矩阵向量方程。 这是一个例子。 我们寻找解决方程的向量x
 
 <p class="eqn"><i>A</i> <b>x</b> = <b>b</b></p>
 
-where
+当
 
 ![矩阵4](/static/images/article/numpyLA4.png)
 
 ![矩阵5](/static/images/article/numpyLA5.png)
 
-We start by constructing the arrays for A and b.
+我们首先构建A和b的数组。
 
 ```python
 A = np.array([[2,1,-2],[3,0,1],[1,1,-1]])
 b = np.transpose(np.array([[-3,5,-2]])
 ```
 
-To solve the system we do
+为了解决这个系统
 
 ```python
 x = np.linalg.solve(A,b)
 ```
 
-## Application: multiple linear regression
+## 应用：多元线性回归
 
-In a multiple regression problem we seek a function that can map input data points to outcome values. Each data point is a *feature vector (x1 , x2 , …, xm)* composed of two or more data values that capture various features of the input. To represent all of the input data along with the vector of output values we set up a input matrix X and an output vector **y**:
+在多元回归问题中，我们寻找一种能够将输入数据点映射到结果值的函数。 每个数据点是*特征向量（x1，x2，...，xm）*，由两个或多个捕获输入的各种特征的数据值组成。为了表示所有输入数据以及输出值的向量，我们设置了输入矩阵X和输出向量 **y**：     
 
 ![矩阵6](/static/images/article/numpyLA6.png)
 
 ![矩阵7](/static/images/article/numpyLA7.png)
 
-In a simple least-squares linear regression model we seek a vector <b>β</b> such that the product X β most closely approximates the outcome vector **y**.
+在简单的最小二乘线性回归模型中，我们寻找向量<b>β</b>，使得乘积Xβ最接近结果向量 **y**。
 
-Once we have constructed the <b>β</b> vector we can use it to map input data to a predicted outcomes. Given an input vector in the form
+一旦我们构建了<b>β</b>向量，我们就可以使用它将输入数据映射到预测结果。 给定表单中的输入向量
 
 ![矩阵8](/static/images/article/numpyLA8.png)
 
-we can compute a predicted outcome value
+我们可以计算预测结果值
 
 ![矩阵9](/static/images/article/numpyLA9.png)
 
-The formula to compute the β vector is
+计算β向量的公式是
 
 <p class="eqn"><b>β</b> = (<i>X</i><sup><i>T</i></sup> <i>X</i>)<sup>-1</sup> <i>X</i><sup><i>T</i></sup> <b>y</b></p>
 
-In our next example program I will use numpy to construct the appropriate matrices and vectors and solve for the <b>β</b> vector. Once we have solved for <b>β</b> we will use it to make predictions for some test data points that we initially left out of our input data set.
+在我们的下一个示例程序中，我将使用numpy构造适当的矩阵和向量并求解<b>β</b>向量。一旦我们解决了<b>β</b>，我们将使用它来预测我们最初从输入数据集中遗漏的一些测试数据点。
 
-Assuming we have constructed the input matrix X and the outcomes vector **y** in numpy, the following code will compute the <b>β</b> vector:
+假设我们在numpy中构造了输入矩阵X和结果向量**y**，下面的代码将计算<b>β</b>向量：
+
 
 ```python
 Xt = np.transpose(X)
@@ -112,17 +113,17 @@ Xty = np.dot(Xt,y)
 beta = np.linalg.solve(XtX,Xty)
 ```
 
-The last line uses ``np.linalg.solve`` to compute <b>β</b>, since the equation
+最后一行使用``np.linalg.solve``计算<b>β</ b>，因为等式是：
 
 <p class="eqn"><b>β</b> = (<i>X</i><sup><i>T</i></sup> <i>X</i>)<sup>-1</sup> <i>X</i><sup><i>T</i></sup> <b>y</b></p>
 
-is mathematically equivalent to the system of equations
+在数学上等价于方程组：
 
 <p class="eqn">(<i>X</i><sup><i>T</i></sup> <i>X</i>) <b>β</b> = <i>X</i><sup><i>T</i></sup> <b>y</b></p>
 
-The data set I will use for this example is the Windsor house price data set, which contains information about home sales in the Windsor, Ontario area. The input variables cover a range of factors that may potentially have an impact on house prices, such as lot size, number of bedrooms, and the presence of various amenities. A CSV file with the full data set is available here. I downloaded the data set from this site, which offers a large number of data sets covering a large range of topics.
+我将用于此示例的数据集是Windsor房价数据集，其中包含有关安大略省温莎市区房屋销售的信息。 输入变量涵盖了可能对房价产生影响的一系列因素，例如批量大小，卧室数量以及各种设施的存在。 此处提供具有完整数据集的CSV文件。 我从这个网站下载了数据集，该网站提供了大量涵盖大量主题的数据集。
 
-Here now is the source code for the example program.
+这里现在是示例程序的源代码。
 
 ```python
 import csv
@@ -163,9 +164,10 @@ for data,actual in zip(X0[d:],y0[d:]):
     prediction = np.dot(x,beta)
     print('prediction = '+str(prediction[0,0])+' actual = '+str(actual))
 ```
-The original data set consists of over 500 entries. To test the accuracy of the predictions made by the linear regression model we use all but the last 10 data entries to build the regression model and compute <b>β</b>. Once we have constructed the <b>β</b> vector we use it to make predictions for the last 10 input values and then compare the predicted home prices against the actual home prices from the data set.
 
-Here are the outputs produced by the program:
+原始数据集包含500多个条目 为了测试线性回归模型所做预测的准确性，我们使用除最后10个数据条目之外的所有数据条目来构建回归模型并计算<b>β</b>。一旦我们构建了<b>β</b>向量，我们就用它来预测最后10个输入值，然后将预测的房价与数据集中的实际房价进行比较。
+
+以下是该计划产生的产出：
 
 ```python
 [[ -4.14106096e+03]
@@ -192,4 +194,8 @@ prediction = 92451.6931269 actual = 105000.0
 prediction = 73458.2949381 actual = 105000.0
 ```
 
-Overall, the predictions are not spectacularly good, but a number of the predictions fall somewhat close to being correct. Making better predictions from this data will be the subject of the winter term tutorial on machine learning.
+总体而言，预测并不是非常好，但是一些预测有点接近正确。从这些数据中做出更好的预测将成为机器学习冬季学期教程的主题。
+
+## 文章出处 
+
+由NumPy中文文档翻译，原作者为 [劳伦斯大学](http://www.lawrence.edu/)，翻译至：[http://www2.lawrence.edu/fast/GREGGJ/Python/numpy/numpyLA.html](http://www2.lawrence.edu/fast/GREGGJ/Python/numpy/numpyLA.html)。
