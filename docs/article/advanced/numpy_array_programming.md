@@ -2,18 +2,18 @@
 
 ## 目录
 
-- Getting into Shape: Intro to NumPy Arrays
-- What is Vectorization?
-    - Counting: Easy as 1, 2, 3…
-    - Buy Low, Sell High
-- Intermezzo: Understanding Axes Notation
-- Broadcasting
-- Array Programming in Action: Examples
-    - Clustering Algorithms
-    - Amortization Tables
-    - Image Feature Extraction
-- A Parting Thought: Don’t Over-Optimize
-- More Resources
+- [Getting into Shape: Intro to NumPy Arrays](#Getting-into-Shape:-Intro-to-NumPy-Arrays)
+- [What is Vectorization?](#What-is-Vectorization?)
+    - [Counting: Easy as 1, 2, 3…](#Counting:-Easy-as-1,-2,-3…)
+    - [Buy Low, Sell High](#Buy-Low,-Sell-High)
+- [Intermezzo: Understanding Axes Notation](#Intermezzo:-Understanding-Axes-Notation)
+- [Broadcasting](#Broadcasting)
+- [Array Programming in Action: Examples](#Array-Programming-in-Action:-Examples)
+    - [Clustering Algorithms](#Clustering-Algorithms)
+    - [Amortization Tables](#Amortization-Tables)
+    - [Image Feature Extraction](#Image-Feature-Extraction)
+- [A Parting Thought: Don’t Over-Optimize](#A-Parting-Thought:-Don’t-Over-Optimize)
+- [More Resources](#More-Resources)
 
 ## 前言
 
@@ -470,6 +470,427 @@ True
 ```
 
 For those interested in digging a little deeper, [PyArray_Broadcast](https://github.com/numpy/numpy/blob/7dcee7a469ad1bbfef1cd8980dc18bf5869c5391/numpy/core/src/multiarray/iterators.c#L1274) is the underlying C function that encapsulates broadcasting rules.
+
+## Array Programming in Action: Examples
+
+In the following 3 examples, you’ll put vectorization and broadcasting to work with some real-world applications.
+
+### Clustering Algorithms
+
+Machine learning is one domain that can frequently take advantage of vectorization and broadcasting. Let’s say that you have the vertices of a triangle (each row is an x, y coordinate):
+
+```python
+>>> tri = np.array([[1, 1],
+...                 [3, 1],
+...                 [2, 3]])
+```
+
+The [centroid](https://en.wikipedia.org/wiki/Centroid) of this “cluster” is an (x, y) coordinate that is the arithmetic mean of each column:
+
+```python
+>>> centroid = tri.mean(axis=0)
+>>> centroid
+array([2.    , 1.6667])
+```
+
+It’s helpful to visualize this:
+
+```python
+>>> trishape = plt.Polygon(tri, edgecolor='r', alpha=0.2, lw=5)
+>>> _, ax = plt.subplots(figsize=(4, 4))
+>>> ax.add_patch(trishape)
+>>> ax.set_ylim([.5, 3.5])
+>>> ax.set_xlim([.5, 3.5])
+>>> ax.scatter(*centroid, color='g', marker='D', s=70)
+>>> ax.scatter(*tri.T, color='b',  s=70)
+```
+
+![三角形的图像](/static/images/article/tri.521228ffdca0.png)
+
+Many [clustering algorithms](http://scikit-learn.org/stable/modules/clustering.html) make use of Euclidean distances of a collection of points, either to the origin or relative to their centroids.
+
+In Cartesian coordinates, the Euclidean distance between points p and q is:
+
+![点之间欧氏距离的计算公式](/static/images/article/euclid.ffdfd280d315.png)
+
+[[source: Wikipedia](https://en.wikipedia.org/wiki/Euclidean_distance#Definition)]
+
+So for the set of coordinates in tri from above, the Euclidean distance of each point from the origin (0, 0) would be:
+
+```pyhon
+>>> np.sum(tri**2, axis=1) ** 0.5  # Or: np.sqrt(np.sum(np.square(tri), 1))
+array([1.4142, 3.1623, 3.6056])
+```
+
+You may recognize that we are really just finding Euclidean norms:
+
+```python
+>>> np.linalg.norm(tri, axis=1)
+array([1.4142, 3.1623, 3.6056])
+```
+
+Instead of referencing the origin, you could also find the norm of each point relative to the triangle’s centroid:
+
+```python
+>>> np.linalg.norm(tri - centroid, axis=1)
+array([1.2019, 1.2019, 1.3333])
+```
+
+Finally, let’s take this one step further: let’s say that you have a 2d array X and a 2d array of multiple (x, y) “proposed” centroids. Algorithms such as [K-Means clustering](http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) work by randomly assigning initial “proposed” centroids, then reassigning each data point to its closest centroid. From there, new centroids are computed, with the algorithm converging on a solution once the re-generated labels (an encoding of the centroids) are unchanged between iterations. A part of this iterative process requires computing the Euclidean distance of each point from each centroid:
+
+```python
+>>> X = np.repeat([[5, 5], [10, 10]], [5, 5], axis=0)
+>>> X = X + np.random.randn(*X.shape)  # 2 distinct "blobs"
+>>> centroids = np.array([[5, 5], [10, 10]])
+
+>>> X
+array([[ 3.3955,  3.682 ],
+       [ 5.9224,  5.785 ],
+       [ 5.9087,  4.5986],
+       [ 6.5796,  3.8713],
+       [ 3.8488,  6.7029],
+       [10.1698,  9.2887],
+       [10.1789,  9.8801],
+       [ 7.8885,  8.7014],
+       [ 8.6206,  8.2016],
+       [ 8.851 , 10.0091]])
+
+>>> centroids
+array([[ 5,  5],
+       [10, 10]])
+```
+
+In other words, we want to answer the question, to which centroid does each point within X belong? We need to do some reshaping to enable broadcasting here, in order to calculate the Euclidean distance between each point in X and each point in centroids:
+
+```python
+>>> centroids[:, None]
+array([[[ 5,  5]],
+
+       [[10, 10]]])
+
+>>> centroids[:, None].shape
+(2, 1, 2)
+```
+
+This enables us to cleanly subtract one array from another using a **combinatoric product of their rows:**
+
+```python
+>>> np.linalg.norm(X - centroids[:, None], axis=2).round(2)
+array([[2.08, 1.21, 0.99, 1.94, 2.06, 6.72, 7.12, 4.7 , 4.83, 6.32],
+       [9.14, 5.86, 6.78, 7.02, 6.98, 0.73, 0.22, 2.48, 2.27, 1.15]])
+```
+
+In other words, the shape of X - centroids[:, None] is (2, 10, 2), essentially representing two stacked arrays that are each the size of X. Next, we want the label (index number) of each closest centroid, finding the minimum distance on the 0th axis from the array above:
+
+```python
+>>> np.argmin(np.linalg.norm(X - centroids[:, None], axis=2), axis=0)
+array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1])
+```
+
+You can put all this together in functional form:
+
+```python
+>>> def get_labels(X, centroids) -> np.ndarray:
+...     return np.argmin(np.linalg.norm(X - centroids[:, None], axis=2),
+...                      axis=0)
+>>> labels = get_labels(X, centroids)
+```
+
+Let’s inspect this visually, plotting both the two clusters and their assigned labels with a color-mapping:
+
+```python
+>>> c1, c2 = ['#bc13fe', '#be0119']  # https://xkcd.com/color/rgb/
+>>> llim, ulim  = np.trunc([X.min() * 0.9, X.max() * 1.1])
+
+>>> _, ax = plt.subplots(figsize=(5, 5))
+>>> ax.scatter(*X.T, c=np.where(labels, c2, c1), alpha=0.4, s=80)
+>>> ax.scatter(*centroids.T, c=[c1, c2], marker='s', s=95,
+...            edgecolor='yellow')
+>>> ax.set_ylim([llim, ulim])
+>>> ax.set_xlim([llim, ulim])
+>>> ax.set_title('One K-Means Iteration: Predicted Classes')
+```
+
+![预测类颜色映射](/static/images/article/classes.cdaa3e38d62f.png)
+
+### Amortization Tables
+
+Vectorization has applications in finance as well.
+
+Given an annualized interest rate, payment frequency (times per year), initial loan balance, and loan term, you can create an amortization table with monthly loan balances and payments, in a vectorized fashion. Let’s set some scalar constants first:
+
+```python
+>>> freq = 12     # 12 months per year
+>>> rate = .0675  # 6.75% annualized
+>>> nper = 30     # 30 years
+>>> pv = 200000   # Loan face value
+
+>>> rate /= freq  # Monthly basis
+>>> nper *= freq  # 360 months
+```
+
+NumPy comes preloaded with a handful of [financial functions](https://docs.scipy.org/doc/numpy/reference/routines.financial.html) that, unlike their [Excel cousins](http://www.tvmcalcs.com/index.php/calculators/apps/excel_loan_amortization), are capable of producing vector outputs.
+
+The debtor (or lessee) pays a constant monthly amount that is composed of a principal and interest component. As the outstanding loan balance declines, the interest portion of the total payment declines with it.
+
+```python
+>>> periods = np.arange(1, nper + 1, dtype=int)
+>>> principal = np.ppmt(rate, periods, nper, pv)
+>>> interest = np.ipmt(rate, periods, nper, pv)
+>>> pmt = principal + interest  # Or: pmt = np.pmt(rate, nper, pv)
+```
+
+Next, you’ll need to calculate a monthly balance, both before and after that month’s payment, which can be defined as the [future value of the original balance minus the future value of an annuity](http://financeformulas.net/Remaining_Balance_Formula.html) (a stream of payments), using a discount factor d:
+
+![原始余额未来价值计算的财务公式图](/static/images/article/fv.7346eb669ac7.png)
+
+Functionally, this looks like:
+
+```python
+>>> def balance(pv, rate, nper, pmt) -> np.ndarray:
+...     d = (1 + rate) ** nper  # Discount factor
+...     return pv * d - pmt * (d - 1) / rate
+```
+
+Finally, you can drop this into a tabular format with a Pandas [DataFrame](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html). Be careful with signs here. PMT is an outflow from the perspective of the debtor.
+
+```python
+>>> import pandas as pd
+
+>>> cols = ['beg_bal', 'prin', 'interest', 'end_bal']
+>>> data = [balance(pv, rate, periods - 1, -pmt),
+...         principal,
+...         interest,
+...         balance(pv, rate, periods, -pmt)]
+
+>>> table = pd.DataFrame(data, columns=periods, index=cols).T
+>>> table.index.name = 'month'
+
+>>> with pd.option_context('display.max_rows', 6):
+...     # Note: Using floats for $$ in production-level code = bad
+...     print(table.round(2))
+...
+         beg_bal     prin  interest    end_bal
+month
+1      200000.00  -172.20  -1125.00  199827.80
+2      199827.80  -173.16  -1124.03  199654.64
+3      199654.64  -174.14  -1123.06  199480.50
+...          ...      ...       ...        ...
+358      3848.22 -1275.55    -21.65    2572.67
+359      2572.67 -1282.72    -14.47    1289.94
+360      1289.94 -1289.94     -7.26      -0.00
+```
+
+At the end of year 30, the loan is paid off:
+
+```python
+>>> final_month = periods[-1]
+>>> np.allclose(table.loc[final_month, 'end_bal'], 0)
+True
+```
+
+**Note**: While using floats to represent money can be useful for concept illustration in a scripting environment, using Python floats for financial calculations in a production environment might cause your calculation to be a penny or two off in some cases.
+
+### Image Feature Extraction
+
+In one final example, we’ll work with an October 1941 [image](https://www.history.navy.mil/our-collections/photography/numerical-list-of-images/nara-series/80-g/80-G-410000/80-G-416362.html) of the USS Lexington (CV-2), the wreck of which was discovered off the coast of Australia in March 2018. First, we can map the image into a NumPy array of its pixel values:
+
+```python
+>>> from skimage import io
+
+>>> url = ('https://www.history.navy.mil/bin/imageDownload?image=/'
+...        'content/dam/nhhc/our-collections/photography/images/'
+...        '80-G-410000/80-G-416362&rendition=cq5dam.thumbnail.319.319.png')
+>>> img = io.imread(url, as_grey=True)
+
+>>> fig, ax = plt.subplots()
+>>> ax.imshow(img, cmap='gray')
+>>> ax.grid(False)
+```
+
+![列克星敦号航空母舰的图像](/static/images/article/lex.77b7efabdb0c.png)
+
+For simplicity’s sake, the image is loaded in grayscale, resulting in a 2d array of 64-bit floats rather than a 3-dimensional MxNx4 RGBA array, with lower values denoting darker spots:
+
+```python
+>>> img.shape
+(254, 319)
+
+>>> img.min(), img.max()
+(0.027450980392156862, 1.0)
+
+>>> img[0, :10]  # First ten cells of the first row
+array([0.8078, 0.7961, 0.7804, 0.7882, 0.7961, 0.8078, 0.8039, 0.7922,
+       0.7961, 0.7961])
+>>> img[-1, -10:]  # Last ten cells of the last row
+array([0.0784, 0.0784, 0.0706, 0.0706, 0.0745, 0.0706, 0.0745, 0.0784,
+       0.0784, 0.0824])
+```
+
+One technique commonly employed as an intermediary step in image analysis is patch extraction. As the name implies, this consists of extracting smaller overlapping sub-arrays from a larger array and can be used in cases where it is advantageous to “denoise” or blur an image.
+
+This concept extends to other fields, too. For example, you’d be doing something similar by taking “rolling” windows of a time series with multiple features (variables). It’s even useful for building [Conway’s Game of Life](https://bitstorm.org/gameoflife/). (Although, [convolution](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.convolve.html) with a 3x3 kernel is a more direct approach.)
+
+Here, we will find the mean of each overlapping 10x10 patch within img. Taking a miniature example, the first 3x3 patch array in the top-left corner of img would be:
+
+```python
+>>> img[:3, :3]
+array([[0.8078, 0.7961, 0.7804],
+       [0.8039, 0.8157, 0.8078],
+       [0.7882, 0.8   , 0.7961]])
+
+>>> img[:3, :3].mean()
+0.7995642701525054
+```
+
+The pure-Python approach to creating sliding patches would involve a nested for-loop. You’d need to consider that the starting index of the right-most patches will be at index n - 3 + 1, where n is the width of the array. In other words, if you were extracting 3x3 patches from a 10x10 array called arr, the last patch taken would be from arr[7:10, 7:10]. Also keep in mind that Python’s range() does not include its stop parameter:
+
+```python
+>>> size = 10
+>>> m, n = img.shape
+>>> mm, nn = m - size + 1, n - size + 1
+>>>
+>>> patch_means = np.empty((mm, nn))
+>>> for i in range(mm):
+...     for j in range(nn):
+...         patch_means[i, j] = img[i: i+size, j: j+size].mean()
+
+>>> fig, ax = plt.subplots()
+>>> ax.imshow(patch_means, cmap='gray')
+>>> ax.grid(False)
+```
+
+![莱克星顿号航空母舰的模糊图像](/static/images/article/lexblur.0f886a01be97.png)
+
+With this loop, you’re performing a lot of Python calls.
+
+An alternative that will be scalable to larger RGB or RGBA images is NumPy’s stride_tricks.
+
+An instructive first step is to visualize, given the patch size and image shape, what a higher-dimensional array of patches would look like. We have a 2d array img with shape (254, 319)and a (10, 10) 2d patch. This means our output shape (before taking the mean of each “inner” *10x10* array) would be:
+
+```python
+>>> shape = (img.shape[0] - size + 1, img.shape[1] - size + 1, size, size)
+>>> shape
+(245, 310, 10, 10)
+```
+
+You also need to specify the **strides** of the new array. An array’s strides is a tuple of bytes to jump in each dimension when moving along the array. Each pixel in img is a 64-bit (8-byte) float, meaning the total image size is *254 x 319 x 8 = 648,208* bytes.
+
+```python
+>>> img.dtype
+dtype('float64')
+
+>>> img.nbytes
+648208
+```
+
+Internally, img is kept in memory as one contiguous block of 648,208 bytes. strides is hence a sort of “metadata”-like attribute that tells us how many bytes we need to jump ahead to move to the next position along each axis. We move in blocks of 8 bytes along the rows but need to traverse *8 x 319 = 2,552* bytes to move “down” from one row to another.
+
+```python
+>>> img.strides
+(2552, 8)
+```
+
+In our case, the strides of the resulting patches will just repeat the strides of img twice:
+
+```python
+>>> strides = 2 * img.strides
+>>> strides
+(2552, 8, 2552, 8)
+```
+
+Now, let’s put these pieces together with NumPy’s [stride_tricks](https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.stride_tricks.as_strided.html):
+
+```python
+>>> from numpy.lib import stride_tricks
+
+>>> patches = stride_tricks.as_strided(img, shape=shape, strides=strides)
+>>> patches.shape
+(245, 310, 10, 10)
+```
+
+Here’s the first *10x10* patch:
+
+```python
+>>> patches[0, 0].round(2)
+array([[0.81, 0.8 , 0.78, 0.79, 0.8 , 0.81, 0.8 , 0.79, 0.8 , 0.8 ],
+       [0.8 , 0.82, 0.81, 0.79, 0.79, 0.79, 0.78, 0.81, 0.81, 0.8 ],
+       [0.79, 0.8 , 0.8 , 0.79, 0.8 , 0.8 , 0.82, 0.83, 0.79, 0.81],
+       [0.8 , 0.79, 0.81, 0.81, 0.8 , 0.8 , 0.78, 0.76, 0.8 , 0.79],
+       [0.78, 0.8 , 0.8 , 0.78, 0.8 , 0.79, 0.78, 0.78, 0.79, 0.79],
+       [0.8 , 0.8 , 0.78, 0.78, 0.78, 0.8 , 0.8 , 0.8 , 0.81, 0.79],
+       [0.78, 0.77, 0.78, 0.76, 0.77, 0.8 , 0.8 , 0.77, 0.8 , 0.8 ],
+       [0.79, 0.76, 0.77, 0.78, 0.77, 0.77, 0.79, 0.78, 0.77, 0.76],
+       [0.78, 0.75, 0.76, 0.76, 0.73, 0.75, 0.78, 0.76, 0.77, 0.77],
+       [0.78, 0.79, 0.78, 0.78, 0.78, 0.78, 0.77, 0.76, 0.77, 0.77]])
+```
+
+The last step is tricky. To get a vectorized mean of each inner 10x10 array, we need to think carefully about the dimensionality of what we have now. The result should collapse the last two dimensions so that we’re left with a single 245x310 array.
+
+One (suboptimal) way would be to reshape patches first, flattening the inner 2d arrays to length-100 vectors, and then computing the mean on the final axis:
+
+```python
+>>> veclen = size ** 2
+>>> patches.reshape(*patches.shape[:2], veclen).mean(axis=-1).shape
+(245, 310)
+```
+
+However, you can also specify axis as a tuple, computing a mean over the last two axes, which should be more efficient than reshaping:
+
+```python
+>>> patches.mean(axis=(-1, -2)).shape
+(245, 310)
+```
+
+Let’s make sure this checks out by comparing equality to our looped version. It does:
+
+```python
+>>> strided_means = patches.mean(axis=(-1, -2))
+>>> np.allclose(patch_means, strided_means)
+True
+```
+
+If the concept of strides has you drooling, don’t worry: Scikit-Learn has already [embedded this entire process](http://scikit-learn.org/stable/modules/feature_extraction.html#image-feature-extraction) nicely within its feature_extraction module.
+
+## A Parting Thought: Don’t Over-Optimize
+
+In this article, we discussed optimizing runtime by taking advantage of array programming in NumPy. When you are working with large datasets, it’s important to be mindful of microperformance.
+
+However, there is a subset of cases where avoiding a native Python for-loop isn’t possible. As Donald Knuth [advised](http://web.archive.org/web/20130731202547/http://pplab.snu.ac.kr/courses/adv_pl05/papers/p261-knuth.pdf), “Premature optimization is the root of all evil.” Programmers may incorrectly predict where in their code a bottleneck will appear, spending hours trying to fully vectorize an operation that would result in a relatively insignificant improvement in runtime.
+
+There’s nothing wrong with for-loops sprinkled here and there. Often, it can be more productive to think instead about optimizing the flow and structure of the entire script at a higher level of abstraction.
+
+## More Resources
+
+Free Bonus: [Click here to get access to a free NumPy Resources Guide](https://realpython.com/numpy-array-programming/#) that points you to the best tutorials, videos, and books for improving your NumPy skills.
+
+NumPy Documentation:
+
+- [What is NumPy?](https://docs.scipy.org/doc/numpy/user/whatisnumpy.html)
+- [Broadcasting](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+- [Universal functions](https://docs.scipy.org/doc/numpy/reference/ufuncs.html)
+- [NumPy for MATLAB Users](https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html)
+- The complete [NumPy Reference](https://docs.scipy.org/doc/numpy/reference/index.html) index
+
+Books:
+
+- Travis Oliphant’s [Guide to NumPy, 2nd ed](https://realpython.com/asins/151730007X/). (Travis is the primary creator of NumPy)
+- Chapter 2 (“Introduction to NumPy”) of Jake VanderPlas’ [Python Data Science Handbook](https://realpython.com/asins/1491912057/)
+- Chapter 4 (“NumPy Basics”) and Chapter 12 (“Advanced NumPy”) of Wes McKinney’s [Python for Data Analysis 2nd ed](https://realpython.com/asins/B075X4LT6K/).
+- Chapter 2 (“The Mathematical Building Blocks of Neural Networks”) from François Chollet’s [Deep Learning with Python](https://realpython.com/asins/1617294438/)
+- Robert Johansson’s [Numerical Python](https://realpython.com/asins/1484205545/)
+- Ivan Idris: [Numpy Beginner’s Guide, 3rd ed](https://realpython.com/asins/1785281968/).
+
+Other Resources:
+
+- Wikipedia: [Array Programming](https://en.wikipedia.org/wiki/Array_programming)
+- SciPy Lecture Notes: [Basic]() and [Advanced]() NumPy
+- EricsBroadcastingDoc: [Array Broadcasting in NumPy](http://scipy.github.io/old-wiki/pages/EricsBroadcastingDoc)
+- SciPy Cookbook: [Views versus copies in NumPy](http://scipy-cookbook.readthedocs.io/items/ViewsVsCopies.html)
+- Nicolas Rougier: [From Python to Numpy](http://www.labri.fr/perso/nrougier/from-python-to-numpy/) and [100 NumPy Exercises](http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html)
+- TensorFlow docs: [Broadcasting Semantics](https://www.tensorflow.org/performance/xla/broadcasting)
+- Theano docs: [Broadcasting](http://deeplearning.net/software/theano/tutorial/broadcasting.html)
+- Eli Bendersky: [Broadcasting Arrays in Numpy](https://eli.thegreenplace.net/2015/broadcasting-arrays-in-numpy/)
 
 ## 文章出处
 
