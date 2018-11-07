@@ -17,25 +17,25 @@
 
 ## 前言
 
-It is sometimes said that Python, compared to low-level languages such as C++, improves development time at the expense of runtime. Fortunately, there are a handful of ways to speed up operation runtime in Python without sacrificing ease of use. One option suited for fast numerical operations is NumPy, which deservedly bills itself as the fundamental package for scientific computing with Python.
+人们有时会说，与C++这种低级语言相比，Python以运行速度为代价改善了开发时间和效率。幸运的是，有一些方法可以在不牺牲易用性的情况下加速Python中的操作运行时。适用于快速数值运算的一个选项是NumPy，它当之无愧地将自己称为使用Python进行科学计算的基本软件包。
 
-Granted, few people would categorize something that takes 50 microseconds (fifty millionths of a second) as “slow.” However, computers might beg to differ. The runtime of an operation taking 50 microseconds (50 μs) falls under the realm of microperformance, which can loosely be defined as operations with a runtime between 1 microsecond and 1 millisecond.
+当然，很少有人将50微秒（百万分之五十秒）的东西归类为“慢”。然而，计算机可能会有所不同。运行50微秒（50微秒）的运行时属于微执行领域，可以松散地定义为运行时间在1微秒和1毫秒之间的运算。
 
-Why does speed matter? The reason that microperformance is worth monitoring is that small differences in runtime become amplified with repeated function calls: an incremental 50 μs of overhead, repeated over 1 million function calls, translates to 50 seconds of incremental runtime.
+为什么速度很重要？微观性能值得监控的原因是运行时的小差异会随着重复的函数调用而放大：增量50μs的开销，重复超过100万次函数调用，转换为50秒的增量运行时间。
 
-When it comes to computation, there are really three concepts that lend NumPy its power:
+在计算方面，实际上有三个概念为NumPy提供了强大的功能：
 
-- Vectorization
-- Broadcasting
-- Indexing
+- 矢量化
+- 广播
+- 索引
 
-In this tutorial, you’ll see step by step **how to take advantage of vectorization and broadcasting**, so that you can use NumPy to its full capacity. While you will use some indexing in practice here, NumPy’s complete indexing schematics, which extend Python’s [slicing syntax](https://docs.python.org/3/reference/expressions.html?highlight=slice#slicings), are their own beast. If you’re looking to read more on NumPy [indexing](https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html), grab some coffee and head to the Indexing section in the NumPy docs.
+在本教程中，你将逐步了解**如何利用矢量化和广播**，以便你可以充分使用NumPy。虽然你在这里将使用一些索引，但NumPy的完整索引原理图(它扩展了Python的[切片语法]((https://docs.python.org/3/reference/expressions.html?highlight=slice#slicings)))是它们自己的工具。如果你想了解有关[NumPy索引](/reference/array_objects/indexing.html)的更多信息，请喝点咖啡，然后前往NumPy文档中的索引部分。
 
-## Getting into Shape: Intro to NumPy Arrays
+## 进入状态：介绍NumPy数组
 
-The fundamental object of NumPy is its ndarray (or numpy.array), an n-dimensional array that is also present in some form in array-oriented languages such as Fortran 90, R, and MATLAB, as well as predecessors APL and J.
+NumPy的基本对象是它的ndarray（或numpy.array），这是一个n维数组，它也以某种形式出现在面向数组的语言中，如Fortran 90、R和MATLAB，以及以前的 APL 和 J。
 
-Let’s start things off by forming a 3-dimensional array with 36 elements:
+让我们从形成一个包含36个元素的三维数组开始：
 
 ```python
 >>> import numpy as np
@@ -58,39 +58,37 @@ array([[[ 0,  1,  2],
         [33, 34, 35]]])
 ```
 
-Picturing high-dimensional arrays in two dimensions can be difficult. One intuitive way to think about an array’s shape is to simply “read it from left to right.” arr is a 3 by 4 by 3 array:
+在二维中描绘高维阵列可能会比较困难。考虑数组形状的一种直观方法是简单地“从左到右读取它”。arr 是一个3乘4乘3的数组：
 
 ```python
 >>> arr.shape
 (3, 4, 3)
 ```
 
-Visually, arr could be thought of as a container of three 4x3 grids (or a rectangular prism) and would look like this:
+在视觉上，arr可以被认为是三个4x3网格（或矩形棱镜）的容器，看起来像这样：
 
 ![NumPy三维数组](/static/images/article/arr3d.7442cd4e11c6.jpg)
 
-Higher dimensional arrays can be tougher to picture, but they will still follow this “arrays within an array” pattern.
+更高维度的数组可能更难以用图像表达出来，但它们仍将遵循这种“阵列内的阵列”模式。
 
-Where might you see data with greater than two dimensions?
+你在哪里可以看到超过两个维度的数据？
 
-- [Panel data](https://en.wikipedia.org/wiki/Panel_data) can be represented in three dimensions. Data that tracks attributes of a cohort (group) of individuals over time could be structured as (respondents, dates, attributes). The 1979 [National Longitudinal Survey of Youth](https://www.nlsinfo.org/content/cohorts/nlsy79) follows 12,686 respondents over 27 years. Assuming that you have ~500 directly asked or derived data points per individual, per year, this data would have shape (12686, 27, 500) for a total of 177,604,000 data points.
+- [面板数据](https://en.wikipedia.org/wiki/Panel_data)可以用三维表示。跟踪个体群组（群体）随时间变化的数据可以被构造为（受访者，日期，属性）。 1979年[全国青年纵向调查（iq调查）](https://www.nlsinfo.org/content/cohorts/nlsy79)对27岁以上的12,686名受访者进行了调查。假设每个人每年有大约500个直接询问或派生的数据点，这些数据将具有形状（12686,27,500），总共177,604,000个数据点。
+- 用于多幅图像的彩色图像数据通常存储在四个维度中。每个图像是一个三维数组(高度、宽度、通道)，通道通常是红色、绿色和蓝色(RGB)值。然后，图像的集合就是(图像数、高度、宽度、通道)。1，000张256x256 RGB图像将具有形状(1000，256，256，3)。(扩展的表示是RGBA，其中A-alpha-表示不透明的级别。)。
 
-- Color-image data for multiple images is typically stored in four dimensions. Each image is a three-dimensional array of (height, width, channels), where the channels are usually red, green, and blue (RGB) values. A collection of images is then just (image_number, height, width, channels). One thousand 256x256 RGB images would have shape (1000, 256, 256, 3). (An extended representation is RGBA, where the A–alpha–denotes the level of opacity.)
-For more detail on real-world examples of high-dimensional data, see Chapter 2 of François Chollet’s Deep Learning with Python.
+有关高维数据的真实示例的更多详细信息，请参阅FrançoisChollet[使用Python进行深度学习](https://realpython.com/asins/1617294438/)的第2章。
 
-For more detail on real-world examples of high-dimensional data, see Chapter 2 of François Chollet’s [Deep Learning with Python](https://realpython.com/asins/1617294438/).
+## 什么是矢量化？
 
-## What is Vectorization?
+矢量化是NumPy中的一种强大功能，可以将操作表达为在整个阵列上而不是在各个元素上发生。以下是Wes McKinney的简明定义：
 
-Vectorization is a powerful ability within NumPy to express operations as occurring on entire arrays rather than their individual elements. Here’s a concise definition from Wes McKinney:
+> 这种用数组表达式替换显式循环的做法通常称为向量化。通常，矢量化数组操作通常比其纯Python等价物快一个或两个（或更多）数量级，在任何类型的数值计算中都具有最大的影响。[查看源码](https://www.safaribooksonline.com/library/view/python-for-data/9781449323592/ch04.html)
 
-> This practice of replacing explicit loops with array expressions is commonly referred to as vectorization. In general, vectorized array operations will often be one or two (or more) orders of magnitude faster than their pure Python equivalents, with the biggest impact [seen] in any kind of numerical computations. [source](https://www.safaribooksonline.com/library/view/python-for-data/9781449323592/ch04.html)
+在Python中循环数组或任何数据结构时，会涉及很多开销。 NumPy中的向量化操作将内部循环委托给高度优化的C和Fortran函数，从而实现更清晰，更快速的Python代码。
 
-When looping over an array or any data structure in Python, there’s a lot of overhead involved. Vectorized operations in NumPy delegate the looping internally to highly optimized C and Fortran functions, making for cleaner and faster Python code.
+### 计数: 简单的如：1, 2, 3…
 
-### Counting: Easy as 1, 2, 3…
-
-As an illustration, consider a 1-dimensional vector of True and False for which you want to count the number of “False to True” transitions in the sequence:
+作为示例，考虑一个True和False的一维向量，你要为其计算序列中“False to True”转换的数量：
 
 ```python
 >>> np.random.seed(444)
@@ -100,7 +98,7 @@ As an illustration, consider a 1-dimensional vector of True and False for which 
 array([ True, False,  True, ...,  True, False,  True])
 ```
 
-With a Python for-loop, one way to do this would be to evaluate, in pairs, the [truth value](https://docs.python.org/3/library/stdtypes.html#truth-value-testing) of each element in the sequence along with the element that comes right after it:
+使用Python for循环，一种方法是成对地评估序列中每个元素的[真值](https://docs.python.org/3/library/stdtypes.html#truth-value-testing)以及紧随其后的元素：
 
 ```python
 >>> def count_transitions(x) -> int:
@@ -114,14 +112,14 @@ With a Python for-loop, one way to do this would be to evaluate, in pairs, the [
 24984
 ```
 
-In vectorized form, there’s no explicit for-loop or direct reference to the individual elements:
+在矢量化形式中，没有明确的for循环或直接引用各个元素：
 
 ```python
 >>> np.count_nonzero(x[:-1] < x[1:])
 24984
 ```
 
-How do these two equivalent functions compare in terms of performance? In this particular case, the vectorized NumPy call wins out by a factor of about 70 times:
+这两个等效函数在性能方面有何比较？ 在这种特殊情况下，向量化的NumPy调用胜出约70倍：
 
 ```python
 >>> from timeit import timeit
@@ -133,19 +131,19 @@ How do these two equivalent functions compare in terms of performance? In this p
 Speed difference: 71.0x
 ```
 
-**Technical Detail**: Another term is [vector processor](https://blogs.msdn.microsoft.com/nativeconcurrency/2012/04/12/what-is-vectorization/), which is related to a computer’s hardware. When I speak about vectorization here, I’m referring to concept of replacing explicit for-loops with array expressions, which in this case can then be computed internally with a low-level language.
+**技术细节**: 另一个术语是[矢量处理器](https://blogs.msdn.microsoft.com/nativeconcurrency/2012/04/12/what-is-vectorization/)，它与计算机的硬件有关。 当我在这里谈论矢量化时，我指的是用数组表达式替换显式for循环的概念，在这种情况下，可以使用低级语言在内部计算。
 
-### Buy Low, Sell High
+### 买低，卖高
 
-Here’s another example to whet your appetite. Consider the following classic technical interview problem:
+这是另一个激发你胃口的例子。考虑以下经典技术面试问题：
 
-> Given a stock’s price history as a sequence, and assuming that you are only allowed to make one purchase and one sale, what is the maximum profit that can be obtained? For example, given prices = (20, 18, 14, 17, 20, 21, 15), the max profit would be 7, from buying at 14 and selling at 21.
+> 假定一只股票的历史价格是一个序列，假设你只允许进行一次购买和一次出售，那么可以获得的最大利润是多少？例如，假设价格=(20，18，14，17，20，21，15)，最大利润将是7，从14买到21卖。
 
-(To all of you finance people: no, short-selling is not allowed.)
+(对所有金融界人士说：不，卖空是不允许的。)
 
-There is a solution with n-squared [time complexity](https://en.wikipedia.org/wiki/Time_complexity) that consists of taking every combination of two prices where the second price “comes after” the first and determining the maximum difference.
+存在具有n平方[时间复杂度]((https://en.wikipedia.org/wiki/Time_complexity))的解决方案，其包括采用两个价格的每个组合，其中第二价格“在第一个之后”并且确定最大差异。
 
-However, there is also an O(n) solution that consists of iterating through the sequence just once and finding the difference between each price and a running minimum. It goes something like this:
+然而，还有一个O(n)解决方案，它包括迭代序列一次，找出每个价格和运行最小值之间的差异。 它是这样的：
 
 ```python
 >>> def profit(prices):
@@ -161,7 +159,7 @@ However, there is also an O(n) solution that consists of iterating through the s
 7
 ```
 
-Can this be done in NumPy? You bet. But first, let’s build a quasi-realistic example:
+这可以用NumPy实现吗？行!没问题。但首先，让我们构建一个准现实的例子：
 
 ```python
 # Create mostly NaN array with a few 'turning points' (local min/max).
@@ -175,7 +173,7 @@ Can this be done in NumPy? You bet. But first, let’s build a quasi-realistic e
 >>> prices += np.random.randn(len(prices)) * 2
 ```
 
-Here’s what this looks like with [matplotlib](https://realpython.com/python-matplotlib-guide/). The adage is to buy low (green) and sell high (red):
+下面是[matplotlib](https://realpython.com/python-matplotlib-guide/)的示例。俗话说：买低(绿)，卖高(红)：
 
 ```python
 >>> import matplotlib.pyplot as plt
@@ -197,13 +195,13 @@ Here’s what this looks like with [matplotlib](https://realpython.com/python-ma
 
 ![以序列形式显示股票价格历史的图解](/static/images/article/prices.664958f44799.png)
 
-What does the NumPy implementation look like? While there is no np.cummin() “directly,” NumPy’s [universal functions](https://docs.scipy.org/doc/numpy/reference/ufuncs.html#available-ufuncs) (ufuncs) all have an accumulate() method that does what its name implies:
+NumPy实现是什么样的？ 虽然没有np.cummin() “直接”，但NumPy的[通用函数（ufuncs）](https://docs.scipy.org/doc/numpy/reference/ufuncs.html#available-ufuncs)都有一个accumulate()方法，它的名字暗示了：
 
 ```python
 >>> cummin = np.minimum.accumulate
 ```
 
-Extending the logic from the pure-Python example, you can find the difference between each price and a running minimum (element-wise), and then take the max of this sequence:
+从纯Python示例扩展逻辑，你可以找到每个价格和运行最小值（元素方面）之间的差异，然后获取此序列的最大值：
 
 ```python
 >>> def profit_with_numpy(prices):
@@ -217,7 +215,7 @@ Extending the logic from the pure-Python example, you can find the difference be
 True
 ```
 
-How do these two operations, which have the same theoretical time complexity, compare in actual runtime? First, let’s take a longer sequence. (This doesn’t necessarily need to be a time series of stock prices at this point.)
+这两个具有相同理论时间复杂度的操作如何在实际运行时进行比较？ 首先，让我们采取更长的序列。（此时不一定需要是股票价格的时间序列。）
 
 ```python
 >>> seq = np.random.randint(0, 100, size=100000)
@@ -226,7 +224,7 @@ array([ 3, 23,  8, 67, 52, 12, 54, 72, 41, 10, ..., 46,  8, 90, 95, 93,
        28, 24, 88, 24, 49])
 ```
 
-Now, for a somewhat unfair comparison:
+现在，对于一个有点不公平的比较：
 
 ```python
 >>> setup = ('from __main__ import profit_with_numpy, profit, seq;'
@@ -238,19 +236,19 @@ Now, for a somewhat unfair comparison:
 Speed difference: 76.0x
 ```
 
-Above, treating profit_with_numpy() as pseudocode (without considering NumPy’s underlying mechanics), there are actually three passes through a sequence:
+在上面，将profit_with_numpy() 视为伪代码（不考虑NumPy的底层机制），实际上有三个遍历序列：
 
-- cummin(prices) has O(n) time complexity
-- prices - cummin(prices) is O(n)
-- max(...) is O(n)
+- cummin(prices) 具有O(n)时间复杂度
+- prices - cummin(prices) 是 O(n)的时间复杂度
+- max(...) 是O(n)的时间复杂度
 
-This reduces to O(n), because O(3n) reduces to just O(n)–the n “dominates” as n approaches infinity.
+这就减少到O(n)，因为O(3n)只剩下O(n)-当n接近无穷大时，n “占主导地位”。
 
-Therefore, these two functions have equivalent worst-case time complexity. (Although, as a side note, the NumPy function comes with significantly more space complexity.) But that is probably the least important takeaway here. One lesson is that, while theoretical time complexity is an important consideration, runtime mechanics can also play a big role. Not only can NumPy delegate to C, but with some element-wise operations and linear algebra, it can also take advantage of computing within multiple threads. But there are a lot of factors at play here, including the underlying library used (BLAS/LAPACK/Atlas), and those details are for a whole ‘nother article entirely.
+因此，这两个函数具有等价的最坏情况时间复杂度。(不过，顺便提一下，NumPy函数的空间复杂度要高得多。)。但这可能是最不重要的内容。这里我们有一个教训是：虽然理论上的时间复杂性是一个重要的考虑因素，运行时机制也可以发挥很大的作用。NumPy不仅可以委托给C，而且通过一些元素操作和线性代数，它还可以利用多线程中的计算。但是这里有很多因素在起作用，包括所使用的底层库(BLAS/LAPACK/Atlas)，而这些细节完全是另一篇文章的全部内容。
 
-## Intermezzo: Understanding Axes Notation
+## Intermezzo：理解轴符号
 
-In NumPy, an axis refers to a single dimension of a multidimensional array:
+在NumPy中，轴指向多维数组的单个维度：
 
 ```python
 >>> arr = np.array([[1, 2, 3],
@@ -261,23 +259,23 @@ array([11, 22, 33])
 array([ 6, 60])
 ```
 
-The terminology around axes and the way in which they are described can be a bit unintuitive. In the documentation for Pandas (a library built on top of NumPy), you may frequently see something like:
+围绕轴的术语和描述它们的方式可能有点不直观。在Pandas(在NumPy之上构建的库)的文档中，你可能经常看到如下内容：
 
 ```
 axis : {'index' (0), 'columns' (1)}
 ```
 
-You could argue that, based on this description, the results above should be “reversed.” However, the key is that axis refers to the axis along which a function gets called. This is well articulated by Jake VanderPlas:
+根据这一描述，你可以争辩说，上面的结果应该是“反向的”。但是，关键是轴指向调用函数的轴。杰克·范德普拉斯很好地阐述了这一点：
 
-> The way the axis is specified here can be confusing to users coming from other languages. The axis keyword specifies the dimension of the array that will be collapsed, rather than the dimension that will be returned. So, specifying axis=0 means that the first axis will be collapsed: for two-dimensional arrays, this means that values within each column will be aggregated. [source](https://realpython.com/asins/1491912057/)
+> 此处指定轴的方式可能会让来自其他语言的用户感到困惑。AXIS关键字指定将折叠的数组的维度，而不是将要返回的维度。因此，指定Axis=0意味着第一个轴将折叠：对于二维数组，这意味着每列中的值将被聚合。 [查看源码](https://realpython.com/asins/1491912057/)
 
-In other words, summing an array for axis=0 collapses the rows of the array with a column-wise computation.
+换句话说，如果将AXIS=0的数组相加，则会使用按列计算的方式折叠数组的行。
 
-With this distinction in mind, let’s move on to explore the concept of broadcasting.
+考虑到这一区别，让我们继续探讨广播的概念。
 
-## Broadcasting
+## 广播
 
-Broadcasting is another important NumPy abstraction. You’ve already seen that operations between two NumPy arrays (of equal size) operate element-wise:
+广播是另一个重要的NumPy抽象。你已经看到了两个NumPy数组(大小相等)之间的操作是按元素操作的：
 
 ```python
 >>> a = np.array([1.5, 2.5, 3.5])
@@ -286,19 +284,19 @@ Broadcasting is another important NumPy abstraction. You’ve already seen that 
 array([0.15, 0.5 , 3.5 ])
 ```
 
-But, what about unequally sized arrays? This is where broadcasting comes in:
+但是，大小不相等的数组呢？这就是广播的意义所在：
 
-> The term broadcasting describes how NumPy treats arrays with different shapes during arithmetic operations. Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they have compatible shapes. Broadcasting provides a means of vectorizing array operations so that looping occurs in C instead of Python. [source](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+> 术语广播描述了在算术运算期间NumPy如何处理具有不同形状的数组。受某些约束条件的限制，较小的数组会在较大的数组中“广播”，以便它们具有兼容的形状。广播提供了一种向量化数组操作的方法，因此循环是在C而不是Python中进行的。[查看源码](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
-The way in which broadcasting is implemented can become tedious when working with more than two arrays. However, if there are just two arrays, then their ability to be broadcasted can be described with two short rules:
+当使用两个以上的数组时，广播的实现方式可能会变得乏味。但是，如果只有两个数组，那么可以用两条简短的规则来描述它们的广播能力：
 
-> When operating on two arrays, NumPy compares their shapes element-wise. It starts with the trailing dimensions and works its way forward. Two dimensions are compatible when:
-> - they are equal, or
-> - one of them is 1
+> 在对两个数组进行操作时，NumPy按元素对它们的形状进行比较。它从尾随维度开始，然后继续前进。两个维度在下列情况下是兼容的：
+> - 他们是平等的，或者
+> - 其中一个是1
 
-That’s all there is to it.
+非那样做不行。
 
-Let’s take a case where we want to subtract each column-wise mean of an array, element-wise:
+让我们以一个例子为例，我们想要减去数组的每个列的平均值，元素的平均值：
 
 ```python
 >>> sample = np.random.normal(loc=[2., 20.], scale=[1., 3.5],
@@ -309,7 +307,7 @@ array([[ 1.816 , 23.703 ],
        [ 3.5901, 24.2115]])
 ```
 
-In statistical jargon, sample consists of two samples (the columns) drawn independently from two populations with means of 2 and 20, respectively. The column-wise means should approximate the population means (albeit roughly, because the sample is small):
+在统计术语中，样本由两个独立于两个总体的样本(列)组成，平均值分别为2和20。按列分列的方法应该近似于总体方法(尽管是粗略的，因为样本很小)：
 
 ```python
 >>> mu = sample.mean(axis=0)
@@ -317,7 +315,7 @@ In statistical jargon, sample consists of two samples (the columns) drawn indepe
 array([ 2.7486, 20.0584])
 ```
 
-Now, subtracting the column-wise means is straightforward because broadcasting rules check out:
+现在，减去列意义是很简单的，因为广播规则检查出来了：
 
 ```python
 >>> print('sample:', sample.shape, '| means:', mu.shape)
@@ -329,11 +327,11 @@ array([[-0.9325,  3.6446],
        [ 0.8416,  4.1531]])
 ```
 
-Here’s an illustration of subtracting out column-wise means, where a smaller array is “stretched” so that it is subtracted from each row of the larger array:
+下面是一个减去列意义的示例，其中较小的数组被“拉伸”，以便从较大的数组的每一行中减去它：
 
 ![NumPy数组广播](/static/images/article/broadcasting.084a0e28dea8.jpg)
 
-**Technical Detail**: The smaller-sized array or scalar is not literally stretched in memory: it is the computation itself that is repeated.
+**技术细节**：较小的数组或标量不是按字面意义上在内存中展开的：重复的是计算本身。
 
 This extends to [standardizing](https://en.wikipedia.org/wiki/Standard_score) each column as well, making each cell a z-score relative to its respective column:
 
