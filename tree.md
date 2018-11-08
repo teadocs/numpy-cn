@@ -8,6 +8,7 @@
         - [NumPy数据分析练习](/article/advanced/numpy_exercises_for_data_analysis)
         - [NumPy神经网络](/article/advanced/neural_network_with_numpy)
         - [使用NumPy进行数组编程](/article/advanced/numpy_array_programming)
+        - [NumPy实现k均值聚类算法（k-means）](/article/advanced/numpy_kmeans)
     - [+其他篇](/article/other/index)
         - [OpenCV中的图像的基本操作](/article/other/py_basic_ops)
 - [+NumPy用户指南](/user_guide/index)

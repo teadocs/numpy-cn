@@ -1,4 +1,4 @@
-# Numpy对于Matlab用户
+# NumPy对于Matlab用户
 
 ## 介绍
 

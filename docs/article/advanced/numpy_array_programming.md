@@ -2,18 +2,18 @@
 
 ## 目录
 
-- [Getting into Shape: Intro to NumPy Arrays](#Getting-into-Shape:-Intro-to-NumPy-Arrays)
-- [What is Vectorization?](#What-is-Vectorization?)
-    - [Counting: Easy as 1, 2, 3…](#Counting:-Easy-as-1,-2,-3…)
-    - [Buy Low, Sell High](#Buy-Low,-Sell-High)
-- [Intermezzo: Understanding Axes Notation](#Intermezzo:-Understanding-Axes-Notation)
-- [Broadcasting](#Broadcasting)
-- [Array Programming in Action: Examples](#Array-Programming-in-Action:-Examples)
-    - [Clustering Algorithms](#Clustering-Algorithms)
-    - [Amortization Tables](#Amortization-Tables)
-    - [Image Feature Extraction](#Image-Feature-Extraction)
-- [A Parting Thought: Don’t Over-Optimize](#A-Parting-Thought:-Don’t-Over-Optimize)
-- [More Resources](#More-Resources)
+- [进入状态：介绍NumPy数组](#进入状态：介绍NumPy数组)
+- [什么是矢量化？](#什么是矢量化？)
+    - [计数:-简单的如：1,-2,-3…](#计数:-简单的如：1,-2,-3…)
+    - [买低，卖高](#买低，卖高)
+- [Intermezzo：理解轴符号](#Intermezzo：理解轴符号)
+- [广播](#广播)
+- [矩阵编程实际应用：示例](#矩阵编程实际应用：示例)
+    - [聚类算法](#聚类算法)
+    - [摊还（分期）表](#摊还（分期）表)
+    - [图像特征提取](#图像特征提取)
+- [临别赠言：不要过度优化](#临别赠言：不要过度优化)
+- [更多资源](#更多资源)
 
 ## 前言
 
@@ -195,7 +195,7 @@ Speed difference: 71.0x
 
 ![以序列形式显示股票价格历史的图解](/static/images/article/prices.664958f44799.png)
 
-NumPy实现是什么样的？ 虽然没有np.cummin() “直接”，但NumPy的[通用函数（ufuncs）](https://docs.scipy.org/doc/numpy/reference/ufuncs.html#available-ufuncs)都有一个accumulate()方法，它的名字暗示了：
+NumPy实现是什么样的？ 虽然没有np.cummin() “直接”，但NumPy的[通用函数（ufuncs）](/reference/ufuncs/index.html)都有一个accumulate()方法，它的名字暗示了：
 
 ```python
 >>> cummin = np.minimum.accumulate
@@ -286,7 +286,7 @@ array([0.15, 0.5 , 3.5 ])
 
 但是，大小不相等的数组呢？这就是广播的意义所在：
 
-> 术语广播描述了在算术运算期间NumPy如何处理具有不同形状的数组。受某些约束条件的限制，较小的数组会在较大的数组中“广播”，以便它们具有兼容的形状。广播提供了一种向量化数组操作的方法，因此循环是在C而不是Python中进行的。[查看源码](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+> 术语广播描述了在算术运算期间NumPy如何处理具有不同形状的数组。受某些约束条件的限制，较小的数组会在较大的数组中“广播”，以便它们具有兼容的形状。广播提供了一种向量化数组操作的方法，因此循环是在C而不是Python中进行的。[查看源码](/reference/ufuncs/broadcasting.html)
 
 当使用两个以上的数组时，广播的实现方式可能会变得乏味。但是，如果只有两个数组，那么可以用两条简短的规则来描述它们的广播能力：
 
@@ -333,7 +333,7 @@ array([[-0.9325,  3.6446],
 
 **技术细节**：较小的数组或标量不是按字面意义上在内存中展开的：重复的是计算本身。
 
-This extends to [standardizing](https://en.wikipedia.org/wiki/Standard_score) each column as well, making each cell a z-score relative to its respective column:
+这扩展到[标准化](https://en.wikipedia.org/wiki/Standard_score)每个列，使每个单元格相对于其各自的列具有z-score：
 
 ```python
 >>> (sample - sample.mean(axis=0)) / sample.std(axis=0)
@@ -342,14 +342,14 @@ array([[-1.2825,  0.6605],
        [ 1.1574,  0.7527]])
 ```
 
-However, what if you want to subtract out, for some reason, the row-wise minimums? You’ll run into a bit of trouble:
+但是，如果出于某种原因，要减去行最小值，该怎么办？你会遇到这样的麻烦：
 
 ```python
 >>> sample - sample.min(axis=1)
 ValueError: operands could not be broadcast together with shapes (3,2) (3,)
 ```
 
-The problem here is that the smaller array, in its current form, cannot be “stretched” to be shape-compatible with sample. You actually need to expand its dimensionality to meet the broadcasting rules above:
+这里的问题是，较小的数组，在其目前的形式，不能“伸展”，以形状与样本兼容。实际上，你需要扩展它的维度，以满足上面的广播规则：
 
 ```python
 >>> sample.min(axis=1)[:, None]  # 3 minimums across 3 rows
@@ -363,17 +363,17 @@ array([[ 0.    , 21.887 ],
        [ 0.    , 20.6214]])
 ```
 
-**Note**: [:, None] is a means by which to expand the dimensionality of an array, to create an axis of length one. [np.newaxis](https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html#numpy.newaxis) is an alias for None.
+**注意**: [:, None]是一种扩展数组维度的方法，用于创建长度为1的轴。[np.newaxis](/reference/array_objects/indexing.html#numpy.newaxis)是None的别名。
 
-There are some significantly more complex cases, too. Here’s a more rigorous definition of when any arbitrary number of arrays of any shape can be broadcast together:
+还有一些更为复杂的案例。下面是任何形状的任意数量的数组可以一起广播的更严格的定义：
 
-> A set of arrays is called “broadcastable” to the same shape if the following rules produce a valid result, meaning **one of the following is true**:
-> 1. The arrays all have exactly the same shape.
-> 1. The arrays all have the same number of dimensions, and the length of each dimension is either a common length or 1.
-> 1. The arrays that have too few dimensions can have their shapes prepended with a dimension of length 1 to satisfy property #2.
-> [source](https://docs.scipy.org/doc/numpy/reference/ufuncs.html#broadcasting)
+> 如果以下规则产生有效结果，则一组数组被称为“可广播”到相同的形状，这意味着 **以下之一为真** 时：
+> 1. 矩阵都具有完全相同的形状。
+> 1. 矩阵都具有相同数量的维度，每个维度的长度是公共长度或1。
+> 1. 具有太少尺寸的矩列可以使其形状前面具有长度为1的尺寸以满足属性＃2。
+> [查看源码](https://docs.scipy.org/doc/numpy/reference/ufuncs.html#broadcasting)
 
-This is easier to walk through step by step. Let’s say you have the following four arrays:
+这更容易一步一步走。假设你有以下四个数组：
 
 ```python
 >>> a = np.sin(np.arange(10)[:, None])
@@ -382,7 +382,7 @@ This is easier to walk through step by step. Let’s say you have the following 
 >>> d = 8
 ```
 
-Before checking shapes, NumPy first converts scalars to arrays with one element:
+在检查形状之前，NumPy首先将标量转换为具有一个元素的数组：
 
 ```python
 >>> arrays = [np.atleast_1d(arr) for arr in (a, b, c, d)]
@@ -395,25 +395,25 @@ Before checking shapes, NumPy first converts scalars to arrays with one element:
 (1,)
 ```
 
-Now we can check criterion #1. If all of the arrays have the same shape, a set of their shapes will condense down to one element, because the set() constructor effectively drops duplicate items from its input. This criterion is clearly not met:
+现在我们可以检查标准＃1。如果所有数组具有相同的形状，则它们的一组形状将缩减为一个元素，因为set() 构造函数有效地从其输入中删除重复项。这里显然没有达到这个标准：
 
 ```python
 >>> len(set(arr.shape for arr in arrays)) == 1
 False
 ```
 
-The first part of criterion #2 also fails, meaning the entire criterion fails:
+标准＃2的第一部分也失败了，这意味着整个标准失败：
 
 ```python
 >>> len(set((arr.ndim) for arr in arrays)) == 1
 False
 ```
 
-The final criterion is a bit more involved:
+最后一个标准更复杂一些：
 
-> The arrays that have too few dimensions can have their shapes prepended with a dimension of length 1 to satisfy property #2.
+> 具有太少尺寸的矩列可以使其形状前面具有长度为1的尺寸以满足属性＃2。
 
-To codify this, you can first determine the dimensionality of the highest-dimension array and then prepend ones to each shape tuple until all are of equal dimension:
+为了对此进行编码，你可以首先确定最高维数组的维度，然后将其添加到每个形状元组，直到所有数组具有相同的维度：
 
 ```python
 >>> maxdim = max(arr.ndim for arr in arrays)  # Maximum dimensionality
@@ -426,7 +426,7 @@ array([[10,  1],
        [ 1,  1]])
 ```
 
-Finally, you need to test that the length of each dimension is either (drawn from) a common length, or 1. A trick for doing this is to first mask the array of “shape-tuples” in places where it equals one. Then, you can check if the peak-to-peak (np.ptp()) column-wise differences are all zero:
+最后，你需要测试每个维度的长度是否是公共长度，或是1。这样做的一个技巧是首先在“等于”的位置屏蔽“shape-tuples”数组。然后，你可以检查 peak-to-peak（np.ptp()）列方差是否都为零：
 
 ```python
 >>> masked = np.ma.masked_where(shapes == 1, shapes)
@@ -434,7 +434,7 @@ Finally, you need to test that the length of each dimension is either (drawn fro
 True
 ```
 
-Encapsulated in a single function, this logic looks like this:
+这个逻辑封装在单个函数中，如下所示：
 
 ```python
 >>> def can_broadcast(*arrays) -> bool:
@@ -453,7 +453,7 @@ Encapsulated in a single function, this logic looks like this:
 True
 ```
 
-Luckily, you can take a shortcut and use np.broadcast() for this sanity-check, although it’s not explicitly designed for this purpose:
+幸运的是，你可以选择一个快捷方式并使用np.cast()来进行这种健全性检查，尽管它并不是为此目的而显式设计的：
 
 ```python
 >>> def can_broadcast(*arrays) -> bool:
@@ -467,15 +467,15 @@ Luckily, you can take a shortcut and use np.broadcast() for this sanity-check, a
 True
 ```
 
-For those interested in digging a little deeper, [PyArray_Broadcast](https://github.com/numpy/numpy/blob/7dcee7a469ad1bbfef1cd8980dc18bf5869c5391/numpy/core/src/multiarray/iterators.c#L1274) is the underlying C function that encapsulates broadcasting rules.
+对于那些有兴趣深入挖掘的人来说，[PyArray_Broadcast](https://github.com/numpy/numpy/blob/7dcee7a469ad1bbfef1cd8980dc18bf5869c5391/numpy/core/src/multiarray/iterators.c#L1274)是封装广播规则的底层C函数。
 
-## Array Programming in Action: Examples
+## 矩阵编程实际应用：示例
 
-In the following 3 examples, you’ll put vectorization and broadcasting to work with some real-world applications.
+在以下3个示例中，你将使用矢量化和广播来处理一些实际应用程序。
 
-### Clustering Algorithms
+### 聚类算法
 
-Machine learning is one domain that can frequently take advantage of vectorization and broadcasting. Let’s say that you have the vertices of a triangle (each row is an x, y coordinate):
+机器学习是一个可以经常利用矢量化和广播的领域。 假设您有三角形的顶点（每行是x，y坐标）：
 
 ```python
 >>> tri = np.array([[1, 1],
@@ -483,7 +483,7 @@ Machine learning is one domain that can frequently take advantage of vectorizati
 ...                 [2, 3]])
 ```
 
-The [centroid](https://en.wikipedia.org/wiki/Centroid) of this “cluster” is an (x, y) coordinate that is the arithmetic mean of each column:
+这个[“簇”](https://en.wikipedia.org/wiki/Centroid)的质心是(x, y)坐标，它是每列的算术平均值：
 
 ```python
 >>> centroid = tri.mean(axis=0)
@@ -491,7 +491,7 @@ The [centroid](https://en.wikipedia.org/wiki/Centroid) of this “cluster” is 
 array([2.    , 1.6667])
 ```
 
-It’s helpful to visualize this:
+可视化这有助于：
 
 ```python
 >>> trishape = plt.Polygon(tri, edgecolor='r', alpha=0.2, lw=5)
@@ -505,36 +505,36 @@ It’s helpful to visualize this:
 
 ![三角形的图像](/static/images/article/tri.521228ffdca0.png)
 
-Many [clustering algorithms](http://scikit-learn.org/stable/modules/clustering.html) make use of Euclidean distances of a collection of points, either to the origin or relative to their centroids.
+许多[聚类算法](http://scikit-learn.org/stable/modules/clustering.html)利用点集合的欧几里德距离，或者指向原点，或者相对于它们的质心。
 
-In Cartesian coordinates, the Euclidean distance between points p and q is:
+在笛卡尔坐标下，p点和q点之间的欧几里德距离是：
 
 ![点之间欧氏距离的计算公式](/static/images/article/euclid.ffdfd280d315.png)
 
-[[source: Wikipedia](https://en.wikipedia.org/wiki/Euclidean_distance#Definition)]
+[[查看源码](https://en.wikipedia.org/wiki/Euclidean_distance#Definition)]
 
-So for the set of coordinates in tri from above, the Euclidean distance of each point from the origin (0, 0) would be:
+因此，对于上面的三坐标集，每个点到原点(0, 0) 的欧几里德距离是：
 
-```pyhon
+```python
 >>> np.sum(tri**2, axis=1) ** 0.5  # Or: np.sqrt(np.sum(np.square(tri), 1))
 array([1.4142, 3.1623, 3.6056])
 ```
 
-You may recognize that we are really just finding Euclidean norms:
+你可能会认识到我们实际上只是在寻找附和欧几里德的规则：
 
 ```python
 >>> np.linalg.norm(tri, axis=1)
 array([1.4142, 3.1623, 3.6056])
 ```
 
-Instead of referencing the origin, you could also find the norm of each point relative to the triangle’s centroid:
+你也可以找到相对于三角形质心的每个点的范数，而不是参考原点：
 
 ```python
 >>> np.linalg.norm(tri - centroid, axis=1)
 array([1.2019, 1.2019, 1.3333])
 ```
 
-Finally, let’s take this one step further: let’s say that you have a 2d array X and a 2d array of multiple (x, y) “proposed” centroids. Algorithms such as [K-Means clustering](http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) work by randomly assigning initial “proposed” centroids, then reassigning each data point to its closest centroid. From there, new centroids are computed, with the algorithm converging on a solution once the re-generated labels (an encoding of the centroids) are unchanged between iterations. A part of this iterative process requires computing the Euclidean distance of each point from each centroid:
+最后，让我们更进一步：假设你有一个二维数组X和一个多个(x, y) “建议”质心的二维数组。诸如[K-Means聚类的算法](http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html))通过随机分配初始“建议”质心，然后将每个数据点重新分配到其最接近的质心来工作。从那里开始，计算新的质心，一旦重新生成的标签（质心的编码）在迭代之间不变，算法就会收敛于解。这个个迭代过程的一部分需要计算每个质心中每个点的欧几里德距离：
 
 ```python
 >>> X = np.repeat([[5, 5], [10, 10]], [5, 5], axis=0)
@@ -558,7 +558,7 @@ array([[ 5,  5],
        [10, 10]])
 ```
 
-In other words, we want to answer the question, to which centroid does each point within X belong? We need to do some reshaping to enable broadcasting here, in order to calculate the Euclidean distance between each point in X and each point in centroids:
+换句话说，我们想回答这个问题，X中的每个点所属的质心是什么？ 为了计算X中每个点与质心中每个点之间的欧几里德距离，我们需要进行一些重构以在此处启用广播：
 
 ```python
 >>> centroids[:, None]
@@ -570,7 +570,7 @@ array([[[ 5,  5]],
 (2, 1, 2)
 ```
 
-This enables us to cleanly subtract one array from another using a **combinatoric product of their rows:**
+这使我们能够使用一个数组**行的组合乘积**，从另一个数组中清清楚楚地减掉这些数组：
 
 ```python
 >>> np.linalg.norm(X - centroids[:, None], axis=2).round(2)
@@ -578,14 +578,14 @@ array([[2.08, 1.21, 0.99, 1.94, 2.06, 6.72, 7.12, 4.7 , 4.83, 6.32],
        [9.14, 5.86, 6.78, 7.02, 6.98, 0.73, 0.22, 2.48, 2.27, 1.15]])
 ```
 
-In other words, the shape of X - centroids[:, None] is (2, 10, 2), essentially representing two stacked arrays that are each the size of X. Next, we want the label (index number) of each closest centroid, finding the minimum distance on the 0th axis from the array above:
+换句话说，X-质心[:, None]的形状是(2，10，2)，本质上表示两个堆叠的数组，每个数组的大小都为X。接下来，我们希望每个最近的质心的标签(索引号)，从上面的数组找出第0轴上的最小距离：
 
 ```python
 >>> np.argmin(np.linalg.norm(X - centroids[:, None], axis=2), axis=0)
 array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1])
 ```
 
-You can put all this together in functional form:
+你可以将所有这些以函数形式组合在一起：
 
 ```python
 >>> def get_labels(X, centroids) -> np.ndarray:
@@ -594,7 +594,7 @@ You can put all this together in functional form:
 >>> labels = get_labels(X, centroids)
 ```
 
-Let’s inspect this visually, plotting both the two clusters and their assigned labels with a color-mapping:
+让我们来直观地检查一下，用一个颜色映射来绘制两个集群和它们指定的标签：
 
 ```python
 >>> c1, c2 = ['#bc13fe', '#be0119']  # https://xkcd.com/color/rgb/
@@ -611,11 +611,11 @@ Let’s inspect this visually, plotting both the two clusters and their assigned
 
 ![预测类颜色映射](/static/images/article/classes.cdaa3e38d62f.png)
 
-### Amortization Tables
+### 摊还（分期）表
 
-Vectorization has applications in finance as well.
+矢量化也适用于金融领域。
 
-Given an annualized interest rate, payment frequency (times per year), initial loan balance, and loan term, you can create an amortization table with monthly loan balances and payments, in a vectorized fashion. Let’s set some scalar constants first:
+给定年利率，支付频率（每年的次数），初始贷款余额和贷款期限，你可以以矢量化方式创建包含月贷款余额和付款的摊还表。让我们先设置一些标量常量：
 
 ```python
 >>> freq = 12     # 12 months per year
@@ -627,9 +627,9 @@ Given an annualized interest rate, payment frequency (times per year), initial l
 >>> nper *= freq  # 360 months
 ```
 
-NumPy comes preloaded with a handful of [financial functions](https://docs.scipy.org/doc/numpy/reference/routines.financial.html) that, unlike their [Excel cousins](http://www.tvmcalcs.com/index.php/calculators/apps/excel_loan_amortization), are capable of producing vector outputs.
+NumPy预装了一些[财务函数](/reference/routines/financial.html)，与[Excel表兄弟](http://www.tvmcalcs.com/index.php/calculators/apps/excel_loan_amortization)不同，它们能够以矢量的形式输出。
 
-The debtor (or lessee) pays a constant monthly amount that is composed of a principal and interest component. As the outstanding loan balance declines, the interest portion of the total payment declines with it.
+债务人（或承租人）每月支付一笔由本金和利息部分组成的固定金额。由于未偿还的贷款余额下降，总付款的利息部分随之下降。
 
 ```python
 >>> periods = np.arange(1, nper + 1, dtype=int)
@@ -638,11 +638,11 @@ The debtor (or lessee) pays a constant monthly amount that is composed of a prin
 >>> pmt = principal + interest  # Or: pmt = np.pmt(rate, nper, pv)
 ```
 
-Next, you’ll need to calculate a monthly balance, both before and after that month’s payment, which can be defined as the [future value of the original balance minus the future value of an annuity](http://financeformulas.net/Remaining_Balance_Formula.html) (a stream of payments), using a discount factor d:
+接下来，你需要计算每月的余额，包括支付前和付款后的余额，可以定义为[原始余额的未来价值减去年金(支付流)的未来价值](http://financeformulas.net/Remaining_Balance_Formula.html)，使用折扣因子d：
 
 ![原始余额未来价值计算的财务公式图](/static/images/article/fv.7346eb669ac7.png)
 
-Functionally, this looks like:
+从功能上看，如下所示：
 
 ```python
 >>> def balance(pv, rate, nper, pmt) -> np.ndarray:
@@ -650,7 +650,7 @@ Functionally, this looks like:
 ...     return pv * d - pmt * (d - 1) / rate
 ```
 
-Finally, you can drop this into a tabular format with a Pandas [DataFrame](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html). Be careful with signs here. PMT is an outflow from the perspective of the debtor.
+最后，你可以使用Pandas 的 [DataFrame](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html) 将其放到表格格式中。小心这里的标志。从债务人的角度看，PMT是一种流出。
 
 ```python
 >>> import pandas as pd
@@ -687,11 +687,11 @@ At the end of year 30, the loan is paid off:
 True
 ```
 
-**Note**: While using floats to represent money can be useful for concept illustration in a scripting environment, using Python floats for financial calculations in a production environment might cause your calculation to be a penny or two off in some cases.
+**注意**: 虽然使用浮点数代表资金对于脚本环境中的概念说明非常有用，但在生产环境中使用Python浮点数进行财务计算可能会导致计算在某些情况下损失一两分钱。
 
-### Image Feature Extraction
+### 图像特征提取
 
-In one final example, we’ll work with an October 1941 [image](https://www.history.navy.mil/our-collections/photography/numerical-list-of-images/nara-series/80-g/80-G-410000/80-G-416362.html) of the USS Lexington (CV-2), the wreck of which was discovered off the coast of Australia in March 2018. First, we can map the image into a NumPy array of its pixel values:
+在最后一个例子中，我们将处理1941年10月莱克星顿号航空母舰(CV-2)的[照片](https://www.history.navy.mil/our-collections/photography/numerical-list-of-images/nara-series/80-g/80-G-410000/80-G-416362.html)，这艘船的残骸是2018年3月在澳大利亚海岸外发现的。首先，我们可以将图像映射到它的像素值的NumPy数组中：
 
 ```python
 >>> from skimage import io
@@ -708,7 +708,7 @@ In one final example, we’ll work with an October 1941 [image](https://www.hist
 
 ![列克星敦号航空母舰的图像](/static/images/article/lex.77b7efabdb0c.png)
 
-For simplicity’s sake, the image is loaded in grayscale, resulting in a 2d array of 64-bit floats rather than a 3-dimensional MxNx4 RGBA array, with lower values denoting darker spots:
+为了简单起见，图像是以灰度加载的，结果是一个由64位浮点数组成的2d数组，而不是一个三维mxnx4rgba数组，更低的值表示暗点：
 
 ```python
 >>> img.shape
@@ -725,11 +725,11 @@ array([0.0784, 0.0784, 0.0706, 0.0706, 0.0745, 0.0706, 0.0745, 0.0784,
        0.0784, 0.0824])
 ```
 
-One technique commonly employed as an intermediary step in image analysis is patch extraction. As the name implies, this consists of extracting smaller overlapping sub-arrays from a larger array and can be used in cases where it is advantageous to “denoise” or blur an image.
+在图像分析中，一种常用的中间步骤是贴片提取。顾名思义，这包括从较大的数组中提取较小的重叠子阵列，并可用于有利于“去噪”或模糊图像的情况。
 
-This concept extends to other fields, too. For example, you’d be doing something similar by taking “rolling” windows of a time series with multiple features (variables). It’s even useful for building [Conway’s Game of Life](https://bitstorm.org/gameoflife/). (Although, [convolution](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.convolve.html) with a 3x3 kernel is a more direct approach.)
+这一概念也扩展到其他领域。例如，您可以通过使用具有多个特性(变量)的时间序列的“滚动”窗口来做类似的事情。它甚至对构建[康威的“生命游戏”](https://bitstorm.org/gameoflife/)很有用。(不过，与3x3内核的[卷积](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.convolve.html)是一种更直接的方法。)
 
-Here, we will find the mean of each overlapping 10x10 patch within img. Taking a miniature example, the first 3x3 patch array in the top-left corner of img would be:
+在这里，我们将找到 img 中每个重叠的10x10修补的平均值。以一个微型示例为例，img左上角的第一个3x3修补程序矩阵将是：
 
 ```python
 >>> img[:3, :3]
@@ -741,7 +741,7 @@ array([[0.8078, 0.7961, 0.7804],
 0.7995642701525054
 ```
 
-The pure-Python approach to creating sliding patches would involve a nested for-loop. You’d need to consider that the starting index of the right-most patches will be at index n - 3 + 1, where n is the width of the array. In other words, if you were extracting 3x3 patches from a 10x10 array called arr, the last patch taken would be from arr[7:10, 7:10]. Also keep in mind that Python’s range() does not include its stop parameter:
+用于创建滑动修复方式的纯Python方法将涉及嵌套的for循环。你需要考虑最右边补丁的起始索引是在索引 n - 3 + 1，其中n是数组的宽度。换句话说，如果你从名为arr的10x10阵列中提取3x3修复，那么最后一个修复将来自arr[7: 10, 7: 10]。 还要记住，Python的range()不包含其stop参数：
 
 ```python
 >>> size = 10
@@ -760,11 +760,11 @@ The pure-Python approach to creating sliding patches would involve a nested for-
 
 ![莱克星顿号航空母舰的模糊图像](/static/images/article/lexblur.0f886a01be97.png)
 
-With this loop, you’re performing a lot of Python calls.
+有了这个循环，你就会执行很多Python调用。
 
-An alternative that will be scalable to larger RGB or RGBA images is NumPy’s stride_tricks.
+另一种可扩展到更大RGB或RGBA图像的替代方案是NumPy的stride_tricks。
 
-An instructive first step is to visualize, given the patch size and image shape, what a higher-dimensional array of patches would look like. We have a 2d array img with shape (254, 319)and a (10, 10) 2d patch. This means our output shape (before taking the mean of each “inner” *10x10* array) would be:
+一个有益的第一步是在给定修补大小和图像形状的情况下，可视化更高维度的修复矩阵。我们有一个2d阵列img形状(254, 319)和一个(10, 10)2d 修复。这意味着我们的输出形状（在取每个“内部”* 10x10 *数组的平均值之前）将是：
 
 ```python
 >>> shape = (img.shape[0] - size + 1, img.shape[1] - size + 1, size, size)
@@ -772,7 +772,7 @@ An instructive first step is to visualize, given the patch size and image shape,
 (245, 310, 10, 10)
 ```
 
-You also need to specify the **strides** of the new array. An array’s strides is a tuple of bytes to jump in each dimension when moving along the array. Each pixel in img is a 64-bit (8-byte) float, meaning the total image size is *254 x 319 x 8 = 648,208* bytes.
+你还需要指定新数组的**步长**。数组的步长是一个字节元组，用于在沿数组移动时跳转到每个维度。IMG中的每个像素都是64位(8字节)的浮点，这意味着总的图像大小为*254×319×8 = 648, 208*字节。
 
 ```python
 >>> img.dtype
@@ -782,14 +782,14 @@ dtype('float64')
 648208
 ```
 
-Internally, img is kept in memory as one contiguous block of 648,208 bytes. strides is hence a sort of “metadata”-like attribute that tells us how many bytes we need to jump ahead to move to the next position along each axis. We move in blocks of 8 bytes along the rows but need to traverse *8 x 319 = 2,552* bytes to move “down” from one row to another.
+在内部，IMG作为一个连续的648，208字节块保存在内存中。因此，STEAMS是一种类似“元数据”的属性，它告诉我们需要向前跳转多少字节才能沿着每个轴移动到下一个位置。我们沿着行以8字节为单位移动，但需要遍历*8x319=2，552*字节才能将“向下”从一行移动到另一行。
 
 ```python
 >>> img.strides
 (2552, 8)
 ```
 
-In our case, the strides of the resulting patches will just repeat the strides of img twice:
+在我们的示例中，生成的修复程序的步调只会重复img的两次步调：
 
 ```python
 >>> strides = 2 * img.strides
@@ -797,7 +797,7 @@ In our case, the strides of the resulting patches will just repeat the strides o
 (2552, 8, 2552, 8)
 ```
 
-Now, let’s put these pieces together with NumPy’s [stride_tricks](https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.stride_tricks.as_strided.html):
+现在，让我们将这些部分与NumPy的[stride_tricks](/reference/routines/indexing.html#类似索引的操作)结合起来：
 
 ```python
 >>> from numpy.lib import stride_tricks
@@ -823,9 +823,9 @@ array([[0.81, 0.8 , 0.78, 0.79, 0.8 , 0.81, 0.8 , 0.79, 0.8 , 0.8 ],
        [0.78, 0.79, 0.78, 0.78, 0.78, 0.78, 0.77, 0.76, 0.77, 0.77]])
 ```
 
-The last step is tricky. To get a vectorized mean of each inner 10x10 array, we need to think carefully about the dimensionality of what we have now. The result should collapse the last two dimensions so that we’re left with a single 245x310 array.
+最后一步很棘手。 为了得到每个内部10x10阵列的矢量化平均值，我们需要仔细考虑我们现在拥有的维数。结果应该折叠最后两个维度，以便我们留下一个245x310阵列。
 
-One (suboptimal) way would be to reshape patches first, flattening the inner 2d arrays to length-100 vectors, and then computing the mean on the final axis:
+一种（次优）方式是首先重塑修复，将内部2d数组展平为长度为100的向量，然后计算最终轴上的均值：
 
 ```python
 >>> veclen = size ** 2
@@ -833,14 +833,14 @@ One (suboptimal) way would be to reshape patches first, flattening the inner 2d 
 (245, 310)
 ```
 
-However, you can also specify axis as a tuple, computing a mean over the last two axes, which should be more efficient than reshaping:
+但是，你也可以将轴指定为元组，计算最后两个轴的平均值，这应该比重新整形更有效：
 
 ```python
 >>> patches.mean(axis=(-1, -2)).shape
 (245, 310)
 ```
 
-Let’s make sure this checks out by comparing equality to our looped version. It does:
+让我们通过比较与循环版本的相等性来确保检查。它确实如下：
 
 ```python
 >>> strided_means = patches.mean(axis=(-1, -2))
@@ -848,47 +848,47 @@ Let’s make sure this checks out by comparing equality to our looped version. I
 True
 ```
 
-If the concept of strides has you drooling, don’t worry: Scikit-Learn has already [embedded this entire process](http://scikit-learn.org/stable/modules/feature_extraction.html#image-feature-extraction) nicely within its feature_extraction module.
+如果大步幅的概念让你感到兴奋，请不要激动：Scikit-Learn已经在其feature_extraction模块中很好地[嵌入了整个过程](http://scikit-learn.org/stable/modules/feature_extraction.html#image-feature-extraction)。
 
-## A Parting Thought: Don’t Over-Optimize
+## 临别赠言：不要过度优化
 
-In this article, we discussed optimizing runtime by taking advantage of array programming in NumPy. When you are working with large datasets, it’s important to be mindful of microperformance.
+在本文中，我们讨论了利用NumPy中的数组编程来优化运行时。在处理大型数据集时，注意微观性能非常重要。
 
-However, there is a subset of cases where avoiding a native Python for-loop isn’t possible. As Donald Knuth [advised](http://web.archive.org/web/20130731202547/http://pplab.snu.ac.kr/courses/adv_pl05/papers/p261-knuth.pdf), “Premature optimization is the root of all evil.” Programmers may incorrectly predict where in their code a bottleneck will appear, spending hours trying to fully vectorize an operation that would result in a relatively insignificant improvement in runtime.
+但是，有一部分案例无法避免使用本机Python for循环。正如Donald Knuth[所说](http://web.archive.org/web/20130731202547/http://pplab.snu.ac.kr/courses/adv_pl05/papers/p261-knuth.pdf)，“过早优化是所有邪恶的根源。”程序员可能错误地预测他们的代码中会出现瓶颈的地方，花费数小时试图完全矢量化操作，这将导致运行时相对不显着的改进。
 
-There’s nothing wrong with for-loops sprinkled here and there. Often, it can be more productive to think instead about optimizing the flow and structure of the entire script at a higher level of abstraction.
+在这里或那里都放上for循环也没有任何问题。通常，考虑在更高的抽象级别优化整个脚本的流程和结构，可能会更有效率。
 
-## More Resources
+## 更多资源
 
-Free Bonus: [Click here to get access to a free NumPy Resources Guide](https://realpython.com/numpy-array-programming/#) that points you to the best tutorials, videos, and books for improving your NumPy skills.
+免费奖励：[单击此处可获得免费的NumPy资源指南](https://realpython.com/numpy-array-programming/#)，该指南将为您提供提高NumPy技能的最佳教程、视频和书籍。
 
-NumPy Documentation:
+NumPy 文档：
 
-- [What is NumPy?](https://docs.scipy.org/doc/numpy/user/whatisnumpy.html)
-- [Broadcasting](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
-- [Universal functions](https://docs.scipy.org/doc/numpy/reference/ufuncs.html)
-- [NumPy for MATLAB Users](https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html)
-- The complete [NumPy Reference](https://docs.scipy.org/doc/numpy/reference/index.html) index
+- [什么是NumPy？](/user_guide/setting_up.html)
+- [广播](/reference/ufuncs/broadcasting.html)
+- [通用函数](/reference/ufuncs/index.html)
+- [NumPy对于Matlab用户](/user_guide/numpy_for_matlab_users.html)
+- 完整的[NumPy 参考手册](/reference/index.html)
 
-Books:
+书籍：
 
-- Travis Oliphant’s [Guide to NumPy, 2nd ed](https://realpython.com/asins/151730007X/). (Travis is the primary creator of NumPy)
-- Chapter 2 (“Introduction to NumPy”) of Jake VanderPlas’ [Python Data Science Handbook](https://realpython.com/asins/1491912057/)
+- Travis Oliphant’s [Guide to NumPy, 2nd ed](https://realpython.com/asins/151730007X/). (特拉维斯是NumPy的主要创建者。)
+- Chapter 2 (“Introduction to NumPy”) of Jake VanderPlas’ [Python数据科学手册](https://realpython.com/asins/1491912057/)
 - Chapter 4 (“NumPy Basics”) and Chapter 12 (“Advanced NumPy”) of Wes McKinney’s [Python for Data Analysis 2nd ed](https://realpython.com/asins/B075X4LT6K/).
 - Chapter 2 (“The Mathematical Building Blocks of Neural Networks”) from François Chollet’s [Deep Learning with Python](https://realpython.com/asins/1617294438/)
 - Robert Johansson’s [Numerical Python](https://realpython.com/asins/1484205545/)
 - Ivan Idris: [Numpy Beginner’s Guide, 3rd ed](https://realpython.com/asins/1785281968/).
 
-Other Resources:
+其他资源:
 
-- Wikipedia: [Array Programming](https://en.wikipedia.org/wiki/Array_programming)
-- SciPy Lecture Notes: [Basic]() and [Advanced]() NumPy
-- EricsBroadcastingDoc: [Array Broadcasting in NumPy](http://scipy.github.io/old-wiki/pages/EricsBroadcastingDoc)
-- SciPy Cookbook: [Views versus copies in NumPy](http://scipy-cookbook.readthedocs.io/items/ViewsVsCopies.html)
-- Nicolas Rougier: [From Python to Numpy](http://www.labri.fr/perso/nrougier/from-python-to-numpy/) and [100 NumPy Exercises](http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html)
-- TensorFlow docs: [Broadcasting Semantics](https://www.tensorflow.org/performance/xla/broadcasting)
-- Theano docs: [Broadcasting](http://deeplearning.net/software/theano/tutorial/broadcasting.html)
-- Eli Bendersky: [Broadcasting Arrays in Numpy](https://eli.thegreenplace.net/2015/broadcasting-arrays-in-numpy/)
+- 维基百科: [数组编程](https://en.wikipedia.org/wiki/Array_programming)
+- SciPy 课堂讲义: [Basic](http://www.scipy-lectures.org/intro/numpy/index.html) and [Advanced](http://www.scipy-lectures.org/advanced/advanced_numpy/index.html) NumPy
+- EricsBroadcastingDoc: [NumPy中的数组广播](http://scipy.github.io/old-wiki/pages/EricsBroadcastingDoc)
+- SciPy Cookbook: [NumPy中的视图与副本](http://scipy-cookbook.readthedocs.io/items/ViewsVsCopies.html)
+- Nicolas Rougier: [从Python到Numpy](http://www.labri.fr/perso/nrougier/from-python-to-numpy/) and [100 NumPy练习](http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html)
+- TensorFlow 文档: [广播语法](https://www.tensorflow.org/performance/xla/broadcasting)
+- Theano 文档: [广播](http://deeplearning.net/software/theano/tutorial/broadcasting.html)
+- Eli Bendersky: [用Numpy广播数组](https://eli.thegreenplace.net/2015/broadcasting-arrays-in-numpy/)
 
 ## 文章出处
 
