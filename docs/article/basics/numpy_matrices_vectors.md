@@ -121,7 +121,7 @@ beta = np.linalg.solve(XtX,Xty)
 
 <p class="eqn">(<i>X</i><sup><i>T</i></sup> <i>X</i>) <b>β</b> = <i>X</i><sup><i>T</i></sup> <b>y</b></p>
 
-我将用于此示例的数据集是Windsor房价数据集，其中包含有关安大略省温莎市区房屋销售的信息。 输入变量涵盖了可能对房价产生影响的一系列因素，例如批量大小，卧室数量以及各种设施的存在。 此处提供具有完整数据集的CSV文件。 我从这个网站下载了数据集，该网站提供了大量涵盖大量主题的数据集。
+我将用于此示例的数据集是Windsor房价数据集，其中包含有关安大略省温莎市区房屋销售的信息。 输入变量涵盖了可能对房价产生影响的一系列因素，例如批量大小，卧室数量以及各种设施的存在。[此处](http://www2.lawrence.edu/fast/GREGGJ/Python/numpy/Housing.csv)提供具有完整数据集的CSV文件。我从[这个网站](https://vincentarelbundock.github.io/Rdatasets/datasets.html)下载了数据集，该网站提供了大量涵盖大量主题的数据集。
 
 这里现在是示例程序的源代码。
 
