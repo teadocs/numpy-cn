@@ -104,4 +104,4 @@
         - [多维数组索引顺序问题](/reference/internals/multidimensional_array_indexing_order_issues)
     - [NumPy 和 SWIG](/reference/swig/index)
         - [NumPy的SWIG接口文件](/reference/swig/interface_file)
-        - [测试Typemaps](/reference/swig/testing)
+        - [测试numpy.i的Typemaps](/reference/swig/testing)
