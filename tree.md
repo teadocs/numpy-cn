@@ -11,6 +11,7 @@
         - [NumPy实现k均值聚类算法（k-means）](/article/advanced/numpy_kmeans)
     - [+其他篇](/article/other/index)
         - [OpenCV中的图像的基本操作](/article/other/py_basic_ops)
+        - [MinPy：MXNet后端的NumPy接口](/article/other/minpy-the-numpy-interface-upon-mxnets-backend)
 - [+NumPy用户指南](/user_guide/index)
     - [NumPy介绍](/user_guide/setting_up)
     - [NumPy安装](/user_guide/installing_packages)
