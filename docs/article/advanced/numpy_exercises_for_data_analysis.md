@@ -4,7 +4,7 @@ Numpy练习的目标仅作为学习numpy的参考，并让你脱离基础性的N
 
 ![Numpy教程第2部分：数据分析的重要函数。图片由安娜贾斯汀卢布克拍摄。](/static/images/101-numpy-exercises-1024x683.jpg)
 
-如果您想快速进阶你的numpy知识，那么[numpy基础知识](https://www.machinelearningplus.com/numpy-tutorial-part1-array-python-examples)和[高级numpy教程](https://www.machinelearningplus.com/numpy-tutorial-python-part2)可能就是您要寻找的内容。
+如果你想快速进阶你的numpy知识，那么[numpy基础知识](https://www.machinelearningplus.com/numpy-tutorial-part1-array-python-examples)和[高级numpy教程](https://www.machinelearningplus.com/numpy-tutorial-python-part2)可能就是你要寻找的内容。
 
 **更新：**现在有一套类似的关于[pandas](https://www.machinelearningplus.com/python/101-pandas-exercises-python/)的练习。 
 

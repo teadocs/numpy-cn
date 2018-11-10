@@ -1,18 +1,18 @@
 # NumPy的SWIG接口文件
 
-## Introduction
+## 介绍
 
-The Simple Wrapper and Interface Generator (or [SWIG](http://www.swig.org/)) is a powerful tool for generating wrapper code for interfacing to a wide variety of scripting languages. [SWIG](http://www.swig.org/) can parse header files, and using only the code prototypes, create an interface to the target language. But [SWIG](http://www.swig.org/) is not omnipotent. For example, it cannot know from the prototype:
+Simple Wrapper和Interface Generator（或SWIG）是一个功能强大的工具，用于生成包装代码，以便与各种脚本语言进行交互。SWIG可以解析头文件，只使用代码原型，创建目标语言的接口。 但SWIG并非无所不能。 例如，它无法从原型中知道：
 
 ```python
 double rms(double* seq, int n);
 ```
 
-what exactly ``seq`` is. Is it a single value to be altered in-place? Is it an array, and if so what is its length? Is it input-only? Output-only? Input-output? [SWIG](http://www.swig.org/) cannot determine these details, and does not attempt to do so.
+究竟是什么 ``seq``。它是一个可以就地改变的单一值吗？它是一个数组，如果是这样，它的长度是多少？ 它只是输入吗？仅输出?输入输出？SWIG无法确定这些细节，也不会尝试这样做。
 
-If we designed rms, we probably made it a routine that takes an input-only array of length n of double values called seq and returns the root mean square. The default behavior of [SWIG](http://www.swig.org/), however, will be to create a wrapper function that compiles, but is nearly impossible to use from the scripting language in the way the C routine was intended.
+如果我们设计了rms，我们可能会使它成为一个例程，它接受一个名为seq的长度为n的double值的输入数组，并返回均方根。 但是，SWIG的默认行为是创建一个编译的包装函数，但几乎不可能像C例程那样使用脚本语言。
 
-For Python, the preferred way of handling contiguous (or technically, strided) blocks of homogeneous data is with NumPy, which provides full object-oriented access to multidimensial arrays of data. Therefore, the most logical Python interface for the rms function would be (including doc string):
+对于Python，处理连续（或技术上，跨步）的同构数据块的首选方法是使用NumPy，它提供对多维数据数组的完全面向对象的访问。 因此，rms函数的最合理的Python接口将是（包括doc string）：
 
 ```python
 def rms(seq):
@@ -24,9 +24,9 @@ def rms(seq):
     """
 ```
 
-where ``seq`` would be a NumPy array of ``double`` values, and its length ``n`` would be extracted from ``seq`` internally before being passed to the C routine. Even better, since NumPy supports construction of arrays from arbitrary Python sequences, ``seq`` itself could be a nearly arbitrary sequence (so long as each element can be converted to a double) and the wrapper code would internally convert it to a NumPy array before extracting its data and length.
+其中``seq``将是一个'`double``值的NumPy数组，其长度``n``将在内部从``seq``中提取，然后传递给C例程。更好的是，由于NumPy支持从任意Python序列构造数组，``seq``本身可能是一个几乎任意的序列（只要每个元素都可以转换为double），包装器代码将在内部将其转换为NumPy 在提取数据和长度之前的数组。
 
-[SWIG](http://www.swig.org/) allows these types of conversions to be defined via a mechanism called typemaps. This document provides information on how to use ``numpy.i``, a [SWIG](http://www.swig.org/) interface file that defines a series of typemaps intended to make the type of array-related conversions described above relatively simple to implement. For example, suppose that the ``rms`` function prototype defined above was in a header file named ``rms.h``. To obtain the Python interface discussed above, your [SWIG](http://www.swig.org/) interface file would need the following:
+SWIG允许通过称为类型映射的机制定义这些类型的转换。 本文档提供了有关如何使用``numpy.i``的信息，这是一个SWIG接口文件，它定义了一系列类型映射，旨在使上述与数组相关的转换类型实现起来相对简单。 例如，假设上面定义的rms函数原型位于名为rms.h的头文件中。 要获得上面讨论的Python接口，你的SWIG接口文件需要以下内容：
 
 ```C
 %{
@@ -44,11 +44,11 @@ import_array();
 %include "rms.h"
 ```
 
-Typemaps are keyed off a list of one or more function arguments, either by type or by type and name. We will refer to such lists as signatures. One of the many typemaps defined by ``numpy.i`` is used above and has the signature ``(double* IN_ARRAY1, int DIM1)``. The argument names are intended to suggest that the ``double*`` argument is an input array of one dimension and that the ``int`` represents the size of that dimension. This is precisely the pattern in the ``rms`` prototype.
+类型映射通过类型或类型和名称键入一个或多个函数参数的列表。 我们将这些列表称为签名。``numpy.i``定义的许多类型映射之一在上面使用并具有签名``（double * IN_ARRAY1，int DIM1）``。参数名称旨在表明``double*``参数是一个维度的输入数组，而``int``表示该维度的大小。这正是``rms``原型中的模式。
 
-Most likely, no actual prototypes to be wrapped will have the argument names ``IN_ARRAY1`` and ``DIM1``. We use the [SWIG](http://www.swig.org/) ``%apply`` directive to apply the typemap for one-dimensional input arrays of type ``double`` to the actual prototype used by ``rms``. Using ``numpy.i`` effectively, therefore, requires knowing what typemaps are available and what they do.
+最有可能的是，没有要包装的实际原型将具有参数名称 ``IN_ARRAY1`` 和 ``DIM1`` 。我们使用SWIG ``％apply`` 指令将类型为``double``的一维输入数组的typemap应用于``rms``使用的实际原型。 因此，有效地使用 ``numpy.i`` 需要知道可用的类型映射以及它们的作用。
 
-A [SWIG](http://www.swig.org/) interface file that includes the [SWIG](http://www.swig.org/) directives given above will produce wrapper code that looks something like:
+包含上面给出的SWIG指令的SWIG接口文件将生成如下所示的包装器代码：
 
 ```
  1 PyObject *_wrap_rms(PyObject *args) {
@@ -86,29 +86,29 @@ A [SWIG](http://www.swig.org/) interface file that includes the [SWIG](http://ww
 33 }
 ```
 
-The typemaps from numpy.i are responsible for the following lines of code: 12–20, 25 and 30. Line 10 parses the input to the rms function. From the format string "O:rms", we can see that the argument list is expected to be a single Python object (specified by the O before the colon) and whose pointer is stored in obj0. A number of functions, supplied by numpy.i, are called to make and check the (possible) conversion from a generic Python object to a NumPy array. These functions are explained in the section [Helper Functions](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#helper-functions), but hopefully their names are self-explanatory. At line 12 we use obj0 to construct a NumPy array. At line 17, we check the validity of the result: that it is non-null and that it has a single dimension of arbitrary length. Once these states are verified, we extract the data buffer and length in lines 19 and 20 so that we can call the underlying C function at line 22. Line 25 performs memory management for the case where we have created a new array that is no longer needed.
+来自 ``numpy.i`` 的类型映射负责以下代码行：12-20,25和30.第10行将输入解析为 ``rms`` 函数。从格式字符串“O：rms”，我们可以看到参数列表应该是一个Python对象（由冒号前的O指定），其指针存储在obj0中。由numpy.i提供的许多函数被调用来制作和检查从通用Python对象到NumPy数组的（可能的）转换。[Helper Functions](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#helper-functions)一节中对这些函数进行了解释，但希望它们的名称不言自明。在第12行，我们使用obj0来构造NumPy数组。在第17行，我们检查结果的有效性：它是非null并且它具有任意长度的单个维度。验证这些状态后，我们在第19行和第20行中提取数据缓冲区和长度，以便我们可以在第22行调用底层C函数。第25行执行内存管理，以便我们创建一个不再有新数组的情况需要。
 
-This code has a significant amount of error handling. Note the SWIG_fail is a macro for goto fail, referring to the label at line 28. If the user provides the wrong number of arguments, this will be caught at line 10. If construction of the NumPy array fails or produces an array with the wrong number of dimensions, these errors are caught at line 17. And finally, if an error is detected, memory is still managed correctly at line 30.
+此代码具有大量错误处理。注意SWIG_fail是goto失败的宏，引用第28行的标签。如果用户提供了错误数量的参数，则会在第10行捕获。如果NumPy数组的构造失败或产生错误的数组 维数，这些错误在第17行捕获。最后，如果检测到错误，仍然在第30行正确管理内存。
 
-Note that if the C function signature was in a different order:
+请注意，如果C函数签名的顺序不同：
 
 ```c
 double rms(int n, double* seq);
 ```
 
-that SWIG would not match the typemap signature given above with the argument list for rms. Fortunately, numpy.i has a set of typemaps with the data pointer given last:
+SWIG与上面给出的类型映射签名与rms的参数列表不匹配。幸运的是，numpy.i有一组带有最后给出的数据指针的文字映射：
 
 ```c
 %apply (int DIM1, double* IN_ARRAY1) {(int n, double* seq)};
 ```
 
-This simply has the effect of switching the definitions of arg1 and arg2 in lines 3 and 4 of the generated code above, and their assignments in lines 19 and 20.
+这简单地具有在上面生成的代码的第3行和第4行中切换arg1和arg2的定义的效果，以及它们在第19行和第20行中的赋值。
 
-## Using numpy.i
+## 使用 numpy.i
 
-The ``numpy.i`` file is currently located in the tools/swig sub-directory under the numpy installation directory. Typically, you will want to copy it to the directory where you are developing your wrappers.
+``numpy.i``文件当前位于numpy安装目录下的tools / swig子目录中。 通常，您需要将其复制到开发包装器的目录中。
 
-A simple module that only uses a single [SWIG](http://www.swig.org/) interface file should include the following:
+仅使用单个 SWIG 接口文件的简单模块应包括以下内容：
 
 ```
 %{
@@ -120,24 +120,24 @@ import_array();
 %}
 ```
 
-Within a compiled Python module, ``import_array()`` should only get called once. This could be in a C/C++ file that you have written and is linked to the module. If this is the case, then none of your interface files should ``#define SWIG_FILE_WITH_INIT`` or call ``import_array()``. Or, this initialization call could be in a wrapper file generated by [SWIG](http://www.swig.org/) from an interface file that has the %init block as above. If this is the case, and you have more than one [SWIG](http://www.swig.org/) interface file, then only one interface file should ``#define SWIG_FILE_WITH_INIT`` and call ``import_array()``.
+在编译的Python模块中，``import_array()`` 应该只被调用一次。 这可能是您编写的C / C++ 文件，并链接到模块。如果是这种情况，那么你的接口文件都不应该 ``#define SWIG_FILE_WITH_INIT`` 或调用 ``import_array()``。或者，此初始化调用可以位于由 SWIG 从具有上述 ％init 块的接口文件生成的包装文件中。如果是这种情况，并且你有多个 SWIG 接口文件，那么只有一个接口文件应该 ``#define SWIG_FILE_WITH_INIT`` 并调用 ``import_array()``。
 
-## Available Typemaps
+## 可用的字体映射
 
-The typemap directives provided by numpy.i for arrays of different data types, say double and int, and dimensions of different types, say int or long, are identical to one another except for the C and NumPy type specifications. The typemaps are therefore implemented (typically behind the scenes) via a macro:
+numpy.i为不同数据类型的数组提供的typemap指令，比如double和int，以及不同类型的维度，比如int或long，除了C和NumPy类型规范之外，它们彼此相同。 因此，通过宏实现（通常在幕后）类型图：
 
 ```c
 %numpy_typemaps(DATA_TYPE, DATA_TYPECODE, DIM_TYPE)
 ```
 
-that can be invoked for appropriate (DATA_TYPE, DATA_TYPECODE, DIM_TYPE) triplets. For example:
+可以为适当的 (DATA_TYPE, DATA_TYPECODE, DIM_TYPE) 三元组调用。 例如：
 
 ```c
 %numpy_typemaps(double, NPY_DOUBLE, int)
 %numpy_typemaps(int,    NPY_INT   , int)
 ```
 
-The numpy.i interface file uses the %numpy_typemaps macro to implement typemaps for the following C data types and int dimension types:
+numpy.i接口文件使用％numpy_typemaps宏来实现以下C数据类型和int维类型的类型映射：
 
 - signed char
 - unsigned char
@@ -152,13 +152,13 @@ The numpy.i interface file uses the %numpy_typemaps macro to implement typemaps 
 - float
 - double
 
-In the following descriptions, we reference a generic DATA_TYPE, which could be any of the C data types listed above, and ``DIM_TYPE`` which should be one of the many types of integers.
+在下面的描述中，我们引用了一个通用的DATA_TYPE，它可以是上面列出的任何C数据类型，以及``DIM_TYPE``，它应该是许多类型的整数之一。
 
-The typemap signatures are largely differentiated on the name given to the buffer pointer. Names with ``FARRAY`` are for Fortran-ordered arrays, and names with ``ARRAY`` are for C-ordered (or 1D arrays).
+类型映射签名在很大程度上区分给缓冲区指针的名称。带有``FARRAY``的名称用于Fortran排序的数组，带有``ARRAY``的名称用于C-ordered（或1D数组）。
 
-### Input Arrays
+### 输入 Arrays
 
-Input arrays are defined as arrays of data that are passed into a routine but are not altered in-place or returned to the user. The Python input array is therefore allowed to be almost any Python sequence (such as a list) that can be converted to the requested type of array. The input array signatures are
+输入数组被定义为传递到例程但不会就地更改或返回给用户的数据数组。 因此，Python输入数组几乎可以被任何Python序列（例如列表）转换为所请求的数组类型。输入数组签名是：
 
 1D:
 

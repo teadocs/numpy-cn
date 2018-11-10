@@ -314,7 +314,7 @@ array([(0, 0.), (0, 0.), (0, 0.)],
 
 <div class="warning-warp">
 <b>警告</b>
-<p>Numpy 1.15中的新行为导致在未索引字段的位置出现额外的“填充”字节。您将需要更新所有的代码，这取决于具有“打包”布局的数据。例如下面的代码：</p>
+<p>Numpy 1.15中的新行为导致在未索引字段的位置出现额外的“填充”字节。你将需要更新所有的代码，这取决于具有“打包”布局的数据。例如下面的代码：</p>
 <pre class="prettyprint language-python">
 <code class="hljs">>>> a[['a','c']].view('i8')  # will fail in Numpy 1.15
 ValueError: When changing to a smaller dtype, its size must be a divisor of the size of original dtype</code>

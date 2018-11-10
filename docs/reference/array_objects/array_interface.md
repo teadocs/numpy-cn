@@ -177,7 +177,7 @@ typedef struct {
 1. PyArrayInterface结构最后没有descr成员（因此没有标志ARR_HAS_DESCR）
 1. 未指定从__array_struct__返回的PyCObject的desc成员。 通常，它是暴露数组的对象（因此当C对象被销毁时，可以保留和销毁对它的引用）。 现在它必须是一个元组，其第一个元素是带有“PyArrayInterface Version＃”的字符串，其第二个元素是暴露数组的对象。
 1. 从__array_interface __ ['data']返回的元组曾经是一个十六进制字符串（现在它是一个整数或一个长整数）。
-1. 没有__array_interface__属性，而__array_interface__字典中的所有键（版本除外）都是它们自己的属性：因此要获取Python端信息，您必须单独访问属性：
+1. 没有__array_interface__属性，而__array_interface__字典中的所有键（版本除外）都是它们自己的属性：因此要获取Python端信息，你必须单独访问属性：
     - __array_data__
     - __array_shape__
     - __array_strides__

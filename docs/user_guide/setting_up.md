@@ -66,7 +66,7 @@ NumPy完全支持面向对象的方法，同样从ndarray开始。例如，ndarr
 
 ## 安装NumPy
 
-在大多数使用场景中，在您的系统上安装NumPy的最好方法是使用预先构建的软件包在您的操作系统上运行。
+在大多数使用场景中，在你的系统上安装NumPy的最好方法是使用预先构建的软件包在你的操作系统上运行。
 
 具体可以参考本手册的：[NumPy用户指南->NumPy安装](https://www.numpy.org.cn/user_guide/installing_packages.html) 。
 

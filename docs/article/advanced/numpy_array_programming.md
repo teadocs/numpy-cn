@@ -475,7 +475,7 @@ True
 
 ### 聚类算法
 
-机器学习是一个可以经常利用矢量化和广播的领域。 假设您有三角形的顶点（每行是x，y坐标）：
+机器学习是一个可以经常利用矢量化和广播的领域。 假设你有三角形的顶点（每行是x，y坐标）：
 
 ```python
 >>> tri = np.array([[1, 1],
@@ -727,7 +727,7 @@ array([0.0784, 0.0784, 0.0706, 0.0706, 0.0745, 0.0706, 0.0745, 0.0784,
 
 在图像分析中，一种常用的中间步骤是贴片提取。顾名思义，这包括从较大的数组中提取较小的重叠子阵列，并可用于有利于“去噪”或模糊图像的情况。
 
-这一概念也扩展到其他领域。例如，您可以通过使用具有多个特性(变量)的时间序列的“滚动”窗口来做类似的事情。它甚至对构建[康威的“生命游戏”](https://bitstorm.org/gameoflife/)很有用。(不过，与3x3内核的[卷积](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.convolve.html)是一种更直接的方法。)
+这一概念也扩展到其他领域。例如，你可以通过使用具有多个特性(变量)的时间序列的“滚动”窗口来做类似的事情。它甚至对构建[康威的“生命游戏”](https://bitstorm.org/gameoflife/)很有用。(不过，与3x3内核的[卷积](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.convolve.html)是一种更直接的方法。)
 
 在这里，我们将找到 img 中每个重叠的10x10修补的平均值。以一个微型示例为例，img左上角的第一个3x3修补程序矩阵将是：
 
@@ -860,7 +860,7 @@ True
 
 ## 更多资源
 
-免费奖励：[单击此处可获得免费的NumPy资源指南](https://realpython.com/numpy-array-programming/#)，该指南将为您提供提高NumPy技能的最佳教程、视频和书籍。
+免费奖励：[单击此处可获得免费的NumPy资源指南](https://realpython.com/numpy-array-programming/#)，该指南将为你提供提高NumPy技能的最佳教程、视频和书籍。
 
 NumPy 文档：
 
