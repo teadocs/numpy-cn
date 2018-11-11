@@ -106,7 +106,7 @@ SWIG与上面给出的类型映射签名与rms的参数列表不匹配。幸运�
 
 ## 使用 numpy.i
 
-``numpy.i``文件当前位于numpy安装目录下的tools / swig子目录中。 通常，您需要将其复制到开发包装器的目录中。
+``numpy.i``文件当前位于numpy安装目录下的tools / swig子目录中。 通常，你需要将其复制到开发包装器的目录中。
 
 仅使用单个 SWIG 接口文件的简单模块应包括以下内容：
 
@@ -120,7 +120,7 @@ import_array();
 %}
 ```
 
-在编译的Python模块中，``import_array()`` 应该只被调用一次。 这可能是您编写的C / C++ 文件，并链接到模块。如果是这种情况，那么你的接口文件都不应该 ``#define SWIG_FILE_WITH_INIT`` 或调用 ``import_array()``。或者，此初始化调用可以位于由 SWIG 从具有上述 ％init 块的接口文件生成的包装文件中。如果是这种情况，并且你有多个 SWIG 接口文件，那么只有一个接口文件应该 ``#define SWIG_FILE_WITH_INIT`` 并调用 ``import_array()``。
+在编译的Python模块中，``import_array()`` 应该只被调用一次。 这可能是你编写的C / C++ 文件，并链接到模块。如果是这种情况，那么你的接口文件都不应该 ``#define SWIG_FILE_WITH_INIT`` 或调用 ``import_array()``。或者，此初始化调用可以位于由 SWIG 从具有上述 ％init 块的接口文件生成的包装文件中。如果是这种情况，并且你有多个 SWIG 接口文件，那么只有一个接口文件应该 ``#define SWIG_FILE_WITH_INIT`` 并调用 ``import_array()``。
 
 ## 可用的字体映射
 
@@ -156,7 +156,7 @@ numpy.i接口文件使用％numpy_typemaps宏来实现以下C数据类型和int�
 
 类型映射签名在很大程度上区分给缓冲区指针的名称。带有``FARRAY``的名称用于Fortran排序的数组，带有``ARRAY``的名称用于C-ordered（或1D数组）。
 
-### 输入 Arrays
+### 输入数组
 
 输入数组被定义为传递到例程但不会就地更改或返回给用户的数据数组。 因此，Python输入数组几乎可以被任何Python序列（例如列表）转换为所请求的数组类型。输入数组签名是：
 
@@ -190,11 +190,11 @@ numpy.i接口文件使用％numpy_typemaps宏来实现以下C数据类型和int�
 - (DATA_TYPE* IN_FARRAY4, DIM_TYPE DIM1, DIM_TYPE DIM2, DIM_TYPE DIM3, DIM_TYPE DIM4)
 - (DIM_TYPE DIM1, DIM_TYPE DIM2, DIM_TYPE DIM3, DIM_TYPE DIM4, DATA_TYPE* IN_FARRAY4)
 
-The first signature listed, ``( DATA_TYPE IN_ARRAY[ANY] )`` is for one-dimensional arrays with hard-coded dimensions. Likewise, ``( DATA_TYPE IN_ARRAY2[ANY][ANY] )`` is for two-dimensional arrays with hard-coded dimensions, and similarly for three-dimensional.
+列出的第一个签名 ``( DATA_TYPE IN_ARRAY[ANY] )``  用于硬编码维度的一维数组。同样，``( DATA_TYPE IN_ARRAY2[ANY][ANY] )`` 是针对二维硬编码维数组的，同样也是针对三维数组的。 
 
-### In-Place Arrays
+### 就地数组
 
-In-place arrays are defined as arrays that are modified in-place. The input values may or may not be used, but the values at the time the function returns are significant. The provided Python argument must therefore be a NumPy array of the required type. The in-place signatures are
+就地数组定义为就地修改的数组。可以使用也可以不使用输入值，但函数返回时的值很重要。因此，提供的Python参数必须是所需类型的NumPy数组。就地签名是：
 
 1D:
 
@@ -226,17 +226,17 @@ In-place arrays are defined as arrays that are modified in-place. The input valu
 - (DATA_TYPE* INPLACE_FARRAY4, DIM_TYPE DIM1, DIM_TYPE DIM2, DIM_TYPE DIM3, DIM_TYPE DIM4)
 - (DIM_TYPE DIM1, DIM_TYPE DIM2, DIM_TYPE DIM3, DIM_TYPE DIM4, DATA_TYPE* INPLACE_FARRAY4)
 
-These typemaps now check to make sure that the ``INPLACE_ARRAY`` arguments use native byte ordering. If not, an exception is raised.
+现在检查这些类型映射以确保``INPLACE_ARRAY``参数使用本机字节排序。如果没有，则引发异常。
 
-There is also a “flat” in-place array for situations in which you would like to modify or process each element, regardless of the number of dimensions. One example is a “quantization” function that quantizes each element of an array in-place, be it 1D, 2D or whatever. This form checks for continuity but allows either C or Fortran ordering.
+对于你希望修改或处理每个元素的想法，还有一个 “平面” 就地数组，无论维数是多少。一个例子是“量化”函数，其就地量化阵列的每个元素，无论是1D，2D还是其他。此表单检查连续性，但允许C或Fortran排序。
 
-ND:
+N维:
 
 - (DATA_TYPE* INPLACE_ARRAY_FLAT, DIM_TYPE DIM_FLAT)
 
-### Argout Arrays
+### Argout数组
 
-Argout arrays are arrays that appear in the input arguments in C, but are in fact output arrays. This pattern occurs often when there is more than one output variable and the single return argument is therefore not sufficient. In Python, the conventional way to return multiple arguments is to pack them into a sequence (tuple, list, etc.) and return the sequence. This is what the argout typemaps do. If a wrapped function that uses these argout typemaps has more than one return argument, they are packed into a tuple or list, depending on the version of Python. The Python user does not pass these arrays in, they simply get returned. For the case where a dimension is specified, the python user must provide that dimension as an argument. The argout signatures are
+Argout数组是出现在C中的输入参数中的数组，但实际上是输出数组。当存在多个输出变量且单个返回参数因此不足时，通常会出现此模式。在Python中，返回多个参数的传统方法是将它们打包成一个序列（元组，列表等）并返回序列。这就是argout类型映射的作用。如果使用这些argout类型映射的包装函数具有多个返回参数，则它们将打包到元组或列表中，具体取决于Python的版本。Python用户不会传递这些数组，只是返回它们。对于指定维度的情况，python用户必须将该维度作为参数提供。argout签名是：
 
 1D:
 
@@ -256,15 +256,15 @@ Argout arrays are arrays that appear in the input arguments in C, but are in fac
 
 - ( DATA_TYPE ARGOUT_ARRAY4[ANY][ANY][ANY][ANY] )
 
-These are typically used in situations where in C/C++, you would allocate a(n) array(s) on the heap, and call the function to fill the array(s) values. In Python, the arrays are allocated for you and returned as new array objects.
+这些通常用于以下情况：在 C/C++中，你将在堆上分配一个（n）数组，并调用该函数来填充数组值。在Python中，数组是为你分配的，并作为新的数组对象返回。
 
-Note that we support ``DATA_TYPE*`` argout typemaps in 1D, but not 2D or 3D. This is because of a quirk with the [SWIG](http://www.swig.org/) typemap syntax and cannot be avoided. Note that for these types of 1D typemaps, the Python function will take a single argument representing ``DIM1``.
+注意，我们支持1D中的 ``DATA_TYPE*`` argout的类型，但不支持2D或3D。这是因为[SWIG](http://www.swig.org/)类型图语法的怪癖，是无法避免的。请注意，对于这些类型的1D类型的映射，Python函数将接受一个表示 ``DIM1`` 的参数。
 
-### Argout View Arrays
+### Arguut 视图数组
 
-Argoutview arrays are for when your C code provides you with a view of its internal data and does not require any memory to be allocated by the user. This can be dangerous. There is almost no way to guarantee that the internal data from the C code will remain in existence for the entire lifetime of the NumPy array that encapsulates it. If the user destroys the object that provides the view of the data before destroying the NumPy array, then using that array may result in bad memory references or segmentation faults. Nevertheless, there are situations, working with large data sets, where you simply have no other choice.
+Argoutview数组用于C代码向你提供其内部数据的视图，并且不需要用户分配任何内存。这可能很危险。几乎没有办法保证来自C代码的内部数据在封装它的NumPy数组的整个生存期内保持存在。如果用户在销毁NumPy数组之前销毁提供数据视图的对象，那么使用该数组可能会导致错误的内存引用或分段错误。然而，在某些情况下，使用大型数据集时，你没有其他选择。
 
-The C code to be wrapped for argoutview arrays are characterized by pointers: pointers to the dimensions and double pointers to the data, so that these values can be passed back to the user. The argoutview typemap signatures are therefore
+为argoutview数组包装的C代码的特征是指针：指向维度的指针和指向数据的双指针，这样就可以将这些值传回给用户。因此，argoutview类型图签名就是：
 
 1D:
 
@@ -292,10 +292,11 @@ The C code to be wrapped for argoutview arrays are characterized by pointers: po
 - (DATA_TYPE** ARGOUTVIEW_FARRAY4, DIM_TYPE* DIM1, DIM_TYPE* DIM2, DIM_TYPE* DIM3, DIM_TYPE* DIM4)
 - (DIM_TYPE* DIM1, DIM_TYPE* DIM2, DIM_TYPE* DIM3, DIM_TYPE* DIM4, DATA_TYPE** ARGOUTVIEW_FARRAY4)
 
-Note that arrays with hard-coded dimensions are not supported. These cannot follow the double pointer signatures of these typemaps.
+请注意，不支持具有硬编码尺寸的数组。这些不能遵循这些类型映射的双指针签名。
 
-Memory Managed Argout View Arrays
-A recent addition to numpy.i are typemaps that permit argout arrays with views into memory that is managed. See the discussion here.
+内存管理Argout视图阵列
+
+numpy.i最近添加了一些类型映射，它们允许argout数组具有对托管内存的视图。请参阅此处的讨论。
 
 1D:
 
@@ -323,23 +324,23 @@ A recent addition to numpy.i are typemaps that permit argout arrays with views i
 - (DATA_TYPE** ARGOUTVIEWM_FARRAY4, DIM_TYPE* DIM1, DIM_TYPE* DIM2, DIM_TYPE* DIM3, DIM_TYPE* DIM4)
 - (DIM_TYPE* DIM1, DIM_TYPE* DIM2, DIM_TYPE* DIM3, DIM_TYPE* DIM4, DATA_TYPE** ARGOUTVIEWM_FARRAY4)
 
-### Output Arrays
+### 输出数组
 
-The ``numpy.i`` interface file does not support typemaps for output arrays, for several reasons. First, C/C++ return arguments are limited to a single value. This prevents obtaining dimension information in a general way. Second, arrays with hard-coded lengths are not permitted as return arguments. In other words:
+``numpy.i`` 接口文件不支持输出数组的类型图，原因有几个。首先，C/C+返回参数仅限于一个值。这将防止以一般方式获取维度信息。其次，硬编码长度的数组不允许作为返回参数。换言之：
 
 ```c
 double[3] newVector(double x, double y, double z);
 ```
 
-is not legal C/C++ syntax. Therefore, we cannot provide typemaps of the form:
+不是合法的C/C+语法。因此，我们不能提供以下形式的类型图：
 
 ```c
 %typemap(out) (TYPE[ANY]);
 ```
 
-If you run into a situation where a function or method is returning a pointer to an array, your best bet is to write your own version of the function to be wrapped, either with %extend for the case of class methods or ``%ignore`` and ``%rename`` for the case of functions.
+如果遇到函数或方法返回指向数组的指针的情况，最好的办法是编写自己要包装的函数版本，对于类方法的情况使用 %extend 或 ``%ignore`` 和对于函数的情况 ``%rename``。
 
-### Other Common Types: bool
+### 其他常见类型：bool
 
 Note that C++ type ``bool`` is not supported in the list in the [Available Typemaps](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#available-typemaps) section. NumPy bools are a single byte, while the C++ bool is four bytes (at least on my system). Therefore:
 
@@ -347,17 +348,17 @@ Note that C++ type ``bool`` is not supported in the list in the [Available Typem
 %numpy_typemaps(bool, NPY_BOOL, int)
 ```
 
-will result in typemaps that will produce code that reference improper data lengths. You can implement the following macro expansion:
+将导致生成将引用不正确数据长度的代码的类型映射。你可以实现以下宏扩展：
 
 ```c
 %numpy_typemaps(bool, NPY_UINT, int)
 ```
 
-to fix the data length problem, and [Input Arrays](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#input-arrays) will work fine, but [In-Place](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#in-place-arrays) Arrays might fail type-checking.
+修复数据长度问题，[输入数组](#输入数组)将正常工作，但[就地数组](#就地数组)可能无法进行类型检查。
 
-### Other Common Types: complex
+### 其他常见类型：复杂类型
 
-Typemap conversions for complex floating-point types is also not supported automatically. This is because Python and NumPy are written in C, which does not have native complex types. Both Python and NumPy implement their own (essentially equivalent) ``struct`` definitions for complex variables:
+复杂浮点类型的类型图转换也不受自动支持。这是因为Python和NumPy是用C编写的，C没有本机复杂类型。Python和NumPy都为复杂变量实现了它们自己的(本质上等效的)“struct”定义：
 
 ```c
 /* Python */
@@ -368,7 +369,7 @@ typedef struct {float  real, imag;} npy_cfloat;
 typedef struct {double real, imag;} npy_cdouble;
 ```
 
-We could have implemented:
+我们本可以这样：
 
 ```c
 %numpy_typemaps(Py_complex , NPY_CDOUBLE, int)
@@ -376,13 +377,13 @@ We could have implemented:
 %numpy_typemaps(npy_cdouble, NPY_CDOUBLE, int)
 ```
 
-which would have provided automatic type conversions for arrays of type Py_complex, npy_cfloat and npy_cdouble. However, it seemed unlikely that there would be any independent (non-Python, non-NumPy) application code that people would be using [SWIG](http://www.swig.org/) to generate a Python interface to, that also used these definitions for complex types. More likely, these application codes will define their own complex types, or in the case of C++, use std::complex. Assuming these data structures are compatible with Python and NumPy complex types, %numpy_typemap expansions as above (with the user’s complex type substituted for the first argument) should work.
+这将为Py_complex，npy_cfloat和npy_cdouble类型的数组提供自动类型转换。但是，似乎不太可能存在任何独立的（非Python，非NumPy）应用程序代码，人们将使用SWIG生成Python接口，这些代码也将这些定义用于复杂类型。 更可能的是，这些应用程序代码将定义自己的复杂类型，或者在 C++ 的情况下，使用std::complex。 假设这些数据结构与Python和NumPy复杂类型兼容，那么上面的 %numpy_typemap 扩展（使用用户的复杂类型替换第一个参数）应该有效。
 
-## NumPy Array Scalars and SWIG
+## NumPy阵列标量和SWIG
 
-[SWIG](http://www.swig.org/) has sophisticated type checking for numerical types. For example, if your C/C++ routine expects an integer as input, the code generated by [SWIG](http://www.swig.org/) will check for both Python integers and Python long integers, and raise an overflow error if the provided Python integer is too big to cast down to a C integer. With the introduction of NumPy scalar arrays into your Python code, you might conceivably extract an integer from a NumPy array and attempt to pass this to a SWIG-wrapped C/C++ function that expects an int, but the [SWIG](http://www.swig.org/) type checking will not recognize the NumPy array scalar as an integer. (Often, this does in fact work – it depends on whether NumPy recognizes the integer type you are using as inheriting from the Python integer type on the platform you are using. Sometimes, this means that code that works on a 32-bit machine will fail on a 64-bit machine.)
+SWIG对数值类型进行了复杂的类型检查。例如，如果你的C / C++例程需要一个整数作为输入，SWIG生成的代码将检查Python整数和Python长整数，如果提供的Python整数太大而无法转换为C，则会引发溢出错误 整数。通过在你的Python代码中引入NumPy标量数组，你可以想象从NumPy数组中提取一个整数并尝试将其传递给需要int的SWIG包装的 C/C++ 函数，但SWIG类型检查将无法识别 NumPy数组标量为整数。（通常，这确实有效 - 这取决于NumPy是否识别你正在使用的整数类型继承自你正在使用的平台上的Python整数类型。有时，这意味着在32位计算机上运行的代码将 在64位计算机上失败。）
 
-If you get a Python error that looks like the following:
+如果你收到如下所示的Python错误：
 
 ```python
 TypeError: in method 'MyClass_MyMethod', argument 2 of type 'int'

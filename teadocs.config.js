@@ -78,3 +78,22 @@ module.exports = {
         tree: "./tree"
     }
 }
+
+/**
+//获取所有api列表的方法
+let els = document.querySelectorAll("tr")
+let elaArr = []
+for ( let i = 0; i <= els.length; i++ ) {
+    if ( !els[i] ) continue
+    let a = els[i].querySelector("a");
+    if ( a === null ) continue
+    let href = a.getAttribute("href");
+    if ( href.indexOf("numpy.") !== -1 ) {
+        elaArr.push({
+            name: href.replace(".html", ""),
+            path: '/generated/' + href.replace(".html", "")
+        })
+    }   
+}
+console.log(elaArr);
+ */

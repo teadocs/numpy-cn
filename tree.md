@@ -103,6 +103,9 @@
         - [NumPy C语言代码解释](/reference/internals/code_explanations)
         - [NumPy数组的内部组织](/reference/internals/internal_organization_of_numpy_arrays)
         - [多维数组索引顺序问题](/reference/internals/multidimensional_array_indexing_order_issues)
-    - [NumPy 和 SWIG](/reference/swig/index)
+    - NumPy 和 SWIG
         - [NumPy的SWIG接口文件](/reference/swig/interface_file)
         - [测试numpy.i的Typemaps](/reference/swig/testing)
+- NumPyAPI说明
+    - [numpy.add](/generated/numpy.add)
+    - [numpy.all](/generated/numpy.all)

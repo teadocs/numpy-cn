@@ -1,11 +1,11 @@
 <title>numpy索引与切片 - <%-__DOC_NAME__ %></title>
 <meta name="keywords" content="numpy索引与切片" />
 
-# 索引
+# 索引与切片
 
 另见：
 
-> Indexing routines
+> [Indexing routines](/reference/routines/indexing.html)
 
 数组索引指的是使用方括号（[]）来索引数组值。有很多选项来索引，这使numpy索引很强大，但功能上的强大也带来一些复杂性和潜在的混乱。本部分只是与索引相关的各种选项和问题的概述。除了单个元素索引之外，大多数这些选项的细节可以在相关章节中找到。
 
