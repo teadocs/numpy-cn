@@ -389,155 +389,156 @@ SWIG对数值类型进行了复杂的类型检查。例如，如果你的C / C++
 TypeError: in method 'MyClass_MyMethod', argument 2 of type 'int'
 ```
 
-and the argument you are passing is an integer extracted from a NumPy array, then you have stumbled upon this problem. The solution is to modify the [SWIG](http://www.swig.org/) type conversion system to accept NumPy array scalars in addition to the standard integer types. Fortunately, this capability has been provided for you. Simply copy the file:
+你传递的参数是从NumPy数组中提取的整数，然后你偶然发现了这个问题。解决方案是修改 SWIG 类型转换系统以接受除标准整数类型之外的NumPy数组标量。幸运的是，已经为你提供了此功能。只需复制文件：
 
 ```
 pyfragments.swg
 ```
 
-to the working build directory for you project, and this problem will be fixed. It is suggested that you do this anyway, as it only increases the capabilities of your Python interface.
+到你项目的工作构建目录，这个问题就能修复。建议你一定要这样做，因为它只会增加Python接口的功能。
 
-### Why is There a Second File?
+### 为什么有第二个文件？
 
-The [SWIG](http://www.swig.org/) type checking and conversion system is a complicated combination of C macros, [SWIG](http://www.swig.org/) macros, [SWIG](http://www.swig.org/) typemaps and [SWIG](http://www.swig.org/) fragments. Fragments are a way to conditionally insert code into your wrapper file if it is needed, and not insert it if not needed. If multiple typemaps require the same fragment, the fragment only gets inserted into your wrapper code once.
+SWIG类型检查和转换系统是C宏，SWIG宏，SWIG类型映射和SWIG片段的复杂组合。 片段是一种在需要时有条件地将代码插入到包装器文件中的方法，如果不需要则不插入它。 如果多个类型映射需要相同的片段，则片段只会插入到包装器代码中一次。
 
-There is a fragment for converting a Python integer to a C ``long``. There is a different fragment that converts a Python integer to a C ``int``, that calls the routine defined in the ``long`` fragment. We can make the changes we want here by changing the definition for the ``long`` fragment. [SWIG](http://www.swig.org/) determines the active definition for a fragment using a “first come, first served” system. That is, we need to define the fragment for ``long`` conversions prior to [SWIG](http://www.swig.org/) doing it internally. [SWIG](http://www.swig.org/) allows us to do this by putting our fragment definitions in the file ``pyfragments.swg``. If we were to put the new fragment definitions in ``numpy.i``, they would be ignored.
+有一个片段用于将Python整数转换为C``long``。 有一个不同的片段将Python整数转换为C``int``，它调用 ``long`` 片段中定义的例程。我们可以通过更改``long``片段的定义来进行我们想要的更改。 SWIG使用“先到先得”系统确定片段的活动定义。 也就是说，我们需要在SWIG内部执行之前为``long``转换定义片段。 SWIG允许我们通过将我们的片段定义放在文件``pyfragments.swg``中来实现这一点。 如果我们将新的片段定义放在``numpy.i``中，它们将被忽略。
 
-## Helper Functions
+## 帮助功能
 
-The ``numpy.i`` file contains several macros and routines that it uses internally to build its typemaps. However, these functions may be useful elsewhere in your interface file. These macros and routines are implemented as fragments, which are described briefly in the previous section. If you try to use one or more of the following macros or functions, but your compiler complains that it does not recognize the symbol, then you need to force these fragments to appear in your code using:
+``numpy.i`` 文件包含几个内部用于构建其类型映射的宏和例程。 但是，这些函数在接口文件的其他位置可能很有用。 这些宏和例程以片段形式实现，这在前一节中有简要描述。 如果您尝试使用以下一个或多个宏或函数，但您的编译器抱怨它无法识别该符号，那么您需要强制使用以下代码在代码中显示这些片段：
 
 ```c
 %fragment("NumPy_Fragments");
 ```
 
-in your [SWIG](http://www.swig.org/) interface file.
+在你的SWIG界面文件中。
 
-### Macros
+### 宏
 
-- is_array(a) Evaluates as true if ``a`` is non-``NULL`` and can be cast to a ``PyArrayObject*``.
-- array_type(a) Evaluates to the integer data type code of a, assuming a can be cast to a ``PyArrayObject*``.
-- array_numdims(a) Evaluates to the integer number of dimensions of a, assuming a can be cast to a ``PyArrayObject*``.
-- array_dimensions(a) Evaluates to an array of type ``npy_intp`` and length ``array_numdims(a)``, giving the lengths of all of the dimensions of ``a``, assuming ``a`` can be cast to a ``PyArrayObject*``.
-- array_size(a,i) Evaluates to the i-th dimension size of a, assuming a can be cast to a PyArrayObject*.
-- array_strides(a) Evaluates to an array of type npy_intp and length array_numdims(a), giving the stridess of all of the dimensions of a, assuming a can be cast to a PyArrayObject*. A stride is the distance in bytes between an element and its immediate neighbor along the same axis.
-- array_stride(a,i) Evaluates to the i-th stride of a, assuming a can be cast to a PyArrayObject*.
-- array_data(a) Evaluates to a pointer of type void* that points to the data buffer of a, assuming a can be cast to a PyArrayObject*.
-- array_descr(a) Returns a borrowed reference to the dtype property (PyArray_Descr*) of a, assuming a can be cast to a PyArrayObject*.
-- array_flags(a) Returns an integer representing the flags of a, assuming a can be cast to a PyArrayObject*.
-- array_enableflags(a,f) Sets the flag represented by f of a, assuming a can be cast to a PyArrayObject*.
-- array_is_contiguous(a) Evaluates as true if a is a contiguous array. Equivalent to (PyArray_ISCONTIGUOUS(a)).
-- array_is_native(a) Evaluates as true if the data buffer of a uses native byte order. Equivalent to (PyArray_ISNOTSWAPPED(a)).
-- array_is_fortran(a) Evaluates as true if a is FORTRAN ordered.
+- is_array(a) 如果``a``是非``NULL``则为true，并且可以强制转换为``PyArrayObject*``。
+- array_type(a) 计算a的整数数据类型代码，假设可以转换为``PyArrayObject*``。
+- array_numdims(a) 计算a的整数维数，假设a可以强制转换为``PyArrayObject*``。
+- array_dimensions(a) 计算一个类型为``npy_intp``和长度 ``array_numdims(a)`` 的数组，给出``a``的所有维度的长度，假设``a``可以强制转换为``PyArrayObject*``。
+- array_size(a,i) 计算a的第i个维度大小，假设可以转换为PyArrayObject*。
+- array_strides(a) 求值为npy_intp和length array_numdims（a）类型的数组，给出a的所有维度的stridess，假设a可以转换为PyArrayObject*。步幅是元素与其直接邻居沿同一轴的字节距离。
+- array_stride(a,i) 评估a的第i步，假设可以转换为PyArrayObject*。
+- array_data(a) 求值为指向a的数据缓冲区的void*类型的指针，假设可以转换为PyArrayObject*。
+- array_descr(a) 返回对a的dtype属性（PyArray_Descr*）的借用引用，假设可以强制转换为PyArrayObject*。
+- array_flags(a) 返回一个表示a的标志的整数，假设可以强制转换为PyArrayObject*。
+- array_enableflags(a,f) 设置由f的f表示的标志，假设可以转换为PyArrayObject*。
+- array_is_contiguous(a) 如果a是连续数组，则求值为true。 相当于(PyArray_ISCONTIGUOUS(a)）。
+- array_is_native(a) 如果数据缓冲区使用本机字节顺序，则计算结果为true。等价于(PyArrayISNOTSWAPPED(A)。
+- array_is_fortran(a) 如果a是FORTRAN顺序的，则计算为true。
 
-### Routines
+### API
 
 - pytype_string()
-    - Return type: ``const char*``
-    - Arguments:
-        - ``PyObject* py_obj``, a general Python object.
-    - Return a string describing the type of ``py_obj``.
+    - 返回类型： ``const char*``
+    - 参数：
+        - ``PyObject* py_obj``, 一个普通的Python对象。
+    - 返回描述`py_obj`类型的字符串。
 - typecode_string()
-    - Return type: ``const char*``
-    - Arguments: 
-        - ``int typecode``, a NumPy integer typecode.
-    - Return a string describing the type corresponding to the NumPy ``typecode``.
+    - 返回类型： ``const char*``
+    - 参数： 
+        - ``int typecode``, NumPy整数类型码。
+    - 返回一个字符串，该字符串描述与NumPy`Typeecode`相对应的类型。
 - type_match()
-    - Return type: int
-    - Arguments:
-        - ``int actual_type``, the NumPy typecode of a NumPy array.
-        - ``int desired_type``, the desired NumPy typecode.
-    - Make sure that ``actual_type`` is compatible with ``desired_type``. For example, this allows character and byte types, or int and long types, to match. This is now equivalent to ``PyArray_EquivTypenums()``.
+    - 返回类型： int
+    - 参数：
+        - ``int actual_type``, NumPy数组的NumPy类型代码。
+        - ``int desired_type``, 所需的NumPy类型码。
+    - 确保``actual_type``与``desired_type``兼容。 例如，这允许匹配字符和字节类型，或int和long类型。这现在相当于``PyArray_EquivTypenums()``。
 - obj_to_array_no_conversion()
-    - Return type: ``PyArrayObject*``
-    - Arguments:
-        - ``PyObject\* input``, a general Python object.
-        - ``int typecode``, the desired NumPy typecode.
-    - Cast input to a PyArrayObject* if legal, and ensure that it is of type typecode. If input cannot be cast, or the typecode is wrong, set a Python error and return NULL.
+    - 返回类型： ``PyArrayObject*``
+    - 参数：
+        - ``PyObject\* input``, 一般的Python对象。
+        - ``int typecode``, 所需的NumPy类型代码。
+    - 如果合法，将输入转换为PyArrayObject*，并确保它的类型为typecode。 如果无法转换输入，或者typecode错误，请设置Python错误并返回NULL。
 - obj_to_array_allow_conversion()
-    - Return type: ``PyArrayObject*``
-    - Arguments:
-        - ``PyObject\* input``, a general Python object.
-        - ``int typecode``, the desired NumPy typecode of the resulting array.
-        - ``int* is_new_object``, returns a value of 0 if no conversion performed, else 1.
-    - Convert ``input`` to a NumPy array with the given typecode. On success, return a valid ``PyArrayObject*`` with the correct type. On failure, the Python error string will be set and the routine returns ``NULL``.
+    - 返回类型： ``PyArrayObject*``
+    - 参数：
+        - ``PyObject\* input``, 一般的Python对象。
+        - ``int typecode``, 生成的数组所需的NumPy类型代码。
+        - ``int* is_new_object``, 如果没有执行转换，则返回值0，否则返回1。
+    - Convert ``input`` 到具有给定typecode的NumPy数组。 成功后，返回有效。
+    ``PyArrayObject *``具有正确的类型。 失败时，将设置Python错误字符串，例程返回“NULL”。
 - make_contiguous()
-    - Return type: ``PyArrayObject*``
-    - Arguments:
-        - ``PyArrayObject* ary``, a NumPy array.
-        - ``int* is_new_object``, returns a value of 0 if no conversion performed, else 1.
-        - ``int min_dims``, minimum allowable dimensions.
-        - ``int max_dims``, maximum allowable dimensions.
-    - Check to see if ary is contiguous. If so, return the input pointer and flag it as not a new object. If it is not contiguous, create a new PyArrayObject* using the original data, flag it as a new object and return the pointer.
+    - 返回类型： ``PyArrayObject*``
+    - 参数：
+        - ``PyArrayObject* ary``, 一种 NumPy 数组.
+        - ``int* is_new_object``, 如果没有执行转换，则返回值0，否则返回1。
+        - ``int min_dims``, 最小允许尺寸。
+        - ``int max_dims``, 最大允许尺寸。
+    - 检查ary是否连续。 如果是这样，则返回输入指针并将其标记为不是新对象。 如果它不连续，则使用原始数据创建一个新的PyArrayObject *，将其标记为新对象并返回指针。
 - make_fortran()
-    - Return type: ``PyArrayObject*``
+    - 返回类型： ``PyArrayObject*``
     - Arguments
-        - ``PyArrayObject* ary``, a NumPy array.
-        - ``int* is_new_object``, returns a value of 0 if no conversion performed, else 1.
-    - Check to see if ary is Fortran contiguous. If so, return the input pointer and flag it as not a new object. If it is not Fortran contiguous, create a new PyArrayObject* using the original data, flag it as a new object and return the pointer.
+        - ``PyArrayObject* ary``,一个NumPy数组。
+        - ``int* is_new_object``, 如果没有执行转换，则返回值0，否则返回1。
+    - 检查ary是否是Fortran连续的。 如果是这样，则返回输入指针并将其标记为不是新对象。 如果它不是Fortran连续的，则使用原始数据创建一个新的PyArrayObject *，将其标记为新对象并返回指针。
 - obj_to_array_contiguous_allow_conversion()
-    - Return type: ``PyArrayObject*``
-    - Arguments:
-        - ``PyObject\* input``, a general Python object.
-        - ``int typecode``, the desired NumPy typecode of the resulting array.
-        - ``int* is_new_object``, returns a value of 0 if no conversion performed, else 1.
-    - Convert ``input`` to a contiguous ``PyArrayObject*`` of the specified type. If the input object is not a contiguous ``PyArrayObject*``, a new one will be created and the new object flag will be set.
+    - 返回类型： ``PyArrayObject*``
+    - 参数：
+        - ``PyObject\* input``, 一般的Python对象。
+        - ``int typecode``, 生成的数组所需的NumPy类型代码。
+        - ``int* is_new_object``, 如果没有执行转换，则返回值0，否则返回1。
+    - 将``input``转换为指定类型的连续``PyArrayObject *``。 如果输入对象不是连续的``PyArrayObject *``，则将创建一个新对象，并设置新的对象标志。
 - obj_to_array_fortran_allow_conversion()
-    - Return type: ``PyArrayObject*``
-    - Arguments:
-        - ``PyObject\* input``, a general Python object.
-        - ``int typecode``, the desired NumPy typecode of the resulting array.
-        - ``int* is_new_object``, returns a value of 0 if no conversion performed, else 1.
-    - Convert ``input`` to a Fortran contiguous ``PyArrayObject*`` of the specified type. If the input object is not a Fortran contiguous ``PyArrayObject*``, a new one will be created and the new object flag will be set.
+    - 返回类型： ``PyArrayObject*``
+    - 参数：
+        - ``PyObject\* input``, 一般的Python对象。
+        - ``int typecode``, 生成的数组所需的NumPy类型代码。
+        - ``int* is_new_object``, 如果没有执行转换，则返回值0，否则返回1。
+    - 将``input``转换为指定类型的Fortran连续``PyArrayObject*``。 如果输入对象不是Fortran连续的``PyArrayObject*``，则将创建一个新对象，并设置新的对象标志。
 - require_contiguous()
-    - Return type: ``int``
-    - Arguments:
-        - ``PyArrayObject* ary``, a NumPy array.
-    - Test whether ary is contiguous. If so, return 1. Otherwise, set a Python error and return 0.
+    - 返回类型： ``int``
+    - 参数：
+        - ``PyArrayObject* ary``, 一个NumPy数组。
+    - 测试ary是否连续。 如果是，则返回1.否则，设置Python错误并返回0。
 - require_native()
-    - Return type: ``int``
-    - Arguments:
-        - ``PyArray_Object*`` ary, a NumPy array.
-    - Require that ary is not byte-swapped. If the array is not byte-swapped, return 1. Otherwise, set a Python error and return 0.
+    - 返回类型： ``int``
+    - 参数：
+        - ``PyArray_Object*`` ary，NumPy数组。
+    - 要求ary不进行字节交换。 如果数组不是字节交换的，则返回1.否则，设置Python错误并返回0。
 - require_dimensions()
-    - Return type: ``int``
-    - Arguments:
-        - ``PyArrayObject*`` ary, a NumPy array.
-        - ``int exact_dimensions``, the desired number of dimensions.
-    - Require ``ary`` to have a specified number of dimensions. If the array has the specified number of dimensions, return 1. Otherwise, set a Python error and return 0.
+    - 返回类型： ``int``
+    - 参数：
+        - ``PyArrayObject*`` ary，NumPy数组。
+        - ``int exact_dimensions``, 所需的尺寸数量。
+    - 要求``ary``具有指定数量的尺寸。 如果数组具有指定的维数，则返回1.否则，设置Python错误并返回0。
 - require_dimensions_n()
-    - Return type: ``int``
-    - Arguments:
-        - ``PyArrayObject* ary``, a NumPy array.
-        - ``int* exact_dimensions``, an array of integers representing acceptable numbers of dimensions.
-        - ``int n``, the length of ``exact_dimensions``.
-    - Require ``ary`` to have one of a list of specified number of dimensions. If the array has one of the specified number of dimensions, return 1. Otherwise, set the Python error string and return 0.
+    - 返回类型： ``int``
+    - 参数：
+        - ``PyArrayObject* ary``, 一个NumPy数组。
+        - ``int* exact_dimensions``, 表示可接受维数的整数数组。
+        - ``int n``, ``exact_dimensions``的长度。
+    - 要求``ary``具有指定维数的列表之一。 如果数组具有指定数量的维度之一，则返回1.否则，设置Python错误字符串并返回 0。
 - require_size()
-    - Return type: ``int``
-    - Arguments:
-        - ``PyArrayObject* ary``, a NumPy array.
-        - ``npy_int* size``, an array representing the desired lengths of each dimension.
+    - 返回类型： ``int``
+    - 参数：
+        - ``PyArrayObject* ary``, 一个NumPy数组。
+        - ``npy_int* size``, 表示每个维度的所需长度的数组。
         - ``int n``, the length of ``size``.
-    - Require ``ary`` to have a specified shape. If the array has the specified shape, return 1. Otherwise, set the Python error string and return 0.
+    - 要求``ary``具有指定的形状。 如果数组具有指定的形状，则返回1.否则，设置Python错误字符串并返回0。
 - require_fortran()
-    - Return type: ``int``
-    - Arguments:
-        - ``PyArrayObject* ary``, a NumPy array.
-    - Require the given ``PyArrayObject`` to to be Fortran ordered. If the ``PyArrayObject`` is already Fortran ordered, do nothing. Else, set the Fortran ordering flag and recompute the strides.
+    - 返回类型： ``int``
+    - 参数：
+        - ``PyArrayObject* ary``, 一个NumPy数组。
+    - 要求给定的``PyArrayObject``是Fortran命令。 如果``PyArrayObject``已经被Fortran命令，那么什么都不做。 否则，设置Fortran排序标志并重新计算步幅。
 
-## Beyond the Provided Typemaps
+## 超出所提供的类型
 
-There are many C or C++ array/NumPy array situations not covered by a simple %include "numpy.i" and subsequent %apply directives.
+有许多C或C ++数组/ NumPy数组情况不包含在简单的 %include “numpy.i” 和后续的 %apply 指令中。
 
-### A Common Example
+### 一个常见的例子
 
-Consider a reasonable prototype for a dot product function:
+考虑点积函数的合理原型：
 
 ```c
 double dot(int len, double* vec1, double* vec2);
 ```
 
-The Python interface that we want is:
+我们想要的Python接口是：
 
 ```python
 def dot(vec1, vec2):
@@ -546,7 +547,9 @@ def dot(vec1, vec2):
     """
 ```
 
-The problem here is that there is one dimension argument and two array arguments, and our typemaps are set up for dimensions that apply to a single array (in fact, [SWIG](http://www.swig.org/) does not provide a mechanism for associating len with vec2 that takes two Python input arguments). The recommended solution is the following:
+这里的问题是有一个维度参数和两个数组参数，我们的类型映射是为适用于单个数组的维度设置的（事实上，SWIG 没有 提供一种机制，用于将len与带有两个Python输入参数的vec2相关联。 建议的解决方案如下：
+
+这里的问题是有一个维度参数和两个数组参数，我们的类型映射是为适用于单个数组的维度设置的（事实上，SWIG没有提供一种机制，用于将len与vec2相关联，后者带有两个Python输入参数）。建议的解决方案如下：
 
 ```c
 %apply (int DIM1, double* IN_ARRAY1) {(int len1, double* vec1),
@@ -569,25 +572,25 @@ double my_dot(int len1, double* vec1, int len2, double* vec2) {
 %}
 ```
 
-If the header file that contains the prototype for **double dot()** also contains other prototypes that you want to wrap, so that you need to **%include** this header file, then you will also need a **%ignore dot**; directive, placed after the **%rename** and before the %include directives. Or, if the function in question is a class method, you will want to use **%extend** rather than **%inline** in addition to **%ignore**.
+如果包含**double dot()**原型的头文件还包含你要包装的其他原型，那么你需要 **%include** 这个头文件，那么你还需要一个 **%ignore dot**; 指令，放在 **%rename** 之后和 %include 指令之前。 或者，如果所讨论的函数是类方法，除了 **%ignore** 之外，您还需要使用 **%extend** 而不是 **%inline**。
 
-**A note on error handling**: Note that **my_dot** returns a **double** but that it can also raise a Python error. The resulting wrapper function will return a Python float representation of 0.0 when the vector lengths do not match. Since this is not **NULL**, the Python interpreter will not know to check for an error. For this reason, we add the **%exception** directive above for **my_dot** to get the behavior we want (note that **$action** is a macro that gets expanded to a valid call to **my_dot**). In general, you will probably want to write a SWIG macro to perform this task.
+**关于错误处理的注释**：注意 **my_dot** 返回 **double** 但它也会引发Python错误。当向量长度不匹配时，生成的包装函数将返回0.0的Python浮点表示形式。 由于这不是 **NULL**，因此Python解释器不会知道检查错误。出于这个原因，我们在 **my_dot** 上面添加 **%exception** 指令以获得我们想要的行为（注意 **$action** 是一个宏，它被扩展为对 **my_dot** 的有效调用）。通常，您可能希望编写SWIG宏来执行此任务。
+ 
+### 其他情况
 
-### Other Situations
+还有其他包装情况，当你遇到它们时，``numpy.i`` 可能会有所帮助。
 
-There are other wrapping situations in which ``numpy.i`` may be helpful when you encounter them.
-
-- In some situations, it is possible that you could use the ``%numpy_typemaps`` macro to implement typemaps for your own types. See the [Other Common Types: bool](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#other-common-types-bool) or [Other Common Types: complex](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#other-common-types-complex) sections for examples. Another situation is if your dimensions are of a type other than int (say long for example):
+- 在某些情况下，可以使用 ``%numpy_ypemaps`` 宏为您自己的类型实现类型映射。有关示例，请参阅[其他通用类型：bool](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#other-common-types-bool) 或 [其他通用类型：复杂部分](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#other-common-types-complex) 。另一种情况是，如果维度的类型不是int(例如，Long)：
     ```c
     %numpy_typemaps(double, NPY_DOUBLE, long)
     ```
-- You can use the code in ``numpy.i`` to write your own typemaps. For example, if you had a five-dimensional array as a function argument, you could cut-and-paste the appropriate four-dimensional typemaps into your interface file. The modifications for the fourth dimension would be trivial.
-- Sometimes, the best approach is to use the ``%extend`` directive to define new methods for your classes (or overload existing ones) that take a ``PyObject*`` (that either is or can be converted to a PyArrayObject*) instead of a pointer to a buffer. In this case, the helper routines in numpy.i can be very useful.
-- Writing typemaps can be a bit nonintuitive. If you have specific questions about writing SWIG typemaps for NumPy, the developers of numpy.i do monitor the Numpy-discussion and Swig-user mail lists.
+- 可以使用``numpy.i``中的代码编写自己的类型图。例如，如果您有一个五维数组作为函数参数，您可以剪切并粘贴适当的四维类型图到您的接口文件中。对第四维的修改将是微不足道的。
+- 有时，最好的方法是使用 ``%ext`` 指令为您的类(或重载现有的)定义新方法，这些方法采用 ``PyObject*`` (既可以是或可以转换为PyArrayObject*)，而不是指向缓冲区的指针。在这种情况下，numpy.i 中的帮助程序例程非常有用。
+- 编写类型图可能有点不直观。如果你有关于为NumPy编写SWIG类型图的具体问题，numpy.i的开发人员确实会监视Numpy讨论和SWIG用户邮件列表。
 
-### A Final Note
+### 最后说明
 
-When you use the ``%apply`` directive, as is usually necessary to use ``numpy.i``, it will remain in effect until you tell [SWIG](http://www.swig.org/) that it shouldn’t be. If the arguments to the functions or methods that you are wrapping have common names, such as length or ``vector``, these typemaps may get applied in situations you do not expect or want. Therefore, it is always a good idea to add a ``%clear`` directive after you are done with a specific typemap:
+当你使用 ``%apply`` 指令(这通常是使用 ``numpy.i`` 所必需的)时，它将一直有效，直到你告诉 SWIG 说不应该这样做)为止。如果要包装的函数或方法的参数具有公共名称，如长度或 ``vector``，则这些类型映射可能应用于您不希望或不希望出现的情况。因此，在完成特定的类型地图之后，添加一个 ``%clear`` 指令总是一个好主意：
 
 ```c
 %apply (double* IN_ARRAY1, int DIM1) {(double* vector, int length)}
@@ -595,20 +598,20 @@ When you use the ``%apply`` directive, as is usually necessary to use ``numpy.i`
 %clear (double* vector, int length);
 ```
 
-In general, you should target these typemap signatures specifically where you want them, and then clear them after you are done.
+通常，您应该针对这些类型地图签名，特别是您想要它们的地方，然后在您完成之后清除它们。
 
-## Summary
+## 总结
 
-Out of the box, ``numpy.i`` provides typemaps that support conversion between NumPy arrays and C arrays:
-- That can be one of 12 different scalar types: ``signed char``, ``unsigned char``, ``short``, ``unsigned short``, ``int``, ``unsigned int``, ``long``, ``unsigned long``, ``long long``, ``unsigned long long``, ``float`` and ``double``.
-- That support 74 different argument signatures for each data type, including:
-    - One-dimensional, two-dimensional, three-dimensional and four-dimensional arrays.
-    - Input-only, in-place, argout, argoutview, and memory managed argoutview behavior.
-    - Hard-coded dimensions, data-buffer-then-dimensions specification, and dimensions-then-data-buffer specification.
-    - Both C-ordering (“last dimension fastest”) or Fortran-ordering (“first dimension fastest”) support for 2D, 3D and 4D arrays.
+开箱即用，`numpy.i`提供支持NumPy数组和C数组之间转换的类型图：
+- T它可以是12种不同的标量类型之一：``signed char``, ``unsigned char``, ``short``, ``unsigned short``, ``int``, ``unsigned int``, ``long``, ``unsigned long``, ``long long``, ``unsigned long long``, ``float`` 和 ``double``.
+- 它为每种数据类型支持74个不同的参数签名，包括：
+    - 一维、二维、三维和四维阵列。
+    - 仅输入、就地、argout、argoutview和内存管理的argoutview行为.
+    - 硬编码尺寸数据缓冲器然后尺寸规范和尺寸然后数据缓冲区规格。
+    - C排序(“最后维最快”)或Fortran排序(“第一维最快”)都支持2D、3D和4D数组。
 
-The ``numpy.i`` interface file also provides additional tools for wrapper developers, including:
+``numpy.i`` 接口文件还为包装程序开发人员提供了其他工具，包括：
 
-- A [SWIG](http://www.swig.org/) macro (``%numpy_typemaps``) with three arguments for implementing the 74 argument signatures for the user’s choice of (1) C data type, (2) NumPy data type (assuming they match), and (3) dimension type.
+- 带有三个参数的SWIG宏(``%numpy_ypemap``)，用于实现用户选择的(1) C数据类型、(2)NumPy数据类型(假设它们匹配)和 (3)维度类型的74个参数签名。
 
-- Fourteen C macros and fifteen C functions that can be used to write specialized typemaps, extensions, or inlined functions that handle cases not covered by the provided typemaps. Note that the macros and functions are coded specifically to work with the NumPy C/API regardless of NumPy version number, both before and after the deprecation of some aspects of the API after version 1.6.
+- 14个C宏和15个C函数，可用于编写专门的类型图、扩展或内联函数，这些函数处理所提供的类型图未涵盖的情况。请注意，宏和函数是专门为与NumPy C/API一起工作而编写的，不管NumPy的版本号是多少，在1.6版之后API的某些方面被弃用之前和之后都是如此。

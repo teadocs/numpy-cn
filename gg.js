@@ -15,7 +15,6 @@
                     break; 
             } 
         }
-
         (function() {
             window._ggjump = function (ggType) {
                 var ggUrls = [
@@ -37,25 +36,25 @@
         //     document.querySelector(".tea-container").appendChild(gg);
         // })();
         //楚才国科
-        (function() {
-            if ( randomNum(0, 10) > 8 ) {
-                return;
-            }
-            var articleChildren = $("article.markdown-body").children();
-            var articleChildrenLen = articleChildren.length;
-            if ( articleChildrenLen < 8 ) {
-                return;
-            }
-            var lenHalf = Math.floor(articleChildrenLen / 2);
-            var beEle = articleChildren.eq(lenHalf);
-            var ggStyle = window.document.createElement("style");
-            ggStyle.innerHTML = "#gg-box2{margin-bottom:10px;max-width:900px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box2 img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box2 img:hover{opacity:.9}"
-            document.querySelector(".tea-container").appendChild(ggStyle);
-            var gg = window.document.createElement("div");
-            gg.id = "gg-box2";
-            gg.innerHTML = "<img src='/static/images/gg-cgqc.jpg' onclick='_ggjump(1)' />";
-            $(beEle).after(gg);
-        })();
+        // (function() {
+        //     if ( randomNum(0, 10) > 8 ) {
+        //         return;
+        //     }
+        //     var articleChildren = $("article.markdown-body").children();
+        //     var articleChildrenLen = articleChildren.length;
+        //     if ( articleChildrenLen < 8 ) {
+        //         return;
+        //     }
+        //     var lenHalf = Math.floor(articleChildrenLen / 2);
+        //     var beEle = articleChildren.eq(lenHalf);
+        //     var ggStyle = window.document.createElement("style");
+        //     ggStyle.innerHTML = "#gg-box2{margin-bottom:10px;max-width:900px;box-sizing:border-box;text-align:center;background-color:#fff}#gg-box2 img{height:100%;width:100%;opacity:.7;cursor:pointer;transition:opacity .4s}#gg-box2 img:hover{opacity:.9}"
+        //     document.querySelector(".tea-container").appendChild(ggStyle);
+        //     var gg = window.document.createElement("div");
+        //     gg.id = "gg-box2";
+        //     gg.innerHTML = "<img src='/static/images/gg-cgqc.jpg' onclick='_ggjump(1)' />";
+        //     $(beEle).after(gg);
+        // })();
     }
 
     //加载捐增浮窗
