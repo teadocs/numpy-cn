@@ -24,27 +24,27 @@ Vector.cxx
 Vector.i
 ```
 
-is a [SWIG](http://www.swig.org/) interface file that defines a python module ``Vector`` that wraps the functions in ``Vector.h`` while utilizing the typemaps in ``numpy.i`` to correctly handle the C arrays.
+是一个SWIG接口文件，它定义了一个python模块 ``Vector``，它包含了 ``Vector.h`` 中的函数，同时利用 ``numpy.i`` 中的类型映射来正确处理C数组。
 
-The ``Makefile`` calls ``swig`` to generate ``Vector.py`` and ``Vector_wrap.cxx``, and also executes the ``setup.py`` script that compiles ``Vector_wrap.cxx`` and links together the extension module ``_Vector.so`` or ``_Vector.dylib``, depending on the platform. This extension module and the proxy file ``Vector.py`` are both placed in a subdirectory under the build directory.
+Makefile调用 ``swig`` 生成 ``Vector.py`` 和 ``Vector_wrap.cxx``，并执行编译 ``Vector_wrap.cxx`` 的 ``setup.py`` 脚本，并将扩展模块 ``_Vector.so`` 或 ``_Vector.dylib`` 链接在一起，具体取决于平台。 此扩展模块和代理文件 ``Vector.py`` 都放在构建目录下的子目录中。
 
-The actual testing takes place with a Python script named:
+实际测试使用名为的Python脚本进行：
 
 ```
 testVector.py
 ```
 
-that uses the standard Python library module ``unittest``, which performs several tests of each function defined in ``Vector.h`` for each data type supported.
+它使用标准的Python库模块 ``unittest``，它对所支持的每种数据类型执行``Vector.h``中定义的每个函数的几个测试。
 
-Two-dimensional arrays are tested in exactly the same manner. The above description applies, but with ``Matrix`` substituted for ``Vector``. For three-dimensional tests, substitute ``Tensor`` for ``Vector``. For four-dimensional tests, substitute SuperTensor for Vector. For flat in-place array tests, substitute ``Flat`` for ``Vector``. For the descriptions that follow, we will reference the ``Vector`` tests, but the same information applies to ``Matrix``, ``Tensor`` and ``SuperTensor`` tests.
+以完全相同的方式测试二维阵列。以上描述适用，但用``Matrix``代替``Vector``。对于三维测试，将``Tensor``替换为``Vector``。对于四维测试，将SuperTensor替换为Vector。对于平面就地阵列测试，将``Flat``替换为``Vector``。 对于下面的描述，我们将引用``Vector``测试，但相同的信息适用于``Matrix``，``Tensor``和``SuperTensor``测试。
 
-The command ``make test`` will ensure that all of the test software is built and then run all three test scripts.
+命令``make test``将确保构建所有测试软件，然后运行所有三个测试脚本。
 
 ## 测试头文件
 
-``Vector.h`` is a C++ header file that defines a C macro called ``TEST_FUNC_PROTOS`` that takes two arguments: ``TYPE``, which is a data type name such as ``unsigned int``; and ``SNAME``, which is a short name for the same data type with no spaces, e.g. ``uint``. This macro defines several function prototypes that have the prefix ``SNAME`` and have at least one argument that is an array of type ``TYPE``. Those functions that have return arguments return a ``TYPE`` value.
+``Vector.h`` 是一个C ++头文件，它定义了一个名为 ``TEST_FUNC_PROTOS`` 的C宏，它带有两个参数：``TYPE``，它是一个数据类型名，例如``unsigned int``; 和``SNAME``，它是相同数据类型的短名称，没有空格，例如``uint``。 这个宏定义了几个函数原型，这些函数原型具有前缀“SNAME”并且至少有一个参数是类型为``TYPE``的数组。那些具有返回参数的函数返回一个``TYPE``值。
 
-``TEST_FUNC_PROTOS`` is then implemented for all of the data types supported by numpy.i:
+然后为numpy.i支持的所有数据类型实现``TEST_FUNC_PROTOS``：
 
 - signed char
 - unsigned char
@@ -61,32 +61,32 @@ The command ``make test`` will ensure that all of the test software is built and
 
 ## 测试源码文件
 
-``Vector.cxx`` is a C++ source file that implements compilable code for each of the function prototypes specified in ``Vector.h``. It defines a C macro ``TEST_FUNCS`` that has the same arguments and works in the same way as ``TEST_FUNC_PROTOS`` does in ``Vector.h.`` ``TEST_FUNCS`` is implemented for each of the 12 data types as above.
+``Vector.cxx``是一个C ++源文件，它为``Vector.h``中指定的每个函数原型实现了可编译的代码。 它定义了一个C宏``TEST_FUNCS``，它具有相同的参数，其工作方式与``TEST_FUNC_PROTOS``在``Vector.h``中的工作方式相同.``TEST_FUNCS``为12个数据中的每一个实现 类型如上。
 
 ## 测试SWIG接口文件
 
-``Vector.i`` is a [SWIG](http://www.swig.org/) interface file that defines python module ``Vector``. It follows the conventions for using ``numpy.i`` as described in this chapter. It defines a [SWIG](http://www.swig.org/) macro ``%apply_numpy_typemaps`` that has a single argument ``TYPE``. It uses the [SWIG](http://www.swig.org/) directive %apply to apply the provided typemaps to the argument signatures found in ``Vector.h``. This macro is then implemented for all of the data types supported by ``numpy.i``. It then does a ``%include "Vector.h"`` to wrap all of the function prototypes in ``Vector.h`` using the typemaps in ``numpy.i``.
+``Vector.i``是一个 SWIG 接口文件，它定义了python模块 ``Vector``。 它遵循本章所述的使用 ``numpy.i`` 的约定。它定义了一个 SWIG 宏``％apply_numpy_typemaps``，它有一个参数``TYPE``。 它使用 SWIG 指令 %apply 将提供的类型映射应用于 ``Vector.h`` 中的参数签名。然后为 ``numpy.i`` 支持的所有数据类型实现该宏。然后它使用 ``numpy.i`` 中的类型映射将 ``%include'Vector.h`` 包装在 ``Vector.h`` 中的所有函数原型。
 
 ## 测试Python脚本
 
-After ``make`` is used to build the testing extension modules, ``testVector.py`` can be run to execute the tests. As with other scripts that use ``unittest`` to facilitate unit testing, ``testVector.py`` defines a class that inherits from ``unittest.TestCase``:
+在``make``用于构建测试扩展模块之后，可以运行``testVector.py``来执行测试。与使用``unittest``来促进单元测试的其他脚本一样，``testVector.py``定义了一个继承自``unittest.TestCase``的类：
 
-However, this class is not run directly. Rather, it serves as a base class to several other python classes, each one specific to a particular data type. The ``VectorTestCase`` class stores two strings for typing information:
+但是，此类不直接运行。 相反，它作为几个其他python类的基类，每个类都特定于特定的数据类型。``VectorTestCase``类存储两个用于输入信息的字符串：
 
 - self.typeStr
-    - A string that matches one of the ``SNAME`` prefixes used in ``Vector.h`` and ``Vector.cxx``. For example, ``"double"``.
+    - 一个字符串，匹配``Vector.h``和``Vector.cxx``中使用的``SNAME``前缀之一。 例如，``double``。
 - self.typeCode
-    - A short (typically single-character) string that represents a data type in numpy and corresponds to ``self.typeStr``. For example, if ``self.typeStr`` is ``"double"``, then ``self.typeCode`` should be ``"d"``.
+    - 一个短（通常是单字符）字符串，表示numpy中的数据类型，对应于``self.typeStr``。 例如，如果``self.typeStr``是``double``，那么``self.typeCode``应该是``d``。
 
-Each test defined by the ``VectorTestCase`` class extracts the python function it is trying to test by accessing the ``Vector`` module’s dictionary:
+由 ``VectorTestCase`` 类定义的每个测试通过访问 ``Vector`` 模块的字典来提取它试图测试的python函数：
 
 ```python
 length = Vector.__dict__[self.typeStr + "Length"]
 ```
 
-In the case of double precision tests, this will return the python function ``Vector.doubleLength``.
+在双精度测试的情况下，这将返回python函数``Vector.doubleLength``。
 
-We then define a new test case class for each supported data type with a short definition such as:
+然后，我们为每个支持的数据类型定义一个新的测试用例类，其中包含一个简短的定义：
 
 ```python
 class doubleTestCase(VectorTestCase):
@@ -96,4 +96,4 @@ class doubleTestCase(VectorTestCase):
         self.typeCode = "d"
 ```
 
-Each of these 12 classes is collected into a ``unittest.TestSuite``, which is then executed. Errors and failures are summed together and returned as the exit argument. Any non-zero result indicates that at least one test did not pass.
+这12个类中的每一个都被收集到一个 ``unittest.TestSuite`` 中，然后执行。 将错误和失败相加在一起并作为退出参数返回。 任何非零结果表明至少有一个测试没有通过。
