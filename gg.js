@@ -1,7 +1,18 @@
 (function () {
     var pathName = window.location.pathname;
-    if (pathName !== '/' && pathName !== '/index.html') {
+    (function() {
+        window._ggjump = function (ggType) {
+            var ggUrls = [
+                escape("http://www.julyedu.com/weekend/train6?from=numpy"),
+                escape("https://ke.qq.com/course/326311?flowToken=1005515"),
+                escape("https://1024dada.com/?channel=numpy&hmsr=numpy-cn&hmpl=&hmcu=&hmkw=&hmci=")
+            ];
+            var adJump = "http://gg.numpy.org.cn/jump.php?from=" + window.location.href + "&url=" + ggUrls[ggType];
+            window.open(adJump);
+        }
+    })();
 
+    if (pathName !== '/' && pathName !== '/index.html') {
         function randomNum(minNum,maxNum) {
             switch(arguments.length){ 
                 case 1: 
@@ -16,28 +27,6 @@
             } 
         }
 
-        //每日答答
-        (function() {
-            var ggStyle = window.document.createElement("style");
-            ggStyle.innerHTML = " #gg-1024dada-box{cursor: pointer;width: 120px;height: 500px;position: fixed;left: 1160px;top: 240px;background-color: #fff;z-index: 20;}#gg-1024dada-box img{opacity: 0.8;width: 100%;height: 100%;transition:opacity .4s;}#gg-1024dada-box img:hover{opacity: 1px;} #gg-1024dada-box div.title{position: absolute; width: 100%; height: 30px; line-height: 30px; top: -30px; background-color: #fff; text-align: center;border: 1px solid #e0e0e0; box-sizing: border-box;}"
-            document.querySelector(".tea-container").appendChild(ggStyle);
-            var gg = window.document.createElement("div");
-            gg.id = "gg-1024dada-box";
-            gg.innerHTML = "<img src='/static/images/1024dada120x500.jpg' onclick='_ggjump(2)' /><div class='title'>赞 助 商</div>";
-            document.querySelector(".tea-container").appendChild(gg);
-        })();
-
-        (function() {
-            window._ggjump = function (ggType) {
-                var ggUrls = [
-                    escape("http://www.julyedu.com/weekend/train6?from=numpy"),
-                    escape("https://ke.qq.com/course/326311?flowToken=1005515"),
-                    escape("https://1024dada.com/?channel=numpy&hmsr=numpy中文文档&hmpl=&hmcu=&hmkw=&hmci=")
-                ];
-                var adJump = "http://gg.numpy.org.cn/jump.php?from=" + window.location.href + "&url=" + ggUrls[ggType];
-                window.open(adJump);
-            }
-        })();
         //七月
         // (function() {
         //     var ggStyle = window.document.createElement("style");
@@ -71,6 +60,17 @@
 
     }
 
+    //每日答答
+    (function() {
+        var ggStyle = window.document.createElement("style");
+        ggStyle.innerHTML = " #gg-1024dada-box{cursor: pointer;width: 120px;height: 500px;position: fixed;left: 1160px;top: 240px;background-color: #fff;z-index: 20;}#gg-1024dada-box img{opacity: 0.6;width: 100%;height: 100%;transition:opacity .4s;}#gg-1024dada-box img:hover{opacity: 1;} #gg-1024dada-box div.title{position: absolute; width: 100%; height: 30px; line-height: 30px; top: -30px; background-color: #fff; text-align: center;border: 1px solid #e0e0e0; box-sizing: border-box;}"
+        document.querySelector(".tea-container").appendChild(ggStyle);
+        var gg = window.document.createElement("div");
+        gg.id = "gg-1024dada-box";
+        gg.innerHTML = "<img src='/static/images/1024dada120x500.jpg' onclick='_ggjump(2)' /><div class='title'>赞 助 商</div>";
+        document.querySelector(".tea-container").appendChild(gg);
+    })();
+    
     //加载捐增浮窗
     var donationStyleHtml = '<style>' +
     '.donation-button {' +
