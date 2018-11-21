@@ -1,6 +1,7 @@
 - [关于中文文档](/index)
 - [NumPy参考文章](/article/index)
     - [+基础篇](/article/basics/index)
+        - [理解 NumPy](/article/basics/understanding_numpy)
         - [NumPy简单入门教程](/article/basics/an_introduction_to_scientific_python_numpy)
         - [Python Numpy 教程](/article/basics/python_numpy_tutorial)
         - [NumPy中的矩阵和向量](/article/basics/numpy_matrices_vectors)

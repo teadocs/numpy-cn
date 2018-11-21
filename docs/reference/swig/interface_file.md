@@ -405,7 +405,7 @@ SWIG类型检查和转换系统是C宏，SWIG宏，SWIG类型映射和SWIG片段
 
 ## 帮助功能
 
-``numpy.i`` 文件包含几个内部用于构建其类型映射的宏和例程。 但是，这些函数在接口文件的其他位置可能很有用。 这些宏和例程以片段形式实现，这在前一节中有简要描述。 如果您尝试使用以下一个或多个宏或函数，但您的编译器抱怨它无法识别该符号，那么您需要强制使用以下代码在代码中显示这些片段：
+``numpy.i`` 文件包含几个内部用于构建其类型映射的宏和例程。 但是，这些函数在接口文件的其他位置可能很有用。 这些宏和例程以片段形式实现，这在前一节中有简要描述。 如果你尝试使用以下一个或多个宏或函数，但你的编译器抱怨它无法识别该符号，那么你需要强制使用以下代码在代码中显示这些片段：
 
 ```c
 %fragment("NumPy_Fragments");
@@ -572,25 +572,25 @@ double my_dot(int len1, double* vec1, int len2, double* vec2) {
 %}
 ```
 
-如果包含**double dot()**原型的头文件还包含你要包装的其他原型，那么你需要 **%include** 这个头文件，那么你还需要一个 **%ignore dot**; 指令，放在 **%rename** 之后和 %include 指令之前。 或者，如果所讨论的函数是类方法，除了 **%ignore** 之外，您还需要使用 **%extend** 而不是 **%inline**。
+如果包含**double dot()**原型的头文件还包含你要包装的其他原型，那么你需要 **%include** 这个头文件，那么你还需要一个 **%ignore dot**; 指令，放在 **%rename** 之后和 %include 指令之前。 或者，如果所讨论的函数是类方法，除了 **%ignore** 之外，你还需要使用 **%extend** 而不是 **%inline**。
 
-**关于错误处理的注释**：注意 **my_dot** 返回 **double** 但它也会引发Python错误。当向量长度不匹配时，生成的包装函数将返回0.0的Python浮点表示形式。 由于这不是 **NULL**，因此Python解释器不会知道检查错误。出于这个原因，我们在 **my_dot** 上面添加 **%exception** 指令以获得我们想要的行为（注意 **$action** 是一个宏，它被扩展为对 **my_dot** 的有效调用）。通常，您可能希望编写SWIG宏来执行此任务。
+**关于错误处理的注释**：注意 **my_dot** 返回 **double** 但它也会引发Python错误。当向量长度不匹配时，生成的包装函数将返回0.0的Python浮点表示形式。 由于这不是 **NULL**，因此Python解释器不会知道检查错误。出于这个原因，我们在 **my_dot** 上面添加 **%exception** 指令以获得我们想要的行为（注意 **$action** 是一个宏，它被扩展为对 **my_dot** 的有效调用）。通常，你可能希望编写SWIG宏来执行此任务。
  
 ### 其他情况
 
 还有其他包装情况，当你遇到它们时，``numpy.i`` 可能会有所帮助。
 
-- 在某些情况下，可以使用 ``%numpy_ypemaps`` 宏为您自己的类型实现类型映射。有关示例，请参阅[其他通用类型：bool](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#other-common-types-bool) 或 [其他通用类型：复杂部分](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#other-common-types-complex) 。另一种情况是，如果维度的类型不是int(例如，Long)：
+- 在某些情况下，可以使用 ``%numpy_ypemaps`` 宏为你自己的类型实现类型映射。有关示例，请参阅[其他通用类型：bool](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#other-common-types-bool) 或 [其他通用类型：复杂部分](https://docs.scipy.org/doc/numpy/reference/swig.interface-file.html#other-common-types-complex) 。另一种情况是，如果维度的类型不是int(例如，Long)：
     ```c
     %numpy_typemaps(double, NPY_DOUBLE, long)
     ```
-- 可以使用``numpy.i``中的代码编写自己的类型图。例如，如果您有一个五维数组作为函数参数，您可以剪切并粘贴适当的四维类型图到您的接口文件中。对第四维的修改将是微不足道的。
-- 有时，最好的方法是使用 ``%ext`` 指令为您的类(或重载现有的)定义新方法，这些方法采用 ``PyObject*`` (既可以是或可以转换为PyArrayObject*)，而不是指向缓冲区的指针。在这种情况下，numpy.i 中的帮助程序例程非常有用。
+- 可以使用``numpy.i``中的代码编写自己的类型图。例如，如果你有一个五维数组作为函数参数，你可以剪切并粘贴适当的四维类型图到你的接口文件中。对第四维的修改将是微不足道的。
+- 有时，最好的方法是使用 ``%ext`` 指令为你的类(或重载现有的)定义新方法，这些方法采用 ``PyObject*`` (既可以是或可以转换为PyArrayObject*)，而不是指向缓冲区的指针。在这种情况下，numpy.i 中的帮助程序例程非常有用。
 - 编写类型图可能有点不直观。如果你有关于为NumPy编写SWIG类型图的具体问题，numpy.i的开发人员确实会监视Numpy讨论和SWIG用户邮件列表。
 
 ### 最后说明
 
-当你使用 ``%apply`` 指令(这通常是使用 ``numpy.i`` 所必需的)时，它将一直有效，直到你告诉 SWIG 说不应该这样做)为止。如果要包装的函数或方法的参数具有公共名称，如长度或 ``vector``，则这些类型映射可能应用于您不希望或不希望出现的情况。因此，在完成特定的类型地图之后，添加一个 ``%clear`` 指令总是一个好主意：
+当你使用 ``%apply`` 指令(这通常是使用 ``numpy.i`` 所必需的)时，它将一直有效，直到你告诉 SWIG 说不应该这样做)为止。如果要包装的函数或方法的参数具有公共名称，如长度或 ``vector``，则这些类型映射可能应用于你不希望或不希望出现的情况。因此，在完成特定的类型地图之后，添加一个 ``%clear`` 指令总是一个好主意：
 
 ```c
 %apply (double* IN_ARRAY1, int DIM1) {(double* vector, int length)}
@@ -598,7 +598,7 @@ double my_dot(int len1, double* vec1, int len2, double* vec2) {
 %clear (double* vector, int length);
 ```
 
-通常，您应该针对这些类型地图签名，特别是您想要它们的地方，然后在您完成之后清除它们。
+通常，你应该针对这些类型地图签名，特别是你想要它们的地方，然后在你完成之后清除它们。
 
 ## 总结
 
