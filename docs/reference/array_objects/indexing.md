@@ -185,8 +185,6 @@ array([[ 0,  2],
 
 #### 结合高级和基本索引
 
-When there is at least one slice (``:``), ellipsis (``...``) or ``np.newaxis`` in the index (or the array has more dimensions than there are advanced indexes), then the behaviour can be more complicated. It is like concatenating the indexing result for each advanced index element
-
 当索引中至少有一个切片（``:``），省略号（``...``）或``np.newaxis``时（或者数组的维度比高级索引多）， 然后行为可能会更复杂。 这就像连接每个高级索引元素的索引结果一样
 
 在最简单的情况下，只有一个高级索引。 单个高级索引可以例如替换切片，并且结果数组将是相同的，但是，它是副本并且可以具有不同的存储器布局。 当可能时，切片是优选的。
