@@ -44,3 +44,4 @@ teadocs build
 [昂钛客AI](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答，友情链接支持 | -
 [机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体，底部友情链接支持 | ![机器人](/static/images/www.jiqirenku.com.logo.jpg)
 [PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯，友情链接支持 | -  
+[BigQuant人工智能量化投资平台](https://bigquant.com/) | BigQuant是以人工智能为核心的量化投资平台和社区，让Quant和投资者无门槛的使用AI做更好的投资。 | ![BigQuant](/static/images/bigquant-logo.png)
