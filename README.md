@@ -6,7 +6,15 @@ numpy中文文档是使用markdown编写的技术文档，目前文档还处在�
 
 ## 在线访问
 
+手机访问需要注意的是菜单在页面的左上角。
+
 [NumPy中文文档](https://www.numpy.org.cn/)
+
+## 联系方式
+
+- 发起人邮箱：l@numpy.org.cn
+- 发起人微信号：iamnotahacker（可联系我加微信群）
+- QQ交流群：294639068
 
 ## 贡献翻译与构建
 
