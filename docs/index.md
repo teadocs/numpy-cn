@@ -1,5 +1,5 @@
-<p style="text-align: center;">
-    <img style="height: 100px; width: 100px;" src="/static/images/numpy.logo.jpeg" />
+<p style="text-align: center;padding-top: 20px;margin-bottom:0px;">
+    <img style="height: 110px; width: 110px;" src="/static/images/numpy.logo.jpeg" />
 </p>
 
 # 前言
