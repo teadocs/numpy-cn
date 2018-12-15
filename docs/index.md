@@ -1,5 +1,9 @@
 # 前言
 
+<p style="text-align: center;">
+    <img style="height: 100px; width: 100px;" src="/static/images/numpy.logo.jpeg" />
+</p>
+
 ## 译者的话
 
 各位 **炼丹师**、**金融大鳄**、**数据游侠** 你们好，人生苦短，我们都要用 Python！
