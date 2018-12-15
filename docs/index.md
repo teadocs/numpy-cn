@@ -1,8 +1,8 @@
-# 前言
-
 <p style="text-align: center;">
     <img style="height: 100px; width: 100px;" src="/static/images/numpy.logo.jpeg" />
 </p>
+
+# 前言
 
 ## 译者的话
 
