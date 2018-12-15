@@ -1,5 +1,9 @@
 # numpy-cn
 
+<p style="text-align: center;">
+    <img style="height: 100px; width: 100px;" src="/static/images/numpy.logo.jpeg" />
+</p>
+
 > Chinese (zh-cn) translation of the NumPy docs
 > numpy官方文档的中文版本
 
