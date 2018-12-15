@@ -42,7 +42,6 @@
 
 昵称/机构 | 备注 | logo 
 ---|---|---
-[Tiesec](https://www.tiesec.org/) |  NumPy中文文档发起人 | -
 [Aidocs](https://www.aidocs.cn/) | Aidocs文档中心，学习人工智能，数据科学，从Aidocs开始 | -
 [MumPy英文官方网站](http://www.numpy.org/) | MumPy英文官方网站 | -
 [Ptorch](https://ptorch.com/)| Pytorch中文博客，顶部友情链接支持 | -
