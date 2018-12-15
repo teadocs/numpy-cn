@@ -22,7 +22,7 @@
 
 ## 贡献翻译
 
-如果你想贡献翻译，可以前往Teadocs文档生成工具的项目地址查看使用帮助，然后将你翻译的内容提交PR（包括不限于校对、翻译纠错），审核通过后我会把你加入贡献者/译者名单，感谢你对国内机器学习开源社区的贡献。
+如果你想贡献翻译，可以前往Teadocs文档生成工具的项目地址查看使用帮助，然后将你翻译的内容提交PR（包括不限于校对、翻译纠错），审核通过后我会把你加入贡献者/译者名单，感谢你对汉化数据科学开源领域的贡献。
 
 ## 文档生成
 
@@ -43,7 +43,7 @@
 昵称/机构 | 备注 | logo 
 ---|---|---
 [Aidocs](https://www.aidocs.cn/) | Aidocs文档中心，学习人工智能，数据科学，从Aidocs开始 | -
-[MumPy英文官方网站](http://www.numpy.org/) | MumPy英文官方网站 | -
+[NumPy英文官方网站](http://www.numpy.org/) | NumPy英文官方网站 | -
 [Ptorch](https://ptorch.com/)| Pytorch中文博客，顶部友情链接支持 | -
 [RiceQuant米筐量化交易平台](https://www.ricequant.com/)  |  RiceQuant米筐量化交易平台，合作伙伴链接支持。| -
 [景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台，底部合作伙伴支持 | ![景略集智](http://fimage.oss-cn-shenzhen.aliyuncs.com/upload/image/20181018/1539837297188008126.jpg)

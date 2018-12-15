@@ -1,8 +1,9 @@
 # numpy-cn
+
 > Chinese (zh-cn) translation of the NumPy docs
 > numpy官方文档的中文版本
 
-numpy中文文档是使用markdown编写的技术文档，目前文档还处在翻译阶段，翻译程度大概在90%，基础功能基本都已翻译完毕，可以放心预览，下面是文档在线预览的地址。劳烦大家扩散以及传播本文档让更多的数据科学爱好者受益。
+[NumPy 中文文档](https://www.numpy.org.cn/)是使用markdown编写的技术文档，目前文档还处在翻译阶段，翻译程度大概在90%（包括全部的非API介绍的部分），可以放心预览。也欢迎英文好的同学参与进来一起翻译，可以在下面的联系方式找到我的微信。
 
 ## 在线访问
 
@@ -20,7 +21,7 @@ numpy中文文档是使用markdown编写的技术文档，目前文档还处在�
 
 本文档是基于[Teadocs](https://github.com/teadocs/teadocs)所构建。
 
-如果您想贡献翻译，可以前往Teadocs文档生成工具的项目地址查看使用帮助，然后将你翻译的内容提交PR（包括不限于校对、翻译纠错），审核通过后我会把您加入贡献者/译者名单，感谢您对国内机器学习开源社区的贡献。
+如果你想贡献翻译，可以前往Teadocs文档生成工具的项目地址查看使用帮助，然后将你翻译的内容提交PR（包括不限于校对、翻译纠错），审核通过后我会把你加入贡献者/译者名单，感谢你对汉化数据科学开源领域的贡献。
 
 构建命令：
 ```
@@ -39,23 +40,10 @@ teadocs build
 
 如果您把我们的地址加入到您的网站中去，请联系我，我会把你加入支持者名单。（以下排名按照时间顺序排列）
 
-<<<<<<< HEAD
-昵称/机构 | 网站 | 备注 | logo
----|---|---|---
-numpy官方文档| [http://www.numpy.org/](http://www.numpy.org/) | numpy官方支持 | -
-ptorch | [https://ptorch.com/](https://ptorch.com/) | 友情链接支持 | -
-ricequant | [https://www.ricequant.com/](https://www.ricequant.com/) | RiceQuant米筐量化交易平台，合作伙伴链接支持。| -
-景略集智 | [https://jizhi.im](https://jizhi.im) | 底部合作伙伴支持 | ![景略集智](/static/images/jizhi.im.logo.jpg)
-极智能 | [https://www.ziiai.com/](https://www.ziiai.com/) | 专业ai技术社区，友情链接支持 | ![极智能](/static/images/ziiai.com.logo.png)
-Tushare -财经数据接口包 | [http://tushare.org/](http://tushare.org/) |  Tushare是一个免费、开源的python财经数据接口包，友情链接支持 | -
-昂钛客AI | [http://www.angtk.com/](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答，友情链接支持 | -
-机器人库 | [http://www.jiqirenku.com/](http://www.jiqirenku.com/) | 领先的机器人互动媒体，底部友情链接支持 | ![机器人库](/static/images/www.jiqirenku.com.logo.jpg)
-=======
 昵称/机构 | 备注 | logo 
 ---|---|---
-[Tiesec](https://www.tiesec.org/) |  NumPy中文文档发起人 | -
 [Aidocs](https://www.aidocs.cn/) | Aidocs文档中心，学习人工智能，数据科学，从Aidocs开始 | -
-[MumPy英文官方网站](http://www.numpy.org/) | MumPy英文官方网站 | -
+[NumPy英文官方网站](http://www.numpy.org/) | NumPy英文官方网站 | -
 [Ptorch](https://ptorch.com/)| Pytorch中文博客，顶部友情链接支持 | -
 [RiceQuant米筐量化交易平台](https://www.ricequant.com/)  |  RiceQuant米筐量化交易平台，合作伙伴链接支持。| -
 [景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台，底部合作伙伴支持 | ![景略集智](http://fimage.oss-cn-shenzhen.aliyuncs.com/upload/image/20181018/1539837297188008126.jpg)
@@ -65,4 +53,3 @@ Tushare -财经数据接口包 | [http://tushare.org/](http://tushare.org/) |  T
 [机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体，底部友情链接支持 | ![机器人](/static/images/www.jiqirenku.com.logo.jpg)
 [PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯，友情链接支持 | -  
 [BigQuant人工智能量化投资平台](https://bigquant.com/) | BigQuant是以人工智能为核心的量化投资平台和社区，让Quant和投资者无门槛的使用AI做更好的投资。 | ![BigQuant](/static/images/bigquant-logo.png)
->>>>>>> a8eab823549bdd6e6cd26d1c88f2d82d0eb92fca
