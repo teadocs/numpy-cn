@@ -40,6 +40,10 @@ teadocs build
 - 非商业性使用：不能对本作品进行任何形式的商业性使用
 - 相同方式共享：若对本作品进行了修改，必须以相同的许可协议共享
 
+## 特别赞助商
+
+[BigQuant人工智能量化投资平台](https://bigquant.com/) | BigQuant是以人工智能为核心的量化投资平台和社区，让Quant和投资者无门槛的使用AI做更好的投资（量化投资导航链接支持） | ![BigQuant](/static/images/bigquant-logo.png)
+
 ## 支持者名单
 
 如果您把我们的地址加入到您的网站中去，请联系我，我会把你加入支持者名单。（以下排名按照时间顺序排列）
@@ -56,4 +60,3 @@ teadocs build
 [昂钛客AI](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答（友情链接支持） | -
 [机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体（底部友情链接支持） | ![机器人](/static/images/www.jiqirenku.com.logo.jpg)
 [PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯（友情链接支持） | -  
-[BigQuant人工智能量化投资平台](https://bigquant.com/) | BigQuant是以人工智能为核心的量化投资平台和社区，让Quant和投资者无门槛的使用AI做更好的投资（量化投资导航链接支持） | ![BigQuant](/static/images/bigquant-logo.png)
