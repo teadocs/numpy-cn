@@ -62,3 +62,4 @@
 [昂钛客AI](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答（友情链接支持） | -
 [机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体（底部友情链接支持） | ![机器人](/static/images/www.jiqirenku.com.logo.jpg)
 [PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯（友情链接支持） | - 
+[宽客在线](https://quant.la/) | 宽客在线致力于为专业量化机构和量化交易者提供资讯、数据、行情、研究和社区等服务 | - 
