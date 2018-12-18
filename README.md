@@ -42,11 +42,13 @@ teadocs build
 
 ## 特别赞助商
 
-[BigQuant人工智能量化投资平台](https://bigquant.com/) | BigQuant是以人工智能为核心的量化投资平台和社区，让Quant和投资者无门槛的使用AI做更好的投资（量化投资导航链接支持） | ![BigQuant](/static/images/bigquant-logo.png)
+赞助商名称 | 赞助商介绍 | logo 
+---|---|---
+[BigQuant人工智能量化投资平台](https://bigquant.com/) | BigQuant是以人工智能为核心的量化投资平台和社区，让Quant和投资者无门槛的使用AI做更好的投资 | ![BigQuant](/static/images/bigquant-logo.png)
 
 ## 支持者名单
 
-如果您把我们的地址加入到您的网站中去，请联系我，我会把你加入支持者名单。（以下排名按照时间顺序排列）
+如果你把我们的地址加入到你的网站中去，请联系我，我会把你加入支持者名单。（以下排名按照时间顺序排列）
 
 昵称/机构 | 备注 | logo 
 ---|---|---
@@ -54,9 +56,9 @@ teadocs build
 [NumPy英文官方网站](http://www.numpy.org/) | NumPy英文官方网站 | -
 [Ptorch](https://ptorch.com/)| Pytorch中文博客（顶部友情链接支持） | -
 [RiceQuant米筐量化交易平台](https://www.ricequant.com/)  |  RiceQuant米筐量化交易平台（合作伙伴链接支持）| -
-[景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台（底部合作伙伴支持） | ![景略集智](/static/images/jizhi.im.logo.png)
+[景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台（底部合作伙伴支持） | ![景略集智](http://fimage.oss-cn-shenzhen.aliyuncs.com/upload/image/20181018/1539837297188008126.jpg)
 [极智能](https://www.ziiai.com/) | 专业ai技术社区（友情链接支持） | ![极智能](/static/images/ziiai.com.logo.png)
 [Tushare](http://tushare.org/)  | Tushare是一个免费、开源的python财经数据接口包（友情链接支持） | -
 [昂钛客AI](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答（友情链接支持） | -
 [机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体（底部友情链接支持） | ![机器人](/static/images/www.jiqirenku.com.logo.jpg)
-[PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯（友情链接支持） | -  
+[PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯（友情链接支持） | - 
