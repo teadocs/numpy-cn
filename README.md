@@ -56,10 +56,10 @@ teadocs build
 [NumPy英文官方网站](http://www.numpy.org/) | NumPy英文官方网站 | -
 [Ptorch](https://ptorch.com/)| Pytorch中文博客（顶部友情链接支持） | -
 [RiceQuant米筐量化交易平台](https://www.ricequant.com/)  |  RiceQuant米筐量化交易平台（合作伙伴链接支持）| -
-[景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台（底部合作伙伴支持） | ![景略集智](/static/images/jizhi.im.logo.png)
-[极智能](https://www.ziiai.com/) | 专业ai技术社区（友情链接支持） | ![极智能](/static/images/ziiai.com.logo.png)
+[景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台（底部合作伙伴支持） | <img src="/static/images/jizhi.im.logo.png" alt="景略集智" width="200" height="40">
+[极智能](https://www.ziiai.com/) | 专业ai技术社区（友情链接支持） | <img src="/static/images/ziiai.com.logo.png" alt="极智能" width="200" height="40">
 [Tushare](http://tushare.org/)  | Tushare是一个免费、开源的python财经数据接口包（友情链接支持） | -
 [昂钛客AI](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答（友情链接支持） | -
-[机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体（底部友情链接支持） | ![机器人](/static/images/www.jiqirenku.com.logo.jpg)
+[机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体（底部友情链接支持） | <img src="/static/images/www.jiqirenku.com.logo.jpg" alt="机器人" width="200" height="40">
 [PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯（友情链接支持） | - 
 [宽客在线](https://quant.la/) | 宽客在线致力于为专业量化机构和量化交易者提供资讯、数据、行情、研究和社区等服务 | - 
