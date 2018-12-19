@@ -56,7 +56,7 @@
 [NumPy英文官方网站](http://www.numpy.org/) | NumPy英文官方网站 | -
 [Ptorch](https://ptorch.com/)| Pytorch中文博客（顶部友情链接支持） | -
 [RiceQuant米筐量化交易平台](https://www.ricequant.com/)  |  RiceQuant米筐量化交易平台（合作伙伴链接支持）| -
-[景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台（底部合作伙伴支持） | ![景略集智](http://fimage.oss-cn-shenzhen.aliyuncs.com/upload/image/20181018/1539837297188008126.jpg)
+[景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台（底部合作伙伴支持） | ![景略集智](/static/images/jizhi.im.logo.png)
 [极智能](https://www.ziiai.com/) | 专业ai技术社区（友情链接支持） | ![极智能](/static/images/ziiai.com.logo.png)
 [Tushare](http://tushare.org/)  | Tushare是一个免费、开源的python财经数据接口包（友情链接支持） | -
 [昂钛客AI](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答（友情链接支持） | -
