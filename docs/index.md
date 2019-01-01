@@ -4,6 +4,14 @@
 
 # 前言
 
+## 阅读导航
+
+- 如果你是使用手机预览，请点击左上角的菜单图标展开文档的菜单。
+- 如果你是新手朋友，推荐阅读基础文章中的：[理解Numpy](/article/basics/understanding_numpy.html)、[NumPy简单入门教程](/article/basics/an_introduction_to_scientific_python_numpy.html)。
+- 如果你是想来查找手册的，请指教点击左上角的搜索框进行搜索。
+- 如果你想系统的学习NumPy，请直接从本手册第一篇一直阅读到最后一篇，你可能不需要购买任何的收费书籍就可以学会。
+- 如果有疑问请在下方留言区留言或者加入我们的QQ/微信交流群。
+
 ## 译者的话
 
 各位 **炼丹师**、**金融大鳄**、**数据游侠** 你们好，人生苦短，我们都要用 Python！
@@ -18,14 +26,21 @@
 - 域名访问：https://www.numpy.org.cn
 - 文档下载：（应广大``炼丹师``朋友的要求，后期会推出pdf版本供大家下载收藏，敬请期待）
 
-## 联系方式
+## 捐赠项目
 
-微信号 | QQ群 | 微信群
----|---|---
-- | - | -
+维护公益项目不易，你们的支持是我翻译的动力，目前正在制作中的有Pandas和Matplotlib的全中文文档！捐赠数额不限，特大数额可以获得首页鸣谢或全站推荐。
+
+微信收款二维码 | 支付宝收款二维码
+---|---
+<img src="/static/images/wechat-qr.jpg" alt="微信收款二维码" width="130" height="130"> | <img src="/static/images/alipay-qr.jpg" alt="支付宝收款二维码" width="130" height="130">
+
+## 交流方式
+
+个人微信（可拉入群） | QQ群（捐赠1元） | 微信群（可能失效）| 中国Sicpy科学计算社区
+---|---|---|---
+<img src="/static/images/wx-qr.jpg" alt="个人微信" width="130" height="130"> | <img src="/static/images/qqqun-qr.jpg" alt="qq群" width="130" height="130"> | <img src="/static/images/wxqun-qr.jpg" alt="微信群" width="130" height="130"> | <p><center>筹备中...</center></p><p><center>入群者优先获得内测资格</center></p>
 
 - 发起人邮箱：l@numpy.org.cn
-- 发起人微信号：iamnotahacker（可联系我加微信群）
 - QQ交流群：294639068
 
 ## 贡献翻译
