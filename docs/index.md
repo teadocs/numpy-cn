@@ -39,9 +39,9 @@
 个人微信（可拉入群） | QQ群（需捐1元） | 微信群（可能失效）| 中国Sicpy科学计算社区
 ---|---|---|---
 <img src="/static/images/wx-qr.jpg" alt="个人微信" width="130" height="130"> | <img src="/static/images/qqqun-qr.jpg" alt="qq群" width="130" height="130"> | <img src="/static/images/wxqun-qr.jpg" alt="微信群" width="130" height="130"> | <p><center>筹备中...</center></p><p><center>入群者优先获得内测资格</center></p>
+微信号：iamnotahacker | 群号：294639068 | -
 
-- 发起人邮箱：l@numpy.org.cn
-- QQ交流群：294639068
+- 联系邮箱：l@numpy.org.cn
 
 ## 贡献翻译
 
