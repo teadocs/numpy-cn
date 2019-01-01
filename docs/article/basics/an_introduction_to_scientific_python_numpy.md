@@ -246,4 +246,4 @@ print(c) # >>>[5 6 7 8 9]
 
 ## 文章出处
 
-由NumPy中文文档翻译，原作者为 Jamal Moir，翻译至：[http://www.datadependence.com/2016/05/scientific-python-numpy/](http://www.datadependence.com/2016/05/scientific-python-numpy/)
+由NumPy中文文档翻译，原作者为 Ravikiran Srinivasulu，翻译至：[https://www.pluralsight.com/guides/different-ways-create-numpy-arrays](https://www.pluralsight.com/guides/different-ways-create-numpy-arrays)

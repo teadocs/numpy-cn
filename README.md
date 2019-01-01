@@ -7,18 +7,33 @@
 > Chinese (zh-cn) translation of the NumPy docs
 > numpy官方文档的中文版本
 
-[NumPy 中文文档](https://www.numpy.org.cn/)是使用markdown编写的技术文档，目前文档还处在翻译阶段，翻译程度大概在90%（包括全部的非API介绍的部分），可以放心预览。也欢迎英文好的同学参与进来一起翻译，可以在下面的联系方式找到我的微信。
+[NumPy 中文文档](https://www.numpy.org.cn/)是使用markdown编写的技术文档，目前文档还处在翻译阶段，翻译程度大概在90%（包括全部的非API介绍的部分）。
 
-## 在线访问
-
-手机访问需要注意的是菜单在页面的左上角。
+## 阅读导航
 
 [NumPy中文文档](https://www.numpy.org.cn/)
 
-## 联系方式
+- 如果你是使用手机预览，请点击左上角的菜单图标展开文档的菜单。
+- 如果你是新手朋友，推荐阅读基础文章中的：[理解Numpy](/article/basics/understanding_numpy.html)、[NumPy简单入门教程](/article/basics/an_introduction_to_scientific_python_numpy.html)、[创建Numpy数组的不同方式](/article/basics/different_ways_create_numpy_arrays.html)。
+- 如果你是想来查找手册的，请指教点击左上角的搜索框进行搜索。
+- 如果你想系统的学习NumPy，请直接从本手册第一篇一直阅读到最后一篇，你可能不需要购买任何的收费书籍就可以学会。
+- 如果有疑问请在下方留言区留言或者加入我们的QQ/微信交流群。
+
+## 捐赠项目
+
+维护公益项目不易，你们的支持是我翻译的动力，目前正在制作中的有Pandas和Matplotlib的全中文文档！捐赠数额不限，特大数额可以获得首页鸣谢或全站推荐。
+
+微信收款二维码 | 支付宝收款二维码
+---|---
+<img src="/static/images/wechat-qr.jpg" alt="微信收款二维码" width="130" height="130"> | <img src="/static/images/alipay-qr.jpg" alt="支付宝收款二维码" width="130" height="130">
+
+## 交流方式
+
+个人微信（可拉入群） | QQ群（需捐1元） | 微信群（可能失效）| 中国Sicpy科学计算社区
+---|---|---|---
+<img src="/static/images/wx-qr.jpg" alt="个人微信" width="130" height="130"> | <img src="/static/images/qqqun-qr.jpg" alt="qq群" width="130" height="130"> | <img src="/static/images/wxqun-qr.jpg" alt="微信群" width="130" height="130"> | <p><center>筹备中...</center></p><p><center>入群者优先获得内测资格</center></p>
 
 - 发起人邮箱：l@numpy.org.cn
-- 发起人微信号：iamnotahacker（可联系我加微信群）
 - QQ交流群：294639068
 
 ## 贡献翻译与构建
