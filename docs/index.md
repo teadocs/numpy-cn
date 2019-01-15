@@ -8,6 +8,7 @@
 
 - 如果你是使用手机预览，请点击左上角的菜单图标展开文档的菜单。
 - 如果你是新手朋友，推荐阅读基础文章中的：[理解Numpy](/article/basics/understanding_numpy.html)、[NumPy简单入门教程](/article/basics/an_introduction_to_scientific_python_numpy.html)、[创建Numpy数组的不同方式](/article/basics/different_ways_create_numpy_arrays.html)。
+- 如果你想``徒手（硬汉子）``实现神经网络可以参看 [NumPy 与 神经网络](/article/advanced/numpy_kmeans.html)、[ NumPy实现DNC、RNN和LSTM神经网络算法](/article/advanced/dnc_rnn_lstm.html)。
 - 如果你是想来查找手册的，请指教点击左上角的搜索框进行搜索。
 - 如果你想系统的学习NumPy，请直接从本手册第一篇一直阅读到最后一篇，你可能不需要购买任何的收费书籍就可以学会。
 - 如果有疑问请在下方留言区留言或者加入我们的QQ/微信交流群。

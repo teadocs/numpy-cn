@@ -11,6 +11,7 @@
         - [NumPy神经网络](/article/advanced/neural_network_with_numpy)
         - [使用NumPy进行数组编程](/article/advanced/numpy_array_programming)
         - [NumPy实现k均值聚类算法（k-means）](/article/advanced/numpy_kmeans)
+        - [NumPy实现DNC、RNN和LSTM神经网络算法](/article/advanced/dnc_rnn_lstm)
     - [其他篇](/article/other/index)
         - [OpenCV中的图像的基本操作](/article/other/py_basic_ops)
         - [MinPy：MXNet后端的NumPy接口](/article/other/minpy-the-numpy-interface-upon-mxnets-backend)
