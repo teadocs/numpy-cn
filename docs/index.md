@@ -83,3 +83,4 @@
 [机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体（底部友情链接支持） | <img src="/static/images/www.jiqirenku.com.logo.jpg" alt="机器人" width="200" height="40">
 [PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯（友情链接支持） | - 
 [宽客在线](https://quant.la/) | 宽客在线致力于为专业量化机构和量化交易者提供资讯、数据、行情、研究和社区等服务（底部友情链接支持） | - 
+[机器人](http://www.ezist.cn/) | 易智家是中国机器人峰会旗下机器人O2O平台。（底部友情链接支持） | - 
