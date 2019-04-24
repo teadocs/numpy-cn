@@ -112,3 +112,4 @@
 - NumPyAPI说明
     - [numpy.add](/generated/numpy.add)
     - [numpy.all](/generated/numpy.all)
+    - [numpy.reshape](/generated/numpy.reshape)
