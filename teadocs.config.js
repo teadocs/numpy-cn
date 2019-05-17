@@ -51,7 +51,7 @@ module.exports = {
             ipc.style.margin = "0px";
             ipc.style.textAlign = "center";
             ipc.style.backgroundColor = "#fff";
-            ipc.innerHTML = "<span style='color: #bdbdbd;'>@2018 numpy.org.cn </span><a style='color: #bdbdbd;' href='http://www.miitbeian.gov.cn/' target='_blank'>粤ICP备16025085号-3</a>"
+            ipc.innerHTML = "<span style='color: #bdbdbd;'>@2018 numpy.org.cn </span><a style='color: #bdbdbd;' href='http://www.beian.miit.gov.cn/' target='_blank'>粤ICP备16025085号-3</a>"
             document.querySelector(".tea-container").appendChild(ipc);
         })();
         </script>
