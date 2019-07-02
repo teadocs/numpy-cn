@@ -70,7 +70,7 @@ w = np.dot(A,v)
 
 ```python
 A = np.array([[2,1,-2],[3,0,1],[1,1,-1]])
-b = np.transpose(np.array([[-3,5,-2]])
+b = np.transpose(np.array([[-3,5,-2]]))
 ```
 
 为了解决这个系统
