@@ -66,22 +66,20 @@
 ---|---|---
 [BigQuant人工智能量化投资平台](https://bigquant.com/) | BigQuant是以人工智能为核心的量化投资平台和社区，让Quant和投资者无门槛的使用AI做更好的投资 | ![BigQuant](/static/images/bigquant-logo.png)
 
-## 支持者名单
+## 友情链接
 
-如果你把我们的地址加入到你的网站中去，请联系我，我会把你加入支持者名单。（以下排名按照时间顺序排列）
+可以添加我的微信申请交换友情链接（以下排名按照时间顺序排列）
 
-昵称/机构 | 备注 | logo 
----|---|---
-[Aidocs](https://www.aidocs.cn/) | Aidocs文档中心，学习人工智能，数据科学，从Aidocs开始（文档中心支持） | -
-[NumPy英文官方网站](http://www.numpy.org/) | NumPy英文官方网站 | -
-[Ptorch](https://ptorch.com/)| Pytorch中文博客（顶部友情链接支持） | -
-[RiceQuant米筐量化交易平台](https://www.ricequant.com/)  |  RiceQuant米筐量化交易平台（合作伙伴链接支持）| -
-[景略集智](https://jizhi.im) | 集智是一家关注新时代信息科技的网站，致力于建成在线教育到求职招聘的一体化平台（底部合作伙伴支持） | <img src="/static/images/jizhi.im.logo.png" alt="景略集智" width="200" height="40">
-[极智能](https://www.ziiai.com/) | 专业ai技术社区（友情链接支持） | <img src="/static/images/ziiai.com.logo.png" alt="极智能" width="200" height="40">
-[Tushare](http://tushare.org/)  | Tushare是一个免费、开源的python财经数据接口包（友情链接支持） | -
-[昂钛客AI](http://www.angtk.com/) |  昂钛客AI,人工智能深度学习有问必答（友情链接支持） | -
-[机器人](http://www.jiqirenku.com/) | 领先的机器人互动媒体（底部友情链接支持） | <img src="/static/images/www.jiqirenku.com.logo.jpg" alt="机器人" width="200" height="40">
-[PyTorch 中文网](https://www.pytorchtutorial.com/) | PyTorch 中文网，提供最详尽 PyTorch 中文教程，文档和资讯（友情链接支持） | - 
-[宽客在线](https://quant.la/) | 宽客在线致力于为专业量化机构和量化交易者提供资讯、数据、行情、研究和社区等服务（底部友情链接支持） | - 
-[机器人](http://www.ezist.cn/) | 易智家是中国机器人峰会旗下机器人O2O平台。（底部友情链接支持） | - 
-[python量化投资](https://www.lizenghai.com) | 本站为个人博客，主要分享一些Python使用技巧、爬虫教程等（首页友情链接支持） | - 
+向在人工智能行业中已经英勇就义（倒闭）的公司，致敬。👍
+
+- [NumPy英文官方网站](http://www.numpy.org/)
+- [Ptorch](https://ptorch.com/)
+- [RiceQuant米筐量化交易平台](https://www.ricequant.com/)
+- [极智能](https://www.ziiai.com/)
+- [Tushare](http://tushare.org/)
+- [昂钛客AI](http://www.angtk.com/)
+- [机器人](http://www.jiqirenku.com/)
+- [PyTorch 中文网](https://www.pytorchtutorial.com/)
+- [宽客在线](https://www.quantinfo.com/)
+- [机器人](http://www.ezist.cn/)
+- [python量化投资](https://www.lizenghai.com)
