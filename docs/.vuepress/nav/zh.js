@@ -1,0 +1,37 @@
+module.exports = [
+  {
+    text: '关于',
+    link: '/about/'
+  },
+  {
+    text: '用户指南',
+    link: '/user/'
+  },
+  {
+    text: '参考文档',
+    link: '/reference/'
+  },
+  {
+    text: '精选资源',
+    link: '/awesome/'
+  },
+  {
+    text: '其他文档',
+    items: [
+      { text: 'NumPy 基准测试', link: '/benchmarking/' },
+      { text: 'NumPy 开发者指南', link: '/dev/' },
+      { text: 'F2Py 指南', link: '/f2py/' },
+      { text: '构建和扩展文档', link: '/bedocs/'}
+    ]
+  },
+  {
+    text: '了解更多',
+    items: [
+      { text: '社区', link: '/community/'},
+      { text: '报告错误', link: '/bugs/' },
+      { text: '发布日志', link: '/release/' },
+      { text: 'NumPy 许可证', link: '/license/' },
+      { text: 'Numpy 开发计划', link: '/neps/' }
+    ]
+  }
+]
