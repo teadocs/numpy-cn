@@ -22,7 +22,8 @@ module.exports = function () {
       sidebarDepth: 3,
       children: [
         ['/user/basics/types', '数据类型'],
-        ['/user/basics/creation', '创建数组']
+        ['/user/basics/creation', '创建数组'],
+        ['/user/basics/io', '输入输出']
       ]
     }
   ]

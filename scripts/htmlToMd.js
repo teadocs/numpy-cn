@@ -303,7 +303,7 @@
   window.c = new Convert({
     baseUrl: 'https://pandas.pydata.org/pandas-docs/stable',
     baseImgDir: '/static/images/',
-    el: `#array-creation`,
+    el: `#importing-data-with-genfromtxt`,
     $: window.$
   });
 
