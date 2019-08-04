@@ -23,7 +23,8 @@ module.exports = function () {
       children: [
         ['/user/basics/types', '数据类型'],
         ['/user/basics/creation', '创建数组'],
-        ['/user/basics/io', '输入输出']
+        ['/user/basics/io', '输入输出'],
+        ['/user/basics/indexing', '索引']
       ]
     }
   ]

@@ -303,7 +303,7 @@
   window.c = new Convert({
     baseUrl: 'https://pandas.pydata.org/pandas-docs/stable',
     baseImgDir: '/static/images/',
-    el: `#importing-data-with-genfromtxt`,
+    el: `#spc-section-body`,
     $: window.$
   });
 
