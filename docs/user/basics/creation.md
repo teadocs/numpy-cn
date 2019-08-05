@@ -1,7 +1,7 @@
 # Array creation
 
-::: tip 另见
-[Array creation routines](https://pandas.pydata.org/pandas-docs/stable/reference/routines.array-creation.html#routines-array-creation)
+::: tip See also
+[Array creation routines](https://numpy.org/devdocs/reference/routines.array-creation.html#routines-array-creation)
 :::
 
 ## Introduction

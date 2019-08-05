@@ -1,14 +1,14 @@
 # Importing data with ``genfromtxt``
 
 NumPy provides several functions to create arrays from tabular data.
-We focus here on the [``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) function.
+We focus here on the [``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) function.
 
-In a nutshell, [``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) runs two main loops.  The first
+In a nutshell, [``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) runs two main loops.  The first
 loop converts each line of the file in a sequence of strings.  The second
 loop converts each string to the appropriate data type.  This mechanism is
 slower than a single loop, but gives more flexibility.  In particular,
-[``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) is able to take missing data into account, when
-other faster and simpler functions like [``loadtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.loadtxt.html#numpy.loadtxt) cannot.
+[``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) is able to take missing data into account, when
+other faster and simpler functions like [``loadtxt``](https://numpy.org/devdocs/reference/generated/numpy.loadtxt.html#numpy.loadtxt) cannot.
 
 ::: tip Note
 
@@ -23,7 +23,7 @@ When giving examples, we will use the following conventions:
 
 ## Defining the input
 
-The only mandatory argument of [``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) is the source of
+The only mandatory argument of [``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) is the source of
 the data. It can be a string, a list of strings, or a generator. If a
 single string is provided, it is assumed to be the name of a local or
 remote file, or an open file-like object with a ``read`` method, for
@@ -42,7 +42,7 @@ ends with ``'.gz'``, a ``gzip`` archive is expected; if it ends with
 
 ### The ``delimiter`` argument
 
-Once the file is defined and open for reading, [``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt)
+Once the file is defined and open for reading, [``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt)
 splits each non-empty line into a sequence of strings.  Empty or commented
 lines are just skipped.  The ``delimiter`` keyword is used to define
 how the splitting should take place.
@@ -60,7 +60,7 @@ array([[ 1.,  2.,  3.],
 
 Another common separator is ``"\t"``, the tabulation character.  However,
 we are not limited to a single character, any string will do.  By default,
-[``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) assumes ``delimiter=None``, meaning that the line
+[``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) assumes ``delimiter=None``, meaning that the line
 is split along white spaces (including tabs) and that consecutive white
 spaces are considered as a single white space.
 
@@ -107,7 +107,7 @@ array([['1', 'abc', '2'],
 
 The optional argument ``comments`` is used to define a character
 string that marks the beginning of a comment.  By default,
-[``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) assumes ``comments='#'``.  The comment marker may
+[``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) assumes ``comments='#'``.  The comment marker may
 occur anywhere on the line.  Any character present after the comment
 marker(s) is simply ignored:
 
@@ -207,13 +207,13 @@ Acceptable values for this argument are:
 The output will be 2D with the given dtype, unless a name has been
 associated with each column with the use of the ``names`` argument
 (see below).  Note that ``dtype=float`` is the default for
-[``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt).
+[``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt).
 - a sequence of types, such as ``dtype=(int, float, float)``.
 - a comma-separated string, such as ``dtype="i4,f8,|U3"``.
 - a dictionary with two keys ``'names'`` and ``'formats'``.
 - a sequence of tuples ``(name, type)``, such as
 ``dtype=[('A', int), ('B', float)]``.
-- an existing [``numpy.dtype``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.dtype.html#numpy.dtype) object.
+- an existing [``numpy.dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) object.
 - the special value ``None``.
 In that case, the type of the columns will be determined from the data
 itself (see below).
@@ -330,11 +330,11 @@ are expected but not defined.
 ### Validating names
 
 NumPy arrays with a structured dtype can also be viewed as
-[``recarray``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.recarray.html#numpy.recarray), where a field can be accessed as if it were an
+[``recarray``](https://numpy.org/devdocs/reference/generated/numpy.recarray.html#numpy.recarray), where a field can be accessed as if it were an
 attribute.  For that reason, we may need to make sure that the field name
 doesn’t contain any space or invalid character, or that it does not
 correspond to the name of a standard attribute (like ``size`` or
-``shape``), which would confuse the interpreter.  [``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt)
+``shape``), which would confuse the interpreter.  [``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt)
 accepts three optional arguments that provide a finer control on the names:
 
 ``deletechars``
@@ -485,13 +485,13 @@ We may also want to keep track of the occurrence of missing data by
 constructing a boolean mask, with ``True`` entries where data was missing
 and ``False`` otherwise.  To do that, we just have to set the optional
 argument ``usemask`` to ``True`` (the default is ``False``).  The
-output array will then be a [``MaskedArray``](https://pandas.pydata.org/pandas-docs/stable/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray).
+output array will then be a [``MaskedArray``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray).
 
 ## Shortcut functions
 
-In addition to [``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt), the ``numpy.lib.io`` module
+In addition to [``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt), the ``numpy.lib.io`` module
 provides several convenience functions derived from
-[``genfromtxt``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt).  These functions work the same way as the
+[``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt).  These functions work the same way as the
 original, but they have different default values.
 
 ``recfromtxt``

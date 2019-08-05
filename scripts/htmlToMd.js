@@ -1,4 +1,15 @@
 // @ts-nocheck
+function tempParse(el) {
+  let as = $(el).find('a');
+  let aStr = '';
+  as.each(function (index, el) {
+    let $el = $(el);
+    let href = $el.attr('href');
+    aStr = aStr + `[${$el.text()}](${href})、`;
+  });
+  console.log(aStr);
+}
+
 {
   class Convert {
     constructor(options) {
@@ -85,6 +96,9 @@
           let title = pEl.text();
           let tempContent = this.getMarkdown(el);
           content = `\n::: tip ${title}\n${tempContent}\n:::\n`;
+        } else if (className === 'admonition seealso') {
+          let tempContent = this.getMarkdown(el);
+          content = `\n::: tip See also\n${tempContent}\n:::\n`;
         } else if (className === 'admonition warning') {
           let pEl = this.$(el).find('.first.admonition-title');
           let title = pEl.text();
@@ -301,7 +315,7 @@
   }
 
   window.c = new Convert({
-    baseUrl: 'https://pandas.pydata.org/pandas-docs/stable',
+    baseUrl: 'https://numpy.org/devdocs',
     baseImgDir: '/static/images/',
     el: `#spc-section-body`,
     $: window.$

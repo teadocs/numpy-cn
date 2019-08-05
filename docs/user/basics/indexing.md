@@ -1,10 +1,10 @@
 # Indexing
  
-::: tip 另见
+::: tip See also
 
-[Indexing](https://pandas.pydata.org/pandas-docs/stable/reference/arrays.indexing.html#arrays-indexing)
+[Indexing](https://numpy.org/devdocs/reference/arrays.indexing.html#arrays-indexing)
 
-[Indexing routines](https://pandas.pydata.org/pandas-docs/stable/reference/routines.indexing.html#routines-indexing)
+[Indexing routines](https://numpy.org/devdocs/reference/routines.indexing.html#routines-indexing)
 
 :::
 
@@ -261,7 +261,7 @@ Unlike in the case of integer index arrays, in the boolean case, the
 result is a 1-D array containing all the elements in the indexed array
 corresponding to all the true elements in the boolean array. The
 elements in the indexed array are always iterated and returned in
-[row-major](https://pandas.pydata.org/pandas-docs/stable/glossary.html#term-row-major) (C-style) order. The result is also identical to
+[row-major](https://numpy.org/devdocs/glossary.html#term-row-major) (C-style) order. The result is also identical to
 ``y[np.nonzero(b)]``. As with index arrays, what is returned is a copy
 of the data, not a view as one gets with slices.
 

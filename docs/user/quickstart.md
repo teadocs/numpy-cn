@@ -32,17 +32,30 @@ Python Library class ``array.array``, which only handles one-dimensional
 arrays and offers less functionality. The more important attributes of
 an ``ndarray`` object are:
 
+
 ndarray.ndim
+
+- the number of axes (dimensions) of the array.
 
 ndarray.shape
 
+- the dimensions of the array. This is a tuple of integers indicating the size of the array in each dimension. For a matrix with *n* rows and *m* columns, ``shape`` will be ``(n,m)``. The length of the ``shape`` tuple is therefore the number of axes, ``ndim``.
+
 ndarray.size
+
+- the total number of elements of the array. This is equal to the product of the elements of ``shape``.
 
 ndarray.dtype
 
+- an object describing the type of the elements in the array. One can create or specify dtype’s using standard Python types. Additionally NumPy provides types of its own. numpy.int32, numpy.int16, and numpy.float64 are some examples.
+
 ndarray.itemsize
 
+- the size in bytes of each element of the array. For example, an array of elements of type ``float64`` has ``itemsize`` 8 (=64/8), while one of type ``complex32`` has ``itemsize`` 4 (=32/8). It is equivalent to ``ndarray.dtype.itemsize``.
+
 ndarray.data
+
+- the buffer containing the actual elements of the array. Normally, we won’t need to use this attribute because we will access the elements in an array using indexing facilities.
 
 ### An example
 
@@ -173,19 +186,23 @@ array([ 0.  ,  0.25,  0.5 ,  0.75,  1.  ,  1.25,  1.5 ,  1.75,  2.  ])
 >>> f = np.sin(x)
 ```
 
-[``array``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.array.html#numpy.array),
-[``zeros``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.zeros.html#numpy.zeros),
-[``zeros_like``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.zeros_like.html#numpy.zeros_like),
-[``ones``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ones.html#numpy.ones),
-[``ones_like``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ones_like.html#numpy.ones_like),
-[``empty``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.empty.html#numpy.empty),
-[``empty_like``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.empty_like.html#numpy.empty_like),
-[``arange``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.arange.html#numpy.arange),
-[``linspace``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.linspace.html#numpy.linspace),
-[``numpy.random.mtrand.RandomState.rand``](https://pandas.pydata.org/pandas-docs/stable/reference/random/generated/numpy.random.mtrand.RandomState.rand.html#numpy.random.mtrand.RandomState.rand),
-[``numpy.random.mtrand.RandomState.randn``](https://pandas.pydata.org/pandas-docs/stable/reference/random/generated/numpy.random.mtrand.RandomState.randn.html#numpy.random.mtrand.RandomState.randn),
-[``fromfunction``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.fromfunction.html#numpy.fromfunction),
-[``fromfile``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.fromfile.html#numpy.fromfile)
+::: tip See also
+
+[``array``](https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array),
+[``zeros``](https://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros),
+[``zeros_like``](https://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like),
+[``ones``](https://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones),
+[``ones_like``](https://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like),
+[``empty``](https://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty),
+[``empty_like``](https://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like),
+[``arange``](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange),
+[``linspace``](https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace),
+[``numpy.random.mtrand.RandomState.rand``](https://numpy.org/devdocs/reference/random/generated/numpy.random.mtrand.RandomState.rand.html#numpy.random.mtrand.RandomState.rand),
+[``numpy.random.mtrand.RandomState.randn``](https://numpy.org/devdocs/reference/random/generated/numpy.random.mtrand.RandomState.randn.html#numpy.random.mtrand.RandomState.randn),
+[``fromfunction``](https://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction),
+[``fromfile``](https://numpy.org/devdocs/reference/generated/numpy.fromfile.html#numpy.fromfile)
+
+:::
 
 ### Printing Arrays
 
@@ -230,16 +247,16 @@ central part of the array and only prints the corners:
 
 ``` python
 >>>>>> print(np.arange(10000))
-[   0    1    2 ..., 9997 9998 9999]
+[   0    1    2 https://numpy.org/devdocs., 9997 9998 9999]
 >>>
 >>> print(np.arange(10000).reshape(100,100))
-[[   0    1    2 ...,   97   98   99]
- [ 100  101  102 ...,  197  198  199]
- [ 200  201  202 ...,  297  298  299]
- ...,
- [9700 9701 9702 ..., 9797 9798 9799]
- [9800 9801 9802 ..., 9897 9898 9899]
- [9900 9901 9902 ..., 9997 9998 9999]]
+[[   0    1    2 https://numpy.org/devdocs.,   97   98   99]
+ [ 100  101  102 https://numpy.org/devdocs.,  197  198  199]
+ [ 200  201  202 https://numpy.org/devdocs.,  297  298  299]
+ https://numpy.org/devdocs.,
+ [9700 9701 9702 https://numpy.org/devdocs., 9797 9798 9799]
+ [9800 9801 9802 https://numpy.org/devdocs., 9897 9898 9899]
+ [9900 9901 9902 https://numpy.org/devdocs., 9997 9998 9999]]
 ```
 
 To disable this behaviour and force NumPy to print the entire array, you
@@ -276,9 +293,9 @@ the ``@`` operator (in python >=3.5) or the ``dot`` function or method:
 
 ``` python
 >>>>>> A = np.array( [[1,1],
-...             [0,1]] )
+https://numpy.org/devdocs.             [0,1]] )
 >>> B = np.array( [[2,0],
-...             [3,4]] )
+https://numpy.org/devdocs.             [3,4]] )
 >>> A * B                       # elementwise product
 array([[2, 0],
        [0, 4]])
@@ -306,7 +323,7 @@ array([[ 3.417022  ,  3.72032449,  3.00011437],
        [ 3.30233257,  3.14675589,  3.09233859]])
 >>> a += b                  # b is not automatically converted to integer type
 Traceback (most recent call last):
-  ...
+  https://numpy.org/devdocs.
 TypeError: Cannot cast ufunc add output from dtype('float64') to dtype('int64') with casting rule 'same_kind'
 ```
 
@@ -392,48 +409,52 @@ array([ 0.        ,  1.        ,  1.41421356])
 array([ 2.,  0.,  6.])
 ```
 
-[``all``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.all.html#numpy.all),
-[``any``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.any.html#numpy.any),
-[``apply_along_axis``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.apply_along_axis.html#numpy.apply_along_axis),
-[``argmax``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.argmax.html#numpy.argmax),
-[``argmin``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.argmin.html#numpy.argmin),
-[``argsort``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.argsort.html#numpy.argsort),
-[``average``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.average.html#numpy.average),
-[``bincount``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.bincount.html#numpy.bincount),
-[``ceil``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ceil.html#numpy.ceil),
-[``clip``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.clip.html#numpy.clip),
-[``conj``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.conj.html#numpy.conj),
-[``corrcoef``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.corrcoef.html#numpy.corrcoef),
-[``cov``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.cov.html#numpy.cov),
-[``cross``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.cross.html#numpy.cross),
-[``cumprod``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.cumprod.html#numpy.cumprod),
-[``cumsum``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.cumsum.html#numpy.cumsum),
-[``diff``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.diff.html#numpy.diff),
-[``dot``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.dot.html#numpy.dot),
-[``floor``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.floor.html#numpy.floor),
-[``inner``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.inner.html#numpy.inner),
+::: tip See also
+
+[``all``](https://numpy.org/devdocs/reference/generated/numpy.all.html#numpy.all),
+[``any``](https://numpy.org/devdocs/reference/generated/numpy.any.html#numpy.any),
+[``apply_along_axis``](https://numpy.org/devdocs/reference/generated/numpy.apply_along_axis.html#numpy.apply_along_axis),
+[``argmax``](https://numpy.org/devdocs/reference/generated/numpy.argmax.html#numpy.argmax),
+[``argmin``](https://numpy.org/devdocs/reference/generated/numpy.argmin.html#numpy.argmin),
+[``argsort``](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort),
+[``average``](https://numpy.org/devdocs/reference/generated/numpy.average.html#numpy.average),
+[``bincount``](https://numpy.org/devdocs/reference/generated/numpy.bincount.html#numpy.bincount),
+[``ceil``](https://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil),
+[``clip``](https://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip),
+[``conj``](https://numpy.org/devdocs/reference/generated/numpy.conj.html#numpy.conj),
+[``corrcoef``](https://numpy.org/devdocs/reference/generated/numpy.corrcoef.html#numpy.corrcoef),
+[``cov``](https://numpy.org/devdocs/reference/generated/numpy.cov.html#numpy.cov),
+[``cross``](https://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross),
+[``cumprod``](https://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod),
+[``cumsum``](https://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum),
+[``diff``](https://numpy.org/devdocs/reference/generated/numpy.diff.html#numpy.diff),
+[``dot``](https://numpy.org/devdocs/reference/generated/numpy.dot.html#numpy.dot),
+[``floor``](https://numpy.org/devdocs/reference/generated/numpy.floor.html#numpy.floor),
+[``inner``](https://numpy.org/devdocs/reference/generated/numpy.inner.html#numpy.inner),
 *inv*,
-[``lexsort``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.lexsort.html#numpy.lexsort),
+[``lexsort``](https://numpy.org/devdocs/reference/generated/numpy.lexsort.html#numpy.lexsort),
 [``max``](https://docs.python.org/dev/library/functions.html#max),
-[``maximum``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.maximum.html#numpy.maximum),
-[``mean``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.mean.html#numpy.mean),
-[``median``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.median.html#numpy.median),
+[``maximum``](https://numpy.org/devdocs/reference/generated/numpy.maximum.html#numpy.maximum),
+[``mean``](https://numpy.org/devdocs/reference/generated/numpy.mean.html#numpy.mean),
+[``median``](https://numpy.org/devdocs/reference/generated/numpy.median.html#numpy.median),
 [``min``](https://docs.python.org/dev/library/functions.html#min),
-[``minimum``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.minimum.html#numpy.minimum),
-[``nonzero``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.nonzero.html#numpy.nonzero),
-[``outer``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.outer.html#numpy.outer),
-[``prod``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.prod.html#numpy.prod),
+[``minimum``](https://numpy.org/devdocs/reference/generated/numpy.minimum.html#numpy.minimum),
+[``nonzero``](https://numpy.org/devdocs/reference/generated/numpy.nonzero.html#numpy.nonzero),
+[``outer``](https://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer),
+[``prod``](https://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod),
 [``re``](https://docs.python.org/dev/library/re.html#module-re),
 [``round``](https://docs.python.org/dev/library/functions.html#round),
-[``sort``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.sort.html#numpy.sort),
-[``std``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.std.html#numpy.std),
-[``sum``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.sum.html#numpy.sum),
-[``trace``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.trace.html#numpy.trace),
-[``transpose``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.transpose.html#numpy.transpose),
-[``var``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.var.html#numpy.var),
-[``vdot``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.vdot.html#numpy.vdot),
-[``vectorize``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.vectorize.html#numpy.vectorize),
-[``where``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.where.html#numpy.where)
+[``sort``](https://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort),
+[``std``](https://numpy.org/devdocs/reference/generated/numpy.std.html#numpy.std),
+[``sum``](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum),
+[``trace``](https://numpy.org/devdocs/reference/generated/numpy.trace.html#numpy.trace),
+[``transpose``](https://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose),
+[``var``](https://numpy.org/devdocs/reference/generated/numpy.var.html#numpy.var),
+[``vdot``](https://numpy.org/devdocs/reference/generated/numpy.vdot.html#numpy.vdot),
+[``vectorize``](https://numpy.org/devdocs/reference/generated/numpy.vectorize.html#numpy.vectorize),
+[``where``](https://numpy.org/devdocs/reference/generated/numpy.where.html#numpy.where)
+
+:::
 
 ### Indexing, Slicing and Iterating
 
@@ -456,8 +477,8 @@ array([-1000,     1, -1000,    27, -1000,   125,   216,   343,   512,   729])
 >>> a[ : :-1]                                 # reversed a
 array([  729,   512,   343,   216,   125, -1000,    27, -1000,     1, -1000])
 >>> for i in a:
-...     print(i**(1/3.))
-...
+https://numpy.org/devdocs.     print(i**(1/3.))
+https://numpy.org/devdocs.
 nan
 1.0
 nan
@@ -475,8 +496,8 @@ are given in a tuple separated by commas:
 
 ``` python
 >>>>>> def f(x,y):
-...     return 10*x+y
-...
+https://numpy.org/devdocs.     return 10*x+y
+https://numpy.org/devdocs.
 >>> b = np.fromfunction(f,(5,4),dtype=int)
 >>> b
 array([[ 0,  1,  2,  3],
@@ -506,27 +527,27 @@ array([40, 41, 42, 43])
 The expression within brackets in ``b[i]`` is treated as an ``i``
 followed by as many instances of ``:`` as needed to represent the
 remaining axes. NumPy also allows you to write this using dots as
-``b[i,...]``.
+``b[i,https://numpy.org/devdocs.]``.
 
-The **dots** (``...``) represent as many colons as needed to produce a
+The **dots** (``https://numpy.org/devdocs.``) represent as many colons as needed to produce a
 complete indexing tuple. For example, if ``x`` is an array with 5
 axes, then
 
-- ``x[1,2,...]`` is equivalent to ``x[1,2,:,:,:]``,
-- ``x[...,3]`` to ``x[:,:,:,:,3]`` and
-- ``x[4,...,5,:]`` to ``x[4,:,:,5,:]``.
+- ``x[1,2,https://numpy.org/devdocs.]`` is equivalent to ``x[1,2,:,:,:]``,
+- ``x[https://numpy.org/devdocs.,3]`` to ``x[:,:,:,:,3]`` and
+- ``x[4,https://numpy.org/devdocs.,5,:]`` to ``x[4,:,:,5,:]``.
 
 ``` python
 >>>>>> c = np.array( [[[  0,  1,  2],               # a 3D array (two stacked 2D arrays)
-...                 [ 10, 12, 13]],
-...                [[100,101,102],
-...                 [110,112,113]]])
+https://numpy.org/devdocs.                 [ 10, 12, 13]],
+https://numpy.org/devdocs.                [[100,101,102],
+https://numpy.org/devdocs.                 [110,112,113]]])
 >>> c.shape
 (2, 2, 3)
->>> c[1,...]                                   # same as c[1,:,:] or c[1]
+>>> c[1,https://numpy.org/devdocs.]                                   # same as c[1,:,:] or c[1]
 array([[100, 101, 102],
        [110, 112, 113]])
->>> c[...,2]                                   # same as c[:,:,2]
+>>> c[https://numpy.org/devdocs.,2]                                   # same as c[:,:,2]
 array([[  2,  13],
        [102, 113]])
 ```
@@ -536,8 +557,8 @@ first axis:
 
 ``` python
 >>>>>> for row in b:
-...     print(row)
-...
+https://numpy.org/devdocs.     print(row)
+https://numpy.org/devdocs.
 [0 1 2 3]
 [10 11 12 13]
 [20 21 22 23]
@@ -552,8 +573,8 @@ over all the elements of the array:
 
 ``` python
 >>>>>> for element in b.flat:
-...     print(element)
-...
+https://numpy.org/devdocs.     print(element)
+https://numpy.org/devdocs.
 0
 1
 2
@@ -576,11 +597,15 @@ over all the elements of the array:
 43
 ```
 
+::: tip See also
+
 [Indexing](basics.indexing.html#basics-indexing),
-[Indexing](https://pandas.pydata.org/pandas-docs/stable/reference/arrays.indexing.html#arrays-indexing) (reference),
-[``newaxis``](https://pandas.pydata.org/pandas-docs/stable/reference/constants.html#numpy.newaxis),
-[``ndenumerate``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ndenumerate.html#numpy.ndenumerate),
-[``indices``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.indices.html#numpy.indices)
+[Indexing](https://numpy.org/devdocs/reference/arrays.indexing.html#arrays-indexing) (reference),
+[``newaxis``](https://numpy.org/devdocs/reference/constants.html#numpy.newaxis),
+[``ndenumerate``](https://numpy.org/devdocs/reference/generated/numpy.ndenumerate.html#numpy.ndenumerate),
+[``indices``](https://numpy.org/devdocs/reference/generated/numpy.indices.html#numpy.indices)
+
+:::
 
 ## Shape Manipulation
 
@@ -634,9 +659,9 @@ functions ravel() and reshape() can also be instructed, using an
 optional argument, to use FORTRAN-style arrays, in which the leftmost
 index changes the fastest.
 
-The [``reshape``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.reshape.html#numpy.reshape) function returns its
+The [``reshape``](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape) function returns its
 argument with a modified shape, whereas the
-[``ndarray.resize``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ndarray.resize.html#numpy.ndarray.resize) method modifies the array
+[``ndarray.resize``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.resize.html#numpy.ndarray.resize) method modifies the array
 itself:
 
 ``` python
@@ -660,10 +685,14 @@ array([[ 2.,  8.,  0.,  6.],
        [ 8.,  9.,  3.,  6.]])
 ```
 
-[``ndarray.shape``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape),
-[``reshape``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.reshape.html#numpy.reshape),
-[``resize``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.resize.html#numpy.resize),
-[``ravel``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ravel.html#numpy.ravel)
+::: tip See also
+
+[``ndarray.shape``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape),
+[``reshape``](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape),
+[``resize``](https://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize),
+[``ravel``](https://numpy.org/devdocs/reference/generated/numpy.ravel.html#numpy.ravel)
+
+:::
 
 ### Stacking together different arrays
 
@@ -688,9 +717,9 @@ array([[ 8.,  8.,  1.,  8.],
        [ 0.,  0.,  0.,  4.]])
 ```
 
-The function [``column_stack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.column_stack.html#numpy.column_stack)
+The function [``column_stack``](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)
 stacks 1D arrays as columns into a 2D array. It is equivalent to
-[``hstack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.hstack.html#numpy.hstack) only for 2D arrays:
+[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) only for 2D arrays:
 
 ``` python
 >>>>>> from numpy import newaxis
@@ -715,19 +744,19 @@ array([[ 4.,  3.],
        [ 2.,  8.]])
 ```
 
-On the other hand, the function [``ma.row_stack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ma.row_stack.html#numpy.ma.row_stack) is equivalent to [``vstack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.vstack.html#numpy.vstack)
+On the other hand, the function [``ma.row_stack``](https://numpy.org/devdocs/reference/generated/numpy.ma.row_stack.html#numpy.ma.row_stack) is equivalent to [``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)
 for any input arrays.
 In general, for arrays with more than two dimensions,
-[``hstack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.hstack.html#numpy.hstack) stacks along their second
-axes, [``vstack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.vstack.html#numpy.vstack) stacks along their
-first axes, and [``concatenate``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.concatenate.html#numpy.concatenate)
+[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) stacks along their second
+axes, [``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack) stacks along their
+first axes, and [``concatenate``](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)
 allows for an optional arguments giving the number of the axis along
 which the concatenation should happen.
 
 **Note**
 
-In complex cases, [``r_``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.r_.html#numpy.r_) and
-[``c_``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.c_.html#numpy.c_) are useful for creating arrays
+In complex cases, [``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_) and
+[``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_) are useful for creating arrays
 by stacking numbers along one axis. They allow the use of range literals
 (“:”)
 
@@ -737,23 +766,27 @@ array([1, 2, 3, 0, 4])
 ```
 
 When used with arrays as arguments,
-[``r_``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.r_.html#numpy.r_) and
-[``c_``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.c_.html#numpy.c_) are similar to
-[``vstack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.vstack.html#numpy.vstack) and
-[``hstack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.hstack.html#numpy.hstack) in their default behavior,
+[``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_) and
+[``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_) are similar to
+[``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack) and
+[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) in their default behavior,
 but allow for an optional argument giving the number of the axis along
 which to concatenate.
 
-[``hstack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.hstack.html#numpy.hstack),
-[``vstack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.vstack.html#numpy.vstack),
-[``column_stack``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.column_stack.html#numpy.column_stack),
-[``concatenate``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.concatenate.html#numpy.concatenate),
-[``c_``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.c_.html#numpy.c_),
-[``r_``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.r_.html#numpy.r_)
+::: tip See also
+
+[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack),
+[``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack),
+[``column_stack``](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack),
+[``concatenate``](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate),
+[``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_),
+[``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_)
+
+:::
 
 ### Splitting one array into several smaller ones
 
-Using [``hsplit``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.hsplit.html#numpy.hsplit), you can split an
+Using [``hsplit``](https://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit), you can split an
 array along its horizontal axis, either by specifying the number of
 equally shaped arrays to return, or by specifying the columns after
 which the division should occur:
@@ -775,8 +808,8 @@ array([[ 9.,  5.,  6.,  3.,  6.,  8.,  0.,  7.,  9.,  7.,  2.,  7.],
        [ 2.,  1.,  0.,  6.,  2.,  2.,  4.,  0.]])]
 ```
 
-[``vsplit``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.vsplit.html#numpy.vsplit) splits along the vertical
-axis, and [``array_split``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.array_split.html#numpy.array_split) allows
+[``vsplit``](https://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit) splits along the vertical
+axis, and [``array_split``](https://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split) allows
 one to specify along which axis to split.
 
 ## Copies and Views
@@ -804,8 +837,8 @@ copy.
 
 ``` python
 >>>>>> def f(x):
-...     print(id(x))
-...
+https://numpy.org/devdocs.     print(id(x))
+https://numpy.org/devdocs.
 >>> id(a)                           # id is a unique identifier of an object
 148293216
 >>> f(a)
@@ -880,23 +913,39 @@ even if ``del a`` is executed.
 ### Functions and Methods Overview
 
 Here is a list of some useful NumPy functions and methods names
-ordered in categories. See [Routines](https://pandas.pydata.org/pandas-docs/stable/reference/routines.html#routines) for the full list.
+ordered in categories. See [Routines](https://numpy.org/devdocs/reference/routines.html#routines) for the full list.
 
 Array Creation
+ 
+ - [arange](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange)、[array](https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array)、[copy](https://numpy.org/devdocs/reference/generated/numpy.copy.html#numpy.copy)、[empty](https://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty)、[empty_like](https://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like)、[eye](https://numpy.org/devdocs/reference/generated/numpy.eye.html#numpy.eye)、[fromfile](https://numpy.org/devdocs/reference/generated/numpy.fromfile.html#numpy.fromfile)、[fromfunction](https://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction)、[identity](https://numpy.org/devdocs/reference/generated/numpy.identity.html#numpy.identity)、[linspace](https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace)、[logspace](https://numpy.org/devdocs/reference/generated/numpy.logspace.html#numpy.logspace)、[mgrid](https://numpy.org/devdocs/reference/generated/numpy.mgrid.html#numpy.mgrid)、[ogrid](https://numpy.org/devdocs/reference/generated/numpy.ogrid.html#numpy.ogrid)、[ones](https://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones)、[ones_like](https://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like)、[zeros](https://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros)、[zeros_like](https://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like)
 
 Conversions
 
+- [ndarray.astype](https://numpy.org/devdocs/reference/generated/numpy.ndarray.astype.html#numpy.ndarray.astype)、[atleast_1d](https://numpy.org/devdocs/reference/generated/numpy.atleast_1d.html#numpy.atleast_1d)、[atleast_2d](https://numpy.org/devdocs/reference/generated/numpy.atleast_2d.html#numpy.atleast_2d)、[atleast_3d](https://numpy.org/devdocs/reference/generated/numpy.atleast_3d.html#numpy.atleast_3d)、[mat](https://numpy.org/devdocs/reference/generated/numpy.mat.html#numpy.mat)
+
 Manipulations
+
+- [array_split](https://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split)、[column_stack](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)、[concatenate](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)、[diagonal](https://numpy.org/devdocs/reference/generated/numpy.diagonal.html#numpy.diagonal)、[dsplit](https://numpy.org/devdocs/reference/generated/numpy.dsplit.html#numpy.dsplit)、[dstack](https://numpy.org/devdocs/reference/generated/numpy.dstack.html#numpy.dstack)、[hsplit](https://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit)、[hstack](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)、[ndarray.item](https://numpy.org/devdocs/reference/generated/numpy.ndarray.item.html#numpy.ndarray.item)、[newaxis](https://numpy.org/devdocs/reference/constants.html#numpy.newaxis)、[ravel](https://numpy.org/devdocs/reference/generated/numpy.ravel.html#numpy.ravel)、[repeat](https://numpy.org/devdocs/reference/generated/numpy.repeat.html#numpy.repeat)、[reshape](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)、[resize](https://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize)、[squeeze](https://numpy.org/devdocs/reference/generated/numpy.squeeze.html#numpy.squeeze)、[swapaxes](https://numpy.org/devdocs/reference/generated/numpy.swapaxes.html#numpy.swapaxes)、[take](https://numpy.org/devdocs/reference/generated/numpy.take.html#numpy.take)、[transpose](https://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose)、[vsplit](https://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit)、[vstack](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)
 
 Questions
 
+- [all](https://numpy.org/devdocs/reference/generated/numpy.all.html#numpy.all)、[any](https://numpy.org/devdocs/reference/generated/numpy.any.html#numpy.any)、[nonzero](https://numpy.org/devdocs/reference/generated/numpy.nonzero.html#numpy.nonzero)、[where](https://numpy.org/devdocs/reference/generated/numpy.where.html#numpy.where)
+
 Ordering
+
+- [argmax](https://numpy.org/devdocs/reference/generated/numpy.argmax.html#numpy.argmax)、[argmin](https://numpy.org/devdocs/reference/generated/numpy.argmin.html#numpy.argmin)、[argsort](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort)、[max](https://docs.python.org/dev/library/functions.html#max)、[min](https://docs.python.org/dev/library/functions.html#min)、[ptp](https://numpy.org/devdocs/reference/generated/numpy.ptp.html#numpy.ptp)、[searchsorted](https://numpy.org/devdocs/reference/generated/numpy.searchsorted.html#numpy.searchsorted)、[sort](https://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort)
 
 Operations
 
+- [choose](https://numpy.org/devdocs/reference/generated/numpy.choose.html#numpy.choose)、[compress](https://numpy.org/devdocs/reference/generated/numpy.compress.html#numpy.compress)、[cumprod](https://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod)、[cumsum](https://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum)、[inner](https://numpy.org/devdocs/reference/generated/numpy.inner.html#numpy.inner)、[ndarray.fill](https://numpy.org/devdocs/reference/generated/numpy.ndarray.fill.html#numpy.ndarray.fill)、[imag](https://numpy.org/devdocs/reference/generated/numpy.imag.html#numpy.imag)、[prod](https://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod)、[put](https://numpy.org/devdocs/reference/generated/numpy.put.html#numpy.put)、[putmask](https://numpy.org/devdocs/reference/generated/numpy.putmask.html#numpy.putmask)、[real](https://numpy.org/devdocs/reference/generated/numpy.real.html#numpy.real)、[sum](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum)
+
 Basic Statistics
 
+- [cov](https://numpy.org/devdocs/reference/generated/numpy.cov.html#numpy.cov)、[mean](https://numpy.org/devdocs/reference/generated/numpy.mean.html#numpy.mean)、[std](https://numpy.org/devdocs/reference/generated/numpy.std.html#numpy.std)、[var](https://numpy.org/devdocs/reference/generated/numpy.var.html#numpy.var)
+
 Basic Linear Algebra
+
+- [cross](https://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross)、[dot](https://numpy.org/devdocs/reference/generated/numpy.dot.html#numpy.dot)、[outer](https://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer)、[linalg.svd](https://numpy.org/devdocs/reference/generated/numpy.linalg.svd.html#numpy.linalg.svd)、[vdot](https://numpy.org/devdocs/reference/generated/numpy.vdot.html#numpy.vdot)
 
 ## Less Basic
 
@@ -946,12 +995,12 @@ using a palette.
 
 ``` python
 >>>>>> palette = np.array( [ [0,0,0],                # black
-...                       [255,0,0],              # red
-...                       [0,255,0],              # green
-...                       [0,0,255],              # blue
-...                       [255,255,255] ] )       # white
+https://numpy.org/devdocs.                       [255,0,0],              # red
+https://numpy.org/devdocs.                       [0,255,0],              # green
+https://numpy.org/devdocs.                       [0,0,255],              # blue
+https://numpy.org/devdocs.                       [255,255,255] ] )       # white
 >>> image = np.array( [ [ 0, 1, 2, 0 ],           # each value corresponds to a color in the palette
-...                     [ 0, 3, 4, 0 ]  ] )
+https://numpy.org/devdocs.                     [ 0, 3, 4, 0 ]  ] )
 >>> palette[image]                            # the (2,4,3) color image
 array([[[  0,   0,   0],
         [255,   0,   0],
@@ -973,9 +1022,9 @@ array([[ 0,  1,  2,  3],
        [ 4,  5,  6,  7],
        [ 8,  9, 10, 11]])
 >>> i = np.array( [ [0,1],                        # indices for the first dim of a
-...                 [1,2] ] )
+https://numpy.org/devdocs.                 [1,2] ] )
 >>> j = np.array( [ [2,1],                        # indices for the second dim
-...                 [3,3] ] )
+https://numpy.org/devdocs.                 [3,3] ] )
 >>>
 >>> a[i,j]                                     # i and j must have equal shape
 array([[ 2,  5],
@@ -1041,7 +1090,7 @@ array([2, 0, 3, 1])
 >>>
 >>> time_max = time[ind]                       # times corresponding to the maxima
 >>>
->>> data_max = data[ind, range(data.shape[1])] # => data[ind[0],0], data[ind[1],1]...
+>>> data_max = data[ind, range(data.shape[1])] # => data[ind[0],0], data[ind[1],1]https://numpy.org/devdocs.
 >>>
 >>> time_max
 array([  82.5 ,   20.  ,  113.75,   51.25])
@@ -1127,20 +1176,20 @@ set](https://en.wikipedia.org/wiki/Mandelbrot_set):
 >>>>>> import numpy as np
 >>> import matplotlib.pyplot as plt
 >>> def mandelbrot( h,w, maxit=20 ):
-...     """Returns an image of the Mandelbrot fractal of size (h,w)."""
-...     y,x = np.ogrid[ -1.4:1.4:h*1j, -2:0.8:w*1j ]
-...     c = x+y*1j
-...     z = c
-...     divtime = maxit + np.zeros(z.shape, dtype=int)
-...
-...     for i in range(maxit):
-...         z = z**2 + c
-...         diverge = z*np.conj(z) > 2**2            # who is diverging
-...         div_now = diverge & (divtime==maxit)  # who is diverging now
-...         divtime[div_now] = i                  # note when
-...         z[diverge] = 2                        # avoid diverging too much
-...
-...     return divtime
+https://numpy.org/devdocs.     """Returns an image of the Mandelbrot fractal of size (h,w)."""
+https://numpy.org/devdocs.     y,x = np.ogrid[ -1.4:1.4:h*1j, -2:0.8:w*1j ]
+https://numpy.org/devdocs.     c = x+y*1j
+https://numpy.org/devdocs.     z = c
+https://numpy.org/devdocs.     divtime = maxit + np.zeros(z.shape, dtype=int)
+https://numpy.org/devdocs.
+https://numpy.org/devdocs.     for i in range(maxit):
+https://numpy.org/devdocs.         z = z**2 + c
+https://numpy.org/devdocs.         diverge = z*np.conj(z) > 2**2            # who is diverging
+https://numpy.org/devdocs.         div_now = diverge & (divtime==maxit)  # who is diverging now
+https://numpy.org/devdocs.         divtime[div_now] = i                  # note when
+https://numpy.org/devdocs.         z[diverge] = 2                        # avoid diverging too much
+https://numpy.org/devdocs.
+https://numpy.org/devdocs.     return divtime
 >>> plt.imshow(mandelbrot(400,400))
 >>> plt.show()
 ```
@@ -1181,7 +1230,7 @@ example, ``b1`` has length 3 (the number of *rows* in ``a``), and
 
 ### The ix_() function
 
-The [``ix_``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.ix_.html#numpy.ix_) function can be used to combine different vectors so as to
+The [``ix_``](https://numpy.org/devdocs/reference/generated/numpy.ix_.html#numpy.ix_) function can be used to combine different vectors so as to
 obtain the result for each n-uplet. For example, if you want to compute
 all the a+b*c for all the triplets taken from each of the vectors a, b
 and c:
@@ -1228,11 +1277,11 @@ You could also implement the reduce as follows:
 
 ``` python
 >>>>>> def ufunc_reduce(ufct, *vectors):
-...    vs = np.ix_(*vectors)
-...    r = ufct.identity
-...    for v in vs:
-...        r = ufct(r,v)
-...    return r
+https://numpy.org/devdocs.    vs = np.ix_(*vectors)
+https://numpy.org/devdocs.    r = ufct.identity
+https://numpy.org/devdocs.    for v in vs:
+https://numpy.org/devdocs.        r = ufct(r,v)
+https://numpy.org/devdocs.    return r
 ```
 
 and then use it as:
@@ -1366,7 +1415,11 @@ xy = np.hstack([x,y])                     # xy =([0,2,4,6,8,0,1,2,3,4])
 The logic behind those functions in more than two dimensions can be
 strange.
 
+::: tip See also
+
 [NumPy for Matlab users](numpy-for-matlab-users.html)
+
+:::
 
 ### Histograms
 
@@ -1402,7 +1455,7 @@ that ``pylab.hist`` plots the histogram automatically, while
 ## Further reading
 
 - The [Python tutorial](https://docs.python.org/tutorial/)
-- [NumPy Reference](https://pandas.pydata.org/pandas-docs/stable/reference/index.html#reference)
+- [NumPy Reference](https://numpy.org/devdocs/reference/index.html#reference)
 - [SciPy Tutorial](https://docs.scipy.org/doc/scipy/reference/tutorial/index.html)
 - [SciPy Lecture Notes](https://scipy-lectures.org)
 - A [matlab, R, IDL, NumPy/SciPy dictionary](http://mathesaurus.sf.net/)

@@ -1,6 +1,6 @@
 # Data types
 
-[Data type objects](https://pandas.pydata.org/pandas-docs/stable/reference/arrays.dtypes.html#arrays-dtypes)
+[Data type objects](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes)
 
 ## Array types and conversions between types
 
@@ -161,7 +161,7 @@ methods arrays do.
 
 The fixed size of NumPy numeric types may cause overflow errors when a value
 requires more memory than available in the data type. For example, 
-[``numpy.power``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.power.html#numpy.power) evaluates ``100 * 10 ** 8`` correctly for 64-bit integers,
+[``numpy.power``](https://numpy.org/devdocs/reference/generated/numpy.power.html#numpy.power) evaluates ``100 * 10 ** 8`` correctly for 64-bit integers,
 but gives 1874919424 (incorrect) for a 32-bit integer.
 
 ``` python
@@ -177,7 +177,7 @@ similar to Python’s ``int``. Unlike NumPy, the size of Python’s ``int`` is
 flexible. This means Python integers may expand to accommodate any integer and
 will not overflow.
 
-NumPy provides [``numpy.iinfo``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.iinfo.html#numpy.iinfo) and [``numpy.finfo``](https://pandas.pydata.org/pandas-docs/stable/reference/generated/numpy.finfo.html#numpy.finfo) to verify the
+NumPy provides [``numpy.iinfo``](https://numpy.org/devdocs/reference/generated/numpy.iinfo.html#numpy.iinfo) and [``numpy.finfo``](https://numpy.org/devdocs/reference/generated/numpy.finfo.html#numpy.finfo) to verify the
 minimum or maximum values of NumPy integer and floating point values
 respectively
 

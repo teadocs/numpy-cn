@@ -24,7 +24,12 @@ module.exports = function () {
         ['/user/basics/types', '数据类型'],
         ['/user/basics/creation', '创建数组'],
         ['/user/basics/io', '输入输出'],
-        ['/user/basics/indexing', '索引']
+        ['/user/basics/indexing', '索引'],
+        ['/user/basics/broadcasting', '广播'],
+        ['/user/basics/byteswapping', '字节交换'],
+        ['/user/basics/rec', '结构化数组'],
+        ['/user/basics/dispatch', '编写自定义数组容器'],
+        ['/user/basics/subclassing', '子类化ndarray']
       ]
     }
   ]
