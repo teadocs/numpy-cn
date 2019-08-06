@@ -1,7 +1,9 @@
 # Array creation
 
 ::: tip See also
+
 [Array creation routines](https://numpy.org/devdocs/reference/routines.array-creation.html#routines-array-creation)
+
 :::
 
 ## Introduction

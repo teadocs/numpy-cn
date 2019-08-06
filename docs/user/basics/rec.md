@@ -68,6 +68,68 @@ conciseness. These are further documented in the
 [Data Type Objects](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing) reference page, and in
 summary they are:
 
+1. A list of tuples, one tuple per field
+
+  Each tuple has the form ``(fieldname, datatype, shape)`` where shape is optional. ``fieldname`` is a string (or tuple if titles are used, see [Field Titles](https://numpy.org/devdocs/user/basics.rec.html#titles) below), datatype may be any object convertible to a datatype, and ``shape`` is a tuple of integers specifying subarray shape.
+
+  ``` python
+  >>> np.dtype([('x', 'f4'), ('y', np.float32), ('z', 'f4', (2, 2))])
+  dtype([('x', '<f4'), ('y', '<f4'), ('z', '<f4', (2, 2))])
+  ```
+
+  If ``fieldname`` is the empty string ``''``, the field will be given a default name of the form ``f#``, where ``#`` is the integer index of the field, counting from 0 from the left:
+
+  ``` python
+  >>> np.dtype([('x', 'f4'), ('', 'i4'), ('z', 'i8')])
+  dtype([('x', '<f4'), ('f1', '<i4'), ('z', '<i8')])
+  ```
+
+  The byte offsets of the fields within the structure and the total structure itemsize are determined automatically.
+
+1. A string of comma-separated dtype specifications
+
+  In this shorthand notation any of the [string dtype specifications](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing) may be used in a string and separated by commas. The itemsize and byte offsets of the fields are determined automatically, and the field names are given the default names ``f0``, ``f1``, etc.
+
+  ``` python
+  >>> np.dtype('i8, f4, S3')
+  dtype([('f0', '<i8'), ('f1', '<f4'), ('f2', 'S3')])
+  >>> np.dtype('3int8, float32, (2, 3)float64')
+  dtype([('f0', 'i1', (3,)), ('f1', '<f4'), ('f2', '<f8', (2, 3))])
+  ```
+
+1. A dictionary of field parameter arrays
+
+  This is the most flexible form of specification since it allows control over the byte-offsets of the fields and the itemsize of the structure.
+
+  The dictionary has two required keys, ‘names’ and ‘formats’, and four optional keys, ‘offsets’, ‘itemsize’, ‘aligned’ and ‘titles’. The values for ‘names’ and ‘formats’ should respectively be a list of field names and a list of dtype specifications, of the same length. The optional ‘offsets’ value should be a list of integer byte-offsets, one for each field within the structure. If ‘offsets’ is not given the offsets are determined automatically. The optional ‘itemsize’ value should be an integer describing the total size in bytes of the dtype, which must be large enough to contain all the fields.
+
+  ``` python
+  >>> np.dtype({'names': ['col1', 'col2'], 'formats': ['i4', 'f4']})
+  dtype([('col1', '<i4'), ('col2', '<f4')])
+  >>> np.dtype({'names': ['col1', 'col2'],
+  ...           'formats': ['i4', 'f4'],
+  ...           'offsets': [0, 4],
+  ...           'itemsize': 12})
+  dtype({'names':['col1','col2'], 'formats':['<i4','<f4'], 'offsets':[0,4], 'itemsize':12})
+  ```
+
+  Offsets may be chosen such that the fields overlap, though this will mean that assigning to one field may clobber any overlapping field’s data. As an exception, fields of numpy.object type cannot overlap with other fields, because of the risk of clobbering the internal object pointer and then dereferencing it.
+
+  The optional ‘aligned’ value can be set to True to make the automatic offset computation use aligned offsets (see [Automatic Byte Offsets and Alignment](https://numpy.org/devdocs/user/basics.rec.html#offsets-and-alignment)), as if the ‘align’ keyword argument of [numpy.dtype](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) had been set to True.
+
+  The optional ‘titles’ value should be a list of titles of the same length as ‘names’, see [Field Titles](https://numpy.org/devdocs/user/basics.rec.html#titles) below.
+
+1. A dictionary of field names
+
+  The use of this form of specification is discouraged, but documented here because older numpy code may use it. The keys of the dictionary are the field names and the values are tuples specifying type and offset:
+
+  ``` python
+  >>> np.dtype({'col1': ('i1', 0), 'col2': ('f4', 1)})
+  dtype([('col1', 'i1'), ('col2', '<f4')])
+  ```
+
+  This form is discouraged because Python dictionaries do not preserve order in Python versions before Python 3.6, and the order of the fields in a structured dtype has meaning. [Field Titles](https://numpy.org/devdocs/user/basics.rec.html#titles) may be specified by using a 3-tuple, see below.
+
 ### Manipulating and Displaying Structured Datatypes
 
 The list of field names of a structured datatype can be found in the ``names``

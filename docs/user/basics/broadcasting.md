@@ -1,8 +1,12 @@
 # Broadcasting
 
+::: tip See also
+
 [``numpy.broadcast``](https://numpy.org/devdocs/reference/generated/numpy.broadcast.html#numpy.broadcast)
 
 [Array Broadcasting in Numpy](theory.broadcasting.html#array-broadcasting-in-numpy)
+
+:::
 
 ::: tip Note
 

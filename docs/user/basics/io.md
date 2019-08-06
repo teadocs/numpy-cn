@@ -339,9 +339,15 @@ accepts three optional arguments that provide a finer control on the names:
 
 ``deletechars``
 
+- Gives a string combining all the characters that must be deleted from the name. By default, invalid characters are ``~!@#$%^&*()-=+~\|]}[{';: /?.>,<.``
+
 ``excludelist``
 
+- Gives a list of the names to exclude, such as ``return``, ``file``, ``print…`` If one of the input name is part of this list, an underscore character (``'_'``) will be appended to it.
+
 ``case_sensitive``
+
+- Whether the names should be case-sensitive (``case_sensitive=True``), converted to upper case (``case_sensitive=False`` or ``case_sensitive='upper'``) or to lower case (``case_sensitive='lower'``).
 
 ## Tweaking the conversion
 
@@ -434,9 +440,15 @@ of values:
 
 a string or a comma-separated string
 
+- This string will be used as the marker for missing data for all the columns
+
 a sequence of strings
 
+- In that case, each item is associated to a column, in order.
+
 a dictionary
+
+- Values of the dictionary are strings or sequence of strings. The corresponding keys can be column indices (integers) or column names (strings). In addition, the special key None can be used to define a default applicable to all columns.
 
 ### ``filling_values``
 
@@ -458,9 +470,15 @@ We can get a finer control on the conversion of missing values with the
 
 a single value
 
+- This will be the default for all columns
+
 a sequence of values
 
+- Each entry will be the default for the corresponding column
+
 a dictionary
+
+- Each key can be a column index or a column name, and the corresponding value should be a single object. We can use the special key None to define a default for all columns.
 
 In the following example, we suppose that the missing values are flagged
 with ``"N/A"`` in the first column and by ``"???"`` in the third column.
@@ -494,6 +512,10 @@ provides several convenience functions derived from
 [``genfromtxt``](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt).  These functions work the same way as the
 original, but they have different default values.
 
-``recfromtxt``
+recfromtxt
 
-``recfromcsv``
+- Returns a standard [numpy.recarray](https://numpy.org/devdocs/reference/generated/numpy.recarray.html#numpy.recarray) (``if usemask=False``) or a MaskedRecords array (if ``usemaske=True``). The default dtype is dtype=None, meaning that the types of each column will be automatically determined.
+
+recfromcsv
+
+- Like recfromtxt, but with a default ``delimiter=","``.

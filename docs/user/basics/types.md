@@ -1,6 +1,10 @@
 # Data types
 
+::: tip also
+
 [Data type objects](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes)
+
+:::
 
 ## Array types and conversions between types
 
