@@ -18,6 +18,14 @@
 - [Pandas 中文文档](https://www.pypandas.cn/)
 - [Matplotlib 中文文档](https://www.matplotlib.org.cn/)
 
+## 公众号
+
+中文文档官方微信公众号上线啦，欢迎扫一扫关注我们，不定期发放各种福利。
+
+微信公众号 | 
+---|
+<img src="/static/images/wx-gzh.png" alt="微信公众号" width="130" height="130"> |
+
 ## 译者的话
 
 各位 **炼丹师**、**金融大鳄**、**数据游侠** 你们好，人生苦短，我们都要用 Python！
