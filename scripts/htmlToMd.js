@@ -312,6 +312,7 @@ function tempParse(el) {
     uReplaceStr(str) {
       return str.replace(/(^\n*)|(\n*$)/g, "").replace(/(^\s*)|(\s*$)/g, "");
     }
+    
   }
 
   window.c = new Convert({

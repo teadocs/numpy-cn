@@ -6,7 +6,7 @@ Structured arrays are ndarrays whose datatype is a composition of simpler
 datatypes organized as a sequence of named [fields](https://numpy.org/devdocs/glossary.html#term-field). For example,
 
 ``` python
->>>>>> x = np.array([('Rex', 9, 81.0), ('Fido', 3, 27.0)],
+>>> x = np.array([('Rex', 9, 81.0), ('Fido', 3, 27.0)],
 ...              dtype=[('name', 'U10'), ('age', 'i4'), ('weight', 'f4')])
 >>> x
 array([('Rex', 9, 81.), ('Fido', 3, 27.)],
@@ -20,7 +20,7 @@ a 32-bit integer named ‘age’, and 3. a 32-bit float named ‘weight’.
 If you index ``x`` at position 1 you get a structure:
 
 ``` python
->>>>>> x[1]
+>>> x[1]
 ('Fido', 3, 27.0)
 ```
 
@@ -28,7 +28,7 @@ You can access and modify individual fields of a structured array by indexing
 with the field name:
 
 ``` python
->>>>>> x['age']
+>>> x['age']
 array([9, 3], dtype=int32)
 >>> x['age'] = 5
 >>> x
@@ -136,7 +136,7 @@ The list of field names of a structured datatype can be found in the ``names``
 attribute of the dtype object:
 
 ``` python
->>>>>> d = np.dtype([('x', 'i8'), ('y', 'f4')])
+>>> d = np.dtype([('x', 'i8'), ('y', 'f4')])
 >>> d.names
 ('x', 'y')
 ```
@@ -149,7 +149,7 @@ are the field names (and [Field Titles](#titles), see below) and whose
 values are tuples containing the dtype and byte offset of each field.
 
 ``` python
->>>>>> d.fields
+>>> d.fields
 mappingproxy({'x': (dtype('int64'), 0), 'y': (dtype('float32'), 8)})
 ```
 
@@ -173,7 +173,7 @@ each field starts at the byte offset the previous field ended, and the fields
 are contiguous in memory.
 
 ``` python
->>>>>> def print_offsets(d):
+>>> def print_offsets(d):
 ...     print("offsets:", [d.fields[name][1] for name in d.names])
 ...     print("itemsize:", d.itemsize)
 >>> print_offsets(np.dtype('u1, u1, i4, u1, i8, u2'))
@@ -191,7 +191,7 @@ structure will also have trailing padding added so that its itemsize is a
 multiple of the largest field’s alignment.
 
 ``` python
->>>>>> print_offsets(np.dtype('u1, u1, i4, u1, i8, u2', align=True))
+>>> print_offsets(np.dtype('u1, u1, i4, u1, i8, u2', align=True))
 offsets: [0, 1, 4, 8, 16, 24]
 itemsize: 32
 ```
@@ -228,7 +228,7 @@ string, which will be the field’s title and field name respectively. For
 example:
 
 ``` python
->>>>>> np.dtype([(('my title', 'name'), 'f4')])
+>>> np.dtype([(('my title', 'name'), 'f4')])
 dtype([(('my title', 'name'), '<f4')])
 ```
 
@@ -239,7 +239,7 @@ providing a 3-element tuple ``(datatype, offset, title)`` instead of the usual
 2-element tuple:
 
 ``` python
->>>>>> np.dtype({'name': ('i4', 0, 'my title')})
+>>> np.dtype({'name': ('i4', 0, 'my title')})
 dtype([(('my title', 'name'), '<i4')])
 ```
 
@@ -253,7 +253,7 @@ using the ``names`` attribute of the dtype, which will not list titles, as
 in:
 
 ``` python
->>>>>> for name in d.names:
+>>> for name in d.names:
 ...     print(d.fields[name][:2])
 (dtype('int64'), 0)
 (dtype('float32'), 8)
@@ -285,7 +285,7 @@ broadcasting rules. The tuple’s elements are assigned to the successive fields
 of the array, from left to right:
 
 ``` python
->>>>>> x = np.array([(1, 2, 3), (4, 5, 6)], dtype='i8, f4, f8')
+>>> x = np.array([(1, 2, 3), (4, 5, 6)], dtype='i8, f4, f8')
 >>> x[1] = (7, 8, 9)
 >>> x
 array([(1, 2., 3.), (7, 8., 9.)],
@@ -299,7 +299,7 @@ happens when a scalar is assigned to a structured array, or when an
 unstructured array is assigned to a structured array:
 
 ``` python
->>>>>> x = np.zeros(2, dtype='i8, f4, ?, S1')
+>>> x = np.zeros(2, dtype='i8, f4, ?, S1')
 >>> x[:] = 3
 >>> x
 array([(3, 3., True, b'3'), (3, 3., True, b'3')],
@@ -314,7 +314,7 @@ Structured arrays can also be assigned to unstructured arrays, but only if the
 structured datatype has just a single field:
 
 ``` python
->>>>>> twofield = np.zeros(2, dtype=[('A', 'i4'), ('B', 'i4')])
+>>> twofield = np.zeros(2, dtype=[('A', 'i4'), ('B', 'i4')])
 >>> onefield = np.zeros(2, dtype=[('A', 'i4')])
 >>> nostruct = np.zeros(2, dtype='i4')
 >>> nostruct[:] = twofield
@@ -334,7 +334,7 @@ assigned to each other. Bytes of the destination structure which are not
 included in any of the fields are unaffected.
 
 ``` python
->>>>>> a = np.zeros(3, dtype=[('a', 'i8'), ('b', 'f4'), ('c', 'S3')])
+>>> a = np.zeros(3, dtype=[('a', 'i8'), ('b', 'f4'), ('c', 'S3')])
 >>> b = np.ones(3, dtype=[('x', 'f4'), ('y', 'S3'), ('z', 'O')])
 >>> b[:] = a
 >>> b
@@ -355,7 +355,7 @@ Individual fields of a structured array may be accessed and modified by indexing
 the array with the field name.
 
 ``` python
->>>>>> x = np.array([(1, 2), (3, 4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
+>>> x = np.array([(1, 2), (3, 4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
 >>> x['foo']
 array([1, 3])
 >>> x['foo'] = 10
@@ -368,7 +368,7 @@ The resulting array is a view into the original array. It shares the same
 memory locations and writing to the view will modify the original array.
 
 ``` python
->>>>>> y = x['bar']
+>>> y = x['bar']
 >>> y[:] = 11
 >>> x
 array([(10, 11.), (10, 11.)],
@@ -379,7 +379,7 @@ This view has the same dtype and itemsize as the indexed field, so it is
 typically a non-structured array, except in the case of nested structures.
 
 ``` python
->>>>>> y.dtype, y.shape, y.strides
+>>> y.dtype, y.shape, y.strides
 (dtype('float32'), (2,), (12,))
 ```
 
@@ -387,7 +387,7 @@ If the accessed field is a subarray, the dimensions of the subarray
 are appended to the shape of the result:
 
 ``` python
->>>>>> x = np.zeros((2, 2), dtype=[('a', np.int32), ('b', np.float64, (3, 3))])
+>>> x = np.zeros((2, 2), dtype=[('a', np.int32), ('b', np.float64, (3, 3))])
 >>> x['a'].shape
 (2, 2)
 >>> x['b'].shape
@@ -409,7 +409,7 @@ The result of indexing with a multi-field index is a view into the original
 array, as follows:
 
 ``` python
->>>>>> a = np.zeros(3, dtype=[('a', 'i4'), ('b', 'i4'), ('c', 'f4')])
+>>> a = np.zeros(3, dtype=[('a', 'i4'), ('b', 'i4'), ('c', 'f4')])
 >>> a[['a', 'c']]
 array([(0, 0.), (0, 0.), (0, 0.)],
      dtype={'names':['a','c'], 'formats':['<i4','<f4'], 'offsets':[0,8], 'itemsize':12})
@@ -433,7 +433,7 @@ code which depends on the data having a “packed” layout. For instance code
 such as:
 
 ``` python
->>>>>> a[['a', 'c']].view('i8')  # Fails in Numpy 1.16
+>>> a[['a', 'c']].view('i8')  # Fails in Numpy 1.16
 Traceback (most recent call last):
    File "<stdin>", line 1, in <module>
 ValueError: When changing to a smaller dtype, its size must be a divisor of the size of original dtype
@@ -457,7 +457,7 @@ used to reproduce the old behavior, as it will return a packed copy of the
 structured array. The code above, for example, can be replaced with:
 
 ``` python
->>>>>> from numpy.lib.recfunctions import repack_fields
+>>> from numpy.lib.recfunctions import repack_fields
 >>> repack_fields(a[['a', 'c']]).view('i8')  # supported in 1.16
 array([0, 0, 0])
 ```
@@ -471,7 +471,7 @@ account padding, often avoids a copy, and also casts the datatypes
 as needed, unlike the view. Code such as:
 
 ``` python
->>>>>> b = np.zeros(3, dtype=[('x', 'f4'), ('y', 'f4'), ('z', 'f4')])
+>>> b = np.zeros(3, dtype=[('x', 'f4'), ('y', 'f4'), ('z', 'f4')])
 >>> b[['x', 'z']].view('f4')
 array([0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32)
 ```
@@ -479,7 +479,7 @@ array([0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32)
 can be made safer by replacing with:
 
 ``` python
->>>>>> from numpy.lib.recfunctions import structured_to_unstructured
+>>> from numpy.lib.recfunctions import structured_to_unstructured
 >>> structured_to_unstructured(b[['x', 'z']])
 array([0, 0, 0])
 ```
@@ -489,7 +489,7 @@ array([0, 0, 0])
 Assignment to an array with a multi-field index modifies the original array:
 
 ``` python
->>>>>> a[['a', 'c']] = (2, 3)
+>>> a[['a', 'c']] = (2, 3)
 >>> a
 array([(2, 0, 3.), (2, 0, 3.), (2, 0, 3.)],
       dtype=[('a', '<i4'), ('b', '<i4'), ('c', '<f4')])
@@ -500,7 +500,7 @@ this means that one can swap the values of two fields using appropriate
 multi-field indexes:
 
 ``` python
->>>>>> a[['a', 'c']] = a[['c', 'a']]
+>>> a[['a', 'c']] = a[['c', 'a']]
 ```
 
 #### Indexing with an Integer to get a Structured Scalar
@@ -509,7 +509,7 @@ Indexing a single element of a structured array (with an integer index) returns
 a structured scalar:
 
 ``` python
->>>>>> x = np.array([(1, 2., 3.)], dtype='i, f, f')
+>>> x = np.array([(1, 2., 3.)], dtype='i, f, f')
 >>> scalar = x[0]
 >>> scalar
 (1, 2., 3.)
@@ -523,7 +523,7 @@ original array. Structured scalars also support access and assignment by field
 name:
 
 ``` python
->>>>>> x = np.array([(1, 2), (3, 4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
+>>> x = np.array([(1, 2), (3, 4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
 >>> s = x[0]
 >>> s['bar'] = 100
 >>> x
@@ -534,7 +534,7 @@ array([(1, 100.), (3, 4.)],
 Similarly to tuples, structured scalars can also be indexed with an integer:
 
 ``` python
->>>>>> scalar = np.array([(1, 2., 3.)], dtype='i, f, f')[0]
+>>> scalar = np.array([(1, 2., 3.)], dtype='i, f, f')[0]
 >>> scalar[0]
 1
 >>> scalar[1] = 4
@@ -546,7 +546,7 @@ numpy’s integer types. Structured scalars may be converted to a tuple by
 calling ``ndarray.item``:
 
 ``` python
->>>>>> scalar.item(), type(scalar.item())
+>>> scalar.item(), type(scalar.item())
 ((1, 4.0, 3.0), <class 'tuple'>)
 ```
 
@@ -566,7 +566,7 @@ dtypes and titles are the same, ignoring endianness, and the fields are in
 the same order:
 
 ``` python
->>>>>> a = np.zeros(2, dtype=[('a', 'i4'), ('b', 'i4')])
+>>> a = np.zeros(2, dtype=[('a', 'i4'), ('b', 'i4')])
 >>> b = np.ones(2, dtype=[('a', 'i4'), ('b', 'i4')])
 >>> a == b
 array([False, False])
@@ -592,7 +592,7 @@ structured scalars obtained from the array.
 The simplest way to create a record array is with ``numpy.rec.array``:
 
 ``` python
->>>>>> recordarr = np.rec.array([(1, 2., 'Hello'), (2, 3., "World")],
+>>> recordarr = np.rec.array([(1, 2., 'Hello'), (2, 3., "World")],
 ...                    dtype=[('foo', 'i4'),('bar', 'f4'), ('baz', 'S10')])
 >>> recordarr.bar
 array([ 2.,  3.], dtype=float32)
@@ -611,7 +611,7 @@ b'World'
 arrays, including structured arrays:
 
 ``` python
->>>>>> arr = np.array([(1, 2., 'Hello'), (2, 3., "World")],
+>>> arr = np.array([(1, 2., 'Hello'), (2, 3., "World")],
 ...             dtype=[('foo', 'i4'), ('bar', 'f4'), ('baz', 'S10')])
 >>> recordarr = np.rec.array(arr)
 ```
@@ -623,7 +623,7 @@ A record array representation of a structured array can be obtained using the
 appropriate [view](numpy-ndarray-view):
 
 ``` python
->>>>>> arr = np.array([(1, 2., 'Hello'), (2, 3., "World")],
+>>> arr = np.array([(1, 2., 'Hello'), (2, 3., "World")],
 ...                dtype=[('foo', 'i4'),('bar', 'f4'), ('baz', 'a10')])
 >>> recordarr = arr.view(dtype=np.dtype((np.record, arr.dtype)),
 ...                      type=np.recarray)
@@ -634,7 +634,7 @@ automatically convert to ``np.record`` datatype, so the dtype can be left
 out of the view:
 
 ``` python
->>>>>> recordarr = arr.view(np.recarray)
+>>> recordarr = arr.view(np.recarray)
 >>> recordarr.dtype
 dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 ```
@@ -644,14 +644,14 @@ following view does so, taking into account the unusual case that the
 recordarr was not a structured type:
 
 ``` python
->>>>>> arr2 = recordarr.view(recordarr.dtype.fields or recordarr.dtype, np.ndarray)
+>>> arr2 = recordarr.view(recordarr.dtype.fields or recordarr.dtype, np.ndarray)
 ```
 
 Record array fields accessed by index or by attribute are returned as a record
 array if the field has a structured type but as a plain ndarray otherwise.
 
 ``` python
->>>>>> recordarr = np.rec.array([('Hello', (1, 2)), ("World", (3, 4))],
+>>> recordarr = np.rec.array([('Hello', (1, 2)), ("World", (3, 4))],
 ...                 dtype=[('foo', 'S6'),('bar', [('A', int), ('B', int)])])
 >>> type(recordarr.foo)
 <class 'numpy.ndarray'>
@@ -670,7 +670,7 @@ Collection of utilities to manipulate structured arrays.
 Most of these functions were initially implemented by John Hunter for
 matplotlib.  They have been rewritten and extended for convenience.
 
-- numpy.lib.recfunctions.**append_fields**(*base*, *names*, *data*, *dtypes=None*, *fill_value=-1*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L674-L742)[¶](#numpy.lib.recfunctions.append_fields)
+- numpy.lib.recfunctions.**append_fields**(*base*, *names*, *data*, *dtypes=None*, *fill_value=-1*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L674-L742)
 
   Add new fields to an existing array.
 
@@ -691,7 +691,7 @@ matplotlib.  They have been rewritten and extended for convenience.
   usemask | {False, True}, optional | Whether to return a masked array or not.
   asrecarray | {False, True}, optional | Whether to return a recarray (MaskedRecords) or not.
 
-- numpy.lib.recfunctions.**apply_along_fields**(*func*, *arr*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1084-L1123)[¶](#numpy.lib.recfunctions.apply_along_fields)
+- numpy.lib.recfunctions.**apply_along_fields**(*func*, *arr*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1084-L1123)
 
   Apply function ‘func’ as a reduction across fields of a structured array.
 
@@ -713,7 +713,7 @@ matplotlib.  They have been rewritten and extended for convenience.
   **Examples**:
 
   ``` python
-  >>>>>> from numpy.lib import recfunctions as rfn
+  >>> from numpy.lib import recfunctions as rfn
   >>> b = np.array([(1, 2, 5), (4, 5, 7), (7, 8 ,11), (10, 11, 12)],
   ...              dtype=[('x', 'i4'), ('y', 'f4'), ('z', 'f8')])
   >>> rfn.apply_along_fields(np.mean, b)
@@ -722,7 +722,7 @@ matplotlib.  They have been rewritten and extended for convenience.
   array([ 3. ,  5.5,  9. , 11. ])
   ```
 
-- numpy.lib.recfunctions.**assign_fields_by_name**(*dst*, *src*, *zero_unassigned=True*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1130-L1166)[¶](#numpy.lib.recfunctions.assign_fields_by_name)
+- numpy.lib.recfunctions.**assign_fields_by_name**(*dst*, *src*, *zero_unassigned=True*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1130-L1166)
 
   Assigns values from one structured array to another by field name.
 
@@ -743,7 +743,7 @@ matplotlib.  They have been rewritten and extended for convenience.
   src | ndarray | The source and destination arrays during assignment.
   zero_unassigned | bool, optional | If True, fields in the dst for which there was no matching field in the src are filled with the value 0 (zero). This was the behavior of numpy <= 1.13. If False, those fields are not modified.
 
-- numpy.lib.recfunctions.**drop_fields**(*base*, *drop_names*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L523-L583)[¶](#numpy.lib.recfunctions.drop_fields)
+- numpy.lib.recfunctions.**drop_fields**(*base*, *drop_names*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L523-L583)
 
   Return a new array with fields in *drop_names* dropped.
 
@@ -759,7 +759,7 @@ matplotlib.  They have been rewritten and extended for convenience.
   **Examples**:
 
   ``` python
-  >>>>>> from numpy.lib import recfunctions as rfn
+  >>> from numpy.lib import recfunctions as rfn
   >>> a = np.array([(1, (2, 3.0)), (4, (5, 6.0))],
   ...   dtype=[('a', np.int64), ('b', [('ba', np.double), ('bb', np.int64)])])
   >>> rfn.drop_fields(a, 'a')
@@ -771,7 +771,7 @@ matplotlib.  They have been rewritten and extended for convenience.
   array([(1,), (4,)], dtype=[('a', '<i8')])
   ```
 
-- numpy.lib.recfunctions.**find_duplicates**(*a*, *key=None*, *ignoremask=True*, *return_index=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1313-L1368)[¶](#numpy.lib.recfunctions.find_duplicates)
+- numpy.lib.recfunctions.**find_duplicates**(*a*, *key=None*, *ignoremask=True*, *return_index=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1313-L1368)
 
 Find the duplicates in a structured array along a given key
 
@@ -787,7 +787,7 @@ Find the duplicates in a structured array along a given key
   **Examples**:
 
   ``` python
-  >>>>>> from numpy.lib import recfunctions as rfn
+  >>> from numpy.lib import recfunctions as rfn
   >>> ndtype = [('a', int)]
   >>> a = np.ma.array([1, 1, 1, 2, 2, 3, 3],
   ...         mask=[0, 0, 1, 0, 0, 0, 1]).view(ndtype)
@@ -798,20 +798,20 @@ Find the duplicates in a structured array along a given key
               dtype=[('a', '<i8')]), array([0, 1, 3, 4]))
   ```
 
-- numpy.lib.recfunctions.**flatten_descr**(*ndtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L184-L207)[¶](#numpy.lib.recfunctions.flatten_descr)
+- numpy.lib.recfunctions.**flatten_descr**(*ndtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L184-L207)
 
   Flatten a structured data-type description.
 
   **Examples**:
 
   ``` python
-  >>>>>> from numpy.lib import recfunctions as rfn
+  >>> from numpy.lib import recfunctions as rfn
   >>> ndtype = np.dtype([('a', '<i4'), ('b', [('ba', '<f8'), ('bb', '<i4')])])
   >>> rfn.flatten_descr(ndtype)
   (('a', dtype('int32')), ('ba', dtype('float64')), ('bb', dtype('int32')))
   ```
 
-- numpy.lib.recfunctions.**get_fieldstructure**(*adtype*, *lastname=None*, *parents=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L240-L284)[¶](#numpy.lib.recfunctions.get_fieldstructure)
+- numpy.lib.recfunctions.**get_fieldstructure**(*adtype*, *lastname=None*, *parents=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L240-L284)
 
   Returns a dictionary with fields indexing lists of their parent fields.
 
@@ -828,7 +828,7 @@ Find the duplicates in a structured array along a given key
   **Examples**:
 
   ``` python
-  >>>>>> from numpy.lib import recfunctions as rfn
+  >>> from numpy.lib import recfunctions as rfn
   >>> ndtype =  np.dtype([('A', int),
   ...                     ('B', [('BA', int),
   ...                            ('BB', [('BBA', int), ('BBB', int)])])])
@@ -837,7 +837,7 @@ Find the duplicates in a structured array along a given key
   {'A': [], 'B': [], 'BA': ['B'], 'BB': ['B'], 'BBA': ['B', 'BB'], 'BBB': ['B', 'BB']}
   ```
 
-- numpy.lib.recfunctions.**get_names**(*adtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L113-L146)[¶](#numpy.lib.recfunctions.get_names)
+- numpy.lib.recfunctions.**get_names**(*adtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L113-L146)
 
   Returns the field names of the input datatype as a tuple.
 
@@ -850,7 +850,7 @@ Find the duplicates in a structured array along a given key
   **Examples**:
 
   ``` python
-  >>>>>> from numpy.lib import recfunctions as rfn
+  >>> from numpy.lib import recfunctions as rfn
   >>> rfn.get_names(np.empty((1,), dtype=int))
   Traceback (most recent call last):
       ...
@@ -858,7 +858,7 @@ Find the duplicates in a structured array along a given key
   ```
 
   ``` python
-  >>>>>> rfn.get_names(np.empty((1,), dtype=[('A',int), ('B', float)]))
+  >>> rfn.get_names(np.empty((1,), dtype=[('A',int), ('B', float)]))
   Traceback (most recent call last):
       ...
   AttributeError: 'numpy.ndarray' object has no attribute 'names'
@@ -867,7 +867,7 @@ Find the duplicates in a structured array along a given key
   ('a', ('b', ('ba', 'bb')))
   ```
 
-- numpy.lib.recfunctions.**get_names_flat**(*adtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L149-L181)[¶](#numpy.lib.recfunctions.get_names_flat)
+- numpy.lib.recfunctions.**get_names_flat**(*adtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L149-L181)
 
   Returns the field names of the input datatype as a tuple. Nested structure are flattened beforehand.
 
@@ -880,7 +880,7 @@ Find the duplicates in a structured array along a given key
   **Examples**
 
   ``` python
-  >>>>>> from numpy.lib import recfunctions as rfn
+  >>> from numpy.lib import recfunctions as rfn
   >>> rfn.get_names_flat(np.empty((1,), dtype=int)) is None
   Traceback (most recent call last):
       ...
@@ -894,7 +894,7 @@ Find the duplicates in a structured array along a given key
   ('a', 'b', 'ba', 'bb')
   ```
 
-- numpy.lib.recfunctions.**join_by**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1377-L1554)[¶](#numpy.lib.recfunctions.join_by)
+- numpy.lib.recfunctions.**join_by**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1377-L1554)
 
   Join arrays *r1* and *r2* on key *key*.
 
@@ -924,7 +924,7 @@ Find the duplicates in a structured array along a given key
 
   :::
 
-- numpy.lib.recfunctions.**merge_arrays**(*seqarrays*, *fill_value=-1*, *flatten=False*, *usemask=False*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L383-L516)[¶](#numpy.lib.recfunctions.merge_arrays)
+- numpy.lib.recfunctions.**merge_arrays**(*seqarrays*, *fill_value=-1*, *flatten=False*, *usemask=False*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L383-L516)
 
   Merge arrays field by field.
 
@@ -958,14 +958,14 @@ Find the duplicates in a structured array along a given key
   **Examples**
 
   ``` python
-  >>>>>> from numpy.lib import recfunctions as rfn
+  >>> from numpy.lib import recfunctions as rfn
   >>> rfn.merge_arrays((np.array([1, 2]), np.array([10., 20., 30.])))
   array([( 1, 10.), ( 2, 20.), (-1, 30.)],
         dtype=[('f0', '<i8'), ('f1', '<f8')])
   ```
 
   ``` python
-  >>>>>> rfn.merge_arrays((np.array([1, 2], dtype=np.int64),
+  >>> rfn.merge_arrays((np.array([1, 2], dtype=np.int64),
   ...         np.array([10., 20., 30.])), usemask=False)
   array([(1, 10.0), (2, 20.0), (-1, 30.0)],
           dtype=[('f0', '<i8'), ('f1', '<f8')])
@@ -976,382 +976,321 @@ Find the duplicates in a structured array along a given key
             dtype=[('a', '<i8'), ('f1', '<f8')])
   ```
 
-- numpy.lib.recfunctions.**rec_append_fields**(*base*, *names*, *data*, *dtypes=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L751-L783)[¶](#numpy.lib.recfunctions.rec_append_fields)
+- numpy.lib.recfunctions.**rec_append_fields**(*base*, *names*, *data*, *dtypes=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L751-L783)
 
-Add new fields to an existing array.
+  Add new fields to an existing array.
 
-The names of the fields are given with the *names* arguments,
-the corresponding values with the *data* arguments.
-If a single field is appended, *names*, *data* and *dtypes* do not have
-to be lists but just values.
+  The names of the fields are given with the *names* arguments, the corresponding values with the *data* arguments. If a single field is appended, *names*, *data* and *dtypes* do not have to be lists but just values.
 
-Parameters:
----
-base : array
+  **Parameters**:
 
-Input array to extend.
+  name | type | desc
+  ---|---|---
+  base | array | Input array to extend.
+  names | string, sequence | String or sequence of strings corresponding to the names of the new fields.
+  data | array or sequence of arrays | Array or sequence of arrays storing the fields to add to the base.
+  dtypes | sequence of datatypes, optional | Datatype or sequence of datatypes. If None, the datatypes are estimated from the data.
 
-names : string, sequence
 
-String or sequence of strings corresponding to the names of the new fields.
+  **Returns**:
 
-data : array or sequence of arrays
+  name | type | desc
+  ---|---|---
+  appended_array | np.recarray | 
 
-Array or sequence of arrays storing the fields to add to the base.
+  ::: tip See also
 
-dtypes : sequence of datatypes, optional
+  [``append_fields``](#numpy.lib.recfunctions.append_fields)
 
-Datatype or sequence of datatypes. If None, the datatypes are estimated from the data.
+  :::
 
+- numpy.lib.recfunctions.**rec_drop_fields**(*base*, *drop_names*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L615-L620)
 
-Returns:
-appended_array : np.recarray
+  Returns a new numpy.recarray with fields in *drop_names* dropped.
 
-[``append_fields``](#numpy.lib.recfunctions.append_fields)
+- numpy.lib.recfunctions.**rec_join**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1563-L1576)
 
+  Join arrays *r1* and *r2* on keys. Alternative to join_by, that always returns a np.recarray.
 
-``numpy.lib.recfunctions.````rec_drop_fields``(*base*, *drop_names*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L615-L620)[¶](#numpy.lib.recfunctions.rec_drop_fields)
+  ::: tip See also
+  
+  [``join_by``](#numpy.lib.recfunctions.join_by)
 
-Returns a new numpy.recarray with fields in *drop_names* dropped.
+  :::
 
+- numpy.lib.recfunctions.**recursive_fill_fields**(*input*, *output*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L43-L79)
 
-``numpy.lib.recfunctions.````rec_join``(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1563-L1576)[¶](#numpy.lib.recfunctions.rec_join)
+  Fills fields from output with fields from input, with support for nested structures.
 
-Join arrays *r1* and *r2* on keys.
-Alternative to join_by, that always returns a np.recarray.
+  **Parameters**:
 
-[``join_by``](#numpy.lib.recfunctions.join_by)
+  name | type | desc
+  ---|---|---
+  input | ndarray | Input array.
+  output | ndarray | Output array.
 
+  ::: tip Notes
 
-``numpy.lib.recfunctions.````recursive_fill_fields``(*input*, *output*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L43-L79)[¶](#numpy.lib.recfunctions.recursive_fill_fields)
+  - *output* should be at least the same size as *input*
 
-Fills fields from output with fields from input,
-with support for nested structures.
+  :::
 
-Parameters:
----
-input : ndarray
+  **Examples**
 
-Input array.
+  ``` python
+  >>> from numpy.lib import recfunctions as rfn
+  >>> a = np.array([(1, 10.), (2, 20.)], dtype=[('A', np.int64), ('B', np.float64)])
+  >>> b = np.zeros((3,), dtype=a.dtype)
+  >>> rfn.recursive_fill_fields(a, b)
+  array([(1, 10.), (2, 20.), (0,  0.)], dtype=[('A', '<i8'), ('B', '<f8')])
+  ```
 
-output : ndarray
+- numpy.lib.recfunctions.**rename_fields**(*base*, *namemapper*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L627-L664)
 
-Output array.
+  Rename the fields from a flexible-datatype ndarray or recarray.
 
-Notes
+  Nested fields are supported.
 
-- *output* should be at least the same size as *input*
+  **Parameters**:
 
-Examples
+  name | type | desc
+  ---|---|---
+  base | ndarray | Input array whose fields must be modified.
+  namemapper | dictionary | Dictionary mapping old field names to their new version.
 
-``` python
->>>>>> from numpy.lib import recfunctions as rfn
->>> a = np.array([(1, 10.), (2, 20.)], dtype=[('A', np.int64), ('B', np.float64)])
->>> b = np.zeros((3,), dtype=a.dtype)
->>> rfn.recursive_fill_fields(a, b)
-array([(1, 10.), (2, 20.), (0,  0.)], dtype=[('A', '<i8'), ('B', '<f8')])
-```
+  **Examples**
 
+  ``` python
+  >>> from numpy.lib import recfunctions as rfn
+  >>> a = np.array([(1, (2, [3.0, 30.])), (4, (5, [6.0, 60.]))],
+  ...   dtype=[('a', int),('b', [('ba', float), ('bb', (float, 2))])])
+  >>> rfn.rename_fields(a, {'a':'A', 'bb':'BB'})
+  array([(1, (2., [ 3., 30.])), (4, (5., [ 6., 60.]))],
+        dtype=[('A', '<i8'), ('b', [('ba', '<f8'), ('BB', '<f8', (2,))])])
+  ```
 
-``numpy.lib.recfunctions.````rename_fields``(*base*, *namemapper*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L627-L664)[¶](#numpy.lib.recfunctions.rename_fields)
+- numpy.lib.recfunctions.**repack_fields**(*a*, *align=False*, *recurse=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L790-L869)
 
-Rename the fields from a flexible-datatype ndarray or recarray.
+  Re-pack the fields of a structured array or dtype in memory.
 
-Nested fields are supported.
+  The memory layout of structured datatypes allows fields at arbitrary
+  byte offsets. This means the fields can be separated by padding bytes,
+  their offsets can be non-monotonically increasing, and they can overlap.
 
-Parameters:
----
-base : ndarray
-
-Input array whose fields must be modified.
-
-namemapper : dictionary
-
-Dictionary mapping old field names to their new version.
-
-Examples
-
-``` python
->>>>>> from numpy.lib import recfunctions as rfn
->>> a = np.array([(1, (2, [3.0, 30.])), (4, (5, [6.0, 60.]))],
-...   dtype=[('a', int),('b', [('ba', float), ('bb', (float, 2))])])
->>> rfn.rename_fields(a, {'a':'A', 'bb':'BB'})
-array([(1, (2., [ 3., 30.])), (4, (5., [ 6., 60.]))],
-      dtype=[('A', '<i8'), ('b', [('ba', '<f8'), ('BB', '<f8', (2,))])])
-```
-
-
-``numpy.lib.recfunctions.````repack_fields``(*a*, *align=False*, *recurse=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L790-L869)[¶](#numpy.lib.recfunctions.repack_fields)
-
-Re-pack the fields of a structured array or dtype in memory.
-
-The memory layout of structured datatypes allows fields at arbitrary
-byte offsets. This means the fields can be separated by padding bytes,
-their offsets can be non-monotonically increasing, and they can overlap.
-
-This method removes any overlaps and reorders the fields in memory so they
-have increasing byte offsets, and adds or removes padding bytes depending
-on the *align* option, which behaves like the *align* option to ``np.dtype``.
-
-If *align=False*, this method produces a “packed” memory layout in which
-each field starts at the byte the previous field ended, and any padding
-bytes are removed.
-
-If *align=True*, this methods produces an “aligned” memory layout in which
-each field’s offset is a multiple of its alignment, and the total itemsize
-is a multiple of the largest alignment, by adding padding bytes as needed.
-
-Parameters:
----
-a : ndarray or dtype
-
-array or dtype for which to repack the fields.
-
-align : boolean
-
-If true, use an “aligned” memory layout, otherwise use a “packed” layout.
-
-recurse : boolean
-
-If True, also repack nested structures.
-
-
-Returns:
-repacked : ndarray or dtype
-
-Copy of a with fields repacked, or a itself if no repacking was needed.
-
-Examples
-
-``` python
->>>>>> from numpy.lib import recfunctions as rfn
->>> def print_offsets(d):
-...     print("offsets:", [d.fields[name][1] for name in d.names])
-...     print("itemsize:", d.itemsize)
-...
->>> dt = np.dtype('u1, <i8, <f8', align=True)
->>> dt
-dtype({'names':['f0','f1','f2'], 'formats':['u1','<i8','<f8'], 'offsets':[0,8,16], 'itemsize':24}, align=True)
->>> print_offsets(dt)
-offsets: [0, 8, 16]
-itemsize: 24
->>> packed_dt = rfn.repack_fields(dt)
->>> packed_dt
-dtype([('f0', 'u1'), ('f1', '<i8'), ('f2', '<f8')])
->>> print_offsets(packed_dt)
-offsets: [0, 1, 9]
-itemsize: 17
-```
-
-
-``numpy.lib.recfunctions.````require_fields``(*array*, *required_dtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1171-L1212)[¶](#numpy.lib.recfunctions.require_fields)
-
-Casts a structured array to a new dtype using assignment by field-name.
-
-This function assigns from the old to the new array by name, so the
-value of a field in the output array is the value of the field with the
-same name in the source array. This has the effect of creating a new
-ndarray containing only the fields “required” by the required_dtype.
-
-If a field name in the required_dtype does not exist in the
-input array, that field is created and set to 0 in the output array.
-
-Parameters:
----
-a : ndarray
-
-array to cast
-
-required_dtype : dtype
-
-datatype for output array
-
-
-Returns:
-out : ndarray
-
-array with the new dtype, with field values copied from the fields in the input array with the same name
-
-Examples
-
-``` python
->>>>>> from numpy.lib import recfunctions as rfn
->>> a = np.ones(4, dtype=[('a', 'i4'), ('b', 'f8'), ('c', 'u1')])
->>> rfn.require_fields(a, [('b', 'f4'), ('c', 'u1')])
-array([(1., 1), (1., 1), (1., 1), (1., 1)],
-  dtype=[('b', '<f4'), ('c', 'u1')])
->>> rfn.require_fields(a, [('b', 'f4'), ('newf', 'u1')])
-array([(1., 0), (1., 0), (1., 0), (1., 0)],
-  dtype=[('b', '<f4'), ('newf', 'u1')])
-```
-
-
-``numpy.lib.recfunctions.````stack_arrays``(*arrays*, *defaults=None*, *usemask=True*, *asrecarray=False*, *autoconvert=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1220-L1305)[¶](#numpy.lib.recfunctions.stack_arrays)
-
-Superposes arrays fields by fields
-
-Parameters:
----
-arrays : array or sequence
-
-Sequence of input arrays.
-
-defaults : dictionary, optional
-
-Dictionary mapping field names to the corresponding default values.
-
-usemask : {True, False}, optional
-
-Whether to return a MaskedArray (or MaskedRecords is asrecarray==True) or a ndarray.
-
-asrecarray : {False, True}, optional
-
-Whether to return a recarray (or MaskedRecords if usemask==True) or just a flexible-type ndarray.
-
-autoconvert : {False, True}, optional
-
-Whether automatically cast the type of the field to the maximum.
-
-Examples
-
-``` python
->>>>>> from numpy.lib import recfunctions as rfn
->>> x = np.array([1, 2,])
->>> rfn.stack_arrays(x) is x
-True
->>> z = np.array([('A', 1), ('B', 2)], dtype=[('A', '|S3'), ('B', float)])
->>> zz = np.array([('a', 10., 100.), ('b', 20., 200.), ('c', 30., 300.)],
-...   dtype=[('A', '|S3'), ('B', np.double), ('C', np.double)])
->>> test = rfn.stack_arrays((z,zz))
->>> test
-masked_array(data=[(b'A', 1.0, --), (b'B', 2.0, --), (b'a', 10.0, 100.0),
-                   (b'b', 20.0, 200.0), (b'c', 30.0, 300.0)],
-             mask=[(False, False,  True), (False, False,  True),
-                   (False, False, False), (False, False, False),
-                   (False, False, False)],
-       fill_value=(b'N/A', 1.e+20, 1.e+20),
-            dtype=[('A', 'S3'), ('B', '<f8'), ('C', '<f8')])
-```
-
-
-``numpy.lib.recfunctions.````structured_to_unstructured``(*arr*, *dtype=None*, *copy=False*, *casting='unsafe'*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L894-L977)[¶](#numpy.lib.recfunctions.structured_to_unstructured)
-
-Converts and n-D structured array into an (n+1)-D unstructured array.
-
-The new array will have a new last dimension equal in size to the
-number of field-elements of the input array. If not supplied, the output
-datatype is determined from the numpy type promotion rules applied to all
-the field datatypes.
-
-Nested fields, as well as each element of any subarray fields, all count
-as a single field-elements.
-
-Parameters:
----
-arr : ndarray
-
-Structured array or dtype to convert. Cannot contain object datatype.
-
-dtype : dtype, optional
-
-The dtype of the output unstructured array.
-
-copy : bool, optional
-
-See copy argument to ndarray.astype. If true, always return a copy. If false, and dtype requirements are satisfied, a view is returned.
-
-casting : {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional
-
-See casting argument of ndarray.astype. Controls what kind of data casting may occur.
-
-
-Returns:
-unstructured : ndarray
-
-Unstructured array with one more dimension.
-
-Examples
-
-``` python
->>>>>> from numpy.lib import recfunctions as rfn
->>> a = np.zeros(4, dtype=[('a', 'i4'), ('b', 'f4,u2'), ('c', 'f4', 2)])
->>> a
-array([(0, (0., 0), [0., 0.]), (0, (0., 0), [0., 0.]),
-       (0, (0., 0), [0., 0.]), (0, (0., 0), [0., 0.])],
-      dtype=[('a', '<i4'), ('b', [('f0', '<f4'), ('f1', '<u2')]), ('c', '<f4', (2,))])
->>> rfn.structured_to_unstructured(a)
-array([[0., 0., 0., 0., 0.],
-       [0., 0., 0., 0., 0.],
-       [0., 0., 0., 0., 0.],
-       [0., 0., 0., 0., 0.]])
-```
-
-``` python
->>>>>> b = np.array([(1, 2, 5), (4, 5, 7), (7, 8 ,11), (10, 11, 12)],
-...              dtype=[('x', 'i4'), ('y', 'f4'), ('z', 'f8')])
->>> np.mean(rfn.structured_to_unstructured(b[['x', 'z']]), axis=-1)
-array([ 3. ,  5.5,  9. , 11. ])
-```
-
-
-``numpy.lib.recfunctions.````unstructured_to_structured``(*arr*, *dtype=None*, *names=None*, *align=False*, *copy=False*, *casting='unsafe'*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L984-L1079)[¶](#numpy.lib.recfunctions.unstructured_to_structured)
-
-Converts and n-D unstructured array into an (n-1)-D structured array.
-
-The last dimension of the input array is converted into a structure, with
-number of field-elements equal to the size of the last dimension of the
-input array. By default all output fields have the input array’s dtype, but
-an output structured dtype with an equal number of fields-elements can be
-supplied instead.
-
-Nested fields, as well as each element of any subarray fields, all count
-towards the number of field-elements.
-
-Parameters:
----
-arr : ndarray
-
-Unstructured array or dtype to convert.
-
-dtype : dtype, optional
-
-The structured dtype of the output array
-
-names : list of strings, optional
-
-If dtype is not supplied, this specifies the field names for the output dtype, in order. The field dtypes will be the same as the input array.
-
-align : boolean, optional
-
-Whether to create an aligned memory layout.
-
-copy : bool, optional
-
-See copy argument to ndarray.astype. If true, always return a copy. If false, and dtype requirements are satisfied, a view is returned.
-
-casting : {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional
-
-See casting argument of ndarray.astype. Controls what kind of data casting may occur.
-
-
-Returns:
-structured : ndarray
-
-Structured array with fewer dimensions.
-
-Examples
-
-``` python
->>>>>> from numpy.lib import recfunctions as rfn
->>> dt = np.dtype([('a', 'i4'), ('b', 'f4,u2'), ('c', 'f4', 2)])
->>> a = np.arange(20).reshape((4,5))
->>> a
-array([[ 0,  1,  2,  3,  4],
-       [ 5,  6,  7,  8,  9],
-       [10, 11, 12, 13, 14],
-       [15, 16, 17, 18, 19]])
->>> rfn.unstructured_to_structured(a, dt)
-array([( 0, ( 1.,  2), [ 3.,  4.]), ( 5, ( 6.,  7), [ 8.,  9.]),
-       (10, (11., 12), [13., 14.]), (15, (16., 17), [18., 19.])],
-      dtype=[('a', '<i4'), ('b', [('f0', '<f4'), ('f1', '<u2')]), ('c', '<f4', (2,))])
-```
+  This method removes any overlaps and reorders the fields in memory so they
+  have increasing byte offsets, and adds or removes padding bytes depending
+  on the *align* option, which behaves like the *align* option to ``np.dtype``.
+
+  If *align=False*, this method produces a “packed” memory layout in which
+  each field starts at the byte the previous field ended, and any padding
+  bytes are removed.
+
+  If *align=True*, this methods produces an “aligned” memory layout in which
+  each field’s offset is a multiple of its alignment, and the total itemsize
+  is a multiple of the largest alignment, by adding padding bytes as needed.
+
+  **Parameters**:
+
+  name | type | desc
+  ---|---|---
+  a | ndarray or dtype | array or dtype for which to repack the fields.
+  align | boolean | If true, use an “aligned” memory layout, otherwise use a “packed” layout.
+  recurse | boolean | If True, also repack nested structures.
+
+  **Returns**:
+
+  name | type | desc
+  ---|---|---
+  repacked | ndarray or dtype | Copy of a with fields repacked, or a itself if no repacking was needed.
+
+  **Examples**
+
+  ``` python
+  >>> from numpy.lib import recfunctions as rfn
+  >>> def print_offsets(d):
+  ...     print("offsets:", [d.fields[name][1] for name in d.names])
+  ...     print("itemsize:", d.itemsize)
+  ...
+  >>> dt = np.dtype('u1, <i8, <f8', align=True)
+  >>> dt
+  dtype({'names':['f0','f1','f2'], 'formats':['u1','<i8','<f8'], 'offsets':[0,8,16], 'itemsize':24}, align=True)
+  >>> print_offsets(dt)
+  offsets: [0, 8, 16]
+  itemsize: 24
+  >>> packed_dt = rfn.repack_fields(dt)
+  >>> packed_dt
+  dtype([('f0', 'u1'), ('f1', '<i8'), ('f2', '<f8')])
+  >>> print_offsets(packed_dt)
+  offsets: [0, 1, 9]
+  itemsize: 17
+  ```
+
+- numpy.lib.recfunctions.**require_fields**(*array*, *required_dtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1171-L1212)
+
+  Casts a structured array to a new dtype using assignment by field-name.
+
+  This function assigns from the old to the new array by name, so the
+  value of a field in the output array is the value of the field with the
+  same name in the source array. This has the effect of creating a new
+  ndarray containing only the fields “required” by the required_dtype.
+
+  If a field name in the required_dtype does not exist in the
+  input array, that field is created and set to 0 in the output array.
+
+  **Parameters**:
+
+  name | type | desc
+  ---|---|---
+  a | ndarray | array to cast
+  required_dtype | dtype | datatype for output array
+
+  **Returns**：
+
+  name | type | desc
+  ---|---|---
+  out | ndarray | array with the new dtype, with field values copied from the fields in the input array with the same name
+
+  **Examples**
+
+  ``` python
+  >>> from numpy.lib import recfunctions as rfn
+  >>> a = np.ones(4, dtype=[('a', 'i4'), ('b', 'f8'), ('c', 'u1')])
+  >>> rfn.require_fields(a, [('b', 'f4'), ('c', 'u1')])
+  array([(1., 1), (1., 1), (1., 1), (1., 1)],
+    dtype=[('b', '<f4'), ('c', 'u1')])
+  >>> rfn.require_fields(a, [('b', 'f4'), ('newf', 'u1')])
+  array([(1., 0), (1., 0), (1., 0), (1., 0)],
+    dtype=[('b', '<f4'), ('newf', 'u1')])
+  ```
+
+- numpy.lib.recfunctions.**stack_arrays**(*arrays*, *defaults=None*, *usemask=True*, *asrecarray=False*, *autoconvert=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1220-L1305)
+
+  Superposes arrays fields by fields
+
+  **Parameters**:
+
+  name | type | desc
+  ---|---|---
+  arrays | array or sequence | Sequence of input arrays.
+  defaults | dictionary, optional | Dictionary mapping field names to the corresponding default values.
+  usemask | {True, False}, optional | Whether to return a MaskedArray (or MaskedRecords is asrecarray==True) or a ndarray.
+  asrecarray | {False, True}, optional | Whether to return a recarray (or MaskedRecords if usemask==True) or just a flexible-type ndarray.
+  autoconvert | {False, True}, optional | Whether automatically cast the type of the field to the maximum.
+
+  **Examples**
+
+  ``` python
+  >>> from numpy.lib import recfunctions as rfn
+  >>> x = np.array([1, 2,])
+  >>> rfn.stack_arrays(x) is x
+  True
+  >>> z = np.array([('A', 1), ('B', 2)], dtype=[('A', '|S3'), ('B', float)])
+  >>> zz = np.array([('a', 10., 100.), ('b', 20., 200.), ('c', 30., 300.)],
+  ...   dtype=[('A', '|S3'), ('B', np.double), ('C', np.double)])
+  >>> test = rfn.stack_arrays((z,zz))
+  >>> test
+  masked_array(data=[(b'A', 1.0, --), (b'B', 2.0, --), (b'a', 10.0, 100.0),
+                    (b'b', 20.0, 200.0), (b'c', 30.0, 300.0)],
+              mask=[(False, False,  True), (False, False,  True),
+                    (False, False, False), (False, False, False),
+                    (False, False, False)],
+        fill_value=(b'N/A', 1.e+20, 1.e+20),
+              dtype=[('A', 'S3'), ('B', '<f8'), ('C', '<f8')])
+  ```
+
+- numpy.lib.recfunctions.**structured_to_unstructured**(*arr*, *dtype=None*, *copy=False*, *casting='unsafe'*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L894-L977)
+
+  Converts and n-D structured array into an (n+1)-D unstructured array.
+
+  The new array will have a new last dimension equal in size to the
+  number of field-elements of the input array. If not supplied, the output
+  datatype is determined from the numpy type promotion rules applied to all
+  the field datatypes.
+
+  Nested fields, as well as each element of any subarray fields, all count
+  as a single field-elements.
+
+  **Parameters**:
+
+  name | type | desc
+  ---|---|---
+  arr | ndarray | Structured array or dtype to convert. Cannot contain object datatype.
+  dtype | dtype, optional | The dtype of the output unstructured array.
+  copy | bool, optional | See copy argument to ndarray.astype. If true, always return a copy. If false, and dtype requirements are satisfied, a view is returned.
+  casting | {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional | See casting argument of ndarray.astype. Controls what kind of data casting may occur.
+
+  **Returns**:
+
+  name | type | desc
+  ---|---|---
+  unstructured | ndarray | Unstructured array with one more dimension.
+
+  **Examples**
+
+  ``` python
+  >>> from numpy.lib import recfunctions as rfn
+  >>> a = np.zeros(4, dtype=[('a', 'i4'), ('b', 'f4,u2'), ('c', 'f4', 2)])
+  >>> a
+  array([(0, (0., 0), [0., 0.]), (0, (0., 0), [0., 0.]),
+        (0, (0., 0), [0., 0.]), (0, (0., 0), [0., 0.])],
+        dtype=[('a', '<i4'), ('b', [('f0', '<f4'), ('f1', '<u2')]), ('c', '<f4', (2,))])
+  >>> rfn.structured_to_unstructured(a)
+  array([[0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0.]])
+  ```
+
+  ``` python
+  >>> b = np.array([(1, 2, 5), (4, 5, 7), (7, 8 ,11), (10, 11, 12)],
+  ...              dtype=[('x', 'i4'), ('y', 'f4'), ('z', 'f8')])
+  >>> np.mean(rfn.structured_to_unstructured(b[['x', 'z']]), axis=-1)
+  array([ 3. ,  5.5,  9. , 11. ])
+  ```
+
+- numpy.lib.recfunctions.**unstructured_to_structured**(*arr*, *dtype=None*, *names=None*, *align=False*, *copy=False*, *casting='unsafe'*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L984-L1079)
+
+  Converts and n-D unstructured array into an (n-1)-D structured array.
+
+  The last dimension of the input array is converted into a structure, with
+  number of field-elements equal to the size of the last dimension of the
+  input array. By default all output fields have the input array’s dtype, but
+  an output structured dtype with an equal number of fields-elements can be
+  supplied instead.
+
+  Nested fields, as well as each element of any subarray fields, all count
+  towards the number of field-elements.
+
+  **Parameters**:
+
+  name | type | desc
+  ---|---|---
+  arr | ndarray | Unstructured array or dtype to convert.
+  dtype | dtype, optional | The structured dtype of the output array
+  names | list of strings, optional | If dtype is not supplied, this specifies the field names for the output dtype, in order. The field dtypes will be the same as the input array.
+  align | boolean, optional | Whether to create an aligned memory layout.
+  copy | bool, optional | See copy argument to ndarray.astype. If true, always return a copy. If false, and dtype requirements are satisfied, a view is returned.
+  casting | {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional | See casting argument of ndarray.astype. Controls what kind of data casting may occur.
+
+  **Returns**:
+
+  name | type | desc
+  ---|---|---
+  structured | ndarray | Structured array with fewer dimensions.
+
+  **Examples**
+
+  ``` python
+  >>> from numpy.lib import recfunctions as rfn
+  >>> dt = np.dtype([('a', 'i4'), ('b', 'f4,u2'), ('c', 'f4', 2)])
+  >>> a = np.arange(20).reshape((4,5))
+  >>> a
+  array([[ 0,  1,  2,  3,  4],
+        [ 5,  6,  7,  8,  9],
+        [10, 11, 12, 13, 14],
+        [15, 16, 17, 18, 19]])
+  >>> rfn.unstructured_to_structured(a, dt)
+  array([( 0, ( 1.,  2), [ 3.,  4.]), ( 5, ( 6.,  7), [ 8.,  9.]),
+        (10, (11., 12), [13., 14.]), (15, (16., 17), [18., 19.])],
+        dtype=[('a', '<i4'), ('b', [('f0', '<f4'), ('f1', '<u2')]), ('c', '<f4', (2,))])
+  ```
