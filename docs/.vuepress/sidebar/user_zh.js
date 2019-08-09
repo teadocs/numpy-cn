@@ -31,6 +31,38 @@ module.exports = function () {
         ['/user/basics/dispatch', '编写自定义数组容器'],
         ['/user/basics/subclassing', '子类化ndarray']
       ]
+    },
+    {
+      title: '其他杂项',
+      collapsable: true,
+      sidebarDepth: 3,
+      children: [
+        ['/user/miscellaneous', '其他杂项']
+      ]
+    },
+    {
+      title: '与Matlab比较',
+      collapsable: true,
+      sidebarDepth: 3,
+      children: [
+        ['/user/numpy_for_matlab_users', 'NumPy对于Matlab用户']
+      ]
+    },
+    {
+      title: '从源代码构建',
+      collapsable: true,
+      sidebarDepth: 3,
+      children: [
+        ['/user/building', '从源代码构建']
+      ]
+    },
+    {
+      title: '使用NumPy的C-API',
+      collapsable: true,
+      sidebarDepth: 3,
+      children: [
+        ['/user/c_info', '目录']
+      ]
     }
   ]
 }
