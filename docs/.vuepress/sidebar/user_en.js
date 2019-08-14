@@ -1,92 +1,67 @@
 module.exports = function () {
-  return [{
-      title: 'What\'s New',
+  return [
+    {
+      title: 'NumPy 介绍',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/en/docs/whatsnew/v0.25.0', 'What’s new in 0.25.0']
+        ['/user/setting-up', 'NumPy 介绍']
       ]
     },
     {
-      title: 'Installation',
+      title: '快速入门教程',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/en/docs/installation', 'Installation']
+        ['/user/quickstart', '快速入门教程']
       ]
     },
     {
-      title: 'Getting started',
-      collapsable: true,
-      sidebarDepth: 1,
-      children: [
-        ['/en/docs/getting_started/', 'Index'],
-        ['/en/docs/getting_started/overview', 'Package overview'],
-        ['/en/docs/getting_started/10min', '10 Minutes to pandas'],
-        ['/en/docs/getting_started/basics', 'Essential Basic Functionality'],
-        ['/en/docs/getting_started/dsintro', 'Intro to Data Structures'],
-        ['/en/docs/getting_started/comparison', 'Comparison with other tools'],
-        ['/en/docs/getting_started/tutorials', 'Tutorials']
-      ]
-    },
-    {
-      title: 'User Guide',
-      collapsable: true,
-      sidebarDepth: 1,
-      children: [
-        ['/en/docs/user_guide/', 'Index'],
-        ['/en/docs/user_guide/io', 'IO Tools (Text, CSV, HDF5, …)'],
-        ['/en/docs/user_guide/indexing', 'Indexing and Selecting Data'],
-        ['/en/docs/user_guide/advanced', 'MultiIndex / advanced indexing'],
-        ['/en/docs/user_guide/merging', 'Merge, join, and concatenate'],
-        ['/en/docs/user_guide/reshaping', 'Reshaping and pivot tables'],
-        ['/en/docs/user_guide/text', 'Working with text data'],
-        ['/en/docs/user_guide/missing_data', 'Working with missing data'],
-        ['/en/docs/user_guide/categorical', 'Categorical data'],
-        ['/en/docs/user_guide/integer_na', 'Nullable integer data type'],
-        ['/en/docs/user_guide/visualization', 'Visualization'],
-        ['/en/docs/user_guide/computation', 'Computational tools'],
-        ['/en/docs/user_guide/groupby', 'Group By: split-apply-combine'],
-        ['/en/docs/user_guide/timeseries', 'Time series / date functionality'],
-        ['/en/docs/user_guide/timedeltas', 'Time deltas'],
-        ['/en/docs/user_guide/style', 'Styling'],
-        ['/en/docs/user_guide/options', 'Options and settings'],
-        ['/en/docs/user_guide/enhancingperf', 'Enhancing performance'],
-        ['/en/docs/user_guide/sparse', 'Sparse data structures'],
-        ['/en/docs/user_guide/gotchas', 'Frequently Asked Questions (FAQ)'],
-        ['/en/docs/user_guide/cookbook', 'Cookbook']
-      ]
-    },
-    {
-      title: 'pandas Ecosystem',
+      title: '基础知识',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/en/docs/ecosystem', 'pandas Ecosystem']
+        ['/user/basics/types', '数据类型'],
+        ['/user/basics/creation', '创建数组'],
+        ['/user/basics/io', '输入输出'],
+        ['/user/basics/indexing', '索引'],
+        ['/user/basics/broadcasting', '广播'],
+        ['/user/basics/byteswapping', '字节交换'],
+        ['/user/basics/rec', '结构化数组'],
+        ['/user/basics/dispatch', '编写自定义数组容器'],
+        ['/user/basics/subclassing', '子类化ndarray']
       ]
     },
     {
-      title: 'API Reference',
+      title: '其他杂项',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/en/docs/reference', 'API Reference']
+        ['/user/miscellaneous', '其他杂项']
       ]
     },
     {
-      title: 'Development',
+      title: '与Matlab比较',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/en/docs/development/', 'Index']
+        ['/user/numpy_for_matlab_users', 'NumPy对于Matlab用户']
       ]
     },
     {
-      title: 'Release Notes',
+      title: '从源代码构建',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/en/docs/whatsnew/', 'Release Notes']
+        ['/user/building', '从源代码构建']
+      ]
+    },
+    {
+      title: '使用NumPy的C-API',
+      collapsable: true,
+      sidebarDepth: 3,
+      children: [
+        ['/user/c_info', '目录']
       ]
     }
   ]

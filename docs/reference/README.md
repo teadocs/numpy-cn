@@ -1,12 +1,8 @@
----
-sidebarDepth: 3
-sidebar: auto
----
-
 # NumPy Reference
 
 Release:	1.18.dev0
-Date:	August 01, 2019
+Date:	August 14, 2019
+
 This reference manual details functions, modules, and objects included in NumPy, describing what they are and what they do. For learning how to use NumPy, see also NumPy User Guide.
 
 Array objects

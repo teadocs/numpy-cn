@@ -128,7 +128,8 @@ module.exports = ctx => ({
         lastUpdated: '上次更新',
         nav: require('./nav/zh'),
         sidebar: {
-          '/user/': require('./sidebar/user_zh')()
+          '/user/': require('./sidebar/user_zh')(),
+          '/reference/': require('./sidebar/reference_zh')()
         }
       },
       '/en/': {
@@ -173,7 +174,9 @@ module.exports = ctx => ({
   extraWatchFiles: [
     '.vuepress/nav/en.js',
     '.vuepress/nav/zh.js',
-    '.vuepress/sidebar/en.js',
-    '.vuepress/sidebar/zh.js'
+    '.vuepress/sidebar/user_en.js',
+    '.vuepress/sidebar/user_zh.js',
+    '.vuepress/sidebar/reference_zh.js',
+    '.vuepress/sidebar/reference_zh.js'
   ]
 })

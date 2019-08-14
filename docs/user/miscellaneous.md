@@ -102,153 +102,69 @@ saw stupid error!
 Only a survey of the choices. Little detail on how each works.
 
 1. Bare metal, wrap your own C-code manually.
-
-- Plusses:
-Efficient
-No dependencies on other tools
-- Efficient
-- No dependencies on other tools
-- Minuses:
-Lots of learning overhead:
-need to learn basics of Python C API
-need to learn basics of numpy C API
-need to learn how to handle reference counting and love it.
-
-
-Reference counting often difficult to get right.
-getting it wrong leads to memory leaks, and worse, segfaults
-
-
-API will change for Python 3.0!
-- Lots of learning overhead:
-need to learn basics of Python C API
-need to learn basics of numpy C API
-need to learn how to handle reference counting and love it.
-- need to learn basics of Python C API
-- need to learn basics of numpy C API
-- need to learn how to handle reference counting and love it.
-- Reference counting often difficult to get right.
-getting it wrong leads to memory leaks, and worse, segfaults
-- getting it wrong leads to memory leaks, and worse, segfaults
-- API will change for Python 3.0!
-
+    - Plusses:
+      - Efficient
+      - No dependencies on other tools
+    - Minuses:
+      - Lots of learning overhead:
+        - need to learn basics of Python C API
+        - need to learn basics of numpy C API
+        - need to learn how to handle reference counting and love it.
+      - Reference counting often difficult to get right.
+        - getting it wrong leads to memory leaks, and worse, segfaults
+      - API will change for Python 3.0!
 1. Cython
-
-- Plusses:
-avoid learning C API’s
-no dealing with reference counting
-can code in pseudo python and generate C code
-can also interface to existing C code
-should shield you from changes to Python C api
-has become the de-facto standard within the scientific Python community
-fast indexing support for arrays
-- avoid learning C API’s
-- no dealing with reference counting
-- can code in pseudo python and generate C code
-- can also interface to existing C code
-- should shield you from changes to Python C api
-- has become the de-facto standard within the scientific Python community
-- fast indexing support for arrays
-- Minuses:
-Can write code in non-standard form which may become obsolete
-Not as flexible as manual wrapping
-- Can write code in non-standard form which may become obsolete
-- Not as flexible as manual wrapping
-
+    - Plusses:
+      - avoid learning C API’s
+      - no dealing with reference counting
+      - can code in pseudo python and generate C code
+      - can also interface to existing C code
+      - should shield you from changes to Python C api
+      - has become the de-facto standard within the scientific Python community
+      - fast indexing support for arrays
+    - Minuses:
+      - Can write code in non-standard form which may become obsolete
+      - Not as flexible as manual wrapping
 1. ctypes
-
-- Plusses:
-
-- part of Python standard library
-- good for interfacing to existing sharable libraries, particularly
-Windows DLLs
-- avoids API/reference counting issues
-- good numpy support: arrays have all these in their ctypes
-attribute:
-
-``` python
-a.ctypes.data              a.ctypes.get_strides
-a.ctypes.data_as           a.ctypes.shape
-a.ctypes.get_as_parameter  a.ctypes.shape_as
-a.ctypes.get_data          a.ctypes.strides
-a.ctypes.get_shape         a.ctypes.strides_as
-```
-- part of Python standard library
-- good for interfacing to existing sharable libraries, particularly
-Windows DLLs
-- avoids API/reference counting issues
-- good numpy support: arrays have all these in their ctypes
-attribute:
-
-``` python
-a.ctypes.data              a.ctypes.get_strides
-a.ctypes.data_as           a.ctypes.shape
-a.ctypes.get_as_parameter  a.ctypes.shape_as
-a.ctypes.get_data          a.ctypes.strides
-a.ctypes.get_shape         a.ctypes.strides_as
-```
-- Minuses:
-
-- can’t use for writing code to be turned into C extensions, only a wrapper
-tool.
-- 
-
+    - Plusses:
+      - part of Python standard library
+      - good for interfacing to existing sharable libraries, particularly Windows DLLs
+      - avoids API/reference counting issues
+      - good numpy support: arrays have all these in their ctypes attribute:
+      ``` python
+      a.ctypes.data              a.ctypes.get_strides
+      a.ctypes.data_as           a.ctypes.shape
+      a.ctypes.get_as_parameter  a.ctypes.shape_as
+      a.ctypes.get_data          a.ctypes.strides
+      a.ctypes.get_shape         a.ctypes.strides_as
+      ```
+    - Minuses:
+      - can’t use for writing code to be turned into C extensions, only a wrapper tool.
 1. SWIG (automatic wrapper generator)
-
-- Plusses:
-around a long time
-multiple scripting language support
-C++ support
-Good for wrapping large (many functions) existing C libraries
-- around a long time
-- multiple scripting language support
-- C++ support
-- Good for wrapping large (many functions) existing C libraries
-- Minuses:
-generates lots of code between Python and the C code
-can cause performance problems that are nearly impossible to optimize
-out
-interface files can be hard to write
-doesn’t necessarily avoid reference counting issues or needing to know
-API’s
-- generates lots of code between Python and the C code
-- can cause performance problems that are nearly impossible to optimize
-out
-- interface files can be hard to write
-- doesn’t necessarily avoid reference counting issues or needing to know
-API’s
-
+    - Plusses:
+      - around a long time
+      - multiple scripting language support
+      - C++ support
+      - Good for wrapping large (many functions) existing C libraries
+    - Minuses:
+      - generates lots of code between Python and the C code
+      - can cause performance problems that are nearly impossible to optimize out
+      - interface files can be hard to write
+      - doesn’t necessarily avoid reference counting issues or needing to know API’s
 1. scipy.weave
-
-- Plusses:
-can turn many numpy expressions into C code
-dynamic compiling and loading of generated C code
-can embed pure C code in Python module and have weave extract, generate
-interfaces and compile, etc.
-- can turn many numpy expressions into C code
-- dynamic compiling and loading of generated C code
-- can embed pure C code in Python module and have weave extract, generate
-interfaces and compile, etc.
-- Minuses:
-Future very uncertain: it’s the only part of Scipy not ported to Python 3
-and is effectively deprecated in favor of Cython.
-- Future very uncertain: it’s the only part of Scipy not ported to Python 3
-and is effectively deprecated in favor of Cython.
-
+    - Plusses:
+      - can turn many numpy expressions into C code
+      - dynamic compiling and loading of generated C code
+      - can embed pure C code in Python module and have weave extract, generate interfaces and compile, etc.
+    - Minuses:
+      - Future very uncertain: it’s the only part of Scipy not ported to Python 3 and is effectively deprecated in favor of Cython.
 1. Psyco
-
-- Plusses:
-Turns pure python into efficient machine code through jit-like
-optimizations
-very fast when it optimizes well
-- Turns pure python into efficient machine code through jit-like
-optimizations
-- very fast when it optimizes well
-- Minuses:
-Only on intel (windows?)
-Doesn’t do much for numpy?
-- Only on intel (windows?)
-- Doesn’t do much for numpy?
+    - Plusses:
+      - Turns pure python into efficient machine code through jit-like optimizations
+      - very fast when it optimizes well
+    - Minuses:
+      - Only on intel (windows?)
+      - Doesn’t do much for numpy?
 
 ## Interfacing to Fortran:
 
