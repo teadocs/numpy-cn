@@ -35,7 +35,6 @@ pointer for the platform. All the number types can be obtained
 using bit-width names as well.
 
 [[1]](#id1)However, array scalars are immutable, so none of the array scalar attributes are settable.
----
 
 ## Built-in scalar types
 

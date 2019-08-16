@@ -20,6 +20,8 @@ is referring to is taken care of by the *“base”* ndarray. ndarrays can
 also be views to memory owned by Python [``strings``](https://docs.python.org/dev/library/stdtypes.html#str) or
 objects implementing the ``buffer`` or [array](arrays.interface.html#arrays-interface) interfaces.
 
+**Example:**
+
 A 2-dimensional array of size 2 x 3, composed of 4-byte integer
 elements:
 
@@ -40,8 +42,7 @@ The array can be indexed using Python container-like syntax:
 >>> x[1, 2]
 ```
 
-For example [slicing](arrays.indexing.html#arrays-indexing) can produce views of
-the array:
+For example [slicing](arrays.indexing.html#arrays-indexing) can produce views of the array:
 
 ``` python
 >>>>>> y = x[:,1]
@@ -61,8 +62,10 @@ New arrays can be constructed using the routines detailed in
 [Array creation routines](routines.array-creation.html#routines-array-creation), and also by using the low-level
 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) constructor:
 
-[ndarray](generated/numpy.ndarray.html#numpy.ndarray)(shape[, dtype, buffer, offset, …]) | An array object represents a multidimensional, homogeneous array of fixed-size items.
+method | description
 ---|---
+[ndarray](generated/numpy.ndarray.html#numpy.ndarray)(shape[, dtype, buffer, offset, …]) | An array object represents a multidimensional, homogeneous array of fixed-size items.
+
 
 ## Indexing arrays
 
@@ -89,10 +92,11 @@ A segment of memory is inherently 1-dimensional, and there are many
 different schemes for arranging the items of an *N*-dimensional array
 in a 1-dimensional block. NumPy is flexible, and [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
 objects can accommodate any *strided indexing scheme*. In a strided
-scheme, the N-dimensional index 
-corresponds to the offset (in bytes):
+scheme, the N-dimensional index <img class="math" src="/static/images/math/edb5f8b6064d0edc2bc57a1714249e0eae1a33e3.svg" alt="(n_0, n_1, ..., n_{N-1})"/> corresponds to the offset (in bytes):
 
-
+<center>
+<img src="/static/images/math/1388948b609ce9a1d9ae0380d361628d6b385812.svg" alt="n_{\mathrm{offset}} = \sum_{k=0}^{N-1} s_k n_k"/>
+</center>
 
 from the beginning of the memory block associated with the
 array. Here,  are integers which specify the [``strides``](generated/numpy.ndarray.strides.html#numpy.ndarray.strides) of the array. The [column-major](https://numpy.org/devdocs/glossary.html#term-column-major) order (used,
@@ -100,9 +104,11 @@ for example, in the Fortran language and in *Matlab*) and
 [row-major](https://numpy.org/devdocs/glossary.html#term-row-major) order (used in C) schemes are just specific kinds of
 strided scheme, and correspond to memory that can be *addressed* by the strides:
 
+<center>
+<img src="/static/images/math/af328186eedd2e4200b34e0e6a31acae4dbc9d20.svg" alt="n_{\mathrm{offset}} = \sum_{k=0}^{N-1} s_k n_k"/>
+</center>
 
-
-where  *= self.shape[j]*.
+where <img class="math" src="/static/images/math/5e6cfb16a1d0565098e1a35072ef6fbfef092db3.svg" alt="d_j"/> *= self.shape[j]*.
 
 Both the C and Fortran orders are [contiguous](https://docs.python.org/dev/glossary.html#term-contiguous), *i.e.,*
 single-segment, memory layouts, in which every part of the
@@ -179,8 +185,9 @@ a new array. Information on each attribute is given below.
 The following attributes contain information about the memory layout
 of the array:
 
-[ndarray.flags](generated/numpy.ndarray.flags.html#numpy.ndarray.flags) | Information about the memory layout of the array.
+method | description
 ---|---
+[ndarray.flags](generated/numpy.ndarray.flags.html#numpy.ndarray.flags) | Information about the memory layout of the array.
 [ndarray.shape](generated/numpy.ndarray.shape.html#numpy.ndarray.shape) | Tuple of array dimensions.
 [ndarray.strides](generated/numpy.ndarray.strides.html#numpy.ndarray.strides) | Tuple of bytes to step in each dimension when traversing an array.
 [ndarray.ndim](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim) | Number of array dimensions.
@@ -201,13 +208,15 @@ of the array:
 The data type object associated with the array can be found in the
 [``dtype``](generated/numpy.ndarray.dtype.html#numpy.ndarray.dtype) attribute:
 
-[ndarray.dtype](generated/numpy.ndarray.dtype.html#numpy.ndarray.dtype) | Data-type of the array’s elements.
+method | description
 ---|---
+[ndarray.dtype](generated/numpy.ndarray.dtype.html#numpy.ndarray.dtype) | Data-type of the array’s elements.
 
 ### Other attributes
 
-[ndarray.T](generated/numpy.ndarray.T.html#numpy.ndarray.T) | The transposed array.
+method | description
 ---|---
+[ndarray.T](generated/numpy.ndarray.T.html#numpy.ndarray.T) | The transposed array.
 [ndarray.real](generated/numpy.ndarray.real.html#numpy.ndarray.real) | The real part of the array.
 [ndarray.imag](generated/numpy.ndarray.imag.html#numpy.ndarray.imag) | The imaginary part of the array.
 [ndarray.flat](generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | A 1-D iterator over the array.
@@ -221,14 +230,16 @@ The data type object associated with the array can be found in the
 
 :::
 
-[__array_interface__](arrays.interface.html#__array_interface__) | Python-side of the array interface
+method | description
 ---|---
-__array_struct__ | C-side of the array interface
+[\_\_array_interface__](arrays.interface.html#__array_interface__) | Python-side of the array interface
+\_\_array_struct__ | C-side of the array interface
 
 ### ``ctypes`` foreign function interface
 
-[ndarray.ctypes](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) | An object to simplify the interaction of the array with the ctypes module.
+method | description
 ---|---
+[ndarray.ctypes](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) | An object to simplify the interaction of the array with the ctypes module.
 
 ## Array methods
 
@@ -251,8 +262,9 @@ For the following methods there are also corresponding functions in
 
 ### Array conversion
 
-[ndarray.item](generated/numpy.ndarray.item.html#numpy.ndarray.item)(*args) | Copy an element of an array to a standard Python scalar and return it.
+method | description
 ---|---
+[ndarray.item](generated/numpy.ndarray.item.html#numpy.ndarray.item)(*args) | Copy an element of an array to a standard Python scalar and return it.
 [ndarray.tolist](generated/numpy.ndarray.tolist.html#numpy.ndarray.tolist)() | Return the array as an a.ndim-levels deep nested list of Python scalars.
 [ndarray.itemset](generated/numpy.ndarray.itemset.html#numpy.ndarray.itemset)(*args) | Insert scalar into an array (scalar is cast to array’s dtype, if possible)
 [ndarray.tostring](generated/numpy.ndarray.tostring.html#numpy.ndarray.tostring)([order]) | Construct Python bytes containing the raw data bytes in the array.
@@ -273,8 +285,9 @@ For the following methods there are also corresponding functions in
 For reshape, resize, and transpose, the single tuple argument may be
 replaced with ``n`` integers which will be interpreted as an n-tuple.
 
-[ndarray.reshape](generated/numpy.ndarray.reshape.html#numpy.ndarray.reshape)(shape[, order]) | Returns an array containing the same data with a new shape.
+method | description
 ---|---
+[ndarray.reshape](generated/numpy.ndarray.reshape.html#numpy.ndarray.reshape)(shape[, order]) | Returns an array containing the same data with a new shape.
 [ndarray.resize](generated/numpy.ndarray.resize.html#numpy.ndarray.resize)(new_shape[, refcheck]) | Change shape and size of array in-place.
 [ndarray.transpose](generated/numpy.ndarray.transpose.html#numpy.ndarray.transpose)(*axes) | Returns a view of the array with axes transposed.
 [ndarray.swapaxes](generated/numpy.ndarray.swapaxes.html#numpy.ndarray.swapaxes)(axis1, axis2) | Return a view of the array with axis1 and axis2 interchanged.
@@ -289,8 +302,9 @@ For array methods that take an *axis* keyword, it defaults to
 array. Any other value for *axis* represents the dimension along which
 the operation should proceed.
 
-[ndarray.take](generated/numpy.ndarray.take.html#numpy.ndarray.take)(indices[, axis, out, mode]) | Return an array formed from the elements of a at the given indices.
+method | description
 ---|---
+[ndarray.take](generated/numpy.ndarray.take.html#numpy.ndarray.take)(indices[, axis, out, mode]) | Return an array formed from the elements of a at the given indices.
 [ndarray.put](generated/numpy.ndarray.put.html#numpy.ndarray.put)(indices, values[, mode]) | Set a.flat[n] = values[n] for all n in indices.
 [ndarray.repeat](generated/numpy.ndarray.repeat.html#numpy.ndarray.repeat)(repeats[, axis]) | Repeat elements of an array.
 [ndarray.choose](generated/numpy.ndarray.choose.html#numpy.ndarray.choose)(choices[, out, mode]) | Use an index array to construct a new array from a set of choices.
@@ -359,8 +373,9 @@ argument must be an [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) an
 elements. It can have a different data type in which case casting will
 be performed.
 
-[ndarray.max](generated/numpy.ndarray.max.html#numpy.ndarray.max)([axis, out, keepdims, initial, …]) | Return the maximum along a given axis.
+method | description
 ---|---
+[ndarray.max](generated/numpy.ndarray.max.html#numpy.ndarray.max)([axis, out, keepdims, initial, …]) | Return the maximum along a given axis.
 [ndarray.argmax](generated/numpy.ndarray.argmax.html#numpy.ndarray.argmax)([axis, out]) | Return indices of the maximum values along the given axis.
 [ndarray.min](generated/numpy.ndarray.min.html#numpy.ndarray.min)([axis, out, keepdims, initial, …]) | Return the minimum along a given axis.
 [ndarray.argmin](generated/numpy.ndarray.argmin.html#numpy.ndarray.argmin)([axis, out]) | Return indices of the minimum values along the given axis of a.
@@ -394,8 +409,9 @@ more information, see the section on [Universal Functions](ufuncs.html#ufuncs).
 
 Comparison operators:
 
-[ndarray.__lt__](generated/numpy.ndarray.__lt__.html#numpy.ndarray.__lt__)(self, value, /) | Return self<value.
+method | description
 ---|---
+[ndarray.__lt__](generated/numpy.ndarray.__lt__.html#numpy.ndarray.__lt__)(self, value, /) | Return self<value.
 [ndarray.__le__](generated/numpy.ndarray.__le__.html#numpy.ndarray.__le__)(self, value, /) | Return self<=value.
 [ndarray.__gt__](generated/numpy.ndarray.__gt__.html#numpy.ndarray.__gt__)(self, value, /) | Return self>value.
 [ndarray.__ge__](generated/numpy.ndarray.__ge__.html#numpy.ndarray.__ge__)(self, value, /) | Return self>=value.
@@ -404,8 +420,9 @@ Comparison operators:
 
 Truth value of an array (``bool``):
 
-[ndarray.__bool__](generated/numpy.ndarray.__bool__.html#numpy.ndarray.__bool__)(self, /) | self != 0
+method | description
 ---|---
+[ndarray.__bool__](generated/numpy.ndarray.__bool__.html#numpy.ndarray.__bool__)(self, /) | self != 0
 
 ::: tip Note
 
@@ -421,16 +438,18 @@ to ``False``.)
 
 Unary operations:
 
-[ndarray.__neg__](generated/numpy.ndarray.__neg__.html#numpy.ndarray.__neg__)(self, /) | -self
+method | description
 ---|---
+[ndarray.__neg__](generated/numpy.ndarray.__neg__.html#numpy.ndarray.__neg__)(self, /) | -self
 [ndarray.__pos__](generated/numpy.ndarray.__pos__.html#numpy.ndarray.__pos__)(self, /) | +self
 [ndarray.__abs__](generated/numpy.ndarray.__abs__.html#numpy.ndarray.__abs__)(self) | 
 [ndarray.__invert__](generated/numpy.ndarray.__invert__.html#numpy.ndarray.__invert__)(self, /) | ~self
 
 Arithmetic:
 
-[ndarray.__add__](generated/numpy.ndarray.__add__.html#numpy.ndarray.__add__)(self, value, /) | Return self+value.
+method | description
 ---|---
+[ndarray.__add__](generated/numpy.ndarray.__add__.html#numpy.ndarray.__add__)(self, value, /) | Return self+value.
 [ndarray.__sub__](generated/numpy.ndarray.__sub__.html#numpy.ndarray.__sub__)(self, value, /) | Return self-value.
 [ndarray.__mul__](generated/numpy.ndarray.__mul__.html#numpy.ndarray.__mul__)(self, value, /) | Return self*value.
 [ndarray.__truediv__](generated/numpy.ndarray.__truediv__.html#numpy.ndarray.__truediv__)(self, value, /) | Return self/value.
@@ -460,8 +479,9 @@ for arrays can be modified using [``__array_ufunc__``](arrays.classes.html#numpy
 
 Arithmetic, in-place:
 
-[ndarray.__iadd__](generated/numpy.ndarray.__iadd__.html#numpy.ndarray.__iadd__)(self, value, /) | Return self+=value.
+method | description
 ---|---
+[ndarray.__iadd__](generated/numpy.ndarray.__iadd__.html#numpy.ndarray.__iadd__)(self, value, /) | Return self+=value.
 [ndarray.__isub__](generated/numpy.ndarray.__isub__.html#numpy.ndarray.__isub__)(self, value, /) | Return self-=value.
 [ndarray.__imul__](generated/numpy.ndarray.__imul__.html#numpy.ndarray.__imul__)(self, value, /) | Return self*=value.
 [ndarray.__itruediv__](generated/numpy.ndarray.__itruediv__.html#numpy.ndarray.__itruediv__)(self, value, /) | Return self/=value.
@@ -490,8 +510,9 @@ re-binds the name ``a`` to the result.
 
 Matrix Multiplication:
 
-[ndarray.__matmul__](generated/numpy.ndarray.__matmul__.html#numpy.ndarray.__matmul__)(self, value, /) | Return [self@value](mailto:self%40value).
+method | description
 ---|---
+[ndarray.__matmul__](generated/numpy.ndarray.__matmul__.html#numpy.ndarray.__matmul__)(self, value, /) | Return [self@value](mailto:self%40value).
 
 ::: tip Note
 
@@ -506,23 +527,26 @@ for testing purposes. Further documentation can be found in the
 
 For standard library functions:
 
-[ndarray.__copy__](generated/numpy.ndarray.__copy__.html#numpy.ndarray.__copy__)() | Used if [copy.copy](https://docs.python.org/dev/library/copy.html#copy.copy) is called on an array.
+method | description
 ---|---
+[ndarray.__copy__](generated/numpy.ndarray.__copy__.html#numpy.ndarray.__copy__)() | Used if [copy.copy](https://docs.python.org/dev/library/copy.html#copy.copy) is called on an array.
 [ndarray.__deepcopy__](generated/numpy.ndarray.__deepcopy__.html#numpy.ndarray.__deepcopy__)() | Used if [copy.deepcopy](https://docs.python.org/dev/library/copy.html#copy.deepcopy) is called on an array.
 [ndarray.__reduce__](generated/numpy.ndarray.__reduce__.html#numpy.ndarray.__reduce__)() | For pickling.
 [ndarray.__setstate__](generated/numpy.ndarray.__setstate__.html#numpy.ndarray.__setstate__)(state, /) | For unpickling.
 
 Basic customization:
 
-[ndarray.__new__](generated/numpy.ndarray.__new__.html#numpy.ndarray.__new__)(\*args, \*\*kwargs) | Create and return a new object.
+method | description
 ---|---
+[ndarray.__new__](generated/numpy.ndarray.__new__.html#numpy.ndarray.__new__)(\*args, \*\*kwargs) | Create and return a new object.
 [ndarray.__array__](generated/numpy.ndarray.__array__.html#numpy.ndarray.__array__)() | Returns either a new reference to self if dtype is not given or a new array of provided data type if dtype is different from the current dtype of the array.
 [ndarray.__array_wrap__](generated/numpy.ndarray.__array_wrap__.html#numpy.ndarray.__array_wrap__)() | 
 
 Container customization: (see [Indexing](arrays.indexing.html#arrays-indexing))
 
-[ndarray.__len__](generated/numpy.ndarray.__len__.html#numpy.ndarray.__len__)(self, /) | Return len(self).
+method | description
 ---|---
+[ndarray.__len__](generated/numpy.ndarray.__len__.html#numpy.ndarray.__len__)(self, /) | Return len(self).
 [ndarray.__getitem__](generated/numpy.ndarray.__getitem__.html#numpy.ndarray.__getitem__)(self, key, /) | Return self[key].
 [ndarray.__setitem__](generated/numpy.ndarray.__setitem__.html#numpy.ndarray.__setitem__)(self, key, value, /) | Set self[key] to value.
 [ndarray.__contains__](generated/numpy.ndarray.__contains__.html#numpy.ndarray.__contains__)(self, key, /) | Return key in self.
@@ -532,13 +556,15 @@ Conversion; the operations ``int``, ``float`` and
 . They work only on arrays that have one element in them
 and return the appropriate scalar.
 
-[ndarray.__int__](generated/numpy.ndarray.__int__.html#numpy.ndarray.__int__)(self) | 
+method | description
 ---|---
-[ndarray.__float__](generated/numpy.ndarray.__float__.html#numpy.ndarray.__float__)(self) | 
-[ndarray.__complex__](generated/numpy.ndarray.__complex__.html#numpy.ndarray.__complex__)() | 
+[ndarray.__int__](generated/numpy.ndarray.__int__.html#numpy.ndarray.__int__)(self) | none
+[ndarray.__float__](generated/numpy.ndarray.__float__.html#numpy.ndarray.__float__)(self) | none
+[ndarray.__complex__](generated/numpy.ndarray.__complex__.html#numpy.ndarray.__complex__)() | none
 
 String representations:
 
-[ndarray.__str__](generated/numpy.ndarray.__str__.html#numpy.ndarray.__str__)(self, /) | Return str(self).
+method | description
 ---|---
+[ndarray.__str__](generated/numpy.ndarray.__str__.html#numpy.ndarray.__str__)(self, /) | Return str(self).
 [ndarray.__repr__](generated/numpy.ndarray.__repr__.html#numpy.ndarray.__repr__)(self, /) | Return repr(self).

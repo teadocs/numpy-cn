@@ -6,6 +6,7 @@ module.exports = function () {
     children: [
       ['/reference/arrays/', '目录'],
       ['/reference/arrays/ndarray', 'N维数组(ndarray)'],
+      ['/reference/arrays/scalars', 'Scalars'],
       ['/reference/arrays/dtypes', 'Data type objects (dtype)'],
       ['/reference/arrays/indexing', 'Indexing'],
       ['/reference/arrays/nditer', 'Iterating Over Arrays'],
