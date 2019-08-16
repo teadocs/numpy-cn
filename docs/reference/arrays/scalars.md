@@ -99,8 +99,9 @@ bool8 | 8 bits |  
 
 Integers:
 
-byte | compatible: C char | 'b'
+Type | Remarks | Character code
 ---|---|---
+byte | compatible: C char | 'b'
 short | compatible: C short | 'h'
 intc | compatible: C int | 'i'
 int_ | compatible: Python int | 'l'
@@ -113,8 +114,9 @@ int64 | 64 bits |  
 
 Unsigned integers:
 
-ubyte | compatible: C unsigned char | 'B'
+Type | Remarks | Character code
 ---|---|---
+ubyte | compatible: C unsigned char | 'B'
 ushort | compatible: C unsigned short | 'H'
 uintc | compatible: C unsigned int | 'I'
 uint | compatible: Python int | 'L'
@@ -127,8 +129,9 @@ uint64 | 64 bits |  
 
 Floating-point numbers:
 
-half |   | 'e'
+Type | Remarks | Character code
 ---|---|---
+half |   | 'e'
 single | compatible: C float | 'f'
 double | compatible: C double |  
 float_ | compatible: Python float | 'd'
@@ -141,8 +144,9 @@ float128 | 128 bits, platform? |  
 
 Complex floating-point numbers:
 
-csingle |   | 'F'
+Type | Remarks | Character code
 ---|---|---
+csingle |   | 'F'
 complex_ | compatible: Python complex | 'D'
 clongfloat |   | 'G'
 complex64 | two 32-bit floats |  
@@ -152,8 +156,9 @@ complex256 | two 128-bit floats, platform? |  
 
 Any Python object:
 
-object_ | any Python object | 'O'
+Type | Remarks | Character code
 ---|---|---
+object_ | any Python object | 'O'
 
 ::: tip Note
 
@@ -175,8 +180,9 @@ size and the data they describe can be of different length in different
 arrays. (In the character codes ``#`` is an integer denoting how many
 elements the data type consists of.)
 
-bytes_ | compatible: Python bytes | 'S#'
+Type | Remarks | Character code
 ---|---|---
+bytes_ | compatible: Python bytes | 'S#'
 unicode_ | compatible: Python unicode/str | 'U#'
 void |   | 'V#'
 
@@ -200,8 +206,9 @@ The array scalar objects have an ``array priority`` of [``NPY_SCALAR_PRIORITY``]
 (-1,000,000.0). They also do not (yet) have a [``ctypes``](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes)
 attribute. Otherwise, they share the same attributes as arrays:
 
-[generic.flags](generated/numpy.generic.flags.html#numpy.generic.flags) | integer value of flags
+method | description
 ---|---
+[generic.flags](generated/numpy.generic.flags.html#numpy.generic.flags) | integer value of flags
 [generic.shape](generated/numpy.generic.shape.html#numpy.generic.shape) | tuple of array dimensions
 [generic.strides](generated/numpy.generic.strides.html#numpy.generic.strides) | tuple of bytes steps in each dimension
 [generic.ndim](generated/numpy.generic.ndim.html#numpy.generic.ndim) | number of array dimensions
@@ -247,8 +254,9 @@ also carries over to the math on array scalars.
 
 The exceptions to the above rules are given below:
 
-[generic](generated/numpy.generic.html#numpy.generic) | Base class for numpy scalar types.
+method | description
 ---|---
+[generic](generated/numpy.generic.html#numpy.generic) | Base class for numpy scalar types.
 [generic.__array__](generated/numpy.generic.__array__.html#numpy.generic.__array__)() | sc.__array__(dtype) return 0-dim array from scalar with specified dtype
 [generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc.__array_wrap__(obj) return scalar from array
 [generic.squeeze](generated/numpy.generic.squeeze.html#numpy.generic.squeeze)() | Not implemented (virtual attribute)

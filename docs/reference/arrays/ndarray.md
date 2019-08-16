@@ -26,7 +26,7 @@ A 2-dimensional array of size 2 x 3, composed of 4-byte integer
 elements:
 
 ``` python
->>>>>> x = np.array([[1, 2, 3], [4, 5, 6]], np.int32)
+>>> x = np.array([[1, 2, 3], [4, 5, 6]], np.int32)
 >>> type(x)
 <type 'numpy.ndarray'>
 >>> x.shape
@@ -38,14 +38,14 @@ dtype('int32')
 The array can be indexed using Python container-like syntax:
 
 ``` python
->>>>>> # The element of x in the *second* row, *third* column, namely, 6.
+>>> # The element of x in the *second* row, *third* column, namely, 6.
 >>> x[1, 2]
 ```
 
 For example [slicing](arrays.indexing.html#arrays-indexing) can produce views of the array:
 
 ``` python
->>>>>> y = x[:,1]
+>>> y = x[:,1]
 >>> y
 array([2, 5])
 >>> y[0] = 9 # this also changes the corresponding element in x
@@ -334,7 +334,7 @@ A 3-dimensional array of size 3 x 3 x 3, summed over each of its
 three axes
 
 ``` python
->>>>>> x
+>>> x
 array([[[ 0,  1,  2],
         [ 3,  4,  5],
         [ 6,  7,  8]],

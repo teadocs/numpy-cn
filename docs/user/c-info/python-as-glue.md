@@ -164,7 +164,7 @@ add (zadd, cadd, dadd, sadd). The docstring of each method contains
 information about how the module method may be called:
 
 ``` python
->>>>>> import add
+>>> import add
 >>> print add.zadd.__doc__
 zadd - Function signature:
   zadd(a,b,c,n)
@@ -187,7 +187,7 @@ should really match the array sizes), it is possible to abuse this
 function in ways that can cause Python to crash. For example:
 
 ``` python
->>>>>> add.zadd([1,2,3], [1,2], [3,4], 1000)
+>>> add.zadd([1,2,3], [1,2], [3,4], 1000)
 ```
 
 will cause a program crash on most systems. Under the covers, the
@@ -248,7 +248,7 @@ f2py -c add.pyf add.f95
 The new interface has docstring:
 
 ``` python
->>>>>> import add
+>>> import add
 >>> print add.zadd.__doc__
 zadd - Function signature:
   c = zadd(a,b)
@@ -262,7 +262,7 @@ Return objects:
 Now, the function can be called in a much more robust way:
 
 ``` python
->>>>>> add.zadd([1,2,3],[4,5,6])
+>>> add.zadd([1,2,3],[4,5,6])
 array([ 5.+0.j,  7.+0.j,  9.+0.j])
 ```
 

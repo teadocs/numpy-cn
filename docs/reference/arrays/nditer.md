@@ -16,7 +16,7 @@ visit every element of an array. Each element is provided one by one
 using the standard Python iterator interface.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a):
 ...     print(x, end=' ')
 ...
@@ -32,7 +32,7 @@ over the transpose of our previous array, compared to taking a copy
 of that transpose in C order.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a.T):
 ...     print(x, end=' ')
 ...
@@ -40,7 +40,7 @@ of that transpose in C order.
 ```
 
 ``` python
->>>>>> for x in np.nditer(a.T.copy(order='C')):
+>>> for x in np.nditer(a.T.copy(order='C')):
 ...     print(x, end=' ')
 ...
 0 3 1 4 2 5
@@ -61,7 +61,7 @@ is order=’K’ to keep the existing order. This can be overridden with
 order=’C’ for C order and order=’F’ for Fortran order.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a, order='F'):
 ...     print(x, end=' ')
 ...
@@ -93,7 +93,7 @@ The nditer can no longer be iterated once either *close* is called or its
 context is exited.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> a
 array([[0, 1, 2],
        [3, 4, 5]])
@@ -126,7 +126,7 @@ when forcing Fortran order, it has to provide three chunks of two
 elements each.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a, flags=['external_loop']):
 ...     print(x, end=' ')
 ...
@@ -134,7 +134,7 @@ elements each.
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['external_loop'], order='F'):
+>>> for x in np.nditer(a, flags=['external_loop'], order='F'):
 ...     print(x, end=' ')
 ...
 [0 3] [1 4] [2 5]
@@ -161,7 +161,7 @@ loop. We have modified the output in the examples using this looping
 construct in order to be more readable.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> it = np.nditer(a, flags=['f_index'])
 >>> while not it.finished:
 ...     print("%d <%d>" % (it[0], it.index), end=' ')
@@ -171,7 +171,7 @@ construct in order to be more readable.
 ```
 
 ``` python
->>>>>> it = np.nditer(a, flags=['multi_index'])
+>>> it = np.nditer(a, flags=['multi_index'])
 >>> while not it.finished:
 ...     print("%d <%s>" % (it[0], it.multi_index), end=' ')
 ...     it.iternext()
@@ -180,7 +180,7 @@ construct in order to be more readable.
 ```
 
 ``` python
->>>>>> it = np.nditer(a, flags=['multi_index'], op_flags=['writeonly'])
+>>> it = np.nditer(a, flags=['multi_index'], op_flags=['writeonly'])
 >>> with it:
 ....    while not it.finished:
 ...         it[0] = it.multi_index[1] - it.multi_index[0]
@@ -197,7 +197,7 @@ you try to combine these flags, the [``nditer``](generated/numpy.nditer.html#num
 raise an exception
 
 ``` python
->>>>>> a = np.zeros((2,3))
+>>> a = np.zeros((2,3))
 >>> it = np.nditer(a, flags=['c_index', 'external_loop'])
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -219,7 +219,7 @@ the inner loop gets to see all the elements in one go when buffering
 is enabled.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a, flags=['external_loop'], order='F'):
 ...     print(x, end=' ')
 ...
@@ -227,7 +227,7 @@ is enabled.
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['external_loop','buffered'], order='F'):
+>>> for x in np.nditer(a, flags=['external_loop','buffered'], order='F'):
 ...     print(x, end=' ')
 ...
 [0 3 1 4 2 5]
@@ -262,7 +262,7 @@ copies or buffering mode, the iterator will raise an exception if the
 data type doesn’t match precisely.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3) - 3
+>>> a = np.arange(6).reshape(2,3) - 3
 >>> for x in np.nditer(a, op_dtypes=['complex128']):
 ...     print(np.sqrt(x), end=' ')
 ...
@@ -276,7 +276,7 @@ done to provide control in a per-operand fashion. Buffering mode is
 specified as an iterator flag.
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3) - 3
+>>> a = np.arange(6).reshape(2,3) - 3
 >>> for x in np.nditer(a, op_flags=['readonly','copy'],
 ...                 op_dtypes=['complex128']):
 ...     print(np.sqrt(x), end=' ')
@@ -285,7 +285,7 @@ specified as an iterator flag.
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['complex128']):
+>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['complex128']):
 ...     print(np.sqrt(x), end=' ')
 ...
 1.73205080757j 1.41421356237j 1j 0j (1+0j) (1.41421356237+0j)
@@ -300,7 +300,7 @@ conversion from 64 to 32-bit float, but not from float to int or from
 complex to float.
 
 ``` python
->>>>>> a = np.arange(6.)
+>>> a = np.arange(6.)
 >>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['float32']):
 ...     print(x, end=' ')
 ...
@@ -310,7 +310,7 @@ TypeError: Iterator operand 0 dtype could not be cast from dtype('float64') to d
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['float32'],
+>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['float32'],
 ...                 casting='same_kind'):
 ...     print(x, end=' ')
 ...
@@ -318,7 +318,7 @@ TypeError: Iterator operand 0 dtype could not be cast from dtype('float64') to d
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['int32'], casting='same_kind'):
+>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['int32'], casting='same_kind'):
 ...     print(x, end=' ')
 ...
 Traceback (most recent call last):
@@ -335,7 +335,7 @@ mode will raise an exception because conversion back to the array
 would violate the casting rule.
 
 ``` python
->>>>>> a = np.arange(6)
+>>> a = np.arange(6)
 >>> for x in np.nditer(a, flags=['buffered'], op_flags=['readwrite'],
 ...                 op_dtypes=['float64'], casting='same_kind'):
 ...     x[...] = x / 2.0
@@ -357,7 +357,7 @@ As an example, we print out the result of broadcasting a one and
 a two dimensional array together.
 
 ``` python
->>>>>> a = np.arange(3)
+>>> a = np.arange(3)
 >>> b = np.arange(6).reshape(2,3)
 >>> for x, y in np.nditer([a,b]):
 ...     print("%d:%d" % (x,y), end=' ')
@@ -369,7 +369,7 @@ When a broadcasting error occurs, the iterator raises an exception
 which includes the input shapes to help diagnose the problem.
 
 ``` python
->>>>>> a = np.arange(2)
+>>> a = np.arange(2)
 >>> b = np.arange(6).reshape(2,3)
 >>> for x, y in np.nditer([a,b]):
 ...     print("%d:%d" % (x,y), end=' ')
@@ -392,7 +392,7 @@ its input. Let’s start with a minimal function definition excluding ‘out’
 parameter support.
 
 ``` python
->>>>>> def square(a):
+>>> def square(a):
 ...     with np.nditer([a, None]) as it:
 ...         for x, y in it:
 ...             y[...] = x*x
@@ -429,7 +429,7 @@ flags, as these are what you will typically want for performance
 reasons.
 
 ``` python
->>>>>> def square(a, out=None):
+>>> def square(a, out=None):
 ...     it = np.nditer([a, out],
 ...             flags = ['external_loop', 'buffered'],
 ...             op_flags = [['readonly'],
@@ -442,12 +442,12 @@ reasons.
 ```
 
 ``` python
->>>>>> square([1,2,3])
+>>> square([1,2,3])
 array([1, 4, 9])
 ```
 
 ``` python
->>>>>> b = np.zeros((3,))
+>>> b = np.zeros((3,))
 >>> square([1,2,3], out=b)
 array([ 1.,  4.,  9.])
 >>> b
@@ -455,7 +455,7 @@ array([ 1.,  4.,  9.])
 ```
 
 ``` python
->>>>>> square(np.arange(6).reshape(2,3), out=b)
+>>> square(np.arange(6).reshape(2,3), out=b)
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   File "<stdin>", line 4, in square
@@ -490,7 +490,7 @@ The operation in the inner loop is a straightforward multiplication.
 Everything to do with the outer product is handled by the iterator setup.
 
 ``` python
->>>>>> a = np.arange(3)
+>>> a = np.arange(3)
 >>> b = np.arange(8).reshape(2,4)
 >>> it = np.nditer([a, b, None], flags=['external_loop'],
 ...             op_axes=[[0, -1, -1], [-1, 0, 1], None])
@@ -521,7 +521,7 @@ reductions when ‘reduce_ok’ is provided as an iterator flag.
 For a simple example, consider taking the sum of all elements in an array.
 
 ``` python
->>>>>> a = np.arange(24).reshape(2,3,4)
+>>> a = np.arange(24).reshape(2,3,4)
 >>> b = np.array(0)
 >>> with np.nditer([a, b], flags=['reduce_ok', 'external_loop'],
 ...                     op_flags=[['readonly'], ['readwrite']]) as it:
@@ -540,7 +540,7 @@ initialized to its starting values. Here’s how we can do this, taking
 sums along the last axis of *a*.
 
 ``` python
->>>>>> a = np.arange(24).reshape(2,3,4)
+>>> a = np.arange(24).reshape(2,3,4)
 >>> it = np.nditer([a, None], flags=['reduce_ok', 'external_loop'],
 ...             op_flags=[['readonly'], ['readwrite', 'allocate']],
 ...             op_axes=[None, [0,1,-1]])
@@ -574,7 +574,7 @@ iteration. Here’s how the previous example looks if we also enable
 buffering.
 
 ``` python
->>>>>> a = np.arange(24).reshape(2,3,4)
+>>> a = np.arange(24).reshape(2,3,4)
 >>> it = np.nditer([a, None], flags=['reduce_ok', 'external_loop',
 ...                                  'buffered', 'delay_bufalloc'],
 ...             op_flags=[['readonly'], ['readwrite', 'allocate']],
@@ -608,7 +608,7 @@ so we will need to construct a list for the *op_axes* parameter.
 Here’s how this looks.
 
 ``` python
->>>>>> def axis_to_axeslist(axis, ndim):
+>>> def axis_to_axeslist(axis, ndim):
 ...     if axis is None:
 ...         return [-1] * ndim
 ...     else:
@@ -712,7 +712,7 @@ Running this from the Python interpreter produces the same answers
 as our native Python/NumPy code did.
 
 ``` python
->>>>>> from sum_squares import sum_squares_cy
+>>> from sum_squares import sum_squares_cy
 >>> a = np.arange(6).reshape(2,3)
 >>> sum_squares_cy(a)
 array(55.0)
@@ -726,7 +726,7 @@ speedup over both the straightforward Python code and an expression
 using NumPy’s built-in sum function.:
 
 ``` python
->>>>>> a = np.random.rand(1000,1000)
+>>> a = np.random.rand(1000,1000)
 
 >>> timeit sum_squares_py(a, axis=-1)
 10 loops, best of 3: 37.1 ms per loop

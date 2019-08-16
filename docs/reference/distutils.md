@@ -58,7 +58,7 @@ setup function.
 Examples
 
 ``` python
->>>>>> setup(**config.todict())                           #doctest: +SKIP
+>>> setup(**config.todict())                           #doctest: +SKIP
 ```
 
 
@@ -171,7 +171,7 @@ Examples
 Add files to the list of data_files to be included with the package.
 
 ``` python
->>>>>> self.add_data_files('foo.dat',
+>>> self.add_data_files('foo.dat',
 ...     ('fun', ['gun.dat', 'nun/pun.dat', '/tmp/sun.dat']),
 ...     'bar/cat.dat',
 ...     '/full/path/to/can.dat')                   #doctest: +SKIP
@@ -239,7 +239,7 @@ For example suppose the source directory contains fun/foo.dat and
 fun/bar/car.dat:
 
 ``` python
->>>>>> self.add_data_dir('fun')                       #doctest: +SKIP
+>>> self.add_data_dir('fun')                       #doctest: +SKIP
 >>> self.add_data_dir(('sun', 'fun'))              #doctest: +SKIP
 >>> self.add_data_dir(('gun', '/full/path/to/fun'))#doctest: +SKIP
 ```
@@ -611,7 +611,7 @@ install the C library, you just use the method *add_installed_library* instead o
 ``install_dir`` argument:
 
 ``` python
->>>>>> config.add_installed_library('foo', sources=['foo.c'], install_dir='lib')
+>>> config.add_installed_library('foo', sources=['foo.c'], install_dir='lib')
 ```
 
 ### npy-pkg-config files
@@ -661,7 +661,7 @@ libs = -L${libdir} -lfoo
 and the following code in setup.py:
 
 ``` python
->>>>>> config.add_installed_library('foo', sources=['foo.c'], install_dir='lib')
+>>> config.add_installed_library('foo', sources=['foo.c'], install_dir='lib')
 >>> subst = {'version': '1.0'}
 >>> config.add_npy_pkg_config('foo.ini.in', 'lib', subst_dict=subst)
 ```
@@ -680,7 +680,7 @@ Info are easily retrieved from the *get_info* function in
 [``numpy.distutils.misc_util``](#module-numpy.distutils.misc_util):
 
 ``` python
->>>>>> info = get_info('npymath')
+>>> info = get_info('npymath')
 >>> config.add_extension('foo', sources=['foo.c'], extra_info=**info)
 ```
 

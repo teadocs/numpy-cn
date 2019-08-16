@@ -39,7 +39,7 @@ IEEE 754), all of the logit functions created below
 automatically have the following behavior.
 
 ``` python
->>>>>> logit(0)
+>>> logit(0)
 -inf
 >>> logit(1)
 inf
@@ -204,7 +204,7 @@ the spam library or spam has been installed, one can perform the
 following commands:
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> import spam
 >>> spam.logit(0)
 -inf
@@ -412,7 +412,7 @@ if __name__ == "__main__":
 After the above has been installed, it can be imported and used as follows.
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> import npufunc
 >>> npufunc.logit(0.5)
 0.0
@@ -690,7 +690,7 @@ if __name__ == "__main__":
 After the above has been installed, it can be imported and used as follows.
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> import npufunc
 >>> npufunc.logit(0.5)
 0.0

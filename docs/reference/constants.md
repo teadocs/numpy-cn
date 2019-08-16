@@ -69,7 +69,7 @@ infinity is equivalent to positive infinity.
 Examples
 
 ``` python
->>>>>> np.NINF
+>>> np.NINF
 -inf
 >>> np.log(0)
 -inf
@@ -106,14 +106,14 @@ NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
 Examples
 
 ``` python
->>>>>> np.NZERO
+>>> np.NZERO
 -0.0
 >>> np.PZERO
 0.0
 ```
 
 ``` python
->>>>>> np.isfinite([np.NZERO])
+>>> np.isfinite([np.NZERO])
 array([ True])
 >>> np.isnan([np.NZERO])
 array([False])
@@ -176,14 +176,14 @@ NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
 Examples
 
 ``` python
->>>>>> np.PZERO
+>>> np.PZERO
 0.0
 >>> np.NZERO
 -0.0
 ```
 
 ``` python
->>>>>> np.isfinite([np.PZERO])
+>>> np.isfinite([np.PZERO])
 array([ True])
 >>> np.isnan([np.PZERO])
 array([False])
@@ -250,7 +250,7 @@ infinity is equivalent to positive infinity.
 Examples
 
 ``` python
->>>>>> np.inf
+>>> np.inf
 inf
 >>> np.array([1]) / 0.
 array([ Inf])
@@ -294,7 +294,7 @@ NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
 Examples
 
 ``` python
->>>>>> np.nan
+>>> np.nan
 nan
 >>> np.log(-1)
 nan
@@ -314,7 +314,7 @@ See Also
 Examples
 
 ``` python
->>>>>> newaxis is None
+>>> newaxis is None
 True
 >>> x = np.arange(3)
 >>> x
@@ -336,7 +336,7 @@ array([[0, 0, 0],
 Outer product, same as ``outer(x, y)``:
 
 ``` python
->>>>>> y = np.arange(3, 6)
+>>> y = np.arange(3, 6)
 >>> x[:, newaxis] * y
 array([[ 0,  0,  0],
 [ 3,  4,  5],
@@ -346,7 +346,7 @@ array([[ 0,  0,  0],
 ``x[newaxis, :]`` is equivalent to ``x[newaxis]`` and ``x[None]``:
 
 ``` python
->>>>>> x[newaxis, :].shape
+>>> x[newaxis, :].shape
 (1, 3)
 >>> x[newaxis].shape
 (1, 3)

@@ -176,7 +176,7 @@ If a given array does not satisfy the specified restrictions.
 Examples
 
 ``` python
->>>>>> clib.somefunc.argtypes = [np.ctypeslib.ndpointer(dtype=np.float64,
+>>> clib.somefunc.argtypes = [np.ctypeslib.ndpointer(dtype=np.float64,
 ...                                                  ndim=1,
 ...                                                  flags='C_CONTIGUOUS')]
 ... #doctest: +SKIP

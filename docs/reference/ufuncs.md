@@ -178,7 +178,7 @@ can generate this table for your system with the code given in the Figure.
 Code segment showing the “can cast safely” table for a 32-bit system.
 
 ``` python
->>>>>> def print_table(ntypes):
+>>> def print_table(ntypes):
 ...     print 'X',
 ...     for char in ntypes: print char,
 ...     print

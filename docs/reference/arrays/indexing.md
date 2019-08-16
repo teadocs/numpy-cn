@@ -71,7 +71,7 @@ obtained by dividing *j - i* by *k*: *j - i = q k + r*, so that
 *i + (m - 1) k < j*.
 
 ``` python
->>>>>> x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+>>> x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 >>> x[1:7:2]
 array([1, 3, 5])
 ```
@@ -80,7 +80,7 @@ array([1, 3, 5])
 Negative *k* makes stepping go towards smaller indices.
 
 ``` python
->>>>>> x[-2:10]
+>>> x[-2:10]
 array([8, 9])
 >>> x[-3:3:-1]
 array([7, 6, 5, 4])
@@ -93,14 +93,14 @@ and *-n-1* for *k < 0* . If *k* is not given it defaults to 1. Note that
 axis.
 
 ``` python
->>>>>> x[5:]
+>>> x[5:]
 array([5, 6, 7, 8, 9])
 ```
 - If the number of objects in the selection tuple is less than
 *N* , then ``:`` is assumed for any subsequent dimensions.
 
 ``` python
->>>>>> x = np.array([[[1],[2],[3]], [[4],[5],[6]]])
+>>> x = np.array([[[1],[2],[3]], [[4],[5],[6]]])
 >>> x.shape
 (2, 3, 1)
 >>> x[1:2]
@@ -114,7 +114,7 @@ length of the expanded selection tuple is ``x.ndim``. There may only be a
 single ellipsis present.
 
 ``` python
->>>>>> x[...,0]
+>>> x[...,0]
 array([[1, 2, 3],
        [4, 5, 6]])
 ```
@@ -124,7 +124,7 @@ dimension.  The added dimension is the position of the [``newaxis``](constants.h
 object in the selection tuple.
 
 ``` python
->>>>>> x[:,np.newaxis,:,:].shape
+>>> x[:,np.newaxis,:,:].shape
 (2, 1, 3, 1)
 ```
 - An integer, *i*, returns the same values as ``i:i+1``
@@ -228,7 +228,7 @@ corresponding row, here ``[0, 1, 0]``. Using both together the task
 can be solved using advanced indexing:
 
 ``` python
->>>>>> x = np.array([[1, 2], [3, 4], [5, 6]])
+>>> x = np.array([[1, 2], [3, 4], [5, 6]])
 >>> x[[0, 1, 2], [0, 1, 0]]
 array([1, 4, 5])
 ```
@@ -244,7 +244,7 @@ one needs to select all elements *explicitly*. Using the method explained
 previously one could write:
 
 ``` python
->>>>>> x = array([[ 0,  1,  2],
+>>> x = array([[ 0,  1,  2],
 ...            [ 3,  4,  5],
 ...            [ 6,  7,  8],
 ...            [ 9, 10, 11]])
@@ -262,7 +262,7 @@ broadcasting can be used (compare operations such as
 ``rows[:, np.newaxis] + columns``) to simplify this:
 
 ``` python
->>>>>> rows = np.array([0, 3], dtype=np.intp)
+>>> rows = np.array([0, 3], dtype=np.intp)
 >>> columns = np.array([0, 2], dtype=np.intp)
 >>> rows[:, np.newaxis]
 array([[0],
@@ -275,7 +275,7 @@ array([[ 0,  2],
 This broadcasting can also be achieved using the function [``ix_``](generated/numpy.ix_.html#numpy.ix_):
 
 ``` python
->>>>>> x[np.ix_(rows, columns)]
+>>> x[np.ix_(rows, columns)]
 array([[ 0,  2],
        [ 9, 11]])
 ```
@@ -298,7 +298,7 @@ the same, however, it is a copy and may have a different memory layout.
 A slice is preferable when it is possible.
 
 ``` python
->>>>>> x[1:2, 1:3]
+>>> x[1:2, 1:3]
 array([[4, 5]])
 >>> x[1:2, [1, 2]]
 array([[4, 5]])
@@ -366,7 +366,7 @@ For example one may wish to select all entries from an array which
 are not NaN:
 
 ``` python
->>>>>> x = np.array([[1., 2.], [np.nan, 3.], [np.nan, np.nan]])
+>>> x = np.array([[1., 2.], [np.nan, 3.], [np.nan, np.nan]])
 >>> x[~np.isnan(x)]
 array([ 1.,  2.,  3.])
 ```
@@ -374,7 +374,7 @@ array([ 1.,  2.,  3.])
 Or wish to add a constant to all negative elements:
 
 ``` python
->>>>>> x = np.array([1., -1., -2., 3])
+>>> x = np.array([1., -1., -2., 3])
 >>> x[x < 0] += 20
 >>> x
 array([  1.,  19.,  18.,   3.])
@@ -394,7 +394,7 @@ with.
 From an array, select all rows which sum up to less or equal two:
 
 ``` python
->>>>>> x = np.array([[0, 1], [1, 1], [2, 2]])
+>>> x = np.array([[0, 1], [1, 1], [2, 2]])
 >>> rowsum = x.sum(-1)
 >>> x[rowsum <= 2, :]
 array([[0, 1],
@@ -404,7 +404,7 @@ array([[0, 1],
 But if ``rowsum`` would have two dimensions as well:
 
 ``` python
->>>>>> rowsum = x.sum(-1, keepdims=True)
+>>> rowsum = x.sum(-1, keepdims=True)
 >>> rowsum.shape
 (3, 1)
 >>> x[rowsum <= 2, :]    # fails
@@ -427,7 +427,7 @@ advanced integer index. Using the [``ix_``](generated/numpy.ix_.html#numpy.ix_) 
 with:
 
 ``` python
->>>>>> x = array([[ 0,  1,  2],
+>>> x = array([[ 0,  1,  2],
 ...            [ 3,  4,  5],
 ...            [ 6,  7,  8],
 ...            [ 9, 10, 11]])
@@ -446,7 +446,7 @@ selected.
 Or without ``np.ix_`` (compare the integer array examples):
 
 ``` python
->>>>>> rows = rows.nonzero()[0]
+>>> rows = rows.nonzero()[0]
 >>> x[rows[:, np.newaxis], columns]
 array([[ 3,  5],
        [ 9, 11]])
@@ -520,7 +520,7 @@ If the accessed field is a sub-array, the dimensions of the sub-array
 are appended to the shape of the result.
 
 ``` python
->>>>>> x = np.zeros((2,2), dtype=[('a', np.int32), ('b', np.float64, (3,3))])
+>>> x = np.zeros((2,2), dtype=[('a', np.int32), ('b', np.float64, (3,3))])
 >>> x['a'].shape
 (2, 2)
 >>> x['a'].dtype
