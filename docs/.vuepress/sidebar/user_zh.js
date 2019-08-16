@@ -61,7 +61,11 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/c_info', '目录']
+        ['/user/c-info/', '目录'],
+        ['/user/c-info/how-to-extend', 'How to extend NumPy'],
+        ['/user/c-info/python-as-glue', 'Using Python as glue'],
+        ['/user/c-info/ufunc-tutorial', 'Writing your own ufunc'],
+        ['/user/c-info/beyond-basics', 'Beyond the Basics']
       ]
     }
   ]

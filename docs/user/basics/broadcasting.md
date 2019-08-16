@@ -30,7 +30,7 @@ element-by-element basis.  In the simplest case, the two arrays must
 have exactly the same shape, as in the following example:
 
 ``` python
->>>>>> a = np.array([1.0, 2.0, 3.0])
+>>> a = np.array([1.0, 2.0, 3.0])
 >>> b = np.array([2.0, 2.0, 2.0])
 >>> a * b
 array([ 2.,  4.,  6.])
@@ -41,7 +41,7 @@ shapes meet certain constraints. The simplest broadcasting example occurs
 when an array and a scalar value are combined in an operation:
 
 ``` python
->>>>>> a = np.array([1.0, 2.0, 3.0])
+>>> a = np.array([1.0, 2.0, 3.0])
 >>> b = 2.0
 >>> a * b
 array([ 2.,  4.,  6.])
@@ -138,7 +138,7 @@ B      (3d array):  8 x 4 x 3 # second from last dimensions mismatched
 An example of broadcasting in practice:
 
 ``` python
->>>>>> x = np.arange(4)
+>>> x = np.arange(4)
 >>> xx = x.reshape(4,1)
 >>> y = np.ones(5)
 >>> z = np.ones((3,4))
@@ -187,7 +187,7 @@ any other outer operation) of two arrays. The following example shows an
 outer addition operation of two 1-d arrays:
 
 ``` python
->>>>>> a = np.array([0.0, 10.0, 20.0, 30.0])
+>>> a = np.array([0.0, 10.0, 20.0, 30.0])
 >>> b = np.array([1.0, 2.0, 3.0])
 >>> a[:, np.newaxis] + b
 array([[  1.,   2.,   3.],

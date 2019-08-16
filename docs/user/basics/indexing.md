@@ -30,7 +30,7 @@ exactly like that for other standard Python sequences. It is 0-based,
 and accepts negative indices for indexing from the end of the array.
 
 ``` python
->>>>>> x = np.arange(10)
+>>> x = np.arange(10)
 >>> x[2]
 2
 >>> x[-2]
@@ -42,7 +42,7 @@ for multidimensional arrays. That means that it is not necessary to
 separate each dimension’s index into its own set of square brackets.
 
 ``` python
->>>>>> x.shape = (2,5) # now x is 2-dimensional
+>>> x.shape = (2,5) # now x is 2-dimensional
 >>> x[1,3]
 8
 >>> x[1,-1]
@@ -53,7 +53,7 @@ Note that if one indexes a multidimensional array with fewer indices
 than dimensions, one gets a subdimensional array. For example:
 
 ``` python
->>>>>> x[0]
+>>> x[0]
 array([0, 1, 2, 3, 4])
 ```
 
@@ -68,7 +68,7 @@ So using a single index on the returned array, results in a single
 element being returned. That is:
 
 ``` python
->>>>>> x[0][2]
+>>> x[0][2]
 2
 ```
 
@@ -92,7 +92,7 @@ and tuples except that they can be applied to multiple dimensions as
 well. A few examples illustrates best:
 
 ``` python
->>>>>> x = np.arange(10)
+>>> x = np.arange(10)
 >>> x[2:5]
 array([2, 3, 4])
 >>> x[:-7]
@@ -137,7 +137,7 @@ Index arrays must be of integer type. Each value in the array indicates
 which value in the array to use in place of the index. To illustrate:
 
 ``` python
->>>>>> x = np.arange(10,1,-1)
+>>> x = np.arange(10,1,-1)
 >>> x
 array([10,  9,  8,  7,  6,  5,  4,  3,  2])
 >>> x[np.array([3, 3, 1, 8])]
@@ -152,14 +152,14 @@ Negative values are permitted and work as they do with single indices
 or slices:
 
 ``` python
->>>>>> x[np.array([3,3,-3,8])]
+>>> x[np.array([3,3,-3,8])]
 array([7, 7, 4, 2])
 ```
 
 It is an error to have index values out of bounds:
 
 ``` python
->>>>>> x[np.array([3, 3, 20, 8])]
+>>> x[np.array([3, 3, 20, 8])]
 <type 'exceptions.IndexError'>: index 20 out of bounds 0<=index<9
 ```
 
@@ -169,7 +169,7 @@ and values of the array being indexed. As an example, we can use a
 multidimensional index array instead:
 
 ``` python
->>>>>> x[np.array([[1,1],[2,3]])]
+>>> x[np.array([[1,1],[2,3]])]
 array([[9, 9],
        [8, 7]])
 ```
@@ -183,7 +183,7 @@ problems. We’ll  start with the simplest multidimensional case (using
 the array y from the previous examples):
 
 ``` python
->>>>>> y[np.array([0,2,4]), np.array([0,1,2])]
+>>> y[np.array([0,2,4]), np.array([0,1,2])]
 array([ 0, 15, 30])
 ```
 
@@ -200,7 +200,7 @@ broadcast them to the same shape.  If they cannot be broadcast to the
 same shape, an exception is raised:
 
 ``` python
->>>>>> y[np.array([0,2,4]), np.array([0,1])]
+>>> y[np.array([0,2,4]), np.array([0,1])]
 <type 'exceptions.ValueError'>: shape mismatch: objects cannot be
 broadcast to a single shape
 ```
@@ -210,7 +210,7 @@ scalars for other indices. The effect is that the scalar value is used
 for all the corresponding values of the index arrays:
 
 ``` python
->>>>>> y[np.array([0,2,4]), 1]
+>>> y[np.array([0,2,4]), 1]
 array([ 1, 15, 29])
 ```
 
@@ -220,7 +220,7 @@ to understand what happens in such cases. For example if we just use
 one index array with y:
 
 ``` python
->>>>>> y[np.array([0,2,4])]
+>>> y[np.array([0,2,4])]
 array([[ 0,  1,  2,  3,  4,  5,  6],
        [14, 15, 16, 17, 18, 19, 20],
        [28, 29, 30, 31, 32, 33, 34]])
@@ -252,7 +252,7 @@ as the initial dimensions of the array being indexed. In the
 most straightforward case, the boolean array has the same shape:
 
 ``` python
->>>>>> b = y>20
+>>> b = y>20
 >>> y[b]
 array([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34])
 ```
@@ -269,7 +269,7 @@ The result will be multidimensional if y has more dimensions than b.
 For example:
 
 ``` python
->>>>>> b[:,5] # use a 1-D boolean whose first dim agrees with the first dim of y
+>>> b[:,5] # use a 1-D boolean whose first dim agrees with the first dim of y
 array([False, False, False,  True,  True])
 >>> y[b[:,5]]
 array([[21, 22, 23, 24, 25, 26, 27],
@@ -292,7 +292,7 @@ with four True elements to select rows from a 3-D array of shape
 (2,3,5) results in a 2-D result of shape (4,5):
 
 ``` python
->>>>>> x = np.arange(30).reshape(2,3,5)
+>>> x = np.arange(30).reshape(2,3,5)
 >>> x
 array([[[ 0,  1,  2,  3,  4],
         [ 5,  6,  7,  8,  9],
@@ -315,7 +315,7 @@ For further details, consult the numpy reference documentation on array indexing
 Index arrays may be combined with slices. For example:
 
 ``` python
->>>>>> y[np.array([0,2,4]),1:3]
+>>> y[np.array([0,2,4]),1:3]
 array([[ 1,  2],
        [15, 16],
        [29, 30]])
@@ -328,7 +328,7 @@ to produce a resultant array of shape (3,2).
 Likewise, slicing can be combined with broadcasted boolean indices:
 
 ``` python
->>>>>> b = y > 20
+>>> b = y > 20
 >>> b
 array([[False, False, False, False, False, False, False],
       [False, False, False, False, False, False, False],
@@ -347,7 +347,7 @@ assignments, the np.newaxis object can be used within array indices
 to add new dimensions with a size of 1. For example:
 
 ``` python
->>>>>> y.shape
+>>> y.shape
 (5, 7)
 >>> y[:,np.newaxis,:].shape
 (5, 1, 7)
@@ -359,7 +359,7 @@ arrays in a way that otherwise would require explicitly reshaping
 operations. For example:
 
 ``` python
->>>>>> x = np.arange(5)
+>>> x = np.arange(5)
 >>> x[:,np.newaxis] + x[np.newaxis,:]
 array([[0, 1, 2, 3, 4],
        [1, 2, 3, 4, 5],
@@ -372,7 +372,7 @@ The ellipsis syntax maybe used to indicate selecting in full any
 remaining unspecified dimensions. For example:
 
 ``` python
->>>>>> z = np.arange(81).reshape(3,3,3,3)
+>>> z = np.arange(81).reshape(3,3,3,3)
 >>> z[1,...,2]
 array([[29, 32, 35],
        [38, 41, 44],
@@ -382,7 +382,7 @@ array([[29, 32, 35],
 This is equivalent to:
 
 ``` python
->>>>>> z[1,:,:,2]
+>>> z[1,:,:,2]
 array([[29, 32, 35],
        [38, 41, 44],
        [47, 50, 53]])
@@ -397,14 +397,14 @@ or broadcastable to the shape the index produces). For example, it is
 permitted to assign a constant to a slice:
 
 ``` python
->>>>>> x = np.arange(10)
+>>> x = np.arange(10)
 >>> x[2:7] = 1
 ```
 
 or an array of the right size:
 
 ``` python
->>>>>> x[2:7] = np.arange(5)
+>>> x[2:7] = np.arange(5)
 ```
 
 Note that assignments may result in changes if assigning
@@ -412,7 +412,7 @@ higher types to lower types (like floats to ints) or even
 exceptions (assigning complex to floats or ints):
 
 ``` python
->>>>>> x[1] = 1.2
+>>> x[1] = 1.2
 >>> x[1]
 1
 >>> x[1] = 1.2j
@@ -427,7 +427,7 @@ actions may not work as one may naively expect. This particular
 example is often surprising to people:
 
 ``` python
->>>>>> x = np.arange(0, 50, 10)
+>>> x = np.arange(0, 50, 10)
 >>> x
 array([ 0, 10, 20, 30, 40])
 >>> x[np.array([1, 1, 3, 1])] += 1
@@ -455,7 +455,7 @@ as a list of indices. For example (using the previous definition
 for the array z):
 
 ``` python
->>>>>> indices = (1,1,1,1)
+>>> indices = (1,1,1,1)
 >>> z[indices]
 40
 ```
@@ -467,7 +467,7 @@ Slices can be specified within programs by using the slice() function
 in Python. For example:
 
 ``` python
->>>>>> indices = (1,1,1,slice(0,2)) # same as [1,1,1,0:2]
+>>> indices = (1,1,1,slice(0,2)) # same as [1,1,1,0:2]
 >>> z[indices]
 array([39, 40])
 ```
@@ -476,7 +476,7 @@ Likewise, ellipsis can be specified by code by using the Ellipsis
 object:
 
 ``` python
->>>>>> indices = (1, Ellipsis, 1) # same as [1,...,1]
+>>> indices = (1, Ellipsis, 1) # same as [1,...,1]
 >>> z[indices]
 array([[28, 31, 34],
        [37, 40, 43],
@@ -491,7 +491,7 @@ Because the special treatment of tuples, they are not automatically
 converted to an array as a list would be. As an example:
 
 ``` python
->>>>>> z[[1,1,1,1]] # produces a large array
+>>> z[[1,1,1,1]] # produces a large array
 array([[[[27, 28, 29],
          [30, 31, 32], ...
 >>> z[(1,1,1,1)] # returns a single value

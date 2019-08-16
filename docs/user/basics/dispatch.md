@@ -11,7 +11,7 @@ To get a feel for writing custom array containers, we’ll begin with a simple
 example that has rather narrow utility but illustrates the concepts involved.
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> class DiagonalArray:
 ...     def __init__(self, N, value):
 ...         self._N = N
@@ -26,7 +26,7 @@ example that has rather narrow utility but illustrates the concepts involved.
 Our custom array can be instantiated like:
 
 ``` python
->>>>>> arr = DiagonalArray(5, 1)
+>>> arr = DiagonalArray(5, 1)
 >>> arr
 DiagonalArray(N=5, value=1)
 ```
@@ -36,7 +36,7 @@ We can convert to a numpy array using [``numpy.array``](https://numpy.org/devdoc
 standard ``numpy.ndarray``.
 
 ``` python
->>>>>> np.asarray(arr)
+>>> np.asarray(arr)
 array([[1., 0., 0., 0., 0.],
        [0., 1., 0., 0., 0.],
        [0., 0., 1., 0., 0.],
@@ -49,7 +49,7 @@ If we operate on ``arr`` with a numpy function, numpy will again use the
 in the usual way.
 
 ``` python
->>>>>> np.multiply(arr, 2)
+>>> np.multiply(arr, 2)
 array([[2., 0., 0., 0., 0.],
        [0., 2., 0., 0., 0.],
        [0., 0., 2., 0., 0.],
@@ -60,7 +60,7 @@ array([[2., 0., 0., 0., 0.],
 Notice that the return type is a standard ``numpy.ndarray``.
 
 ``` python
->>>>>> type(arr)
+>>> type(arr)
 numpy.ndarray
 ```
 
@@ -83,7 +83,7 @@ on.  For the common case, ``numpy.multiply(...)``, ``method == '__call__'``.
 For this example we will only handle the method ``'__call__``.
 
 ``` python
->>>>>> from numbers import Number
+>>> from numbers import Number
 >>> class DiagonalArray:
 ...     def __init__(self, N, value):
 ...         self._N = N
@@ -117,7 +117,7 @@ For this example we will only handle the method ``'__call__``.
 Now our custom array type passes through numpy functions.
 
 ``` python
->>>>>> arr = DiagonalArray(5, 1)
+>>> arr = DiagonalArray(5, 1)
 >>> np.multiply(arr, 3)
 DiagonalArray(N=5, value=3)
 >>> np.add(arr, 3)
@@ -129,7 +129,7 @@ DiagonalArray(N=5, value=0.8414709848078965)
 At this point ``arr + 3`` does not work.
 
 ``` python
->>>>>> arr + 3
+>>> arr + 3
 TypeError: unsupported operand type(s) for *: 'DiagonalArray' and 'int'
 ```
 
@@ -139,7 +139,7 @@ conveniently by inheriting from the mixin
 [``NDArrayOperatorsMixin``](https://numpy.org/devdocs/reference/generated/numpy.lib.mixins.NDArrayOperatorsMixin.html#numpy.lib.mixins.NDArrayOperatorsMixin).
 
 ``` python
->>>>>> import numpy.lib.mixins
+>>> import numpy.lib.mixins
 >>> class DiagonalArray(numpy.lib.mixins.NDArrayOperatorsMixin):
 ...     def __init__(self, N, value):
 ...         self._N = N
@@ -171,7 +171,7 @@ conveniently by inheriting from the mixin
 ```
 
 ``` python
->>>>>> arr = DiagonalArray(5, 1)
+>>> arr = DiagonalArray(5, 1)
 >>> arr + 3
 DiagonalArray(N=5, value=4)
 >>> arr > 0
@@ -182,7 +182,7 @@ Now let’s tackle ``__array_function__``. We’ll create dict that maps numpy
 functions to our custom variants.
 
 ``` python
->>>>>> HANDLED_FUNCTIONS = {}
+>>> HANDLED_FUNCTIONS = {}
 >>> class DiagonalArray(numpy.lib.mixins.NDArrayOperatorsMixin):
 ...     def __init__(self, N, value):
 ...         self._N = N
@@ -226,7 +226,7 @@ A convenient pattern is to define a decorator ``implements`` that can be used
 to add functions to ``HANDLED_FUNCTIONS``.
 
 ``` python
->>>>>> def implements(np_function):
+>>> def implements(np_function):
 ...    "Register an __array_function__ implementation for DiagonalArray objects."
 ...    def decorator(func):
 ...        HANDLED_FUNCTIONS[np_function] = func
@@ -240,7 +240,7 @@ For completeness, to support the usage ``arr.sum()`` add a method ``sum`` that
 calls ``numpy.sum(self)``, and the same for ``mean``.
 
 ``` python
->>>>>> @implements(np.sum)
+>>> @implements(np.sum)
 ... def sum(a):
 ...     "Implementation of np.sum for DiagonalArray objects"
 ...     return arr._i * arr._N
@@ -264,7 +264,7 @@ this operation is not supported. For example, concatenating two
 supported.
 
 ``` python
->>>>>> np.concatenate([arr, arr])
+>>> np.concatenate([arr, arr])
 TypeError: no implementation found for 'numpy.concatenate' on types that implement __array_function__: [<class '__main__.DiagonalArray'>]
 ```
 
@@ -272,7 +272,7 @@ Additionally, our implementations of ``sum`` and ``mean`` do not accept the
 optional arguments that numpy’s implementation does.
 
 ``` python
->>>>>> np.sum(arr, axis=0)
+>>> np.sum(arr, axis=0)
 TypeError: sum() got an unexpected keyword argument 'axis'
 ```
 
@@ -280,7 +280,7 @@ The user always has the option of converting to a normal ``numpy.ndarray`` with
 [``numpy.asarray``](https://numpy.org/devdocs/reference/generated/numpy.asarray.html#numpy.asarray) and using standard numpy from there.
 
 ``` python
->>>>>> np.concatenate([np.asarray(arr), np.asarray(arr)])
+>>> np.concatenate([np.asarray(arr), np.asarray(arr)])
 array([[1., 0., 0., 0., 0.],
        [0., 1., 0., 0., 0.],
        [0., 0., 1., 0., 0.],

@@ -58,7 +58,7 @@ NumPy numerical types are instances of ``dtype`` (data-type) objects, each
 having unique characteristics.  Once you have imported NumPy using
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 ```
 
 the dtypes are available as ``np.bool_``, ``np.float32``, etc.
@@ -80,7 +80,7 @@ to arrays of that type, or as arguments to the dtype keyword that many numpy
 functions or methods accept. Some examples:
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> x = np.float32(1.0)
 >>> x
 1.0
@@ -97,7 +97,7 @@ backward compatibility with older packages such as Numeric.  Some
 documentation may still refer to these, for example:
 
 ``` python
->>>>>> np.array([1, 2, 3], dtype='f')
+>>> np.array([1, 2, 3], dtype='f')
 array([ 1.,  2.,  3.], dtype=float32)
 ```
 
@@ -107,7 +107,7 @@ To convert the type of an array, use the .astype() method (preferred) or
 the type itself as a function. For example:
 
 ``` python
->>>>>> z.astype(float)                 
+>>> z.astype(float)                 
 array([  0.,  1.,  2.])
 >>> np.int8(z)
 array([0, 1, 2], dtype=int8)
@@ -121,7 +121,7 @@ The other data-types do not have Python equivalents.
 To determine the type of an array, look at the dtype attribute:
 
 ``` python
->>>>>> z.dtype
+>>> z.dtype
 dtype('uint8')
 ```
 
@@ -130,7 +130,7 @@ and its byte-order.  The data type can also be used indirectly to query
 properties of the type, such as whether it is an integer:
 
 ``` python
->>>>>> d = np.dtype(int)
+>>> d = np.dtype(int)
 >>> d
 dtype('int32')
 
@@ -169,7 +169,7 @@ requires more memory than available in the data type. For example,
 but gives 1874919424 (incorrect) for a 32-bit integer.
 
 ``` python
->>>>>> np.power(100, 8, dtype=np.int64)
+>>> np.power(100, 8, dtype=np.int64)
 10000000000000000
 >>> np.power(100, 8, dtype=np.int32)
 1874919424
@@ -186,7 +186,7 @@ minimum or maximum values of NumPy integer and floating point values
 respectively
 
 ``` python
->>>>>> np.iinfo(np.int) # Bounds of the default integer on this system.
+>>> np.iinfo(np.int) # Bounds of the default integer on this system.
 iinfo(min=-9223372036854775808, max=9223372036854775807, dtype=int64)
 >>> np.iinfo(np.int32) # Bounds of a 32-bit integer
 iinfo(min=-2147483648, max=2147483647, dtype=int32)
@@ -199,7 +199,7 @@ floating point number. Floating point numbers offer a larger, but inexact,
 range of possible values.
 
 ``` python
->>>>>> np.power(100, 100, dtype=np.int64) # Incorrect even with 64-bit int
+>>> np.power(100, 100, dtype=np.int64) # Incorrect even with 64-bit int
 0
 >>> np.power(100, 100, dtype=np.float64)
 1e+200

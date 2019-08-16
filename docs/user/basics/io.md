@@ -15,7 +15,7 @@ other faster and simpler functions like [``loadtxt``](https://numpy.org/devdocs/
 When giving examples, we will use the following conventions:
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> from io import StringIO
 ```
 
@@ -52,7 +52,7 @@ example, comma-separated files (CSV) use a comma (``,``) or a semicolon
 (``;``) as delimiter:
 
 ``` python
->>>>>> data = u"1, 2, 3\n4, 5, 6"
+>>> data = u"1, 2, 3\n4, 5, 6"
 >>> np.genfromtxt(StringIO(data), delimiter=",")
 array([[ 1.,  2.,  3.],
        [ 4.,  5.,  6.]])
@@ -70,7 +70,7 @@ defined as a given number of characters.  In that case, we need to set
 size) or to a sequence of integers (if columns can have different sizes):
 
 ``` python
->>>>>> data = u"  1  2  3\n  4  5 67\n890123  4"
+>>> data = u"  1  2  3\n  4  5 67\n890123  4"
 >>> np.genfromtxt(StringIO(data), delimiter=3)
 array([[   1.,    2.,    3.],
        [   4.,    5.,   67.],
@@ -90,7 +90,7 @@ This behavior can be overwritten by setting the optional argument
 ``autostrip`` to a value of ``True``:
 
 ``` python
->>>>>> data = u"1, abc , 2\n 3, xxx, 4"
+>>> data = u"1, abc , 2\n 3, xxx, 4"
 >>> # Without autostrip
 >>> np.genfromtxt(StringIO(data), delimiter=",", dtype="|U5")
 array([['1', ' abc ', ' 2'],
@@ -112,7 +112,7 @@ occur anywhere on the line.  Any character present after the comment
 marker(s) is simply ignored:
 
 ``` python
->>>>>> data = u"""#
+>>> data = u"""#
 ... # Skip me !
 ... # Skip me too !
 ... 1, 2
@@ -151,7 +151,7 @@ performed.  Similarly, we can skip the last ``n`` lines of the file by
 using the ``skip_footer`` attribute and giving it a value of ``n``:
 
 ``` python
->>>>>> data = u"\n".join(str(i) for i in range(10))
+>>> data = u"\n".join(str(i) for i in range(10))
 >>> np.genfromtxt(StringIO(data),)
 array([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9.])
 >>> np.genfromtxt(StringIO(data),
@@ -175,7 +175,7 @@ For example, if we want to import only the first and the last columns, we
 can use ``usecols=(0, -1)``:
 
 ``` python
->>>>>> data = u"1 2 3\n4 5 6"
+>>> data = u"1 2 3\n4 5 6"
 >>> np.genfromtxt(StringIO(data), usecols=(0, -1))
 array([[ 1.,  3.],
        [ 4.,  6.]])
@@ -186,7 +186,7 @@ giving their name to the ``usecols`` argument, either as a sequence
 of strings or a comma-separated string:
 
 ``` python
->>>>>> data = u"1 2 3\n4 5 6"
+>>> data = u"1 2 3\n4 5 6"
 >>> np.genfromtxt(StringIO(data),
 ...               names="a, b, c", usecols=("a", "c"))
 array([(1.0, 3.0), (4.0, 6.0)],
@@ -242,7 +242,7 @@ each column.  A first possibility is to use an explicit structured dtype,
 as mentioned previously:
 
 ``` python
->>>>>> data = StringIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, dtype=[(_, int) for _ in "abc"])
 array([(1, 2, 3), (4, 5, 6)],
       dtype=[('a', '<i8'), ('b', '<i8'), ('c', '<i8')])
@@ -252,7 +252,7 @@ Another simpler possibility is to use the ``names`` keyword with a
 sequence of strings or a comma-separated string:
 
 ``` python
->>>>>> data = StringIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, names="A, B, C")
 array([(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
       dtype=[('A', '<f8'), ('B', '<f8'), ('C', '<f8')])
@@ -268,7 +268,7 @@ that case, we must use the ``names`` keyword with a value of
 ``skip_header`` ones), even if the line is commented out:
 
 ``` python
->>>>>> data = StringIO("So it goes\n#a b c\n1 2 3\n 4 5 6")
+>>> data = StringIO("So it goes\n#a b c\n1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, skip_header=1, names=True)
 array([(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
       dtype=[('a', '<f8'), ('b', '<f8'), ('c', '<f8')])
@@ -279,7 +279,7 @@ value to the keyword, the new names will overwrite the field names we may
 have defined with the dtype:
 
 ``` python
->>>>>> data = StringIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> ndtype=[('a',int), ('b', float), ('c', int)]
 >>> names = ["A", "B", "C"]
 >>> np.genfromtxt(data, names=names, dtype=ndtype)
@@ -294,7 +294,7 @@ with the standard NumPy default of ``"f%i"``, yielding names like ``f0``,
 ``f1`` and so forth:
 
 ``` python
->>>>>> data = StringIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, dtype=(int, float, int))
 array([(1, 2.0, 3), (4, 5.0, 6)],
       dtype=[('f0', '<i8'), ('f1', '<f8'), ('f2', '<i8')])
@@ -304,7 +304,7 @@ In the same way, if we don’t give enough names to match the length of the
 dtype, the missing names will be defined with this default template:
 
 ``` python
->>>>>> data = StringIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, dtype=(int, float, int), names="a")
 array([(1, 2.0, 3), (4, 5.0, 6)],
       dtype=[('a', '<i8'), ('f0', '<f8'), ('f1', '<i8')])
@@ -314,7 +314,7 @@ We can overwrite this default with the ``defaultfmt`` argument, that
 takes any format string:
 
 ``` python
->>>>>> data = StringIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, dtype=(int, float, int), defaultfmt="var_%02i")
 array([(1, 2.0, 3), (4, 5.0, 6)],
       dtype=[('var_00', '<i8'), ('var_01', '<f8'), ('var_02', '<i8')])
@@ -371,7 +371,7 @@ In the following example, the second column is converted from as string
 representing a percentage to a float between 0 and 1:
 
 ``` python
->>>>>> convertfunc = lambda x: float(x.strip("%"))/100.
+>>> convertfunc = lambda x: float(x.strip("%"))/100.
 >>> data = u"1, 2.3%, 45.\n6, 78.9%, 0"
 >>> names = ("i", "p", "n")
 >>> # General case .....
@@ -386,7 +386,7 @@ and ``' 78.9%'`` cannot be converted to float and we end up having
 ``np.nan`` instead.  Let’s now use a converter:
 
 ``` python
->>>>>> # Converted case ...
+>>> # Converted case ...
 >>> np.genfromtxt(StringIO(data), delimiter=",", names=names,
 ...               converters={1: convertfunc})
 array([(1.0, 0.023, 45.0), (6.0, 0.78900000000000003, 0.0)],
@@ -397,7 +397,7 @@ The same results can be obtained by using the name of the second column
 (``"p"``) as key instead of its index (1):
 
 ``` python
->>>>>> # Using a name for the converter ...
+>>> # Using a name for the converter ...
 >>> np.genfromtxt(StringIO(data), delimiter=",", names=names,
 ...               converters={"p": convertfunc})
 array([(1.0, 0.023, 45.0), (6.0, 0.78900000000000003, 0.0)],
@@ -411,7 +411,7 @@ We need to explicitly strip the string from white spaces as it is not done
 by default:
 
 ``` python
->>>>>> data = u"1, , 3\n 4, 5, 6"
+>>> data = u"1, , 3\n 4, 5, 6"
 >>> convert = lambda x: float(x.strip() or -999)
 >>> np.genfromtxt(StringIO(data), delimiter=",",
 ...               converters={1: convert})
@@ -486,7 +486,7 @@ We wish to transform these missing values to 0 if they occur in the first
 and second column, and to -999 if they occur in the last column:
 
 ``` python
->>>>>> data = u"N/A, 2, 3\n4, ,???"
+>>> data = u"N/A, 2, 3\n4, ,???"
 >>> kwargs = dict(delimiter=",",
 ...               dtype=int,
 ...               names="a,b,c",

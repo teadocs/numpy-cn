@@ -10,7 +10,7 @@ original value was)
 Note: cannot use equality to test NaNs. E.g.:
 
 ``` python
->>>>>> myarr = np.array([1., 0., np.nan, 3.])
+>>> myarr = np.array([1., 0., np.nan, 3.])
 >>> np.nonzero(myarr == np.nan)
 (array([], dtype=int64),)
 >>> np.nan == np.nan  # is always False! Use special numpy functions instead.
@@ -77,7 +77,7 @@ These behaviors are set on a per-thread basis.
 ## Examples
 
 ``` python
->>>>>> oldsettings = np.seterr(all='warn')
+>>> oldsettings = np.seterr(all='warn')
 >>> np.zeros(5,dtype=np.float32)/0.
 invalid value encountered in divide
 >>> j = np.seterr(under='ignore')

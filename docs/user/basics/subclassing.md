@@ -32,7 +32,7 @@ ndarray of any subclass, and return a view of the array as another
 (specified) subclass:
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> # create a completely useless ndarray subclass
 >>> class C(np.ndarray): pass
 >>> # create a standard ndarray
@@ -52,7 +52,7 @@ this has to happen is when you are taking slices of subclassed arrays.
 For example:
 
 ``` python
->>>>>> v = c_arr[1:]
+>>> v = c_arr[1:]
 >>> type(v) # the view is of type 'C'
 <class 'C'>
 >>> v is c_arr # but it's a new instance
@@ -117,7 +117,7 @@ class C(object):
 meaning that we get:
 
 ``` python
->>>>>> c = C('hello')
+>>> c = C('hello')
 Cls in __new__: <class 'C'>
 Args in __new__: ('hello',)
 type(self) in __init__: <class 'C'>
@@ -155,7 +155,7 @@ class D(C):
 meaning that:
 
 ``` python
->>>>>> obj = D('hello')
+>>> obj = D('hello')
 D cls is: <class 'D'>
 D args in __new__: ('hello',)
 Cls in __new__: <class 'C'>
@@ -247,7 +247,7 @@ class C(np.ndarray):
 Now:
 
 ``` python
->>>>>> # Explicit constructor
+>>> # Explicit constructor
 >>> c = C((10,))
 In __new__ with class <class 'C'>
 In array_finalize:
@@ -344,7 +344,7 @@ class InfoArray(np.ndarray):
 Using the object looks like this:
 
 ``` python
->>>>>> obj = InfoArray(shape=(3,)) # explicit constructor
+>>> obj = InfoArray(shape=(3,)) # explicit constructor
 >>> type(obj)
 <class 'InfoArray'>
 >>> obj.info is None
@@ -399,7 +399,7 @@ class RealisticInfoArray(np.ndarray):
 So:
 
 ``` python
->>>>>> arr = np.arange(5)
+>>> arr = np.arange(5)
 >>> obj = RealisticInfoArray(arr, info='information')
 >>> type(obj)
 <class 'RealisticInfoArray'>
@@ -507,7 +507,7 @@ get infinite recursion!), and adds an ``info`` dictionary that tells
 which inputs and outputs it converted. Hence, e.g.,
 
 ``` python
->>>>>> a = np.arange(5.).view(A)
+>>> a = np.arange(5.).view(A)
 >>> b = np.sin(a)
 >>> b.info
 {'inputs': [0]}
@@ -598,7 +598,7 @@ class MySubClass(np.ndarray):
 We run a ufunc on an instance of our new array:
 
 ``` python
->>>>>> obj = MySubClass(np.arange(5), info='spam')
+>>> obj = MySubClass(np.arange(5), info='spam')
 In __array_finalize__:
    self is MySubClass([0, 1, 2, 3, 4])
    obj is array([0, 1, 2, 3, 4])
@@ -633,7 +633,7 @@ class SillySubClass(np.ndarray):
 ```
 
 ``` python
->>>>>> arr1 = np.arange(5)
+>>> arr1 = np.arange(5)
 >>> obj = arr1.view(SillySubClass)
 >>> arr2 = np.arange(5)
 >>> ret = np.multiply(obj, arr2)
@@ -672,7 +672,7 @@ where the data came from for a particular array or view, with the
 ``base`` attribute:
 
 ``` python
->>>>>> # A normal ndarray, that owns its own data
+>>> # A normal ndarray, that owns its own data
 >>> arr = np.zeros((4,))
 >>> # In this case, base is None
 >>> arr.base is None

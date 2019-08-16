@@ -51,133 +51,76 @@ facilitate linear algebra computations specifically. In practice there
 are only a handful of key differences between the two.
 
 - Operators ``*`` and ``@``, functions ``dot()``, and ``multiply()``:
-For ``array``, **``*`` means element-wise multiplication**, while
+  - For ``array``, **``*`` means element-wise multiplication**, while
 **``@`` means matrix multiplication**; they have associated functions
 ``multiply()`` and ``dot()``.  (Before python 3.5, ``@`` did not exist
 and one had to use ``dot()`` for matrix multiplication).
-For ``matrix``, **``*`` means matrix multiplication**, and for
-element-wise multiplication one has to use the ``multiply()`` function.
-- For ``array``, **``*`` means element-wise multiplication**, while
-**``@`` means matrix multiplication**; they have associated functions
-``multiply()`` and ``dot()``.  (Before python 3.5, ``@`` did not exist
-and one had to use ``dot()`` for matrix multiplication).
-- For ``matrix``, **``*`` means matrix multiplication**, and for
+  - For ``matrix``, **``*`` means matrix multiplication**, and for
 element-wise multiplication one has to use the ``multiply()`` function.
 - Handling of vectors (one-dimensional arrays)
-For ``array``, the **vector shapes 1xN, Nx1, and N are all different
+  - For ``array``, the **vector shapes 1xN, Nx1, and N are all different
 things**. Operations like ``A[:,1]`` return a one-dimensional array of
 shape N, not a two-dimensional array of shape Nx1. Transpose on a
 one-dimensional ``array`` does nothing.
-For ``matrix``, **one-dimensional arrays are always upconverted to 1xN
-or Nx1 matrices** (row or column vectors). ``A[:,1]`` returns a
-two-dimensional matrix of shape Nx1.
-- For ``array``, the **vector shapes 1xN, Nx1, and N are all different
-things**. Operations like ``A[:,1]`` return a one-dimensional array of
-shape N, not a two-dimensional array of shape Nx1. Transpose on a
-one-dimensional ``array`` does nothing.
-- For ``matrix``, **one-dimensional arrays are always upconverted to 1xN
+  - For ``matrix``, **one-dimensional arrays are always upconverted to 1xN
 or Nx1 matrices** (row or column vectors). ``A[:,1]`` returns a
 two-dimensional matrix of shape Nx1.
 - Handling of higher-dimensional arrays (ndim > 2)
 ``array`` objects **can have number of dimensions > 2**;
 ``matrix`` objects **always have exactly two dimensions**.
-- ``array`` objects **can have number of dimensions > 2**;
-- ``matrix`` objects **always have exactly two dimensions**.
+  - ``array`` objects **can have number of dimensions > 2**;
+  - ``matrix`` objects **always have exactly two dimensions**.
 - Convenience attributes
-``array`` **has a .T attribute**, which returns the transpose of
+  - ``array`` **has a .T attribute**, which returns the transpose of
 the data.
-``matrix`` **also has .H, .I, and .A attributes**, which return
-the conjugate transpose, inverse, and ``asarray()`` of the matrix,
-respectively.
-- ``array`` **has a .T attribute**, which returns the transpose of
-the data.
-- ``matrix`` **also has .H, .I, and .A attributes**, which return
+  - ``matrix`` **also has .H, .I, and .A attributes**, which return
 the conjugate transpose, inverse, and ``asarray()`` of the matrix,
 respectively.
 - Convenience constructor
-The ``array`` constructor **takes (nested) Python sequences as
+  - The ``array`` constructor **takes (nested) Python sequences as
 initializers**. As in, ``array([[1,2,3],[4,5,6]])``.
-The ``matrix`` constructor additionally **takes a convenient
-string initializer**. As in ``matrix("[1 2 3; 4 5 6]")``.
-- The ``array`` constructor **takes (nested) Python sequences as
-initializers**. As in, ``array([[1,2,3],[4,5,6]])``.
-- The ``matrix`` constructor additionally **takes a convenient
+  - The ``matrix`` constructor additionally **takes a convenient
 string initializer**. As in ``matrix("[1 2 3; 4 5 6]")``.
 
 There are pros and cons to using both:
 
 - ``array``
-``:)`` Element-wise multiplication is easy: ``A*B``.
-``:(`` You have to remember that matrix multiplication has its own
-operator, ``@``.
-``:)`` You can treat one-dimensional arrays as *either* row or column
-vectors. ``A @ v`` treats ``v`` as a column vector, while
-``v @ A`` treats ``v`` as a row vector. This can save you having to
-type a lot of transposes.
-``:)`` ``array`` is the “default” NumPy type, so it gets the most
-testing, and is the type most likely to be returned by 3rd party
-code that uses NumPy.
-``:)`` Is quite at home handling data of any number of dimensions.
-``:)`` Closer in semantics to tensor algebra, if you are familiar
-with that.
-``:)`` *All* operations (``*``, ``/``, ``+``, ``-`` etc.) are
-element-wise.
-``:(`` Sparse matrices from ``scipy.sparse`` do not interact as well
-with arrays.
-- ``:)`` Element-wise multiplication is easy: ``A*B``.
-- ``:(`` You have to remember that matrix multiplication has its own
-operator, ``@``.
-- ``:)`` You can treat one-dimensional arrays as *either* row or column
-vectors. ``A @ v`` treats ``v`` as a column vector, while
-``v @ A`` treats ``v`` as a row vector. This can save you having to
-type a lot of transposes.
-- ``:)`` ``array`` is the “default” NumPy type, so it gets the most
-testing, and is the type most likely to be returned by 3rd party
-code that uses NumPy.
-- ``:)`` Is quite at home handling data of any number of dimensions.
-- ``:)`` Closer in semantics to tensor algebra, if you are familiar
-with that.
-- ``:)`` *All* operations (``*``, ``/``, ``+``, ``-`` etc.) are
-element-wise.
-- ``:(`` Sparse matrices from ``scipy.sparse`` do not interact as well
-with arrays.
+  - ``:)`` Element-wise multiplication is easy: ``A*B``.
+  - ``:(`` You have to remember that matrix multiplication has its own
+  operator, ``@``.
+  - ``:)`` You can treat one-dimensional arrays as *either* row or column
+  vectors. ``A @ v`` treats ``v`` as a column vector, while
+  ``v @ A`` treats ``v`` as a row vector. This can save you having to
+  type a lot of transposes.
+  - ``:)`` ``array`` is the “default” NumPy type, so it gets the most
+  testing, and is the type most likely to be returned by 3rd party
+  code that uses NumPy.
+  - ``:)`` Is quite at home handling data of any number of dimensions.
+  - ``:)`` Closer in semantics to tensor algebra, if you are familiar
+  with that.
+  - ``:)`` *All* operations (``*``, ``/``, ``+``, ``-`` etc.) are
+  element-wise.
+  - ``:(`` Sparse matrices from ``scipy.sparse`` do not interact as well
+  with arrays.
 - ``matrix``
-``:\\`` Behavior is more like that of MATLAB® matrices.
-``<:(`` Maximum of two-dimensional. To hold three-dimensional data you
-need ``array`` or perhaps a Python list of ``matrix``.
-``<:(`` Minimum of two-dimensional. You cannot have vectors. They must be
-cast as single-column or single-row matrices.
-``<:(`` Since ``array`` is the default in NumPy, some functions may
-return an ``array`` even if you give them a ``matrix`` as an
-argument. This shouldn’t happen with NumPy functions (if it does
-it’s a bug), but 3rd party code based on NumPy may not honor type
-preservation like NumPy does.
-``:)`` ``A*B`` is matrix multiplication, so it looks just like you write
-it in linear algebra (For Python >= 3.5 plain arrays have the same
-convenience with the ``@`` operator).
-``<:(`` Element-wise multiplication requires calling a function,
-``multiply(A,B)``.
-``<:(`` The use of operator overloading is a bit illogical: ``*``
-does not work element-wise but ``/`` does.
-Interaction with ``scipy.sparse`` is a bit cleaner.
-- ``:\\`` Behavior is more like that of MATLAB® matrices.
-- ``<:(`` Maximum of two-dimensional. To hold three-dimensional data you
-need ``array`` or perhaps a Python list of ``matrix``.
-- ``<:(`` Minimum of two-dimensional. You cannot have vectors. They must be
-cast as single-column or single-row matrices.
-- ``<:(`` Since ``array`` is the default in NumPy, some functions may
-return an ``array`` even if you give them a ``matrix`` as an
-argument. This shouldn’t happen with NumPy functions (if it does
-it’s a bug), but 3rd party code based on NumPy may not honor type
-preservation like NumPy does.
-- ``:)`` ``A*B`` is matrix multiplication, so it looks just like you write
-it in linear algebra (For Python >= 3.5 plain arrays have the same
-convenience with the ``@`` operator).
-- ``<:(`` Element-wise multiplication requires calling a function,
-``multiply(A,B)``.
-- ``<:(`` The use of operator overloading is a bit illogical: ``*``
-does not work element-wise but ``/`` does.
-- Interaction with ``scipy.sparse`` is a bit cleaner.
+  - ``:\\`` Behavior is more like that of MATLAB® matrices.
+  - ``<:(`` Maximum of two-dimensional. To hold three-dimensional data you
+  need ``array`` or perhaps a Python list of ``matrix``.
+  - ``<:(`` Minimum of two-dimensional. You cannot have vectors. They must be
+  cast as single-column or single-row matrices.
+  - ``<:(`` Since ``array`` is the default in NumPy, some functions may
+  return an ``array`` even if you give them a ``matrix`` as an
+  argument. This shouldn’t happen with NumPy functions (if it does
+  it’s a bug), but 3rd party code based on NumPy may not honor type
+  preservation like NumPy does.
+  - ``:)`` ``A*B`` is matrix multiplication, so it looks just like you write
+  it in linear algebra (For Python >= 3.5 plain arrays have the same
+  convenience with the ``@`` operator).
+  - ``<:(`` Element-wise multiplication requires calling a function,
+  ``multiply(A,B)``.
+  - ``<:(`` The use of operator overloading is a bit illogical: ``*``
+  does not work element-wise but ``/`` does.
+  - Interaction with ``scipy.sparse`` is a bit cleaner.
 
 The ``array`` is thus much more advisable to use.  Indeed, we intend to
 deprecate ``matrix`` eventually.
@@ -209,7 +152,7 @@ which func | [see note HELP](numpy-for-matlab-users.notes) | find out where func
 type func | source(func) or func?? (in Ipython) | print source for func (if not a native function)
 a && b | a and b | short-circuiting logical AND operator (Python native operator); scalar arguments only
 a || b | a or b | short-circuiting logical OR operator (Python native operator); scalar arguments only
-1*i, 1*j, 1i, 1j | 1j | complex numbers
+1\*i, 1\*j, 1i, 1j | 1j | complex numbers
 eps | np.spacing(1) | Distance between 1 and the nearest floating point number.
 ode45 | scipy.integrate.solve_ivp(f) | integrate an ODE with Runge-Kutta 4,5
 ode15s | scipy.integrate.solve_ivp(f, method='BDF') | integrate an ODE with BDF method
@@ -233,8 +176,8 @@ a(1:3,5:9) | a[0:3][:,4:9] | rows one to three and columns five to nine of a. Th
 a([2,4,5],[1,3]) | a[ix_([1,3,4],[0,2])] | rows 2,4 and 5 and columns 1 and 3. This allows the matrix to be modified, and doesn’t require a regular slice.
 a(3:2:21,:) | a[ 2:21:2,:] | every other row of a, starting with the third and going to the twenty-first
 a(1:2:end,:) | a[ ::2,:] | every other row of a, starting with the first
-a(end:-1:1,:) or flipud(a) | a[ ::-1,:] | a with rows in reverse order
-a([1:end 1],:) | a[r_[:len(a),0]] | a with copy of the first row appended to the end
+a(end: -1:1,:) or flipud(a) | a[ ::-1,:] | a with rows in reverse order
+a([1:end 1],: ) | a[r_[:len(a),0]] | a with copy of the first row appended to the end
 a.' | a.transpose() or a.T | transpose of a
 a' | a.conj().transpose() or a.conj().T | conjugate transpose of a
 a * b | a @ b | matrix multiply
@@ -247,10 +190,10 @@ a(:,find(v>0.5)) | a[:,nonzero(v>0.5)[0]] | extract the columms of a where vecto
 a(:,find(v>0.5)) | a[:,v.T>0.5] | extract the columms of a where column vector v > 0.5
 a(a<0.5)=0 | a[a<0.5]=0 | a with elements less than 0.5 zeroed out
 a .* (a>0.5) | a * (a>0.5) | a with elements less than 0.5 zeroed out
-a(:) = 3 | a[:] = 3 | set all values to the same scalar value
+a(: ) = 3 | a[:] = 3 | set all values to the same scalar value
 y=x | y = x.copy() | numpy assigns by reference
 y=x(2,:) | y = x[1,:].copy() | numpy slices are by reference
-y=x(:) | y = x.flatten() | turn array into vector (note that this forces a copy)
+y=x(: ) | y = x.flatten() | turn array into vector (note that this forces a copy)
 1:10 | arange(1.,11.) or r_[1.:11.] or r_[1:10:10j] | create an increasing vector (see note [[RANGES](#numpy-for-matlab-users-notes)](#numpy-for-matlab-users-notes))
 0:9 | arange(10.) or r_[:10.] or r_[:9:10j] | create an increasing vector (see note RANGES)
 [1:10]' | arange(1.,11.)[:, newaxis] | create a column vector

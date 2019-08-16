@@ -34,7 +34,7 @@ see if it works! (The Python Way).
 Examples:
 
 ``` python
->>>>>> x = np.array([2,3,1,0])
+>>> x = np.array([2,3,1,0])
 >>> x = np.array([2, 3, 1, 0])
 >>> x = np.array([[1,2.0],[0,0],(1+1j,3.)]) # note mix of tuple and lists,
     and types
@@ -49,7 +49,7 @@ zeros(shape) will create an array filled with 0 values with the specified
 shape. The default dtype is float64.
 
 ``` python
->>>>>> np.zeros((2, 3))
+>>> np.zeros((2, 3))
 array([[ 0., 0., 0.], [ 0., 0., 0.]])
 ```
 
@@ -61,7 +61,7 @@ docstring for complete information on the various ways it can be used. A few
 examples will be given here:
 
 ``` python
->>>>>> np.arange(10)
+>>> np.arange(10)
 array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 >>> np.arange(2, 10, dtype=float)
 array([ 2., 3., 4., 5., 6., 7., 8., 9.])
@@ -77,7 +77,7 @@ spaced equally between the specified beginning and end values. For
 example:
 
 ``` python
->>>>>> np.linspace(1., 4., 6)
+>>> np.linspace(1., 4., 6)
 array([ 1. ,  1.6,  2.2,  2.8,  3.4,  4. ])
 ```
 
@@ -90,7 +90,7 @@ array), one per dimension with each representing variation in that dimension.
 An example illustrates much better than a verbal description:
 
 ``` python
->>>>>> np.indices((3,3))
+>>> np.indices((3,3))
 array([[[0, 0, 0], [1, 1, 1], [2, 2, 2]], [[0, 1, 2], [0, 1, 2], [0, 1, 2]]])
 ```
 
