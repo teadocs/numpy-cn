@@ -70,21 +70,27 @@ index values *i*, *i + k*, …, *i + (m - 1) k* where
 obtained by dividing *j - i* by *k*: *j - i = q k + r*, so that
 *i + (m - 1) k < j*.
 
-``` python
->>> x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
->>> x[1:7:2]
-array([1, 3, 5])
-```
+  **Example:**
+
+  ``` python
+  >>> x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+  >>> x[1:7:2]
+  array([1, 3, 5])
+  ```
+
 - Negative *i* and *j* are interpreted as *n + i* and *n + j* where
 *n* is the number of elements in the corresponding dimension.
 Negative *k* makes stepping go towards smaller indices.
 
-``` python
->>> x[-2:10]
-array([8, 9])
->>> x[-3:3:-1]
-array([7, 6, 5, 4])
-```
+  **Example:**
+
+  ``` python
+  >>> x[-2:10]
+  array([8, 9])
+  >>> x[-3:3:-1]
+  array([7, 6, 5, 4])
+  ```
+
 - Assume *n* is the number of elements in the dimension being
 sliced. Then, if *i* is not given it defaults to 0 for *k > 0* and
 *n - 1* for *k < 0* . If *j* is not given it defaults to *n* for *k > 0*
@@ -92,41 +98,53 @@ and *-n-1* for *k < 0* . If *k* is not given it defaults to 1. Note that
 ``::`` is the same as ``:`` and means select all indices along this
 axis.
 
-``` python
->>> x[5:]
-array([5, 6, 7, 8, 9])
-```
+  **Example:**
+
+  ``` python
+  >>> x[5:]
+  array([5, 6, 7, 8, 9])
+  ```
+
 - If the number of objects in the selection tuple is less than
 *N* , then ``:`` is assumed for any subsequent dimensions.
 
-``` python
->>> x = np.array([[[1],[2],[3]], [[4],[5],[6]]])
->>> x.shape
-(2, 3, 1)
->>> x[1:2]
-array([[[4],
-        [5],
-        [6]]])
-```
+  **Example:**
+
+  ``` python
+  >>> x = np.array([[[1],[2],[3]], [[4],[5],[6]]])
+  >>> x.shape
+  (2, 3, 1)
+  >>> x[1:2]
+  array([[[4],
+          [5],
+          [6]]])
+  ```
+
 - ``Ellipsis`` expands to the number of ``:`` objects needed for the
 selection tuple to index all dimensions. In most cases, this means that
 length of the expanded selection tuple is ``x.ndim``. There may only be a
 single ellipsis present.
 
-``` python
->>> x[...,0]
-array([[1, 2, 3],
-       [4, 5, 6]])
-```
+  **Example:**
+
+  ``` python
+  >>> x[...,0]
+  array([[1, 2, 3],
+        [4, 5, 6]])
+  ```
+
 - Each [``newaxis``](constants.html#numpy.newaxis) object in the selection tuple serves to expand
 the dimensions of the resulting selection by one unit-length
 dimension.  The added dimension is the position of the [``newaxis``](constants.html#numpy.newaxis)
 object in the selection tuple.
 
-``` python
->>> x[:,np.newaxis,:,:].shape
-(2, 1, 3, 1)
-```
+  **Example:**
+
+  ``` python
+  >>> x[:,np.newaxis,:,:].shape
+  (2, 1, 3, 1)
+  ```
+
 - An integer, *i*, returns the same values as ``i:i+1``
 **except** the dimensionality of the returned object is reduced by
 1. In particular, a selection tuple with the *p*-th
@@ -146,11 +164,12 @@ non-``:`` entry, where the non-``:`` entries are successively taken
 ``x[ind1,...,ind2,:]`` acts like ``x[ind1][...,ind2,:]`` under basic
 slicing.
 
-::: danger Warning
+  ::: danger Warning
 
-The above is **not** true for advanced indexing.
+  The above is **not** true for advanced indexing.
 
-:::
+  :::
+  
 - You may use slicing to set values in the array, but (unlike lists) you
 can never grow the array. The size of the value to be set in
 ``x[obj] = value`` must be (broadcastable) to the same shape as
@@ -222,6 +241,8 @@ result[i_1, ..., i_M] == x[ind_1[i_1, ..., i_M], ind_2[i_1, ..., i_M],
 Note that the result shape is identical to the (broadcast) indexing array
 shapes ``ind_1, ..., ind_N``.
 
+**Example:**
+
 From each row, a specific element should be selected. The row index is just
 ``[0, 1, 2]`` and the column index specifies the element to choose for the
 corresponding row, here ``[0, 1, 0]``. Using both together the task
@@ -236,6 +257,8 @@ array([1, 4, 5])
 To achieve a behaviour similar to the basic slicing above, broadcasting can be
 used. The function [``ix_``](generated/numpy.ix_.html#numpy.ix_) can help with this broadcasting. This is best
 understood with an example.
+
+**Example:**
 
 From a 4x3 array the corner elements should be selected using advanced
 indexing. Thus all elements for which the column is one of ``[0, 2]`` and
@@ -297,6 +320,8 @@ advanced index can for example replace a slice and the result array will be
 the same, however, it is a copy and may have a different memory layout.
 A slice is preferable when it is possible.
 
+**Example:**
+
 ``` python
 >>> x[1:2, 1:3]
 array([[4, 5]])
@@ -323,6 +348,8 @@ In the second case, the dimensions from the advanced indexing operations
 are inserted into the result array at the same spot as they were in the
 initial array (the latter logic is what makes simple advanced indexing
 behave just like slicing).
+
+**Example:**
 
 Suppose ``x.shape`` is (10,20,30) and ``ind`` is a (2,3,4)-shaped
 indexing ``intp`` array, then ``result = x[...,ind,:]`` has
@@ -361,6 +388,8 @@ C-style. If *obj* has ``True`` values at entries that are outside
 of the bounds of *x*, then an index error will be raised. If *obj* is
 smaller than *x* it is identical to filling it with ``False``.
 
+**Example:**
+
 A common use case for this is filtering for desired element values.
 For example one may wish to select all entries from an array which
 are not NaN:
@@ -391,6 +420,8 @@ this is straight forward. Care must only be taken to make sure that the
 boolean index has *exactly* as many dimensions as it is supposed to work
 with.
 
+**Example:**
+
 From an array, select all rows which sum up to less or equal two:
 
 ``` python
@@ -420,6 +451,8 @@ Combining multiple Boolean indexing arrays or a Boolean with an integer
 indexing array can best be understood with the
 [``obj.nonzero()``](generated/numpy.ndarray.nonzero.html#numpy.ndarray.nonzero) analogy. The function [``ix_``](generated/numpy.ix_.html#numpy.ix_)
 also supports boolean arrays and will work without any surprises.
+
+**Example:**
 
 Use boolean indexing to select all rows adding up to an even
 number. At the same time columns 0 and 2 should be selected with an
@@ -518,6 +551,8 @@ information on multifield indexing.
 
 If the accessed field is a sub-array, the dimensions of the sub-array
 are appended to the shape of the result.
+
+**Example:**
 
 ``` python
 >>> x = np.zeros((2,2), dtype=[('a', np.int32), ('b', np.float64, (3,3))])
