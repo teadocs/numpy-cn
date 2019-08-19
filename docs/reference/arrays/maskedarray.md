@@ -85,45 +85,44 @@ There are several ways to construct a masked array.
 - A first possibility is to directly invoke the [``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray) class.
 - A second possibility is to use the two masked array constructors,
 [``array``](generated/numpy.ma.array.html#numpy.ma.array) and [``masked_array``](generated/numpy.ma.masked_array.html#numpy.ma.masked_array).
-
-[array](generated/numpy.ma.array.html#numpy.ma.array)(data[, dtype, copy, order, mask, …]) | An array class with possibly masked values.
----|---
-[masked_array](generated/numpy.ma.masked_array.html#numpy.ma.masked_array) | alias of numpy.ma.core.MaskedArray
+  method | description
+  ---|---
+  [array](generated/numpy.ma.array.html#numpy.ma.array)(data[, dtype, copy, order, mask, …]) | An array class with possibly masked values.
+  [masked_array](generated/numpy.ma.masked_array.html#numpy.ma.masked_array) | alias of numpy.ma.core.MaskedArray
 - A third option is to take the view of an existing array. In that case, the
-mask of the view is set to [``nomask``](maskedarray.baseclass.html#numpy.ma.nomask) if the array has no named fields,
-or an array of boolean with the same structure as the array otherwise.
-
-``` python
->>> x = np.array([1, 2, 3])
->>> x.view(ma.MaskedArray)
-masked_array(data = [1 2 3],
-             mask = False,
-       fill_value = 999999)
->>> x = np.array([(1, 1.), (2, 2.)], dtype=[('a',int), ('b', float)])
->>> x.view(ma.MaskedArray)
-masked_array(data = [(1, 1.0) (2, 2.0)],
-             mask = [(False, False) (False, False)],
-       fill_value = (999999, 1e+20),
-            dtype = [('a', '<i4'), ('b', '<f8')])
-```
+  mask of the view is set to [``nomask``](maskedarray.baseclass.html#numpy.ma.nomask) if the array has no named fields,
+  or an array of boolean with the same structure as the array otherwise.
+  ``` python
+  >>> x = np.array([1, 2, 3])
+  >>> x.view(ma.MaskedArray)
+  masked_array(data = [1 2 3],
+              mask = False,
+        fill_value = 999999)
+  >>> x = np.array([(1, 1.), (2, 2.)], dtype=[('a',int), ('b', float)])
+  >>> x.view(ma.MaskedArray)
+  masked_array(data = [(1, 1.0) (2, 2.0)],
+              mask = [(False, False) (False, False)],
+        fill_value = (999999, 1e+20),
+              dtype = [('a', '<i4'), ('b', '<f8')])
+  ```
 - Yet another possibility is to use any of the following functions:
-
-[asarray](generated/numpy.ma.asarray.html#numpy.ma.asarray)(a[, dtype, order]) | Convert the input to a masked array of the given data-type.
----|---
-[asanyarray](generated/numpy.ma.asanyarray.html#numpy.ma.asanyarray)(a[, dtype]) | Convert the input to a masked array, conserving subclasses.
-[fix_invalid](generated/numpy.ma.fix_invalid.html#numpy.ma.fix_invalid)(a[, mask, copy, fill_value]) | Return input with invalid data masked and replaced by a fill value.
-[masked_equal](generated/numpy.ma.masked_equal.html#numpy.ma.masked_equal)(x, value[, copy]) | Mask an array where equal to a given value.
-[masked_greater](generated/numpy.ma.masked_greater.html#numpy.ma.masked_greater)(x, value[, copy]) | Mask an array where greater than a given value.
-[masked_greater_equal](generated/numpy.ma.masked_greater_equal.html#numpy.ma.masked_greater_equal)(x, value[, copy]) | Mask an array where greater than or equal to a given value.
-[masked_inside](generated/numpy.ma.masked_inside.html#numpy.ma.masked_inside)(x, v1, v2[, copy]) | Mask an array inside a given interval.
-[masked_invalid](generated/numpy.ma.masked_invalid.html#numpy.ma.masked_invalid)(a[, copy]) | Mask an array where invalid values occur (NaNs or infs).
-[masked_less](generated/numpy.ma.masked_less.html#numpy.ma.masked_less)(x, value[, copy]) | Mask an array where less than a given value.
-[masked_less_equal](generated/numpy.ma.masked_less_equal.html#numpy.ma.masked_less_equal)(x, value[, copy]) | Mask an array where less than or equal to a given value.
-[masked_not_equal](generated/numpy.ma.masked_not_equal.html#numpy.ma.masked_not_equal)(x, value[, copy]) | Mask an array where not equal to a given value.
-[masked_object](generated/numpy.ma.masked_object.html#numpy.ma.masked_object)(x, value[, copy, shrink]) | Mask the array x where the data are exactly equal to value.
-[masked_outside](generated/numpy.ma.masked_outside.html#numpy.ma.masked_outside)(x, v1, v2[, copy]) | Mask an array outside a given interval.
-[masked_values](generated/numpy.ma.masked_values.html#numpy.ma.masked_values)(x, value[, rtol, atol, copy, …]) | Mask using floating point equality.
-[masked_where](generated/numpy.ma.masked_where.html#numpy.ma.masked_where)(condition, a[, copy]) | Mask an array where a condition is met.
+  method | description
+  ---|---
+  [asarray](generated/numpy.ma.asarray.html#numpy.ma.asarray)(a[, dtype, order]) | Convert the input to a masked array of the given data-type.
+  [asanyarray](generated/numpy.ma.asanyarray.html#numpy.ma.asanyarray)(a[, dtype]) | Convert the input to a masked array, conserving subclasses.
+  [fix_invalid](generated/numpy.ma.fix_invalid.html#numpy.ma.fix_invalid)(a[, mask, copy, fill_value]) | Return input with invalid data masked and replaced by a fill value.
+  [masked_equal](generated/numpy.ma.masked_equal.html#numpy.ma.masked_equal)(x, value[, copy]) | Mask an array where equal to a given value.
+  [masked_greater](generated/numpy.ma.masked_greater.html#numpy.ma.masked_greater)(x, value[, copy]) | Mask an array where greater than a given value.
+  [masked_greater_equal](generated/numpy.ma.masked_greater_equal.html#numpy.ma.masked_greater_equal)(x, value[, copy]) | Mask an array where greater than or equal to a given value.
+  [masked_inside](generated/numpy.ma.masked_inside.html#numpy.ma.masked_inside)(x, v1, v2[, copy]) | Mask an array inside a given interval.
+  [masked_invalid](generated/numpy.ma.masked_invalid.html#numpy.ma.masked_invalid)(a[, copy]) | Mask an array where invalid values occur (NaNs or infs).
+  [masked_less](generated/numpy.ma.masked_less.html#numpy.ma.masked_less)(x, value[, copy]) | Mask an array where less than a given value.
+  [masked_less_equal](generated/numpy.ma.masked_less_equal.html#numpy.ma.masked_less_equal)(x, value[, copy]) | Mask an array where less than or equal to a given value.
+  [masked_not_equal](generated/numpy.ma.masked_not_equal.html#numpy.ma.masked_not_equal)(x, value[, copy]) | Mask an array where not equal to a given value.
+  [masked_object](generated/numpy.ma.masked_object.html#numpy.ma.masked_object)(x, value[, copy, shrink]) | Mask the array x where the data are exactly equal to value.
+  [masked_outside](generated/numpy.ma.masked_outside.html#numpy.ma.masked_outside)(x, v1, v2[, copy]) | Mask an array outside a given interval.
+  [masked_values](generated/numpy.ma.masked_values.html#numpy.ma.masked_values)(x, value[, rtol, atol, copy, …]) | Mask using floating point equality.
+  [masked_where](generated/numpy.ma.masked_where.html#numpy.ma.masked_where)(condition, a[, copy]) | Mask an array where a condition is met.
 
 ## Accessing the data
 

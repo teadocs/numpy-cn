@@ -15,6 +15,8 @@ The most basic task that can be done with the [``nditer``](generated/numpy.ndite
 visit every element of an array. Each element is provided one by one
 using the standard Python iterator interface.
 
+**Example:**
+
 ``` python
 >>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a):
@@ -30,6 +32,8 @@ reflecting the idea that by default one simply wants to visit each element
 without concern for a particular ordering. We can see this by iterating
 over the transpose of our previous array, compared to taking a copy
 of that transpose in C order.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(6).reshape(2,3)
@@ -59,6 +63,8 @@ The [``nditer``](generated/numpy.nditer.html#numpy.nditer) object provides an *o
 aspect of iteration. The default, having the behavior described above,
 is order=’K’ to keep the existing order. This can be overridden with
 order=’C’ for C order and order=’F’ for Fortran order.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(6).reshape(2,3)
@@ -92,6 +98,8 @@ the write-back.
 The nditer can no longer be iterated once either *close* is called or its
 context is exited.
 
+**Example:**
+
 ``` python
 >>> a = np.arange(6).reshape(2,3)
 >>> a
@@ -124,6 +132,8 @@ Observe that with the default of keeping native memory order, the
 iterator is able to provide a single one-dimensional chunk, whereas
 when forcing Fortran order, it has to provide three chunks of two
 elements each.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(6).reshape(2,3)
@@ -159,6 +169,8 @@ The Python interactive interpreter unfortunately prints out the
 values of expressions inside the while loop during each iteration of the
 loop. We have modified the output in the examples using this looping
 construct in order to be more readable.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(6).reshape(2,3)
@@ -196,6 +208,8 @@ loop, because it requires a different index value per element. If
 you try to combine these flags, the [``nditer``](generated/numpy.nditer.html#numpy.nditer) object will
 raise an exception
 
+**Example:**
+
 ``` python
 >>> a = np.zeros((2,3))
 >>> it = np.nditer(a, flags=['c_index', 'external_loop'])
@@ -217,6 +231,8 @@ the inner loop can be made larger, significantly reducing the overhead
 of the Python interpreter. In the example forcing Fortran iteration order,
 the inner loop gets to see all the elements in one go when buffering
 is enabled.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(6).reshape(2,3)
@@ -261,6 +277,8 @@ so that we can take square roots of negative numbers. Without enabling
 copies or buffering mode, the iterator will raise an exception if the
 data type doesn’t match precisely.
 
+**Example:**
+
 ``` python
 >>> a = np.arange(6).reshape(2,3) - 3
 >>> for x in np.nditer(a, op_dtypes=['complex128']):
@@ -274,6 +292,8 @@ TypeError: Iterator operand required copying or buffering, but neither copying n
 In copying mode, ‘copy’ is specified as a per-operand flag. This is
 done to provide control in a per-operand fashion. Buffering mode is
 specified as an iterator flag.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(6).reshape(2,3) - 3
@@ -298,6 +318,8 @@ for example, that it will raise an exception if you try to treat a
 ‘same_kind’ is the most reasonable rule to use, since it will allow
 conversion from 64 to 32-bit float, but not from float to int or from
 complex to float.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(6.)
@@ -334,6 +356,8 @@ While in read-only mode, an integer array could be provided, read-write
 mode will raise an exception because conversion back to the array
 would violate the casting rule.
 
+**Example:**
+
 ``` python
 >>> a = np.arange(6)
 >>> for x in np.nditer(a, flags=['buffered'], op_flags=['readwrite'],
@@ -356,6 +380,8 @@ object can apply these rules for you when you need to write such a function.
 As an example, we print out the result of broadcasting a one and
 a two dimensional array together.
 
+**Example:**
+
 ``` python
 >>> a = np.arange(3)
 >>> b = np.arange(6).reshape(2,3)
@@ -367,6 +393,8 @@ a two dimensional array together.
 
 When a broadcasting error occurs, the iterator raises an exception
 which includes the input shapes to help diagnose the problem.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(2)
@@ -390,6 +418,8 @@ makes it very easy to support this mechanism.
 We’ll show how this works by creating a function [``square``](generated/numpy.square.html#numpy.square) which squares
 its input. Let’s start with a minimal function definition excluding ‘out’
 parameter support.
+
+**Example:**
 
 ``` python
 >>> def square(a):
@@ -427,6 +457,8 @@ at the sum of squares function in the section about Cython.
 For completeness, we’ll also add the ‘external_loop’ and ‘buffered’
 flags, as these are what you will typically want for performance
 reasons.
+
+**Example:**
 
 ``` python
 >>> def square(a, out=None):
@@ -489,6 +521,8 @@ None instead of constructing another list.
 The operation in the inner loop is a straightforward multiplication.
 Everything to do with the outer product is handled by the iterator setup.
 
+**Example:**
+
 ``` python
 >>> a = np.arange(3)
 >>> b = np.arange(8).reshape(2,4)
@@ -520,6 +554,8 @@ reductions when ‘reduce_ok’ is provided as an iterator flag.
 
 For a simple example, consider taking the sum of all elements in an array.
 
+**Example:**
+
 ``` python
 >>> a = np.arange(24).reshape(2,3,4)
 >>> b = np.array(0)
@@ -538,6 +574,8 @@ Things are a little bit more tricky when combining reduction and allocated
 operands. Before iteration is started, any reduction operand must be
 initialized to its starting values. Here’s how we can do this, taking
 sums along the last axis of *a*.
+
+**Example:**
 
 ``` python
 >>> a = np.arange(24).reshape(2,3,4)
@@ -573,6 +611,8 @@ until it receives a reset, after which it will be ready for regular
 iteration. Here’s how the previous example looks if we also enable
 buffering.
 
+**Example:**
+
 ``` python
 >>> a = np.arange(24).reshape(2,3,4)
 >>> it = np.nditer([a, None], flags=['reduce_ok', 'external_loop',
@@ -606,6 +646,8 @@ let’s implement this function in straightforward Python. We want to
 support an ‘axis’ parameter similar to the numpy [``sum``](generated/numpy.sum.html#numpy.sum) function,
 so we will need to construct a list for the *op_axes* parameter.
 Here’s how this looks.
+
+**Example:**
 
 ``` python
 >>> def axis_to_axeslist(axis, ndim):
@@ -710,6 +752,8 @@ $ gcc -shared -pthread -fPIC -fwrapv -O2 -Wall -I/usr/include/python2.7 -fno-str
 
 Running this from the Python interpreter produces the same answers
 as our native Python/NumPy code did.
+
+**Example:**
 
 ``` python
 >>> from sum_squares import sum_squares_cy

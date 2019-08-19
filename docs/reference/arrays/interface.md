@@ -15,8 +15,7 @@ described here.
 
 :::
 
-version:3
----
+**version:** 3
 
 The array interface (sometimes called array protocol) was created in
 2005 as a means for array-like Python objects to re-use each other’s
@@ -43,147 +42,138 @@ This approach to the interface consists of the object having an
 [``__array_interface__``](#__array_interface__) attribute.
 
 
-``__array_interface__``[¶](#__array_interface__)
+- ``__array_interface__``
 
-A dictionary of items (3 required and 5 optional).  The optional
-keys in the dictionary have implied defaults if they are not
-provided.
+  A dictionary of items (3 required and 5 optional).  The optional
+  keys in the dictionary have implied defaults if they are not
+  provided.
 
-The keys are:
+  The keys are:
 
-**shape** (required)
+  - **shape** (required)
+    Tuple whose elements are the array size in each dimension. Each entry is an integer (a Python int or long). Note that these integers could be larger than the platform “int” or “long” could hold (a Python int is a C long). It is up to the code using this attribute to handle this appropriately; either by raising an error when overflow is possible, or by using Py_LONG_LONG as the C type for the shapes.
+  - **typestr** (required)
+    A string providing the basic type of the homogenous array The
+    basic string format consists of 3 parts: a character describing
+    the byteorder of the data (``<``: little-endian, ``>``:
+    big-endian, ``|``: not-relevant), a character code giving the
+    basic type of the array, and an integer providing the number of
+    bytes the type uses.
 
-**typestr** (required)
+    The basic type character codes are:
 
-A string providing the basic type of the homogenous array The
-basic string format consists of 3 parts: a character describing
-the byteorder of the data (``<``: little-endian, ``>``:
-big-endian, ``|``: not-relevant), a character code giving the
-basic type of the array, and an integer providing the number of
-bytes the type uses.
+    code | description
+    ---|---
+    t | Bit field (following integer gives the number of bits in the bit field).
+    b | Boolean (integer type where all values are only True or False)
+    i | Integer
+    u | Unsigned integer
+    f | Floating point
+    c | Complex floating point
+    m | Timedelta
+    M | Datetime
+    O | Object (i.e. the memory contains a pointer to [PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject))
+    S | String (fixed-length sequence of char)
+    U | Unicode (fixed-length sequence of [Py_UNICODE](https://docs.python.org/dev/c-api/unicode.html#c.Py_UNICODE))
+    V | Other (void * – each item is a fixed-size chunk of memory)
+  - **descr** (optional)
+    A list of tuples providing a more detailed description of the
+    memory layout for each item in the homogeneous array.  Each
+    tuple in the list has two or three elements.  Normally, this
+    attribute would be used when *typestr* is ``V[0-9]+``, but this is
+    not a requirement.  The only requirement is that the number of
+    bytes represented in the *typestr* key is the same as the total
+    number of bytes represented here.  The idea is to support
+    descriptions of C-like structs that make up array
+    elements.  The elements of each tuple in the list are
 
-The basic type character codes are:
+    1. A string providing a name associated with this portion of
+    the datatype.  This could also be a tuple of ``('full name',
+    'basic_name')`` where basic name would be a valid Python
+    variable name representing the full name of the field.
+    1. Either a basic-type description string as in *typestr* or
+    another list (for nested structured types)
+    1. An optional shape tuple providing how many times this part
+    of the structure should be repeated.  No repeats are assumed
+    if this is not given.  Very complicated structures can be
+    described using this generic interface.  Notice, however,
+    that each element of the array is still of the same
+    data-type.  Some examples of using this interface are given
+    below.
 
-t | Bit field (following integer gives the number of bits in the bit field).
----|---
-b | Boolean (integer type where all values are only True or False)
-i | Integer
-u | Unsigned integer
-f | Floating point
-c | Complex floating point
-m | Timedelta
-M | Datetime
-O | Object (i.e. the memory contains a pointer to [PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject))
-S | String (fixed-length sequence of char)
-U | Unicode (fixed-length sequence of [Py_UNICODE](https://docs.python.org/dev/c-api/unicode.html#c.Py_UNICODE))
-V | Other (void * – each item is a fixed-size chunk of memory)
+    **Default**: ``[('', typestr)]``
+  - **data** (optional)
+    A 2-tuple whose first argument is an integer (a long integer
+    if necessary) that points to the data-area storing the array
+    contents.  This pointer must point to the first element of
+    data (in other words any offset is always ignored in this
+    case). The second entry in the tuple is a read-only flag (true
+    means the data area is read-only).
 
-**descr** (optional)
+    This attribute can also be an object exposing the
+    [``buffer interface``](https://docs.python.org/dev/c-api/objbuffer.html#c.PyObject_AsCharBuffer) which
+    will be used to share the data. If this key is not present (or
+    returns ``None``), then memory sharing will be done
+    through the buffer interface of the object itself.  In this
+    case, the offset key can be used to indicate the start of the
+    buffer.  A reference to the object exposing the array interface
+    must be stored by the new object if the memory area is to be
+    secured.
 
-A list of tuples providing a more detailed description of the
-memory layout for each item in the homogeneous array.  Each
-tuple in the list has two or three elements.  Normally, this
-attribute would be used when *typestr* is ``V[0-9]+``, but this is
-not a requirement.  The only requirement is that the number of
-bytes represented in the *typestr* key is the same as the total
-number of bytes represented here.  The idea is to support
-descriptions of C-like structs that make up array
-elements.  The elements of each tuple in the list are
+    **Default**: ``None``
 
-1. A string providing a name associated with this portion of
-the datatype.  This could also be a tuple of ``('full name',
-'basic_name')`` where basic name would be a valid Python
-variable name representing the full name of the field.
-1. Either a basic-type description string as in *typestr* or
-another list (for nested structured types)
-1. An optional shape tuple providing how many times this part
-of the structure should be repeated.  No repeats are assumed
-if this is not given.  Very complicated structures can be
-described using this generic interface.  Notice, however,
-that each element of the array is still of the same
-data-type.  Some examples of using this interface are given
-below.
+  - **strides** (optional)
+    Either ``None`` to indicate a C-style contiguous array or
+    a Tuple of strides which provides the number of bytes needed
+    to jump to the next array element in the corresponding
+    dimension. Each entry must be an integer (a Python
+    ``int`` or ``long``). As with shape, the values may
+    be larger than can be represented by a C “int” or “long”; the
+    calling code should handle this appropriately, either by
+    raising an error, or by using ``Py_LONG_LONG`` in C. The
+    default is ``None`` which implies a C-style contiguous
+    memory buffer.  In this model, the last dimension of the array
+    varies the fastest.  For example, the default strides tuple
+    for an object whose array entries are 8 bytes long and whose
+    shape is (10,20,30) would be (4800, 240, 8)
 
-**Default**: ``[('', typestr)]``
+    **Default**: ``None`` (C-style contiguous)
+  - **mask** (optional)
 
-**data** (optional)
+    ``None`` or an object exposing the array interface.  All
+    elements of the mask array should be interpreted only as true
+    or not true indicating which elements of this array are valid.
+    The shape of this object should be *“broadcastable”* to the shape of the
+    original array.
 
-A 2-tuple whose first argument is an integer (a long integer
-if necessary) that points to the data-area storing the array
-contents.  This pointer must point to the first element of
-data (in other words any offset is always ignored in this
-case). The second entry in the tuple is a read-only flag (true
-means the data area is read-only).
+    **Default**: ``None`` (All array values are valid)
+  - **offset** (optional)
+    An integer offset into the array data region. This can only be
+    used when data is ``None`` or returns a ``buffer``
+    object.
 
-This attribute can also be an object exposing the
-[``buffer interface``](https://docs.python.org/dev/c-api/objbuffer.html#c.PyObject_AsCharBuffer) which
-will be used to share the data. If this key is not present (or
-returns ``None``), then memory sharing will be done
-through the buffer interface of the object itself.  In this
-case, the offset key can be used to indicate the start of the
-buffer.  A reference to the object exposing the array interface
-must be stored by the new object if the memory area is to be
-secured.
-
-**Default**: ``None``
-
-**strides** (optional)
-
-Either ``None`` to indicate a C-style contiguous array or
-a Tuple of strides which provides the number of bytes needed
-to jump to the next array element in the corresponding
-dimension. Each entry must be an integer (a Python
-``int`` or ``long``). As with shape, the values may
-be larger than can be represented by a C “int” or “long”; the
-calling code should handle this appropriately, either by
-raising an error, or by using ``Py_LONG_LONG`` in C. The
-default is ``None`` which implies a C-style contiguous
-memory buffer.  In this model, the last dimension of the array
-varies the fastest.  For example, the default strides tuple
-for an object whose array entries are 8 bytes long and whose
-shape is (10,20,30) would be (4800, 240, 8)
-
-**Default**: ``None`` (C-style contiguous)
-
-**mask** (optional)
-
-``None`` or an object exposing the array interface.  All
-elements of the mask array should be interpreted only as true
-or not true indicating which elements of this array are valid.
-The shape of this object should be *“broadcastable”* to the shape of the
-original array.
-
-**Default**: ``None`` (All array values are valid)
-
-**offset** (optional)
-
-An integer offset into the array data region. This can only be
-used when data is ``None`` or returns a ``buffer``
-object.
-
-**Default**: 0.
-
-**version** (required)
+    **Default**: 0.
+  - **version** (required)
+    An integer showing the version of the interface (i.e. 3 for this version). Be careful not to use this to invalidate objects exposing future versions of the interface.
 
 ## C-struct access
 
 This approach to the array interface allows for faster access to an
 array using only one attribute lookup and a well-defined C-structure.
 
+- ``__array_struct__``
 
-``__array_struct__``[¶](#c.__array_struct__)
-
-A :c:type: *PyCObject* whose ``voidptr`` member contains a
-pointer to a filled [``PyArrayInterface``](c-api/types-and-structures.html#c.PyArrayInterface) structure.  Memory
-for the structure is dynamically created and the ``PyCObject``
-is also created with an appropriate destructor so the retriever of
-this attribute simply has to apply [``Py_DECREF``](https://docs.python.org/dev/c-api/refcounting.html#c.Py_DECREF) to the
-object returned by this attribute when it is finished.  Also,
-either the data needs to be copied out, or a reference to the
-object exposing this attribute must be held to ensure the data is
-not freed.  Objects exposing the ``__array_struct__`` interface
-must also not reallocate their memory if other objects are
-referencing them.
+  A :c:type: *PyCObject* whose ``voidptr`` member contains a
+  pointer to a filled [``PyArrayInterface``](c-api/types-and-structures.html#c.PyArrayInterface) structure.  Memory
+  for the structure is dynamically created and the ``PyCObject``
+  is also created with an appropriate destructor so the retriever of
+  this attribute simply has to apply [``Py_DECREF``](https://docs.python.org/dev/c-api/refcounting.html#c.Py_DECREF) to the
+  object returned by this attribute when it is finished.  Also,
+  either the data needs to be copied out, or a reference to the
+  object exposing this attribute must be held to ensure the data is
+  not freed.  Objects exposing the ``__array_struct__`` interface
+  must also not reallocate their memory if other objects are
+  referencing them.
 
 The PyArrayInterface structure is defined in ``numpy/ndarrayobject.h``
 as:
@@ -213,6 +203,8 @@ interpreted.  The data-bits are ``CONTIGUOUS`` (0x1),
 ``ARR_HAS_DESCR`` (0x800) indicates whether or not this structure
 has the arrdescr field.  The field should not be accessed unless this
 flag is present.
+
+**New since June 16, 2006:**
 
 In the past most implementations used the “desc” member of the
 ``PyCObject`` itself (do not confuse this with the “descr” member of
@@ -299,17 +291,10 @@ hex-string (now it is an integer or a long integer).
 (except for version) in the __array_interface__ dictionary were
 their own attribute: Thus to obtain the Python-side information you
 had to access separately the attributes:
-__array_data__
-__array_shape__
-__array_strides__
-__array_typestr__
-__array_descr__
-__array_offset__
-__array_mask__
-1. __array_data__
-1. __array_shape__
-1. __array_strides__
-1. __array_typestr__
-1. __array_descr__
-1. __array_offset__
-1. __array_mask__
+    1. __array_data__
+    1. __array_shape__
+    1. __array_strides__
+    1. __array_typestr__
+    1. __array_descr__
+    1. __array_offset__
+    1. __array_mask__

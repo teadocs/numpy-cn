@@ -25,6 +25,8 @@ months (‘M’), weeks (‘W’), and days (‘D’), while the time units are
 hours (‘h’), minutes (‘m’), seconds (‘s’), milliseconds (‘ms’), and
 some additional SI-prefix seconds-based units.
 
+**Example:**
+
 A simple ISO date:
 
 ``` python
@@ -40,6 +42,8 @@ numpy.datetime64('2005-02')
 ```
 
 Specifying just the month, but forcing a ‘days’ unit:
+
+**Example:**
 
 ``` python
 >>> np.datetime64('2005-02', 'D')
@@ -70,6 +74,8 @@ array(['2001-01-01T12:00:00.000-0600', '2002-02-03T13:56:03.172-0600'], dtype='d
 The datetime type works with many common NumPy functions, for
 example [``arange``](generated/numpy.arange.html#numpy.arange) can be used to generate ranges of dates.
 
+**Example:**
+
 All the dates for one month:
 
 ``` python
@@ -90,6 +96,8 @@ the same moment of time, and converting from a bigger unit like
 months to a smaller unit like days is considered a ‘safe’ cast
 because the moment of time is still being represented exactly.
 
+**Example:**
+
 ``` python
 >>> np.datetime64('2005') == np.datetime64('2005-01-01')
 True
@@ -109,6 +117,8 @@ to complement datetime64.
 
 Datetimes and Timedeltas work together to provide ways for
 simple datetime calculations.
+
+**Example:**
 
 ``` python
 >>> np.datetime64('2009-01-01') - np.datetime64('2008-01-01')
@@ -140,6 +150,8 @@ specially, because how much time they represent changes depending
 on when they are used. While a timedelta day unit is equivalent to
 24 hours, there is no way to convert a month unit into days, because
 different months have different numbers of days.
+
+**Example:**
 
 ``` python
 >>> a = np.timedelta64(1, 'Y')
@@ -214,6 +226,8 @@ specific dates that are not valid days.
 The function [``busday_offset``](generated/numpy.busday_offset.html#numpy.busday_offset) allows you to apply offsets
 specified in business days to datetimes with a unit of ‘D’ (day).
 
+**Example:**
+
 ``` python
 >>> np.busday_offset('2011-06-23', 1)
 numpy.datetime64('2011-06-24')
@@ -260,6 +274,8 @@ numpy.datetime64('2011-06-28')
 In some cases, an appropriate use of the roll and the offset
 is necessary to get a desired answer.
 
+**Example:**
+
 The first business day on or after a date:
 
 ``` python
@@ -283,6 +299,8 @@ like holidays. In Canada and the U.S., Mother’s day is on
 the second Sunday in May, which can be computed with a custom
 weekmask.
 
+**Example:**
+
 ``` python
 >>> np.busday_offset('2012-05', 1, roll='forward', weekmask='Sun')
 numpy.datetime64('2012-05-13','D')
@@ -296,6 +314,8 @@ in an optimized form.
 ### np.is_busday():
 
 To test a datetime64 value to see if it is a valid day, use [``is_busday``](generated/numpy.is_busday.html#numpy.is_busday).
+
+**Example:**
 
 ``` python
 >>> np.is_busday(np.datetime64('2011-07-15'))  # a Friday
@@ -314,6 +334,8 @@ array([ True,  True,  True,  True,  True, False, False], dtype='bool')
 To find how many valid days there are in a specified range of datetime64
 dates, use [``busday_count``](generated/numpy.busday_count.html#numpy.busday_count):
 
+**Example:**
+
 ``` python
 >>> np.busday_count(np.datetime64('2011-07-11'), np.datetime64('2011-07-18'))
 5
@@ -323,6 +345,8 @@ dates, use [``busday_count``](generated/numpy.busday_count.html#numpy.busday_cou
 
 If you have an array of datetime64 day values, and you want a count of
 how many of them are valid dates, you can do this:
+
+**Example:**
 
 ``` python
 >>> a = np.arange(np.datetime64('2011-07-11'), np.datetime64('2011-07-18'))

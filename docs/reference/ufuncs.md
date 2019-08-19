@@ -113,8 +113,9 @@ alter the speed at which ufunc calculations of various sorts are
 completed. A simple interface for setting this variable is accessible
 using the function
 
-[setbufsize](generated/numpy.setbufsize.html#numpy.setbufsize)(size) | Set the size of the buffer used in ufuncs.
+method | description
 ---|---
+[setbufsize](generated/numpy.setbufsize.html#numpy.setbufsize)(size) | Set the size of the buffer used in ufuncs.
 
 ## Error handling
 
@@ -124,8 +125,9 @@ platform, these registers will be regularly checked during
 calculation. Error handling is controlled on a per-thread basis,
 and can be configured using the functions
 
-[seterr](generated/numpy.seterr.html#numpy.seterr)([all, divide, over, under, invalid]) | Set how floating-point errors are handled.
+method | description
 ---|---
+[seterr](generated/numpy.seterr.html#numpy.seterr)([all, divide, over, under, invalid]) | Set how floating-point errors are handled.
 [seterrcall](generated/numpy.seterrcall.html#numpy.seterrcall)(func) | Set the floating-point error callback function or log object.
 
 ## Casting Rules
@@ -244,134 +246,140 @@ them by defining certain special methods.  For details, see
 All ufuncs take optional keyword arguments. Most of these represent
 advanced usage and will not typically be used.
 
-*out*
+- *out*
 
-*New in version 1.6.* 
+  *New in version 1.6.* 
 
-The first output can be provided as either a positional or a keyword
-parameter. Keyword ‘out’ arguments are incompatible with positional
-ones.
+  The first output can be provided as either a positional or a keyword
+  parameter. Keyword ‘out’ arguments are incompatible with positional
+  ones.
 
-*New in version 1.10.* 
+  *New in version 1.10.* 
 
-The ‘out’ keyword argument is expected to be a tuple with one entry per
-output (which can be *None* for arrays to be allocated by the ufunc).
-For ufuncs with a single output, passing a single array (instead of a
-tuple holding a single array) is also valid.
+  The ‘out’ keyword argument is expected to be a tuple with one entry per
+  output (which can be *None* for arrays to be allocated by the ufunc).
+  For ufuncs with a single output, passing a single array (instead of a
+  tuple holding a single array) is also valid.
 
-Passing a single array in the ‘out’ keyword argument to a ufunc with
-multiple outputs is deprecated, and will raise a warning in numpy 1.10,
-and an error in a future release.
+  Passing a single array in the ‘out’ keyword argument to a ufunc with
+  multiple outputs is deprecated, and will raise a warning in numpy 1.10,
+  and an error in a future release.
 
-If ‘out’ is None (the default), a uninitialized return array is created.
-The output array is then filled with the results of the ufunc in the places
-that the broadcast ‘where’ is True. If ‘where’ is the scalar True (the
-default), then this corresponds to the entire output being filled.
-Note that outputs not explicitly filled are left with their
-uninitialized values.
+  If ‘out’ is None (the default), a uninitialized return array is created.
+  The output array is then filled with the results of the ufunc in the places
+  that the broadcast ‘where’ is True. If ‘where’ is the scalar True (the
+  default), then this corresponds to the entire output being filled.
+  Note that outputs not explicitly filled are left with their
+  uninitialized values.
 
-*where*
+- *where*
 
-*New in version 1.7.* 
+  *New in version 1.7.* 
 
-Accepts a boolean array which is broadcast together with the operands.
-Values of True indicate to calculate the ufunc at that position, values
-of False indicate to leave the value in the output alone. This argument
-cannot be used for generalized ufuncs as those take non-scalar input.
+  Accepts a boolean array which is broadcast together with the operands.
+  Values of True indicate to calculate the ufunc at that position, values
+  of False indicate to leave the value in the output alone. This argument
+  cannot be used for generalized ufuncs as those take non-scalar input.
 
-Note that if an uninitialized return array is created, values of False
-will leave those values **uninitialized**.
+  Note that if an uninitialized return array is created, values of False
+  will leave those values **uninitialized**.
 
-*axes*
+- *axes*
 
-*New in version 1.15.* 
+  *New in version 1.15.* 
 
-A list of tuples with indices of axes a generalized ufunc should operate
-on. For instance, for a signature of ``(i,j),(j,k)->(i,k)`` appropriate
-for matrix multiplication, the base elements are two-dimensional matrices
-and these are taken to be stored in the two last axes of each argument.
-The corresponding axes keyword would be ``[(-2, -1), (-2, -1), (-2, -1)]``.
-For simplicity, for generalized ufuncs that operate on 1-dimensional arrays
-(vectors), a single integer is accepted instead of a single-element tuple,
-and for generalized ufuncs for which all outputs are scalars, the output
-tuples can be omitted.
+  A list of tuples with indices of axes a generalized ufunc should operate
+  on. For instance, for a signature of ``(i,j),(j,k)->(i,k)`` appropriate
+  for matrix multiplication, the base elements are two-dimensional matrices
+  and these are taken to be stored in the two last axes of each argument.
+  The corresponding axes keyword would be ``[(-2, -1), (-2, -1), (-2, -1)]``.
+  For simplicity, for generalized ufuncs that operate on 1-dimensional arrays
+  (vectors), a single integer is accepted instead of a single-element tuple,
+  and for generalized ufuncs for which all outputs are scalars, the output
+  tuples can be omitted.
 
-*axis*
+- *axis*
 
-*New in version 1.15.* 
+  *New in version 1.15.* 
 
-A single axis over which a generalized ufunc should operate. This is a
-short-cut for ufuncs that operate over a single, shared core dimension,
-equivalent to passing in ``axes`` with entries of ``(axis,)`` for each
-single-core-dimension argument and ``()`` for all others.  For instance,
-for a signature ``(i),(i)->()``, it is equivalent to passing in
-``axes=[(axis,), (axis,), ()]``.
+  A single axis over which a generalized ufunc should operate. This is a
+  short-cut for ufuncs that operate over a single, shared core dimension,
+  equivalent to passing in ``axes`` with entries of ``(axis,)`` for each
+  single-core-dimension argument and ``()`` for all others.  For instance,
+  for a signature ``(i),(i)->()``, it is equivalent to passing in
+  ``axes=[(axis,), (axis,), ()]``.
 
-*keepdims*
+- *keepdims*
 
-*New in version 1.15.* 
+  *New in version 1.15.* 
 
-If this is set to *True*, axes which are reduced over will be left in the
-result as a dimension with size one, so that the result will broadcast
-correctly against the inputs. This option can only be used for generalized
-ufuncs that operate on inputs that all have the same number of core
-dimensions and with outputs that have no core dimensions , i.e., with
-signatures like ``(i),(i)->()`` or ``(m,m)->()``. If used, the location of
-the dimensions in the output can be controlled with ``axes`` and ``axis``.
+  If this is set to *True*, axes which are reduced over will be left in the
+  result as a dimension with size one, so that the result will broadcast
+  correctly against the inputs. This option can only be used for generalized
+  ufuncs that operate on inputs that all have the same number of core
+  dimensions and with outputs that have no core dimensions , i.e., with
+  signatures like ``(i),(i)->()`` or ``(m,m)->()``. If used, the location of
+  the dimensions in the output can be controlled with ``axes`` and ``axis``.
 
-*casting*
+- *casting*
 
-*New in version 1.6.* 
+  *New in version 1.6.* 
 
-May be ‘no’, ‘equiv’, ‘safe’, ‘same_kind’, or ‘unsafe’.
-See [``can_cast``](generated/numpy.can_cast.html#numpy.can_cast) for explanations of the parameter values.
+  May be ‘no’, ‘equiv’, ‘safe’, ‘same_kind’, or ‘unsafe’.
+  See [``can_cast``](generated/numpy.can_cast.html#numpy.can_cast) for explanations of the parameter values.
 
-Provides a policy for what kind of casting is permitted. For compatibility
-with previous versions of NumPy, this defaults to ‘unsafe’ for numpy < 1.7.
-In numpy 1.7 a transition to ‘same_kind’ was begun where ufuncs produce a
-DeprecationWarning for calls which are allowed under the ‘unsafe’
-rules, but not under the ‘same_kind’ rules. From numpy 1.10 and
-onwards, the default is ‘same_kind’.
+  Provides a policy for what kind of casting is permitted. For compatibility
+  with previous versions of NumPy, this defaults to ‘unsafe’ for numpy < 1.7.
+  In numpy 1.7 a transition to ‘same_kind’ was begun where ufuncs produce a
+  DeprecationWarning for calls which are allowed under the ‘unsafe’
+  rules, but not under the ‘same_kind’ rules. From numpy 1.10 and
+  onwards, the default is ‘same_kind’.
 
-*order*
+- *order*
 
-*New in version 1.6.* 
+  *New in version 1.6.* 
 
-Specifies the calculation iteration order/memory layout of the output array.
-Defaults to ‘K’. ‘C’ means the output should be C-contiguous, ‘F’ means
-F-contiguous, ‘A’ means F-contiguous if the inputs are F-contiguous and
-not also not C-contiguous, C-contiguous otherwise, and ‘K’ means to match
-the element ordering of the inputs as closely as possible.
+  Specifies the calculation iteration order/memory layout of the output array.
+  Defaults to ‘K’. ‘C’ means the output should be C-contiguous, ‘F’ means
+  F-contiguous, ‘A’ means F-contiguous if the inputs are F-contiguous and
+  not also not C-contiguous, C-contiguous otherwise, and ‘K’ means to match
+  the element ordering of the inputs as closely as possible.
 
-*dtype*
+- *dtype*
 
-*New in version 1.6.* 
+  *New in version 1.6.* 
 
-Overrides the dtype of the calculation and output arrays. Similar to
-*signature*.
+  Overrides the dtype of the calculation and output arrays. Similar to
+  *signature*.
 
 *subok*
 
-*New in version 1.6.* 
+  *New in version 1.6.* 
 
-Defaults to true. If set to false, the output will always be a strict
-array, not a subtype.
+  Defaults to true. If set to false, the output will always be a strict
+  array, not a subtype.
 
-*signature*
+- *signature*
+
+  Either a data-type, a tuple of data-types, or a special signature string indicating the input and output types of a ufunc. This argument allows you to provide a specific signature for the 1-d loop to use in the underlying calculation. If the loop specified does not exist for the ufunc, then a TypeError is raised. Normally, a suitable loop is found automatically by comparing the input types with what is available and searching for a loop with data-types to which all inputs can be cast safely. This keyword argument lets you bypass that search and choose a particular loop. A list of available signatures is provided by the types attribute of the ufunc object. For backwards compatibility this argument can also be provided as sig, although the long form is preferred. Note that this should not be confused with the generalized ufunc [signature](https://www.numpy.org/devdocs/reference/c-api/generalized-ufuncs.html#details-of-signature) that is stored in the signature attribute of the of the ufunc object.
 
 *extobj*
+
+  a list of length 1, 2, or 3 specifying the ufunc buffer-size, the error mode integer, and the error call-back function. Normally, these values are looked up in a thread-specific dictionary. Passing them here circumvents that look up and uses the low-level specification provided for the error mode. This may be useful, for example, as an optimization for calculations requiring many ufunc calls on small arrays in a loop.
 
 ### Attributes
 
 There are some informational attributes that universal functions
 possess. None of the attributes can be set.
 
-__doc__ | A docstring for each ufunc. The first part of the docstring is dynamically generated from the number of outputs, the name, and the number of inputs. The second part of the docstring is provided at creation time and stored with the ufunc.
+attribute | description
 ---|---
+__doc__ | A docstring for each ufunc. The first part of the docstring is dynamically generated from the number of outputs, the name, and the number of inputs. The second part of the docstring is provided at creation time and stored with the ufunc.
 __name__ | The name of the ufunc.
 
-[ufunc.nin](generated/numpy.ufunc.nin.html#numpy.ufunc.nin) | The number of inputs.
+method | description
 ---|---
+[ufunc.nin](generated/numpy.ufunc.nin.html#numpy.ufunc.nin) | The number of inputs.
 [ufunc.nout](generated/numpy.ufunc.nout.html#numpy.ufunc.nout) | The number of outputs.
 [ufunc.nargs](generated/numpy.ufunc.nargs.html#numpy.ufunc.nargs) | The number of arguments.
 [ufunc.ntypes](generated/numpy.ufunc.ntypes.html#numpy.ufunc.ntypes) | The number of types.
@@ -414,8 +422,9 @@ fancy indexing is used, so the fancy index can list an item more than once and
 the operation will be performed on the result of the previous operation for
 that item.
 
-[ufunc.reduce](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce)(a[, axis, dtype, out, …]) | Reduces a’s dimension by one, by applying ufunc along one axis.
+method | description
 ---|---
+[ufunc.reduce](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce)(a[, axis, dtype, out, …]) | Reduces a’s dimension by one, by applying ufunc along one axis.
 [ufunc.accumulate](generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate)(array[, axis, dtype, out]) | Accumulate the result of applying the operator to all elements.
 [ufunc.reduceat](generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat)(a, indices[, axis, dtype, out]) | Performs a (local) reduce with specified slices over a single axis.
 [ufunc.outer](generated/numpy.ufunc.outer.html#numpy.ufunc.outer)(A, B, **kwargs) | Apply the ufunc op to all pairs (a, b) with a in A and b in B.
@@ -454,13 +463,14 @@ output argument(s).
 
 ### Math operations
 
-[add](generated/numpy.add.html#numpy.add)(x1, x2, /[, out, where, casting, order, …]) | Add arguments element-wise.
+method | description
 ---|---
+[add](generated/numpy.add.html#numpy.add)(x1, x2, /[, out, where, casting, order, …]) | Add arguments element-wise.
 [subtract](generated/numpy.subtract.html#numpy.subtract)(x1, x2, /[, out, where, casting, …]) | Subtract arguments, element-wise.
 [multiply](generated/numpy.multiply.html#numpy.multiply)(x1, x2, /[, out, where, casting, …]) | Multiply arguments element-wise.
 [divide](generated/numpy.divide.html#numpy.divide)(x1, x2, /[, out, where, casting, …]) | Returns a true division of the inputs, element-wise.
-[[log](generated/numpy.log.html#numpy.log)add[exp](generated/numpy.exp.html#numpy.exp)](generated/numpy.logaddexp.html#numpy.logaddexp)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs.
-[logadd[exp2](generated/numpy.exp2.html#numpy.exp2)](generated/numpy.logaddexp2.html#numpy.logaddexp2)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs in base-2.
+[logaddexp](https://www.numpy.org/devdocs/reference/generated/numpy.logaddexp.html#numpy.logaddexp)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs.
+[logaddexp2](generated/numpy.logaddexp2.html#numpy.logaddexp2)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs in base-2.
 [true_divide](generated/numpy.true_divide.html#numpy.true_divide)(x1, x2, /[, out, where, …]) | Returns a true division of the inputs, element-wise.
 [floor_divide](generated/numpy.floor_divide.html#numpy.floor_divide)(x1, x2, /[, out, where, …]) | Return the largest integer smaller or equal to the division of the inputs.
 [negative](generated/numpy.negative.html#numpy.negative)(x, /[, out, where, casting, order, …]) | Numerical negative, element-wise.
@@ -491,6 +501,8 @@ square(x, /[, out, where, casting, order, …]) | Return the element-wise 
 [gcd](generated/numpy.gcd.html#numpy.gcd)(x1, x2, /[, out, where, casting, order, …]) | Returns the greatest common divisor of |x1| and |x2|
 [lcm](generated/numpy.lcm.html#numpy.lcm)(x1, x2, /[, out, where, casting, order, …]) | Returns the lowest common multiple of |x1| and |x2|
 
+::: tip Tip
+
 The optional output arguments can be used to help you save memory
 for large calculations. If your arrays are large, complicated
 expressions can take longer than absolutely necessary due to the
@@ -500,13 +512,16 @@ spaces. For example, the expression ``G = a * b + c`` is equivalent to
 as ``G = A * B; add(G, C, G)`` which is the same as
 ``G = A * B; G += C``.
 
+:::
+
 ### Trigonometric functions
 
 All trigonometric functions use radians when an angle is called for.
-The ratio of degrees to radians is 
+The ratio of degrees to radians is 180° / π.
 
-[sin](generated/numpy.sin.html#numpy.sin)(x, /[, out, where, casting, order, …]) | Trigonometric sine, element-wise.
+method | description
 ---|---
+[sin](generated/numpy.sin.html#numpy.sin)(x, /[, out, where, casting, order, …]) | Trigonometric sine, element-wise.
 [cos](generated/numpy.cos.html#numpy.cos)(x, /[, out, where, casting, order, …]) | Cosine element-wise.
 [tan](generated/numpy.tan.html#numpy.tan)(x, /[, out, where, casting, order, …]) | Compute tangent element-wise.
 [arcsin](generated/numpy.arcsin.html#numpy.arcsin)(x, /[, out, where, casting, order, …]) | Inverse sine, element-wise.
@@ -528,8 +543,9 @@ The ratio of degrees to radians is
 These function all require integer arguments and they manipulate the
 bit-pattern of those arguments.
 
-[bitwise_and](generated/numpy.bitwise_and.html#numpy.bitwise_and)(x1, x2, /[, out, where, …]) | Compute the bit-wise AND of two arrays element-wise.
+method | description
 ---|---
+[bitwise_and](generated/numpy.bitwise_and.html#numpy.bitwise_and)(x1, x2, /[, out, where, …]) | Compute the bit-wise AND of two arrays element-wise.
 [bitwise_or](generated/numpy.bitwise_or.html#numpy.bitwise_or)(x1, x2, /[, out, where, casting, …]) | Compute the bit-wise OR of two arrays element-wise.
 [bitwise_xor](generated/numpy.bitwise_xor.html#numpy.bitwise_xor)(x1, x2, /[, out, where, …]) | Compute the bit-wise XOR of two arrays element-wise.
 [invert](generated/numpy.invert.html#numpy.invert)(x, /[, out, where, casting, order, …]) | Compute bit-wise inversion, or bit-wise NOT, element-wise.
@@ -538,9 +554,10 @@ bit-pattern of those arguments.
 
 ### Comparison functions
 
-[greater](generated/numpy.greater.html#numpy.greater)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 > x2) element-wise.
+method | description
 ---|---
-[greater_[equal](generated/numpy.equal.html#numpy.equal)](generated/numpy.greater_equal.html#numpy.greater_equal)(x1, x2, /[, out, where, …]) | Return the truth value of (x1 >= x2) element-wise.
+[greater](generated/numpy.greater.html#numpy.greater)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 > x2) element-wise.
+[greater_equal](generated/numpy.greater_equal.html#numpy.greater_equal)(x1, x2, /[, out, where, …]) | Return the truth value of (x1 >= x2) element-wise.
 [less](generated/numpy.less.html#numpy.less)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 < x2) element-wise.
 [less_equal](generated/numpy.less_equal.html#numpy.less_equal)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 =< x2) element-wise.
 [not_equal](generated/numpy.not_equal.html#numpy.not_equal)(x1, x2, /[, out, where, casting, …]) | Return (x1 != x2) element-wise.
@@ -555,8 +572,9 @@ expect). Use the bitwise operators & and | instead.
 
 :::
 
-[logical_and](generated/numpy.logical_and.html#numpy.logical_and)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 AND x2 element-wise.
+method | description
 ---|---
+[logical_and](generated/numpy.logical_and.html#numpy.logical_and)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 AND x2 element-wise.
 [logical_or](generated/numpy.logical_or.html#numpy.logical_or)(x1, x2, /[, out, where, casting, …]) | Compute the truth value of x1 OR x2 element-wise.
 [logical_xor](generated/numpy.logical_xor.html#numpy.logical_xor)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 XOR x2, element-wise.
 [logical_not](generated/numpy.logical_not.html#numpy.logical_not)(x, /[, out, where, casting, …]) | Compute the truth value of NOT x element-wise.
@@ -571,8 +589,11 @@ is evaluated first.
 
 :::
 
-[maximum](generated/numpy.maximum.html#numpy.maximum)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
+method | description
 ---|---
+[maximum](generated/numpy.maximum.html#numpy.maximum)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
+
+::: tip Tip
 
 The Python function ``max()`` will find the maximum over a one-dimensional
 array, but it will do so using a slower sequence interface. The reduce
@@ -581,8 +602,11 @@ will not give answers you might expect for arrays with greater than
 one dimension. The reduce method of minimum also allows you to compute
 a total minimum over an array.
 
-[minimum](generated/numpy.minimum.html#numpy.minimum)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
+:::
+
+method | description
 ---|---
+[minimum](generated/numpy.minimum.html#numpy.minimum)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
 
 ::: danger Warning
 
@@ -596,8 +620,9 @@ difference exists between ``minimum(a, b)`` and ``min(a, b)``.
 
 :::
 
-[fmax](generated/numpy.fmax.html#numpy.fmax)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
+method | description
 ---|---
+[fmax](generated/numpy.fmax.html#numpy.fmax)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
 [fmin](generated/numpy.fmin.html#numpy.fmin)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
 
 ### Floating functions
@@ -606,8 +631,9 @@ Recall that all of these functions work element-by-element over an
 array, returning an array output. The description details only a
 single operation.
 
-[isfinite](generated/numpy.isfinite.html#numpy.isfinite)(x, /[, out, where, casting, order, …]) | Test element-wise for finiteness (not infinity or not Not a Number).
+method | description
 ---|---
+[isfinite](generated/numpy.isfinite.html#numpy.isfinite)(x, /[, out, where, casting, order, …]) | Test element-wise for finiteness (not infinity or not Not a Number).
 [isinf](generated/numpy.isinf.html#numpy.isinf)(x, /[, out, where, casting, order, …]) | Test element-wise for positive or negative infinity.
 [isnan](generated/numpy.isnan.html#numpy.isnan)(x, /[, out, where, casting, order, …]) | Test element-wise for NaN and return result as a boolean array.
 [isnat](generated/numpy.isnat.html#numpy.isnat)(x, /[, out, where, casting, order, …]) | Test element-wise for NaT (not a time) and return result as a boolean array.

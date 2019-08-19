@@ -116,7 +116,7 @@ files : sequence
 
 Argument(s) can be either
 
-2-sequence (<datadir prefix>,<path to data file(s)>)
+2-sequence (``<datadir prefix>``,``<path to data file(s)>``)
 paths to data files where python datadir prefix defaults to package dir.
 
 Notes
@@ -192,7 +192,7 @@ will install these data files to:
  can.dat
 ```
 
-where <package install directory> is the package (or sub-package)
+where ``<package install directory>`` is the package (or sub-package)
 directory such as ‘/usr/lib/python2.4/site-packages/mypackage’ (‘C:
 Python2.4 Lib site-packages mypackage’) or
 ‘/usr/lib/python2.4/site- packages/mypackage/mysubpackage’ (‘C:
@@ -215,7 +215,7 @@ data_path : seq or str
 
 Argument can be either
 
-2-sequence (<datadir suffix>, <path to data directory>)
+2-sequence (``<datadir suffix>``, ``<path to data directory>``)
 path to data directory where python datadir suffix defaults to package dir.
 
 Notes
@@ -276,10 +276,9 @@ current package.
 Add installable headers to configuration.
 
 Add the given sequence of files to the beginning of the headers list.
-By default, headers will be installed under <python-
-include>/<self.name.replace(‘.’,’/’)>/ directory. If an item of files
+By default, headers will be installed under ``<python-include>/<self.name.replace(‘.’,’/’)>/`` directory. If an item of files
 is a tuple, then its first argument specifies the actual installation
-location relative to the <python-include> path.
+location relative to the ``<python-include>`` path.
 
 Parameters:
 ---
@@ -287,7 +286,7 @@ files : str or seq
 
 Argument(s) can be either:
 
-2-sequence (<includedir suffix>,<path to header file(s)>)
+2-sequence (``<includedir suffix>``,``<path to header file(s)>``)
 path(s) to header file(s) where python includedir suffix will default to package name.
 
 
@@ -372,7 +371,7 @@ language
 Add scripts to configuration.
 
 Add the sequence of files to the beginning of the scripts list.
-Scripts will be installed under the <prefix>/bin/ directory.
+Scripts will be installed under the ``<prefix>``/bin/ directory.
 
 
 ``add_installed_library``(*self*, *name*, *sources*, *install_dir*, *build_info=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1580-L1629)[¶](#numpy.distutils.misc_util.Configuration.add_installed_library)
@@ -552,9 +551,9 @@ information could not be detected.
 Notes
 
 This method scans files named
-__version__.py, <packagename>_version.py, version.py, and
-__svn_version__.py for string variables version, __version__, and
-<packagename>_version, until a version number is found.
+\_\_version__.py, ``<packagename>``_version.py, version.py, and
+\_\_svn_version__.py for string variables version, \_\_version__, and
+``<packagename>``_version, until a version number is found.
 
 
 ``make_svn_version_py``(*self*, *delete=True*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1969-L2008)[¶](#numpy.distutils.misc_util.Configuration.make_svn_version_py)
@@ -689,12 +688,12 @@ An additional list of paths to look for .ini files can be given to *get_info*.
 ## Conversion of ``.src`` files
 
 NumPy distutils supports automatic conversion of source files named
-<somefile>.src. This facility can be used to maintain very similar
+``<somefile>``.src. This facility can be used to maintain very similar
 code blocks requiring only simple changes between blocks. During the
-build phase of setup, if a template file named <somefile>.src is
-encountered, a new file named <somefile> is constructed from the
+build phase of setup, if a template file named ``<somefile>``.src is
+encountered, a new file named ``<somefile>`` is constructed from the
 template and placed in the build directory to be used instead. Two
 forms of template conversion are supported. The first form occurs for
-files named <file>.ext.src where ext is a recognized Fortran
+files named ``<file>``.ext.src where ext is a recognized Fortran
 extension (f, f90, f95, f77, for, ftn, pyf). The second form is used
 for all other cases. See [Conversion of .src files using Templates](distutils_guide.html#templating).
