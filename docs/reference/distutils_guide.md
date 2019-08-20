@@ -276,13 +276,13 @@ command instance.
 ### Conversion of ``.src`` files using Templates
 
 NumPy distutils supports automatic conversion of source files named
-<somefile>.src. This facility can be used to maintain very similar
+\<somefile>.src. This facility can be used to maintain very similar
 code blocks requiring only simple changes between blocks. During the
-build phase of setup, if a template file named <somefile>.src is
-encountered, a new file named <somefile> is constructed from the
+build phase of setup, if a template file named \<somefile>.src is
+encountered, a new file named \<somefile> is constructed from the
 template and placed in the build directory to be used instead. Two
 forms of template conversion are supported. The first form occurs for
-files named <file>.ext.src where ext is a recognized Fortran
+files named \<file>.ext.src where ext is a recognized Fortran
 extension (f, f90, f95, f77, for, ftn, pyf). The second form is used
 for all other cases.
 
@@ -298,7 +298,7 @@ contain the same number of comma-separated words indicating the number
 of times that block should be repeated. If the word in the repeat rule
 needs a comma, leftarrow, or rightarrow, then prepend it with a
 backslash ‘ ‘. If a word in the repeat rule matches ‘ \<index>’ then
-it will be replaced with the <index>-th word in the same repeat
+it will be replaced with the \<index>-th word in the same repeat
 specification. There are two forms for the repeat rule: named and
 short.
 
@@ -312,7 +312,7 @@ expression, ‘<…>’ will be replaced first with item1, and then with
 item2, and so forth until N repeats are accomplished. Once a named
 repeat specification has been introduced, the same repeat rule may be
 used **in the current block** by referring only to the name
-(i.e. <rule1>.
+(i.e. \<rule1>.
 
 #### Short repeat rule
 
