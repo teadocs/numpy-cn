@@ -5,18 +5,12 @@
 Currently SciPy project consists of two packages:
 
 - NumPy — it provides packages like:
-numpy.distutils - extension to Python distutils
-numpy.f2py - a tool to bind Fortran/C codes to Python
-numpy.core - future replacement of Numeric and numarray packages
-numpy.lib - extra utility functions
-numpy.testing - numpy-style tools for unit testing
-etc
-- numpy.distutils - extension to Python distutils
-- numpy.f2py - a tool to bind Fortran/C codes to Python
-- numpy.core - future replacement of Numeric and numarray packages
-- numpy.lib - extra utility functions
-- numpy.testing - numpy-style tools for unit testing
-- etc
+  - numpy.distutils - extension to Python distutils
+  - numpy.f2py - a tool to bind Fortran/C codes to Python
+  - numpy.core - future replacement of Numeric and numarray packages
+  - numpy.lib - extra utility functions
+  - numpy.testing - numpy-style tools for unit testing
+  - etc
 - SciPy — a collection of scientific tools for Python.
 
 The aim of this document is to describe how to add new tools to SciPy.
@@ -137,7 +131,7 @@ config.add_data_files('foo.dat',
 
 will install data files to the following locations
 
-``` python
+```
 <installation path of config.name package>/
   foo.dat
   fun/
@@ -349,7 +343,7 @@ and ``/**end repeat**/`` lines, which may also be nested using
 consecutively numbered delimiting lines such as ``/**begin repeat1``
 and ``/**end repeat1**/``:
 
-1. “/**begin repeat “on a line by itself marks the beginning of
+1. “/\*\*begin repeat ”on a line by itself marks the beginning of
 a segment that should be repeated.
 
 2. Named variable expansions are defined using ``#name=item1, item2, item3,
@@ -372,7 +366,7 @@ the named rules.
 5. Inside the block to be repeated, the variables that should be expanded
 are specified as ``@name@``
 
-6. “/**end repeat**/ “on a line by itself marks the previous line
+6. “/\*\*end repeat\*\*/ ”on a line by itself marks the previous line
 as the last line of the block to be repeated.
 
 7. A loop in the NumPy C source code may have a ``@TYPE@`` variable, targeted
@@ -383,38 +377,8 @@ mimicking languages that have generic type support.
 
 The above rules may be clearer in the following template source example:
 
-``` NumPyC
-1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31 /* TIMEDELTA to non-float types */
+``` C
+/* TIMEDELTA to non-float types */
 
  /**begin repeat
   *
@@ -553,7 +517,10 @@ at some point.
 It is possible to specify config_fc options in setup.py scripts.
 For example, using
 
+``` python
 config.add_library(‘library’,
+  sources=[…], config_fc={‘noopt’:(__file__,1)})
+```
 
 will compile the ``library`` sources without optimization flags.
 

@@ -189,7 +189,8 @@ function tempParse(el) {
     }
 
     getPcontent(el) {
-      let tempContent = this.replaceCode(this.$(el));
+      let tempContent = this.replaceSpec(this.$(el));
+      tempContent = this.replaceCode(this.$(el));
       tempContent = this.replaceA(this.$(tempContent));
       tempContent = this.replaceCite(this.$(tempContent));
       tempContent = this.replaceStrong(this.$(tempContent));
@@ -302,10 +303,27 @@ function tempParse(el) {
       if (ems.length) {
         ems.each(function (index, el) {
           let outHtml = that.$(el).prop("outerHTML");
+          let oText = that.$(el).text();
           let text = that.$(el).text();
-          hContent = hContent.replace(outHtml, `*${text}*`);
+          text = that.uReplaceStr(text);
+          text = text.replace(/\*/g, '\\*');
+          let bText = `*${text}*`;
+          if (oText.match(/^\s/)) {
+            bText = ' ' + bText;
+          }
+          if (oText.match(/\s$/)) {
+            bText =  bText + ' ';
+          }
+          hContent = hContent.replace(outHtml, ' ' + bText + ' ');
         });
       }
+      return hContent;
+    }
+
+    replaceSpec($el) {
+      let that = this;
+      let hContent = $el.prop("outerHTML");
+      hContent = hContent.replace(/\*/g, '\\*');
       return hContent;
     }
 
