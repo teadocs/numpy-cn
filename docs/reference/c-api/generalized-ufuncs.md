@@ -65,15 +65,25 @@ dimensions were created with size 1.
 
 ## Definitions
 
-Elementary Function
+- Elementary Function
 
-Signature
+    Each ufunc consists of an elementary function that performs the most basic operation on the smallest portion of array arguments (e.g. adding two numbers is the most basic operation in adding two arrays). The ufunc applies the elementary function multiple times on different parts of the arrays. The input/output of elementary functions can be vectors; e.g., the elementary function of inner1d takes two vectors as input.
 
-Core Dimension
+- Signature
 
-Dimension Name
+    A signature is a string describing the input/output dimensions of the elementary function of a ufunc. See section below for more details.
 
-Dimension Index
+- Core Dimension
+
+    The dimensionality of each input/output of an elementary function is defined by its core dimensions (zero core dimensions correspond to a scalar input/output). The core dimensions are mapped to the last dimensions of the input/output arrays.
+
+- Dimension Name
+
+    A dimension name represents a core dimension in the signature. Different dimensions may share a name, indicating that they are of the same size.
+
+- Dimension Index
+
+    A dimension index is an integer representing a dimension name. It enumerates the dimension names according to the order of the first occurrence of each name in the signature.
 
 ## Details of Signature
 

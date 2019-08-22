@@ -19,67 +19,58 @@ in doubt.
 
 ### Floating point classification
 
+- ``NPY_NAN``
 
-``NPY_NAN``[¶](#c.NPY_NAN)
+    This macro is defined to a NaN (Not a Number), and is guaranteed to have
+    the signbit unset (‘positive’ NaN). The corresponding single and extension
+    precision macro are available with the suffix F and L.
 
-This macro is defined to a NaN (Not a Number), and is guaranteed to have
-the signbit unset (‘positive’ NaN). The corresponding single and extension
-precision macro are available with the suffix F and L.
+- ``NPY_INFINITY``
 
+    This macro is defined to a positive inf. The corresponding single and
+    extension precision macro are available with the suffix F and L.
 
-``NPY_INFINITY``[¶](#c.NPY_INFINITY)
+- ``NPY_PZERO``
 
-This macro is defined to a positive inf. The corresponding single and
-extension precision macro are available with the suffix F and L.
+    This macro is defined to positive zero. The corresponding single and
+    extension precision macro are available with the suffix F and L.
 
+- ``NPY_NZERO``
 
-``NPY_PZERO``[¶](#c.NPY_PZERO)
+    This macro is defined to negative zero (that is with the sign bit set). The
+    corresponding single and extension precision macro are available with the
+    suffix F and L.
 
-This macro is defined to positive zero. The corresponding single and
-extension precision macro are available with the suffix F and L.
+- int ``npy_isnan``(x)
 
+    This is a macro, and is equivalent to C99 isnan: works for single, double
+    and extended precision, and return a non 0 value is x is a NaN.
 
-``NPY_NZERO``[¶](#c.NPY_NZERO)
+- int ``npy_isfinite``(x)
 
-This macro is defined to negative zero (that is with the sign bit set). The
-corresponding single and extension precision macro are available with the
-suffix F and L.
+    This is a macro, and is equivalent to C99 isfinite: works for single,
+    double and extended precision, and return a non 0 value is x is neither a
+    NaN nor an infinity.
 
+- int ``npy_isinf``(x)
 
-int ``npy_isnan``(x)[¶](#c.npy_isnan)
+    This is a macro, and is equivalent to C99 isinf: works for single, double
+    and extended precision, and return a non 0 value is x is infinite (positive
+    and negative).
 
-This is a macro, and is equivalent to C99 isnan: works for single, double
-and extended precision, and return a non 0 value is x is a NaN.
+- int ``npy_signbit``(x)
 
+    This is a macro, and is equivalent to C99 signbit: works for single, double
+    and extended precision, and return a non 0 value is x has the signbit set
+    (that is the number is negative).
 
-int ``npy_isfinite``(x)[¶](#c.npy_isfinite)
+- double ``npy_copysign``(double  *x* , double  *y* )
 
-This is a macro, and is equivalent to C99 isfinite: works for single,
-double and extended precision, and return a non 0 value is x is neither a
-NaN nor an infinity.
+    This is a function equivalent to C99 copysign: return x with the same sign
+    as y. Works for any value, including inf and nan. Single and extended
+    precisions are available with suffix f and l.
 
-
-int ``npy_isinf``(x)[¶](#c.npy_isinf)
-
-This is a macro, and is equivalent to C99 isinf: works for single, double
-and extended precision, and return a non 0 value is x is infinite (positive
-and negative).
-
-
-int ``npy_signbit``(x)[¶](#c.npy_signbit)
-
-This is a macro, and is equivalent to C99 signbit: works for single, double
-and extended precision, and return a non 0 value is x has the signbit set
-(that is the number is negative).
-
-
-double ``npy_copysign``(double  *x* , double  *y* )[¶](#c.npy_copysign)
-
-This is a function equivalent to C99 copysign: return x with the same sign
-as y. Works for any value, including inf and nan. Single and extended
-precisions are available with suffix f and l.
-
-*New in version 1.4.0.* 
+    *New in version 1.4.0.* 
 
 ### Useful math constants
 
@@ -87,166 +78,144 @@ The following math constants are available in ``npy_math.h``. Single
 and extended precision are also available by adding the ``f`` and
 ``l`` suffixes respectively.
 
+- ``NPY_E``
+    Base of natural logarithm (<img class="math" src="/static/images/math/78a06cf7a34f39fde71fbba0d5539baae7c72d4e.svg" alt="e">)
 
-``NPY_E``[¶](#c.NPY_E)
+- ``NPY_LOG2E``
+    
+    Logarithm to base 2 of the Euler constant (<img class="math" src="/static/images/math/e923cda98ea82f4bc45289e31e4e87265d9a9eaf.svg" alt="\frac{\ln(e)}{\ln(2)}">)
 
-Base of natural logarithm ()
+- ``NPY_LOG10E``
 
+    Logarithm to base 10 of the Euler constant (<img class="math" src="/static/images/math/bb13edbff6405ccc0dfb4922312b342b1694b12b.svg" alt="\frac{\ln(e)}{\ln(10)}">)
 
-``NPY_LOG2E``[¶](#c.NPY_LOG2E)
+- ``NPY_LOGE2``
 
-Logarithm to base 2 of the Euler constant ()
+    Natural logarithm of 2 (<img class="math" src="/static/images/math/2adfadeeaf9c0c680c44dbfdc96a59f8ba291497.svg" alt="\ln(2)">)
 
+- ``NPY_LOGE10``
 
-``NPY_LOG10E``[¶](#c.NPY_LOG10E)
+    Natural logarithm of 10 (<img class="math" src="/static/images/math/0e6561edc6f9f429bcfc210ff5b886b5f8164b38.svg" alt="\ln(10)">)
 
-Logarithm to base 10 of the Euler constant ()
+- ``NPY_PI``
 
+    Pi (<img class="math" src="/static/images/math/b7793e4f08d00aca47e272dcdfeb70f933dac222.svg" alt="\pi">)
 
-``NPY_LOGE2``[¶](#c.NPY_LOGE2)
+- ``NPY_PI_2``
 
-Natural logarithm of 2 ()
+    Pi divided by 2 (<img class="math" src="/static/images/math/8682efc566ec991e274a96086f79643e45fc5cab.svg" alt="\frac{\pi}{2}">)
 
+- ``NPY_PI_4``
 
-``NPY_LOGE10``[¶](#c.NPY_LOGE10)
+    Pi divided by 4 (<img class="math" src="/static/images/math/fb7f188c45278a5bed905995588f97b1e90850d6.svg" alt="\frac{\pi}{4}">)
 
-Natural logarithm of 10 ()
+- ``NPY_1_PI``
 
+    Reciprocal of pi (<img class="math" src="/static/images/math/e7808cd312bbbb9a211ca155411a031b255ba163.svg" alt="\frac{1}{\pi}">)
 
-``NPY_PI``[¶](#c.NPY_PI)
+- ``NPY_2_PI``
 
-Pi ()
+    Two times the reciprocal of pi (<img class="math" src="/static/images/math/2a78bc1b3a6081b73d6e6cb9b71963cccc45edf6.svg" alt="\frac{2}{\pi}">)
 
+- ``NPY_EULER``
 
-``NPY_PI_2``[¶](#c.NPY_PI_2)
+    The Euler constant
 
-Pi divided by 2 ()
-
-
-``NPY_PI_4``[¶](#c.NPY_PI_4)
-
-Pi divided by 4 ()
-
-
-``NPY_1_PI``[¶](#c.NPY_1_PI)
-
-Reciprocal of pi ()
-
-
-``NPY_2_PI``[¶](#c.NPY_2_PI)
-
-Two times the reciprocal of pi ()
-
-
-``NPY_EULER``[¶](#c.NPY_EULER)
-
-The Euler constant
-
-![b699d8db47b4d7757055abc9f431b25847669eec](/static/images/b699d8db47b4d7757055abc9f431b25847669eec.svg)
+    ![b699d8db47b4d7757055abc9f431b25847669eec](/static/images/math/b699d8db47b4d7757055abc9f431b25847669eec.svg)
 
 ### Low-level floating point manipulation
 
 Those can be useful for precise floating point comparison.
 
+- double ``npy_nextafter``(double  *x* , double  *y* )
 
-double ``npy_nextafter``(double  *x* , double  *y* )[¶](#c.npy_nextafter)
+    This is a function equivalent to C99 nextafter: return next representable
+    floating point value from x in the direction of y. Single and extended
+    precisions are available with suffix f and l.
 
-This is a function equivalent to C99 nextafter: return next representable
-floating point value from x in the direction of y. Single and extended
-precisions are available with suffix f and l.
+    *New in version 1.4.0.* 
 
-*New in version 1.4.0.* 
+- double ``npy_spacing``(double  *x* )
 
+    This is a function equivalent to Fortran intrinsic. Return distance between
+    x and next representable floating point value from x, e.g. spacing(1) ==
+    eps. spacing of nan and +/- inf return nan. Single and extended precisions
+    are available with suffix f and l.
 
-double ``npy_spacing``(double  *x* )[¶](#c.npy_spacing)
+    *New in version 1.4.0.* 
 
-This is a function equivalent to Fortran intrinsic. Return distance between
-x and next representable floating point value from x, e.g. spacing(1) ==
-eps. spacing of nan and +/- inf return nan. Single and extended precisions
-are available with suffix f and l.
+- void ``npy_set_floatstatus_divbyzero``()
 
-*New in version 1.4.0.* 
+    Set the divide by zero floating point exception
 
+    *New in version 1.6.0.* 
 
-void ``npy_set_floatstatus_divbyzero``()[¶](#c.npy_set_floatstatus_divbyzero)
+- void ``npy_set_floatstatus_overflow``()
 
-Set the divide by zero floating point exception
+    Set the overflow floating point exception
 
-*New in version 1.6.0.* 
+    *New in version 1.6.0.* 
 
+- void ``npy_set_floatstatus_underflow``()
 
-void ``npy_set_floatstatus_overflow``()[¶](#c.npy_set_floatstatus_overflow)
+    Set the underflow floating point exception
 
-Set the overflow floating point exception
+    *New in version 1.6.0.* 
 
-*New in version 1.6.0.* 
+- void ``npy_set_floatstatus_invalid``()
 
+    Set the invalid floating point exception
 
-void ``npy_set_floatstatus_underflow``()[¶](#c.npy_set_floatstatus_underflow)
+    *New in version 1.6.0.* 
 
-Set the underflow floating point exception
+- int ``npy_get_floatstatus``()
 
-*New in version 1.6.0.* 
+    Get floating point status. Returns a bitmask with following possible flags:
 
+    - NPY_FPE_DIVIDEBYZERO
+    - NPY_FPE_OVERFLOW
+    - NPY_FPE_UNDERFLOW
+    - NPY_FPE_INVALID
 
-void ``npy_set_floatstatus_invalid``()[¶](#c.npy_set_floatstatus_invalid)
+    Note that [``npy_get_floatstatus_barrier``](#c.npy_get_floatstatus_barrier) is preferable as it prevents
+    aggressive compiler optimizations reordering the call relative to
+    the code setting the status, which could lead to incorrect results.
 
-Set the invalid floating point exception
+    *New in version 1.9.0.* 
 
-*New in version 1.6.0.* 
+- int ``npy_get_floatstatus_barrier``(char*)
 
+    Get floating point status. A pointer to a local variable is passed in to
+    prevent aggressive compiler optimizations from reodering this function call
+    relative to the code setting the status, which could lead to incorrect
+    results.
 
-int ``npy_get_floatstatus``()[¶](#c.npy_get_floatstatus)
+    Returns a bitmask with following possible flags:
 
-Get floating point status. Returns a bitmask with following possible flags:
+    - NPY_FPE_DIVIDEBYZERO
+    - NPY_FPE_OVERFLOW
+    - NPY_FPE_UNDERFLOW
+    - NPY_FPE_INVALID
 
-- NPY_FPE_DIVIDEBYZERO
-- NPY_FPE_OVERFLOW
-- NPY_FPE_UNDERFLOW
-- NPY_FPE_INVALID
+    *New in version 1.15.0.* 
 
-Note that [``npy_get_floatstatus_barrier``](#c.npy_get_floatstatus_barrier) is preferable as it prevents
-aggressive compiler optimizations reordering the call relative to
-the code setting the status, which could lead to incorrect results.
+- int ``npy_clear_floatstatus``()
 
-*New in version 1.9.0.* 
+    Clears the floating point status. Returns the previous status mask.
 
+    Note that [``npy_clear_floatstatus_barrier``](#c.npy_clear_floatstatus_barrier) is preferable as it
+    prevents aggressive compiler optimizations reordering the call relative to
+    the code setting the status, which could lead to incorrect results.
 
-int ``npy_get_floatstatus_barrier``(char*)[¶](#c.npy_get_floatstatus_barrier)
+    *New in version 1.9.0.* 
 
-Get floating point status. A pointer to a local variable is passed in to
-prevent aggressive compiler optimizations from reodering this function call
-relative to the code setting the status, which could lead to incorrect
-results.
+- int ``npy_clear_floatstatus_barrier``(char*)
 
-Returns a bitmask with following possible flags:
+    Clears the floating point status. A pointer to a local variable is passed in to
+    prevent aggressive compiler optimizations from reodering this function call.
+    Returns the previous status mask.
 
-- NPY_FPE_DIVIDEBYZERO
-- NPY_FPE_OVERFLOW
-- NPY_FPE_UNDERFLOW
-- NPY_FPE_INVALID
-
-*New in version 1.15.0.* 
-
-
-int ``npy_clear_floatstatus``()[¶](#c.npy_clear_floatstatus)
-
-Clears the floating point status. Returns the previous status mask.
-
-Note that [``npy_clear_floatstatus_barrier``](#c.npy_clear_floatstatus_barrier) is preferable as it
-prevents aggressive compiler optimizations reordering the call relative to
-the code setting the status, which could lead to incorrect results.
-
-*New in version 1.9.0.* 
-
-
-int ``npy_clear_floatstatus_barrier``(char*)[¶](#c.npy_clear_floatstatus_barrier)
-
-Clears the floating point status. A pointer to a local variable is passed in to
-prevent aggressive compiler optimizations from reodering this function call.
-Returns the previous status mask.
-
-*New in version 1.15.0.* 
+    *New in version 1.15.0.* 
 
 ### Complex functions
 
@@ -322,183 +291,151 @@ External Links:
 - [The OpenEXR image format](https://www.openexr.com/about.html).
 
 
-``NPY_HALF_ZERO``[¶](#c.NPY_HALF_ZERO)
+``NPY_HALF_ZERO``
 
-This macro is defined to positive zero.
+    This macro is defined to positive zero.
 
+``NPY_HALF_PZERO``
 
-``NPY_HALF_PZERO``[¶](#c.NPY_HALF_PZERO)
+    This macro is defined to positive zero.
 
-This macro is defined to positive zero.
+``NPY_HALF_NZERO``
 
+    This macro is defined to negative zero.
 
-``NPY_HALF_NZERO``[¶](#c.NPY_HALF_NZERO)
+``NPY_HALF_ONE``
 
-This macro is defined to negative zero.
+    This macro is defined to 1.0.
 
+``NPY_HALF_NEGONE``
 
-``NPY_HALF_ONE``[¶](#c.NPY_HALF_ONE)
+    This macro is defined to -1.0.
 
-This macro is defined to 1.0.
+``NPY_HALF_PINF``
 
+    This macro is defined to +inf.
 
-``NPY_HALF_NEGONE``[¶](#c.NPY_HALF_NEGONE)
+``NPY_HALF_NINF``
 
-This macro is defined to -1.0.
+    This macro is defined to -inf.
 
+``NPY_HALF_NAN``
 
-``NPY_HALF_PINF``[¶](#c.NPY_HALF_PINF)
+    This macro is defined to a NaN value, guaranteed to have its sign bit unset.
 
-This macro is defined to +inf.
+- float ``npy_half_to_float``([npy_half](dtype.html#c.npy_half)  *h* )
 
+    Converts a half-precision float to a single-precision float.
 
-``NPY_HALF_NINF``[¶](#c.NPY_HALF_NINF)
+- double ``npy_half_to_double``([npy_half](dtype.html#c.npy_half)  *h* )
 
-This macro is defined to -inf.
+    Converts a half-precision float to a double-precision float.
 
+- [npy_half](dtype.html#c.npy_half) ``npy_float_to_half``(float  *f* )
 
-``NPY_HALF_NAN``[¶](#c.NPY_HALF_NAN)
+    Converts a single-precision float to a half-precision float.  The
+    value is rounded to the nearest representable half, with ties going
+    to the nearest even.  If the value is too small or too big, the
+    system’s floating point underflow or overflow bit will be set.
 
-This macro is defined to a NaN value, guaranteed to have its sign bit unset.
+- [npy_half](dtype.html#c.npy_half) ``npy_double_to_half``(double  *d* )
 
+    Converts a double-precision float to a half-precision float.  The
+    value is rounded to the nearest representable half, with ties going
+    to the nearest even.  If the value is too small or too big, the
+    system’s floating point underflow or overflow bit will be set.
 
-float ``npy_half_to_float``([npy_half](dtype.html#c.npy_half)  *h* )[¶](#c.npy_half_to_float)
+- int ``npy_half_eq``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
-Converts a half-precision float to a single-precision float.
+    Compares two half-precision floats (h1 == h2).
 
+- int ``npy_half_ne``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
-double ``npy_half_to_double``([npy_half](dtype.html#c.npy_half)  *h* )[¶](#c.npy_half_to_double)
+    Compares two half-precision floats (h1 != h2).
 
-Converts a half-precision float to a double-precision float.
+- int ``npy_half_le``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
+    Compares two half-precision floats (h1 <= h2).
 
-[npy_half](dtype.html#c.npy_half) ``npy_float_to_half``(float  *f* )[¶](#c.npy_float_to_half)
+- int ``npy_half_lt``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
-Converts a single-precision float to a half-precision float.  The
-value is rounded to the nearest representable half, with ties going
-to the nearest even.  If the value is too small or too big, the
-system’s floating point underflow or overflow bit will be set.
+    Compares two half-precision floats (h1 < h2).
 
+- int ``npy_half_ge``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
-[npy_half](dtype.html#c.npy_half) ``npy_double_to_half``(double  *d* )[¶](#c.npy_double_to_half)
+    Compares two half-precision floats (h1 >= h2).
 
-Converts a double-precision float to a half-precision float.  The
-value is rounded to the nearest representable half, with ties going
-to the nearest even.  If the value is too small or too big, the
-system’s floating point underflow or overflow bit will be set.
+- int ``npy_half_gt``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
+    Compares two half-precision floats (h1 > h2).
 
-int ``npy_half_eq``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_eq)
+- int ``npy_half_eq_nonan``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
-Compares two half-precision floats (h1 == h2).
+    Compares two half-precision floats that are known to not be NaN (h1 == h2).  If
+    a value is NaN, the result is undefined.
 
+- int ``npy_half_lt_nonan``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
-int ``npy_half_ne``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_ne)
+    Compares two half-precision floats that are known to not be NaN (h1 < h2).  If
+    a value is NaN, the result is undefined.
 
-Compares two half-precision floats (h1 != h2).
+- int ``npy_half_le_nonan``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )
 
+    Compares two half-precision floats that are known to not be NaN (h1 <= h2).  If
+    a value is NaN, the result is undefined.
 
-int ``npy_half_le``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_le)
+- int ``npy_half_iszero``([npy_half](dtype.html#c.npy_half)  *h* )
 
-Compares two half-precision floats (h1 <= h2).
+    Tests whether the half-precision float has a value equal to zero.  This may be slightly
+    faster than calling npy_half_eq(h, NPY_ZERO).
 
+- int ``npy_half_isnan``([npy_half](dtype.html#c.npy_half)  *h* )
 
-int ``npy_half_lt``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_lt)
+    Tests whether the half-precision float is a NaN.
 
-Compares two half-precision floats (h1 < h2).
+- int ``npy_half_isinf``([npy_half](dtype.html#c.npy_half)  *h* )
 
+    Tests whether the half-precision float is plus or minus Inf.
 
-int ``npy_half_ge``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_ge)
+- int ``npy_half_isfinite``([npy_half](dtype.html#c.npy_half)  *h* )
 
-Compares two half-precision floats (h1 >= h2).
+    Tests whether the half-precision float is finite (not NaN or Inf).
 
+- int ``npy_half_signbit``([npy_half](dtype.html#c.npy_half)  *h* )
 
-int ``npy_half_gt``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_gt)
+    Returns 1 is h is negative, 0 otherwise.
 
-Compares two half-precision floats (h1 > h2).
+- [npy_half](dtype.html#c.npy_half) ``npy_half_copysign``([npy_half](dtype.html#c.npy_half)  *x* , [npy_half](dtype.html#c.npy_half)  *y* )
 
+    Returns the value of x with the sign bit copied from y.  Works for any value,
+    including Inf and NaN.
 
-int ``npy_half_eq_nonan``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_eq_nonan)
+- [npy_half](dtype.html#c.npy_half) ``npy_half_spacing``([npy_half](dtype.html#c.npy_half)  *h* )
 
-Compares two half-precision floats that are known to not be NaN (h1 == h2).  If
-a value is NaN, the result is undefined.
+    This is the same for half-precision float as npy_spacing and npy_spacingf
+    described in the low-level floating point section.
 
+- [npy_half](dtype.html#c.npy_half) ``npy_half_nextafter``([npy_half](dtype.html#c.npy_half)  *x* , [npy_half](dtype.html#c.npy_half)  *y* )
 
-int ``npy_half_lt_nonan``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_lt_nonan)
+    This is the same for half-precision float as npy_nextafter and npy_nextafterf
+    described in the low-level floating point section.
 
-Compares two half-precision floats that are known to not be NaN (h1 < h2).  If
-a value is NaN, the result is undefined.
+- [npy_uint16](dtype.html#c.npy_uint16) ``npy_floatbits_to_halfbits``([npy_uint32](dtype.html#c.npy_uint32)  *f* )
 
+    Low-level function which converts a 32-bit single-precision float, stored
+    as a uint32, into a 16-bit half-precision float.
 
-int ``npy_half_le_nonan``([npy_half](dtype.html#c.npy_half)  *h1* , [npy_half](dtype.html#c.npy_half)  *h2* )[¶](#c.npy_half_le_nonan)
+- [npy_uint16](dtype.html#c.npy_uint16) ``npy_doublebits_to_halfbits``([npy_uint64](dtype.html#c.npy_uint64)  *d* )
 
-Compares two half-precision floats that are known to not be NaN (h1 <= h2).  If
-a value is NaN, the result is undefined.
+    Low-level function which converts a 64-bit double-precision float, stored
+    as a uint64, into a 16-bit half-precision float.
 
+- [npy_uint32](dtype.html#c.npy_uint32) ``npy_halfbits_to_floatbits``([npy_uint16](dtype.html#c.npy_uint16)  *h* )
 
-int ``npy_half_iszero``([npy_half](dtype.html#c.npy_half)  *h* )[¶](#c.npy_half_iszero)
+    Low-level function which converts a 16-bit half-precision float
+    into a 32-bit single-precision float, stored as a uint32.
 
-Tests whether the half-precision float has a value equal to zero.  This may be slightly
-faster than calling npy_half_eq(h, NPY_ZERO).
+- [npy_uint64](dtype.html#c.npy_uint64) ``npy_halfbits_to_doublebits``([npy_uint16](dtype.html#c.npy_uint16)  *h* )
 
-
-int ``npy_half_isnan``([npy_half](dtype.html#c.npy_half)  *h* )[¶](#c.npy_half_isnan)
-
-Tests whether the half-precision float is a NaN.
-
-
-int ``npy_half_isinf``([npy_half](dtype.html#c.npy_half)  *h* )[¶](#c.npy_half_isinf)
-
-Tests whether the half-precision float is plus or minus Inf.
-
-
-int ``npy_half_isfinite``([npy_half](dtype.html#c.npy_half)  *h* )[¶](#c.npy_half_isfinite)
-
-Tests whether the half-precision float is finite (not NaN or Inf).
-
-
-int ``npy_half_signbit``([npy_half](dtype.html#c.npy_half)  *h* )[¶](#c.npy_half_signbit)
-
-Returns 1 is h is negative, 0 otherwise.
-
-
-[npy_half](dtype.html#c.npy_half) ``npy_half_copysign``([npy_half](dtype.html#c.npy_half)  *x* , [npy_half](dtype.html#c.npy_half)  *y* )[¶](#c.npy_half_copysign)
-
-Returns the value of x with the sign bit copied from y.  Works for any value,
-including Inf and NaN.
-
-
-[npy_half](dtype.html#c.npy_half) ``npy_half_spacing``([npy_half](dtype.html#c.npy_half)  *h* )[¶](#c.npy_half_spacing)
-
-This is the same for half-precision float as npy_spacing and npy_spacingf
-described in the low-level floating point section.
-
-
-[npy_half](dtype.html#c.npy_half) ``npy_half_nextafter``([npy_half](dtype.html#c.npy_half)  *x* , [npy_half](dtype.html#c.npy_half)  *y* )[¶](#c.npy_half_nextafter)
-
-This is the same for half-precision float as npy_nextafter and npy_nextafterf
-described in the low-level floating point section.
-
-
-[npy_uint16](dtype.html#c.npy_uint16) ``npy_floatbits_to_halfbits``([npy_uint32](dtype.html#c.npy_uint32)  *f* )[¶](#c.npy_floatbits_to_halfbits)
-
-Low-level function which converts a 32-bit single-precision float, stored
-as a uint32, into a 16-bit half-precision float.
-
-
-[npy_uint16](dtype.html#c.npy_uint16) ``npy_doublebits_to_halfbits``([npy_uint64](dtype.html#c.npy_uint64)  *d* )[¶](#c.npy_doublebits_to_halfbits)
-
-Low-level function which converts a 64-bit double-precision float, stored
-as a uint64, into a 16-bit half-precision float.
-
-
-[npy_uint32](dtype.html#c.npy_uint32) ``npy_halfbits_to_floatbits``([npy_uint16](dtype.html#c.npy_uint16)  *h* )[¶](#c.npy_halfbits_to_floatbits)
-
-Low-level function which converts a 16-bit half-precision float
-into a 32-bit single-precision float, stored as a uint32.
-
-
-[npy_uint64](dtype.html#c.npy_uint64) ``npy_halfbits_to_doublebits``([npy_uint16](dtype.html#c.npy_uint16)  *h* )[¶](#c.npy_halfbits_to_doublebits)
-
-Low-level function which converts a 16-bit half-precision float
-into a 64-bit double-precision float, stored as a uint64.
+    Low-level function which converts a 16-bit half-precision float
+    into a 64-bit double-precision float, stored as a uint64.
