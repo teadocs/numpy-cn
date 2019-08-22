@@ -1,42 +1,45 @@
 # NumPy internals
 
-NumPy C Code Explanations
-Memory model
-Data-type encapsulation
-N-D Iterators
-Broadcasting
-Array Scalars
-Indexing
-Advanced indexing
-Universal Functions
-Setup
-Function call
-One Loop
-Strided Loop
-Buffered Loop
-Final output manipulation
-Methods
-Setup
-Reduce
-Accumulate
-Reduceat
-Memory Alignment
-Numpy Alignment Goals
-Variables in Numpy which control and describe alignment
-Consequences of alignment
-Internal organization of numpy arrays
+- [NumPy C Code Explanations](internals.code-explanations.html)
+  - [Memory model](internals.code-explanations.html#memory-model)
+  - [Data-type encapsulation](internals.code-explanations.html#data-type-encapsulation)
+  - [N-D Iterators](internals.code-explanations.html#n-d-iterators)
+  - [Broadcasting](internals.code-explanations.html#broadcasting)
+  - [Array Scalars](internals.code-explanations.html#array-scalars)
+  - [Indexing](internals.code-explanations.html#indexing)
+    - [Advanced indexing](internals.code-explanations.html#advanced-indexing)
+  - [Universal Functions](internals.code-explanations.html#universal-functions)
+    - [Setup](internals.code-explanations.html#setup)
+    - [Function call](internals.code-explanations.html#function-call)
+      - [One Loop](internals.code-explanations.html#one-loop)
+      - [Strided Loop](internals.code-explanations.html#strided-loop)
+      - [Buffered Loop](internals.code-explanations.html#buffered-loop)
+    - [Final output manipulation](internals.code-explanations.html#final-output-manipulation)
+    - [Methods](internals.code-explanations.html#methods)
+      - [Setup](internals.code-explanations.html#id1)
+      - [Reduce](internals.code-explanations.html#reduce)
+      - [Accumulate](internals.code-explanations.html#accumulate)
+      - [Reduceat](internals.code-explanations.html#reduceat)
+- [Memory Alignment](alignment.html)
+  - [Numpy Alignment Goals](alignment.html#numpy-alignment-goals)
+  - [Variables in Numpy which control and describe alignment](alignment.html#variables-in-numpy-which-control-and-describe-alignment)
+  - [Consequences of alignment](alignment.html#consequences-of-alignment)
+
+## Internal organization of numpy arrays
+
 It helps to understand a bit about how numpy arrays are handled under the covers to help understand numpy better. This section will not go into great detail. Those wishing to understand the full details are referred to Travis Oliphant’s book “Guide to NumPy”.
 
 NumPy arrays consist of two major components, the raw array data (from now on, referred to as the data buffer), and the information about the raw array data. The data buffer is typically what people think of as arrays in C or Fortran, a contiguous (and fixed) block of memory containing fixed sized data items. NumPy also contains a significant set of data that describes how to interpret the data in the data buffer. This extra information contains (among other things):
 
-The basic data element’s size in bytes
-The start of the data within the data buffer (an offset relative to the beginning of the data buffer).
-The number of dimensions and the size of each dimension
-The separation between elements for each dimension (the ‘stride’). This does not have to be a multiple of the element size
-The byte order of the data (which may not be the native byte order)
-Whether the buffer is read-only
-Information (via the dtype object) about the interpretation of the basic data element. The basic data element may be as simple as a int or a float, or it may be a compound object (e.g., struct-like), a fixed character field, or Python object pointers.
-Whether the array is to interpreted as C-order or Fortran-order.
+1. The basic data element’s size in bytes
+1. The start of the data within the data buffer (an offset relative to the beginning of the data buffer).
+1. The number of dimensions and the size of each dimension
+1. The separation between elements for each dimension (the ‘stride’). This does not have to be a multiple of the element size
+1. The byte order of the data (which may not be the native byte order)
+1. Whether the buffer is read-only
+1. Information (via the dtype object) about the interpretation of the basic data element. The basic data element may be as simple as a int or a float, or it may be a compound object (e.g., struct-like), a fixed character field, or Python object pointers.
+1. Whether the array is to interpreted as C-order or Fortran-order.
+
 This arrangement allow for very flexible use of arrays. One thing that it allows is simple changes of the metadata to change the interpretation of the array buffer. Changing the byteorder of the array is a simple change involving no rearrangement of the data. The shape of the array can be changed very easily without changing anything in the data buffer or any data copying at all
 
 Among other things that are made possible is one can create a new array metadata object that uses the same data buffer to create a new view of that data buffer that has a different interpretation of the buffer (e.g., different shape, offset, byte order, strides, etc) but shares the same data bytes. Many operations in numpy do just this such as slices. Other operations, such as transpose, don’t move data elements around in the array, but rather change the information about the shape and strides so that the indexing of the array changes, but the data in the doesn’t move.
@@ -45,7 +48,8 @@ Typically these new versions of the array metadata but the same data buffer are 
 
 New views into arrays mean the object reference counts for the data buffer increase. Simply doing away with the original array object will not remove the data buffer if other views of it still exist.
 
-Multidimensional Array Indexing Order Issues
+## Multidimensional Array Indexing Order Issues
+
 What is the right way to index multi-dimensional arrays? Before you jump to conclusions about the one and true way to index multi-dimensional arrays, it pays to understand why this is a confusing issue. This section will try to explain in detail how numpy indexing works and why we adopt the convention we do for images, and when it may be appropriate to adopt other conventions.
 
 The first thing to understand is that there are two conflicting conventions for indexing 2-dimensional arrays. Matrix notation uses the first index to indicate which row is being selected and the second index to indicate which column is selected. This is opposite the geometrically oriented-convention for images where people generally think the first index represents x position (i.e., column) and the second represents y position (i.e., row). This alone is the source of much confusion; matrix-oriented users and image-oriented users expect two different things with regard to indexing.
