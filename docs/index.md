@@ -48,12 +48,12 @@
 ---|---
 <img src="/static/images/wechat-qr.jpg" alt="微信收款二维码" width="130" height="130"> | <img src="/static/images/alipay-qr.jpg" alt="支付宝收款二维码" width="130" height="130">
 
-## 交流方式
+## NumPy 中文社区
 
-个人微信（可拉入群） | QQ群（需捐1元） | 微信群（可能失效）| 中国Sicpy科学计算社区
+微信号（拉入社区微信群） | 社区 QQ群 | 微信群二维码（已失效）| 中国Sicpy科学计算社区
 ---|---|---|---
-<img src="/static/images/wx-qr.jpg" alt="个人微信" width="130" height="130"> | <img src="/static/images/qqqun-qr.jpg" alt="qq群" width="130" height="130"> | <img src="/static/images/wxqun-qr.jpg" alt="微信群" width="130" height="130"> | <p><center>筹备中...</center></p><p><center>入群者优先获得内测资格</center></p>
-微信号：iamnotahacker | 群号：294639068 | -
+<center><img src="/static/images/wx-qr.jpg" alt="个人微信" width="130" height="130"></center> | <center><img src="/static/images/qqqun-qr.jpg" alt="qq群" width="130" height="130"></center> | <center><img src="/static/images/wxqun-qr.jpg" alt="微信群" width="130" height="130"></center> | <p><center>测试中，关注公众号获取最新资讯。</center></p>
+微信号：iamnotahacker | 群号：294639068 | - | -
 
 - 联系邮箱：l@numpy.org.cn
 
