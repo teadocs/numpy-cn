@@ -129,7 +129,9 @@ module.exports = ctx => ({
         nav: require('./nav/zh'),
         sidebar: {
           '/user/': require('./sidebar/user_zh')(),
-          '/reference/': require('./sidebar/reference_zh')()
+          '/reference/': require('./sidebar/reference_zh')(),
+          '/f2py': require('./sidebar/f2py_zh')(),
+          '/dev': require('./sidebar/dev_zh')()
         }
       },
       '/en/': {
