@@ -112,6 +112,11 @@ module.exports = ctx => ({
   ],
   theme: 'teadocs',
   themeConfig: {
+    logo: {
+      text: 'NumPy',
+      subText: '中文网',
+      image: ''
+    },
     alert: [{
       id: '2019-7-29',
       title: '文档公告',
@@ -131,7 +136,8 @@ module.exports = ctx => ({
           '/user/': require('./sidebar/user_zh')(),
           '/reference/': require('./sidebar/reference_zh')(),
           '/f2py': require('./sidebar/f2py_zh')(),
-          '/dev': require('./sidebar/dev_zh')()
+          '/dev': require('./sidebar/dev_zh')(),
+          '/bedocs': require('./sidebar/bedocs_zh')()
         }
       },
       '/en/': {

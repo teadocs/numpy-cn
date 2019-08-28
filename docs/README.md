@@ -52,19 +52,23 @@ $ pip install numpy
 $ python -i
 
 # 3、使用Numpy
->>> import numpy as pd
->>> df = pd.DataFrame() 
->>> print(df)
+>>> from numpy import *
+>>> eye(4)
 
 # 4、输出结果
-Empty DataFrame
-Columns: []
-Index: []
+array([[1., 0., 0., 0.],
+       [0., 1., 0., 0.],
+       [0., 0., 1., 0.],
+       [0., 0., 0., 1.]])
 ```
 
 ::: warning 提醒
+
 本网站推荐使用[Python3.x](https://www.python.org/downloads/)及以上版本。
+
 :::
+
+<ahome-wxpub></ahome-wxpub>
 
 <ahome-nav></ahome-nav>
 

@@ -4,9 +4,6 @@
       <h4>🌐站点相关</h4>
       <ul>
         <li>
-          <a href="/logo/">Pandas logo 捐赠名单 👍</a>
-        </li>
-        <li>
           <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备16025085号-8</a>
         </li>
       </ul>
@@ -15,7 +12,7 @@
       <h4>👥兄弟文档</h4>
       <ul>
         <li>
-          <a href="https://www.numpy.org.cn/" target="_blank">NumPy 中文文档</a>
+          <a href="https://www.pypandas.cn/" target="_blank">Pandas 中文文档</a>
         </li>
         <li>
           <a href="https://www.matplotlib.org.cn/" target="_blank">Matplotlib 中文文档</a>
@@ -24,14 +21,6 @@
     </div>
     <div class="right-box item">
       <h4>👬友情链接</h4>
-      <ul>
-        <li>
-          <a href="https://www.leiphone.com/" target="_blank">雷锋网</a>
-        </li>
-        <li>
-          <a href="https://ai.yanxishe.com/?from=pandas" target="_blank">AI研习社</a>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -61,7 +50,7 @@
           font-size 14px !important
           transition color 0.2s
           &:hover
-            color #00502c
+            color darken($accentColor, 20%);
 
   .left-box
     float left

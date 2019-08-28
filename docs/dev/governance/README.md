@@ -1,0 +1,17 @@
+# NumPy governance
+
+- [NumPy project governance and decision-making](governance.html)
+  - [Summary](governance.html#summary)
+  - [The Project](governance.html#the-project)
+  - [Governance](governance.html#governance)
+    - [Consensus-based decision making by the community](governance.html#consensus-based-decision-making-by-the-community)
+    - [Steering Council](governance.html#steering-council)
+  - [Institutional Partners and Funding](governance.html#institutional-partners-and-funding)
+  - [Document history](governance.html#document-history)
+  - [Acknowledgements](governance.html#acknowledgements)
+  - [License](governance.html#license)
+- [Current steering council and institutional partners](people.html)
+  - [Steering council](people.html#steering-council)
+  - [Emeritus members](people.html#emeritus-members)
+  - [NumFOCUS Subcommittee](people.html#numfocus-subcommittee)
+  - [Institutional Partners](people.html#institutional-partners)

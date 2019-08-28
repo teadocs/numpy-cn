@@ -1,5 +1,5 @@
 ---
-title: Pandas 精选资源
+title: NumPy 精选资源
 meta:
   - name: description
     content: 精选的Pandas相关的资源、工具、文章、教程列表（均从互联网收集或转发）。
@@ -13,12 +13,12 @@ sidebar: auto
 <p></p>
 <center>
 <img style="width: 180px" src="/logo_awesome.svg">
-<h1>Pandas 精选资源</h1>
+<h1>NumPy 精选资源</h1>
 </center>
 
-精选的Pandas相关的资源、工具、文章、教程列表（均从互联网收集或转发）。
+精选的 NumPy 相关的资源、工具、文章、教程列表（均从互联网收集或转发）。
 
-如果你有发现更好的资料可以分享，欢迎[告诉我们](https://github.com/teadocs/pandas-cn/issues)或者直接[修改这个页面](https://github.com/teadocs/pandas-cn/edit/master/docs/awesome/README.md)。
+如果你有发现更好的资料可以分享，欢迎[告诉我们](https://github.com/teadocs/numpy-cn/issues)或者直接[修改这个页面](https://github.com/teadocs/numpy-cn/edit/master/docs/awesome/README.md)。
 
 ## 精选文章
 

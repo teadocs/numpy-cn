@@ -29,7 +29,7 @@ module.exports = [
     items: [
       { text: '社区', link: '/community/'},
       { text: '报告错误', link: '/bugs/' },
-      { text: '发布日志', link: '/release/' },
+      { text: '发布日志', link: 'https://numpy.org/devdocs/release.html' },
       { text: 'NumPy 许可证', link: '/license/' },
       { text: 'Numpy 开发计划', link: '/neps/' }
     ]
