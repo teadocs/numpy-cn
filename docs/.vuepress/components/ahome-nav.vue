@@ -15,11 +15,11 @@
       </div>
       <div class="qr-item">
         <img src="/home/wx-qr.jpg" alt />
-        <span class="text">站长微信（可拉微信群，备注：pandas）</span>
+        <span class="text">站长微信（可拉微信群，备注：numpy）</span>
       </div>
       <div class="qr-item">
         <img src="/home/qqqun-qr.jpg" alt />
-        <span class="text">QQ群二维码（群号：325251421）</span>
+        <span class="text">QQ群二维码（群号：294639068）</span>
       </div>
     </div>
 
@@ -27,12 +27,12 @@
     <div class="block" :class="{'show': navId === 2}">
       <p>
         首先感谢
-        <a href="https://github.com/teadocs/pandas-cn/graphs/contributors" target="_blank">这些小伙伴</a> 对数据科学汉化事业的做出的翻译贡献！🙏
+        <a href="https://github.com/teadocs/numpy-cn/graphs/contributors" target="_blank">这些小伙伴</a> 对数据科学汉化事业的做出的翻译贡献！🙏
       </p>
       <p>
         贡献翻译不需要太多门槛，想参与翻译的小伙伴，可以先查看
         <a
-          href="https://github.com/teadocs/pandas-cn/blob/v0.25.0/Contribution.md"
+          href="https://github.com/teadocs/numpy-cn/blob/v0.25.0/Contribution.md"
           target="_blank"
         >《本文档翻译贡献指南》</a>。
       </p>

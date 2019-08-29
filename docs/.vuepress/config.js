@@ -122,7 +122,7 @@ module.exports = ctx => ({
       title: '文档公告',
       content: `我们经常发布文档更新，部分页面的翻译可能仍在进行中。有关最新信息，请访问<a href="/en/">英文文档</a>。如果某个页面上的翻译有问题，请提issues<a href="https://github.com/teadocs/numpy-cn/issues" target="_blank">告诉我们</a>。`
     }],
-    repo: 'teadocs/pandas-cn',
+    repo: 'teadocs/numpy-cn',
     editLinks: true,
     docsDir: 'docs',
     locales: {
@@ -147,7 +147,11 @@ module.exports = ctx => ({
         lastUpdated: 'Last Updated',
         nav: require('./nav/en'),
         sidebar: {
-          '/en/user/': require('./sidebar/user_en')()
+          '/en/user/': require('./sidebar/user_en')(),
+          '/en/reference/': require('./sidebar/reference_en')(),
+          '/en/f2py': require('./sidebar/f2py_en')(),
+          '/en/dev': require('./sidebar/dev_en')(),
+          '/en/bedocs': require('./sidebar/bedocs_en')()
         }
       }
     }

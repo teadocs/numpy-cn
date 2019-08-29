@@ -62,10 +62,10 @@ module.exports = function () {
       sidebarDepth: 3,
       children: [
         ['/user/c-info/', '目录'],
-        ['/user/c-info/how-to-extend', 'How to extend NumPy'],
-        ['/user/c-info/python-as-glue', 'Using Python as glue'],
-        ['/user/c-info/ufunc-tutorial', 'Writing your own ufunc'],
-        ['/user/c-info/beyond-basics', 'Beyond the Basics']
+        ['/user/c-info/how-to-extend', '如何扩展NumPy'],
+        ['/user/c-info/python-as-glue', '使用Python作为胶水'],
+        ['/user/c-info/ufunc-tutorial', '编写自己的ufunc'],
+        ['/user/c-info/beyond-basics', '深入的知识']
       ]
     }
   ]

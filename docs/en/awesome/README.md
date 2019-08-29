@@ -18,7 +18,7 @@ sidebar: auto
 
 精选的Pandas相关的资源、工具、文章、教程列表（均从互联网收集或转发）。
 
-如果你有发现更好的资料可以分享，欢迎[告诉我们](https://github.com/teadocs/pandas-cn/issues)或者直接[修改这个页面](https://github.com/teadocs/pandas-cn/edit/master/docs/awesome/README.md)。
+如果你有发现更好的资料可以分享，欢迎[告诉我们](https://github.com/teadocs/numpy-cn/issues)或者直接[修改这个页面](https://github.com/teadocs/numpy-cn/edit/master/docs/awesome/README.md)。
 
 ## 精选文章
 
