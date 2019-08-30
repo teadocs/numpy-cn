@@ -3,21 +3,22 @@ sidebarDepth: 3
 sidebar: auto
 ---
 
-# The NumPy community
+# NumPy 的社区
 
-The community of NumPy users and developers is large and decentraliazed. We try to direct certain conversations to certain channels.
+NumPy用户和开发人员社区规模庞大且分散。我们尝试将某些讨论和交流引导至某些第三方渠道。
 
-1. Use the #numpy tag on StackOverflow for usage questions (like “How do I do X in NumPy?”).
-1. Use the GitHub issue tracker for
-  - Bug reports (like “np.arange(3).shape returns (5,), when it should return (3,).”)
-  - Documentation issues (like “I found this section unclear”)
-  - Feature requests (like “I would like to have a new interpolation method in np.percentile.”)
-1. Use the NumPy mailing list for longer-form discussion items. This is for things that concern the broader NumPy community. Most users probably don’t care about an obscure edge-case in np.polynomial.Legendre (which should be reported on the issue tracker), but may care about larger-picture things like
-  - How should we have discussions about NumPy and the community?
-  - Developing or adding items to a NumPy roadmap
-  - Announcing sprints or conference talks
-  - Changes to the development workflow
-  - Announcements for NumPy releases and developer meetings
-  - …
+1. 使用[StackOverflow上](https://stackoverflow.com/questions/tagged/numpy)的[#numpy](https://stackoverflow.com/questions/tagged/numpy) 标签来来查找或*使用*问题（例如：“如何在NumPy中执行 *X* ？”）。
+1. 使用[GitHub的问题跟踪](https://github.com/numpy/numpy/issues)的
+    1. **错误报告**（例如“ ``np.arange(3).shape``返回``(5,)``，如何才能返回``(3,)``。”）
+    1. **文档问题**（例如“我发现此部分不清楚”）
+    1. **功能请求**（例如“我想在其中使用新的插值方法``np.percentile``。”）
+1. 使用[NumPy邮件列表](https://mail.python.org/mailman/listinfo/numpy-discussion) 
+获取更长形式的讨论项目。这适用于涉及更宏观的NumPy社区的事情。大多数用户可能并不关心一个模糊的具体的问题： ``np.polynomial.Legendre``（应该在问题跟踪器上报告），但可能会讨论像下面这样的，宏观一点的问题：
+    1. 我们应该如何讨论NumPy和社区？
+    1. 开发或添加项目到NumPy发展规划路线图
+    1. 公布Numpy的发布日志和开发者会议
+    1. 对开发工作流程的更改
+    1. NumPy发布和开发人员会议的公告
+    1. ...
 
-To learn more about how to contribute to the ongoing development of NumPy, please check out our contributing guidelines. For deeper development discussions related to the direction of the project, you can join the mailing list.
+要了解有关如何为 *NumPy* 的持续发展做出贡献的更多信息，请查看我们的[贡献指南](/dev/#contributing-to-numpy)。有关项目方向的深入开发讨论，您可以加入[邮件列表](https://mail.python.org/mailman/listinfo/numpy-discussion)。

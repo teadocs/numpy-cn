@@ -3,7 +3,7 @@ sidebarDepth: 3
 sidebar: auto
 ---
 
-# NumPy License
+# NumPy 的许可证
 
 Copyright (c) 2005, NumPy Developers
 

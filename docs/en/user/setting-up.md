@@ -127,3 +127,9 @@ functions in the outer-most NumPy namespace, allowing the programmer
 to code in whichever paradigm they prefer. This flexibility has allowed the
 NumPy array dialect and NumPy *ndarray* class to become the *de-facto* language
 of multi-dimensional data interchange used in Python.
+
+## Installing NumPy
+
+In most use cases the best way to install NumPy on your system is by using a pre-built package for your operating system. Please see [https://scipy.org/install.html](https://scipy.org/install.html) for links to available options.
+
+For instructions on building for source package, see [Building from source](building.html). This information is useful mainly for advanced users.

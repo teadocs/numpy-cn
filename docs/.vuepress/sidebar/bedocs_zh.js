@@ -1,15 +1,15 @@
 module.exports = function () {
   return [
     {
-      title: 'A Guide to NumPy/SciPy Documentation',
+      title: 'NumPy 的文档相关',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/bedocs/', 'Index'],
-        ['/bedocs/howto_document', 'A Guide to NumPy/SciPy Documentation'],
-        ['/bedocs/example_source', 'Example Source'],
-        ['/bedocs/example_rendered', 'Example Rendered'],
-        ['/bedocs/howto_build_docs', 'Building the NumPy API and reference docs']
+        ['/bedocs/', '目录'],
+        ['/bedocs/howto_document', '一份给NumPy/SciPy的文档做贡献的指南'],
+        ['/bedocs/example_source', '来源示例'],
+        ['/bedocs/example_rendered', '渲染示例'],
+        ['/bedocs/howto_build_docs', '构建NumPy API和参考文档']
       ]
     }
   ]

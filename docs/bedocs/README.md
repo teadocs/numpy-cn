@@ -1,9 +1,9 @@
-# NumPy’s Documentation
+# NumPy 的文档相关
 
-- [A Guide to NumPy/SciPy Documentation](howto_document.html)
-  - [numpydoc docstring guide](howto_document.html#numpydoc-docstring-guide)
-- [Example Source](example_source.html)
-- [Example Rendered](example_rendered.html)
-- [Building the NumPy API and reference docs](https://numpy.org/devdocs/docs/howto_build_docs.html)
-  - [Instructions](https://numpy.org/devdocs/docs/howto_build_docs.html#instructions)
-  - [Sphinx extensions](https://numpy.org/devdocs/docs/howto_build_docs.html#sphinx-extensions)
+- [一份给NumPy/SciPy的文档做贡献的指南](howto_document.html)
+  - [numpydoc docstring指南](howto_document.html#numpydoc-docstring-guide)
+- [来源示例](example_source.html)
+- [渲染示例](example_rendered.html)
+- [构建NumPy API和参考文档](https://numpy.org/devdocs/docs/howto_build_docs.html)
+  - [指令](https://numpy.org/devdocs/docs/howto_build_docs.html#instructions)
+  - [Sphinx扩展](https://numpy.org/devdocs/docs/howto_build_docs.html#sphinx-extensions)

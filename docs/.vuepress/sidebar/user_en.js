@@ -37,7 +37,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/miscellaneous', 'Miscellaneous']
+        ['/user/misc', 'Miscellaneous']
       ]
     },
     {

@@ -17,10 +17,11 @@ module.exports = function () {
       ]
     },
     {
-      title: '基础知识',
+      title: 'NumPy 基础知识',
       collapsable: true,
       sidebarDepth: 3,
       children: [
+        ['/user/basics/', '目录'],
         ['/user/basics/types', '数据类型'],
         ['/user/basics/creation', '创建数组'],
         ['/user/basics/io', '输入输出'],
@@ -37,7 +38,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/miscellaneous', '其他杂项']
+        ['/user/misc', '其他杂项']
       ]
     },
     {

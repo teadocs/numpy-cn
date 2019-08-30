@@ -1,69 +1,69 @@
 module.exports = function () {
   return [
     {
-      title: 'NumPy Code of Conduct',
+      title: 'NumPy 的代码规范',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/code_of_conduct', 'NumPy Code of Conduct']
+        ['/dev/code_of_conduct', 'NumPy 的代码规范']
       ]
     },
     {
-      title: 'Git for development',
+      title: 'Git 教程',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/gitwash', 'Git for development']
+        ['/dev/gitwash', 'Git 教程']
       ]
     },
     {
-      title: 'Setting up and using your development environment',
+      title: '设置和使用您的开发环境',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/development_environment', 'Setting up and using your development environment']
+        ['/dev/development_environment', '设置和使用您的开发环境']
       ]
     },
     {
-      title: 'Development workflow',
+      title: '开发流程',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/development_workflow', 'Development workflow']
+        ['/dev/development_workflow', '开发流程']
       ]
     },
     {
-      title: 'NumPy benchmarks',
+      title: 'NumPy 基准测试',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/benchmarking', 'NumPy benchmarks']
+        ['/dev/benchmarking', 'NumPy 基准测试']
       ]
     },
     {
-      title: 'NumPy C Style Guide',
+      title: 'NumPy C风格指南',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/style_guide', 'NumPy C Style Guide']
+        ['/dev/style_guide', 'NumPy C风格指南']
       ]
     },
     {
-      title: 'Releasing a Version',
+      title: '发布一个版本',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/releasing', 'Releasing a Version']
+        ['/dev/releasing', '发布一个版本']
       ]
     },
     {
-      title: 'NumPy governance',
+      title: 'NumPy 治理',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/governance/', 'Index'],
-        ['/dev/governance/governance', 'NumPy project governance and decision-making'],
-        ['/dev/governance/people', 'Current steering council and institutional partners']
+        ['/dev/governance/', '目录'],
+        ['/dev/governance/governance', 'NumPy 项目治理和决策'],
+        ['/dev/governance/people', '现任指导委员会和机构合作伙伴']
       ]
     }
   ]

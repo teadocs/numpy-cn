@@ -49,19 +49,19 @@ This page provides an overview of development priorities for NumPy. Specifically
 
 ## Deferred and Superseded NEPs
 
-- [NEP 2 — A proposal to build numpy without warning with a big set of warning flags]()
-- [NEP 3 — Cleaning the math configuration of numpy.core]()
-- [NEP 4 — A (third) proposal for implementing some date/time types in NumPy]()
-- [NEP 6 — Replacing Trac with a different bug tracker]()
-- [NEP 8 — A proposal for adding groupby functionality to NumPy]()
-- [NEP 9 — Structured array extensions]()
-- [NEP 11 — Deferred UFunc Evaluation]()
-- [NEP 12 — Missing Data Functionality in NumPy]()
-- [NEP 24 — Missing Data Functionality - Alternative 1 to NEP 12]()
-- [NEP 25 — NA support via special dtypes]()
-- [NEP 26 — Summary of Missing Data NEPs and discussion]()
+- [NEP 2 — A proposal to build numpy without warning with a big set of warning flags](https://numpy.org/neps/nep-0002-warnfix.html)
+- [NEP 3 — Cleaning the math configuration of numpy.core](https://numpy.org/neps/nep-0003-math_config_clean.html)
+- [NEP 4 — A (third) proposal for implementing some date/time types in NumPy](https://numpy.org/neps/nep-0004-datetime-proposal3.html)
+- [NEP 6 — Replacing Trac with a different bug tracker](https://numpy.org/neps/nep-0006-newbugtracker.html)
+- [NEP 8 — A proposal for adding groupby functionality to NumPy](https://numpy.org/neps/nep-0008-groupby_additions.html)
+- [NEP 9 — Structured array extensions](https://numpy.org/neps/nep-0009-structured_array_extensions.html)
+- [NEP 11 — Deferred UFunc Evaluation](https://numpy.org/neps/nep-0011-deferred-ufunc-evaluation.html)
+- [NEP 12 — Missing Data Functionality in NumPy](https://numpy.org/neps/nep-0012-missing-data.html)
+- [NEP 24 — Missing Data Functionality - Alternative 1 to NEP 12](https://numpy.org/neps/nep-0024-missing-data-2.html)
+- [NEP 25 — NA support via special dtypes](https://numpy.org/neps/nep-0025-missing-data-3.html)
+- [NEP 26 — Summary of Missing Data NEPs and discussion](https://numpy.org/neps/nep-0026-missing-data-summary.html)
 
 ## Rejected and Withdrawn NEPs
 
-- [NEP 16 — An abstract base class for identifying "duck arrays"]()
-- [NEP 17 — Split Out Masked Arrays]()
+- [NEP 16 — An abstract base class for identifying "duck arrays"](https://numpy.org/neps/nep-0016-abstract-array.html)
+- [NEP 17 — Split Out Masked Arrays](https://numpy.org/neps/nep-0017-split-out-maskedarray.html)

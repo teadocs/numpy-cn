@@ -3,54 +3,54 @@ sidebarDepth: 3
 sidebar: auto
 ---
 
-# NumPy
+# 关于 NumPy
 
-NumPy is the fundamental package for scientific computing with Python. It contains among other things:
+NumPy是使用Python进行科学计算的基础包。它包含如下的内容：
 
-- a powerful N-dimensional array object
-- sophisticated (broadcasting) functions
-- tools for integrating C/C++ and Fortran code
-- useful linear algebra, Fourier transform, and random number capabilities
+- 一个强大的N维数组对象。
+- 复杂的（广播）功能。
+- 用于集成C / C ++和Fortran代码的工具。
+- 有用的线性代数，傅里叶变换和随机数功能。
 
-Besides its obvious scientific uses, NumPy can also be used as an efficient multi-dimensional container of generic data. Arbitrary data-types can be defined. This allows NumPy to seamlessly and speedily integrate with a wide variety of databases.
+除了明显的科学用途外，NumPy还可以用作通用数据的高效多维容器。可以定义任意数据类型。这使NumPy能够无缝快速地与各种数据库集成。
 
-NumPy is licensed under the [BSD license](https://numpy.org/license.html#license), enabling reuse with few restrictions.
+NumPy是在[BSD许可](/license/)下获得许可的，允许重用而不受限制。
 
-## Getting Started
+## 开始学习
 
-To install NumPy, we strongly recommend using a *scientific Python* distribution. See [Installing the SciPy Stack](https://www.scipy.org/install.html) for details.
+要安装NumPy，我们强烈建议您使用*科学的Python*发行版。有关详细信息，请参阅[安装SciPy技术栈](https://www.scipy.org/install.html)。
 
-Many high quality online tutorials, courses, and books are available to get started with NumPy. For a quick introduction to NumPy we provide the [NumPy Tutorial](https://www.numpy.org/devdocs/user/quickstart.html). We also recommend the [SciPy Lecture Notes](https://scipy-lectures.org/) for a broader introduction to the scientific Python ecosystem.
+NumPy可以使用许多高质量的在线教程、课程和书籍。为了快速了解NumPy，我们提供了[NumPy教程](/user/quickstart.html)。我们还推荐[SciPy Lecture Notes](https://scipy-lectures.org/)，以更广泛地介绍科学Python生态系统。
 
-For more information on the SciPy Stack (for which NumPy provides the fundamental array data structure), see [scipy.org](https://www.scipy.org/).
+有关SciPy堆栈（NumPy提供基本阵列数据结构）的更多信息，请参阅[scipy.org](https://www.scipy.org/)。
 
-## Documentation
+## 文档
 
-The most up-to-date NumPy documentation can be found at [Latest (development) version](https://www.numpy.org/devdocs). It includes a user guide, full reference documentation, a developer guide, meta information, and “NumPy Enhancement Proposals” (which include the NumPy Roadmap and detailed plans for major new features).
+最新的NumPy文档可以在[最新（开发）版本](https://www.numpy.org/devdocs)中找到。它包括用户指南、完整的参考文档和开发人员指南，以及元信息和“NumPy增强建议”（其中包括NumPy发展规划和主要新功能的详细计划）。
 
-A complete archive of documentation for all NumPy releases (minor versions; bug fix releases don’t contain significant documentation changes) since 2009 can be found at [https://docs.scipy.org](https://docs.scipy.org/).
+自2009年以来，可以在 [https://docs.scipy.org](https://docs.scipy.org/) 找到所有NumPy版本（次要版本;错误修复版本不包含重大文档更改）的完整文档存档。
 
-## Support NumPy
+## 支持 NumPy
 
-If you have found NumPy to be useful in your work, research or company, please consider making a donation to the project commensurate with your resources. Any amount helps! All donations will be used strictly to fund the development of NumPy’s open source software, documentation and community.
+如果您发现NumPy对您的工作，研究或公司有用，请考虑捐赠与您的资源相称的项目。任何数量的帮助！所有捐款将严格用于资助NumPy开源软件，文档和社区的开发。
 
-Donations are managed by the NumFOCUS Foundation, which is the legal and fiscal umbrella for the project. NumFOCUS is a 501(c)3 non-profit foundation, so if you are subject to US Tax law, your contribution is tax-deductible. NumPy’s [Steering Council](https://www.numpy.org/devdocs/dev/governance/index.html) will make the decisions on how to best use any funds received. Technical and infrastructure priorities are documented on the [NumPy Roadmap](https://www.numpy.org/neps/roadmap.html).
+捐赠由NumFOCUS基金会管理，该基金会是该项目的法律和财政保障机构。NumFOCUS是501(c)3非盈利基金会，因此，如果您受美国税法的约束，您的缴费可以免税。NumPy的[指导委员会](/dev/governance/)将就如何最好地使用收到的任何资金做出合理的决策。[NumPy发展规划图](/neps/#roadmap)记录了技术和基础设施优先事项。
 
 <img src="/static/images/NumFOCUS_sponsored_project.png" height="55px" alt="NumFOCUS" title="NumFOCUS" />
 
-[Donate Now!](https://numfocus.salsalabs.org/donate-to-numpy)
+[现在就捐赠!](https://numfocus.salsalabs.org/donate-to-numpy)
 
-### Institutional Partners
+### 机构合作伙伴
 
-Institutional Partners are organizations that support the project by employing NumPy contributors, with contributing to the project as part of their official duties. Current Institutional Partners include:
+机构合作伙伴是通过聘用NumPy贡献者来支持该项目的组织，作为其官方职责的一部分为该项目做出贡献。目前的机构合作伙伴包括：
 
 <img src="/static/images/berkeley-color.svg" height="56px" alt="Berkeley" title="Berkeley" />
 
 <img src="/static/images/quansight.svg" height="56px" alt="Quansight" title="Quansight" />
 
-### Sponsors
+### 赞助商
 
-NumPy receives direct funding from the following sources:
+NumPy从以下来源获得直接资助：
 
 <img src="/static/images/moore.svg" height="56px" alt="Gordon and Betty Moore Foundation" title="Gordon and Betty Moore Foundation" />
 

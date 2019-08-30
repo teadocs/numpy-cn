@@ -46,7 +46,7 @@ module.exports = function () {
       ['/reference/routines/emath', '具有自动域的数学函数(numpy.emath)'],
       ['/reference/routines/err', '浮点错误处理'],
       ['/reference/routines/fft', '离散傅立叶变换(numpy.fft)'],
-      ['/reference/routines/financial', '财务相关'],
+      ['/reference/routines/financial', '财金相关'],
       ['/reference/routines/functional', '功能的编写'],
       ['/reference/routines/help', 'NumPy特别的帮助功能'],
       ['/reference/routines/indexing', '索引相关'],

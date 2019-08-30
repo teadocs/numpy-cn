@@ -3,14 +3,14 @@ sidebarDepth: 3
 sidebar: auto
 ---
 
-# Reporting bugs
+# 报告错误
 
-File bug reports or feature requests, and make contributions (e.g. code patches), by opening a “new issue” on GitHub:
+通过在GitHub上打开“新问题”来文件错误报告或功能请求，并做出贡献（例如代码补丁）：
 
-- NumPy Issues: [https://github.com/numpy/numpy/issues](https://github.com/numpy/numpy/issues)
+- NumPy 的 Issues 地址: [https://github.com/numpy/numpy/issues](https://github.com/numpy/numpy/issues)
 
-Please give as much information as you can in the ticket. It is extremely useful if you can supply a small self-contained code snippet that reproduces the problem. Also specify the component, the version you are referring to and the milestone.
+请在描述上提供尽可能多的信息。如果您可以提供一个小的自含式代码片段来重现这个问题，那么它是非常有用的。还需要指定组件、您所引用的版本和里程碑。
 
-Report bugs to the appropriate GitHub project (there is one for NumPy and a different one for SciPy).
+向相应的Github项目报告错误（Numpy有一个，Scipy有另一个）。
 
-More information can be found on the [https://www.scipy.org/scipylib/dev-zone.html](https://www.scipy.org/scipylib/dev-zone.html) website.
+更多信息可以在 [https://www.scipy.org/scipylib/dev-zone.html](https://www.scipy.org/scipylib/dev-zone.html) 网站上找到。

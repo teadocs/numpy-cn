@@ -1,78 +1,67 @@
-# Contributing to NumPy
+# 给 NumPy 做贡献
 
-Not a coder? Not a problem! NumPy is multi-faceted, and we can use a lot of help.
-These are all activities we’d like to get help with (they’re all important, so
-we list them in alphabetical order):
+不是程序员？不是问题！NumPy是多方面的，我们有很多地方需要帮助。以下这些都是我们需要获得的帮助（它们都非常重要，因此我们按字母顺序列出）：
 
-- Code maintenance and development
-- Community coordination
+- 代码维护和开发
+- 社区协调
 - DevOps
-- Developing educational content & narrative documentation
-- Writing technical documentation
-- Fundraising
-- Project management
-- Marketing
-- Translating content
-- Website design and development
+- 开发教育内容和叙述文档
+- 编写技术文档
+- 筹款
+- 项目管理
+- 市场或宣传
+- 翻译内容
+- 网站设计与开发
 
-The rest of this document discusses working on the NumPy code base and documentation.
-We’re in the process of updating our descriptions of other activities and roles.
-If you are interested in these other activities, please contact us!
-You can do this via
-the [numpy-discussion mailing list](https://scipy.org/scipylib/mailing-lists.html),
-or on GitHub (open an issue or comment on a relevant issue). These are our preferred
-communication channels (open source is open by nature!), however if you prefer
-to discuss in private first, please reach out to our community coordinators
-at  *numpy-team@googlegroups.com*  or  *numpy-team.slack.com*  (send an email to
- *numpy-team@googlegroups.com*  for an invite the first time).
+本文档的其余部分讲述了NumPy代码库和文档的工作。我们正在更新我们对更多的贡献工作和角色分工的描述。如果您对这些其他贡献工作感兴趣，请联系我们！您可以通过[numpy-discussion 邮件列表](https://scipy.org/scipylib/mailing-lists.html)或 GitHub（打开问题或评论相关问题）来完成此操作。这些是我们首选的沟通渠道（开源本质上是公开的！），但如果您想首先私下讨论，请联系我们的社区协调员 *numpy-team@googlegroups.com* 或 *numpy-team.slack.com*（首次发送电子邮件至 *numpy-team@googlegroups.com* 以获取邀请。
 
-## Development process - summary
+## 开发流程 - 摘要
 
-Here’s the short summary, complete TOC links are below:
+以下是简短摘要，完整的TOC链接如下：
 
-1. If you are a first-time contributor:
+1. 如果您是新手贡献者：
 
-  - Go to https://github.com/numpy/numpy and click the “fork” button to create your own copy of the project.
+    - 前往 https://github.com/numpy/numpy 并单击 “fork” 按钮以创建您自己的项目副本。
 
-  - Clone the project to your local computer:
+    - 将项目克隆到本地计算机：
 
-  ``` bash
-  git clone https://github.com/your-username/numpy.git
-  ```
+      ``` bash
+      git clone https://github.com/your-username/numpy.git
+      ```
 
-  - Change the directory:
+    - 更改目录：
 
-    ``` bash
-    cd numpy
-    ```
+      ``` bash
+      cd numpy
+      ```
 
-  - Add the upstream repository:
+    - 添加远程仓库：
 
-    ``` bash
-    git remote add upstream https://github.com/numpy/numpy.git
-    ```
+      ``` bash
+      git remote add upstream https://github.com/numpy/numpy.git
+      ```
 
-  - Now, git remote -v will show two remote repositories named:
-    - upstream, which refers to the numpy repository
-    - origin, which refers to your personal fork
-1. Develop your contribution:
+    - 现在，``git remote -v`` 将显示两个名为的远程存储库：
+        - upstream, 指的是 ``numpy`` 的仓库
+        - origin, 指的是你的私人的fork而来的仓库
+1. 进行贡献时
 
-    - Pull the latest changes from upstream:
+    - 从上游拉取最新的内容到你的本地：
 
     ``` bash
     git checkout master
     git pull upstream master
     ```
 
-    - Create a branch for the feature you want to work on. Since the branch name will appear in the merge message, use a sensible name such as ‘linspace-speedups’:
+    - 为要处理的功能创建分支。由于分支名称将出现在合并消息中，因此请命名合理的名称，例如 “linspace-speedups”：
 
     ``` bash
     git checkout -b linspace-speedups
     ```
 
-    - Commit locally as you progress (git add and git commit) Use a properly formatted commit message, write tests that fail before your change and pass afterward, run all the tests locally. Be sure to document any changed behavior in docstrings, keeping to the NumPy docstring standard.
-1. To submit your contribution:
-    - Push your changes back to your fork on GitHub:
+    - 进行本地提交( ``git add`` 和 ``git commit``)时，请使用[标准格式](development_workflow.html#writing-the-commit-message)，正确的提交你的消息，编写在更改之前失败并在更改后通过的测试，在本地运行[所有测试](development_environment.html#development-environment)。确保在docstring中记录任何更改的行为，并遵循NumPy docstring[标准](/bedocs/howto_document.html#howto-document)。
+1. 提交您的贡献：
+    - 在GitHub上将更改推回到fork：
 
     ``` bash
     git push origin linspace-speedups

@@ -1,47 +1,19 @@
-# Setting up
+# NumPy 介绍
 
-## What is NumPy?
+## 什么是 NumPy?
 
-NumPy is the fundamental package for scientific computing in Python.
-It is a Python library that provides a multidimensional array object,
-various derived objects (such as masked arrays and matrices), and an
-assortment of routines for fast operations on arrays, including
-mathematical, logical, shape manipulation, sorting, selecting, I/O,
-discrete Fourier transforms, basic linear algebra, basic statistical
-operations, random simulation and much more.
+NumPy是Python中科学计算的基础包。它是一个Python库，提供多维数组对象，各种派生对象（如掩码数组和矩阵），以及用于数组快速操作的各种API，有包括数学、逻辑、形状操作、排序、选择、输入输出、离散傅立叶变换、基本线性代数，基本统计运算和随机模拟等等。
 
-At the core of the NumPy package, is the *ndarray* object.  This
-encapsulates *n*-dimensional arrays of homogeneous data types, with
-many operations being performed in compiled code for performance.
-There are several important differences between NumPy arrays and the
-standard Python sequences:
+NumPy包的核心是 *ndarray* 对象。它封装了python原生的同数据类型的 *n* 维数组，为了保证其性能优良，其中有许多操作都是代码在本地进行编译后执行的。
 
-- NumPy arrays have a fixed size at creation, unlike Python lists
-(which can grow dynamically). Changing the size of an *ndarray* will
-create a new array and delete the original.
-- The elements in a NumPy array are all required to be of the same
-data type, and thus will be the same size in memory.  The exception:
-one can have arrays of (Python, including NumPy) objects, thereby
-allowing for arrays of different sized elements.
-- NumPy arrays facilitate advanced mathematical and other types of
-operations on large numbers of data.  Typically, such operations are
-executed more efficiently and with less code than is possible using
-Python’s built-in sequences.
-- A growing plethora of scientific and mathematical Python-based
-packages are using NumPy arrays; though these typically support
-Python-sequence input, they convert such input to NumPy arrays prior
-to processing, and they often output NumPy arrays.  In other words,
-in order to efficiently use much (perhaps even most) of today’s
-scientific/mathematical Python-based software, just knowing how to
-use Python’s built-in sequence types is insufficient - one also
-needs to know how to use NumPy arrays.
+NumPy数组 和 原生Python Array（数组）之间有几个重要的区别：
 
-The points about sequence size and speed are particularly important in
-scientific computing.  As a simple example, consider the case of
-multiplying each element in a 1-D sequence with the corresponding
-element in another sequence of the same length.  If the data are
-stored in two Python lists, ``a`` and ``b``, we could iterate over
-each element:
+- NumPy 数组在创建时具有固定的大小，与Python的原生数组对象（可以动态增长）不同。更改ndarray的大小将创建一个新数组并删除原来的数组。
+- NumPy 数组中的元素都需要具有相同的数据类型，因此在内存中的大小相同。 例外情况：Python的原生数组里包含了NumPy的对象的时候，这种情况下就允许不同大小元素的数组。
+- NumPy 数组有助于对大量数据进行高级数学和其他类型的操作。通常，这些操作的执行效率更高，比使用Python原生数组的代码更少。
+- 越来越多的基于Python的科学和数学软件包使用NumPy数组; 虽然这些工具通常都支持Python的原生数组作为参数，但它们在处理之前会还是会将输入的数组转换为NumPy的数组，而且也通常输出为NumPy数组。换句话说，为了高效地使用当今科学/数学基于Python的工具（大部分的科学计算工具），你只知道如何使用Python的原生数组类型是不够的 - 还需要知道如何使用 NumPy 数组。
+
+关于数组大小和速度的要点在科学计算中尤为重要。举一个简单的例子，考虑将1维数组中的每个元素与相同长度的另一个序列中的相应元素相乘的情况。如果数据存储在两个Python 列表 ``a`` 和 ``b`` 中，我们可以迭代每个元素，如下所示：
 
 ``` python
 c = []
@@ -49,25 +21,17 @@ for i in range(len(a)):
     c.append(a[i]*b[i])
 ```
 
-This produces the correct answer, but if ``a`` and ``b`` each contain
-millions of numbers, we will pay the price for the inefficiencies of
-looping in Python.  We could accomplish the same task much more
-quickly in C by writing (for clarity we neglect variable declarations
-and initializations, memory allocation, etc.)
+确实符合我们的要求，但如果``a``和``b``每一个都包含数以百万计的数字，我们会付出Python中循环的效率低下的代价。我们可以通过在C中写入以下代码，更快地完成相同的任务（为了清楚起见，我们忽略了变量声明和初始化，内存分配等）。
 
-``` python
+```c
 for (i = 0; i < rows; i++): {
   c[i] = a[i]*b[i];
 }
 ```
 
-This saves all the overhead involved in interpreting the Python code
-and manipulating Python objects, but at the expense of the benefits
-gained from coding in Python.  Furthermore, the coding work required
-increases with the dimensionality of our data. In the case of a 2-D
-array, for example, the C code (abridged as before) expands to
+这节省了解释Python代码和操作Python对象所涉及的所有开销，但牺牲了用Python编写代码所带来的好处。此外，编码工作需要增加的维度，我们的数据。例如，对于二维数组，C代码(如前所述)会扩展为这样：
 
-``` python
+```c
 for (i = 0; i < rows; i++): {
   for (j = 0; j < columns; j++): {
     c[i][j] = a[i][j]*b[i][j];
@@ -75,55 +39,25 @@ for (i = 0; i < rows; i++): {
 }
 ```
 
-NumPy gives us the best of both worlds: element-by-element operations
-are the “default mode” when an *ndarray* is involved, but the
-element-by-element operation is speedily executed by pre-compiled C
-code.  In NumPy
+NumPy 为我们提供了两全其美的解决方案：当涉及到 *ndarray* 时，逐个元素的操作是“默认模式”，但逐个元素的操作由预编译的C代码快速执行。在NumPy中：
 
-``` python
+```python
 c = a * b
 ```
 
-does what the earlier examples do, at near-C speeds, but with the code
-simplicity we expect from something based on Python. Indeed, the NumPy
-idiom is even simpler!  This last example illustrates two of NumPy’s
-features which are the basis of much of its power: vectorization and
-broadcasting.
+以近C速度执行前面的示例所做的事情，但是我们期望基于Python的代码具有简单性。的确，NumPy的语法更为简单！最后一个例子说明了NumPy的两个特征，它们是NumPy的大部分功能的基础：矢量化和广播。
 
-### Why is NumPy Fast?
+## 为什么 NumPy 这么快？
 
-Vectorization describes the absence of any explicit looping, indexing,
-etc., in the code - these things are taking place, of course, just
-“behind the scenes” in optimized, pre-compiled C code.  Vectorized
-code has many advantages, among which are:
+矢量化描述了代码中没有任何显式的循环，索引等 - 这些当然是预编译的C代码中“幕后”优化的结果。矢量化代码有许多优点，其中包括：
 
-- vectorized code is more concise and easier to read
-- fewer lines of code generally means fewer bugs
-- the code more closely resembles standard mathematical notation
-(making it easier, typically, to correctly code mathematical
-constructs)
-- vectorization results in more “Pythonic” code. Without
-vectorization, our code would be littered with inefficient and
-difficult to read ``for`` loops.
+- 矢量化代码更简洁，更易于阅读
+- 更少的代码行通常意味着更少的错误
+- 代码更接近于标准的数学符号（通常，更容易正确编码数学结构）
+- 矢量化导致产生更多 “Pythonic” 代码。如果没有矢量化，我们的代码就会被低效且难以阅读的``for``循环所困扰。
 
-Broadcasting is the term used to describe the implicit
-element-by-element behavior of operations; generally speaking, in
-NumPy all operations, not just arithmetic operations, but
-logical, bit-wise, functional, etc., behave in this implicit
-element-by-element fashion, i.e., they broadcast.  Moreover, in the
-example above, ``a`` and ``b`` could be multidimensional arrays of the
-same shape, or a scalar and an array, or even two arrays of with
-different shapes, provided that the smaller array is “expandable” to
-the shape of the larger in such a way that the resulting broadcast is
-unambiguous. For detailed “rules” of broadcasting see
-[``numpy.doc.broadcasting``](basics.broadcasting.html#module-numpy.doc.broadcasting).
+广播是用于描述操作的隐式逐元素行为的术语; 一般来说，在NumPy中，所有操作，不仅仅是算术运算，而是逻辑，位，功能等，都以这种隐式的逐元素方式表现，即它们进行广播。此外，在上面的例子中，``a``并且``b``可以是相同形状的多维阵列，或者标量和阵列，或者甚至是具有不同形状的两个阵列，条件是较小的阵列可以“扩展”到更大的形状。结果广播明确无误的方式。有关广播的详细“规则”，请参阅[``numpy.doc.broadcasting``](basics/broadcasting.html#module-numpy.doc.broadcasting)。
 
-### Who Else Uses NumPy?
+## 还有谁在使用 NumPy？
 
-NumPy fully supports an object-oriented approach, starting, once
-again, with *ndarray*.  For example, *ndarray* is a class, possessing
-numerous methods and attributes.  Many of its methods are mirrored by
-functions in the outer-most NumPy namespace, allowing the programmer
-to code in whichever paradigm they prefer. This flexibility has allowed the
-NumPy array dialect and NumPy *ndarray* class to become the *de-facto* language
-of multi-dimensional data interchange used in Python.
+NumPy完全支持面向对象的方法，我们再夸奖一次 *ndarray* 。 我们知道 *ndarray* 是一个类，拥有许多方法和属性。它的许多方法都由最外层的NumPy命名空间中的函数镜像，允许程序员在他们喜欢的范例中进行编码。这种灵活性使NumPy数组方言和NumPy *ndarray* 类成为在Python中使用的多维数据交换的 *首选* 对象。

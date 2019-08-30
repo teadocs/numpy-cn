@@ -1,43 +1,43 @@
 module.exports = function () {
   return [
     {
-      title: 'Three ways to wrap - getting started',
+      title: '打包的三种方法 - 入门',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/getting-started', 'Three ways to wrap - getting started']
+        ['/f2py/getting-started', '打包的三种方法 - 入门']
       ]
     },
     {
-      title: 'signature-file',
+      title: '签名文件',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/signature-file', 'Signature file']
+        ['/f2py/signature-file', '签名文件']
       ]
     },
     {
-      title: 'Using F2PY bindings in Python',
+      title: '在Python中使用F2PY构建',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/python-usage', 'Using F2PY bindings in Python']
+        ['/f2py/python-usage', '在Python中使用F2PY构建']
       ]
     },
     {
-      title: 'Using F2PY',
+      title: '使用 F2PY',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/usage', 'Using F2PY']
+        ['/f2py/usage', '使用 F2PY']
       ]
     },
     {
-      title: 'Using via numpy.distutils',
+      title: '使用 numpy.distutils 模块',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/distutils', 'Using via numpy.distutils']
+        ['/f2py/distutils', '使用 numpy.distutils 模块']
       ]
     }
   ]
