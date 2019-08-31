@@ -67,109 +67,89 @@
     git push origin linspace-speedups
     ```
 
-    - Enter your GitHub username and password (repeat contributors or advanced users can remove this step by connecting to GitHub with SSH .
+    - 输入您的GitHub用户名和密码(重复贡献者或高级用户可以通过SSH连接到GitHub来删除此步骤。
 
-    - Go to GitHub. The new branch will show up with a green Pull Request button. Make sure the title and message are clear, concise, and self- explanatory. Then click the button to submit it.
+    - 前往GitHub。新的分支将显示一个绿色的Pull Request按钮。确保标题和信息清晰、简洁和不言自明。然后单击按钮提交。
 
-    - If your commit introduces a new feature or changes functionality, post on the mailing list to explain your changes. For bug fixes, documentation updates, etc., this is generally not necessary, though if you do not get any reaction, do feel free to ask for review.
-1. Review process:
-    - Reviewers (the other developers and interested community members) will write inline and/or general comments on your Pull Request (PR) to help you improve its implementation, documentation and style. Every single developer working on the project has their code reviewed, and we’ve come to see it as friendly conversation from which we all learn and the overall code quality benefits. Therefore, please don’t let the review discourage you from contributing: its only aim is to improve the quality of project, not to criticize (we are, after all, very grateful for the time you’re donating!).
-    - To update your PR, make your changes on your local repository, commit, run tests, and only if they succeed push to your fork. As soon as those changes are pushed up (to the same branch as before) the PR will update automatically. If you have no idea how to fix the test failures, you may push your changes anyway and ask for help in a PR comment.
-    - Various continuous integration (CI) services are triggered after each PR update to build the code, run unit tests, measure code coverage and check coding style of your branch. The CI tests must pass before your PR can be merged. If CI fails, you can find out why by clicking on the “failed” icon (red cross) and inspecting the build and test log. To avoid overuse and waste of this resource, test your work locally before committing.
-    - A PR must be approved by at least one core team member before merging. Approval means the core team member has carefully reviewed the changes, and the PR is ready for merging.
-1. Document changes
+    - 如果您的提交引入了新特性或更改功能，请在邮件列表上发布以解释您的更改。对于错误修复，文档更新等，这通常是不必要的，尽管如果您没有得到任何反应，请随时要求查看。
+1. 评审程序:
+    - 评审者(其他开发人员和感兴趣的社区成员)将在您的拉取请求(PR)上编写内联和/或一般评论，以帮助您改进其实现、文档和风格。每个在项目中工作的开发人员都会对他们的代码进行审查，我们已经开始把它看作是友好的对话，我们都从中学习到了，并且总体代码质量得到了好处。因此，请不要让评审阻碍你的贡献：它的唯一目的是提高项目的质量，而不是批评(毕竟，我们非常感谢你捐赠的时间！)
+    - 要更新您的PR，请在本地存储库上进行更改，提交、运行测试，并且仅当它们成功地推送到您的fork时。一旦这些更改被推上(与之前相同的分支)，PR将自动更新。如果您不知道如何修复测试失败，您可以无论如何推动您的更改，并在PR注释中寻求帮助。
+    - 每次PR更新后都会触发各种持续集成(CI)服务，以构建代码、运行单元测试、测量代码覆盖率并检查分支机构的编码风格。在您的PR可以合并之前，CI测试必须通过。如果CI失败，您可以通过单击“失败”图标(红色十字)并检查构建和测试日志来找出原因。为了避免过度使用和浪费此资源，请在提交之前在本地测试您的工作。
+    - 在合并之前，请购单必须得到至少一个核心团队成员的批准。批准意味着核心团队成员已经仔细审查了更改，PR已准备好进行合并。
+1. 文档更改
 
-    Beyond changes to a functions docstring and possible description in the general documentation, if your change introduces any user-facing modifications, update the current release notes under doc/release/X.XX-notes.rst
+    除了更改一般文档中的函数docstring和可能的描述之外，如果您的更改引入了任何面向用户的修改，请更新doc/release/x.xx-notes.rst下的当前发行说明
 
-    If your change introduces a deprecation, make sure to discuss this first on GitHub or the mailing list first. If agreement on the deprecation is reached, follow NEP 23 deprecation policy to add the deprecation.
-1. Cross referencing issues
+    如果您的更改引入了不推荐使用的内容，请确保首先在GitHub或邮件列表上讨论此问题。如果就弃用达成一致，遵循NEP 23弃用政策添加弃用。
+1. 交叉引用问题
 
-    If the PR relates to any issues, you can add the text xref gh-xxxx where xxxx is the number of the issue to github comments. Likewise, if the PR solves an issue, replace the xref with closes, fixes or any of the other flavors github accepts.
+    如果PR与任何问题相关，您可以将文本xref gh-xxxx添加到GitHub评论中，其中xxxx是问题的编号。同样，如果PR解决了问题，请将外部参照替换为Close、Fix或GitHub接受的任何其他风格。
 
-    In the source code, be sure to preface any issue or PR reference with gh-xxxx.
+    在源代码中，确保以gh-xxxx作为任何问题或PR引用的前缀。
 
-For a more detailed discussion, read on and follow the links at the bottom of this page.
+有关更详细的讨论，请阅读并点击本页底部的链接。
 
-### Divergence between ``upstream/master`` and your feature branch
+### ``upstream/master`` 与功能分支之间的差异
 
-If GitHub indicates that the branch of your Pull Request can no longer
-be merged automatically, you have to incorporate changes that have been made
-since you started into your branch. Our recommended way to do this is to
-[rebase on master](development_workflow.html#rebasing-on-master).
+如果GitHub指示拉取请求的分支不能再自动合并，则必须将自启动以来所做的更改合并到分支中。我们推荐的方法是重新[建立在主要分支](development_workflow.html#rebasing-on-master)的基础上。
 
-### Guidelines
+### 指导方针
 
-- All code should have tests (see [test coverage](#test-coverage) below for more details).
-- All code should be [documented](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
-- No changes are ever committed without review and approval by a core
-team member.Please ask politely on the PR or on the [mailing list](https://mail.python.org/mailman/listinfo/numpy-devel) if you
-get no response to your pull request within a week.
+- 所有代码都应该有测试(有关更多详细信息，请参见下面的[测试覆盖率](#test-coverage))。
+- 所有代码都应[记录在案](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard)。
+- 在未经核心团队成员审核和批准的情况下，不会提交任何更改。如果您在一周内没有收到对拉取请求的回复，请在PR或[邮件列表](https://mail.python.org/mailman/listinfo/numpy-devel)上礼貌地询问。
 
-### Stylistic Guidelines
+### 文体指南
 
-- Set up your editor to follow [PEP 8](https://www.python.org/dev/peps/pep-0008/) (remove trailing white space, no tabs, etc.).  Check code with
-pyflakes / flake8.
-- Use numpy data types instead of strings (``np.uint8`` instead of
-``"uint8"``).
-- Use the following import conventions:
-
+- 将编辑器设置为遵循[PEP 8](https://www.python.org/dev/peps/pep-0008/)（删除尾随空白，没有制表符等）。用pyflakes/flke8检查代码。
+- 使用numpy数据类型而不是字符串(``np.uint8`` 而不是 ``uint8``)。
+- 使用以下导入约定：
     ``` python
     import numpy as np
     ```
+- 有关C代码，请参见[numpy-c-style-guide](style_guide.html#style-guide)。
 
-- For C code, see the [numpy-c-style-guide](style_guide.html#style-guide)
+### 测试覆盖率
 
-### Test coverage
+修改代码的拉取请求（PR）应该具有新的测试，或者在PR之前将现有的测试修改为失败并且之后通过。你应该在推PR之前[运行测试](development_environment.html#development-environment)。
 
-Pull requests (PRs) that modify code should either have new tests, or modify existing
-tests to fail before the PR and pass afterwards. You should [run the tests](development_environment.html#development-environment) before pushing a PR.
+理想情况下，模块的测试应覆盖该模块中的所有代码，即语句覆盖率应为100%。
 
-Tests for a module should ideally cover all code in that module,
-i.e., statement coverage should be at 100%.
-
-To measure the test coverage, install
-[pytest-cov](https://pytest-cov.readthedocs.io/en/latest/)
-and then run:
+要测量测试覆盖率，请安装[pytest-cov](https://pytest-cov.readthedocs.io/en/latest/)，然后运行：
 
 ``` python
 $ python runtests.py --coverage
 ```
 
-This will create a report in ``build/coverage``, which can be viewed with:
+这将在 ``Build/Coverage`` 中创建报告，可以通过以下方式查看：
 
 ``` python
 $ firefox build/coverage/index.html
 ```
 
-### Building docs
+### 构建文档
 
-To build docs, run ``make`` from the ``doc`` directory. ``make help`` lists
-all targets. For example, to build the HTML documentation, you can run:
+要构建文档，请从 ``doc`` 目录运行 ``make``。``make help`` 会列出所有目标。例如，要构建HTML文档，可以运行：
 
 ``` python
 make html
 ```
 
-Then, all the HTML files will be generated in ``doc/build/html/``.
-Since the documentation is based on docstrings, the appropriate version of
-numpy must be installed in the host python used to run sphinx.
+然后，所有的HTML文件都将在 ``doc/build/html/`` 中生成。由于文档基于docstring，因此必须在用于运行sphinx的主机python中安装适当版本的numpy。
 
-#### Requirements
+#### 要求
 
-[Sphinx](https://www.sphinx-doc.org/en/stable/) is needed to build
-the documentation. Matplotlib and SciPy are also required.
+需要 [Sphinx](https://www.sphinx-doc.org/en/stable/) 来构建文档。Matplotlib和SciPy也是一样的。
 
-#### Fixing Warnings
+#### 修复警告
 
-- “citation not found: R###” There is probably an underscore after a
-reference in the first line of a docstring (e.g. [1]_). Use this
-method to find the source file: $ cd doc/build; grep -rin R####
-- “Duplicate citation R###, other instance in…”” There is probably a
-[2] without a [1] in one of the docstrings
+- “未找到引用：R###” 在docstring的第一行引用之后可能有下划线(例如 [1]_)。使用此方法查找源文件：$ cd doc/build；grep-rin R####。
+- “重复引用R###，…中的其他实例” 在一个docstring中可能有一个没有[1]的[2]。
 
-## Development process - details
+## 开发流程 - 详细信息
 
-The rest of the story
+文章的其余部分：
 
 - [NumPy Code of Conduct](conduct/code_of_conduct.html)
   - [Introduction](conduct/code_of_conduct.html#introduction)
@@ -215,4 +195,4 @@ The rest of the story
   - [NumPy project governance and decision-making](governance/governance.html)
   - [Current steering council and institutional partners](governance/people.html)
 
-NumPy-specific workflow is in [numpy-development-workflow](development_workflow.html#development-workflow).
+NumPy-specific 工作流程在 [numpy-development-workflow](development_workflow.html#development-workflow)。
