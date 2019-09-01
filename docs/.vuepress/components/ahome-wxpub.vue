@@ -20,27 +20,22 @@ export default {
     return {
       recommend: [
         {
-          poster:
-            "http://mmbiz.qpic.cn/mmbiz_jpg/NbtHzd5t0YCtcicW9XcHrp32oya9XdRKH4p5ZFCmSKfatgU7CHhRlvgelNXr5ze0shndR35bKzArQMiaGPspq3rA/0?wx_fmt=jpeg",
-          title:
-            "不要再去报班啦！纯新手入门机器/深度学习自学指南（附一个月速成方案）",
+          poster: "https://www.pypandas.cn/static/images/recommend/01.jpeg",
+          title: "不要再去报班啦！纯新手入门机器/深度学习自学指南（附一个月速成方案）",
           url: "https://mp.weixin.qq.com/s/VYUGU2S-dWDCQfsl6C7oGQ"
-        },
+        }, 
         {
-          poster:
-            "http://mmbiz.qpic.cn/mmbiz_jpg/NbtHzd5t0YDOnldyZKXZOpu5THWxcGEG2I1OnA94SnZ2Fw1RLPFPx4XhIF5eyp10zAM4A2lgcS19hJ7iaDJPCIw/0?wx_fmt=jpeg",
+          poster: "https://www.pypandas.cn/static/images/recommend/02.jpeg",
           title: "可能是最通俗易懂的Python入门资料整理和最优学习路线推荐。",
           url: "https://mp.weixin.qq.com/s/QUUYEimknwt5v3RUxIf8kQ"
         },
         {
-          poster:
-            "http://mmbiz.qpic.cn/mmbiz_jpg/NbtHzd5t0YD7yO1ibsjREqO5OpbqnTClnogFx3JCdGHmnV7uqzicDN6EsUe15LgWAvou4ASRl50nWo9Xg5M0v7tA/0?wx_fmt=jpeg",
+          poster: "https://www.pypandas.cn/static/images/recommend/03.jpeg",
           title: "程序员是如何通过开源项目月入 10 万金的？",
           url: "https://mp.weixin.qq.com/s/bgM6RkvEO95JE4SUDa4SrQ"
         },
         {
-          poster:
-            "http://mmbiz.qpic.cn/mmbiz_jpg/NbtHzd5t0YCJvjkIuLJrxq95dYn9eZpsHFXs9wY8kE6052oYfibzWGXuUzRKFpsRibk7HMs9hv651Nurd7By4RQw/0?wx_fmt=jpeg",
+          poster: "https://www.pypandas.cn/static/images/recommend/04.jpeg",
           title: "刚刚，我用Python做了个七夕礼物，差点被女朋友打死",
           url: "https://mp.weixin.qq.com/s/i2UQOqBr8zGqtgqTaHh3mg"
         }
