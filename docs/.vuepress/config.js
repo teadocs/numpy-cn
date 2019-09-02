@@ -115,7 +115,7 @@ module.exports = ctx => ({
     logo: {
       text: 'NumPy',
       subText: '中文网',
-      image: ''
+      image: '/logo.png'
     },
     alert: [{
       id: '2019-7-29',
