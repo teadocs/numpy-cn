@@ -1,66 +1,36 @@
-# Quickstart tutorial
+# 快速入门教程
 
-## Prerequisites
+## 先决条件
 
-Before reading this tutorial you should know a bit of Python. If you
-would like to refresh your memory, take a look at the [Python
-tutorial](https://docs.python.org/tutorial/).
+在阅读本教程之前，你应该了解一些Python的基础知识。如果你想复习一下，请回去看看[Python教程](https://docs.python.org/zh-cn/3/tutorial/)。
 
-If you wish to work the examples in this tutorial, you must also have
-some software installed on your computer. Please see
-[https://scipy.org/install.html](https://scipy.org/install.html) for instructions.
+如果您希望使用本教程中的示例，则还必须在计算机上安装某些软件。有关说明，请参阅[https://scipy.org/install.html](https://scipy.org/install.html)。
 
-## The Basics
+## 基础知识
 
-NumPy’s main object is the homogeneous multidimensional array. It is a
-table of elements (usually numbers), all of the same type, indexed by a
-tuple of non-negative integers. In NumPy dimensions are called *axes*.
+NumPy的主要对象是同构多维数组。它是一个元素表（通常是数字），所有类型都相同，由非负整数元组索引。在NumPy维度中称为 *轴* 。
 
-For example, the coordinates of a point in 3D space ``[1, 2, 1]`` has
-one axis. That axis has 3 elements in it, so we say it has a length
-of 3. In the example pictured below, the array has 2 axes. The first
-axis has a length of 2, the second axis has a length of 3.
+例如，3D空间中的点的坐标``[1, 2, 1]``具有一个轴。该轴有3个元素，所以我们说它的长度为3.在下图所示的例子中，数组有2个轴。第一轴的长度为2，第二轴的长度为3。
 
 ``` python
 [[ 1., 0., 0.],
  [ 0., 1., 2.]]
 ```
 
-NumPy’s array class is called ``ndarray``. It is also known by the alias
-``array``. Note that ``numpy.array`` is not the same as the Standard
-Python Library class ``array.array``, which only handles one-dimensional
-arrays and offers less functionality. The more important attributes of
-an ``ndarray`` object are:
+NumPy的数组类被调用``ndarray``。它也被别名所知
+ ``array``。请注意，``numpy.array``这与标准Python库类不同``array.array``，后者只处理一维数组并提供较少的功能。``ndarray``对象更重要的属性是：
 
+- **ndarray.ndim** - 数组的轴（维度）的个数。在Python世界中，维度的数量被称为rank。
+- **ndarray.shape** - 数组的维度。这是一个整数的元组，表示每个维度中数组的大小。对于有 *n* 行和 *m* 列的矩阵，``shape`` 将是 ``(n,m)``。因此，``shape`` 元组的长度就是rank或维度的个数 ``ndim``。
+- **ndarray.size** - 数组元素的总数。这等于 ``shape`` 的元素的乘积。
+- **ndarray.dtype** - 一个描述数组中元素类型的对象。可以使用标准的Python类型创建或指定dtype。另外NumPy提供它自己的类型。例如numpy.int32、numpy.int16和numpy.float64。
+- **ndarray.itemsize** - 数组中每个元素的字节大小。例如，元素为 ``float64`` 类型的数组的 ``itemsize`` 为8（=64/8），而 ``complex32`` 类型的数组的 ``itemsize`` 为4（=32/8）。它等于 ``ndarray.dtype.itemsize`` 。
+- **ndarray.data** - 该缓冲区包含数组的实际元素。通常，我们不需要使用此属性，因为我们将使用索引访问数组中的元素。
 
-ndarray.ndim
-
-- the number of axes (dimensions) of the array.
-
-ndarray.shape
-
-- the dimensions of the array. This is a tuple of integers indicating the size of the array in each dimension. For a matrix with *n* rows and *m* columns, ``shape`` will be ``(n,m)``. The length of the ``shape`` tuple is therefore the number of axes, ``ndim``.
-
-ndarray.size
-
-- the total number of elements of the array. This is equal to the product of the elements of ``shape``.
-
-ndarray.dtype
-
-- an object describing the type of the elements in the array. One can create or specify dtype’s using standard Python types. Additionally NumPy provides types of its own. numpy.int32, numpy.int16, and numpy.float64 are some examples.
-
-ndarray.itemsize
-
-- the size in bytes of each element of the array. For example, an array of elements of type ``float64`` has ``itemsize`` 8 (=64/8), while one of type ``complex32`` has ``itemsize`` 4 (=32/8). It is equivalent to ``ndarray.dtype.itemsize``.
-
-ndarray.data
-
-- the buffer containing the actual elements of the array. Normally, we won’t need to use this attribute because we will access the elements in an array using indexing facilities.
-
-### An example
+### 一个例子
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> a = np.arange(15).reshape(3, 5)
 >>> a
 array([[ 0,  1,  2,  3,  4],
@@ -85,16 +55,14 @@ array([6, 7, 8])
 <type 'numpy.ndarray'>
 ```
 
-### Array Creation
+### 数组创建
 
-There are several ways to create arrays.
+有几种方法可以创建数组。
 
-For example, you can create an array from a regular Python list or tuple
-using the ``array`` function. The type of the resulting array is deduced
-from the type of the elements in the sequences.
+例如，你可以使用array函数从常规Python列表或元组中创建数组。得到的数组的类型是从Python列表中元素的类型推导出来的。
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> a = np.array([2,3,4])
 >>> a
 array([2, 3, 4])
@@ -105,48 +73,39 @@ dtype('int64')
 dtype('float64')
 ```
 
-A frequent error consists in calling ``array`` with multiple numeric
-arguments, rather than providing a single list of numbers as an
-argument.
+一个常见的错误，就是调用``array``的时候传入多个数字参数，而不是提供单个数字的列表类型作为参数。
 
 ``` python
->>> a = np.array(1,2,3,4)    # WRONG
+>>>>>> a = np.array(1,2,3,4)    # WRONG
 >>> a = np.array([1,2,3,4])  # RIGHT
 ```
 
-``array`` transforms sequences of sequences into two-dimensional arrays,
-sequences of sequences of sequences into three-dimensional arrays, and
-so on.
+``array`` 还可以将序列的序列转换成二维数组，将序列的序列的序列转换成三维数组，等等。
 
 ``` python
->>> b = np.array([(1.5,2,3), (4,5,6)])
+>>>>>> b = np.array([(1.5,2,3), (4,5,6)])
 >>> b
 array([[ 1.5,  2. ,  3. ],
        [ 4. ,  5. ,  6. ]])
 ```
 
-The type of the array can also be explicitly specified at creation time:
+也可以在创建时显式指定数组的类型：
 
 ``` python
->>> c = np.array( [ [1,2], [3,4] ], dtype=complex )
+>>>>>> c = np.array( [ [1,2], [3,4] ], dtype=complex )
 >>> c
 array([[ 1.+0.j,  2.+0.j],
        [ 3.+0.j,  4.+0.j]])
 ```
 
-Often, the elements of an array are originally unknown, but its size is
-known. Hence, NumPy offers several functions to create
-arrays with initial placeholder content. These minimize the necessity of
-growing arrays, an expensive operation.
+通常，数组的元素最初是未知的，但它的大小是已知的。因此，NumPy提供了几个函数来创建具有初始占位符内容的数组。这就减少了数组增长的必要，因为数组增长的操作花费很大。
 
-The function ``zeros`` creates an array full of zeros, the function
-``ones`` creates an array full of ones, and the function ``empty``
-creates an array whose initial content is random and depends on the
-state of the memory. By default, the dtype of the created array is
-``float64``.
+函数``zeros``创建一个由0组成的数组，函数 ``ones``创建一个完整的数组，函数``empty``
+创建一个数组，其初始内容是随机的，取决于内存的状态。默认情况下，创建的数组的dtype是
+ ``float64`` 类型的。
 
 ``` python
->>> np.zeros( (3,4) )
+>>>>>> np.zeros( (3,4) )
 array([[ 0.,  0.,  0.,  0.],
        [ 0.,  0.,  0.,  0.],
        [ 0.,  0.,  0.,  0.]])
@@ -162,63 +121,55 @@ array([[  3.73603959e-262,   6.02658058e-154,   6.55490914e-260],
        [  5.30498948e-313,   3.14673309e-307,   1.00000000e+000]])
 ```
 
-To create sequences of numbers, NumPy provides a function analogous to
-``range`` that returns arrays instead of lists.
+为了创建数字组成的数组，NumPy提供了一个类似于``range``的函数，该函数返回数组而不是列表。
 
 ``` python
->>> np.arange( 10, 30, 5 )
+>>>>>> np.arange( 10, 30, 5 )
 array([10, 15, 20, 25])
 >>> np.arange( 0, 2, 0.3 )                 # it accepts float arguments
 array([ 0. ,  0.3,  0.6,  0.9,  1.2,  1.5,  1.8])
 ```
 
-When ``arange`` is used with floating point arguments, it is generally
-not possible to predict the number of elements obtained, due to the
-finite floating point precision. For this reason, it is usually better
-to use the function ``linspace`` that receives as an argument the number
-of elements that we want, instead of the step:
+当``arange``与浮点参数一起使用时，由于有限的浮点精度，通常不可能预测所获得的元素的数量。出于这个原因，通常最好使用``linspace``函数来接收我们想要的元素数量的函数，而不是步长（step）：
 
 ``` python
->>> from numpy import pi
+>>>>>> from numpy import pi
 >>> np.linspace( 0, 2, 9 )                 # 9 numbers from 0 to 2
 array([ 0.  ,  0.25,  0.5 ,  0.75,  1.  ,  1.25,  1.5 ,  1.75,  2.  ])
 >>> x = np.linspace( 0, 2*pi, 100 )        # useful to evaluate function at lots of points
 >>> f = np.sin(x)
 ```
 
-::: tip See also
+::: tip 另见这些API
 
-[``array``](https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array),
-[``zeros``](https://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros),
-[``zeros_like``](https://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like),
-[``ones``](https://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones),
-[``ones_like``](https://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like),
-[``empty``](https://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty),
-[``empty_like``](https://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like),
-[``arange``](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange),
-[``linspace``](https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace),
-[``numpy.random.mtrand.RandomState.rand``](https://numpy.org/devdocs/reference/random/generated/numpy.random.mtrand.RandomState.rand.html#numpy.random.mtrand.RandomState.rand),
-[``numpy.random.mtrand.RandomState.randn``](https://numpy.org/devdocs/reference/random/generated/numpy.random.mtrand.RandomState.randn.html#numpy.random.mtrand.RandomState.randn),
-[``fromfunction``](https://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction),
+[``array``](https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array)，
+ [``zeros``](https://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros)，
+ [``zeros_like``](https://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like)，
+ [``ones``](https://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones)，
+ [``ones_like``](https://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like)，
+ [``empty``](https://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty)，
+ [``empty_like``](https://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like)，
+ [``arange``](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange)，
+ [``linspace``](https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace)，
+ [``numpy.random.mtrand.RandomState.rand``](https://numpy.org/devdocs/reference/random/generated/numpy.random.mtrand.RandomState.rand.html#numpy.random.mtrand.RandomState.rand)，
+ [``numpy.random.mtrand.RandomState.randn``](https://numpy.org/devdocs/reference/random/generated/numpy.random.mtrand.RandomState.randn.html#numpy.random.mtrand.RandomState.randn)，
+ [``fromfunction``](https://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction)，
 [``fromfile``](https://numpy.org/devdocs/reference/generated/numpy.fromfile.html#numpy.fromfile)
 
 :::
 
-### Printing Arrays
+### 打印数组
 
-When you print an array, NumPy displays it in a similar way to nested
-lists, but with the following layout:
+当您打印数组时，NumPy以与嵌套列表类似的方式显示它，但具有以下布局：
 
-- the last axis is printed from left to right,
-- the second-to-last is printed from top to bottom,
-- the rest are also printed from top to bottom, with each slice
-separated from the next by an empty line.
+- 最后一个轴从左到右打印，
+- 倒数第二个从上到下打印，
+- 其余部分也从上到下打印，每个切片用空行分隔。
 
-One-dimensional arrays are then printed as rows, bidimensionals as
-matrices and tridimensionals as lists of matrices.
+然后将一维数组打印为行，将二维数据打印为矩阵，将三维数据打印为矩阵列表。
 
 ``` python
->>> a = np.arange(6)                         # 1d array
+>>>>>> a = np.arange(6)                         # 1d array
 >>> print(a)
 [0 1 2 3 4 5]
 >>>
@@ -239,40 +190,36 @@ matrices and tridimensionals as lists of matrices.
   [20 21 22 23]]]
 ```
 
-See [below](#quickstart-shape-manipulation) to get
-more details on ``reshape``.
+有关 ``reshape`` 的详情，请参阅下文。
 
-If an array is too large to be printed, NumPy automatically skips the
-central part of the array and only prints the corners:
+如果数组太大而无法打印，NumPy会自动跳过数组的中心部分并仅打印角点：
 
 ``` python
->>> print(np.arange(10000))
-[   0    1    2 https://numpy.org/devdocs., 9997 9998 9999]
+>>>>>> print(np.arange(10000))
+[   0    1    2 ..., 9997 9998 9999]
 >>>
 >>> print(np.arange(10000).reshape(100,100))
-[[   0    1    2 https://numpy.org/devdocs.,   97   98   99]
- [ 100  101  102 https://numpy.org/devdocs.,  197  198  199]
- [ 200  201  202 https://numpy.org/devdocs.,  297  298  299]
- https://numpy.org/devdocs.,
- [9700 9701 9702 https://numpy.org/devdocs., 9797 9798 9799]
- [9800 9801 9802 https://numpy.org/devdocs., 9897 9898 9899]
- [9900 9901 9902 https://numpy.org/devdocs., 9997 9998 9999]]
+[[   0    1    2 ...,   97   98   99]
+ [ 100  101  102 ...,  197  198  199]
+ [ 200  201  202 ...,  297  298  299]
+ ...,
+ [9700 9701 9702 ..., 9797 9798 9799]
+ [9800 9801 9802 ..., 9897 9898 9899]
+ [9900 9901 9902 ..., 9997 9998 9999]]
 ```
 
-To disable this behaviour and force NumPy to print the entire array, you
-can change the printing options using ``set_printoptions``.
+要禁用此行为并强制NumPy打印整个数组，可以使用更改打印选项``set_printoptions``。
 
 ``` python
->>> np.set_printoptions(threshold=sys.maxsize)       # sys module should be imported
+>>>>>> np.set_printoptions(threshold=sys.maxsize)       # sys module should be imported
 ```
 
-### Basic Operations
+### 基本操作
 
-Arithmetic operators on arrays apply *elementwise*. A new array is
-created and filled with the result.
+数组上的算术运算符会应用到 *元素* 级别。下面是创建一个新数组并填充结果的示例：
 
 ``` python
->>> a = np.array( [20,30,40,50] )
+>>>>>> a = np.array( [20,30,40,50] )
 >>> b = np.arange( 4 )
 >>> b
 array([0, 1, 2, 3])
@@ -287,15 +234,13 @@ array([ 9.12945251, -9.88031624,  7.4511316 , -2.62374854])
 array([ True, True, False, False])
 ```
 
-Unlike in many matrix languages, the product operator ``*`` operates
-elementwise in NumPy arrays. The matrix product can be performed using
-the ``@`` operator (in python >=3.5) or the ``dot`` function or method:
+与许多矩阵语言不同，乘积运算符``*``在NumPy数组中按元素进行运算。矩阵乘积可以使用``@``运算符（在python> = 3.5中）或``dot``函数或方法执行：
 
 ``` python
->>> A = np.array( [[1,1],
-https://numpy.org/devdocs.             [0,1]] )
+>>>>>> A = np.array( [[1,1],
+...             [0,1]] )
 >>> B = np.array( [[2,0],
-https://numpy.org/devdocs.             [3,4]] )
+...             [3,4]] )
 >>> A * B                       # elementwise product
 array([[2, 0],
        [0, 4]])
@@ -307,11 +252,10 @@ array([[5, 4],
        [3, 4]])
 ```
 
-Some operations, such as ``+=`` and ``*=``, act in place to modify an
-existing array rather than create a new one.
+某些操作（例如``+=``和 ``*=``）会更直接更改被操作的矩阵数组而不会创建新矩阵数组。
 
 ``` python
->>> a = np.ones((2,3), dtype=int)
+>>>>>> a = np.ones((2,3), dtype=int)
 >>> b = np.random.random((2,3))
 >>> a *= 3
 >>> a
@@ -323,16 +267,14 @@ array([[ 3.417022  ,  3.72032449,  3.00011437],
        [ 3.30233257,  3.14675589,  3.09233859]])
 >>> a += b                  # b is not automatically converted to integer type
 Traceback (most recent call last):
-  https://numpy.org/devdocs.
+  ...
 TypeError: Cannot cast ufunc add output from dtype('float64') to dtype('int64') with casting rule 'same_kind'
 ```
 
-When operating with arrays of different types, the type of the resulting
-array corresponds to the more general or precise one (a behavior known
-as upcasting).
+当使用不同类型的数组进行操作时，结果数组的类型对应于更一般或更精确的数组（称为向上转换的行为）。
 
 ``` python
->>> a = np.ones(3, dtype=np.int32)
+>>>>>> a = np.ones(3, dtype=np.int32)
 >>> b = np.linspace(0,pi,3)
 >>> b.dtype.name
 'float64'
@@ -349,11 +291,10 @@ array([ 0.54030231+0.84147098j, -0.84147098+0.54030231j,
 'complex128'
 ```
 
-Many unary operations, such as computing the sum of all the elements in
-the array, are implemented as methods of the ``ndarray`` class.
+许多一元操作，例如计算数组中所有元素的总和，都是作为``ndarray``类的方法实现的。
 
 ``` python
->>> a = np.random.random((2,3))
+>>>>>> a = np.random.random((2,3))
 >>> a
 array([[ 0.18626021,  0.34556073,  0.39676747],
        [ 0.53881673,  0.41919451,  0.6852195 ]])
@@ -365,13 +306,11 @@ array([[ 0.18626021,  0.34556073,  0.39676747],
 0.6852195003967595
 ```
 
-By default, these operations apply to the array as though it were a list
-of numbers, regardless of its shape. However, by specifying the ``axis``
-parameter you can apply an operation along the specified axis of an
-array:
+默认情况下，这些操作适用于数组，就像它是一个数字列表一样，无论其形状如何。但是，通过指定``axis``
+参数，您可以沿数组的指定轴应用操作：
 
 ``` python
->>> b = np.arange(12).reshape(3,4)
+>>>>>> b = np.arange(12).reshape(3,4)
 >>> b
 array([[ 0,  1,  2,  3],
        [ 4,  5,  6,  7],
@@ -389,15 +328,12 @@ array([[ 0,  1,  3,  6],
        [ 8, 17, 27, 38]])
 ```
 
-### Universal Functions
+### 泛函数
 
-NumPy provides familiar mathematical functions such as sin, cos, and
-exp. In NumPy, these are called “universal
-functions”(``ufunc``). Within NumPy, these functions
-operate elementwise on an array, producing an array as output.
+NumPy提供熟悉的数学函数，例如sin，cos和exp。在NumPy中，这些被称为“泛函数”（``ufunc``）。在NumPy中，这些函数在数组上按元素进行运算，产生一个数组作为输出。
 
 ``` python
->>> B = np.arange(3)
+>>>>>> B = np.arange(3)
 >>> B
 array([0, 1, 2])
 >>> np.exp(B)
@@ -409,62 +345,59 @@ array([ 0.        ,  1.        ,  1.41421356])
 array([ 2.,  0.,  6.])
 ```
 
-::: tip See also
+::: tip 另见这些泛函数
 
-[``all``](https://numpy.org/devdocs/reference/generated/numpy.all.html#numpy.all),
-[``any``](https://numpy.org/devdocs/reference/generated/numpy.any.html#numpy.any),
-[``apply_along_axis``](https://numpy.org/devdocs/reference/generated/numpy.apply_along_axis.html#numpy.apply_along_axis),
-[``argmax``](https://numpy.org/devdocs/reference/generated/numpy.argmax.html#numpy.argmax),
-[``argmin``](https://numpy.org/devdocs/reference/generated/numpy.argmin.html#numpy.argmin),
-[``argsort``](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort),
-[``average``](https://numpy.org/devdocs/reference/generated/numpy.average.html#numpy.average),
-[``bincount``](https://numpy.org/devdocs/reference/generated/numpy.bincount.html#numpy.bincount),
-[``ceil``](https://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil),
-[``clip``](https://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip),
-[``conj``](https://numpy.org/devdocs/reference/generated/numpy.conj.html#numpy.conj),
-[``corrcoef``](https://numpy.org/devdocs/reference/generated/numpy.corrcoef.html#numpy.corrcoef),
-[``cov``](https://numpy.org/devdocs/reference/generated/numpy.cov.html#numpy.cov),
-[``cross``](https://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross),
-[``cumprod``](https://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod),
-[``cumsum``](https://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum),
-[``diff``](https://numpy.org/devdocs/reference/generated/numpy.diff.html#numpy.diff),
-[``dot``](https://numpy.org/devdocs/reference/generated/numpy.dot.html#numpy.dot),
-[``floor``](https://numpy.org/devdocs/reference/generated/numpy.floor.html#numpy.floor),
-[``inner``](https://numpy.org/devdocs/reference/generated/numpy.inner.html#numpy.inner),
-*inv*,
-[``lexsort``](https://numpy.org/devdocs/reference/generated/numpy.lexsort.html#numpy.lexsort),
-[``max``](https://docs.python.org/dev/library/functions.html#max),
-[``maximum``](https://numpy.org/devdocs/reference/generated/numpy.maximum.html#numpy.maximum),
-[``mean``](https://numpy.org/devdocs/reference/generated/numpy.mean.html#numpy.mean),
-[``median``](https://numpy.org/devdocs/reference/generated/numpy.median.html#numpy.median),
-[``min``](https://docs.python.org/dev/library/functions.html#min),
-[``minimum``](https://numpy.org/devdocs/reference/generated/numpy.minimum.html#numpy.minimum),
-[``nonzero``](https://numpy.org/devdocs/reference/generated/numpy.nonzero.html#numpy.nonzero),
-[``outer``](https://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer),
-[``prod``](https://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod),
-[``re``](https://docs.python.org/dev/library/re.html#module-re),
-[``round``](https://docs.python.org/dev/library/functions.html#round),
-[``sort``](https://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort),
-[``std``](https://numpy.org/devdocs/reference/generated/numpy.std.html#numpy.std),
-[``sum``](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum),
-[``trace``](https://numpy.org/devdocs/reference/generated/numpy.trace.html#numpy.trace),
-[``transpose``](https://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose),
-[``var``](https://numpy.org/devdocs/reference/generated/numpy.var.html#numpy.var),
-[``vdot``](https://numpy.org/devdocs/reference/generated/numpy.vdot.html#numpy.vdot),
-[``vectorize``](https://numpy.org/devdocs/reference/generated/numpy.vectorize.html#numpy.vectorize),
+[``all``](https://numpy.org/devdocs/reference/generated/numpy.all.html#numpy.all)，
+ [``any``](https://numpy.org/devdocs/reference/generated/numpy.any.html#numpy.any)，
+ [``apply_along_axis``](https://numpy.org/devdocs/reference/generated/numpy.apply_along_axis.html#numpy.apply_along_axis)，
+ [``argmax``](https://numpy.org/devdocs/reference/generated/numpy.argmax.html#numpy.argmax)，
+ [``argmin``](https://numpy.org/devdocs/reference/generated/numpy.argmin.html#numpy.argmin)，
+ [``argsort``](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort)，
+ [``average``](https://numpy.org/devdocs/reference/generated/numpy.average.html#numpy.average)，
+ [``bincount``](https://numpy.org/devdocs/reference/generated/numpy.bincount.html#numpy.bincount)，
+ [``ceil``](https://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil)，
+ [``clip``](https://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip)，
+ [``conj``](https://numpy.org/devdocs/reference/generated/numpy.conj.html#numpy.conj)，
+ [``corrcoef``](https://numpy.org/devdocs/reference/generated/numpy.corrcoef.html#numpy.corrcoef)，
+ [``cov``](https://numpy.org/devdocs/reference/generated/numpy.cov.html#numpy.cov)，
+ [``cross``](https://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross)，
+ [``cumprod``](https://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod)，
+ [``cumsum``](https://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum)，
+ [``diff``](https://numpy.org/devdocs/reference/generated/numpy.diff.html#numpy.diff)，
+ [``dot``](https://numpy.org/devdocs/reference/generated/numpy.dot.html#numpy.dot)，
+ [``floor``](https://numpy.org/devdocs/reference/generated/numpy.floor.html#numpy.floor)，
+ [``inner``](https://numpy.org/devdocs/reference/generated/numpy.inner.html#numpy.inner)，
+  *INV* ，
+ [``lexsort``](https://numpy.org/devdocs/reference/generated/numpy.lexsort.html#numpy.lexsort)，
+ [``max``](https://docs.python.org/dev/library/functions.html#max)，
+ [``maximum``](https://numpy.org/devdocs/reference/generated/numpy.maximum.html#numpy.maximum)，
+ [``mean``](https://numpy.org/devdocs/reference/generated/numpy.mean.html#numpy.mean)，
+ [``median``](https://numpy.org/devdocs/reference/generated/numpy.median.html#numpy.median)，
+ [``min``](https://docs.python.org/dev/library/functions.html#min)，
+ [``minimum``](https://numpy.org/devdocs/reference/generated/numpy.minimum.html#numpy.minimum)，
+ [``nonzero``](https://numpy.org/devdocs/reference/generated/numpy.nonzero.html#numpy.nonzero)，
+ [``outer``](https://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer)，
+ [``prod``](https://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod)，
+ [``re``](https://docs.python.org/dev/library/re.html#module-re)，
+ [``round``](https://docs.python.org/dev/library/functions.html#round)，
+ [``sort``](https://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort)，
+ [``std``](https://numpy.org/devdocs/reference/generated/numpy.std.html#numpy.std)，
+ [``sum``](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum)，
+ [``trace``](https://numpy.org/devdocs/reference/generated/numpy.trace.html#numpy.trace)，
+ [``transpose``](https://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose)，
+ [``var``](https://numpy.org/devdocs/reference/generated/numpy.var.html#numpy.var)，
+ [``vdot``](https://numpy.org/devdocs/reference/generated/numpy.vdot.html#numpy.vdot)，
+ [``vectorize``](https://numpy.org/devdocs/reference/generated/numpy.vectorize.html#numpy.vectorize)，
 [``where``](https://numpy.org/devdocs/reference/generated/numpy.where.html#numpy.where)
 
 :::
 
-### Indexing, Slicing and Iterating
+### 索引、切片和迭代
 
-**One-dimensional** arrays can be indexed, sliced and iterated over,
-much like
-[lists](https://docs.python.org/tutorial/introduction.html#lists)
-and other Python sequences.
+**一维**的数组可以进行索引、切片和迭代操作的，就像 [列表](https://docs.python.org/tutorial/introduction.html#lists) 和其他Python序列类型一样。
 
 ``` python
->>> a = np.arange(10)**3
+>>>>>> a = np.arange(10)**3
 >>> a
 array([  0,   1,   8,  27,  64, 125, 216, 343, 512, 729])
 >>> a[2]
@@ -477,8 +410,8 @@ array([-1000,     1, -1000,    27, -1000,   125,   216,   343,   512,   729])
 >>> a[ : :-1]                                 # reversed a
 array([  729,   512,   343,   216,   125, -1000,    27, -1000,     1, -1000])
 >>> for i in a:
-https://numpy.org/devdocs.     print(i**(1/3.))
-https://numpy.org/devdocs.
+...     print(i**(1/3.))
+...
 nan
 1.0
 nan
@@ -491,13 +424,12 @@ nan
 9.0
 ```
 
-**Multidimensional** arrays can have one index per axis. These indices
-are given in a tuple separated by commas:
+**多维**的数组每个轴可以有一个索引。这些索引以逗号​​分隔的元组给出：
 
 ``` python
->>> def f(x,y):
-https://numpy.org/devdocs.     return 10*x+y
-https://numpy.org/devdocs.
+>>>>>> def f(x,y):
+...     return 10*x+y
+...
 >>> b = np.fromfunction(f,(5,4),dtype=int)
 >>> b
 array([[ 0,  1,  2,  3],
@@ -516,49 +448,42 @@ array([[10, 11, 12, 13],
        [20, 21, 22, 23]])
 ```
 
-When fewer indices are provided than the number of axes, the missing
-indices are considered complete slices``:``
+当提供的索引少于轴的数量时，缺失的索引被认为是完整的切片``:``
 
 ``` python
->>> b[-1]                                  # the last row. Equivalent to b[-1,:]
+>>>>>> b[-1]                                  # the last row. Equivalent to b[-1,:]
 array([40, 41, 42, 43])
 ```
 
-The expression within brackets in ``b[i]`` is treated as an ``i``
-followed by as many instances of ``:`` as needed to represent the
-remaining axes. NumPy also allows you to write this using dots as
-``b[i,https://numpy.org/devdocs.]``.
+``b[i]`` 方括号中的表达式 ``i`` 被视为后面紧跟着 ``:`` 的多个实例，用于表示剩余轴。NumPy也允许你使用三个点写为 ``b[i,...]``。
 
-The **dots** (``https://numpy.org/devdocs.``) represent as many colons as needed to produce a
-complete indexing tuple. For example, if ``x`` is an array with 5
-axes, then
+三个点（ ``...`` ）表示产生完整索引元组所需的冒号。例如，如果 ``x`` 是rank为的5数组（即，它具有5个轴），则：
 
-- ``x[1,2,https://numpy.org/devdocs.]`` is equivalent to ``x[1,2,:,:,:]``,
-- ``x[https://numpy.org/devdocs.,3]`` to ``x[:,:,:,:,3]`` and
-- ``x[4,https://numpy.org/devdocs.,5,:]`` to ``x[4,:,:,5,:]``.
+- ``x[1,2,...]`` 相当于 ``x[1,2,:,:,:]``，
+- ``x[...,3]`` 等效于 ``x[:,:,:,:,3]``
+- ``x[4,...,5,:]`` 等效于 ``x[4,:,:,5,:]``。
 
 ``` python
->>> c = np.array( [[[  0,  1,  2],               # a 3D array (two stacked 2D arrays)
-https://numpy.org/devdocs.                 [ 10, 12, 13]],
-https://numpy.org/devdocs.                [[100,101,102],
-https://numpy.org/devdocs.                 [110,112,113]]])
+>>>>>> c = np.array( [[[  0,  1,  2],               # a 3D array (two stacked 2D arrays)
+...                 [ 10, 12, 13]],
+...                [[100,101,102],
+...                 [110,112,113]]])
 >>> c.shape
 (2, 2, 3)
->>> c[1,https://numpy.org/devdocs.]                                   # same as c[1,:,:] or c[1]
+>>> c[1,...]                                   # same as c[1,:,:] or c[1]
 array([[100, 101, 102],
        [110, 112, 113]])
->>> c[https://numpy.org/devdocs.,2]                                   # same as c[:,:,2]
+>>> c[...,2]                                   # same as c[:,:,2]
 array([[  2,  13],
        [102, 113]])
 ```
 
-**Iterating** over multidimensional arrays is done with respect to the
-first axis:
+对多维数组进行 **迭代（Iterating）** 是相对于第一个轴完成的：
 
 ``` python
->>> for row in b:
-https://numpy.org/devdocs.     print(row)
-https://numpy.org/devdocs.
+>>>>>> for row in b:
+...     print(row)
+...
 [0 1 2 3]
 [10 11 12 13]
 [20 21 22 23]
@@ -566,15 +491,12 @@ https://numpy.org/devdocs.
 [40 41 42 43]
 ```
 
-However, if one wants to perform an operation on each element in the
-array, one can use the ``flat`` attribute which is an
-[iterator](https://docs.python.org/tutorial/classes.html#iterators)
-over all the elements of the array:
+但是，如果想要对数组中的每个元素执行操作，可以使用``flat``属性，该属性是数组的所有元素的[迭代器](https://docs.python.org/tutorial/classes.html#iterators)：
 
 ``` python
->>> for element in b.flat:
-https://numpy.org/devdocs.     print(element)
-https://numpy.org/devdocs.
+>>>>>> for element in b.flat:
+...     print(element)
+...
 0
 1
 2
@@ -597,7 +519,7 @@ https://numpy.org/devdocs.
 43
 ```
 
-::: tip See also
+::: tip 另见
 
 [Indexing](basics.indexing.html#basics-indexing),
 [Indexing](https://numpy.org/devdocs/reference/arrays.indexing.html#arrays-indexing) (reference),
@@ -607,14 +529,14 @@ https://numpy.org/devdocs.
 
 :::
 
-## Shape Manipulation
+## 形状操纵
 
-### Changing the shape of an array
+### 改变数组的形状
 
-An array has a shape given by the number of elements along each axis:
+一个数组的形状是由每个轴的元素数量决定的：
 
 ``` python
->>> a = np.floor(10*np.random.random((3,4)))
+>>>>>> a = np.floor(10*np.random.random((3,4)))
 >>> a
 array([[ 2.,  8.,  0.,  6.],
        [ 4.,  5.,  1.,  1.],
@@ -623,12 +545,10 @@ array([[ 2.,  8.,  0.,  6.],
 (3, 4)
 ```
 
-The shape of an array can be changed with various commands. Note that the
-following three commands all return a modified array, but do not change
-the original array:
+可以使用各种命令更改数组的形状。请注意，以下三个命令都返回一个修改后的数组，但不会更改原始数组：
 
 ``` python
->>> a.ravel()  # returns the array, flattened
+>>>>>> a.ravel()  # returns the array, flattened
 array([ 2.,  8.,  0.,  6.,  4.,  5.,  1.,  1.,  8.,  9.,  3.,  6.])
 >>> a.reshape(6,2)  # returns the array with a modified shape
 array([[ 2.,  8.],
@@ -648,24 +568,13 @@ array([[ 2.,  4.,  8.],
 (3, 4)
 ```
 
-The order of the elements in the array resulting from ravel() is
-normally “C-style”, that is, the rightmost index “changes the fastest”,
-so the element after a[0,0] is a[0,1]. If the array is reshaped to some
-other shape, again the array is treated as “C-style”. NumPy normally
-creates arrays stored in this order, so ravel() will usually not need to
-copy its argument, but if the array was made by taking slices of another
-array or created with unusual options, it may need to be copied. The
-functions ravel() and reshape() can also be instructed, using an
-optional argument, to use FORTRAN-style arrays, in which the leftmost
-index changes the fastest.
+由 ravel() 产生的数组中元素的顺序通常是“C风格”，也就是说，最右边的索引“变化最快”，因此[0,0]之后的元素是[0,1] 。如果将数组重新整形为其他形状，则该数组将被视为“C风格”。NumPy通常创建按此顺序存储的数组，因此 ravel() 通常不需要复制其参数，但如果数组是通过获取另一个数组的切片或使用不常见的选项创建的，则可能需要复制它。还可以使用可选参数指示函数 ravel() 和 reshape()，以使用FORTRAN样式的数组，其中最左边的索引变化最快。
 
-The [``reshape``](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape) function returns its
-argument with a modified shape, whereas the
-[``ndarray.resize``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.resize.html#numpy.ndarray.resize) method modifies the array
-itself:
+该[``reshape``](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)函数返回带有修改形状的参数，而该
+[``ndarray.resize``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.resize.html#numpy.ndarray.resize)方法会修改数组本身：
 
 ``` python
->>> a
+>>>>>> a
 array([[ 2.,  8.,  0.,  6.],
        [ 4.,  5.,  1.,  1.],
        [ 8.,  9.,  3.,  6.]])
@@ -675,31 +584,30 @@ array([[ 2.,  8.,  0.,  6.,  4.,  5.],
        [ 1.,  1.,  8.,  9.,  3.,  6.]])
 ```
 
-If a dimension is given as -1 in a reshaping operation, the other
-dimensions are automatically calculated:
+如果在 reshape 操作中将 size 指定为-1，则会自动计算其他的 size 大小：
 
 ``` python
->>> a.reshape(3,-1)
+>>>>>> a.reshape(3,-1)
 array([[ 2.,  8.,  0.,  6.],
        [ 4.,  5.,  1.,  1.],
        [ 8.,  9.,  3.,  6.]])
 ```
 
-::: tip See also
+::: tip 另见
 
-[``ndarray.shape``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape),
-[``reshape``](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape),
-[``resize``](https://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize),
+[``ndarray.shape``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape)，
+ [``reshape``](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)，
+ [``resize``](https://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize)，
 [``ravel``](https://numpy.org/devdocs/reference/generated/numpy.ravel.html#numpy.ravel)
 
 :::
 
-### Stacking together different arrays
+### 将不同数组堆叠在一起
 
-Several arrays can be stacked together along different axes:
+几个数组可以沿不同的轴堆叠在一起，例如：
 
 ``` python
->>> a = np.floor(10*np.random.random((2,2)))
+>>>>>> a = np.floor(10*np.random.random((2,2)))
 >>> a
 array([[ 8.,  8.],
        [ 0.,  0.]])
@@ -717,12 +625,12 @@ array([[ 8.,  8.,  1.,  8.],
        [ 0.,  0.,  0.,  4.]])
 ```
 
-The function [``column_stack``](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)
-stacks 1D arrays as columns into a 2D array. It is equivalent to
-[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) only for 2D arrays:
+该函数将[``column_stack``](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)
+1D数组作为列堆叠到2D数组中。它仅相当于
+ [``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)2D数组：
 
 ``` python
->>> from numpy import newaxis
+>>>>>> from numpy import newaxis
 >>> np.column_stack((a,b))     # with 2D arrays
 array([[ 8.,  8.,  1.,  8.],
        [ 0.,  0.,  0.,  4.]])
@@ -744,55 +652,39 @@ array([[ 4.,  3.],
        [ 2.,  8.]])
 ```
 
-On the other hand, the function [``ma.row_stack``](https://numpy.org/devdocs/reference/generated/numpy.ma.row_stack.html#numpy.ma.row_stack) is equivalent to [``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)
-for any input arrays.
-In general, for arrays with more than two dimensions,
-[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) stacks along their second
-axes, [``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack) stacks along their
-first axes, and [``concatenate``](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)
-allows for an optional arguments giving the number of the axis along
-which the concatenation should happen.
+另一方面，该函数[``ma.row_stack``](https://numpy.org/devdocs/reference/generated/numpy.ma.row_stack.html#numpy.ma.row_stack)等效[``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)
+于任何输入数组。通常，对于具有两个以上维度的数组，
+ [``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)沿其第二轴[``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)堆叠，沿其第一轴堆叠，并[``concatenate``](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)
+允许可选参数给出连接应发生的轴的编号。
 
-**Note**
+**注意**
 
-In complex cases, [``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_) and
-[``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_) are useful for creating arrays
-by stacking numbers along one axis. They allow the use of range literals
-(“:”)
+在复杂的情况下，[``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_)和c [``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_)于通过沿一个轴堆叠数字来创建数组很有用。它们允许使用范围操作符(“：”)。
 
 ``` python
->>> np.r_[1:4,0,4]
+>>>>>> np.r_[1:4,0,4]
 array([1, 2, 3, 0, 4])
 ```
 
-When used with arrays as arguments,
-[``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_) and
-[``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_) are similar to
-[``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack) and
-[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) in their default behavior,
-but allow for an optional argument giving the number of the axis along
-which to concatenate.
+与数组一起用作参数时， [``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_) 和 [``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_) 在默认行为上类似于 [``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack) 和 [``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) ，但允许使用可选参数给出要连接的轴的编号。
 
-::: tip See also
+::: tip 另见
 
-[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack),
-[``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack),
-[``column_stack``](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack),
-[``concatenate``](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate),
-[``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_),
+[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)，
+ [``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)，
+ [``column_stack``](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)，
+ [``concatenate``](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)，
+ [``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_)，
 [``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_)
 
 :::
 
-### Splitting one array into several smaller ones
+### 将一个数组拆分成几个较小的数组
 
-Using [``hsplit``](https://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit), you can split an
-array along its horizontal axis, either by specifying the number of
-equally shaped arrays to return, or by specifying the columns after
-which the division should occur:
+使用[``hsplit``](https://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit)，可以沿阵列的水平轴拆分数组，方法是指定要返回的形状相等的数组的数量，或者指定应该在其之后进行分割的列：
 
 ``` python
->>> a = np.floor(10*np.random.random((2,12)))
+>>>>>> a = np.floor(10*np.random.random((2,12)))
 >>> a
 array([[ 9.,  5.,  6.,  3.,  6.,  8.,  0.,  7.,  9.,  7.,  2.,  7.],
        [ 1.,  4.,  9.,  2.,  2.,  1.,  0.,  6.,  2.,  2.,  4.,  0.]])
@@ -808,22 +700,18 @@ array([[ 9.,  5.,  6.,  3.,  6.,  8.,  0.,  7.,  9.,  7.,  2.,  7.],
        [ 2.,  1.,  0.,  6.,  2.,  2.,  4.,  0.]])]
 ```
 
-[``vsplit``](https://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit) splits along the vertical
-axis, and [``array_split``](https://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split) allows
-one to specify along which axis to split.
+[``vsplit``](https://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit)沿垂直轴分割，并[``array_split``](https://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split)允许指定要分割的轴。
 
-## Copies and Views
+## 拷贝和视图
 
-When operating and manipulating arrays, their data is sometimes copied
-into a new array and sometimes not. This is often a source of confusion
-for beginners. There are three cases:
+当计算和操作数组时，有时会将数据复制到新数组中，有时则不会。这通常是初学者混淆的根源。有三种情况：
 
-### No Copy at All
+### 完全不复制
 
-Simple assignments make no copy of array objects or of their data.
+简单分配不会复制数组对象或其数据。
 
 ``` python
->>> a = np.arange(12)
+>>>>>> a = np.arange(12)
 >>> b = a            # no new object is created
 >>> b is a           # a and b are two names for the same ndarray object
 True
@@ -832,26 +720,24 @@ True
 (3, 4)
 ```
 
-Python passes mutable objects as references, so function calls make no
-copy.
+Python将可变对象作为引用传递，因此函数调用不会复制。
 
 ``` python
->>> def f(x):
-https://numpy.org/devdocs.     print(id(x))
-https://numpy.org/devdocs.
+>>>>>> def f(x):
+...     print(id(x))
+...
 >>> id(a)                           # id is a unique identifier of an object
 148293216
 >>> f(a)
 148293216
 ```
 
-### View or Shallow Copy
+### 视图或浅拷贝
 
-Different array objects can share the same data. The ``view`` method
-creates a new array object that looks at the same data.
+不同的数组对象可以共享相同的数据。该``view``方法创建一个查看相同数据的新数组对象。
 
 ``` python
->>> c = a.view()
+>>>>>> c = a.view()
 >>> c is a
 False
 >>> c.base is a                        # c is a view of the data owned by a
@@ -869,10 +755,10 @@ array([[   0,    1,    2,    3],
        [   8,    9,   10,   11]])
 ```
 
-Slicing an array returns a view of it:
+切片数组会返回一个视图：
 
 ``` python
->>> s = a[ : , 1:3]     # spaces added for clarity; could also be written "s = a[:,1:3]"
+>>>>>> s = a[ : , 1:3]     # spaces added for clarity; could also be written "s = a[:,1:3]"
 >>> s[:] = 10           # s[:] is a view of s. Note the difference between s=10 and s[:]=10
 >>> a
 array([[   0,   10,   10,    3],
@@ -880,12 +766,12 @@ array([[   0,   10,   10,    3],
        [   8,   10,   10,   11]])
 ```
 
-### Deep Copy
+### 深拷贝
 
-The ``copy`` method makes a complete copy of the array and its data.
+该``copy``方法生成数组及其数据的完整副本。
 
 ``` python
->>> d = a.copy()                          # a new array object with new data is created
+>>>>>> d = a.copy()                          # a new array object with new data is created
 >>> d is a
 False
 >>> d.base is a                           # d doesn't share anything with a
@@ -897,87 +783,49 @@ array([[   0,   10,   10,    3],
        [   8,   10,   10,   11]])
 ```
 
-Sometimes ``copy`` should be called after slicing if the original array is not required anymore.
-For example, suppose ``a`` is a huge intermediate result and the final result ``b`` only contains
-a small fraction of ``a``, a deep copy should be made when constructing ``b`` with slicing:
+有时，如果不再需要原始数组，则应在切片后调用 ``copy``。例如，假设a是一个巨大的中间结果，最终结果b只包含a的一小部分，那么在用切片构造b时应该做一个深拷贝：
 
 ``` python
->>> a = np.arange(int(1e8))
+>>>>>> a = np.arange(int(1e8))
 >>> b = a[:100].copy()
 >>> del a  # the memory of ``a`` can be released.
 ```
 
-If ``b = a[:100]`` is used instead, ``a`` is referenced by ``b`` and will persist in memory
-even if ``del a`` is executed.
+如果改为使用 ``b = a[:100]``，则 ``a`` 由 ``b`` 引用，并且即使执行 ``del a`` 也会在内存中持久存在。
 
-### Functions and Methods Overview
+### 功能和方法概述
 
-Here is a list of some useful NumPy functions and methods names
-ordered in categories. See [Routines](https://numpy.org/devdocs/reference/routines.html#routines) for the full list.
+以下是按类别排序的一些有用的NumPy函数和方法名称的列表。有关完整列表，请参阅[参考手册](/reference/)里的[常用API](/reference/routines/)。
 
-Array Creation
- 
- - [arange](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange)、[array](https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array)、[copy](https://numpy.org/devdocs/reference/generated/numpy.copy.html#numpy.copy)、[empty](https://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty)、[empty_like](https://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like)、[eye](https://numpy.org/devdocs/reference/generated/numpy.eye.html#numpy.eye)、[fromfile](https://numpy.org/devdocs/reference/generated/numpy.fromfile.html#numpy.fromfile)、[fromfunction](https://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction)、[identity](https://numpy.org/devdocs/reference/generated/numpy.identity.html#numpy.identity)、[linspace](https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace)、[logspace](https://numpy.org/devdocs/reference/generated/numpy.logspace.html#numpy.logspace)、[mgrid](https://numpy.org/devdocs/reference/generated/numpy.mgrid.html#numpy.mgrid)、[ogrid](https://numpy.org/devdocs/reference/generated/numpy.ogrid.html#numpy.ogrid)、[ones](https://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones)、[ones_like](https://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like)、[zeros](https://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros)、[zeros_like](https://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like)
+- **数组的创建（Array Creation）** - [arange](/reference/generated/numpy.arange.html#numpy.arange), [array](/reference/generated/numpy.array.html#numpy.array), [copy](/reference/generated/numpy.copy.html#numpy.copy), [empty](/reference/generated/numpy.empty.html#numpy.empty), [empty_like](/reference/generated/numpy.empty_like.html#numpy.empty_like), [eye](/reference/generated/numpy.eye.html#numpy.eye), [fromfile](/reference/generated/numpy.fromfile.html#numpy.fromfile), [fromfunction](/reference/generated/numpy.fromfunction.html#numpy.fromfunction), [identity](/reference/generated/numpy.identity.html#numpy.identity), [linspace](/reference/generated/numpy.linspace.html#numpy.linspace), [logspace](/reference/generated/numpy.logspace.html#numpy.logspace), [mgrid](/reference/generated/numpy.mgrid.html#numpy.mgrid), [ogrid](/reference/generated/numpy.ogrid.html#numpy.ogrid), [ones](/reference/generated/numpy.ones.html#numpy.ones), [ones_like](/reference/generated/numpy.ones_like.html#numpy.ones_like), [zeros](/reference/generated/numpy.zeros.html#numpy.zeros), [zeros_like](/reference/generated/numpy.zeros_like.html#numpy.zeros_like)
+- **转换和变换（Conversions）** - [ndarray.astype](/reference/generated/numpy.ndarray.astype.html#numpy.ndarray.astype), [atleast_1d](/reference/generated/numpy.atleast_1d.html#numpy.atleast_1d), [atleast_2d](/reference/generated/numpy.atleast_2d.html#numpy.atleast_2d), [atleast_3d](/reference/generated/numpy.atleast_3d.html#numpy.atleast_3d), [mat](/reference/generated/numpy.mat.html#numpy.mat)
+- **操纵术（Manipulations）** - [array_split](/reference/generated/numpy.array_split.html#numpy.array_split), [column_stack](/reference/generated/numpy.column_stack.html#numpy.column_stack), [concatenate](/reference/generated/numpy.concatenate.html#numpy.concatenate), [diagonal](/reference/generated/numpy.diagonal.html#numpy.diagonal), [dsplit](/reference/generated/numpy.dsplit.html#numpy.dsplit), [dstack](/reference/generated/numpy.dstack.html#numpy.dstack), [hsplit](/reference/generated/numpy.hsplit.html#numpy.hsplit), [hstack](/reference/generated/numpy.hstack.html#numpy.hstack), [ndarray.item](/reference/generated/numpy.ndarray.item.html#numpy.ndarray.item), [newaxis](/reference/constants.html#numpy.newaxis), [ravel](/reference/generated/numpy.ravel.html#numpy.ravel), [repeat](/reference/generated/numpy.repeat.html#numpy.repeat), [reshape](/reference/generated/numpy.reshape.html#numpy.reshape), [resize](/reference/generated/numpy.resize.html#numpy.resize), [squeeze](/reference/generated/numpy.squeeze.html#numpy.squeeze), [swapaxes](/reference/generated/numpy.swapaxes.html#numpy.swapaxes), [take](/reference/generated/numpy.take.html#numpy.take), [transpose](/reference/generated/numpy.transpose.html#numpy.transpose), [vsplit](/reference/generated/numpy.vsplit.html#numpy.vsplit), [vstack](/reference/generated/numpy.vstack.html#numpy.vstack)
+- **询问（Questions）** - [all](/reference/generated/numpy.all.html#numpy.all), [any](/reference/generated/numpy.any.html#numpy.any), [nonzero](/reference/generated/numpy.nonzero.html#numpy.nonzero), [where](/reference/generated/numpy.where.html#numpy.where), 
+- **顺序（Ordering）** - [argmax](/reference/generated/numpy.argmax.html#numpy.argmax), [argmin](/reference/generated/numpy.argmin.html#numpy.argmin), [argsort](/reference/generated/numpy.argsort.html#numpy.argsort), [max](https://docs.python.org/dev/library/functions.html#max), [min](https://docs.python.org/dev/library/functions.html#min), [ptp](/reference/generated/numpy.ptp.html#numpy.ptp), [searchsorted](/reference/generated/numpy.searchsorted.html#numpy.searchsorted), [sort](/reference/generated/numpy.sort.html#numpy.sort)
+- **操作（Operations）** - [choose](/reference/generated/numpy.choose.html#numpy.choose), [compress](/reference/generated/numpy.compress.html#numpy.compress), [cumprod](/reference/generated/numpy.cumprod.html#numpy.cumprod), [cumsum](/reference/generated/numpy.cumsum.html#numpy.cumsum), [inner](/reference/generated/numpy.inner.html#numpy.inner), [ndarray.fill](/reference/generated/numpy.ndarray.fill.html#numpy.ndarray.fill), [imag](/reference/generated/numpy.imag.html#numpy.imag), [prod](/reference/generated/numpy.prod.html#numpy.prod), [put](/reference/generated/numpy.put.html#numpy.put), [putmask](/reference/generated/numpy.putmask.html#numpy.putmask), [real](/reference/generated/numpy.real.html#numpy.real), [sum](/reference/generated/numpy.sum.html#numpy.sum)
+- **基本统计（Basic Statistics）** - [cov](/reference/generated/numpy.cov.html#numpy.cov), [mean](/reference/generated/numpy.mean.html#numpy.mean), [std](/reference/generated/numpy.std.html#numpy.std), [var](/reference/generated/numpy.var.html#numpy.var)
+- **基本线性代数（Basic Linear Algebra）** - [cross](/reference/generated/numpy.cross.html#numpy.cross), [dot](/reference/generated/numpy.dot.html#numpy.dot), [outer](/reference/generated/numpy.outer.html#numpy.outer), [linalg.svd](/reference/generated/numpy.linalg.svd.html#numpy.linalg.svd), [vdot](/reference/generated/numpy.vdot.html#numpy.vdot)
 
-Conversions
+## Less 基础
 
-- [ndarray.astype](https://numpy.org/devdocs/reference/generated/numpy.ndarray.astype.html#numpy.ndarray.astype)、[atleast_1d](https://numpy.org/devdocs/reference/generated/numpy.atleast_1d.html#numpy.atleast_1d)、[atleast_2d](https://numpy.org/devdocs/reference/generated/numpy.atleast_2d.html#numpy.atleast_2d)、[atleast_3d](https://numpy.org/devdocs/reference/generated/numpy.atleast_3d.html#numpy.atleast_3d)、[mat](https://numpy.org/devdocs/reference/generated/numpy.mat.html#numpy.mat)
+### 广播（Broadcasting）规则
 
-Manipulations
+广播允许通用功能以有意义的方式处理不具有完全相同形状的输入。
 
-- [array_split](https://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split)、[column_stack](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)、[concatenate](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)、[diagonal](https://numpy.org/devdocs/reference/generated/numpy.diagonal.html#numpy.diagonal)、[dsplit](https://numpy.org/devdocs/reference/generated/numpy.dsplit.html#numpy.dsplit)、[dstack](https://numpy.org/devdocs/reference/generated/numpy.dstack.html#numpy.dstack)、[hsplit](https://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit)、[hstack](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)、[ndarray.item](https://numpy.org/devdocs/reference/generated/numpy.ndarray.item.html#numpy.ndarray.item)、[newaxis](https://numpy.org/devdocs/reference/constants.html#numpy.newaxis)、[ravel](https://numpy.org/devdocs/reference/generated/numpy.ravel.html#numpy.ravel)、[repeat](https://numpy.org/devdocs/reference/generated/numpy.repeat.html#numpy.repeat)、[reshape](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)、[resize](https://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize)、[squeeze](https://numpy.org/devdocs/reference/generated/numpy.squeeze.html#numpy.squeeze)、[swapaxes](https://numpy.org/devdocs/reference/generated/numpy.swapaxes.html#numpy.swapaxes)、[take](https://numpy.org/devdocs/reference/generated/numpy.take.html#numpy.take)、[transpose](https://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose)、[vsplit](https://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit)、[vstack](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)
+广播的第一个规则是，如果所有输入数组不具有相同数量的维度，则将“1”重复地预先添加到较小阵列的形状，直到所有阵列具有相同数量的维度。
 
-Questions
+广播的第二个规则确保沿特定维度的大小为1的数组表现为具有沿该维度具有最大形状的阵列的大小。假定数组元素的值沿着“广播”数组的那个维度是相同的。
 
-- [all](https://numpy.org/devdocs/reference/generated/numpy.all.html#numpy.all)、[any](https://numpy.org/devdocs/reference/generated/numpy.any.html#numpy.any)、[nonzero](https://numpy.org/devdocs/reference/generated/numpy.nonzero.html#numpy.nonzero)、[where](https://numpy.org/devdocs/reference/generated/numpy.where.html#numpy.where)
+应用广播规则后，所有阵列的大小必须匹配。更多细节可以在[广播中](basics/broadcasting.html)找到。
 
-Ordering
+## 花式索引和索引技巧
 
-- [argmax](https://numpy.org/devdocs/reference/generated/numpy.argmax.html#numpy.argmax)、[argmin](https://numpy.org/devdocs/reference/generated/numpy.argmin.html#numpy.argmin)、[argsort](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort)、[max](https://docs.python.org/dev/library/functions.html#max)、[min](https://docs.python.org/dev/library/functions.html#min)、[ptp](https://numpy.org/devdocs/reference/generated/numpy.ptp.html#numpy.ptp)、[searchsorted](https://numpy.org/devdocs/reference/generated/numpy.searchsorted.html#numpy.searchsorted)、[sort](https://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort)
+NumPy提供比常规Python序列更多的索引功能。除了通过整数和切片进行索引之外，正如我们之前看到的，数组可以由整数数组和布尔数组索引。
 
-Operations
-
-- [choose](https://numpy.org/devdocs/reference/generated/numpy.choose.html#numpy.choose)、[compress](https://numpy.org/devdocs/reference/generated/numpy.compress.html#numpy.compress)、[cumprod](https://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod)、[cumsum](https://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum)、[inner](https://numpy.org/devdocs/reference/generated/numpy.inner.html#numpy.inner)、[ndarray.fill](https://numpy.org/devdocs/reference/generated/numpy.ndarray.fill.html#numpy.ndarray.fill)、[imag](https://numpy.org/devdocs/reference/generated/numpy.imag.html#numpy.imag)、[prod](https://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod)、[put](https://numpy.org/devdocs/reference/generated/numpy.put.html#numpy.put)、[putmask](https://numpy.org/devdocs/reference/generated/numpy.putmask.html#numpy.putmask)、[real](https://numpy.org/devdocs/reference/generated/numpy.real.html#numpy.real)、[sum](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum)
-
-Basic Statistics
-
-- [cov](https://numpy.org/devdocs/reference/generated/numpy.cov.html#numpy.cov)、[mean](https://numpy.org/devdocs/reference/generated/numpy.mean.html#numpy.mean)、[std](https://numpy.org/devdocs/reference/generated/numpy.std.html#numpy.std)、[var](https://numpy.org/devdocs/reference/generated/numpy.var.html#numpy.var)
-
-Basic Linear Algebra
-
-- [cross](https://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross)、[dot](https://numpy.org/devdocs/reference/generated/numpy.dot.html#numpy.dot)、[outer](https://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer)、[linalg.svd](https://numpy.org/devdocs/reference/generated/numpy.linalg.svd.html#numpy.linalg.svd)、[vdot](https://numpy.org/devdocs/reference/generated/numpy.vdot.html#numpy.vdot)
-
-## Less Basic
-
-### Broadcasting rules
-
-Broadcasting allows universal functions to deal in a meaningful way with
-inputs that do not have exactly the same shape.
-
-The first rule of broadcasting is that if all input arrays do not have
-the same number of dimensions, a “1” will be repeatedly prepended to the
-shapes of the smaller arrays until all the arrays have the same number
-of dimensions.
-
-The second rule of broadcasting ensures that arrays with a size of 1
-along a particular dimension act as if they had the size of the array
-with the largest shape along that dimension. The value of the array
-element is assumed to be the same along that dimension for the
-“broadcast” array.
-
-After application of the broadcasting rules, the sizes of all arrays
-must match. More details can be found in [Broadcasting](basics.broadcasting.html).
-
-## Fancy indexing and index tricks
-
-NumPy offers more indexing facilities than regular Python sequences. In
-addition to indexing by integers and slices, as we saw before, arrays
-can be indexed by arrays of integers and arrays of booleans.
-
-### Indexing with Arrays of Indices
+### 使用索引数组进行索引
 
 ``` python
->>> a = np.arange(12)**2                       # the first 12 square numbers
+>>>>>> a = np.arange(12)**2                       # the first 12 square numbers
 >>> i = np.array( [ 1,1,3,8,5 ] )              # an array of indices
 >>> a[i]                                       # the elements of a at the positions i
 array([ 1,  1,  9, 64, 25])
@@ -988,19 +836,16 @@ array([[ 9, 16],
        [81, 49]])
 ```
 
-When the indexed array ``a`` is multidimensional, a single array of
-indices refers to the first dimension of ``a``. The following example
-shows this behavior by converting an image of labels into a color image
-using a palette.
+当索引数组``a``是多维的时，单个索引数组指的是第一个维度``a``。以下示例通过使用调色板将标签图像转换为彩色图像来显示此行为。
 
 ``` python
->>> palette = np.array( [ [0,0,0],                # black
-https://numpy.org/devdocs.                       [255,0,0],              # red
-https://numpy.org/devdocs.                       [0,255,0],              # green
-https://numpy.org/devdocs.                       [0,0,255],              # blue
-https://numpy.org/devdocs.                       [255,255,255] ] )       # white
+>>>>>> palette = np.array( [ [0,0,0],                # black
+...                       [255,0,0],              # red
+...                       [0,255,0],              # green
+...                       [0,0,255],              # blue
+...                       [255,255,255] ] )       # white
 >>> image = np.array( [ [ 0, 1, 2, 0 ],           # each value corresponds to a color in the palette
-https://numpy.org/devdocs.                     [ 0, 3, 4, 0 ]  ] )
+...                     [ 0, 3, 4, 0 ]  ] )
 >>> palette[image]                            # the (2,4,3) color image
 array([[[  0,   0,   0],
         [255,   0,   0],
@@ -1012,19 +857,18 @@ array([[[  0,   0,   0],
         [  0,   0,   0]]])
 ```
 
-We can also give indexes for more than one dimension. The arrays of
-indices for each dimension must have the same shape.
+我们还可以为多个维度提供索引。每个维度的索引数组必须具有相同的形状。
 
 ``` python
->>> a = np.arange(12).reshape(3,4)
+>>>>>> a = np.arange(12).reshape(3,4)
 >>> a
 array([[ 0,  1,  2,  3],
        [ 4,  5,  6,  7],
        [ 8,  9, 10, 11]])
 >>> i = np.array( [ [0,1],                        # indices for the first dim of a
-https://numpy.org/devdocs.                 [1,2] ] )
+...                 [1,2] ] )
 >>> j = np.array( [ [2,1],                        # indices for the second dim
-https://numpy.org/devdocs.                 [3,3] ] )
+...                 [3,3] ] )
 >>>
 >>> a[i,j]                                     # i and j must have equal shape
 array([[ 2,  5],
@@ -1043,22 +887,19 @@ array([[[ 2,  1],
         [11, 11]]])
 ```
 
-Naturally, we can put ``i`` and ``j`` in a sequence (say a list) and
-then do the indexing with the list.
+当然，我们可以按顺序（比如列表）放入``i``，``j``然后使用列表进行索引。
 
 ``` python
->>> l = [i,j]
+>>>>>> l = [i,j]
 >>> a[l]                                       # equivalent to a[i,j]
 array([[ 2,  5],
        [ 7, 11]])
 ```
 
-However, we can not do this by putting ``i`` and ``j`` into an array,
-because this array will be interpreted as indexing the first dimension
-of a.
+但是，我们不能通过放入``i``和``j``放入数组来实现这一点，因为这个数组将被解释为索引a的第一个维度。
 
 ``` python
->>> s = np.array( [i,j] )
+>>>>>> s = np.array( [i,j] )
 >>> a[s]                                       # not what we want
 Traceback (most recent call last):
   File "<stdin>", line 1, in ?
@@ -1069,11 +910,10 @@ array([[ 2,  5],
        [ 7, 11]])
 ```
 
-Another common use of indexing with arrays is the search of the maximum
-value of time-dependent series:
+使用数组索引的另一个常见用法是搜索与时间相关的系列的最大值：
 
 ``` python
->>> time = np.linspace(20, 145, 5)                 # time scale
+>>>>>> time = np.linspace(20, 145, 5)                 # time scale
 >>> data = np.sin(np.arange(20)).reshape(5,4)      # 4 time-dependent series
 >>> time
 array([  20.  ,   51.25,   82.5 ,  113.75,  145.  ])
@@ -1090,7 +930,7 @@ array([2, 0, 3, 1])
 >>>
 >>> time_max = time[ind]                       # times corresponding to the maxima
 >>>
->>> data_max = data[ind, range(data.shape[1])] # => data[ind[0],0], data[ind[1],1]https://numpy.org/devdocs.
+>>> data_max = data[ind, range(data.shape[1])] # => data[ind[0],0], data[ind[1],1]...
 >>>
 >>> time_max
 array([  82.5 ,   20.  ,  113.75,   51.25])
@@ -1101,10 +941,10 @@ array([ 0.98935825,  0.84147098,  0.99060736,  0.6569866 ])
 True
 ```
 
-You can also use indexing with arrays as a target to assign to:
+您还可以使用数组索引作为分配给的目标：
 
 ``` python
->>> a = np.arange(5)
+>>>>>> a = np.arange(5)
 >>> a
 array([0, 1, 2, 3, 4])
 >>> a[[1,3,4]] = 0
@@ -1112,42 +952,35 @@ array([0, 1, 2, 3, 4])
 array([0, 0, 2, 0, 0])
 ```
 
-However, when the list of indices contains repetitions, the assignment
-is done several times, leaving behind the last value:
+但是，当索引列表包含重复时，分配会多次完成，留下最后一个值：
 
 ``` python
->>> a = np.arange(5)
+>>>>>> a = np.arange(5)
 >>> a[[0,0,2]]=[1,2,3]
 >>> a
 array([2, 1, 3, 3, 4])
 ```
 
-This is reasonable enough, but watch out if you want to use Python’s
-``+=`` construct, as it may not do what you expect:
+这是合理的，但请注意是否要使用Python的
+ ``+=``构造，因为它可能不会按预期执行：
 
 ``` python
->>> a = np.arange(5)
+>>>>>> a = np.arange(5)
 >>> a[[0,0,2]]+=1
 >>> a
 array([1, 1, 3, 3, 4])
 ```
 
-Even though 0 occurs twice in the list of indices, the 0th element is
-only incremented once. This is because Python requires “a+=1” to be
-equivalent to “a = a + 1”.
+即使0在索引列表中出现两次，第0个元素也只增加一次。这是因为Python要求“a + = 1”等同于“a = a + 1”。
 
-### Indexing with Boolean Arrays
+### 使用布尔数组进行索引
 
-When we index arrays with arrays of (integer) indices we are providing
-the list of indices to pick. With boolean indices the approach is
-different; we explicitly choose which items in the array we want and
-which ones we don’t.
+当我们使用（整数）索引数组索引数组时，我们提供了要选择的索引列表。使用布尔索引，方法是不同的; 我们明确地选择我们想要的数组中的哪些项目以及我们不需要的项目。
 
-The most natural way one can think of for boolean indexing is to use
-boolean arrays that have *the same shape* as the original array:
+人们可以想到的最自然的布尔索引方法是使用与原始数组具有 *相同形状的* 布尔数组：
 
 ``` python
->>> a = np.arange(12).reshape(3,4)
+>>>>>> a = np.arange(12).reshape(3,4)
 >>> b = a > 4
 >>> b                                          # b is a boolean with a's shape
 array([[False, False, False, False],
@@ -1157,51 +990,46 @@ array([[False, False, False, False],
 array([ 5,  6,  7,  8,  9, 10, 11])
 ```
 
-This property can be very useful in assignments:
+此属性在分配中非常有用：
 
 ``` python
->>> a[b] = 0                                   # All elements of 'a' higher than 4 become 0
+>>>>>> a[b] = 0                                   # All elements of 'a' higher than 4 become 0
 >>> a
 array([[0, 1, 2, 3],
        [4, 0, 0, 0],
        [0, 0, 0, 0]])
 ```
 
-You can look at the following
-example to see
-how to use boolean indexing to generate an image of the [Mandelbrot
-set](https://en.wikipedia.org/wiki/Mandelbrot_set):
+您可以查看以下示例，了解如何使用布尔索引生成[Mandelbrot集](https://en.wikipedia.org/wiki/Mandelbrot_set)的图像：
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> import matplotlib.pyplot as plt
 >>> def mandelbrot( h,w, maxit=20 ):
-https://numpy.org/devdocs.     """Returns an image of the Mandelbrot fractal of size (h,w)."""
-https://numpy.org/devdocs.     y,x = np.ogrid[ -1.4:1.4:h*1j, -2:0.8:w*1j ]
-https://numpy.org/devdocs.     c = x+y*1j
-https://numpy.org/devdocs.     z = c
-https://numpy.org/devdocs.     divtime = maxit + np.zeros(z.shape, dtype=int)
-https://numpy.org/devdocs.
-https://numpy.org/devdocs.     for i in range(maxit):
-https://numpy.org/devdocs.         z = z**2 + c
-https://numpy.org/devdocs.         diverge = z*np.conj(z) > 2**2            # who is diverging
-https://numpy.org/devdocs.         div_now = diverge & (divtime==maxit)  # who is diverging now
-https://numpy.org/devdocs.         divtime[div_now] = i                  # note when
-https://numpy.org/devdocs.         z[diverge] = 2                        # avoid diverging too much
-https://numpy.org/devdocs.
-https://numpy.org/devdocs.     return divtime
+...     """Returns an image of the Mandelbrot fractal of size (h,w)."""
+...     y,x = np.ogrid[ -1.4:1.4:h*1j, -2:0.8:w*1j ]
+...     c = x+y*1j
+...     z = c
+...     divtime = maxit + np.zeros(z.shape, dtype=int)
+...
+...     for i in range(maxit):
+...         z = z**2 + c
+...         diverge = z*np.conj(z) > 2**2            # who is diverging
+...         div_now = diverge & (divtime==maxit)  # who is diverging now
+...         divtime[div_now] = i                  # note when
+...         z[diverge] = 2                        # avoid diverging too much
+...
+...     return divtime
 >>> plt.imshow(mandelbrot(400,400))
 >>> plt.show()
 ```
 
 ![quickstart-1](/static/images/quickstart-1.png)
 
-The second way of indexing with booleans is more similar to integer
-indexing; for each dimension of the array we give a 1D boolean array
-selecting the slices we want:
+使用布尔值进行索引的第二种方法更类似于整数索引; 对于数组的每个维度，我们给出一个1D布尔数组，选择我们想要的切片：
 
 ``` python
->>> a = np.arange(12).reshape(3,4)
+>>>>>> a = np.arange(12).reshape(3,4)
 >>> b1 = np.array([False,True,True])             # first dim selection
 >>> b2 = np.array([True,False,True,False])       # second dim selection
 >>>
@@ -1222,21 +1050,16 @@ array([[ 0,  2],
 array([ 4, 10])
 ```
 
-Note that the length of the 1D boolean array must coincide with the
-length of the dimension (or axis) you want to slice. In the previous
-example, ``b1`` has length 3 (the number of *rows* in ``a``), and
-``b2`` (of length 4) is suitable to index the 2nd axis (columns) of
-``a``.
+请注意，1D布尔数组的长度必须与要切片的尺寸（或轴）的长度一致。在前面的例子中，``b1``具有长度为3（的数目 *的行* 中``a``），和
+ ``b2``（长度4）适合于索引的第二轴线（列）
+ ``a``。
 
-### The ix_() function
+### ix_（）函数
 
-The [``ix_``](https://numpy.org/devdocs/reference/generated/numpy.ix_.html#numpy.ix_) function can be used to combine different vectors so as to
-obtain the result for each n-uplet. For example, if you want to compute
-all the a+b*c for all the triplets taken from each of the vectors a, b
-and c:
+该[``ix_``](https://numpy.org/devdocs/reference/generated/numpy.ix_.html#numpy.ix_)函数可用于组合不同的向量，以便获得每个n-uplet的结果。例如，如果要计算从每个向量a，b和c中取得的所有三元组的所有a + b * c：
 
 ``` python
->>> a = np.array([2,3,4,5])
+>>>>>> a = np.array([2,3,4,5])
 >>> b = np.array([8,5,4])
 >>> c = np.array([5,4,6,8,3])
 >>> ax,bx,cx = np.ix_(a,b,c)
@@ -1273,21 +1096,21 @@ array([[[42, 34, 50, 66, 26],
 17
 ```
 
-You could also implement the reduce as follows:
+您还可以按如下方式实现reduce：
 
 ``` python
->>> def ufunc_reduce(ufct, *vectors):
-https://numpy.org/devdocs.    vs = np.ix_(*vectors)
-https://numpy.org/devdocs.    r = ufct.identity
-https://numpy.org/devdocs.    for v in vs:
-https://numpy.org/devdocs.        r = ufct(r,v)
-https://numpy.org/devdocs.    return r
+>>>>>> def ufunc_reduce(ufct, *vectors):
+...    vs = np.ix_(*vectors)
+...    r = ufct.identity
+...    for v in vs:
+...        r = ufct(r,v)
+...    return r
 ```
 
-and then use it as:
+然后将其用作：
 
 ``` python
->>> ufunc_reduce(np.add,a,b,c)
+>>>>>> ufunc_reduce(np.add,a,b,c)
 array([[[15, 14, 16, 18, 13],
         [12, 11, 13, 15, 10],
         [11, 10, 12, 14,  9]],
@@ -1302,26 +1125,23 @@ array([[[15, 14, 16, 18, 13],
         [14, 13, 15, 17, 12]]])
 ```
 
-The advantage of this version of reduce compared to the normal
-ufunc.reduce is that it makes use of the [Broadcasting
-Rules](Tentative_NumPy_Tutorial.html#head-c43f3f81719d84f09ae2b33a22eaf50b26333db8)
-in order to avoid creating an argument array the size of the output
-times the number of vectors.
+与普通的ufunc.reduce相比，这个版本的reduce的优点是它利用了[广播规则](Tentative_NumPy_Tutorial.html#head-c43f3f81719d84f09ae2b33a22eaf50b26333db8) 
+，以避免创建一个参数数组，输出的大小乘以向量的数量。
 
-### Indexing with strings
+### 使用字符串建立索引
 
-See [Structured arrays](basics.rec.html#structured-arrays).
+请参见[结构化数组](basics.rec.html#structured-arrays)。
 
-## Linear Algebra
+## 线性代数
 
-Work in progress. Basic linear algebra to be included here.
+工作正在进行中。这里包括基本线性代数。
 
-### Simple Array Operations
+### 简单数组操作
 
-See linalg.py in numpy folder for more.
+有关更多信息，请参阅numpy文件夹中的linalg.py.
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> a = np.array([[1.0, 2.0], [3.0, 4.0]])
 >>> print(a)
 [[ 1.  2.]
@@ -1368,17 +1188,16 @@ Returns
     eigenvalue ``w[i]`` .
 ```
 
-## Tricks and Tips
+## 技巧和提示
 
-Here we give a list of short and useful tips.
+这里我们列出一些简短有用的提示。
 
-### “Automatic” Reshaping
+### “自动”整形
 
-To change the dimensions of an array, you can omit one of the sizes
-which will then be deduced automatically:
+要更改数组的尺寸，您可以省略其中一个尺寸，然后自动推导出尺寸：
 
 ``` python
->>> a = np.arange(30)
+>>>>>> a = np.arange(30)
 >>> a.shape = 2,-1,3  # -1 means "whatever is needed"
 >>> a.shape
 (2, 5, 3)
@@ -1395,14 +1214,9 @@ array([[[ 0,  1,  2],
         [27, 28, 29]]])
 ```
 
-### Vector Stacking
+### 矢量堆叠
 
-How do we construct a 2D array from a list of equally-sized row vectors?
-In MATLAB this is quite easy: if ``x`` and ``y`` are two vectors of the
-same length you only need do ``m=[x;y]``. In NumPy this works via the
-functions ``column_stack``, ``dstack``, ``hstack`` and ``vstack``,
-depending on the dimension in which the stacking is to be done. For
-example:
+我们如何从同等大小的行向量列表中构造一个二维数组？在MATLAB这是很简单：如果``x``和``y``你只需要做两个相同长度的向量``m=[x;y]``。在此NumPy的通过功能的工作原理``column_stack``，``dstack``，``hstack``和``vstack``，视维在堆叠是必须要做的。例如：
 
 ``` python
 x = np.arange(0,10,2)                     # x=([0,2,4,6,8])
@@ -1412,26 +1226,22 @@ m = np.vstack([x,y])                      # m=([[0,2,4,6,8],
 xy = np.hstack([x,y])                     # xy =([0,2,4,6,8,0,1,2,3,4])
 ```
 
-The logic behind those functions in more than two dimensions can be
-strange.
+这些函数背后的逻辑在两个以上的维度上可能很奇怪。
 
 ::: tip See also
 
-[NumPy for Matlab users](numpy-for-matlab-users.html)
+[NumPy for Matlab用户](numpy-for-matlab-users.html)
 
 :::
 
-### Histograms
+### 直方图
 
-The NumPy ``histogram`` function applied to an array returns a pair of
-vectors: the histogram of the array and the vector of bins. Beware:
-``matplotlib`` also has a function to build histograms (called ``hist``,
-as in Matlab) that differs from the one in NumPy. The main difference is
-that ``pylab.hist`` plots the histogram automatically, while
-``numpy.histogram`` only generates the data.
+``histogram``应用于数组的NumPy 函数返回一对向量：数组的直方图和bin的向量。注意：
+ ``matplotlib``还有一个构建直方图的功能（``hist``在Matlab中称为），与NumPy中的直方图不同。主要区别在于``pylab.hist``自动绘制直方图，而
+ ``numpy.histogram``只生成数据。
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> import matplotlib.pyplot as plt
 >>> # Build a vector of 10000 normal deviates with variance 0.5^2 and mean 2
 >>> mu, sigma = 2, 0.5
@@ -1444,7 +1254,7 @@ that ``pylab.hist`` plots the histogram automatically, while
 ![quickstart-2_00_00](/static/images/quickstart-2_00_00.png)
 
 ``` python
->>> # Compute the histogram with numpy and then plot it
+>>>>>> # Compute the histogram with numpy and then plot it
 >>> (n, bins) = np.histogram(v, bins=50, density=True)  # NumPy version (no plot)
 >>> plt.plot(.5*(bins[1:]+bins[:-1]), n)
 >>> plt.show()
@@ -1452,10 +1262,10 @@ that ``pylab.hist`` plots the histogram automatically, while
 
 ![quickstart-2_01_00](/static/images/quickstart-2_01_00.png)
 
-## Further reading
+## 进一步阅读
 
-- The [Python tutorial](https://docs.python.org/tutorial/)
-- [NumPy Reference](https://numpy.org/devdocs/reference/index.html#reference)
-- [SciPy Tutorial](https://docs.scipy.org/doc/scipy/reference/tutorial/index.html)
-- [SciPy Lecture Notes](https://scipy-lectures.org)
-- A [matlab, R, IDL, NumPy/SciPy dictionary](http://mathesaurus.sf.net/)
+- [Python的教程](https://docs.python.org/tutorial/)
+- [NumPy参考](/reference/index.html)
+- [SciPy教程](https://docs.scipy.org/doc/scipy/reference/tutorial/index.html)
+- [SciPy讲义](https://scipy-lectures.org)
+- [MATLAB，R，IDL，NumPy/SciPy 宝典](http://mathesaurus.sf.net/)

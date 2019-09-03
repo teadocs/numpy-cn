@@ -24,7 +24,7 @@ module.exports = function () {
         ['/user/basics/', '目录'],
         ['/user/basics/types', '数据类型'],
         ['/user/basics/creation', '创建数组'],
-        ['/user/basics/io', '输入输出'],
+        ['/user/basics/io', 'NumPy与输入输出'],
         ['/user/basics/indexing', '索引'],
         ['/user/basics/broadcasting', '广播'],
         ['/user/basics/byteswapping', '字节交换'],

@@ -1,11 +1,11 @@
-# NumPy basics
+# NumPy 基础知识
 
-- [Data types](/user/basics/types.html)
-- [Array creation](/user/basics/creation.html)
-- [I/O with NumPy](/user/basics/io.html)
-- [Indexing](/user/basics/indexing.html)
-- [Broadcasting](/user/basics/broadcasting.html)
-- [Byte-swapping](/user/basics/byteswapping.html)
-- [Structured arrays](/user/basics/rec.html)
-- [Writing custom array containers](/user/basics/dispatch.html)
-- [Subclassing ndarray](/user/basics/subclassing.html)
+- [数据类型](/user/basics/types.html)
+- [创建数组](/user/basics/creation.html)
+- [NumPy与输入输出](/user/basics/io.html)
+- [索引](/user/basics/indexing.html)
+- [广播](/user/basics/broadcasting.html)
+- [字节交换](/user/basics/byteswapping.html)
+- [结构化数组](/user/basics/rec.html)
+- [编写自定义数组容器](/user/basics/dispatch.html)
+- [子类化数组](/user/basics/subclassing.html)
