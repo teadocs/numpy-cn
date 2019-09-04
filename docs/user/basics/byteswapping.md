@@ -1,19 +1,19 @@
-# Byte-swapping
+# 字节交换
 
-## Introduction to byte ordering and ndarrays
+## 字节排序和ndarrays简介
 
-The ``ndarray`` is an object that provide a python array interface to data in memory.
+``ndarray``是一个为内存中的数据提供python数组接口的对象。
 
-It often happens that the memory that you want to view with an array is not of the same byte ordering as the computer on which you are running Python.
+经常发生的情况是，要用数组查看的内存与运行Python的计算机的字节顺序不同。
 
-For example, I might be working on a computer with a little-endian CPU - such as an Intel Pentium, but I have loaded some data from a file written by a computer that is big-endian. Let’s say I have loaded 4 bytes from a file written by a Sun (big-endian) computer. I know that these 4 bytes represent two 16-bit integers. On a big-endian machine, a two-byte integer is stored with the Most Significant Byte (MSB) first, and then the Least Significant Byte (LSB). Thus the bytes are, in memory order:
+例如，我可能正在使用带有 little-endian CPU 的计算机 - 例如Intel Pentium，但是我已经从一个由 big-endian计算机 编写的文件中加载了一些数据。假设我已经从Sun（big-endian）计算机写入的文件中加载了4个字节。我知道这4个字节代表两个16位整数。在 big-endian 机器上，首先以最高有效字节（MSB）存储双字节整数，然后存储最低有效字节（LSB）。因此字节按内存顺序排列：
 
-1. MSB integer 1
-1. LSB integer 1
-1. MSB integer 2
-1. LSB integer 2
+1. MSB整数1
+1. LSB整数1
+1. MSB整数2
+1. LSB整数2
 
-Let’s say the two integers were in fact 1 and 770. Because 770 = 256 * 3 + 2, the 4 bytes in memory would contain respectively: 0, 1, 3, 2. The bytes I have loaded from the file would have these contents:
+假设两个整数实际上是1和770.因为770 = 256 * 3 + 2，内存中的4个字节将分别包含：0,1,3,2。我从文件加载的字节将包含这些内容：
 
 ``` python
 >>> big_end_buffer = bytearray([0,1,3,2])
@@ -21,7 +21,7 @@ Let’s say the two integers were in fact 1 and 770. Because 770 = 256 * 3 + 2, 
 bytearray(b'\x00\x01\x03\x02')
 ```
 
-We might want to use an ``ndarray`` to access these integers. In that case, we can create an array around this memory, and tell numpy that there are two integers, and that they are 16 bit and big-endian:
+我们可能需要使用 ``ndarray`` 来访问这些整数。在这种情况下，我们可以围绕这个内存创建一个数组，并告诉numpy有两个整数，并且它们是16位和Big-endian：
 
 ``` python
 >>> import numpy as np
@@ -32,9 +32,9 @@ We might want to use an ``ndarray`` to access these integers. In that case, we c
 770
 ```
 
-Note the array ``dtype`` above of ``>i2``. The ``>`` means ‘big-endian’ (``<`` is little-endian) and i2 means ‘signed 2-byte integer’. For example, if our data represented a single unsigned 4-byte little-endian integer, the dtype string would be ``<u4``.
+注意上面的数组``dtype > i2``。``>`` 表示 ``big-endian``( ``<`` 是 ``Little-endian`` )，``i2`` 表示‘有符号的2字节整数’。例如，如果我们的数据表示单个无符号4字节小端整数，则dtype字符串将为 ``<u4``。
 
-In fact, why don’t we try that?
+事实上，为什么我们不尝试呢？
 
 ``` python
 >>> little_end_u4 = np.ndarray(shape=(1,),dtype='<u4', buffer=big_end_buffer)
@@ -42,11 +42,11 @@ In fact, why don’t we try that?
 True
 ```
 
-Returning to our ``big_end_arr`` - in this case our underlying data is big-endian (data endianness) and we’ve set the dtype to match (the dtype is also big-endian). However, sometimes you need to flip these around.
+回到我们的 ``big_end_arr`` - 在这种情况下我们的基础数据是big-endian（数据字节序），我们设置dtype匹配（dtype也是big-endian）。但是，有时你需要翻转它们。
 
 ::: danger 警告
 
-Scalars currently do not include byte order information, so extracting a scalar from an array will return an integer in native byte order. Hence:
+标量当前不包含字节顺序信息，因此从数组中提取标量将返回本机字节顺序的整数。因此：
 
 ``` python
 >>> big_end_arr[0].dtype.byteorder == little_end_u4[0].dtype.byteorder
@@ -55,22 +55,22 @@ True
 
 :::
 
-## Changing byte ordering
+## 更改字节顺序
 
-As you can imagine from the introduction, there are two ways you can affect the relationship between the byte ordering of the array and the underlying memory it is looking at:
+从介绍中可以想象，有两种方法可以影响数组的字节顺序与它所查看的底层内存之间的关系：
 
-- Change the byte-ordering information in the array dtype so that it interprets the underlying data as being in a different byte order. This is the role of ``arr.newbyteorder()``
-- Change the byte-ordering of the underlying data, leaving the dtype interpretation as it was. This is what ``arr.byteswap()`` does.
+- 更改数组dtype中的字节顺序信息，以便将基础数据解释为不同的字节顺序。这是作用 ``arr.newbyteorder()``
+- 更改基础数据的字节顺序，保留dtype解释。这是做什么的 ``arr.byteswap()``。
 
-The common situations in which you need to change byte ordering are:
+您需要更改字节顺序的常见情况是：
 
-1. Your data and dtype endianness don’t match, and you want to change the dtype so that it matches the data.
-1. Your data and dtype endianness don’t match, and you want to swap the data so that they match the dtype
-1. Your data and dtype endianness match, but you want the data swapped and the dtype to reflect this
+1. 您的数据和dtype字节顺序不匹配，并且您希望更改dtype以使其与数据匹配。
+1. 您的数据和dtype字节顺序不匹配，并且您希望交换数据以使它们与dtype匹配
+1. 您的数据和dtype字节顺序匹配，但您希望交换数据和dtype来反映这一点
 
-### Data and dtype endianness don’t match, change dtype to match data
+### 数据和dtype字节顺序不匹配，更改dtype以匹配数据
 
-We make something where they don’t match:
+我们制作一些他们不匹配的东西：
 
 ``` python
 >>> wrong_end_dtype_arr = np.ndarray(shape=(2,),dtype='<i2', buffer=big_end_buffer)
@@ -78,7 +78,7 @@ We make something where they don’t match:
 256
 ```
 
-The obvious fix for this situation is to change the dtype so it gives the correct endianness:
+这种情况的明显解决方法是更改​​dtype，以便它给出正确的字节顺序：
 
 ``` python
 >>> fixed_end_dtype_arr = wrong_end_dtype_arr.newbyteorder()
@@ -86,16 +86,16 @@ The obvious fix for this situation is to change the dtype so it gives the correc
 1
 ```
 
-Note the array has not changed in memory:
+请注意，内存中的数组未更改：
 
 ``` python
 >>> fixed_end_dtype_arr.tobytes() == big_end_buffer
 True
 ```
 
-### Data and type endianness don’t match, change data to match dtype
+### 数据和类型字节顺序不匹配，更改数据以匹配dtype
 
-You might want to do this if you need the data in memory to be a certain ordering. For example you might be writing the memory out to a file that needs a certain byte ordering.
+如果您需要内存中的数据是某种顺序，您可能希望这样做。例如，您可能正在将内存写入需要特定字节排序的文件。
 
 ``` python
 >>> fixed_end_mem_arr = wrong_end_dtype_arr.byteswap()
@@ -103,16 +103,16 @@ You might want to do this if you need the data in memory to be a certain orderin
 1
 ```
 
-Now the array has changed in memory:
+现在阵列 *已* 在内存中更改：
 
 ``` python
 >>> fixed_end_mem_arr.tobytes() == big_end_buffer
 False
 ```
 
-### Data and dtype endianness match, swap data and dtype
+### 数据和dtype字节序匹配，交换数据和dtype
 
-You may have a correctly specified array dtype, but you need the array to have the opposite byte order in memory, and you want the dtype to match so the array values make sense. In this case you just do both of the previous operations:
+您可能有一个正确指定的数组dtype，但是您需要数组在内存中具有相反的字节顺序，并且您希望dtype匹配以便数组值有意义。在这种情况下，您只需执行上述两个操作：
 
 ``` python
 >>> swapped_end_arr = big_end_arr.byteswap().newbyteorder()
@@ -122,7 +122,7 @@ You may have a correctly specified array dtype, but you need the array to have t
 False
 ```
 
-An easier way of casting the data to a specific dtype and byte ordering can be achieved with the ndarray astype method:
+使用ndarray astype方法可以更简单地将数据转换为特定的dtype和字节顺序：
 
 ``` python
 >>> swapped_end_arr = big_end_arr.astype('<i2')

@@ -1,33 +1,22 @@
-# Indexing
- 
-::: tip See also
+# 索引
 
-[Indexing](https://numpy.org/devdocs/reference/arrays.indexing.html#arrays-indexing)
+::: tip 另见
 
-[Indexing routines](https://numpy.org/devdocs/reference/routines.indexing.html#routines-indexing)
+[索引](/reference/arrays/indexing.html#arrays-indexing)
+
+[索引相关API](/reference/routines/indexing.html#routines-indexing)
 
 :::
 
-Array indexing refers to any use of the square brackets ([]) to index
-array values. There are many options to indexing, which give numpy
-indexing great power, but with power comes some complexity and the
-potential for confusion. This section is just an overview of the
-various options and issues related to indexing. Aside from single
-element indexing, the details on most of these options are to be
-found in related sections.
+数组索引是指使用方括号（[]）来索引数组值。索引有很多选项，它可以为numpy索引提供强大的功能，但是功能会带来一些复杂性和混淆的可能性。本节仅概述了与索引相关的各种选项和问题。除了单个元素索引之外，大多数这些选项的详细信息都可以在相关章节中找到。
 
-## Assignment vs referencing
+## 赋值与引用
 
-Most of the following examples show the use of indexing when
-referencing data in an array. The examples work just as well
-when assigning to an array. See the section at the end for
-specific examples and explanations on how assignments work.
+以下大多数示例体现在引用数组中的数据时使用索引。分配给数组时，这些示例也可以正常运行的。有关分配的原理具体示例和说明，请参见最后一节。
 
-## Single element indexing
+## 单个元素索引
 
-Single element indexing for a 1-D array is what one expects. It work
-exactly like that for other standard Python sequences. It is 0-based,
-and accepts negative indices for indexing from the end of the array.
+人们期望的是1-D阵列的单元素索引。它的工作方式与其他标准Python序列完全相同。它基于0，并接受从数组末尾开始索引的负索引。
 
 ``` python
 >>> x = np.arange(10)
@@ -37,9 +26,7 @@ and accepts negative indices for indexing from the end of the array.
 8
 ```
 
-Unlike lists and tuples, numpy arrays support multidimensional indexing
-for multidimensional arrays. That means that it is not necessary to
-separate each dimension’s index into its own set of square brackets.
+与列表和元组不同，numpy数组支持多维数组的多维索引。这意味着没有必要将每个维度的索引分成它自己的一组方括号。
 
 ``` python
 >>> x.shape = (2,5) # now x is 2-dimensional
@@ -49,47 +36,27 @@ separate each dimension’s index into its own set of square brackets.
 9
 ```
 
-Note that if one indexes a multidimensional array with fewer indices
-than dimensions, one gets a subdimensional array. For example:
+请注意，如果索引索引比维度少的多维数组，则会获得一个子维数组。例如：
 
 ``` python
 >>> x[0]
 array([0, 1, 2, 3, 4])
 ```
 
-That is, each index specified selects the array corresponding to the
-rest of the dimensions selected. In the above example, choosing 0
-means that the remaining dimension of length 5 is being left unspecified,
-and that what is returned is an array of that dimensionality and size.
-It must be noted that the returned array is not a copy of the original,
-but points to the same values in memory as does the original array.
-In  this case, the 1-D array at the first position (0) is returned.
-So using a single index on the returned array, results in a single
-element being returned. That is:
+也就是说，指定的每个索引选择与所选维度的其余部分对应的数组。在上面的示例中，选择0表示长度为5的剩余维度未指定，返回的是该维度和大小的数组。必须注意的是，返回的数组不是原始数据的副本，而是指向内存中与原始数组相同的值。在这种情况下，返回第一个位置（0）的1-D阵列。因此，在返回的数组上使用单个索引会导致返回单个元素。那是：
 
 ``` python
 >>> x[0][2]
 2
 ```
 
-So note that ``x[0,2] = x[0][2]`` though the second case is more
-inefficient as a new temporary array is created after the first index
-that is subsequently indexed by 2.
+请注意，尽管第二种情况效率较低，因为在第一个索引之后创建了一个新的临时数组，该索引随后被索引为2：``x[0,2] = x[0][2]``
 
-Note to those used to IDL or Fortran memory order as it relates to
-indexing.  NumPy uses C-order indexing. That means that the last
-index usually represents the most rapidly changing memory location,
-unlike Fortran or IDL, where the first index represents the most
-rapidly changing location in memory. This difference represents a
-great potential for confusion.
+请注意那些习惯于IDL或Fortran内存顺序的内容，因为它与索引有关。NumPy使用C顺序索引。这意味着最后一个索引通常代表最快速变化的内存位置，与Fortran或IDL不同，其中第一个索引代表内存中变化最快的位置。这种差异代表了混淆的巨大潜力。
 
-## Other indexing options
+## 其他索引选项
 
-It is possible to slice and stride arrays to extract arrays of the
-same number of dimensions, but of different sizes than the original.
-The slicing and striding works exactly the same way it does for lists
-and tuples except that they can be applied to multiple dimensions as
-well. A few examples illustrates best:
+可以对数组进行切片和跨步以提取具有相同数量的尺寸但具有与原始尺寸不同的尺寸的阵列。切片和跨步的工作方式与列表和元组的工作方式完全相同，只是它们也可以应用于多个维度。一些例子说明了最好的：
 
 ``` python
 >>> x = np.arange(10)
@@ -105,36 +72,17 @@ array([[ 7, 10, 13],
        [21, 24, 27]])
 ```
 
-Note that slices of arrays do not copy the internal array data but
-only produce new views of the original data. This is different from
-list or tuple slicing and an explicit ``copy()`` is recommended if
-the original data is not required anymore.
+请注意，数组切片不会复制内部数组数据，只会生成原始数据的新视图。这与列表或元组切片不同，``copy()``如果不再需要原始数据，建议使用显式。
 
-It is possible to index arrays with other arrays for the purposes of
-selecting lists of values out of arrays into new arrays. There are
-two different ways of accomplishing this. One uses one or more arrays
-of index values. The other involves giving a boolean array of the proper
-shape to indicate the values to be selected. Index arrays are a very
-powerful tool that allow one to avoid looping over individual elements in
-arrays and thus greatly improve performance.
+可以使用其他数组索引数组，以便从数组中选择值列表到新数组中。有两种不同的方法来实现这一点。一个使用一个或多个索引值数组。另一个涉及给出一个正确形状的布尔数组来指示要选择的值。索引数组是一个非常强大的工具，可以避免循环遍历数组中的各个元素，从而大大提高性能。
 
-It is possible to use special features to effectively increase the
-number of dimensions in an array through indexing so the resulting
-array acquires the shape needed for use in an expression or with a
-specific function.
+可以使用特殊功能通过索引有效地增加数组中的维数，以便生成的数组获取在表达式或特定函数中使用所需的形状。
 
-## Index arrays
+## 索引数组
 
-NumPy arrays may be indexed with other arrays (or any other sequence-
-like object that can be converted to an array, such as lists, with the
-exception of tuples; see the end of this document for why this is). The
-use of index arrays ranges from simple, straightforward cases to
-complex, hard-to-understand cases. For all cases of index arrays, what
-is returned is a copy of the original data, not a view as one gets for
-slices.
+NumPy数组可以使用其他数组（或任何其他可以转换为数组的类似序列的对象，如列表，除元组之外的索引;请参阅本文档末尾的原因）。索引数组的使用范围从简单，直接的案例到复杂的，难以理解的案例。对于索引数组的所有情况，返回的是原始数据的副本，而不是切片获取的视图。
 
-Index arrays must be of integer type. Each value in the array indicates
-which value in the array to use in place of the index. To illustrate:
+索引数组必须是整数类型。数组中的每个值指示要使用的数组中的哪个值代替索引。为了显示：
 
 ``` python
 >>> x = np.arange(10,1,-1)
@@ -144,29 +92,23 @@ array([10,  9,  8,  7,  6,  5,  4,  3,  2])
 array([7, 7, 9, 2])
 ```
 
-The index array consisting of the values 3, 3, 1 and 8 correspondingly
-create an array of length 4 (same as the index array) where each index
-is replaced by the value the index array has in the array being indexed.
+由值3,3,1和8组成的索引数组相应地创建一个长度为4的数组（与索引数组相同），其中每个索引由索引数组在被索引的数组中具有的值替换。
 
-Negative values are permitted and work as they do with single indices
-or slices:
+允许使用负值，并且与单个索引或切片一样工作：
 
 ``` python
 >>> x[np.array([3,3,-3,8])]
 array([7, 7, 4, 2])
 ```
 
-It is an error to have index values out of bounds:
+索引值超出范围是错误的：
 
 ``` python
 >>> x[np.array([3, 3, 20, 8])]
 <type 'exceptions.IndexError'>: index 20 out of bounds 0<=index<9
 ```
 
-Generally speaking, what is returned when index arrays are used is
-an array with the same shape as the index array, but with the type
-and values of the array being indexed. As an example, we can use a
-multidimensional index array instead:
+一般来说，使用索引数组时返回的是与索引数组具有相同形状的数组，但索引的数组的类型和值。作为示例，我们可以使用多维索引数组：
 
 ``` python
 >>> x[np.array([[1,1],[2,3]])]
@@ -174,30 +116,18 @@ array([[9, 9],
        [8, 7]])
 ```
 
-## Indexing Multi-dimensional arrays
+## 索引多维数组
 
-Things become more complex when multidimensional arrays are indexed,
-particularly with multidimensional index arrays. These tend to be
-more unusual uses, but they are permitted, and they are useful for some
-problems. We’ll  start with the simplest multidimensional case (using
-the array y from the previous examples):
+当索引多维数组时，事情变得更加复杂，特别是对于多维索引数组。这些往往是更不寻常的用途，但它们是允许的，它们对某些问题很有用。我们将从最简单的多维情况开始（使用前面示例中的数组y）：
 
 ``` python
 >>> y[np.array([0,2,4]), np.array([0,1,2])]
 array([ 0, 15, 30])
 ```
 
-In this case, if the index arrays have a matching shape, and there is
-an index array for each dimension of the array being indexed, the
-resultant array has the same shape as the index arrays, and the values
-correspond to the index set for each position in the index arrays. In
-this example, the first index value is 0 for both index arrays, and
-thus the first value of the resultant array is y[0,0]. The next value
-is y[2,1], and the last is y[4,2].
+在这种情况下，如果索引数组具有匹配的形状，并且索引数组的每个维度都有一个索引数组，则结果数组具有与索引数组相同的形状，并且值对应于每个索引的索引集在索引数组中的位置。在此示例中，两个索引数组的第一个索引值均为0，因此结果数组的第一个值为y [0,0]。下一个值是y [2,1]，最后一个是y [4,2]。
 
-If the index arrays do not have the same shape, there is an attempt to
-broadcast them to the same shape.  If they cannot be broadcast to the
-same shape, an exception is raised:
+如果索引数组的形状不同，则尝试将它们广播为相同的形状。如果它们无法广播到相同的形状，则会引发异常：
 
 ``` python
 >>> y[np.array([0,2,4]), np.array([0,1])]
@@ -205,19 +135,14 @@ same shape, an exception is raised:
 broadcast to a single shape
 ```
 
-The broadcasting mechanism permits index arrays to be combined with
-scalars for other indices. The effect is that the scalar value is used
-for all the corresponding values of the index arrays:
+广播机制允许索引数组与其他索引的标量组合。结果是标量值用于索引数组的所有相应值：
 
 ``` python
 >>> y[np.array([0,2,4]), 1]
 array([ 1, 15, 29])
 ```
 
-Jumping to the next level of complexity, it is possible to only
-partially index an array with index arrays. It takes a bit of thought
-to understand what happens in such cases. For example if we just use
-one index array with y:
+跳到下一级复杂性，可以仅使用索引数组对数组进行部分索引。需要一些思考才能理解在这种情况下会发生什么。例如，如果我们只使用一个带y的索引数组：
 
 ``` python
 >>> y[np.array([0,2,4])]
@@ -226,30 +151,15 @@ array([[ 0,  1,  2,  3,  4,  5,  6],
        [28, 29, 30, 31, 32, 33, 34]])
 ```
 
-What results is the construction of a new array where each value of
-the index array selects one row from the array being indexed and the
-resultant array has the resulting shape (number of index elements,
-size of row).
+结果是构造一个新数组，其中索引数组的每个值从被索引的数组中选择一行，结果数组具有结果形状（索引元素的数量，行的大小）。
 
-An example of where this may be useful is for a color lookup table
-where we want to map the values of an image into RGB triples for
-display. The lookup table could have a shape (nlookup, 3). Indexing
-such an array with an image with shape (ny, nx) with dtype=np.uint8
-(or any integer type so long as values are with the bounds of the
-lookup table) will result in an array of shape (ny, nx, 3) where a
-triple of RGB values is associated with each pixel location.
+这可能有用的示例是用于颜色查找表，其中我们想要将图像的值映射到RGB三元组以供显示。查找表可以具有形状（nlookup，3）。使用带有dtype = np.uint8的形状（ny，nx）的图像索引此类数组（或任何整数类型，只要值与查找表的边界一致）将导致形状数组（ny，nx， 3）其中三个RGB值与每个像素位置相关联。
 
-In general, the shape of the resultant array will be the concatenation
-of the shape of the index array (or the shape that all the index arrays
-were broadcast to) with the shape of any unused dimensions (those not
-indexed) in the array being indexed.
+通常，结果数组的形状将是索引数组的形状（或所有索引数组被广播的形状）与被索引的数组中任何未使用的维度（未索引的那些）的形状的串联。
 
-## Boolean or “mask” index arrays
+## 布尔或“掩码”索引数组
 
-Boolean arrays used as indices are treated in a different manner
-entirely than index arrays. Boolean arrays must be of the same shape
-as the initial dimensions of the array being indexed. In the
-most straightforward case, the boolean array has the same shape:
+用作索引的布尔数组的处理方式与索引数组完全不同。布尔数组的形状必须与要索引的数组的初始尺寸相同。在最直接的情况下，布尔数组具有相同的形状：
 
 ``` python
 >>> b = y>20
@@ -257,16 +167,11 @@ most straightforward case, the boolean array has the same shape:
 array([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34])
 ```
 
-Unlike in the case of integer index arrays, in the boolean case, the
-result is a 1-D array containing all the elements in the indexed array
-corresponding to all the true elements in the boolean array. The
-elements in the indexed array are always iterated and returned in
-[row-major](https://numpy.org/devdocs/glossary.html#term-row-major) (C-style) order. The result is also identical to
-``y[np.nonzero(b)]``. As with index arrays, what is returned is a copy
-of the data, not a view as one gets with slices.
+与整数索引数组的情况不同，在布尔情况下，结果是一个一维数组，其中包含索引数组中与布尔数组中所有真实元素对应的所有元素。索引数组中的元素始终是迭代的，并以
+ [行主](https://numpy.org/devdocs/glossary.html#term-row-major)（C样式）顺序返回。结果也是一样的
+ ``y[np.nonzero(b)]``。与索引数组一样，返回的是数据的副本，而不是切片所获得的视图。
 
-The result will be multidimensional if y has more dimensions than b.
-For example:
+如果y的维数多于b，则结果将是多维的。例如：
 
 ``` python
 >>> b[:,5] # use a 1-D boolean whose first dim agrees with the first dim of y
@@ -276,20 +181,11 @@ array([[21, 22, 23, 24, 25, 26, 27],
        [28, 29, 30, 31, 32, 33, 34]])
 ```
 
-Here the 4th and 5th rows are selected from the indexed array and
-combined to make a 2-D array.
+这里，从索引数组中选择第4行和第5行，并组合成2-D阵列。
 
-In general, when the boolean array has fewer dimensions than the array
-being indexed, this is equivalent to y[b, …], which means
-y is indexed by b followed by as many : as are needed to fill
-out the rank of y.
-Thus the shape of the result is one dimension containing the number
-of True elements of the boolean array, followed by the remaining
-dimensions of the array being indexed.
+通常，当布尔数组的维数小于被索引的数组时，这相当于y [b，...]，这意味着y被b索引后跟多少：填充y的等级所需的数量。因此，结果的形状是一个维度，其中包含布尔数组的True元素的数量，后跟被索引的数组的其余维度。
 
-For example, using a 2-D boolean array of shape (2,3)
-with four True elements to select rows from a 3-D array of shape
-(2,3,5) results in a 2-D result of shape (4,5):
+例如，使用具有四个True元素的形状（2,3）的二维布尔数组来从三维形状阵列（2,3,5）中选择行，从而得到形状的二维结果（4 ，5）：
 
 ``` python
 >>> x = np.arange(30).reshape(2,3,5)
@@ -308,11 +204,11 @@ array([[ 0,  1,  2,  3,  4],
        [25, 26, 27, 28, 29]])
 ```
 
-For further details, consult the numpy reference documentation on array indexing.
+有关更多详细信息，请参阅有关数组索引的numpy参考文档。
 
-## Combining index arrays with slices
+## 将索引数组与切片组合
 
-Index arrays may be combined with slices. For example:
+索引数组可以与切片组合。例如：
 
 ``` python
 >>> y[np.array([0,2,4]),1:3]
@@ -321,11 +217,9 @@ array([[ 1,  2],
        [29, 30]])
 ```
 
-In effect, the slice is converted to an index array
-np.array([[1,2]]) (shape (1,2)) that is broadcast with the index array
-to produce a resultant array of shape (3,2).
+实际上，切片被转换为索引数组np.array（[[1,2]]）（形状（1,2）），它与索引数组一起广播以产生一个结果形状的数组（3,2） 。
 
-Likewise, slicing can be combined with broadcasted boolean indices:
+同样，切片可以与广播的布尔索引组合：
 
 ``` python
 >>> b = y > 20
@@ -340,11 +234,9 @@ array([[22, 23],
        [29, 30]])
 ```
 
-## Structural indexing tools
+## 结构索引工具
 
-To facilitate easy matching of array shapes with expressions and in
-assignments, the np.newaxis object can be used within array indices
-to add new dimensions with a size of 1. For example:
+为了便于数组形状与表达式和赋值的轻松匹配，可以在数组索引中使用np.newaxis对象来添加大小为1的新维度。例如：
 
 ``` python
 >>> y.shape
@@ -353,10 +245,7 @@ to add new dimensions with a size of 1. For example:
 (5, 1, 7)
 ```
 
-Note that there are no new elements in the array, just that the
-dimensionality is increased. This can be handy to combine two
-arrays in a way that otherwise would require explicitly reshaping
-operations. For example:
+请注意，数组中没有新元素，只是增加了维度。这可以方便地以一种方式组合两个数组，否则将需要显式重新整形操作。例如：
 
 ``` python
 >>> x = np.arange(5)
@@ -368,8 +257,7 @@ array([[0, 1, 2, 3, 4],
        [4, 5, 6, 7, 8]])
 ```
 
-The ellipsis syntax maybe used to indicate selecting in full any
-remaining unspecified dimensions. For example:
+省略号语法可用于指示完全选择任何剩余的未指定维度。例如：
 
 ``` python
 >>> z = np.arange(81).reshape(3,3,3,3)
@@ -379,7 +267,7 @@ array([[29, 32, 35],
        [47, 50, 53]])
 ```
 
-This is equivalent to:
+这相当于：
 
 ``` python
 >>> z[1,:,:,2]
@@ -388,28 +276,22 @@ array([[29, 32, 35],
        [47, 50, 53]])
 ```
 
-## Assigning values to indexed arrays
+## 为索引数组赋值
 
-As mentioned, one can select a subset of an array to assign to using
-a single index, slices, and index and mask arrays. The value being
-assigned to the indexed array must be shape consistent (the same shape
-or broadcastable to the shape the index produces). For example, it is
-permitted to assign a constant to a slice:
+如上所述，可以选择要分配给使用单个索引，切片，索引和掩码数组的数组的子集。分配给索引数组的值必须是形状一致的（与索引生成的形状相同的形状或可广播）。例如，允许为切片分配常量：
 
 ``` python
 >>> x = np.arange(10)
 >>> x[2:7] = 1
 ```
 
-or an array of the right size:
+或者正确大小的数组：
 
 ``` python
 >>> x[2:7] = np.arange(5)
 ```
 
-Note that assignments may result in changes if assigning
-higher types to lower types (like floats to ints) or even
-exceptions (assigning complex to floats or ints):
+请注意，如果将较高类型分配给较低类型（如浮点数到整数）或甚至异常（将复数分配给浮点数或整数），则赋值可能会导致更改：
 
 ``` python
 >>> x[1] = 1.2
@@ -420,11 +302,7 @@ exceptions (assigning complex to floats or ints):
 long(abs(z))
 ```
 
-Unlike some of the references (such as array and mask indices)
-assignments are always made to the original data in the array
-(indeed, nothing else would make sense!). Note though, that some
-actions may not work as one may naively expect. This particular
-example is often surprising to people:
+与某些引用（例如数组和掩码索引）不同，总是对数组中的原始数据进行赋值（实际上，其他任何内容都没有意义！）。但请注意，某些操作可能无法正常工作。这个特殊的例子通常让人惊讶：
 
 ``` python
 >>> x = np.arange(0, 50, 10)
@@ -435,24 +313,11 @@ array([ 0, 10, 20, 30, 40])
 array([ 0, 11, 20, 31, 40])
 ```
 
-Where people expect that the 1st location will be incremented by 3.
-In fact, it will only be incremented by 1. The reason is because
-a new array is extracted from the original (as a temporary) containing
-the values at 1, 1, 3, 1, then the value 1 is added to the temporary,
-and then the temporary is assigned back to the original array. Thus
-the value of the array at x[1]+1 is assigned to x[1] three times,
-rather than being incremented 3 times.
+人们期望第一个位置将增加3.实际上，它只会增加1.原因是因为从原始（作为临时）提取的新数组包含值1,1,3 ，1，然后将值1添加到临时值，然后将临时值分配回原始数组。因此，x [1] +1处的数组的值被赋予x [1]三次，而不是递增3次。
 
-## Dealing with variable numbers of indices within programs
+## 在程序中处理可变数量的索引
 
-The index syntax is very powerful but limiting when dealing with
-a variable number of indices. For example, if you want to write
-a function that can handle arguments with various numbers of
-dimensions without having to write special case code for each
-number of possible dimensions, how can that be done? If one
-supplies to the index a tuple, the tuple will be interpreted
-as a list of indices. For example (using the previous definition
-for the array z):
+索引语法非常强大，但在处理可变数量的索引时会受到限制。例如，如果要编写一个可以处理具有不同维数的参数的函数，而不必为每个可能的维度编写特殊的案例代码，那么该怎么做呢？如果向索引提供元组，则元组将被解释为索引列表。例如（使用先前的数组z定义）：
 
 ``` python
 >>> indices = (1,1,1,1)
@@ -460,11 +325,9 @@ for the array z):
 40
 ```
 
-So one can use code to construct tuples of any number of indices
-and then use these within an index.
+因此，可以使用代码构造任意数量的索引的元组，然后在索引中使用它们。
 
-Slices can be specified within programs by using the slice() function
-in Python. For example:
+可以使用Python中的slice() 函数在程序中指定切片。例如：
 
 ``` python
 >>> indices = (1,1,1,slice(0,2)) # same as [1,1,1,0:2]
@@ -472,8 +335,7 @@ in Python. For example:
 array([39, 40])
 ```
 
-Likewise, ellipsis can be specified by code by using the Ellipsis
-object:
+同样，可以使用Ellipsis对象通过代码指定省略号：
 
 ``` python
 >>> indices = (1, Ellipsis, 1) # same as [1,...,1]
@@ -483,12 +345,9 @@ array([[28, 31, 34],
        [46, 49, 52]])
 ```
 
-For this reason it is possible to use the output from the np.nonzero()
-function directly as an index since it always returns a tuple of index
-arrays.
+由于这个原因，可以直接使用 np.nonzero() 函数的输出作为索引，因为它总是返回索引数组的元组。
 
-Because the special treatment of tuples, they are not automatically
-converted to an array as a list would be. As an example:
+因为对元组的特殊处理，它们不会像列表那样自动转换为数组。举个例子：
 
 ``` python
 >>> z[[1,1,1,1]] # produces a large array

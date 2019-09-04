@@ -1054,7 +1054,7 @@ array([ 4, 10])
  ``b2``（长度4）适合于索引的第二轴线（列）
  ``a``。
 
-### ix_（）函数
+### ix_()函数
 
 该[``ix_``](https://numpy.org/devdocs/reference/generated/numpy.ix_.html#numpy.ix_)函数可用于组合不同的向量，以便获得每个n-uplet的结果。例如，如果要计算从每个向量a，b和c中取得的所有三元组的所有a + b * c：
 
