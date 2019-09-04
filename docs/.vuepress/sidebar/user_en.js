@@ -5,7 +5,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/setting-up', 'Setting up']
+        ['/en/user/setting-up', 'Setting up']
       ]
     },
     {
@@ -13,7 +13,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/quickstart', 'Quickstart tutorial']
+        ['/en/user/quickstart', 'Quickstart tutorial']
       ]
     },
     {
@@ -21,15 +21,15 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/basics/types', 'Data types'],
-        ['/user/basics/creation', 'Array creation'],
-        ['/user/basics/io', 'I/O with NumPy'],
-        ['/user/basics/indexing', 'Indexing'],
-        ['/user/basics/broadcasting', 'Broadcasting'],
-        ['/user/basics/byteswapping', 'Byte-swapping'],
-        ['/user/basics/rec', 'Structured arrays'],
-        ['/user/basics/dispatch', 'Writing custom array containers'],
-        ['/user/basics/subclassing', 'Subclassing ndarray']
+        ['/en/user/basics/types', 'Data types'],
+        ['/en/user/basics/creation', 'Array creation'],
+        ['/en/user/basics/io', 'I/O with NumPy'],
+        ['/en/user/basics/indexing', 'Indexing'],
+        ['/en/user/basics/broadcasting', 'Broadcasting'],
+        ['/en/user/basics/byteswapping', 'Byte-swapping'],
+        ['/en/user/basics/rec', 'Structured arrays'],
+        ['/en/user/basics/dispatch', 'Writing custom array containers'],
+        ['/en/user/basics/subclassing', 'Subclassing ndarray']
       ]
     },
     {
@@ -37,7 +37,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/misc', 'Miscellaneous']
+        ['/en/user/misc', 'Miscellaneous']
       ]
     },
     {
@@ -45,7 +45,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/numpy_for_matlab_users', 'NumPy for Matlab users']
+        ['/en/user/numpy_for_matlab_users', 'NumPy for Matlab users']
       ]
     },
     {
@@ -53,7 +53,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/building', 'Building from source']
+        ['/en/user/building', 'Building from source']
       ]
     },
     {
@@ -61,11 +61,11 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/c-info/', 'Index'],
-        ['/user/c-info/how-to-extend', 'How to extend NumPy'],
-        ['/user/c-info/python-as-glue', 'Using Python as glue'],
-        ['/user/c-info/ufunc-tutorial', 'Writing your own ufunc'],
-        ['/user/c-info/beyond-basics', 'Beyond the Basics']
+        ['/en/user/c-info/', 'Index'],
+        ['/en/user/c-info/how-to-extend', 'How to extend NumPy'],
+        ['/en/user/c-info/python-as-glue', 'Using Python as glue'],
+        ['/en/user/c-info/ufunc-tutorial', 'Writing your own ufunc'],
+        ['/en/user/c-info/beyond-basics', 'Beyond the Basics']
       ]
     }
   ]

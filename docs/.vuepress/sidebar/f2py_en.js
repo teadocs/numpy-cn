@@ -5,7 +5,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/getting-started', 'Three ways to wrap - getting started']
+        ['/en/f2py/getting-started', 'Three ways to wrap - getting started']
       ]
     },
     {
@@ -13,7 +13,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/signature-file', 'Signature file']
+        ['/en/f2py/signature-file', 'Signature file']
       ]
     },
     {
@@ -21,7 +21,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/python-usage', 'Using F2PY bindings in Python']
+        ['/en/f2py/python-usage', 'Using F2PY bindings in Python']
       ]
     },
     {
@@ -29,7 +29,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/usage', 'Using F2PY']
+        ['/en/f2py/usage', 'Using F2PY']
       ]
     },
     {
@@ -37,7 +37,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/f2py/distutils', 'Using via numpy.distutils']
+        ['/en/f2py/distutils', 'Using via numpy.distutils']
       ]
     }
   ]

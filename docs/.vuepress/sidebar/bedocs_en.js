@@ -5,11 +5,11 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/bedocs/', 'Index'],
-        ['/bedocs/howto_document', 'A Guide to NumPy/SciPy Documentation'],
-        ['/bedocs/example_source', 'Example Source'],
-        ['/bedocs/example_rendered', 'Example Rendered'],
-        ['/bedocs/howto_build_docs', 'Building the NumPy API and reference docs']
+        ['/en/bedocs/', 'Index'],
+        ['/en/bedocs/howto_document', 'A Guide to NumPy/SciPy Documentation'],
+        ['/en/bedocs/example_source', 'Example Source'],
+        ['/en/bedocs/example_rendered', 'Example Rendered'],
+        ['/en/bedocs/howto_build_docs', 'Building the NumPy API and reference docs']
       ]
     }
   ]

@@ -5,7 +5,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/code_of_conduct', 'NumPy Code of Conduct']
+        ['/en/dev/code_of_conduct', 'NumPy Code of Conduct']
       ]
     },
     {
@@ -13,7 +13,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/gitwash', 'Git for development']
+        ['/en/dev/gitwash', 'Git for development']
       ]
     },
     {
@@ -21,7 +21,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/development_environment', 'Setting up and using your development environment']
+        ['/en/dev/development_environment', 'Setting up and using your development environment']
       ]
     },
     {
@@ -29,7 +29,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/development_workflow', 'Development workflow']
+        ['/en/dev/development_workflow', 'Development workflow']
       ]
     },
     {
@@ -37,7 +37,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/benchmarking', 'NumPy benchmarks']
+        ['/en/dev/benchmarking', 'NumPy benchmarks']
       ]
     },
     {
@@ -45,7 +45,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/style_guide', 'NumPy C Style Guide']
+        ['/en/dev/style_guide', 'NumPy C Style Guide']
       ]
     },
     {
@@ -53,7 +53,7 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/releasing', 'Releasing a Version']
+        ['/en/dev/releasing', 'Releasing a Version']
       ]
     },
     {
@@ -61,9 +61,9 @@ module.exports = function () {
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/governance/', 'Index'],
-        ['/dev/governance/governance', 'NumPy project governance and decision-making'],
-        ['/dev/governance/people', 'Current steering council and institutional partners']
+        ['/en/dev/governance/', 'Index'],
+        ['/en/dev/governance/governance', 'NumPy project governance and decision-making'],
+        ['/en/dev/governance/people', 'Current steering council and institutional partners']
       ]
     }
   ]

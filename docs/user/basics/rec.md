@@ -1,9 +1,8 @@
-# Structured arrays
+# 结构化数组
 
-## Introduction
+## 介绍
 
-Structured arrays are ndarrays whose datatype is a composition of simpler
-datatypes organized as a sequence of named [fields](https://numpy.org/devdocs/glossary.html#term-field). For example,
+结构化数组是ndarray，其数据类型是由一系列命名[字段](https://numpy.org/devdocs/glossary.html#term-field)组织的简单数据类型组成。例如：
 
 ``` python
 >>> x = np.array([('Rex', 9, 81.0), ('Fido', 3, 27.0)],
@@ -13,19 +12,20 @@ array([('Rex', 9, 81.), ('Fido', 3, 27.)],
       dtype=[('name', 'U10'), ('age', '<i4'), ('weight', '<f4')])
 ```
 
-Here ``x`` is a one-dimensional array of length two whose datatype is a
-structure with three fields: 1. A string of length 10 or less named ‘name’, 2.
-a 32-bit integer named ‘age’, and 3. a 32-bit float named ‘weight’.
+``x`` 是一个长度为2的一维数组，其数据类型是一个包含三个字段的结构：
 
-If you index ``x`` at position 1 you get a structure:
+1. 长度为10或更少的字符串，名为“name”。
+2. 一个32位整数，名为“age”。
+3. 一个32位的名为'weight'的float类型。
+
+如果您``x``在位置1处索引，则会得到一个结构：
 
 ``` python
 >>> x[1]
 ('Fido', 3, 27.0)
 ```
 
-You can access and modify individual fields of a structured array by indexing
-with the field name:
+您可以通过使用字段名称建立索引来访问和修改结构化数组的各个字段：
 
 ``` python
 >>> x['age']
@@ -36,104 +36,23 @@ array([('Rex', 5, 81.), ('Fido', 5, 27.)],
       dtype=[('name', 'U10'), ('age', '<i4'), ('weight', '<f4')])
 ```
 
-Structured datatypes are designed to be able to mimic ‘structs’ in the C
-language, and share a similar memory layout. They are meant for interfacing with
-C code and for low-level manipulation of structured buffers, for example for
-interpreting binary blobs. For these purposes they support specialized features
-such as subarrays, nested datatypes, and unions, and allow control over the
-memory layout of the structure.
+结构化数据类型旨在能够模仿C语言中的“结构”，并共享类似的内存布局。它们用于连接C代码和低级操作结构化缓冲区，例如用于解释二进制blob。出于这些目的，它们支持诸如子数组，嵌套数据类型和联合之类的专用功能，并允许控制结构的内存布局。
 
-Users looking to manipulate tabular data, such as stored in csv files, may find
-other pydata projects more suitable, such as xarray, pandas, or DataArray.
-These provide a high-level interface for tabular data analysis and are better
-optimized for that use. For instance, the C-struct-like memory layout of
-structured arrays in numpy can lead to poor cache behavior in comparison.
+希望操纵表格数据的用户（例如存储在csv文件中）可能会发现其他更适合的pydata项目，例如xarray，pandas或DataArray。这些为表格数据分析提供了高级接口，并且针对该用途进行了更好的优化。例如，numpy中结构化数组的类似C-struct的内存布局可能导致较差的缓存行为。
 
-## Structured Datatypes
+## 结构化数据类型
 
-A structured datatype can be thought of as a sequence of bytes of a certain
-length (the structure’s [itemsize](https://numpy.org/devdocs/glossary.html#term-itemsize)) which is interpreted as a collection
-of fields. Each field has a name, a datatype, and a byte offset within the
-structure. The datatype of a field may be any numpy datatype including other
-structured datatypes, and it may also be a [subarray data type](https://numpy.org/devdocs/glossary.html#term-subarray-data-type) which
-behaves like an ndarray of a specified shape. The offsets of the fields are
-arbitrary, and fields may even overlap. These offsets are usually determined
-automatically by numpy, but can also be specified.
+结构化数据类型可以被认为是一定长度的字节序列（结构的项目[大小](https://numpy.org/devdocs/glossary.html#term-itemsize)），它被解释为字段集合。每个字段在结构中都有一个名称，一个数据类型和一个字节偏移量。字段的数据类型可以是包括其他结构化数据类型的任何numpy数据类型，也可以是[子行数据类型](https://numpy.org/devdocs/glossary.html#term-subarray-data-type)，其行为类似于指定形状的ndarray。字段的偏移是任意的，字段甚至可以重叠。这些偏移量通常由numpy自动确定，但也可以指定。
 
-### Structured Datatype Creation
+### 结构化数据类型创建
 
-Structured datatypes may be created using the function [``numpy.dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype).
-There are 4 alternative forms of specification which vary in flexibility and
-conciseness. These are further documented in the
-[Data Type Objects](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing) reference page, and in
-summary they are:
+可以使用该函数创建结构化数据类型[``numpy.dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype)。有4种不同的规范形式，其灵活性和简洁性各不相同。这些在“ [数据类型对象”](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing)参考页面中进一步记录
+ ，总结如下：
 
-1. A list of tuples, one tuple per field
+### 操作和显示结构化数据类型
 
-  Each tuple has the form ``(fieldname, datatype, shape)`` where shape is optional. ``fieldname`` is a string (or tuple if titles are used, see [Field Titles](https://numpy.org/devdocs/user/basics.rec.html#titles) below), datatype may be any object convertible to a datatype, and ``shape`` is a tuple of integers specifying subarray shape.
-
-  ``` python
-  >>> np.dtype([('x', 'f4'), ('y', np.float32), ('z', 'f4', (2, 2))])
-  dtype([('x', '<f4'), ('y', '<f4'), ('z', '<f4', (2, 2))])
-  ```
-
-  If ``fieldname`` is the empty string ``''``, the field will be given a default name of the form ``f#``, where ``#`` is the integer index of the field, counting from 0 from the left:
-
-  ``` python
-  >>> np.dtype([('x', 'f4'), ('', 'i4'), ('z', 'i8')])
-  dtype([('x', '<f4'), ('f1', '<i4'), ('z', '<i8')])
-  ```
-
-  The byte offsets of the fields within the structure and the total structure itemsize are determined automatically.
-
-1. A string of comma-separated dtype specifications
-
-  In this shorthand notation any of the [string dtype specifications](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing) may be used in a string and separated by commas. The itemsize and byte offsets of the fields are determined automatically, and the field names are given the default names ``f0``, ``f1``, etc.
-
-  ``` python
-  >>> np.dtype('i8, f4, S3')
-  dtype([('f0', '<i8'), ('f1', '<f4'), ('f2', 'S3')])
-  >>> np.dtype('3int8, float32, (2, 3)float64')
-  dtype([('f0', 'i1', (3,)), ('f1', '<f4'), ('f2', '<f8', (2, 3))])
-  ```
-
-1. A dictionary of field parameter arrays
-
-  This is the most flexible form of specification since it allows control over the byte-offsets of the fields and the itemsize of the structure.
-
-  The dictionary has two required keys, ‘names’ and ‘formats’, and four optional keys, ‘offsets’, ‘itemsize’, ‘aligned’ and ‘titles’. The values for ‘names’ and ‘formats’ should respectively be a list of field names and a list of dtype specifications, of the same length. The optional ‘offsets’ value should be a list of integer byte-offsets, one for each field within the structure. If ‘offsets’ is not given the offsets are determined automatically. The optional ‘itemsize’ value should be an integer describing the total size in bytes of the dtype, which must be large enough to contain all the fields.
-
-  ``` python
-  >>> np.dtype({'names': ['col1', 'col2'], 'formats': ['i4', 'f4']})
-  dtype([('col1', '<i4'), ('col2', '<f4')])
-  >>> np.dtype({'names': ['col1', 'col2'],
-  ...           'formats': ['i4', 'f4'],
-  ...           'offsets': [0, 4],
-  ...           'itemsize': 12})
-  dtype({'names':['col1','col2'], 'formats':['<i4','<f4'], 'offsets':[0,4], 'itemsize':12})
-  ```
-
-  Offsets may be chosen such that the fields overlap, though this will mean that assigning to one field may clobber any overlapping field’s data. As an exception, fields of numpy.object type cannot overlap with other fields, because of the risk of clobbering the internal object pointer and then dereferencing it.
-
-  The optional ‘aligned’ value can be set to True to make the automatic offset computation use aligned offsets (see [Automatic Byte Offsets and Alignment](https://numpy.org/devdocs/user/basics.rec.html#offsets-and-alignment)), as if the ‘align’ keyword argument of [numpy.dtype](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) had been set to True.
-
-  The optional ‘titles’ value should be a list of titles of the same length as ‘names’, see [Field Titles](https://numpy.org/devdocs/user/basics.rec.html#titles) below.
-
-1. A dictionary of field names
-
-  The use of this form of specification is discouraged, but documented here because older numpy code may use it. The keys of the dictionary are the field names and the values are tuples specifying type and offset:
-
-  ``` python
-  >>> np.dtype({'col1': ('i1', 0), 'col2': ('f4', 1)})
-  dtype([('col1', 'i1'), ('col2', '<f4')])
-  ```
-
-  This form is discouraged because Python dictionaries do not preserve order in Python versions before Python 3.6, and the order of the fields in a structured dtype has meaning. [Field Titles](https://numpy.org/devdocs/user/basics.rec.html#titles) may be specified by using a 3-tuple, see below.
-
-### Manipulating and Displaying Structured Datatypes
-
-The list of field names of a structured datatype can be found in the ``names``
-attribute of the dtype object:
+可以``names``
+在dtype对象的属性中找到结构化数据类型的字段名称列表：
 
 ``` python
 >>> d = np.dtype([('x', 'i8'), ('y', 'f4')])
@@ -141,36 +60,25 @@ attribute of the dtype object:
 ('x', 'y')
 ```
 
-The field names may be modified by assigning to the ``names`` attribute using a
-sequence of strings of the same length.
+可以通过``names``使用相同长度的字符串序列分配属性来修改字段名称。
 
-The dtype object also has a dictionary-like attribute, ``fields``, whose keys
-are the field names (and [Field Titles](#titles), see below) and whose
-values are tuples containing the dtype and byte offset of each field.
+dtype对象还具有类似字典的属性，``fields``其键是字段名称（和[字段标题](#titles)，见下文），其值是包含每个字段的dtype和字节偏移量的元组。
 
 ``` python
 >>> d.fields
 mappingproxy({'x': (dtype('int64'), 0), 'y': (dtype('float32'), 8)})
 ```
 
-Both the ``names`` and ``fields`` attributes will equal ``None`` for
-unstructured arrays. The recommended way to test if a dtype is structured is
-with *if dt.names is not None* rather than *if dt.names*, to account for dtypes
-with 0 fields.
+对于非结构化数组，``names``和``fields``属性都相同``None``。测试 *dtype* 是否结构化的推荐方法是， *如果dt.names不是None* 而不是 *dt.names* ，则考虑具有0字段的dtypes。
 
-The string representation of a structured datatype is shown in the “list of
-tuples” form if possible, otherwise numpy falls back to using the more general
-dictionary form.
+如果可能，结构化数据类型的字符串表示形式显示在“元组列表”表单中，否则numpy将回退到使用更通用的字典表单。
 
-### Automatic Byte Offsets and Alignment
+### 自动字节偏移和对齐
 
-Numpy uses one of two methods to automatically determine the field byte offsets
-and the overall itemsize of a structured datatype, depending on whether
-``align=True`` was specified as a keyword argument to [``numpy.dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype).
+Numpy使用两种方法之一自动确定字段字节偏移量和结构化数据类型的总项目大小，具体取决于是否
+ ``align=True``指定为关键字参数[``numpy.dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype)。
 
-By default (``align=False``), numpy will pack the fields together such that
-each field starts at the byte offset the previous field ended, and the fields
-are contiguous in memory.
+默认情况下（``align=False``），numpy将字段打包在一起，使得每个字段从前一个字段结束的字节偏移开始，并且字段在内存中是连续的。
 
 ``` python
 >>> def print_offsets(d):
@@ -181,14 +89,7 @@ offsets: [0, 1, 2, 6, 7, 15]
 itemsize: 17
 ```
 
-If ``align=True`` is set, numpy will pad the structure in the same way many C
-compilers would pad a C-struct. Aligned structures can give a performance
-improvement in some cases, at the cost of increased datatype size. Padding
-bytes are inserted between fields such that each field’s byte offset will be a
-multiple of that field’s alignment, which is usually equal to the field’s size
-in bytes for simple datatypes, see [``PyArray_Descr.alignment``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Descr.alignment).  The
-structure will also have trailing padding added so that its itemsize is a
-multiple of the largest field’s alignment.
+如果``align=True``设置了，numpy将以与许多C编译器填充C结构相同的方式填充结构。在某些情况下，对齐结构可以提高性能，但代价是增加了数据类型的大小。在字段之间插入填充字节，使得每个字段的字节偏移量将是该字段对齐的倍数，对于简单数据类型，通常等于字段的字节大小，请参阅[``PyArray_Descr.alignment``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Descr.alignment)。该结构还将添加尾随填充，以使其itemsize是最大字段对齐的倍数。
 
 ``` python
 >>> print_offsets(np.dtype('u1, u1, i4, u1, i8, u2', align=True))
@@ -196,61 +97,34 @@ offsets: [0, 1, 4, 8, 16, 24]
 itemsize: 32
 ```
 
-Note that although almost all modern C compilers pad in this way by default,
-padding in C structs is C-implementation-dependent so this memory layout is not
-guaranteed to exactly match that of a corresponding struct in a C program. Some
-work may be needed, either on the numpy side or the C side, to obtain exact
-correspondence.
+请注意，尽管默认情况下几乎所有现代C编译器都以这种方式填充，但C结构中的填充依赖于C实现，因此不能保证此内存布局与C程序中相应结构的内容完全匹配。为了获得确切的对应关系，可能需要在numpy侧或C侧进行一些工作。
 
-If offsets were specified using the optional ``offsets`` key in the
-dictionary-based dtype specification, setting ``align=True`` will check that
-each field’s offset is a multiple of its size and that the itemsize is a
-multiple of the largest field size, and raise an exception if not.
+如果使用``offsets``基于字典的dtype规范中的可选键指定了偏移量，则设置``align=True``将检查每个字段的偏移量是其大小的倍数，并且itemsize是最大字段大小的倍数，如果不是，则引发异常。
 
-If the offsets of the fields and itemsize of a structured array satisfy the
-alignment conditions, the array will have the ``ALIGNED`` [``flag``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flags.html#numpy.ndarray.flags) set.
+如果结构化数组的字段和项目大小的偏移满足对齐条件，则数组将具有该``ALIGNED`` [``flag``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flags.html#numpy.ndarray.flags)集合。
 
-A convenience function [``numpy.lib.recfunctions.repack_fields``](#numpy.lib.recfunctions.repack_fields) converts an
-aligned dtype or array to a packed one and vice versa. It takes either a dtype
-or structured ndarray as an argument, and returns a copy with fields re-packed,
-with or without padding bytes.
+便捷函数[``numpy.lib.recfunctions.repack_fields``](#numpy.lib.recfunctions.repack_fields)将对齐的dtype或数组转换为打包的dtype或数组，反之亦然。它需要一个dtype或结构化的ndarray作为参数，并返回一个带有字段重新打包的副本，带或不带填充字节。
 
-### Field Titles
+### 字段标题
 
-In addition to field names, fields may also have an associated [title](https://numpy.org/devdocs/glossary.html#term-title),
-an alternate name, which is sometimes used as an additional description or
-alias for the field. The title may be used to index an array, just like a
-field name.
+除了字段名称之外，字段还可以具有关联的[标题](https://numpy.org/devdocs/glossary.html#term-title)，备用名称，有时用作字段的附加说明或别名。标题可用于索引数组，就像字段名一样。
 
-To add titles when using the list-of-tuples form of dtype specification, the
-field name may be specified as a tuple of two strings instead of a single
-string, which will be the field’s title and field name respectively. For
-example:
+要在使用dtype规范的list-of-tuples形式时添加标题，可以将字段名称指定为两个字符串的元组而不是单个字符串，它们分别是字段的标题和字段名称。例如：
 
 ``` python
 >>> np.dtype([(('my title', 'name'), 'f4')])
 dtype([(('my title', 'name'), '<f4')])
 ```
 
-When using the first form of dictionary-based specification, the titles may be
-supplied as an extra ``'titles'`` key as described above. When using the second
-(discouraged) dictionary-based specification, the title can be supplied by
-providing a 3-element tuple ``(datatype, offset, title)`` instead of the usual
-2-element tuple:
+当使用第一种形式的基于字典的规范时，标题可以``'titles'``作为如上所述的额外密钥提供。当使用第二个（不鼓励的）基于字典的规范时，可以通过提供3元素元组而不是通常的2元素元组来提供标题：``(datatype, offset, title)``
 
 ``` python
 >>> np.dtype({'name': ('i4', 0, 'my title')})
 dtype([(('my title', 'name'), '<i4')])
 ```
 
-The ``dtype.fields`` dictionary will contain titles as keys, if any
-titles are used.  This means effectively that a field with a title will be
-represented twice in the fields dictionary. The tuple values for these fields
-will also have a third element, the field title. Because of this, and because
-the ``names`` attribute preserves the field order while the ``fields``
-attribute may not, it is recommended to iterate through the fields of a dtype
-using the ``names`` attribute of the dtype, which will not list titles, as
-in:
+该``dtype.fields``字典将包含标题作为键，如果使用任何头衔。这有效地表示具有标题的字段将在字典字典中表示两次。这些字段的元组值还将具有第三个元素，即字段标题。因此，并且因为``names``属性保留了字段顺序而``fields``
+属性可能没有，所以建议使用dtype的``names``属性迭代dtype的字段，该属性不会列出标题，如：
 
 ``` python
 >>> for name in d.names:
@@ -259,30 +133,22 @@ in:
 (dtype('float32'), 8)
 ```
 
-### Union types
+### 联合类型
 
-Structured datatypes are implemented in numpy to have base type
-``numpy.void`` by default, but it is possible to interpret other numpy
-types as structured types using the ``(base_dtype, dtype)`` form of dtype
-specification described in
-[Data Type Objects](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing).  Here, ``base_dtype`` is
-the desired underlying dtype, and fields and flags will be copied from
-``dtype``. This dtype is similar to a ‘union’ in C.
+结构化数据类型在numpy中实现，``numpy.void``默认情况下具有基类型
+ ，但可以使用[数据类型对象中](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing)描述的dtype规范的形式
+ 将其他numpy类型解释为结构化类型。这里是所需的底层dtype，将复制字段和标志
+ 。这个dtype类似于C中的'union'。``(base_dtype, dtype)``[](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing)``base_dtype````dtype``
 
-## Indexing and Assignment to Structured arrays
+## 索引和分配给结构化数组
 
-### Assigning data to a Structured Array
+### 将数据分配给结构化数组
 
-There are a number of ways to assign values to a structured array: Using python
-tuples, using scalar values, or using other structured arrays.
+有许多方法可以为结构化数组赋值：使用python元组，使用标量值或使用其他结构化数组。
 
-#### Assignment from Python Native Types (Tuples)
+#### 从Python本机类​​型（元组）分配
 
-The simplest way to assign values to a structured array is using python tuples.
-Each assigned value should be a tuple of length equal to the number of fields
-in the array, and not a list or array as these will trigger numpy’s
-broadcasting rules. The tuple’s elements are assigned to the successive fields
-of the array, from left to right:
+为结构化数组赋值的最简单方法是使用python元组。每个赋值应该是一个长度等于数组中字段数的元组，而不是列表或数组，因为它们将触发numpy的广播规则。元组的元素从左到右分配给数组的连续字段：
 
 ``` python
 >>> x = np.array([(1, 2, 3), (4, 5, 6)], dtype='i8, f4, f8')
@@ -292,11 +158,9 @@ array([(1, 2., 3.), (7, 8., 9.)],
      dtype=[('f0', '<i8'), ('f1', '<f4'), ('f2', '<f8')])
 ```
 
-#### Assignment from Scalars
+#### Scalars的赋值
 
-A scalar assigned to a structured element will be assigned to all fields. This
-happens when a scalar is assigned to a structured array, or when an
-unstructured array is assigned to a structured array:
+分配给结构化元素的标量将分配给所有字段。将标量分配给结构化数组时，或者将非结构化数组分配给结构化数组时，会发生这种情况：
 
 ``` python
 >>> x = np.zeros(2, dtype='i8, f4, ?, S1')
@@ -310,8 +174,7 @@ array([(0, 0., False, b'0'), (1, 1., True, b'1')],
       dtype=[('f0', '<i8'), ('f1', '<f4'), ('f2', '?'), ('f3', 'S1')])
 ```
 
-Structured arrays can also be assigned to unstructured arrays, but only if the
-structured datatype has just a single field:
+结构化数组也可以分配给非结构化数组，但前提是结构化数据类型只有一个字段：
 
 ``` python
 >>> twofield = np.zeros(2, dtype=[('A', 'i4'), ('B', 'i4')])
@@ -323,15 +186,9 @@ Traceback (most recent call last):
 TypeError: Cannot cast scalar from dtype([('A', '<i4'), ('B', '<i4')]) to dtype('int32') according to the rule 'unsafe'
 ```
 
-#### Assignment from other Structured Arrays
+#### 来自其他结构化数组的赋值
 
-Assignment between two structured arrays occurs as if the source elements had
-been converted to tuples and then assigned to the destination elements. That
-is, the first field of the source array is assigned to the first field of the
-destination array, and the second field likewise, and so on, regardless of
-field names. Structured arrays with a different number of fields cannot be
-assigned to each other. Bytes of the destination structure which are not
-included in any of the fields are unaffected.
+两个结构化数组之间的分配就像源元素已转换为元组然后分配给目标元素一样。也就是说，源阵列的第一个字段分配给目标数组的第一个字段，第二个字段同样分配，依此类推，而不管字段名称如何。具有不同数量的字段的结构化数组不能彼此分配。未包含在任何字段中的目标结构的字节不受影响。
 
 ``` python
 >>> a = np.zeros(3, dtype=[('a', 'i8'), ('b', 'f4'), ('c', 'S3')])
@@ -342,17 +199,15 @@ array([(0., b'0.0', b''), (0., b'0.0', b''), (0., b'0.0', b'')],
       dtype=[('x', '<f4'), ('y', 'S3'), ('z', 'O')])
 ```
 
-#### Assignment involving subarrays
+#### 涉及子阵列的分配
 
-When assigning to fields which are subarrays, the assigned value will first be
-broadcast to the shape of the subarray.
+分配给子阵列的字段时，首先将指定的值广播到子阵列的形状。
 
-### Indexing Structured Arrays
+### 索引结构化数组
 
-#### Accessing Individual Fields
+#### 访问单个字段
 
-Individual fields of a structured array may be accessed and modified by indexing
-the array with the field name.
+可以通过使用字段名称索引数组来访问和修改结构化数组的各个字段。
 
 ``` python
 >>> x = np.array([(1, 2), (3, 4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
@@ -364,8 +219,7 @@ array([(10, 2.), (10, 4.)],
       dtype=[('foo', '<i8'), ('bar', '<f4')])
 ```
 
-The resulting array is a view into the original array. It shares the same
-memory locations and writing to the view will modify the original array.
+生成的数组是原始数组的视图。它共享相同的内存位置，写入视图将修改原始数组。
 
 ``` python
 >>> y = x['bar']
@@ -375,16 +229,14 @@ array([(10, 11.), (10, 11.)],
       dtype=[('foo', '<i8'), ('bar', '<f4')])
 ```
 
-This view has the same dtype and itemsize as the indexed field, so it is
-typically a non-structured array, except in the case of nested structures.
+此视图与索引字段具有相同的dtype和itemsize，因此它通常是非结构化数组，但嵌套结构除外。
 
 ``` python
 >>> y.dtype, y.shape, y.strides
 (dtype('float32'), (2,), (12,))
 ```
 
-If the accessed field is a subarray, the dimensions of the subarray
-are appended to the shape of the result:
+如果访问的字段是子数组，则子数组的维度将附加到结果的形状：
 
 ``` python
 >>> x = np.zeros((2, 2), dtype=[('a', np.int32), ('b', np.float64, (3, 3))])
@@ -394,19 +246,17 @@ are appended to the shape of the result:
 (2, 2, 3, 3)
 ```
 
-#### Accessing Multiple Fields
+#### 访问多个字段
 
-One can index and assign to a structured array with a multi-field index, where
-the index is a list of field names.
+可以索引并分配具有多字段索引的结构化数组，其中索引是字段名称列表。
 
-::: danger Warning
+::: danger 警告
 
-The behavior of multi-field indexes changed from Numpy 1.15 to Numpy 1.16.
+多字段索引的行为从Numpy 1.15变为Numpy 1.16。
 
 :::
 
-The result of indexing with a multi-field index is a view into the original
-array, as follows:
+使用多字段索引进行索引的结果是原始数组的视图，如下所示：
 
 ``` python
 >>> a = np.zeros(3, dtype=[('a', 'i4'), ('b', 'i4'), ('c', 'f4')])
@@ -415,22 +265,13 @@ array([(0, 0.), (0, 0.), (0, 0.)],
      dtype={'names':['a','c'], 'formats':['<i4','<f4'], 'offsets':[0,8], 'itemsize':12})
 ```
 
-Assignment to the view modifies the original array. The view’s fields will be
-in the order they were indexed. Note that unlike for single-field indexing, the
-dtype of the view has the same itemsize as the original array, and has fields
-at the same offsets as in the original array, and unindexed fields are merely
-missing.
+对视图的赋值会修改原始数组。视图的字段将按其索引的顺序排列。请注意，与单字段索引不同，视图的dtype与原始数组具有相同的项目大小，并且具有与原始数组相同的偏移量的字段，并且仅缺少未编入索引的字段。
 
-::: danger Warning
+::: danger 警告
 
-In Numpy 1.15, indexing an array with a multi-field index returned a copy of
-the result above, but with fields packed together in memory as if
-passed through [``numpy.lib.recfunctions.repack_fields``](#numpy.lib.recfunctions.repack_fields).
+在Numpy 1.15中，使用多字段索引索引数组会返回上面结果的副本，但字段在内存中打包在一起，就像通过一样[``numpy.lib.recfunctions.repack_fields``](#numpy.lib.recfunctions.repack_fields)。
 
-The new behavior as of Numpy 1.16 leads to extra “padding” bytes at the
-location of unindexed fields compared to 1.15. You will need to update any
-code which depends on the data having a “packed” layout. For instance code
-such as:
+从Numpy 1.16开始的新行为导致在未编制索引的位置处的额外“填充”字节与1.15相比。您需要更新任何依赖于具有“打包”布局的数据的代码。例如代码如：
 
 ``` python
 >>> a[['a', 'c']].view('i8')  # Fails in Numpy 1.16
@@ -439,22 +280,18 @@ Traceback (most recent call last):
 ValueError: When changing to a smaller dtype, its size must be a divisor of the size of original dtype
 ```
 
-will need to be changed. This code has raised a ``FutureWarning`` since
-Numpy 1.12, and similar code has raised ``FutureWarning`` since 1.7.
+需要改变。``FutureWarning``自从Numpy 1.12以来，这段代码已经提出了类似的代码，``FutureWarning``自1.7 以来也提出了类似的代码。
 
-In 1.16 a number of functions have been introduced in the
-[``numpy.lib.recfunctions``](#module-numpy.lib.recfunctions) module to help users account for this
-change. These are
-[``numpy.lib.recfunctions.repack_fields``](#numpy.lib.recfunctions.repack_fields).
-[``numpy.lib.recfunctions.structured_to_unstructured``](#numpy.lib.recfunctions.structured_to_unstructured),
-[``numpy.lib.recfunctions.unstructured_to_structured``](#numpy.lib.recfunctions.unstructured_to_structured),
-[``numpy.lib.recfunctions.apply_along_fields``](#numpy.lib.recfunctions.apply_along_fields),
-[``numpy.lib.recfunctions.assign_fields_by_name``](#numpy.lib.recfunctions.assign_fields_by_name),  and
-[``numpy.lib.recfunctions.require_fields``](#numpy.lib.recfunctions.require_fields).
+在1.16中，[``numpy.lib.recfunctions``](#module-numpy.lib.recfunctions)模块中引入了许多功能，
+ 以帮助用户解释此更改。这些是
+ [``numpy.lib.recfunctions.repack_fields``](#numpy.lib.recfunctions.repack_fields)。
+[``numpy.lib.recfunctions.structured_to_unstructured``](#numpy.lib.recfunctions.structured_to_unstructured)，
+ [``numpy.lib.recfunctions.unstructured_to_structured``](#numpy.lib.recfunctions.unstructured_to_structured)，
+ [``numpy.lib.recfunctions.apply_along_fields``](#numpy.lib.recfunctions.apply_along_fields)，
+ [``numpy.lib.recfunctions.assign_fields_by_name``](#numpy.lib.recfunctions.assign_fields_by_name)，和
+ [``numpy.lib.recfunctions.require_fields``](#numpy.lib.recfunctions.require_fields)。
 
-The function [``numpy.lib.recfunctions.repack_fields``](#numpy.lib.recfunctions.repack_fields) can always be
-used to reproduce the old behavior, as it will return a packed copy of the
-structured array. The code above, for example, can be replaced with:
+该函数[``numpy.lib.recfunctions.repack_fields``](#numpy.lib.recfunctions.repack_fields)始终可用于重现旧行为，因为它将返回结构化数组的打包副本。例如，上面的代码可以替换为：
 
 ``` python
 >>> from numpy.lib.recfunctions import repack_fields
@@ -462,13 +299,8 @@ structured array. The code above, for example, can be replaced with:
 array([0, 0, 0])
 ```
 
-Furthermore, numpy now provides a new function
-[``numpy.lib.recfunctions.structured_to_unstructured``](#numpy.lib.recfunctions.structured_to_unstructured) which is a safer
-and more efficient alternative for users who wish to convert structured
-arrays to unstructured arrays, as the view above is often indeded to do.
-This function allows safe conversion to an unstructured type taking into
-account padding, often avoids a copy, and also casts the datatypes
-as needed, unlike the view. Code such as:
+此外，numpy现在提供了一个新功能
+ [``numpy.lib.recfunctions.structured_to_unstructured``](#numpy.lib.recfunctions.structured_to_unstructured)，对于希望将结构化数组转换为非结构化数组的用户来说，这是一种更安全，更有效的替代方法，因为上面的视图通常不符合要求。此功能允许安全地转换为非结构化类型，并考虑填充，通常避免复制，并且还根据需要转换数据类型，这与视图不同。代码如：
 
 ``` python
 >>> b = np.zeros(3, dtype=[('x', 'f4'), ('y', 'f4'), ('z', 'f4')])
@@ -476,7 +308,7 @@ as needed, unlike the view. Code such as:
 array([0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32)
 ```
 
-can be made safer by replacing with:
+可以通过替换为：更安全
 
 ``` python
 >>> from numpy.lib.recfunctions import structured_to_unstructured
@@ -486,7 +318,7 @@ array([0, 0, 0])
 
 :::
 
-Assignment to an array with a multi-field index modifies the original array:
+使用多字段索引分配数组会修改原始数组：
 
 ``` python
 >>> a[['a', 'c']] = (2, 3)
@@ -495,18 +327,15 @@ array([(2, 0, 3.), (2, 0, 3.), (2, 0, 3.)],
       dtype=[('a', '<i4'), ('b', '<i4'), ('c', '<f4')])
 ```
 
-This obeys the structured array assignment rules described above. For example,
-this means that one can swap the values of two fields using appropriate
-multi-field indexes:
+这遵循上述结构化阵列分配规则。例如，这意味着可以使用适当的多字段索引交换两个字段的值：
 
 ``` python
 >>> a[['a', 'c']] = a[['c', 'a']]
 ```
 
-#### Indexing with an Integer to get a Structured Scalar
+#### 使用整数进行索引以获得结构化标量
 
-Indexing a single element of a structured array (with an integer index) returns
-a structured scalar:
+索引结构化数组的单个元素（带有整数索引）将返回结构化标量：
 
 ``` python
 >>> x = np.array([(1, 2., 3.)], dtype='i, f, f')
@@ -517,10 +346,7 @@ a structured scalar:
 <class 'numpy.void'>
 ```
 
-Unlike other numpy scalars, structured scalars are mutable and act like views
-into the original array, such that modifying the scalar will modify the
-original array. Structured scalars also support access and assignment by field
-name:
+与其他numpy标量不同，结构化标量是可变的，并且像原始数组中的视图一样，因此修改标量将修改原始数组。结构化标量还支持按字段名称进行访问和分配：
 
 ``` python
 >>> x = np.array([(1, 2), (3, 4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
@@ -531,7 +357,7 @@ array([(1, 100.), (3, 4.)],
       dtype=[('foo', '<i8'), ('bar', '<f4')])
 ```
 
-Similarly to tuples, structured scalars can also be indexed with an integer:
+与元组类似，结构化标量也可以用整数索引：
 
 ``` python
 >>> scalar = np.array([(1, 2., 3.)], dtype='i, f, f')[0]
@@ -540,30 +366,21 @@ Similarly to tuples, structured scalars can also be indexed with an integer:
 >>> scalar[1] = 4
 ```
 
-Thus, tuples might be thought of as the native Python equivalent to numpy’s
-structured types, much like native python integers are the equivalent to
-numpy’s integer types. Structured scalars may be converted to a tuple by
-calling ``ndarray.item``:
+因此，元组可能被认为是本机Python等同于numpy的结构化类型，就像本机python整数相当于numpy的整数类型。结构化标量可以通过调用``ndarray.item``以下方式转换为元组：
 
 ``` python
 >>> scalar.item(), type(scalar.item())
 ((1, 4.0, 3.0), <class 'tuple'>)
 ```
 
-### Viewing Structured Arrays Containing Objects
+### 查看包含对象的结构化数组
 
-In order to prevent clobbering object pointers in fields of
-``numpy.object`` type, numpy currently does not allow views of structured
-arrays containing objects.
+为了防止``numpy.object``类型字段中的clobbering对象指针
+ ，numpy当前不允许包含对象的结构化数组的视图。
 
-### Structure Comparison
+### 结构比较
 
-If the dtypes of two void structured arrays are equal, testing the equality of
-the arrays will result in a boolean array with the dimensions of the original
-arrays, with elements set to ``True`` where all fields of the corresponding
-structures are equal. Structured dtypes are equal if the field names,
-dtypes and titles are the same, ignoring endianness, and the fields are in
-the same order:
+如果两个void结构化数组的dtypes相等，则测试数组的相等性将导致具有原始数组的维度的布尔数组，其中元素设置为``True``相应结构的所有字段相等的位置。如果字段名称，dtypes和标题相同，忽略字节顺序，并且字段的顺序相同，则结构化dtypes是相等的：
 
 ``` python
 >>> a = np.zeros(2, dtype=[('a', 'i4'), ('b', 'i4')])
@@ -572,24 +389,17 @@ the same order:
 array([False, False])
 ```
 
-Currently, if the dtypes of two void structured arrays are not equivalent the
-comparison fails, returning the scalar value ``False``. This behavior is
-deprecated as of numpy 1.10 and will raise an error or perform elementwise
-comparison in the future.
+目前，如果两个void结构化数组的dtypes不相等，则比较失败，返回标量值``False``。从numpy 1.10开始不推荐使用此行为，并且将来会引发错误或执行元素比较。
 
-The ``<`` and ``>`` operators always return ``False`` when comparing void
-structured arrays, and arithmetic and bitwise operations are not supported.
+在``<``与``>``运营商总是返回``False``比较空洞结构阵列时，与算术和位操作不被支持。
 
-## Record Arrays
+## 记录数组
 
-As an optional convenience numpy provides an ndarray subclass,
-[``numpy.recarray``](https://numpy.org/devdocs/reference/generated/numpy.recarray.html#numpy.recarray), and associated helper functions in the
-``numpy.rec`` submodule, that allows access to fields of structured arrays
-by attribute instead of only by index. Record arrays also use a special
-datatype, [``numpy.record``](https://numpy.org/devdocs/reference/generated/numpy.record.html#numpy.record), that allows field access by attribute on the
-structured scalars obtained from the array.
+作为一个可选的方便numpy [``numpy.recarray``](https://numpy.org/devdocs/reference/generated/numpy.recarray.html#numpy.recarray)在``numpy.rec``子模块中提供了一个ndarray子类，
+ 以及相关的辅助函数
+ ，它允许按属性而不是仅通过索引访问结构化数组的字段。记录数组也使用特殊的数据类型，[``numpy.record``](https://numpy.org/devdocs/reference/generated/numpy.record.html#numpy.record)允许通过属性对从数组中获取的结构化标量进行字段访问。
 
-The simplest way to create a record array is with ``numpy.rec.array``:
+创建记录数组的最简单方法是``numpy.rec.array``：
 
 ``` python
 >>> recordarr = np.rec.array([(1, 2., 'Hello'), (2, 3., "World")],
@@ -607,8 +417,7 @@ array([2], dtype=int32)
 b'World'
 ```
 
-``numpy.rec.array`` can convert a wide variety of arguments into record
-arrays, including structured arrays:
+``numpy.rec.array`` 可以将各种参数转换为记录数组，包括结构化数组：
 
 ``` python
 >>> arr = np.array([(1, 2., 'Hello'), (2, 3., "World")],
@@ -616,11 +425,9 @@ arrays, including structured arrays:
 >>> recordarr = np.rec.array(arr)
 ```
 
-The ``numpy.rec`` module provides a number of other convenience functions for
-creating record arrays, see [record array creation routines](https://numpy.org/devdocs/reference/routines.array-creation.html#routines-array-creation-rec).
+该``numpy.rec``模块提供了许多其他便利函数来创建记录数组，请参阅[记录数组创建例程](https://numpy.org/devdocs/reference/routines.array-creation.html#routines-array-creation-rec)。
 
-A record array representation of a structured array can be obtained using the
-appropriate [view](numpy-ndarray-view):
+可以使用适当的[视图](numpy-ndarray-view)获取结构化数组的记录数组表示：
 
 ``` python
 >>> arr = np.array([(1, 2., 'Hello'), (2, 3., "World")],
@@ -629,9 +436,7 @@ appropriate [view](numpy-ndarray-view):
 ...                      type=np.recarray)
 ```
 
-For convenience, viewing an ndarray as type ``np.recarray`` will
-automatically convert to ``np.record`` datatype, so the dtype can be left
-out of the view:
+为方便起见，将ndarray视为类型``np.recarray``将自动转换为``np.record``数据类型，因此dtype可以不在视图之外：
 
 ``` python
 >>> recordarr = arr.view(np.recarray)
@@ -639,16 +444,13 @@ out of the view:
 dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 ```
 
-To get back to a plain ndarray both the dtype and type must be reset. The
-following view does so, taking into account the unusual case that the
-recordarr was not a structured type:
+要返回普通的ndarray，必须重置dtype和type。以下视图是这样做的，考虑到recordarr不是结构化类型的异常情况：
 
 ``` python
 >>> arr2 = recordarr.view(recordarr.dtype.fields or recordarr.dtype, np.ndarray)
 ```
 
-Record array fields accessed by index or by attribute are returned as a record
-array if the field has a structured type but as a plain ndarray otherwise.
+如果字段具有结构化类型，则返回由index或by属性访问的记录数组字段作为记录数组，否则返回普通ndarray。
 
 ``` python
 >>> recordarr = np.rec.array([('Hello', (1, 2)), ("World", (3, 4))],
@@ -659,58 +461,52 @@ array if the field has a structured type but as a plain ndarray otherwise.
 <class 'numpy.recarray'>
 ```
 
-Note that if a field has the same name as an ndarray attribute, the ndarray
-attribute takes precedence. Such fields will be inaccessible by attribute but
-will still be accessible by index.
+请注意，如果字段与ndarray属性具有相同的名称，则ndarray属性优先。这些字段将无法通过属性访问，但仍可通过索引访问。
 
-## Recarray Helper Functions
+## Recarray Helper 函数
 
-Collection of utilities to manipulate structured arrays.
+用于操作结构化数组的实用程序的集合。
 
-Most of these functions were initially implemented by John Hunter for
-matplotlib.  They have been rewritten and extended for convenience.
+大多数这些功能最初由 John Hunter 为 matplotlib 实现。为方便起见，它们已被重写和扩展。
 
-- numpy.lib.recfunctions.**append_fields**(*base*, *names*, *data*, *dtypes=None*, *fill_value=-1*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L674-L742)
+- numpy.lib.recfunctions.**append_fields**(*base*, *names*, *data*, *dtypes=None*, *fill_value=-1*, *usemask=True*, *asrecarray=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L674-L742)
 
-  Add new fields to an existing array.
+  将新字段添加到现有数组。
 
-  The names of the fields are given with the *names* arguments,
-  the corresponding values with the *data* arguments.
-  If a single field is appended, *names*, *data* and *dtypes* do not have
-  to be lists but just values.
+  字段的名称使用 *names* 参数给出，相应的值使用 *data* 参数。如果追加单个字段，则 *names*、*data* 和 *dtypes* 不必是列表，只是值。
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
-  base | array | Input array to extend.
-  names | string, sequence | String or sequence of strings corresponding to the names of the new fields.
-  data | array or sequence of arrays | Array or sequence of arrays storing the fields to add to the base.
-  dtypes | sequence of datatypes, optional | Datatype or sequence of datatypes. If None, the datatypes are estimated from the data.
-  fill_value | {float}, optional | Filling value used to pad missing data on the shorter arrays.
-  usemask | {False, True}, optional | Whether to return a masked array or not.
-  asrecarray | {False, True}, optional | Whether to return a recarray (MaskedRecords) or not.
+  base | array | 要扩展的输入数组。
+  names | string, sequence | 对应于新字段名称的字符串或字符串序列。
+  data | array or sequence of arrays | 存储要添加到基数的字段的数组或数组序列。
+  dtypes | sequence of datatypes, optional | 数据类型或数据类型序列。如果没有填写，则从数据自动推断数据类型。
+  fill_value | {float}, optional | 用于填充较短数组上缺少的数据的填充值。
+  usemask | {False, True}, optional | 是否返回掩码数组。
+  asrecarray | {False, True}, optional | 是否返回recarray(MaskedRecords)。
 
-- numpy.lib.recfunctions.**apply_along_fields**(*func*, *arr*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1084-L1123)
+- numpy.lib.recfunctions.**apply_along_fields**(*func*, *arr*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1084-L1123)
 
-  Apply function ‘func’ as a reduction across fields of a structured array.
+  将函数“func”简单的应用于结构化数组的各个字段的。
 
-  This is similar to *apply_along_axis*, but treats the fields of a structured array as an extra axis. The fields are all first cast to a common type following the type-promotion rules from [``numpy.result_type``](https://numpy.org/devdocs/reference/generated/numpy.result_type.html#numpy.result_type) applied to the field’s dtypes.
+  这类似于 *apply_along_axis*，但将结构化数组的字段视为额外轴。这些字段首先被转换为类型提升规则后 [``numpy.result_type``](https://numpy.org/devdocs/reference/generated/numpy.result_type.html#numpy.result_type) 应用于字段的dtypes 的公共类型。
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
-  func | function | Function to apply on the “field” dimension. This function must support an axis argument, like np.mean, np.sum, etc.
-  arr | ndarray | Structured array for which to apply func.
+  func | function | 要应用于“field”维度的函数。此函数必须支持轴参数，如np.mean、np.sum 等。
+  arr | ndarray | 要应用func的结构化数组。
 
-  **Returns**:
+  **返回值**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
-  out | ndarray | Result of the recution operation
+  out | ndarray | 恢复操作的结果
 
-  **Examples**:
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -722,41 +518,36 @@ matplotlib.  They have been rewritten and extended for convenience.
   array([ 3. ,  5.5,  9. , 11. ])
   ```
 
-- numpy.lib.recfunctions.**assign_fields_by_name**(*dst*, *src*, *zero_unassigned=True*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1130-L1166)
+- numpy.lib.recfunctions.**assign_fields_by_name**(*dst*, *src*, *zero_unassigned=True*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1130-L1166)
 
-  Assigns values from one structured array to another by field name.
+  通过字段名称将值从一个结构化数组分配到另一个结构化数组。
 
-  Normally in numpy >= 1.14, assignment of one structured array to another
-  copies fields “by position”, meaning that the first field from the src is
-  copied to the first field of the dst, and so on, regardless of field name.
+  通常在numpy>=1.14中，将一个结构化数组分配给另一个结构化数组会 “按位置” 复制字段，这意味着来自src的第一个字段被复制到DST的第一个字段，依此类推，与字段名称无关。
 
-  This function instead copies “by field name”, such that fields in the dst
-  are assigned from the identically named field in the src. This applies
-  recursively for nested structures. This is how structure assignment worked
-  in numpy >= 1.6 to <= 1.13.
+  此函数改为复制 “按字段名”，以便从src中的同名字段分配DST中的字段。这对嵌套结构递归适用。这就是在 numpy>=1.6 到 <=1.13 中结构赋值的工作方式。
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
-  dst | ndarray | 
-  src | ndarray | The source and destination arrays during assignment.
-  zero_unassigned | bool, optional | If True, fields in the dst for which there was no matching field in the src are filled with the value 0 (zero). This was the behavior of numpy <= 1.13. If False, those fields are not modified.
+  dst | ndarray | 略
+  src | ndarray | 分配期间的源数组和目标数组。
+  zero_unassigned | bool，可选 | 如果为 True，则用值0(零)填充dst中src中没有匹配字段的字段。这是numpy<=1.13的行为。如果为false，则不修改这些字段。
 
-- numpy.lib.recfunctions.**drop_fields**(*base*, *drop_names*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L523-L583)
+- numpy.lib.recfunctions.**drop_fields**(*base*, *drop_names*, *usemask=True*, *asrecarray=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L523-L583)
 
-  Return a new array with fields in *drop_names* dropped.
+  返回一个新数组，其中 *drop_names* 中的字段已删除。
 
-  Nested fields are supported.
+  支持嵌套字段。
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
-  base | array | Input array
-  drop_names | string or sequence | String or sequence of strings corresponding to the names of the fields to drop.
-  usemask | {False, True}, optional | Whether to return a masked array or not.
-  asrecarray | string or sequence, optional |  Whether to return a recarray or a mrecarray (asrecarray=True) or a plain ndarray or masked array with flexible dtype. The default is False.
+  base | array | 输入的数组
+  drop_names | string or sequence | 与要删除的字段名称对应的字符串或字符串序列。
+  usemask | {False, True}, optional | 是否返回掩码数组。
+  asrecarray | string or sequence, optional |  是返回recarray还是mrecarray(asrecarray=True)，还是返回具有灵活dtype的普通ndarray或掩码数组。默认值为false。
 
-  **Examples**:
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -771,20 +562,20 @@ matplotlib.  They have been rewritten and extended for convenience.
   array([(1,), (4,)], dtype=[('a', '<i8')])
   ```
 
-- numpy.lib.recfunctions.**find_duplicates**(*a*, *key=None*, *ignoremask=True*, *return_index=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1313-L1368)
+- numpy.lib.recfunctions.**find_duplicates**(*a*, *key=None*, *ignoremask=True*, *return_index=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1313-L1368)
 
-Find the duplicates in a structured array along a given key
+  沿给定键查找结构化数组中的重复项。
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
-  a | array-like | Input array
-  key | {string, None}, optional | Name of the fields along which to check the duplicates. If None, the search is performed by records
-  ignoremask | {True, False}, optional | Whether masked data should be discarded or considered as duplicates.
-  return_index | {False, True}, optional | Whether to return the indices of the duplicated values.
+  a | array-like | 输入的数组
+  key | {string, None}, optional | 要检查重复项的字段的名称。如果没有，则按记录执行搜索
+  ignoremask | {True, False}, optional | 是否应丢弃淹码数据或将其视为重复数据。
+  return_index | {False, True}, optional | 是否返回重复值的索引。
 
-  **Examples**:
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -798,11 +589,11 @@ Find the duplicates in a structured array along a given key
               dtype=[('a', '<i8')]), array([0, 1, 3, 4]))
   ```
 
-- numpy.lib.recfunctions.**flatten_descr**(*ndtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L184-L207)
+- numpy.lib.recfunctions.**flatten_descr**(*ndtype*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L184-L207)
 
-  Flatten a structured data-type description.
+  展平结构化数据类型描述。
 
-  **Examples**:
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -811,21 +602,21 @@ Find the duplicates in a structured array along a given key
   (('a', dtype('int32')), ('ba', dtype('float64')), ('bb', dtype('int32')))
   ```
 
-- numpy.lib.recfunctions.**get_fieldstructure**(*adtype*, *lastname=None*, *parents=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L240-L284)
+- numpy.lib.recfunctions.**get_fieldstructure**(*adtype*, *lastname=None*, *parents=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L240-L284)
 
   Returns a dictionary with fields indexing lists of their parent fields.
 
   This function is used to simplify access to fields nested in other fields.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   adtype | np.dtype | Input datatype
   lastname | optional | Last processed field name (used internally during recursion).
   parents | dictionary | Dictionary of parent fields (used interbally during recursion).
 
-  **Examples**:
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -837,17 +628,17 @@ Find the duplicates in a structured array along a given key
   {'A': [], 'B': [], 'BA': ['B'], 'BB': ['B'], 'BBA': ['B', 'BB'], 'BBB': ['B', 'BB']}
   ```
 
-- numpy.lib.recfunctions.**get_names**(*adtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L113-L146)
+- numpy.lib.recfunctions.**get_names**(*adtype*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L113-L146)
 
   Returns the field names of the input datatype as a tuple.
 
-  **Parameters**:
+  **参数表**：
   
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   adtype | dtype | Input datatype
 
-  **Examples**:
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -867,17 +658,17 @@ Find the duplicates in a structured array along a given key
   ('a', ('b', ('ba', 'bb')))
   ```
 
-- numpy.lib.recfunctions.**get_names_flat**(*adtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L149-L181)
+- numpy.lib.recfunctions.**get_names_flat**(*adtype*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L149-L181)
 
   Returns the field names of the input datatype as a tuple. Nested structure are flattened beforehand.
 
-  **Parameters**:
+  **参数表**：
   
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   adtype | dtype | Input datatype
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -894,15 +685,15 @@ Find the duplicates in a structured array along a given key
   ('a', 'b', 'ba', 'bb')
   ```
 
-- numpy.lib.recfunctions.**join_by**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*, *usemask=True*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1377-L1554)
+- numpy.lib.recfunctions.**join_by**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*, *usemask=True*, *asrecarray=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1377-L1554)
 
   Join arrays *r1* and *r2* on key *key*.
 
   The key should be either a string or a sequence of string corresponding to the fields used to join the array.  An exception is raised if the *key* field cannot be found in the two input arrays.  Neither *r1* nor *r2* should have any duplicates along *key*: the presence of duplicates will make the output quite unreliable. Note that duplicates are not looked for by the algorithm.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   key | {string, sequence} | A string or a sequence of strings corresponding to the fields used for comparison.
   r1, r2 | arrays | Structured arrays.
@@ -924,13 +715,13 @@ Find the duplicates in a structured array along a given key
 
   :::
 
-- numpy.lib.recfunctions.**merge_arrays**(*seqarrays*, *fill_value=-1*, *flatten=False*, *usemask=False*, *asrecarray=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L383-L516)
+- numpy.lib.recfunctions.**merge_arrays**(*seqarrays*, *fill_value=-1*, *flatten=False*, *usemask=False*, *asrecarray=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L383-L516)
 
   Merge arrays field by field.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   seqarrays | sequence of ndarrays | Sequence of arrays
   fill_value | {float}, optional | Filling value used to pad missing data on the shorter arrays.
@@ -955,7 +746,7 @@ Find the duplicates in a structured array along a given key
 
   :::
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -976,15 +767,15 @@ Find the duplicates in a structured array along a given key
             dtype=[('a', '<i8'), ('f1', '<f8')])
   ```
 
-- numpy.lib.recfunctions.**rec_append_fields**(*base*, *names*, *data*, *dtypes=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L751-L783)
+- numpy.lib.recfunctions.**rec_append_fields**(*base*, *names*, *data*, *dtypes=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L751-L783)
 
   Add new fields to an existing array.
 
   The names of the fields are given with the *names* arguments, the corresponding values with the *data* arguments. If a single field is appended, *names*, *data* and *dtypes* do not have to be lists but just values.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   base | array | Input array to extend.
   names | string, sequence | String or sequence of strings corresponding to the names of the new fields.
@@ -992,9 +783,9 @@ Find the duplicates in a structured array along a given key
   dtypes | sequence of datatypes, optional | Datatype or sequence of datatypes. If None, the datatypes are estimated from the data.
 
 
-  **Returns**:
+  **返回值**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   appended_array | np.recarray | 
 
@@ -1004,11 +795,11 @@ Find the duplicates in a structured array along a given key
 
   :::
 
-- numpy.lib.recfunctions.**rec_drop_fields**(*base*, *drop_names*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L615-L620)
+- numpy.lib.recfunctions.**rec_drop_fields**(*base*, *drop_names*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L615-L620)
 
   Returns a new numpy.recarray with fields in *drop_names* dropped.
 
-- numpy.lib.recfunctions.**rec_join**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1563-L1576)
+- numpy.lib.recfunctions.**rec_join**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1563-L1576)
 
   Join arrays *r1* and *r2* on keys. Alternative to join_by, that always returns a np.recarray.
 
@@ -1018,13 +809,13 @@ Find the duplicates in a structured array along a given key
 
   :::
 
-- numpy.lib.recfunctions.**recursive_fill_fields**(*input*, *output*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L43-L79)
+- numpy.lib.recfunctions.**recursive_fill_fields**(*input*, *output*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L43-L79)
 
   Fills fields from output with fields from input, with support for nested structures.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   input | ndarray | Input array.
   output | ndarray | Output array.
@@ -1035,7 +826,7 @@ Find the duplicates in a structured array along a given key
 
   :::
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -1045,20 +836,20 @@ Find the duplicates in a structured array along a given key
   array([(1, 10.), (2, 20.), (0,  0.)], dtype=[('A', '<i8'), ('B', '<f8')])
   ```
 
-- numpy.lib.recfunctions.**rename_fields**(*base*, *namemapper*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L627-L664)
+- numpy.lib.recfunctions.**rename_fields**(*base*, *namemapper*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L627-L664)
 
   Rename the fields from a flexible-datatype ndarray or recarray.
 
   Nested fields are supported.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   base | ndarray | Input array whose fields must be modified.
   namemapper | dictionary | Dictionary mapping old field names to their new version.
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -1069,7 +860,7 @@ Find the duplicates in a structured array along a given key
         dtype=[('A', '<i8'), ('b', [('ba', '<f8'), ('BB', '<f8', (2,))])])
   ```
 
-- numpy.lib.recfunctions.**repack_fields**(*a*, *align=False*, *recurse=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L790-L869)
+- numpy.lib.recfunctions.**repack_fields**(*a*, *align=False*, *recurse=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L790-L869)
 
   Re-pack the fields of a structured array or dtype in memory.
 
@@ -1089,21 +880,21 @@ Find the duplicates in a structured array along a given key
   each field’s offset is a multiple of its alignment, and the total itemsize
   is a multiple of the largest alignment, by adding padding bytes as needed.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   a | ndarray or dtype | array or dtype for which to repack the fields.
   align | boolean | If true, use an “aligned” memory layout, otherwise use a “packed” layout.
   recurse | boolean | If True, also repack nested structures.
 
-  **Returns**:
+  **返回值**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   repacked | ndarray or dtype | Copy of a with fields repacked, or a itself if no repacking was needed.
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -1125,7 +916,7 @@ Find the duplicates in a structured array along a given key
   itemsize: 17
   ```
 
-- numpy.lib.recfunctions.**require_fields**(*array*, *required_dtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1171-L1212)
+- numpy.lib.recfunctions.**require_fields**(*array*, *required_dtype*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1171-L1212)
 
   Casts a structured array to a new dtype using assignment by field-name.
 
@@ -1137,20 +928,20 @@ Find the duplicates in a structured array along a given key
   If a field name in the required_dtype does not exist in the
   input array, that field is created and set to 0 in the output array.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   a | ndarray | array to cast
   required_dtype | dtype | datatype for output array
 
   **Returns**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   out | ndarray | array with the new dtype, with field values copied from the fields in the input array with the same name
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -1163,13 +954,13 @@ Find the duplicates in a structured array along a given key
     dtype=[('b', '<f4'), ('newf', 'u1')])
   ```
 
-- numpy.lib.recfunctions.**stack_arrays**(*arrays*, *defaults=None*, *usemask=True*, *asrecarray=False*, *autoconvert=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1220-L1305)
+- numpy.lib.recfunctions.**stack_arrays**(*arrays*, *defaults=None*, *usemask=True*, *asrecarray=False*, *autoconvert=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1220-L1305)
 
-  Superposes arrays fields by fields
+  按字段叠加数组字段
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   arrays | array or sequence | Sequence of input arrays.
   defaults | dictionary, optional | Dictionary mapping field names to the corresponding default values.
@@ -1177,7 +968,7 @@ Find the duplicates in a structured array along a given key
   asrecarray | {False, True}, optional | Whether to return a recarray (or MaskedRecords if usemask==True) or just a flexible-type ndarray.
   autoconvert | {False, True}, optional | Whether automatically cast the type of the field to the maximum.
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -1198,7 +989,7 @@ Find the duplicates in a structured array along a given key
               dtype=[('A', 'S3'), ('B', '<f8'), ('C', '<f8')])
   ```
 
-- numpy.lib.recfunctions.**structured_to_unstructured**(*arr*, *dtype=None*, *copy=False*, *casting='unsafe'*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L894-L977)
+- numpy.lib.recfunctions.**structured_to_unstructured**(*arr*, *dtype=None*, *copy=False*, *casting='unsafe'*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L894-L977)
 
   Converts and n-D structured array into an (n+1)-D unstructured array.
 
@@ -1210,22 +1001,22 @@ Find the duplicates in a structured array along a given key
   Nested fields, as well as each element of any subarray fields, all count
   as a single field-elements.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   arr | ndarray | Structured array or dtype to convert. Cannot contain object datatype.
   dtype | dtype, optional | The dtype of the output unstructured array.
   copy | bool, optional | See copy argument to ndarray.astype. If true, always return a copy. If false, and dtype requirements are satisfied, a view is returned.
   casting | {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional | See casting argument of ndarray.astype. Controls what kind of data casting may occur.
 
-  **Returns**:
+  **返回值**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
-  unstructured | ndarray | Unstructured array with one more dimension.
+  unstructured | ndarray | 多一维的非结构化数组。
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
@@ -1248,7 +1039,7 @@ Find the duplicates in a structured array along a given key
   array([ 3. ,  5.5,  9. , 11. ])
   ```
 
-- numpy.lib.recfunctions.**unstructured_to_structured**(*arr*, *dtype=None*, *names=None*, *align=False*, *copy=False*, *casting='unsafe'*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L984-L1079)
+- numpy.lib.recfunctions.**unstructured_to_structured**(*arr*, *dtype=None*, *names=None*, *align=False*, *copy=False*, *casting='unsafe'*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L984-L1079)
 
   Converts and n-D unstructured array into an (n-1)-D structured array.
 
@@ -1261,9 +1052,9 @@ Find the duplicates in a structured array along a given key
   Nested fields, as well as each element of any subarray fields, all count
   towards the number of field-elements.
 
-  **Parameters**:
+  **参数表**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
   arr | ndarray | Unstructured array or dtype to convert.
   dtype | dtype, optional | The structured dtype of the output array
@@ -1272,13 +1063,13 @@ Find the duplicates in a structured array along a given key
   copy | bool, optional | See copy argument to ndarray.astype. If true, always return a copy. If false, and dtype requirements are satisfied, a view is returned.
   casting | {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional | See casting argument of ndarray.astype. Controls what kind of data casting may occur.
 
-  **Returns**:
+  **返回值**：
 
-  name | type | desc
+  参数名 | 数据类型 | 描述
   ---|---|---
-  structured | ndarray | Structured array with fewer dimensions.
+  structured | ndarray | 维数较少的结构化数组。
 
-  **Examples**
+  **示例**：
 
   ``` python
   >>> from numpy.lib import recfunctions as rfn
