@@ -604,17 +604,17 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**get_fieldstructure**(*adtype*, *lastname=None*, *parents=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L240-L284)
 
-  Returns a dictionary with fields indexing lists of their parent fields.
+  返回一个字典，其中的字段索引其父字段的列表。
 
-  This function is used to simplify access to fields nested in other fields.
+  此函数用于简化对嵌套在其他字段中的字段的访问。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  adtype | np.dtype | Input datatype
-  lastname | optional | Last processed field name (used internally during recursion).
-  parents | dictionary | Dictionary of parent fields (used interbally during recursion).
+  adtype | np.dtype | 传入数据类型
+  lastname | optional | 上次处理的字段名称(在递归过程中内部使用)。
+  parents | dictionary | 父字段的字典(在递归期间间隔使用)。
 
   **示例**：
 
@@ -630,13 +630,13 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**get_names**(*adtype*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L113-L146)
 
-  Returns the field names of the input datatype as a tuple.
+  以元组的形式返回输入数据类型的字段名称。
 
   **参数表**：
   
   参数名 | 数据类型 | 描述
   ---|---|---
-  adtype | dtype | Input datatype
+  adtype | dtype | 输入数据类型
 
   **示例**：
 
@@ -660,13 +660,13 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**get_names_flat**(*adtype*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L149-L181)
 
-  Returns the field names of the input datatype as a tuple. Nested structure are flattened beforehand.
+  以元组的形式返回输入数据类型的字段名称。嵌套结构预先展平。
 
   **参数表**：
   
   参数名 | 数据类型 | 描述
   ---|---|---
-  adtype | dtype | Input datatype
+  adtype | dtype | 输入数据类型
 
   **示例**：
 
@@ -687,24 +687,24 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**join_by**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*, *usemask=True*, *asrecarray=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1377-L1554)
 
-  Join arrays *r1* and *r2* on key *key*.
+  在键（*key*）上加入数组 *r1* 和 *r2*。
 
-  The key should be either a string or a sequence of string corresponding to the fields used to join the array.  An exception is raised if the *key* field cannot be found in the two input arrays.  Neither *r1* nor *r2* should have any duplicates along *key*: the presence of duplicates will make the output quite unreliable. Note that duplicates are not looked for by the algorithm.
+  键应该是字符串或与用于连接数组的字段相对应的字符串序列。如果在两个输入数组中找不到*键*字段，则会引发异常。*r1* 和 *r2* 都不应该有任何沿着 *键* 的重复项：重复项的存在将使输出相当不可靠。请注意，算法不会查找重复项。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  key | {string, sequence} | A string or a sequence of strings corresponding to the fields used for comparison.
-  r1, r2 | arrays | Structured arrays.
-  jointype | {‘inner’, ‘outer’, ‘leftouter’}, optional | If ‘inner’, returns the elements common to both r1 and r2. If ‘outer’, returns the common elements as well as the elements of r1 not in r2 and the elements of not in r2. If ‘leftouter’, returns the common elements and the elements of r1 not in r2.
-  r1postfix | string, optional | String appended to the names of the fields of r1 that are present in r2 but absent of the key.
-  r2postfix | string, optional | String appended to the names of the fields of r2 that are present in r1 but absent of the key.
-  defaults | {dictionary}, optional | Dictionary mapping field names to the corresponding default values.
-  usemask | {True, False}, optional | Whether to return a MaskedArray (or MaskedRecords is asrecarray==True) or a ndarray.
-  asrecarray | {False, True}, optional | Whether to return a recarray (or MaskedRecords if usemask==True) or just a flexible-type ndarray.
+  key | {string, sequence} | 与用于比较的字段相对应的字符串或字符串序列。
+  r1, r2 | arrays | 结构化数组。
+  jointype | {‘inner’, ‘outer’, ‘leftouter’}, optional | 如果是'inner'，则返回r1和r2共有的元素。 如果是'outer'，则返回公共元素以及不在r2中的r1元素和不在r2中的元素。 如果是'leftouter'，则返回r1中的公共元素和r1的元素。
+  r1postfix | string, optional | 附加到r1的字段名称的字符串，这些字段存在于r2中但没有键。
+  r2postfix | string, optional | 附加到r1字段名称的字符串，这些字段存在于r1中但没有键。
+  defaults | {dictionary}, optional | 字典将字段名称映射到相应的默认值。
+  usemask | {True, False}, optional | 是否返回MaskedArray（或MaskedRecords是asrecarray == True）或ndarray。
+  asrecarray | {False, True}, optional | 是否返回重新排列（如果usemask == True则返回MaskedRecords）或仅返回灵活类型的ndarray。
 
-  ::: tip Notes
+  ::: tip 提示
 
   - The output is sorted along the key.
   - A temporary array is formed by dropping the fields not in the key for
@@ -717,19 +717,19 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**merge_arrays**(*seqarrays*, *fill_value=-1*, *flatten=False*, *usemask=False*, *asrecarray=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L383-L516)
 
-  Merge arrays field by field.
+  按字段合并数组。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  seqarrays | sequence of ndarrays | Sequence of arrays
-  fill_value | {float}, optional | Filling value used to pad missing data on the shorter arrays.
-  flatten | {False, True}, optional | Whether to collapse nested fields.
-  usemask | {False, True}, optional | Whether to return a masked array or not.
-  asrecarray | {False, True}, optional | Whether to return a recarray (MaskedRecords) or not.
+  seqarrays | sequence of ndarrays | 数组序列
+  fill_value | {float}, optional | 填充值用于填充较短的数组上的缺失数据。
+  flatten | {False, True}, optional | 是否折叠嵌套字段。
+  usemask | {False, True}, optional | 是否返回掩码数组。
+  asrecarray | {False, True}, optional |是否返回重新排列（MaskedRecords）。
 
-  ::: tip Notes
+  ::: tip 提示
 
   - Without a mask, the missing value will be filled with something, depending on what its corresponding type:
     - ``-1``      for integers

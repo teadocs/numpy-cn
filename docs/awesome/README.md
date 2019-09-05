@@ -23,21 +23,11 @@ sidebar: auto
 ## 精选文章
 
 <awesome :data="[
-  {
-    tag: '知乎',
-    name: 'pandas 练习题大全',
-    href: 'https://zhuanlan.zhihu.com/p/69371799'
-  }
 ]"></awesome>
 
 ## 视频教程
 
 <awesome :data="[
-  {
-    tag: 'bilibili',
-    name: 'numpy & pandas (莫烦 python 数据处理教程)',
-    href: 'https://www.bilibili.com/video/av16378934?from=search&seid=15880205862713615709'
-  }
 ]"></awesome>
 
 ## 推荐书籍
@@ -45,9 +35,4 @@ sidebar: auto
 这里给出学习版下载地址，有条件者，还请支持正版。
 
 <awesome :data="[
-  {
-    tag: '百度网盘',
-    name: '《利用Python进行数据分析(第二版)》高清中文版PDF+高清英文版PDF',
-    href: 'https://pan.baidu.com/s/1K3DjJ9S1S3AxpacEElNF9Q'
-  }
 ]"></awesome>
