@@ -769,27 +769,27 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**rec_append_fields**(*base*, *names*, *data*, *dtypes=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L751-L783)
 
-  Add new fields to an existing array.
+  向现有数组添加新字段。
 
-  The names of the fields are given with the *names* arguments, the corresponding values with the *data* arguments. If a single field is appended, *names*, *data* and *dtypes* do not have to be lists but just values.
+  字段的名称使用 *names* 参数给出，相应的值使用 *data* 参数。如果追加单个字段，则 *names*、*data* 和 *dtypes* 不必是列表，值就行。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  base | array | Input array to extend.
-  names | string, sequence | String or sequence of strings corresponding to the names of the new fields.
-  data | array or sequence of arrays | Array or sequence of arrays storing the fields to add to the base.
-  dtypes | sequence of datatypes, optional | Datatype or sequence of datatypes. If None, the datatypes are estimated from the data.
+  base | array | 要扩展的输入数组。
+  names | string, sequence | 与新字段名称对应的字符串或字符串序列。
+  data | array or sequence of arrays | 存储要添加到基础的字段的数组或数组序列。
+  dtypes | sequence of datatypes, optional | 数据类型或数据类型序列。 如果为None，则根据数据估计数据类型。
 
 
   **返回值**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  appended_array | np.recarray | 
+  appended_array | np.recarray | 略
 
-  ::: tip See also
+  ::: tip 另见
 
   [``append_fields``](#numpy.lib.recfunctions.append_fields)
 
@@ -797,13 +797,13 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**rec_drop_fields**(*base*, *drop_names*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L615-L620)
 
-  Returns a new numpy.recarray with fields in *drop_names* dropped.
+  返回一个新的 numpy.recarray，其中 *drop_names* 中的字段已删除。
 
 - numpy.lib.recfunctions.**rec_join**(*key*, *r1*, *r2*, *jointype='inner'*, *r1postfix='1'*, *r2postfix='2'*, *defaults=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1563-L1576)
 
-  Join arrays *r1* and *r2* on keys. Alternative to join_by, that always returns a np.recarray.
+  在键上加入数组 *r1* 和 *r2*。join_by的替代方法，它总是返回一个 np.recarray。
 
-  ::: tip See also
+  ::: tip 另见
   
   [``join_by``](#numpy.lib.recfunctions.join_by)
 
@@ -811,18 +811,19 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**recursive_fill_fields**(*input*, *output*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L43-L79)
 
-  Fills fields from output with fields from input, with support for nested structures.
+  使用输入中的字段填充输出中的字段，并支持嵌套结构。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  input | ndarray | Input array.
-  output | ndarray | Output array.
+  input | ndarray | 输入的数组
+  output | ndarray | 输出的数组
 
-  ::: tip Notes
+  ::: tip 提示
 
-  - *output* should be at least the same size as *input*
+  - *输出*应至少与*输入*的大小相同
+
 
   :::
 
