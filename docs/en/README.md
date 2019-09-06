@@ -64,6 +64,8 @@ array([[1., 0., 0., 0.],
 
 ::: warning 提醒
 
+Change the world from **Python**.
+
 本网站推荐使用[Python3.x](https://www.python.org/downloads/)及以上版本。
 
 :::
