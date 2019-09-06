@@ -731,18 +731,18 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
   ::: tip 提示
 
-  - Without a mask, the missing value will be filled with something, depending on what its corresponding type:
-    - ``-1``      for integers
-    - ``-1.0``    for floating point numbers
-    - ``'-'``     for characters
-    - ``'-1'``    for strings
-    - ``True``    for boolean values
-    - ``-1``      for integers
-    - ``-1.0``    for floating point numbers
-    - ``'-'``     for characters
-    - ``'-1'``    for strings
-    - ``True``    for boolean values
-  - XXX: I just obtained these values empirically
+  - 如果没有掩码，将使用某些内容填充缺少的值，具体取决于其对应的类型：
+    - ``-1``      对于整数
+    - ``-1.0``    对于浮点数
+    - ``'-'``     对于字符
+    - ``'-1'``    对于字符串
+    - ``True``    对于布尔值
+    - ``-1``      对于整数
+    - ``-1.0``    对于浮点数
+    - ``'-'``     对于字符
+    - ``'-1'``    对于字符串
+    - ``True``    对于布尔值
+  - XXX: 我只是凭经验获得这些值
 
   :::
 
@@ -839,16 +839,16 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**rename_fields**(*base*, *namemapper*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L627-L664)
 
-  Rename the fields from a flexible-datatype ndarray or recarray.
+  重命名来自灵活数据类型 ndarray 或 recarray 的字段。
 
-  Nested fields are supported.
+  支持嵌套字段。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  base | ndarray | Input array whose fields must be modified.
-  namemapper | dictionary | Dictionary mapping old field names to their new version.
+  base | ndarray | 必须修改其字段的输入数组。
+  namemapper | dictionary | 将旧字段名映射到新版本的字典对象。
 
   **示例**：
 
@@ -863,37 +863,29 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**repack_fields**(*a*, *align=False*, *recurse=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L790-L869)
 
-  Re-pack the fields of a structured array or dtype in memory.
+  在内存中重新打包结构化数组或dtype的字段。
 
-  The memory layout of structured datatypes allows fields at arbitrary
-  byte offsets. This means the fields can be separated by padding bytes,
-  their offsets can be non-monotonically increasing, and they can overlap.
+  结构化数据类型的内存布局允许任意字节偏移的字段。这意味着字段可以通过填充字节来分隔，它们的偏移量可以是非单调增加的，并且它们可以重叠。
 
-  This method removes any overlaps and reorders the fields in memory so they
-  have increasing byte offsets, and adds or removes padding bytes depending
-  on the *align* option, which behaves like the *align* option to ``np.dtype``.
+  此方法删除所有重叠并重新排序内存中的字段，使它们具有增加的字节偏移量，并根据 *align* 选项添加或删除填充字节，该选项的行为类似于 ``np.dtype`` 的 *align* 选项。
 
-  If *align=False*, this method produces a “packed” memory layout in which
-  each field starts at the byte the previous field ended, and any padding
-  bytes are removed.
+  如果 *align=False*，则此方法生成“压缩”内存布局，其中每个字段从前一个字段结束的字节开始，并删除所有填充字节。
 
-  If *align=True*, this methods produces an “aligned” memory layout in which
-  each field’s offset is a multiple of its alignment, and the total itemsize
-  is a multiple of the largest alignment, by adding padding bytes as needed.
+  如果 *align=True*，则此方法通过根据需要添加填充字节来生成 “对齐” 内存布局，其中每个字段的偏移量是其对齐方式的倍数，而总项目大小是最大对齐方式的倍数。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  a | ndarray or dtype | array or dtype for which to repack the fields.
-  align | boolean | If true, use an “aligned” memory layout, otherwise use a “packed” layout.
-  recurse | boolean | If True, also repack nested structures.
+  a | ndarray or dtype | 要重新打包字段的数组或数据类型。
+  align | boolean | 如果为真，则使用“对齐”内存布局，否则使用“打包”布局。
+  recurse | boolean | 如果为True，还会重新打包嵌套结构。
 
   **返回值**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  repacked | ndarray or dtype | Copy of a with fields repacked, or a itself if no repacking was needed.
+  repacked | ndarray or dtype | 带字段重新打包的副本，如果不需要重新打包，则副本本身。
 
   **示例**：
 
@@ -919,28 +911,24 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**require_fields**(*array*, *required_dtype*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L1171-L1212)
 
-  Casts a structured array to a new dtype using assignment by field-name.
+  使用字段名赋值将结构化数组强制转换为新的dtype。
 
-  This function assigns from the old to the new array by name, so the
-  value of a field in the output array is the value of the field with the
-  same name in the source array. This has the effect of creating a new
-  ndarray containing only the fields “required” by the required_dtype.
+  此函数按名称从旧数组分配到新数组，因此输出数组中字段的值是源数组中具有相同名称的字段的值。这具有创建新的ndarray的效果，该ndarray仅包含Required_dtype“必需”的字段。
 
-  If a field name in the required_dtype does not exist in the
-  input array, that field is created and set to 0 in the output array.
+  如果在输入数组中不存在Required_dtype中的字段名称，则会在输出数组中创建该字段并将其设置为0。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  a | ndarray | array to cast
-  required_dtype | dtype | datatype for output array
+  a | ndarray | 要强制转换的数组
+  required_dtype | dtype | 输出数组的数据类型
 
   **Returns**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  out | ndarray | array with the new dtype, with field values copied from the fields in the input array with the same name
+  out | ndarray | 具有新dtype的数组，具有从具有相同名称的输入数组中的字段复制的字段值
 
   **示例**：
 
@@ -963,11 +951,11 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  arrays | array or sequence | Sequence of input arrays.
-  defaults | dictionary, optional | Dictionary mapping field names to the corresponding default values.
-  usemask | {True, False}, optional | Whether to return a MaskedArray (or MaskedRecords is asrecarray==True) or a ndarray.
-  asrecarray | {False, True}, optional | Whether to return a recarray (or MaskedRecords if usemask==True) or just a flexible-type ndarray.
-  autoconvert | {False, True}, optional | Whether automatically cast the type of the field to the maximum.
+  arrays | array or sequence | 输入数组序列。
+  defaults | dictionary, optional | 字典将字段名称映射到相应的默认值。
+  usemask | {True, False}, optional | 是否返回MaskedArray(或MaskedRecords为asrecarray=True)或ndarray。
+  asrecarray | {False, True}, optional | 是返回一个recarray(如果usemask=True则返回MaskedRecords)，还是只返回一个灵活类型的ndarray。
+  autoconvert | {False, True}, optional | 是否自动将字段类型强制转换为最大值。
 
   **示例**：
 
@@ -992,24 +980,20 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**structured_to_unstructured**(*arr*, *dtype=None*, *copy=False*, *casting='unsafe'*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L894-L977)
 
-  Converts and n-D structured array into an (n+1)-D unstructured array.
+  将和n-D结构化数组转换为(n+1)-D非结构化数组。
 
-  The new array will have a new last dimension equal in size to the
-  number of field-elements of the input array. If not supplied, the output
-  datatype is determined from the numpy type promotion rules applied to all
-  the field datatypes.
+  新的数组将具有新的最后一个维度，其大小等于输入数组的字段元素的数量。如果未提供，则根据应用于所有字段数据类型的numpy类型提升规则确定输出数据类型。
 
-  Nested fields, as well as each element of any subarray fields, all count
-  as a single field-elements.
+  嵌套字段以及任何子数组字段的每个元素都算作单个字段元素。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  arr | ndarray | Structured array or dtype to convert. Cannot contain object datatype.
-  dtype | dtype, optional | The dtype of the output unstructured array.
-  copy | bool, optional | See copy argument to ndarray.astype. If true, always return a copy. If false, and dtype requirements are satisfied, a view is returned.
-  casting | {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional | See casting argument of ndarray.astype. Controls what kind of data casting may occur.
+  arr | ndarray | 要转换的结构化数组或数据类型。不能包含对象数据类型。
+  dtype | dtype, optional | 输出非结构化数组的数据类型。
+  copy | bool, optional | 请参见将参数复制到ndarray.astype。如果为true，则始终返回副本。如果为false，并且满足dtype要求，则返回视图。
+  casting | {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional | 请参见转换ndarray.astype的参数。控制可能发生的数据转换类型。
 
   **返回值**：
 
@@ -1042,27 +1026,22 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
 - numpy.lib.recfunctions.**unstructured_to_structured**(*arr*, *dtype=None*, *names=None*, *align=False*, *copy=False*, *casting='unsafe'*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/recfunctions.py#L984-L1079)
 
-  Converts and n-D unstructured array into an (n-1)-D structured array.
+  将n-D非结构化数组转换为(n-1)-D结构化数组。
 
-  The last dimension of the input array is converted into a structure, with
-  number of field-elements equal to the size of the last dimension of the
-  input array. By default all output fields have the input array’s dtype, but
-  an output structured dtype with an equal number of fields-elements can be
-  supplied instead.
+  输入数组的最后一维被转换为结构，字段元素的数量等于输入数组的最后一维的大小。默认情况下，所有输出字段都具有输入数组的dtype，但是可以提供具有相等数量的field-element的输出结构化dtype。
 
-  Nested fields, as well as each element of any subarray fields, all count
-  towards the number of field-elements.
+  嵌套字段以及任何子数组字段的每个元素都计入字段元素的数量。
 
   **参数表**：
 
   参数名 | 数据类型 | 描述
   ---|---|---
-  arr | ndarray | Unstructured array or dtype to convert.
-  dtype | dtype, optional | The structured dtype of the output array
-  names | list of strings, optional | If dtype is not supplied, this specifies the field names for the output dtype, in order. The field dtypes will be the same as the input array.
-  align | boolean, optional | Whether to create an aligned memory layout.
-  copy | bool, optional | See copy argument to ndarray.astype. If true, always return a copy. If false, and dtype requirements are satisfied, a view is returned.
-  casting | {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional | See casting argument of ndarray.astype. Controls what kind of data casting may occur.
+  arr | ndarray | 要转换的非结构化数组或数据类型。
+  dtype | dtype, optional | 输出数组的结构化数据类型。
+  names | list of strings, optional | 如果未提供dtype，则按顺序指定输出dtype的字段名称。字段dtype将与输入数组相同。
+  align | boolean, optional | 是否创建对齐的内存布局。
+  copy | bool, optional | 请参见将参数复制到ndarray.astype。如果为true，则始终返回副本。如果为false，并且满足dtype要求，则返回视图。
+  casting | {‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional | 请参见转换ndarray.astype的参数。控制可能发生的数据转换类型。
 
   **返回值**：
 

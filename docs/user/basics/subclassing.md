@@ -1,38 +1,26 @@
-# Subclassing ndarray
+# 子类化ndarray 
 
-## Introduction
+## 介绍
 
-Subclassing ndarray is relatively simple, but it has some complications
-compared to other Python objects.  On this page we explain the machinery
-that allows you to subclass ndarray, and the implications for
-implementing a subclass.
+子类化ndarray相对简单，但与其他Python对象相比，它有一些复杂性。在这个页面上，我们解释了允许你子类化ndarray的机制，以及实现子类的含义。
 
-### ndarrays and object creation
+### ndarrays和对象创建
 
-Subclassing ndarray is complicated by the fact that new instances of
-ndarray classes can come about in three different ways.  These are:
+ndarray的子​​类化很复杂，因为ndarray类的新实例可以以三种不同的方式出现。这些是：
 
-1. Explicit constructor call - as in ``MySubClass(params)``.  This is
-the usual route to Python instance creation.
-1. View casting - casting an existing ndarray as a given subclass
-1. New from template - creating a new instance from a template
-instance. Examples include returning slices from a subclassed array,
-creating return types from ufuncs, and copying arrays.  See
-[Creating new from template](#new-from-template) for more details
+1. 显式构造函数调用 - 如 ``MySubClass(params)``。这是Python实例创建的常用途径。
+1. 查看转换 - 将现有的ndarray转换为给定的子类
+1. 模板中的新内容 - 从模板实例创建新实例。示例包括从子类化数组返回切片，从ufuncs创建返回类型以及复制数组。有关更多详细信息，请参阅
+ [从模板创建新](#new-from-template)
 
-The last two are characteristics of ndarrays - in order to support
-things like array slicing.  The complications of subclassing ndarray are
-due to the mechanisms numpy has to support these latter two routes of
-instance creation.
+最后两个是ndarrays的特性 - 为了支持数组切片之类的东西。子类化ndarray的复杂性是由于numpy必须支持后两种实例创建路径的机制。
 
-## View casting
+## 视图投影
 
-*View casting* is the standard ndarray mechanism by which you take an
-ndarray of any subclass, and return a view of the array as another
-(specified) subclass:
+*视图投影* 是标准的ndarray机制，通过它您可以获取任何子类的ndarray，并将该数组的视图作为另一个（指定的）子类返回：
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> # create a completely useless ndarray subclass
 >>> class C(np.ndarray): pass
 >>> # create a standard ndarray
@@ -43,102 +31,75 @@ ndarray of any subclass, and return a view of the array as another
 <class 'C'>
 ```
 
-## Creating new from template
+## 从模板创建
 
-New instances of an ndarray subclass can also come about by a very
-similar mechanism to [View casting](#view-casting), when numpy finds it needs to
-create a new instance from a template instance.  The most obvious place
-this has to happen is when you are taking slices of subclassed arrays.
-For example:
+当numpy发现它需要从模板实例创建新实例时，ndarray子类的新实例也可以通过与[视图投影](#view-casting)非常相似的机制来实现。这个情况的最明显的时候是你正为子类阵列切片的时候。例如：
 
 ``` python
->>> v = c_arr[1:]
+>>>>>> v = c_arr[1:]
 >>> type(v) # the view is of type 'C'
 <class 'C'>
 >>> v is c_arr # but it's a new instance
 False
 ```
 
-The slice is a *view* onto the original ``c_arr`` data.  So, when we
-take a view from the ndarray, we return a new ndarray, of the same
-class, that points to the data in the original.
+切片是原始 ``c_arr`` 数据的 *视图* 。因此，当我们从ndarray中获取视图时，我们返回一个同一类的新ndarray，它指向原始数据。
 
-There are other points in the use of ndarrays where we need such views,
-such as copying arrays (``c_arr.copy()``), creating ufunc output arrays
-(see also [__array_wrap__ for ufuncs and other functions](#array-wrap)), and reducing methods (like
-``c_arr.mean()``.
+在使用ndarrays时还有其它要点，我们需要这样的视图，例如复制数组（``c_arr.copy()``），创建ufunc输出数组（参见[__array_wrap__用于ufuncs和其他函数](#array-wrap)），以及减少方法（如
+ ``c_arr.mean()``。
 
-## Relationship of view casting and new-from-template
+## 视图投影与从模板创建的关系
 
-These paths both use the same machinery.  We make the distinction here,
-because they result in different input to your methods.  Specifically,
-[View casting](#view-casting) means you have created a new instance of your array
-type from any potential subclass of ndarray.  [Creating new from template](#new-from-template)
-means you have created a new instance of your class from a pre-existing
-instance, allowing you - for example - to copy across attributes that
-are particular to your subclass.
+这些路径都使用相同的机器。我们在这里进行区分，因为它们会为您的方法带来不同的输入。具体来说，
+[视图投影](#view-casting)意味着您已从ndarray的任何潜在子类创建了数组类型的新实例。 [从模板创建](#new-from-template) 
+意味着您已从预先存在的实例创建了类的新实例，例如，允许您跨特定于您的子类的属性进行复制。
 
-## Implications for subclassing
+## 子类化的含义
 
-If we subclass ndarray, we need to deal not only with explicit
-construction of our array type, but also [View casting](#view-casting) or
-[Creating new from template](#new-from-template).  NumPy has the machinery to do this, and this
-machinery that makes subclassing slightly non-standard.
+如果我们将 ndarray 子类化，我们不仅需要处理数组类型的显式构造，还需要处理[视图投影](#view-casting)或
+[从模板创建](#new-from-template)。NumPy有这样的机制，这种机制使子类化略微不标准。
 
-There are two aspects to the machinery that ndarray uses to support
-views and new-from-template in subclasses.
+ndarray用于支持视图和子类中的new-from-template的机制有两个方面。
 
-The first is the use of the ``ndarray.__new__`` method for the main work
-of object initialization, rather then the more usual ``__init__``
-method.  The second is the use of the ``__array_finalize__`` method to
-allow subclasses to clean up after the creation of views and new
-instances from templates.
+第一种是使用该``ndarray.__new__``方法进行对象初始化的主要工作，而不是更常用的``__init__``
+方法。第二个是使用该``__array_finalize__``方法在模板创建视图和新实例后允许子类清理。
 
-### A brief Python primer on ``__new__`` and ``__init__``
+### 一个简短的Python入门``__new__``和``__init__``
 
-``__new__`` is a standard Python method, and, if present, is called
-before ``__init__`` when we create a class instance. See the [python
-__new__ documentation](https://docs.python.org/reference/datamodel.html#object.__new__) for more detail.
+``__new__``是一个标准的Python方法，如果存在，``__init__``在我们创建类实例之前调用它。有关更多详细信息，请参阅[python __new__ 文档](https://docs.python.org/reference/datamodel.html#object.__new__)。
 
-For example, consider the following Python code:
+例如，请考虑以下Python代码：
 
 ``` python
 class C(object):
     def __new__(cls, *args):
         print('Cls in __new__:', cls)
         print('Args in __new__:', args)
-        return object.__new__(cls, *args)
+        # The `object` type __new__ method takes a single argument.
+        return object.__new__(cls)
 
     def __init__(self, *args):
         print('type(self) in __init__:', type(self))
         print('Args in __init__:', args)
 ```
 
-meaning that we get:
+它的意思是我们将会得到：
 
 ``` python
->>> c = C('hello')
+>>>>>> c = C('hello')
 Cls in __new__: <class 'C'>
 Args in __new__: ('hello',)
 type(self) in __init__: <class 'C'>
 Args in __init__: ('hello',)
 ```
 
-When we call ``C('hello')``, the ``__new__`` method gets its own class
-as first argument, and the passed argument, which is the string
-``'hello'``.  After python calls ``__new__``, it usually (see below)
-calls our ``__init__`` method, with the output of ``__new__`` as the
-first argument (now a class instance), and the passed arguments
-following.
+当我们调用时``C('hello')``，该``__new__``方法获得自己的类作为第一个参数，并传递参数，即字符串
+ ``'hello'``。在python调用之后``__new__``，它通常（见下文）调用我​​们的``__init__``方法，输出``__new__``为第一个参数（现在是一个类实例），以及后面传递的参数。
 
-As you can see, the object can be initialized in the ``__new__``
-method or the ``__init__`` method, or both, and in fact ndarray does
-not have an ``__init__`` method, because all the initialization is
-done in the ``__new__`` method.
+如您所见，对象可以在``__new__``
+方法或``__init__``方法中初始化，或者两者兼而有之，实际上ndarray没有``__init__``方法，因为所有初始化都是在``__new__``方法中完成的。
 
-Why use ``__new__`` rather than just the usual ``__init__``?  Because
-in some cases, as for ndarray, we want to be able to return an object
-of some other class.  Consider the following:
+为什么要使用``__new__``而不仅仅是平常``__init__``？因为在某些情况下，对于ndarray，我们希望能够返回其他类的对象。考虑以下：
 
 ``` python
 class D(C):
@@ -152,10 +113,10 @@ class D(C):
         print('In D __init__')
 ```
 
-meaning that:
+意思是：
 
 ``` python
->>> obj = D('hello')
+>>>>>> obj = D('hello')
 D cls is: <class 'D'>
 D args in __new__: ('hello',)
 Cls in __new__: <class 'C'>
@@ -164,66 +125,46 @@ Args in __new__: ('hello',)
 <class 'C'>
 ```
 
-The definition of ``C`` is the same as before, but for ``D``, the
-``__new__`` method returns an instance of class ``C`` rather than
-``D``.  Note that the ``__init__`` method of ``D`` does not get
-called.  In general, when the ``__new__`` method returns an object of
-class other than the class in which it is defined, the ``__init__``
-method of that class is not called.
+定义``C``与之前相同，但是，对于``D``，该
+ ``__new__``方法返回类的实例``C``而不是
+ ``D``。请注意，该``__init__``方法``D``不会被调用。通常，当``__new__``方法返回类的对象而不是定义``__init__``
+它的类时，不调用该类的方法。
 
-This is how subclasses of the ndarray class are able to return views
-that preserve the class type.  When taking a view, the standard
-ndarray machinery creates the new ndarray object with something
-like:
+这就是ndarray类的子类如何能够返回保留类类型的视图。在进行视图时，标准的ndarray机器会创建新的ndarray对象，例如：
 
 ``` python
 obj = ndarray.__new__(subtype, shape, ...
 ```
 
-where ``subdtype`` is the subclass.  Thus the returned view is of the
-same class as the subclass, rather than being of class ``ndarray``.
+``subdtype``子类在哪里。因此，返回的视图与子类属于同一类，而不是类``ndarray``。
 
-That solves the problem of returning views of the same type, but now
-we have a new problem.  The machinery of ndarray can set the class
-this way, in its standard methods for taking views, but the ndarray
-``__new__`` method knows nothing of what we have done in our own
-``__new__`` method in order to set attributes, and so on.  (Aside -
-why not call ``obj = subdtype.__new__(...`` then?  Because we may not
-have a ``__new__`` method with the same call signature).
+这解决了返回相同类型的视图的问题，但是现在我们遇到了一个新的问题。
+ndarray的机器可以这种方式设置类，在其获取视图的标准方法中，
+但是 ndarray__new__ 方法不知道我们在自己的 ``__new__`` 方法中为了设置属性而做了什么，等等。
+(旁白：为什么不调用 ``obj = subdtype.__new__(...````__new__`` 什么的?。回答：因为我们可能没有具有相同调用签名的 ``_new_`` 方法)。
 
-### The role of ``__array_finalize__``
+### ``__array_finalize__`` 的作用
 
-``__array_finalize__`` is the mechanism that numpy provides to allow
-subclasses to handle the various ways that new instances get created.
+``__array_finalize__`` 是numpy提供的机制，允许子类处理创建新实例的各种方法。
 
-Remember that subclass instances can come about in these three ways:
+请记住，子类实例可以通过以下三种方式实现：
 
-1. explicit constructor call (``obj = MySubClass(params)``).  This will
-call the usual sequence of ``MySubClass.__new__`` then (if it exists)
-``MySubClass.__init__``.
-1. [View casting](#view-casting)
-1. [Creating new from template](#new-from-template)
+1. 显式的调用构造函数（``obj = MySubClass（params）``）。 这将调用 ``MySubClass.__ new__`` 的常用序列，然后（如果存在）``MySubClass.__init__``。
+1. [视图投影](#view-casting)
+1. [从模板创建](#new-from-template)
 
-Our ``MySubClass.__new__`` method only gets called in the case of the
-explicit constructor call, so we can’t rely on ``MySubClass.__new__`` or
-``MySubClass.__init__`` to deal with the view casting and
-new-from-template.  It turns out that ``MySubClass.__array_finalize__``
-*does* get called for all three methods of object creation, so this is
-where our object creation housekeeping usually goes.
+我们的 ``MySubClass.__new__`` 方法只在显式构造函数调用的情况下被调用，
+所以我们不能依赖 ``MySubClass.__new__`` 或 ``MySubClass.__init__`` 来处理视图转换和new-from-template。事实证明，
+``MySubClass.__array_finalize__`` 确实为对象创建的所有三种方法都被调用，所以这是我们的对象创建内务通常去的地方。
 
-- For the explicit constructor call, our subclass will need to create a
-new ndarray instance of its own class.  In practice this means that
-we, the authors of the code, will need to make a call to
-``ndarray.__new__(MySubClass,...)``, a class-hierarchy prepared call to
-``super(MySubClass, cls).__new__(cls, ...)``, or do view casting of an
-existing array (see below)
-- For view casting and new-from-template, the equivalent of
-``ndarray.__new__(MySubClass,...`` is called, at the C level.
+- 对于显式构造函数调用，我们的子类需要创建自己的类的新ndarray实例。
+在实践中，这意味着我们作为代码的作者将需要调用 ``ndarray.__new__(MySubClass,...)``, 一个类层次结构调用 ``super(MySubClass, cls).__new__(cls, ...)`` ，
+或者查看现有数组的转换（见下文）
+- 对于视图转换和new-from-template ``ndarray.__new__(MySubClass,...``，在C级别调用等效项。
 
-The arguments that ``__array_finalize__`` receives differ for the three
-methods of instance creation above.
+对于上述三种实例创建方法，``__array_finalize__`` 接收的参数不同。
 
-The following code allows us to look at the call sequences and arguments:
+以下代码允许我们查看调用序列和参数：
 
 ``` python
 import numpy as np
@@ -244,10 +185,10 @@ class C(np.ndarray):
         print('   obj type is %s' % type(obj))
 ```
 
-Now:
+现在：
 
 ``` python
->>> # Explicit constructor
+>>>>>> # Explicit constructor
 >>> c = C((10,))
 In __new__ with class <class 'C'>
 In array_finalize:
@@ -267,32 +208,25 @@ In array_finalize:
    obj type is <class 'C'>
 ```
 
-The signature of ``__array_finalize__`` is:
+签名``__array_finalize__``是：
 
 ``` python
 def __array_finalize__(self, obj):
 ```
 
-One sees that the ``super`` call, which goes to
-``ndarray.__new__``, passes ``__array_finalize__`` the new object, of our
-own class (``self``) as well as the object from which the view has been
-taken (``obj``).  As you can see from the output above, the ``self`` is
-always a newly created instance of our subclass, and the type of ``obj``
-differs for the three instance creation methods:
+可以看到进行的``super``调用
+ ``ndarray.__new__``传递``__array_finalize__``了我们自己的class（``self``）的新对象以及从中获取视图的对象（``obj``）。从上面的输出可以看出，``self``它总是一个新创建的子类实例，并且``obj``
+三种实例创建方法的类型不同：
 
-- When called from the explicit constructor, ``obj`` is ``None``
-- When called from view casting, ``obj`` can be an instance of any
-subclass of ndarray, including our own.
-- When called in new-from-template, ``obj`` is another instance of our
-own subclass, that we might use to update the new ``self`` instance.
+- 从显式构造函数调用时，``obj``是``None``
+- 从视图转换中调用时，``obj``可以是ndarray的任何子类的实例，包括我们自己的子类。
+- 在new-from-template中调用时，``obj``是我们自己的子类的另一个实例，我们可能会用它来更新新``self``实例。
 
-Because ``__array_finalize__`` is the only method that always sees new
-instances being created, it is the sensible place to fill in instance
-defaults for new object attributes, among other tasks.
+因为``__array_finalize__``是唯一始终看到正在创建新实例的方法，所以在其他任务中填充新对象属性的实例默认值是合理的。
 
-This may be clearer with an example.
+通过一个例子，这可能更清楚。
 
-## Simple example - adding an extra attribute to ndarray
+## 简单示例 —— 向ndarray添加额外属性
 
 ``` python
 import numpy as np
@@ -341,10 +275,10 @@ class InfoArray(np.ndarray):
         # We do not need to return anything
 ```
 
-Using the object looks like this:
+使用该对象如下所示：
 
 ``` python
->>> obj = InfoArray(shape=(3,)) # explicit constructor
+>>>>>> obj = InfoArray(shape=(3,)) # explicit constructor
 >>> type(obj)
 <class 'InfoArray'>
 >>> obj.info is None
@@ -365,16 +299,11 @@ True
 True
 ```
 
-This class isn’t very useful, because it has the same constructor as the
-bare ndarray object, including passing in buffers and shapes and so on.
-We would probably prefer the constructor to be able to take an already
-formed ndarray from the usual numpy calls to ``np.array`` and return an
-object.
+这个类不是很有用，因为它与裸ndarray对象具有相同的构造函数，包括传入缓冲区和形状等等。我们可能更喜欢构造函数能够从通常的numpy调用中获取已经形成的ndarray ``np.array``并返回一个对象。
 
-## Slightly more realistic example - attribute added to existing array
+## 稍微更现实的例子 —— 添加到现有数组的属性
 
-Here is a class that takes a standard ndarray that already exists, casts
-as our type, and adds an extra attribute.
+这是一个类，它采用已经存在的标准ndarray，转换为我们的类型，并添加一个额外的属性。
 
 ``` python
 import numpy as np
@@ -396,10 +325,10 @@ class RealisticInfoArray(np.ndarray):
         self.info = getattr(obj, 'info', None)
 ```
 
-So:
+所以：
 
 ``` python
->>> arr = np.arange(5)
+>>>>>> arr = np.arange(5)
 >>> obj = RealisticInfoArray(arr, info='information')
 >>> type(obj)
 <class 'RealisticInfoArray'>
@@ -412,17 +341,14 @@ So:
 'information'
 ```
 
-## ``__array_ufunc__`` for ufuncs
+## ``__array_ufunc__`` 对于ufuncs 
 
-*New in version 1.13.* 
+*版本1.13中的新功能。* 
 
-A subclass can override what happens when executing numpy ufuncs on it by
-overriding the default ``ndarray.__array_ufunc__`` method. This method is
-executed *instead* of the ufunc and should return either the result of the
-operation, or [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented) if the operation requested is not
-implemented.
+子类可以覆盖在通过覆盖默认``ndarray.__array_ufunc__``方法对其执行numpy ufuncs时发生的情况。执行此方法 *而不是*  ufunc，并且应该返回操作的结果，
+或者[``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented)如果未执行所请求的操作。
 
-The signature of ``__array_ufunc__`` is:
+签名 ``__array_ufunc__`` 是：
 
 ``` python
 def __array_ufunc__(ufunc, method, *inputs, **kwargs):
@@ -438,12 +364,9 @@ def __array_ufunc__(ufunc, method, *inputs, **kwargs):
   contained in a tuple.
 ```
 
-A typical implementation would convert any inputs or outputs that are
-instances of one’s own class, pass everything on to a superclass using
-``super()``, and finally return the results after possible
-back-conversion. An example, taken from the test case
-``test_ufunc_override_with_super`` in ``core/tests/test_umath.py``, is the
-following.
+典型的实现将转换作为一个人自己的类的实例的任何输入或输出，使用所有内容传递给超类
+ ``super()``，并最终在可能的反向转换后返回结果。举例来说，来自测试案例采取
+ ``test_ufunc_override_with_super``在``core/tests/test_umath.py``，如下。
 
 ``` python
 input numpy as np
@@ -501,13 +424,10 @@ class A(np.ndarray):
         return results[0] if len(results) == 1 else results
 ```
 
-So, this class does not actually do anything interesting: it just
-converts any instances of its own to regular ndarray (otherwise, we’d
-get infinite recursion!), and adds an ``info`` dictionary that tells
-which inputs and outputs it converted. Hence, e.g.,
+所以，这个类实际上并没有做任何有趣的事情：它只是将它自己的任何实例转换为常规的ndarray（否则，我们将获得无限递归！），并添加一个``info``字典，告诉它转换了哪些输入和输出。因此，例如，
 
 ``` python
->>> a = np.arange(5.).view(A)
+>>>>>> a = np.arange(5.).view(A)
 >>> b = np.sin(a)
 >>> b.info
 {'inputs': [0]}
@@ -524,51 +444,33 @@ which inputs and outputs it converted. Hence, e.g.,
 {'inputs': [0, 1], 'outputs': [0]}
 ```
 
-Note that another approach would be to to use ``getattr(ufunc,
-methods)(*inputs, **kwargs)`` instead of the ``super`` call. For this example,
-the result would be identical, but there is a difference if another operand
-also defines ``__array_ufunc__``. E.g., lets assume that we evalulate
-``np.add(a, b)``, where ``b`` is an instance of another class ``B`` that has
-an override.  If you use ``super`` as in the example,
-``ndarray.__array_ufunc__`` will notice that ``b`` has an override, which
-means it cannot evaluate the result itself. Thus, it will return
-*NotImplemented* and so will our class ``A``. Then, control will be passed
-over to ``b``, which either knows how to deal with us and produces a result,
-or does not and returns *NotImplemented*, raising a ``TypeError``.
+请注意，另一种方法是使用 ``getattr(ufunc，method)(*input，*kwargs)`` 而不是 ``super`` call。
+对于本例，结果是相同的，但如果另一个操作数也定义了 ``__array_ufunc__`` ，则会有所不同。
+例如，假设我们评估 ``np.add(a，b)``，其中b是具有覆盖的另一个类B的实例。
+如果在示例中使用``super``，``ndarray.__array_ufunc__`` 会注意到b具有覆盖，这意味着它不能计算结果本身。
+因此，它将返回 *NotImplemented* ，我们的类A也将如此。
+然后，控制权将传递给 ``b``，``b`` 要么知道如何处理我们并产生结果，要么不知道并返回 *NotImplemented*，从而引发 ``TypeError``。
 
-If instead, we replace our ``super`` call with ``getattr(ufunc, method)``, we
-effectively do ``np.add(a.view(np.ndarray), b)``. Again, ``B.__array_ufunc__``
-will be called, but now it sees an ``ndarray`` as the other argument. Likely,
-it will know how to handle this, and return a new instance of the ``B`` class
-to us. Our example class is not set up to handle this, but it might well be
-the best approach if, e.g., one were to re-implement ``MaskedArray`` using
-``__array_ufunc__``.
+相反，如果我们用 ``getattr(ufunc，method)`` 替换 ``super`` call，我们将有效地执行 ``np.add(a.view(np.ndarray)，b)``。
+同样，将调用 ``B.__array_ufunc__``，但现在它将 ``ndarray`` 视为另一个参数。
+很可能，它将知道如何处理此问题，并将B类的新实例返回给我们。
+我们的示例类没有设置为处理此问题，但如果例如使用 ``__array_ufunc__`` 重新实现 ``MaskedArray``，这可能是最好的方法。
 
-As a final note: if the ``super`` route is suited to a given class, an
-advantage of using it is that it helps in constructing class hierarchies.
-E.g., suppose that our other class ``B`` also used the ``super`` in its
-``__array_ufunc__`` implementation, and we created a class ``C`` that depended
-on both, i.e., ``class C(A, B)`` (with, for simplicity, not another
-``__array_ufunc__`` override). Then any ufunc on an instance of ``C`` would
-pass on to ``A.__array_ufunc__``, the ``super`` call in ``A`` would go to
-``B.__array_ufunc__``, and the ``super`` call in ``B`` would go to
-``ndarray.__array_ufunc__``, thus allowing ``A`` and ``B`` to collaborate.
+最后要注意：如果 ``super`` 路由适合给定的类，使用它的一个优点是它有助于构造类层次结构。
+例如，假设我们的其他类B在其 ``__array_ufunc__`` 实现中也使用了 ``super``，
+并且我们创建了一个依赖于它们的类 ``C``，即 ``calss C(A, B)``（为简单起见，没有另一个 ``__array_ufunc__`` 覆盖）。 
+然后，C实例上的任何ufunc都将传递给 ``A.__ array_ufunc__``，
+``A`` 中的超级调用将转到 ``B.__ array_ufunc__``，
+而 B 中的 ``super`` call 将转到 ``ndarray.__array_ufunc__`` ，从而允许 ``A`` 和 ``B`` 协作。
 
-## ``__array_wrap__`` for ufuncs and other functions
+## ``__array_wrap__``用于ufuncs和其他函数
 
-Prior to numpy 1.13, the behaviour of ufuncs could only be tuned using
-``__array_wrap__`` and ``__array_prepare__``. These two allowed one to
-change the output type of a ufunc, but, in contrast to
-``__array_ufunc__``, did not allow one to make any changes to the inputs.
-It is hoped to eventually deprecate these, but ``__array_wrap__`` is also
-used by other numpy functions and methods, such as ``squeeze``, so at the
-present time is still needed for full functionality.
+在numpy 1.13之前，ufuncs的行为只能使用 ``__array_wrap__`` 和  ``__array_prepare__`` 来调优。
+这两个允许一个更改ufunc的输出类型，但与 ``__array_ufunc__`` 相反，不允许对输入进行任何更改。
+希望最终淘汰这些功能，但是其他 numpy 函数和方法也使用 ``__array_wrap__`` ，例如 ``squeeze``，因此目前仍然需要完整的功能。
 
-Conceptually, ``__array_wrap__`` “wraps up the action” in the sense of
-allowing a subclass to set the type of the return value and update
-attributes and metadata.  Let’s show how this works with an example.  First
-we return to the simpler example subclass, but with a different name and
-some print statements:
+从概念上讲，``__array_wrap__`` “包装动作” 的意义是允许子类设置返回值的类型并更新属性和元数据。
+让我们用一个例子来说明它是如何工作的。首先，我们返回到更简单的Example子类，但具有不同的名称和一些print语句：
 
 ``` python
 import numpy as np
@@ -595,10 +497,10 @@ class MySubClass(np.ndarray):
         return super(MySubClass, self).__array_wrap__(self, out_arr, context)
 ```
 
-We run a ufunc on an instance of our new array:
+我们在新数组的实例上运行ufunc：
 
 ``` python
->>> obj = MySubClass(np.arange(5), info='spam')
+>>>>>> obj = MySubClass(np.arange(5), info='spam')
 In __array_finalize__:
    self is MySubClass([0, 1, 2, 3, 4])
    obj is array([0, 1, 2, 3, 4])
@@ -616,14 +518,10 @@ MySubClass([1, 3, 5, 7, 9])
 'spam'
 ```
 
-Note that the ufunc (``np.add``) has called the ``__array_wrap__`` method
-with arguments ``self`` as ``obj``, and ``out_arr`` as the (ndarray) result
-of the addition.  In turn, the default ``__array_wrap__``
-(``ndarray.__array_wrap__``) has cast the result to class ``MySubClass``,
-and called ``__array_finalize__`` - hence the copying of the ``info``
-attribute.  This has all happened at the C level.
+注意，ufunc(``np.add``) 调用了 ``__array_WRAP__`` 方法，参数 ``self`` 作为 ``obj``，``out_arr``作为加法的(ndarray)结果。
+反过来，默认 ``__array_wrap__(ndarray._array_warp__)`` 已将结果强制转换为类 ``MySubClass``，并调用 ``__array_finalize__``  - 因此复制了info属性。这一切都发生在C级。
 
-But, we could do anything we wanted:
+但是，我们可以做任何我们想要的事情：
 
 ``` python
 class SillySubClass(np.ndarray):
@@ -633,7 +531,7 @@ class SillySubClass(np.ndarray):
 ```
 
 ``` python
->>> arr1 = np.arange(5)
+>>>>>> arr1 = np.arange(5)
 >>> obj = arr1.view(SillySubClass)
 >>> arr2 = np.arange(5)
 >>> ret = np.multiply(obj, arr2)
@@ -641,38 +539,27 @@ class SillySubClass(np.ndarray):
 'I lost your data'
 ```
 
-So, by defining a specific ``__array_wrap__`` method for our subclass,
-we can tweak the output from ufuncs. The ``__array_wrap__`` method
-requires ``self``, then an argument - which is the result of the ufunc -
-and an optional parameter *context*. This parameter is returned by
-ufuncs as a 3-element tuple: (name of the ufunc, arguments of the ufunc,
-domain of the ufunc), but is not set by other numpy functions. Though,
-as seen above, it is possible to do otherwise, ``__array_wrap__`` should
-return an instance of its containing class.  See the masked array
-subclass for an implementation.
+因此，通过``__array_wrap__``为我们的子类定义一个特定的方法，我们可以调整ufuncs的输出。
+该``__array_wrap__``方法需要``self``，然后是一个参数 - 这是ufunc的结果 - 和一个可选的参数 *上下文* 。
+ufuncs 将此参数作为 3 元素元组返回:( ufunc的名称，ufunc的参数，ufunc的域），
+但不是由其他numpy函数设置的。但是，如上所述，可以做其他事情，``__array_wrap__``应该返回其包含类的实例。
+请参阅 masked 数组子类以获取实现。
 
-In addition to ``__array_wrap__``, which is called on the way out of the
-ufunc, there is also an ``__array_prepare__`` method which is called on
-the way into the ufunc, after the output arrays are created but before any
-computation has been performed. The default implementation does nothing
-but pass through the array. ``__array_prepare__`` should not attempt to
-access the array data or resize the array, it is intended for setting the
-output array type, updating attributes and metadata, and performing any
-checks based on the input that may be desired before computation begins.
-Like ``__array_wrap__``, ``__array_prepare__`` must return an ndarray or
-subclass thereof or raise an error.
+除了 ``__array_wrap__`` 在ufunc 之外调用之外，
+还有一个 ``__array_prepare__`` 方法在创建输出数组之后但在执行任何计算之前调用ufunc。
+默认实现除了通过数组之外什么都不做。
+``__array_prepare__`` 不应尝试访问数组数据或调整数组大小，
+它用于设置输出数组类型，更新属性和元数据，以及根据计算开始之前可能需要的输入执行任何检查。
+比如``__array_wrap__``，``__array_prepare__``必须返回一个ndarray或其子类或引发错误。
 
-## Extra gotchas - custom ``__del__`` methods and ndarray.base
+## 额外的坑 —— 自定义的 ``__del__`` 方法和 ndarray.base 
 
-One of the problems that ndarray solves is keeping track of memory
-ownership of ndarrays and their views.  Consider the case where we have
-created an ndarray, ``arr`` and have taken a slice with ``v = arr[1:]``.
-The two objects are looking at the same memory.  NumPy keeps track of
-where the data came from for a particular array or view, with the
-``base`` attribute:
+ndarray解决的问题之一是跟踪ndarray的内存所有权及其视图。
+考虑这样的情况，我们已经创建了ndarray，``arr`` 并使用 ``v = arr[1:]``获取了一个切片。
+这两个对象看的是相同的内存。NumPy使用base属性跟踪特定数组或视图的数据来自何处：
 
 ``` python
->>> # A normal ndarray, that owns its own data
+>>>>>> # A normal ndarray, that owns its own data
 >>> arr = np.zeros((4,))
 >>> # In this case, base is None
 >>> arr.base is None
@@ -689,61 +576,47 @@ True
 True
 ```
 
-In general, if the array owns its own memory, as for ``arr`` in this
-case, then ``arr.base`` will be None - there are some exceptions to this
-- see the numpy book for more details.
+一般来说，如果数组拥有自己的内存，
+就像``arr``在这种情况下那样，
+那么``arr.base`` 将是None - 有一些例外 -—— 请参阅numpy书了解更多细节。
 
-The ``base`` attribute is useful in being able to tell whether we have
-a view or the original array.  This in turn can be useful if we need
-to know whether or not to do some specific cleanup when the subclassed
-array is deleted.  For example, we may only want to do the cleanup if
-the original array is deleted, but not the views.  For an example of
-how this can work, have a look at the ``memmap`` class in
-``numpy.core``.
+该``base``属性可用于判断我们是否有视图或原始数组。
+如果我们需要知道在删除子类数组时是否进行某些特定的清理，这反过来会很有用。
+例如，如果删除原始数组，我们可能只想进行清理，而不是视图。有关如何工作的示例，请查看 ``numpy.core`` 中的 ``memmap`` 类。
 
-## Subclassing and Downstream Compatibility
+## 子类和下游兼容性
 
-When sub-classing ``ndarray`` or creating duck-types that mimic the ``ndarray``
-interface, it is your responsibility to decide how aligned your APIs will be
-with those of numpy. For convenience, many numpy functions that have a corresponding
-``ndarray`` method (e.g., ``sum``, ``mean``, ``take``, ``reshape``) work by checking
-if the first argument to a function has a method of the same name. If it exists, the
-method is called instead of coercing the arguments to a numpy array.
+当子类化 ``ndarray`` 或创建模仿 ``ndarray`` 接口的 duck-types 时，
+您的任务是决定您的API与numpy的API将如何对齐。
+为方便起见，许多具有相应ndarray方法(例如，``sum``，``mean``，``take``，``reshape``)的Numpy函数通过检查函数的第一个参数是否具有同名的方法来工作。
+如果存在，则调用该方法，而不是将参数强制到numpy数组。
 
-For example, if you want your sub-class or duck-type to be compatible with
-numpy’s ``sum`` function, the method signature for this object’s ``sum`` method
-should be the following:
+例如，如果您希望子类或 duck-type 与 numpy 的 ``sum`` 函数兼容，则此对象``sum``方法的方法签名应如下所示：
 
 ``` python
 def sum(self, axis=None, dtype=None, out=None, keepdims=False):
 ...
 ```
 
-This is the exact same method signature for ``np.sum``, so now if a user calls
-``np.sum`` on this object, numpy will call the object’s own ``sum`` method and
-pass in these arguments enumerated above in the signature, and no errors will
-be raised because the signatures are completely compatible with each other.
+这是 ``np.sum`` 的完全相同的方法签名，
+所以现在如果用户在这个对象上调用 ``np.sum``，numpy 将调用该对象自己的 ``sum`` 方法，
+并在签名中传递上面枚举的这些参数，并且不会引发错误，因为签名彼此完全兼容。
 
-If, however, you decide to deviate from this signature and do something like this:
+但是，如果您决定偏离此签名并执行以下操作：
 
 ``` python
 def sum(self, axis=None, dtype=None):
 ...
 ```
 
-This object is no longer compatible with ``np.sum`` because if you call ``np.sum``,
-it will pass in unexpected arguments ``out`` and ``keepdims``, causing a TypeError
-to be raised.
+此对象不再兼容，``np.sum``因为如果调用``np.sum``，它将传递意外的参数，``out``并``keepdims``导致引发 TypeError。
 
-If you wish to maintain compatibility with numpy and its subsequent versions (which
-might add new keyword arguments) but do not want to surface all of numpy’s arguments,
-your function’s signature should accept ``**kwargs``. For example:
+如果你希望保持与 numpy 及其后续版本（可能添加新的关键字参数）的兼容性，
+但又不想显示所有numpy的参数，那么你的函数的签名应该接受``**kwargs``。例如：
 
 ``` python
 def sum(self, axis=None, dtype=None, **unused_kwargs):
 ...
 ```
 
-This object is now compatible with ``np.sum`` again because any extraneous arguments
-(i.e. keywords that are not ``axis`` or ``dtype``) will be hidden away in the
-``**unused_kwargs`` parameter.
+此对象现在再次与 ``np.sum`` 兼容，因为任何无关的参数（即不是 ``axis`` 或 ``dtype`` 的关键字）都将隐藏在 ``*unused_kwargs`` 参数中。
