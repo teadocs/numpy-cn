@@ -1,45 +1,26 @@
-# Writing your own ufunc
+# 编写您自己的ufunc 
 
 > I have the Power!
 > 
 > *— He-Man*
 
-## Creating a new universal function
+## 创建一个新的ufunc
 
-Before reading this, it may help to familiarize yourself with the basics
-of C extensions for Python by reading/skimming the tutorials in Section 1
-of [Extending and Embedding the Python Interpreter](https://docs.python.org/extending/index.html) and in [How to extend
-NumPy](c-info.how-to-extend.html)
+在阅读本文之前，通过阅读/略读[扩展和嵌入Python解释器的](https://docs.python.org/extending/index.html)第1部分中的教程以及[如何扩展NumPy](c-info.how-to-extend.html)，可以帮助您熟悉Python的C扩展基础知识。[](c-info.how-to-extend.html)
 
-The umath module is a computer-generated C-module that creates many
-ufuncs. It provides a great many examples of how to create a universal
-function. Creating your own ufunc that will make use of the ufunc
-machinery is not difficult either. Suppose you have a function that
-you want to operate element-by-element over its inputs. By creating a
-new ufunc you will obtain a function that handles
+umath模块是一个计算机生成的C模块，可以创建许多ufunc。它提供了许多如何创建通用函数的示例。使用ufunc机制创建自己的ufunc也不困难。假设您有一个函数，您想要在其输入上逐个元素地操作。通过创建一个新的ufunc，您将获得一个处理的函数
 
-- broadcasting
-- N-dimensional looping
-- automatic type-conversions with minimal memory usage
-- optional output arrays
+- 广播
+- N维循环
+- 自动类型转换，内存使用量最少
+- 可选的输出数组
 
-It is not difficult to create your own ufunc. All that is required is
-a 1-d loop for each data-type you want to support. Each 1-d loop must
-have a specific signature, and only ufuncs for fixed-size data-types
-can be used. The function call used to create a new ufunc to work on
-built-in data-types is given below. A different mechanism is used to
-register ufuncs for user-defined data-types.
+创建自己的ufunc并不困难。所需要的只是您想要支持的每种数据类型的1-d循环。每个1-d循环必须具有特定签名，并且只能使用固定大小数据类型的ufunc。下面给出了用于创建新的ufunc以处理内置数据类型的函数调用。使用不同的机制为用户定义的数据类型注册ufunc。
 
-In the next several sections we give example code that can be
-easily modified to create your own ufuncs. The examples are
-successively more complete or complicated versions of the logit
-function, a common function in statistical modeling. Logit is also
-interesting because, due to the magic of IEEE standards (specifically
-IEEE 754), all of the logit functions created below
-automatically have the following behavior.
+在接下来的几节中，我们提供了可以轻松修改的示例代码，以创建自己的ufunc。这些示例是logit函数的连续更完整或复杂版本，这是统计建模中的常见功能。Logit也很有趣，因为由于IEEE标准（特别是IEEE 754）的神奇之处，下面创建的所有logit函数都自动具有以下行为。
 
 ``` python
->>> logit(0)
+>>>>>> logit(0)
 -inf
 >>> logit(1)
 inf
@@ -49,18 +30,13 @@ nan
 nan
 ```
 
-This is wonderful because the function writer doesn’t have to
-manually propagate infs or nans.
+这很好，因为函数编写器不必手动传播infs或nans。
 
-## Example Non-ufunc extension
+## 示例非ufunc扩展名
 
-For comparison and general edification of the reader we provide
-a simple implementation of a C extension of logit that uses no
-numpy.
+为了比较和阅读器的一般启发，我们提供了一个简单的logit C扩展实现，它没有使用numpy。
 
-To do this we need two files. The first is the C file which contains
-the actual code, and the second is the setup.py file used to create
-the module.
+为此，我们需要两个文件。第一个是包含实际代码的C文件，第二个是用于创建模块的setup.py文件。
 
 ``` c
 #include <Python.h>
@@ -155,10 +131,7 @@ PyMODINIT_FUNC initspam(void)
 #endif
 ```
 
-To use the setup.py file, place setup.py and spammodule.c in the same
-folder. Then python setup.py build will build the module to import,
-or setup.py install will install the module to your site-packages
-directory.
+要使用setup.py文件，请将setup.py和spammodule.c放在同一文件夹中。然后python setup.py build将构建要导入的模块，或者setup.py install将模块安装到您的site-packages目录。
 
 ``` python
 '''
@@ -196,15 +169,10 @@ setup(name = 'spam',
         ext_modules = [module1])
 ```
 
-Once the spam module is imported into python, you can call logit
-via spam.logit. Note that the function used above cannot be applied
-as-is to numpy arrays. To do so we must call numpy.vectorize on it.
-For example, if a python interpreter is opened in the file containing
-the spam library or spam has been installed, one can perform the
-following commands:
+将垃圾邮件模块导入python后，您可以通过spam.logit调用logit。请注意，上面使用的函数不能按原样应用于numpy数组。为此，我们必须在其上调用numpy.vectorize。例如，如果在包含垃圾邮件库或垃圾邮件的文件中打开了python解释器，则可以执行以下命令：
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> import spam
 >>> spam.logit(0)
 -inf
@@ -221,24 +189,13 @@ array([       -inf, -2.07944154, -1.25276297, -0.69314718, -0.22314355,
     0.22314355,  0.69314718,  1.25276297,  2.07944154,         inf])
 ```
 
-THE RESULTING LOGIT FUNCTION IS NOT FAST! numpy.vectorize simply
-loops over spam.logit. The loop is done at the C level, but the numpy
-array is constantly being parsed and build back up. This is expensive.
-When the author compared numpy.vectorize(spam.logit) against the
-logit ufuncs constructed below, the logit ufuncs were almost exactly
-4 times faster. Larger or smaller speedups are, of course, possible
-depending on the nature of the function.
+结果编辑功能并不快！numpy.vectorize只是循环遍历spam.logit。循环在C级完成，但numpy数组不断被解析并重新构建。这很贵。当作者将numpy.vectorize（spam.logit）与下面构造的logit ufuncs进行比较时，logit ufuncs几乎快4倍。当然，取决于功能的性质，可以实现更大或更小的加速。
 
-## Example NumPy ufunc for one dtype
+## 一个dtype的示例NumPy ufunc
 
-For simplicity we give a ufunc for a single dtype, the ‘f8’ double.
-As in the previous section, we first give the .c file and then the
-setup.py file used to create the module containing the ufunc.
+为简单起见，我们为单个dtype提供了一个ufunc，即'f8'双精度型。与前一节一样，我们首先给出.c文件，然后是用于创建包含ufunc的模块的setup.py文件。
 
-The place in the code corresponding to the actual computations for
-the ufunc are marked with /*BEGIN main ufunc computation*/ and
-/*END main ufunc computation*/. The code in between those lines is
-the primary thing that must be changed to create your own ufunc.
+代码中与ufunc的实际计算相对应的位置标有/ * BEGIN main ufunc computation * /和/ * END main ufunc computation * /。这些行之间的代码是必须更改以创建自己的ufunc的主要事物。
 
 ``` c
 #include "Python.h"
@@ -360,9 +317,7 @@ PyMODINIT_FUNC initnpufunc(void)
 #endif
 ```
 
-This is a setup.py file for the above code. As before, the module
-can be build via calling python setup.py build at the command prompt,
-or installed to site-packages via python setup.py install.
+这是上面代码的setup.py文件。和以前一样，可以通过在命令提示符下调用python setup.py build来构建模块，也可以通过python setup.py install将其安装到site-packages。
 
 ``` python
 '''
@@ -409,10 +364,10 @@ if __name__ == "__main__":
     setup(configuration=configuration)
 ```
 
-After the above has been installed, it can be imported and used as follows.
+安装完上述内容后，可以按如下方式导入和使用。
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> import npufunc
 >>> npufunc.logit(0.5)
 0.0
@@ -421,17 +376,11 @@ After the above has been installed, it can be imported and used as follows.
 array([       -inf, -1.09861229,  0.        ,  1.09861229,         inf])
 ```
 
-## Example NumPy ufunc with multiple dtypes
+## 示例具有多个dtypes的NumPy ufunc
 
-We finally give an example of a full ufunc, with inner loops for
-half-floats, floats, doubles, and long doubles. As in the previous
-sections we first give the .c file and then the corresponding
-setup.py file.
+我们最后给出了一个完整的ufunc示例，内部循环用于半浮点数，浮点数，双精度数和长双精度数。与前面的部分一样，我们首先给出.c文件，然后是相应的setup.py文件。
 
-The places in the code corresponding to the actual computations for
-the ufunc are marked with /*BEGIN main ufunc computation*/ and
-/*END main ufunc computation*/. The code in between those lines is
-the primary thing that must be changed to create your own ufunc.
+代码中与ufunc的实际计算相对应的位置标有/ * BEGIN main ufunc computation * /和/ * END main ufunc computation * /。这些行之间的代码是必须更改以创建自己的ufunc的主要事物。
 
 ``` c
 #include "Python.h"
@@ -632,9 +581,7 @@ PyMODINIT_FUNC initnpufunc(void)
 #endif
 ```
 
-This is a setup.py file for the above code. As before, the module
-can be build via calling python setup.py build at the command prompt,
-or installed to site-packages via python setup.py install.
+这是上面代码的setup.py文件。和以前一样，可以通过在命令提示符下调用python setup.py build来构建模块，也可以通过python setup.py install将其安装到site-packages。
 
 ``` python
 '''
@@ -687,10 +634,10 @@ if __name__ == "__main__":
     setup(configuration=configuration)
 ```
 
-After the above has been installed, it can be imported and used as follows.
+安装完上述内容后，可以按如下方式导入和使用。
 
 ``` python
->>> import numpy as np
+>>>>>> import numpy as np
 >>> import npufunc
 >>> npufunc.logit(0.5)
 0.0
@@ -699,30 +646,23 @@ After the above has been installed, it can be imported and used as follows.
 array([       -inf, -1.09861229,  0.        ,  1.09861229,         inf])
 ```
 
-## Example NumPy ufunc with multiple arguments/return values
+## 示例具有多个参数/返回值的NumPy ufunc
 
-Our final example is a ufunc with multiple arguments. It is a modification
-of the code for a logit ufunc for data with a single dtype. We
-compute (A*B, logit(A*B)).
+我们的最后一个例子是一个带有多个参数的ufunc。它是对具有单个dtype的数据的logit ufunc的代码的修改。我们计算（A * B，logit（A * B））。
 
-We only give the C code as the setup.py file is exactly the same as
-the setup.py file in [Example NumPy ufunc for one dtype](#example-numpy-ufunc-for-one-dtype), except that
-the line
+我们只提供C代码，因为setup.py文件与[Example NumPy ufunc中](#example-numpy-ufunc-for-one-dtype)的setup.py文件完全相同，只有一行[dtype](#example-numpy-ufunc-for-one-dtype)
 
 ``` python
 config.add_extension('npufunc', ['single_type_logit.c'])
 ```
 
-is replaced with
+被替换为
 
 ``` python
 config.add_extension('npufunc', ['multi_arg_logit.c'])
 ```
 
-The C file is given below. The ufunc generated takes two arguments A
-and B. It returns a tuple whose first element is A*B and whose second
-element is logit(A*B). Note that it automatically supports broadcasting,
-as well as all other properties of a ufunc.
+C文件如下。生成的ufunc接受两个参数A和B.它返回一个元组，其第一个元素是A * B，第二个元素是logit（A * B）。请注意，它会自动支持广播以及ufunc的所有其他属性。
 
 ``` c
 #include "Python.h"
@@ -852,30 +792,24 @@ PyMODINIT_FUNC initnpufunc(void)
 #endif
 ```
 
-## Example NumPy ufunc with structured array dtype arguments
+## 示例带有结构化数组dtype参数的NumPy ufunc
 
-This example shows how to create a ufunc for a structured array dtype.
-For the example we show a trivial ufunc for adding two arrays with dtype
-‘u8,u8,u8’. The process is a bit different from the other examples since
-a call to [``PyUFunc_FromFuncAndData``](https://numpy.org/devdocs/reference/c-api/ufunc.html#c.PyUFunc_FromFuncAndData) doesn’t fully register ufuncs for
-custom dtypes and structured array dtypes. We need to also call
-[``PyUFunc_RegisterLoopForDescr``](https://numpy.org/devdocs/reference/c-api/ufunc.html#c.PyUFunc_RegisterLoopForDescr) to finish setting up the ufunc.
+此示例显示如何为结构化数组dtype创建ufunc。在这个例子中，我们展示了一个简单的ufunc，用于添加两个带有dtype'u8，u8，u8'的数组。该过程与其他示例略有不同，因为调用[``PyUFunc_FromFuncAndData``](https://numpy.org/devdocs/reference/c-api/ufunc.html#c.PyUFunc_FromFuncAndData)不会为自定义dtypes和结构化数组dtypes完全注册ufunc。我们还需要调用
+ [``PyUFunc_RegisterLoopForDescr``](https://numpy.org/devdocs/reference/c-api/ufunc.html#c.PyUFunc_RegisterLoopForDescr)完成设置ufunc。
 
-We only give the C code as the setup.py file is exactly the same as
-the setup.py file in [Example NumPy ufunc for one dtype](#example-numpy-ufunc-for-one-dtype), except that
-the line
+我们只提供C代码，因为setup.py文件与[Example NumPy ufunc中](#example-numpy-ufunc-for-one-dtype)的setup.py文件完全相同，只有一行[dtype](#example-numpy-ufunc-for-one-dtype)
 
 ``` python
 config.add_extension('npufunc', ['single_type_logit.c'])
 ```
 
-is replaced with
+被替换为
 
 ``` python
 config.add_extension('npufunc', ['add_triplet.c'])
 ```
 
-The C file is given below.
+C文件如下。
 
 ``` c
 #include "Python.h"
@@ -1012,10 +946,7 @@ PyMODINIT_FUNC initstruct_ufunc_test(void)
 }
 ```
 
-The returned ufunc object is a callable Python object. It should be
-placed in a (module) dictionary under the same name as was used in the
-name argument to the ufunc-creation routine. The following example is
-adapted from the umath module
+返回的ufunc对象是一个可调用的Python对象。它应该放在一个（模块）字典中，其名称与ufunc-creation例程的name参数中使用的字典相同。以下示例是从umath模块改编而来的
 
 ``` c
 static PyUFuncGenericFunction atan2_functions[] = {

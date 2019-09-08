@@ -1,173 +1,149 @@
-# Building from source
+# 从源码构建
 
-A general overview of building NumPy from source is given here, with detailed
-instructions for specific platforms given separately.
+此处给出了从源代码构建NumPy的一般概述，以及单独给出的特定平台的详细说明。
 
-## Prerequisites
+## 先决条件
 
-Building NumPy requires the following software installed:
+构建NumPy需要安装以下软件：
 
-## Basic Installation
+## 基本安装
 
-To install NumPy run:
+要安装NumPy运行：
 
-``` python
+``` bash
 pip install .
 ```
 
-To perform an in-place build that can be run from the source folder run:
+要执行可以从源文件夹运行的就地构建：
 
-``` python
+``` bash
 python setup.py build_ext --inplace
 ```
 
-The NumPy build system uses ``setuptools`` (from numpy 1.11.0, before that it
-was plain ``distutils``) and ``numpy.distutils``.
-Using ``virtualenv`` should work as expected.
+NumPy构建系统使用``setuptools``（从numpy 1.11.0开始，之前很简单``distutils``）和``numpy.distutils``。使用``virtualenv``应该按预期工作。
 
-*Note: for build instructions to do development work on NumPy itself, see*
-[Setting up and using your development environment](https://numpy.org/devdocs/dev/development_environment.html#development-environment).
+*注意：有关在NumPy上进行开发工作的构建说明，请参阅* 
+[设置和使用开发环境](https://numpy.org/devdocs/dev/development_environment.html#development-environment)。
 
-## Testing
+## 测试
 
-Make sure to test your builds. To ensure everything stays in shape, see if all tests pass:
+确保测试您的构建。为了确保一切都保持稳定，请查看是否所有测试都通过：
 
 ``` python
 $ python runtests.py -v -m full
 ```
 
-For detailed info on testing, see [Testing builds](https://numpy.org/devdocs/dev/development_environment.html#testing-builds).
+有关测试的详细信息，请参阅[测试版本](https://numpy.org/devdocs/dev/development_environment.html#testing-builds)。
 
-### Parallel builds
+### 并行构建
 
-From NumPy 1.10.0 on it’s also possible to do a parallel build with:
+从NumPy 1.10.0起，它也可以用以下方式进行并行构建：
 
 ``` python
 python setup.py build -j 4 install --prefix $HOME/.local
 ```
 
-This will compile numpy on 4 CPUs and install it into the specified prefix.
-to perform a parallel in-place build, run:
+这将在4个CPU上编译numpy并将其安装到指定的前缀中。要执行并行的就地构建，请运行：
 
 ``` python
 python setup.py build_ext --inplace -j 4
 ```
 
-The number of build jobs can also be specified via the environment variable
-``NPY_NUM_BUILD_JOBS``.
+也可以通过环境变量指定构建作业的数量
+ ``NPY_NUM_BUILD_JOBS``。
 
-## FORTRAN ABI mismatch
+## FORTRAN ABI不匹配
 
-The two most popular open source fortran compilers are g77 and gfortran.
-Unfortunately, they are not ABI compatible, which means that concretely you
-should avoid mixing libraries built with one with another. In particular, if
-your blas/lapack/atlas is built with g77, you *must* use g77 when building
-numpy and scipy; on the contrary, if your atlas is built with gfortran, you
-*must* build numpy/scipy with gfortran. This applies for most other cases
-where different FORTRAN compilers might have been used.
+两个最受欢迎的开源fortran编译器是g77和gfortran。不幸的是，它们不兼容ABI，这意味着你应该避免混合使用彼此构建的库。特别是，如果您的blas / lapack / atlas是使用g77构建的，那么在构建numpy和scipy时 *必须* 使用g77; 
+相反，如果你的地图集是用gfortran 构建的，你 *必须* 用gfortran
+建立numpy / scipy。这适用于可能使用了不同FORTRAN编译器的大多数其他情况。
 
-### Choosing the fortran compiler
+### 选择fortran编译器
 
-To build with gfortran:
+用gfortran构建：
 
 ``` python
 python setup.py build --fcompiler=gnu95
 ```
 
-For more information see:
+有关更多信息，请运行帮助命令：
 
 ``` python
 python setup.py build --help-fcompiler
 ```
 
-### How to check the ABI of blas/lapack/atlas
+### 如何检查BLAS / LAPACK /地图集ABI 
 
-One relatively simple and reliable way to check for the compiler used to build
-a library is to use ldd on the library. If libg2c.so is a dependency, this
-means that g77 has been used. If libgfortran.so is a dependency, gfortran
-has been used. If both are dependencies, this means both have been used, which
-is almost always a very bad idea.
+检查用于构建库的编译器的一种相对简单且可靠的方法是在库上使用ldd。如果libg2c.so是依赖项，则表示已使用g77。如果libgfortran.so是依赖项，则使用gfortran。如果两者都是依赖关系，这意味着两者都已被使用，这几乎总是一个非常糟糕的主意。
 
-## Accelerated BLAS/LAPACK libraries
+## 加速BLAS / LAPACK库
 
-NumPy searches for optimized linear algebra libraries such as BLAS and LAPACK.
-There are specific orders for searching these libraries, as described below.
+NumPy搜索优化的线性代数库，如BLAS和LAPACK。搜索这些库有特定的顺序，如下所述。
 
-### BLAS
+### BLAS 
 
-The default order for the libraries are:
+库的默认顺序是：
 
 1. MKL
 1. BLIS
 1. OpenBLAS
 1. ATLAS
-1. Accelerate (MacOS)
-1. BLAS (NetLIB)
+1. 加速（MacOS）
+1. BLAS（NetLIB）
 
-If you wish to build against OpenBLAS but you also have BLIS available one
-may predefine the order of searching via the environment variable
-``NPY_BLAS_ORDER`` which is a comma-separated list of the above names which
-is used to determine what to search for, for instance:
+如果您希望针对OpenBLAS进行构建，但您也可以使用BLIS，则可以通过环境变量预定义搜索顺序，该变量
+ ``NPY_BLAS_ORDER``是用于确定要搜索内容的上述名称的逗号分隔列表，例如：
 
 ``` python
 NPY_BLAS_ORDER=ATLAS,blis,openblas,MKL python setup.py build
 ```
 
-will prefer to use ATLAS, then BLIS, then OpenBLAS and as a last resort MKL.
-If neither of these exists the build will fail (names are compared
-lower case).
+我更喜欢使用ATLAS，然后是BLIS，然后是OpenBLAS，最后是MKL。如果这些都不存在，则构建将失败（名称将比较小写）。
 
-### LAPACK
+### LAPACK 
 
-The default order for the libraries are:
+库的默认顺序是：
 
 1. MKL
 1. OpenBLAS
 1. libFLAME
 1. ATLAS
-1. Accelerate (MacOS)
-1. LAPACK (NetLIB)
+1. 加速（MacOS）
+1. LAPACK（NetLIB）
 
-If you wish to build against OpenBLAS but you also have MKL available one
-may predefine the order of searching via the environment variable
-``NPY_LAPACK_ORDER`` which is a comma-separated list of the above names,
-for instance:
+如果您希望针对OpenBLAS进行构建，但您也可以使用MKL，则可以通过环境变量预定义搜索顺序，该变量
+ ``NPY_LAPACK_ORDER``是以逗号分隔的上述名称列表，例如：
 
 ``` python
 NPY_LAPACK_ORDER=ATLAS,openblas,MKL python setup.py build
 ```
 
-will prefer to use ATLAS, then OpenBLAS and as a last resort MKL.
-If neither of these exists the build will fail (names are compared
-lower case).
+我希望使用ATLAS，然后使用OpenBLAS，作为最后的手段使用MKL。如果这些都不存在，则构建将失败（名称将比较小写）。
 
-### Disabling ATLAS and other accelerated libraries
+### 禁用ATLAS和其他加速库
 
-Usage of ATLAS and other accelerated libraries in NumPy can be disabled
-via:
+可以通过以下方式禁用在NumPy中使用ATLAS和其他加速库：
 
 ``` python
 NPY_BLAS_ORDER= NPY_LAPACK_ORDER= python setup.py build
 ```
 
-or:
+要么：
 
 ``` python
 BLAS=None LAPACK=None ATLAS=None python setup.py build
 ```
 
-## Supplying additional compiler flags
+## 提供额外的编译器标志
 
-Additional compiler flags can be supplied by setting the ``OPT``,
-``FOPT`` (for Fortran), and ``CC`` environment variables.
-When providing options that should improve the performance of the code ensure
-that you also set ``-DNDEBUG`` so that debugging code is not executed.
+额外的编译器标记可以通过设置来提供``OPT``，
+ ``FOPT``（Fortran的），和``CC``环境变量。提供应该提高代码性能的选项时，请确保还要设置``-DNDEBUG``为不执行调试代码。
 
-## Building with ATLAS support
+## 使用ATLAS支持构建
 
-### Ubuntu
+### Ubuntu的
 
-You can install the necessary package for optimized ATLAS with this command:
+您可以使用以下命令为优化的ATLAS安装必要的包：
 
 ``` python
 sudo apt-get install libatlas-base-dev

@@ -1,5 +1,13 @@
 # How to extend NumPy
 
+> That which is static and repetitive is boring. That which is dynamic and random is confusing. In between lies art.
+> 
+> — John A. Locke
+
+> Science is a differential equation. Religion is a boundary condition.
+> 
+> — Alan Turing
+
 ## Writing an extension module
 
 While the ndarray object is designed to allow rapid computation in

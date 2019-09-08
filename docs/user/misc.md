@@ -1,16 +1,15 @@
-# Miscellaneous
+# 其他杂项
 
-## IEEE 754 Floating Point Special Values
+## IEEE 754 浮点特殊值
 
-Special values defined in numpy: nan, inf,
+在 NumPy 中定义的特殊值可以通过：nan，inf，
 
-NaNs can be used as a poor-man’s mask (if you don’t care what the
-original value was)
+NaNs 可以用作简陋的占位类型（如果你并不在乎初始的值是什么的话）
 
-Note: cannot use equality to test NaNs. E.g.:
+注意：不能使用相等来测试 NaN。例如：
 
 ``` python
->>> myarr = np.array([1., 0., np.nan, 3.])
+>>>>>> myarr = np.array([1., 0., np.nan, 3.])
 >>> np.nonzero(myarr == np.nan)
 (array([], dtype=int64),)
 >>> np.nan == np.nan  # is always False! Use special numpy functions instead.
@@ -23,7 +22,8 @@ array([  1.,   0.,  NaN,   3.])
 array([ 1.,  0.,  0.,  3.])
 ```
 
-Other related special value functions:
+其他的相关的特殊值判断函数
+
 
 ``` python
 isinf():    True if value is inf
@@ -31,8 +31,7 @@ isfinite(): True if not nan or inf
 nan_to_num(): Map nan to 0, inf to max float, -inf to min float
 ```
 
-The following corresponds to the usual functions except that nans are excluded
-from the results:
+除了从结果中排除nans之外，以下内容对应于常用函数：
 
 ``` python
 nansum()
@@ -49,35 +48,32 @@ nan
 42.0
 ```
 
-## How numpy handles numerical exceptions
+## NumPy 如何处理数字异常的
 
-The default is to ``'warn'`` for ``invalid``, ``divide``, and ``overflow``
-and ``'ignore'`` for ``underflow``.  But this can be changed, and it can be
-set individually for different kinds of exceptions. The different behaviors
-are:
+默认值为 ``Warn`` 表示无效、``Divide``和溢出，``Ignore``表示下溢。
+但是这是可以更改的，并且可以针对不同种类的异常单独设置。不同的行为包括：
 
-- ‘ignore’ : Take no action when the exception occurs.
-- ‘warn’   : Print a *RuntimeWarning* (via the Python [``warnings``](https://docs.python.org/dev/library/warnings.html#module-warnings) module).
-- ‘raise’  : Raise a *FloatingPointError*.
-- ‘call’   : Call a function specified using the *seterrcall* function.
-- ‘print’  : Print a warning directly to ``stdout``.
-- ‘log’    : Record error in a Log object specified by *seterrcall*.
+- 'ignore'：发生异常时不采取任何措施。
+- 'warn'：打印 *RuntimeWarning* （通过Python [``warnings``](https://docs.python.org/dev/library/warnings.html#module-warnings)模块）。
+- 'raise'：引发 *FloatingPointError* 。
+- 'call'：调用使用 *seterrcall* 函数指定的函数。
+- 'print'：直接打印警告``stdout``。
+- 'log'：在 *seterrcall* 指定的Log对象中记录错误。
 
-These behaviors can be set for all kinds of errors or specific ones:
+可以针对各种错误或特定错误设置这些行为：
 
-- all       : apply to all numeric exceptions
-- invalid   : when NaNs are generated
-- divide    : divide by zero (for integers as well!)
-- overflow  : floating point overflows
-- underflow : floating point underflows
+- all：适用于所有数字异常
+- 无效：生成NaN时
+- 除以：除以零（对于整数！）
+- 溢出：浮点溢出
+- 下溢：浮点下溢
 
-Note that integer divide-by-zero is handled by the same machinery.
-These behaviors are set on a per-thread basis.
+注意，整数除零由相同的机器处理。这些行为是基于每个线程设置的。
 
-## Examples
+## 示例
 
 ``` python
->>> oldsettings = np.seterr(all='warn')
+>>>>>> oldsettings = np.seterr(all='warn')
 >>> np.zeros(5,dtype=np.float32)/0.
 invalid value encountered in divide
 >>> j = np.seterr(under='ignore')
@@ -97,88 +93,86 @@ saw stupid error!
 ...                              # error-handling settings
 ```
 
-## Interfacing to C
+## 连接到 C 的方式
 
-Only a survey of the choices. Little detail on how each works.
+只针对下列选项进行阐述，阐述每一项工作原理的部分细节。
 
-1. Bare metal, wrap your own C-code manually.
-    - Plusses:
-      - Efficient
-      - No dependencies on other tools
-    - Minuses:
-      - Lots of learning overhead:
-        - need to learn basics of Python C API
-        - need to learn basics of numpy C API
-        - need to learn how to handle reference counting and love it.
-      - Reference counting often difficult to get right.
-        - getting it wrong leads to memory leaks, and worse, segfaults
-      - API will change for Python 3.0!
+1. 不借助任何工具, 手动打包你的C语言代码。
+    - 加分项（优点）:
+        - 高效
+        - 不依赖于其他工具
+    - 减分项（缺点）:
+        - 大量的学习开销：
+        - 需要学习Python C API的基础知识
+        - 需要学习numpy C API的基础知识
+        - 需要学习如何处理引用计数并喜欢它。
+        - 引用计数通常很难正确。
+        - 错误导致内存泄漏，更糟糕的是段错误。
+        - Python可能会改变API！
 1. Cython
-    - Plusses:
-      - avoid learning C API’s
-      - no dealing with reference counting
-      - can code in pseudo python and generate C code
-      - can also interface to existing C code
-      - should shield you from changes to Python C api
-      - has become the de-facto standard within the scientific Python community
-      - fast indexing support for arrays
-    - Minuses:
-      - Can write code in non-standard form which may become obsolete
-      - Not as flexible as manual wrapping
+    - 加分项（优点）:
+      - 避免学习C API
+      - 没有涉及引用计数
+      - 可以在伪python中编码并生成C代码
+      - 也可以与现有的C代码接口
+      - 应该保护你免受Python C api的更改
+      - 已经成为科学Python社区中事实上的标准
+      - 对数组的快速索引支持
+    - 减分项（缺点）:
+      - 可以用非标准形式编写可能过时的代码
+      - 不如手动包装灵活
 1. ctypes
-    - Plusses:
-      - part of Python standard library
-      - good for interfacing to existing sharable libraries, particularly Windows DLLs
-      - avoids API/reference counting issues
-      - good numpy support: arrays have all these in their ctypes attribute:
-      ``` python
-      a.ctypes.data              a.ctypes.get_strides
-      a.ctypes.data_as           a.ctypes.shape
-      a.ctypes.get_as_parameter  a.ctypes.shape_as
-      a.ctypes.get_data          a.ctypes.strides
-      a.ctypes.get_shape         a.ctypes.strides_as
-      ```
-    - Minuses:
-      - can’t use for writing code to be turned into C extensions, only a wrapper tool.
-1. SWIG (automatic wrapper generator)
-    - Plusses:
-      - around a long time
-      - multiple scripting language support
-      - C++ support
-      - Good for wrapping large (many functions) existing C libraries
-    - Minuses:
-      - generates lots of code between Python and the C code
-      - can cause performance problems that are nearly impossible to optimize out
-      - interface files can be hard to write
-      - doesn’t necessarily avoid reference counting issues or needing to know API’s
+    - 加分项（优点）:
+        - Python标准库的一部分
+        - 适用于连接现有的可共享库，尤其是Windows DLL
+        - 避免API /引用计数问题
+        - 良好的numpy支持：数组在ctypes属性中包含所有这些：
+
+        ``` python
+        a.ctypes.data              a.ctypes.get_strides
+        a.ctypes.data_as           a.ctypes.shape
+        a.ctypes.get_as_parameter  a.ctypes.shape_as
+        a.ctypes.get_data          a.ctypes.strides
+        a.ctypes.get_shape         a.ctypes.strides_as
+        ```
+    - 减分项（缺点）:
+        - 不能用于编写代码转换为C扩展，只能用于包装工具。
+1. SWIG（自动包装发生器）
+    - 加分项（优点）:
+        - 很长一段时间
+        - 多脚本语言支持
+        - C ++支持
+        - 适用于包装大型（许多功能）现有C库
+    - 减分项（缺点）:
+      - 在Python和C代码之间生成大量代码
+      - 可能导致几乎无法优化的性能问题
+      - 接口文件很难写
+      - 不一定避免引用计数问题或需要知道API
 1. scipy.weave
-    - Plusses:
-      - can turn many numpy expressions into C code
-      - dynamic compiling and loading of generated C code
-      - can embed pure C code in Python module and have weave extract, generate interfaces and compile, etc.
-    - Minuses:
-      - Future very uncertain: it’s the only part of Scipy not ported to Python 3 and is effectively deprecated in favor of Cython.
+    - 加分项（优点）:
+      - 可以将许多numpy表达式转换为C代码
+      - 动态编译和加载生成的C代码
+      - 可以在Python模块中嵌入纯C代码，并编织提取，生成接口和编译等。
+    - 减分项（缺点）:
+      - 未来非常不确定：它是Scipy中唯一没有移植到Python 3的部分，并且有效地弃用了Cython。
 1. Psyco
-    - Plusses:
-      - Turns pure python into efficient machine code through jit-like optimizations
-      - very fast when it optimizes well
-    - Minuses:
-      - Only on intel (windows?)
-      - Doesn’t do much for numpy?
+    - 加分项（优点）:
+      - 通过类似jit的优化将纯python转换为高效的机器代码
+      - 当它优化得很好时非常快
+    - 减分项（缺点）:
+      - 只在intel（windows？）上
+      - 对numpy没有多大作用？
 
-## Interfacing to Fortran:
+## Fortran 的接口：
 
-The clear choice to wrap Fortran code is
-[f2py](https://docs.scipy.org/doc/numpy/f2py/).
+包装 Fortran 代码的明确选择是 [f2py](https://docs.scipy.org/doc/numpy/f2py/)。
 
-Pyfort is an older alternative, but not supported any longer.
-Fwrap is a newer project that looked promising but isn’t being developed any
-longer.
+Pyfort是一个较旧的选择，但不再支持。Fwrap是一个看起来很有希望但不再开发的新项目。
 
-## Interfacing to C++:
+## 连接到 C++ 有以下几个方式：
 
 1. Cython
 1. CXX
-1. Boost.python
+1. Boost.Python
 1. SWIG
-1. SIP (used mainly in PyQT)
+1. SIP（主要用于PyQT）

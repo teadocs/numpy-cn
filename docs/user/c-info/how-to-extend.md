@@ -1,53 +1,27 @@
-# How to extend NumPy
+# 如何扩展NumPy
 
-## Writing an extension module
+> That which is static and repetitive is boring. That which is dynamic and random is confusing. In between lies art.
+> 
+> — John A. Locke
 
-While the ndarray object is designed to allow rapid computation in
-Python, it is also designed to be general-purpose and satisfy a wide-
-variety of computational needs. As a result, if absolute speed is
-essential, there is no replacement for a well-crafted, compiled loop
-specific to your application and hardware. This is one of the reasons
-that numpy includes f2py so that an easy-to-use mechanisms for linking
-(simple) C/C++ and (arbitrary) Fortran code directly into Python are
-available. You are encouraged to use and improve this mechanism. The
-purpose of this section is not to document this tool but to document
-the more basic steps to writing an extension module that this tool
-depends on.
+> Science is a differential equation. Religion is a boundary condition.
+> 
+> — Alan Turing
 
-When an extension module is written, compiled, and installed to
-somewhere in the Python path (sys.path), the code can then be imported
-into Python as if it were a standard python file. It will contain
-objects and methods that have been defined and compiled in C code. The
-basic steps for doing this in Python are well-documented and you can
-find more information in the documentation for Python itself available
-online at [www.python.org](https://www.python.org) .
+## 编写扩展模块
 
-In addition to the Python C-API, there is a full and rich C-API for
-NumPy allowing sophisticated manipulations on a C-level. However, for
-most applications, only a few API calls will typically be used. If all
-you need to do is extract a pointer to memory along with some shape
-information to pass to another calculation routine, then you will use
-very different calls, then if you are trying to create a new array-
-like type or add a new data type for ndarrays. This chapter documents
-the API calls and macros that are most commonly used.
+虽然ndarray对象旨在允许在Python中进行快速计算，但它也被设计为通用的并且满足各种各样的计算需求。因此，如果绝对速度是必不可少的，那么就不能替换特定于您的应用程序和硬件的精心编制的循环。这是numpy包含f2py的原因之一，因此可以使用易于使用的机制将（简单的）C / C ++和（任意）Fortran代码直接链接到Python中。我们鼓励您使用和改进此机制。本节的目的不是记录此工具，而是记录编写此工具所依赖的扩展模块的更基本步骤。
 
-## Required subroutine
+当扩展模块被编写，编译并安装到Python路径（sys.path）中的某个位置时，可以将代码导入到Python中，就好像它是标准的python文件一样。它将包含已在C代码中定义和编译的对象和方法。在Python中执行此操作的基本步骤已有详细记录，您可以在[www.python.org上的](https://www.python.org)在线文档中找到更多信息。
 
-There is exactly one function that must be defined in your C-code in
-order for Python to use it as an extension module. The function must
-be called init{name} where {name} is the name of the module from
-Python. This function must be declared so that it is visible to code
-outside of the routine. Besides adding the methods and constants you
-desire, this subroutine must also contain calls like ``import_array()``
-and/or ``import_ufunc()`` depending on which C-API is needed. Forgetting
-to place these commands will show itself as an ugly segmentation fault
-(crash) as soon as any C-API subroutine is actually called. It is
-actually possible to have multiple init{name} functions in a single
-file in which case multiple modules will be defined by that file.
-However, there are some tricks to get that to work correctly and it is
-not covered here.
+除了Python C-API之外，NumPy还有一个完整而丰富的C-API，允许在C级上进行复杂的操作。但是，对于大多数应用程序，通常只使用少量API调用。如果你需要做的就是提取一个指向内存的指针以及一些形状信息以传递给另一个计算例程，那么你将使用非常不同的调用，然后如果你试图创建一个类似于数组的新类型或添加一个新数据ndarrays的类型。本章介绍了最常用的API调用和宏。
 
-A minimal ``init{name}`` method looks like:
+## 必需的子程序
+
+必须在C代码中定义一个函数才能使Python将其用作扩展模块。该函数必须被称为init {name}，其中{name}是Python中模块的名称。必须声明此函数，以便对例程外部的代码可见。除了添加您想要的方法和常量之外，此子例程还必须包含调用``import_array()``
+和/或``import_ufunc()``取决于需要哪个C-API。只要实际调用任何C-API子例程，忘记放置这些命令就会将自身显示为一个丑陋的分段错误（崩溃）。实际上，在单个文件中可以有多个init {name}函数，在这种情况下，该文件将定义多个模块。但是，有一些技巧可以让它正常工作，这里没有涉及。
+
+一个最小的``init{name}``方法看起来像：
 
 ``` c
 PyMODINIT_FUNC
@@ -58,43 +32,22 @@ init{name}(void)
 }
 ```
 
-The mymethods must be an array (usually statically declared) of
-PyMethodDef structures which contain method names, actual C-functions,
-a variable indicating whether the method uses keyword arguments or
-not, and docstrings. These are explained in the next section. If you
-want to add constants to the module, then you store the returned value
-from Py_InitModule which is a module object. The most general way to
-add items to the module is to get the module dictionary using
-PyModule_GetDict(module). With the module dictionary, you can add
-whatever you like to the module manually. An easier way to add objects
-to the module is to use one of three additional Python C-API calls
-that do not require a separate extraction of the module dictionary.
-These are documented in the Python documentation, but repeated here
-for convenience:
+mymethods必须是PyMethodDef结构的数组（通常是静态声明的），它包含方法名，实际的C函数，指示方法是否使用关键字参数的变量，以及docstrings。这些将在下一节中介绍。如果要向模块添加常量，则存储Py_InitModule的返回值，Py_InitModule是一个模块对象。向模块添加项目的最常用方法是使用PyModule_GetDict（模块）获取模块字典。使用模块字典，您可以手动将任何您喜欢的内容添加到模块中。向模块添加对象的更简单方法是使用三个额外的Python C-API调用之一，这些调用不需要单独提取模块字典。这些内容记录在Python文档中，但为方便起见，在此处重复：
 
 
-int ``PyModule_AddObject``([PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject)** module*, char** name*, [PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject)** value*)[¶](#c.PyModule_AddObject)
+int ``PyModule_AddObject``（[PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject) *   *module* ，char *   *name* ，[PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject) *   *value*  ）[¶](#c.PyModule_AddObject)
 
 
-int ``PyModule_AddIntConstant``([PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject)** module*, char** name*, long* value*)[¶](#c.PyModule_AddIntConstant)
+int ``PyModule_AddIntConstant``（[PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject) *   *module* ，char *   *name* ，long   *value*  ）[¶](#c.PyModule_AddIntConstant)
 
 
-int ``PyModule_AddStringConstant``([PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject)** module*, char** name*, char** value*)[¶](#c.PyModule_AddStringConstant)
+int ``PyModule_AddStringConstant``（[PyObject](https://docs.python.org/dev/c-api/structures.html#c.PyObject) *   *module* ，char *   *name* ，char *   *value*  ）[¶](#c.PyModule_AddStringConstant)
 
-All three of these functions require the *module* object (the
-return value of Py_InitModule). The *name* is a string that
-labels the value in the module. Depending on which function is
-called, the *value* argument is either a general object
-([``PyModule_AddObject``](#c.PyModule_AddObject) steals a reference to it), an integer
-constant, or a string constant.
+所有这三个函数都需要 *模块* 对象（Py_InitModule的返回值）。该 *名称* 是标签模块中的值的字符串。根据调用的函数， *value* 参数是一般对象（[``PyModule_AddObject``](#c.PyModule_AddObject)窃取对它的引用），整数常量或字符串常量。
 
-## Defining functions
+## 定义函数
 
-The second argument passed in to the Py_InitModule function is a
-structure that makes it easy to to define functions in the module. In
-the example given above, the mymethods structure would have been
-defined earlier in the file (usually right before the init{name}
-subroutine) to:
+传递给Py_InitModule函数的第二个参数是一个结构，可以很容易地在模块中定义函数。在上面给出的示例中，mymethods结构将在文件的早期（通常在init {name}子例程之前）定义为：
 
 ``` c
 static PyMethodDef mymethods[] = {
@@ -108,23 +61,13 @@ static PyMethodDef mymethods[] = {
 }
 ```
 
-Each entry in the mymethods array is a [``PyMethodDef``](https://docs.python.org/dev/c-api/structures.html#c.PyMethodDef) structure
-containing 1) the Python name, 2) the C-function that implements the
-function, 3) flags indicating whether or not keywords are accepted for
-this function, and 4) The docstring for the function. Any number of
-functions may be defined for a single module by adding more entries to
-this table. The last entry must be all NULL as shown to act as a
-sentinel. Python looks for this entry to know that all of the
-functions for the module have been defined.
+mymethods数组中的每个条目都是一个[``PyMethodDef``](https://docs.python.org/dev/c-api/structures.html#c.PyMethodDef)结构，包含1）Python名称，2）实现函数的C函数，3）指示是否接受此函数的关键字的标志，以及4）函数的文档字符串。通过向该表添加更多条目，可以为单个模块定义任意数量的功能。最后一个条目必须全部为NULL，如图所示充当哨兵。Python查找此条目以了解已定义模块的所有函数。
 
-The last thing that must be done to finish the extension module is to
-actually write the code that performs the desired functions. There are
-two kinds of functions: those that don’t accept keyword arguments, and
-those that do.
+完成扩展模块必须做的最后一件事是实际编写执行所需功能的代码。有两种函数：不接受关键字参数的函数和那些函数。
 
-### Functions without keyword arguments
+### 没有关键字参数的函数
 
-Functions that don’t accept keyword arguments should be written as:
+不接受关键字参数的函数应写为：
 
 ``` c
 static PyObject*
@@ -136,27 +79,12 @@ nokeyword_cfunc (PyObject *dummy, PyObject *args)
 }
 ```
 
-The dummy argument is not used in this context and can be safely
-ignored. The *args* argument contains all of the arguments passed in
-to the function as a tuple. You can do anything you want at this
-point, but usually the easiest way to manage the input arguments is to
-call [``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple) (args, format_string,
-addresses_to_C_variables…) or [``PyArg_UnpackTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_UnpackTuple) (tuple, “name” ,
-min, max, …). A good description of how to use the first function is
-contained in the Python C-API reference manual under section 5.5
-(Parsing arguments and building values). You should pay particular
-attention to the “O&” format which uses converter functions to go
-between the Python object and the C object. All of the other format
-functions can be (mostly) thought of as special cases of this general
-rule. There are several converter functions defined in the NumPy C-API
-that may be of use. In particular, the [``PyArray_DescrConverter``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_DescrConverter)
-function is very useful to support arbitrary data-type specification.
-This function transforms any valid data-type Python object into a
-[``PyArray_Descr *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Descr) object. Remember to pass in the address of the
-C-variables that should be filled in.
+伪参数不在此上下文中使用，可以安全地忽略。该 *ARGS* 参数包含所有的传递给函数作为一个元组的参数。此时您可以执行任何操作，但通常管理输入参数的最简单方法是调用[``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple)（args，format_string，addresses_to_C_variables ...）或[``PyArg_UnpackTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_UnpackTuple)（元组，“名称”，分钟，最大，......）。有关如何使用第一个函数的详细说明，请参见Python C-API参考手册第5.5节（解析参数和构建值）。您应该特别注意使用转换器函数在Python对象和C对象之间进行的“O＆”格式。所有其他格式函数都可以（大部分）被认为是这个一般规则的特殊情况。NumPy C-API中定义了几种可能有用的转换器功能。特别是，该[``PyArray_DescrConverter``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_DescrConverter)
+函数对于支持任意数据类型规范非常有用。此函数将任何有效的数据类型Python对象转换为
+ 对象。请记住传入应填写的C变量的地址。[``PyArray_Descr *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Descr)
 
-There are lots of examples of how to use [``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple)
-throughout the NumPy source code. The standard usage is like this:
+有很多关于如何在[``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple)
+整个NumPy源代码中使用的示例。标准用法是这样的：
 
 ``` c
 PyObject *input;
@@ -166,43 +94,16 @@ if (!PyArg_ParseTuple(args, "OO&", &input,
                       &dtype)) return NULL;
 ```
 
-It is important to keep in mind that you get a *borrowed* reference to
-the object when using the “O” format string. However, the converter
-functions usually require some form of memory handling. In this
-example, if the conversion is successful, *dtype* will hold a new
-reference to a [``PyArray_Descr *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Descr) object, while *input* will hold a
-borrowed reference. Therefore, if this conversion were mixed with
-another conversion (say to an integer) and the data-type conversion
-was successful but the integer conversion failed, then you would need
-to release the reference count to the data-type object before
-returning. A typical way to do this is to set *dtype* to ``NULL``
-before calling [``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple) and then use [``Py_XDECREF``](https://docs.python.org/dev/c-api/refcounting.html#c.Py_XDECREF)
-on *dtype* before returning.
+请务必记住，在使用“O”格式字符串时，您会获得对该对象的 *借用* 引用。但是，转换器功能通常需要某种形式的内存处理。在此示例中，如果转换成功，则 *dtype* 将保持对对象的新引用，而 *输入* 将保留借用的引用。因此，如果此转换与另一个转换（比如整数）混合并且数据类型转换成功但整数转换失败，那么您需要在返回之前将引用计数释放到数据类型对象。一种典型的方法是
+在调用之前将 *dtype* 设置为，然后
+在 *dtype上* 使用[``PyArray_Descr *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Descr) **  ** ``NULL``[``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple)[``Py_XDECREF``](https://docs.python.org/dev/c-api/refcounting.html#c.Py_XDECREF) **  回来之前。
 
-After the input arguments are processed, the code that actually does
-the work is written (likely calling other functions as needed). The
-final step of the C-function is to return something. If an error is
-encountered then ``NULL`` should be returned (making sure an error has
-actually been set). If nothing should be returned then increment
-[``Py_None``](https://docs.python.org/dev/c-api/none.html#c.Py_None) and return it. If a single object should be returned then
-it is returned (ensuring that you own a reference to it first). If
-multiple objects should be returned then you need to return a tuple.
-The [``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue) (format_string, c_variables…) function makes
-it easy to build tuples of Python objects from C variables. Pay
-special attention to the difference between ‘N’ and ‘O’ in the format
-string or you can easily create memory leaks. The ‘O’ format string
-increments the reference count of the [``PyObject *``](https://docs.python.org/dev/c-api/structures.html#c.PyObject) C-variable it
-corresponds to, while the ‘N’ format string steals a reference to the
-corresponding [``PyObject *``](https://docs.python.org/dev/c-api/structures.html#c.PyObject) C-variable. You should use ‘N’ if you have
-already created a reference for the object and just want to give that
-reference to the tuple. You should use ‘O’ if you only have a borrowed
-reference to an object and need to create one to provide for the
-tuple.
+处理完输入参数后，将编写实际完成工作的代码（可能会根据需要调用其他函数）。C函数的最后一步是返回一些东西。如果遇到错误，``NULL``则应返回（确保实际设置了错误）。如果不应返回任何内容，则递增
+ [``Py_None``](https://docs.python.org/dev/c-api/none.html#c.Py_None)并返回它。如果应该返回单个对象，则返回它（确保您首先拥有对它的引用）。如果应该返回多个对象，那么您需要返回一个元组。该[``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue)（format_string，c_variables ...）函数可以很容易地从C变量构建Python对象的元组。请特别注意格式字符串中“N”和“O”之间的区别，否则您可能很容易造成内存泄漏。'O'格式字符串增加它对应的C变量的引用计数，而'N'格式字符串窃取对相应C变量的引用。如果已经为对象创建了引用并且只想对元组进行引用，则应使用“N”。如果您只有一个对象的借用引用并且需要创建一个来提供元组，则应该使用“O”。[``PyObject *``](https://docs.python.org/dev/c-api/structures.html#c.PyObject)[``PyObject *``](https://docs.python.org/dev/c-api/structures.html#c.PyObject)
 
-### Functions with keyword arguments
+### 带关键字参数的函数
 
-These functions are very similar to functions without keyword
-arguments. The only difference is that the function signature is:
+这些函数与没有关键字参数的函数非常相似。唯一的区别是函数签名是：
 
 ``` c
 static PyObject*
@@ -212,243 +113,144 @@ keyword_cfunc (PyObject *dummy, PyObject *args, PyObject *kwds)
 }
 ```
 
-The kwds argument holds a Python dictionary whose keys are the names
-of the keyword arguments and whose values are the corresponding
-keyword-argument values. This dictionary can be processed however you
-see fit. The easiest way to handle it, however, is to replace the
-[``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple) (args, format_string, addresses…) function with
-a call to [``PyArg_ParseTupleAndKeywords``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTupleAndKeywords) (args, kwds, format_string,
-char *kwlist[], addresses…). The kwlist parameter to this function
-is a ``NULL`` -terminated array of strings providing the expected
-keyword arguments.  There should be one string for each entry in the
-format_string. Using this function will raise a TypeError if invalid
-keyword arguments are passed in.
+kwds参数包含一个Python字典，其键是关键字参数的名称，其值是相应的关键字参数值。无论你认为合适，都可以处理这本字典。然而，处理它的最简单方法是[``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple)用[``PyArg_ParseTupleAndKeywords``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTupleAndKeywords)（args，kwds，format_string，char * kwlist []，地址......）调用替换
+ （args，format_string，addresses ...）函数。此函数的kwlist参数是一个``NULL``字符串数组，提供了预期的关键字参数。format_string中的每个条目都应该有一个字符串。如果传入无效的关键字参数，则使用此函数将引发TypeError。
 
-For more help on this function please see section 1.8 (Keyword
-Parameters for Extension Functions) of the Extending and Embedding
-tutorial in the Python documentation.
+有关此功能的更多帮助，请参阅Python文档中的扩展和嵌入教程的第1.8节（扩展函数的关键字参数）。
 
-### Reference counting
+### 引用计数
 
-The biggest difficulty when writing extension modules is reference
-counting. It is an important reason for the popularity of f2py, weave,
-Cython, ctypes, etc…. If you mis-handle reference counts you can get
-problems from memory-leaks to segmentation faults. The only strategy I
-know of to handle reference counts correctly is blood, sweat, and
-tears. First, you force it into your head that every Python variable
-has a reference count. Then, you understand exactly what each function
-does to the reference count of your objects, so that you can properly
-use DECREF and INCREF when you need them. Reference counting can
-really test the amount of patience and diligence you have towards your
-programming craft. Despite the grim depiction, most cases of reference
-counting are quite straightforward with the most common difficulty
-being not using DECREF on objects before exiting early from a routine
-due to some error. In second place, is the common error of not owning
-the reference on an object that is passed to a function or macro that
-is going to steal the reference ( *e.g.* [``PyTuple_SET_ITEM``](https://docs.python.org/dev/c-api/tuple.html#c.PyTuple_SET_ITEM), and
-most functions that take [``PyArray_Descr``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Descr) objects).
+编写扩展模块时最大的困难是引用计数。这是f2py，weave，Cython，ctypes等受欢迎的重要原因。如果您错误处理引用计数，则可能会出现从内存泄漏到分段错误的问题。我知道处理参考计数的唯一策略是血液，汗水和眼泪。首先，你强迫每个Python变量都有一个引用计数。然后，您可以准确了解每个函数对对象的引用计数的作用，以便在需要时可以正确使用DECREF和INCREF。引用计数可以真正测试您对编程工艺的耐心和勤奋程度。尽管形象严峻，大多数引用计数的情况非常简单，最常见的困难是由于某些错误而在从例程退出之前不在对象上使用DECREF。第二，是不会在传递给将要窃取引用的函数或宏的对象上拥有引用的常见错误（ *例如*  [``PyTuple_SET_ITEM``](https://docs.python.org/dev/c-api/tuple.html#c.PyTuple_SET_ITEM)，和大多数采取[``PyArray_Descr``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Descr)对象的功能）。
 
-Typically you get a new reference to a variable when it is created or
-is the return value of some function (there are some prominent
-exceptions, however — such as getting an item out of a tuple or a
-dictionary). When you own the reference, you are responsible to make
-sure that [``Py_DECREF``](https://docs.python.org/dev/c-api/refcounting.html#c.Py_DECREF) (var) is called when the variable is no
-longer necessary (and no other function has “stolen” its
-reference). Also, if you are passing a Python object to a function
-that will “steal” the reference, then you need to make sure you own it
-(or use [``Py_INCREF``](https://docs.python.org/dev/c-api/refcounting.html#c.Py_INCREF) to get your own reference). You will also
-encounter the notion of borrowing a reference. A function that borrows
-a reference does not alter the reference count of the object and does
-not expect to “hold on “to the reference. It’s just going to use the
-object temporarily.  When you use [``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple) or
-[``PyArg_UnpackTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_UnpackTuple) you receive a borrowed reference to the
-objects in the tuple and should not alter their reference count inside
-your function. With practice, you can learn to get reference counting
-right, but it can be frustrating at first.
+通常，在创建变量时会获得对变量的新引用，或者是某个函数的返回值（但是有一些突出的例外 - 例如从元组或字典中获取项目）。当您拥有引用时，您有责任确保[``Py_DECREF``](https://docs.python.org/dev/c-api/refcounting.html#c.Py_DECREF)在不再需要该变量时调用（var）（并且没有其他函数“窃取”其引用）。此外，如果您将Python对象传递给将“窃取”引用的函数，那么您需要确保拥有它（或用于[``Py_INCREF``](https://docs.python.org/dev/c-api/refcounting.html#c.Py_INCREF)获取自己的引用）。您还将遇到借用参考的概念。借用引用的函数不会改变对象的引用计数，也不会期望“保持”引用。它只是暂时使用该对象。当你使用[``PyArg_ParseTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_ParseTuple)或者
+ [``PyArg_UnpackTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_UnpackTuple)您收到对元组中对象的借用引用，不应更改其函数内的引用计数。通过练习，您可以学会正确引用计数，但一开始可能会令人沮丧。
 
-One common source of reference-count errors is the [``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue)
-function. Pay careful attention to the difference between the ‘N’
-format character and the ‘O’ format character. If you create a new
-object in your subroutine (such as an output array), and you are
-passing it back in a tuple of return values, then you should most-
-likely use the ‘N’ format character in [``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue). The ‘O’
-character will increase the reference count by one. This will leave
-the caller with two reference counts for a brand-new array.  When the
-variable is deleted and the reference count decremented by one, there
-will still be that extra reference count, and the array will never be
-deallocated. You will have a reference-counting induced memory leak.
-Using the ‘N’ character will avoid this situation as it will return to
-the caller an object (inside the tuple) with a single reference count.
+引用计数错误的一个常见来源是[``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue)
+函数。请特别注意'N'格式字符和'O'格式字符之间的区别。如果在子例程中创建一个新对象（例如输出数组），并且在返回值的元组中将其传回，则最应该使用“N”格式字符。[``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue)。“O”字符将引用计数增加1。这将为调用者提供一个全新阵列的两个引用计数。删除变量并且引用计数减1时，仍会有额外的引用计数，并且永远不会释放该数组。您将有一个引用计数引起的内存泄漏。使用'N'字符将避免这种情况，因为它将使用单个引用计数返回给调用者一个对象（在元组内）。
 
-## Dealing with array objects
+## 处理数组对象
 
-Most extension modules for NumPy will need to access the memory for an
-ndarray object (or one of it’s sub-classes). The easiest way to do
-this doesn’t require you to know much about the internals of NumPy.
-The method is to
+NumPy的大多数扩展模块都需要访问ndarray对象（或其中一个子类）的内存。最简单的方法不需要您了解NumPy的内部结构。方法是
 
-1. Ensure you are dealing with a well-behaved array (aligned, in machine byte-order and single-segment) of the correct type and number of dimensions.
-    1. By converting it from some Python object using PyArray_FromAny or a macro built on it.
-    1. By constructing a new ndarray of your desired shape and type using PyArray_NewFromDescr or a simpler macro or function based on it.
-1. Get the shape of the array and a pointer to its actual data.
-1. Pass the data and shape information on to a subroutine or other section of code that actually performs the computation.
-1. If you are writing the algorithm, then I recommend that you use the stride information contained in the array to access the elements of the array (the PyArray_GetPtr macros make this painless). Then, you can relax your requirements so as not to force a single-segment array and the data-copying that might result.
+1. 确保处理的是行为良好的数组(按机器字节顺序和单段对齐)，具有正确的维数类型和数量。
+    1. 通过使用PyArray_FromAny或在其上构建的宏将其从某个Python对象转换。
+    1. 通过使用PyArray_NewFromDescr或基于它的更简单的宏或函数构建所需形状和类型的新ndarray。
+1. 获取数组的形状和指向其实际数据的指针。
+1. 将数据和形状信息传递给子例程或实际执行计算的其他代码部分。
+1. 如果您正在编写算法，那么我建议您使用数组中包含的步幅信息来访问数组的元素(PyArray_GetPtr宏使这一过程变得轻松)。然后，您可以放松您的要求，这样就不会强制使用单段数组和可能导致的数据复制。
 
-Each of these sub-topics is covered in the following sub-sections.
+这些子主题中的每一个都会在下面的小节中介绍。
 
-### Converting an arbitrary sequence object
+### 转换任意序列对象
 
-The main routine for obtaining an array from any Python object that
-can be converted to an array is [``PyArray_FromAny``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_FromAny). This
-function is very flexible with many input arguments. Several macros
-make it easier to use the basic function. [``PyArray_FROM_OTF``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_FROM_OTF) is
-arguably the most useful of these macros for the most common uses.  It
-allows you to convert an arbitrary Python object to an array of a
-specific builtin data-type ( *e.g.* float), while specifying a
-particular set of requirements ( *e.g.* contiguous, aligned, and
-writeable). The syntax is
+从任何可以转换为数组的Python对象获取数组的主程序是[``PyArray_FromAny``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_FromAny)。这个函数非常灵活，有许多输入参数。几个宏使它更容易使用基本功能。[``PyArray_FROM_OTF``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_FROM_OTF)可以说是最常用的这些宏中最有用的。它允许您将任意Python对象转换为特定内置数据类型（ *例如*  float）的数组，同时指定一组特定的需求（ *例如，* 连续，对齐和可写）。语法是
 
 - [``PyArray_FROM_OTF``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_FROM_OTF)
 
-  Return an ndarray from any Python object, *obj*, that can be
-  converted to an array. The number of dimensions in the returned
-  array is determined by the object. The desired data-type of the
-  returned array is provided in *typenum* which should be one of the
-  enumerated types. The *requirements* for the returned array can be
-  any combination of standard array flags.  Each of these arguments
-  is explained in more detail below. You receive a new reference to
-  the array on success. On failure, ``NULL`` is returned and an
-  exception is set.
+  从任何可以转换为数组的 Python 对象 *obj* 返回 ndarray。返回数组中的维数由对象确定。
+  返回数组的所需数据类型在 *typenum* 中提供，它应该是枚举类型之一。
+  对返回数组的*要求（requirements）*可以是标准数组标志的任意组合。下面将更详细地解释这些论点中的每一个。
+  成功后，您将收到对数组的新引用。如果失败，则返回 ``NULL`` 并设置异常。
 
   - **obj**
 
-    The object can be any Python object convertible to an ndarray. If the object is already (a subclass of) the ndarray that satisfies the requirements then a new reference is returned. Otherwise, a new array is constructed. The contents of obj are copied to the new array unless the array interface is used so that data does not have to be copied. Objects that can be converted to an array include: 1) any nested sequence object, 2) any object exposing the array interface, 3) any object with an [__array__](https://www.numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array__) method (which should return an ndarray), and 4) any scalar object (becomes a zero-dimensional array). Sub-classes of the ndarray that otherwise fit the requirements will be passed through. If you want to ensure a base-class ndarray, then use [NPY_ARRAY_ENSUREARRAY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_ENSUREARRAY) in the requirements flag. A copy is made only if necessary. If you want to guarantee a copy, then pass in [NPY_ARRAY_ENSURECOPY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_ENSURECOPY) to the requirements flag.
+    该对象可以是任何可转换为ndarray的Python对象。
+    如果对象已经是满足要求的ndarray的子类，则返回一个新的引用。否则，构造一个新的数组。
+    除非使用数组接口，否则将obj的内容复制到新数组，以便不必复制数据。
+    可以转换为数组的对象包括：
+    1)任何嵌套的Sequence对象，
+    2)暴露数组接口的任何对象，
+    3)具有[数组](https://www.numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array__)方法的任何对象(应该返回ndarray)，
+    以及4)任何标量对象(变成零维数组)。
+    否则符合要求的ndarray的子类将被传递。如果要确保基类ndarray，
+    则在Requirements标志中使用 [NPY_ARRAY_ENSUREARRAY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_ENSUREARRAY)。
+    只有在必要时才会制作副本。
+    如果要保证复制，则将 [NPY_ARRAY_ENSURECOPY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_ENSURECOPY) 传递给Requirements标志。
 
   - **typenum**
 
-    One of the enumerated types or [``NPY_NOTYPE``](https://numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_NOTYPE) if the data-type should be determined from the object itself. The C-based names can be used:
+    枚举类型之一或[``NPY_NOTYPE``](https://numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_NOTYPE)(如果数据类型应从对象本身确定)。可以使用基于C的名称：
 
     [NPY_BOOL](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_BOOL), [NPY_BYTE](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_BYTE), [NPY_UBYTE](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_UBYTE), [NPY_SHORT](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_SHORT), [NPY_USHORT](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_USHORT), [NPY_INT](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_INT), [NPY_UINT](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_UINT), [NPY_LONG](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_LONG), [NPY_ULONG](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_ULONG), [NPY_LONGLONG](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_LONGLONG), [NPY_ULONGLONG](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_ULONGLONG), [NPY_DOUBLE](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_DOUBLE), [NPY_LONGDOUBLE](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_LONGDOUBLE), [NPY_CFLOAT](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_CFLOAT), [NPY_CDOUBLE](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_CDOUBLE), [NPY_CLONGDOUBLE](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_CLONGDOUBLE), [NPY_OBJECT](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_OBJECT).
 
-    Alternatively, the bit-width names can be used as supported on the platform. For example:
+    或者，可以使用平台上支持的位宽名称。例如：
 
     [NPY_INT8](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_INT8), [NPY_INT16](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_INT16), [NPY_INT32](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_INT32), [NPY_INT64](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_INT64), [NPY_UINT8](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_UINT8), [NPY_UINT16](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_UINT16), [NPY_UINT32](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_UINT32), [NPY_UINT64](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_UINT64), [NPY_FLOAT32](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_FLOAT32), [NPY_FLOAT64](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_FLOAT64), [NPY_COMPLEX64](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_COMPLEX64), [NPY_COMPLEX128](https://www.numpy.org/devdocs/reference/c-api/dtype.html#c.NPY_COMPLEX128).
 
-    The object will be converted to the desired type only if it can be done without losing precision. Otherwise ``NULL`` will be returned and an error raised. Use [``NPY_ARRAY_FORCECAST``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_FORCECAST) in the requirements flag to override this behavior.
+    仅当可以在不丢失精度的情况下完成时，对象才会转换为所需的类型。
+    否则将返回 ``NULL`` 并引发错误。
+    在Requirements标志中使用 [``NPY_ARRAY_FORCECAST``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_FORCECAST) 覆盖此行为。
 
   - **requirements**
 
-    The memory model for an ndarray admits arbitrary strides in
-    each dimension to advance to the next element of the array.
-    Often, however, you need to interface with code that expects a
-    C-contiguous or a Fortran-contiguous memory layout. In
-    addition, an ndarray can be misaligned (the address of an
-    element is not at an integral multiple of the size of the
-    element) which can cause your program to crash (or at least
-    work more slowly) if you try and dereference a pointer into
-    the array data. Both of these problems can be solved by
-    converting the Python object into an array that is more
-    “well-behaved” for your specific usage.
+    ndarray的存储器模型允许每个维度上的任意步幅前进到数组的下一个元素。
+    然而，通常需要与需要C连续或Fortran连续内存布局的代码进行接口。
+    此外，ndarray可能未对齐(元素的地址不是元素大小的整数倍)，如果您尝试将指针取消引用到数组数据，
+    这可能会导致程序崩溃(或至少工作速度更慢)。
+    这两个问题都可以通过将Python对象转换为一个数组来解决，
+    该数组对于您的特定用法来说更“表现良好”。
 
-    The requirements flag allows specification of what kind of
-    array is acceptable. If the object passed in does not satisfy
-    this requirements then a copy is made so that thre returned
-    object will satisfy the requirements. these ndarray can use a
-    very generic pointer to memory.  This flag allows specification
-    of the desired properties of the returned array object. All
-    of the flags are explained in the detailed API chapter. The
-    flags most commonly needed are [``NPY_ARRAY_IN_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_IN_ARRAY), [``NPY_OUT_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_OUT_ARRAY), and [``NPY_ARRAY_INOUT_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_INOUT_ARRAY):
+    Requirements标志允许指定哪种类型的数组是可接受的。
+    如果传入的对象不满足此要求，则创建一个副本，以便返回的对象将满足这些要求。
+    这些ndarray可以使用非常通用的内存指针。此标志允许指定返回的数组对象的所需属性。
+    在详细的API一章中解释了所有的标志。最常用的标志是 [``NPY_ARRAY_IN_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_IN_ARRAY)、[``NPY_OUT_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_OUT_ARRAY)、and [``NPY_ARRAY_INOUT_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_INOUT_ARRAY):
 
     [``NPY_ARRAY_IN_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_IN_ARRAY)
     
-    This flag is useful for arrays that must be in C-contiguous order and aligned. These kinds of arrays are usually input arrays for some algorithm.
+    此标志对于必须按C连续顺序和对齐的数组非常有用。这些类型的数组通常是某些算法的输入数组。
 
     [``NPY_ARRAY_OUT_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_OUT_ARRAY)
 
-    This flag is useful to specify an array that is in C-contiguous order, is aligned, and can be written to as well. Such an array is usually returned as output (although normally such output arrays are created from scratch).
+    此标志用于指定C连续顺序的数组，该数组是对齐的，并且也可以写入。这样的数组通常作为输出返回(尽管通常这样的输出数组是从头开始创建的)。
 
     [``NPY_ARRAY_INOUT_ARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_INOUT_ARRAY)
     
-    This flag is useful to specify an array that will be used for both input and output. [PyArray_ResolveWritebackIfCopy](https://www.numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ResolveWritebackIfCopy) must be called before [Py_DECREF](https://docs.python.org/dev/c-api/refcounting.html#c.Py_DECREF) at the end of the interface routine to write back the temporary data into the original array passed in. Use of the [NPY_ARRAY_WRITEBACKIFCOPY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_WRITEBACKIFCOPY) or [NPY_ARRAY_UPDATEIFCOPY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_UPDATEIFCOPY) flags requires that the input object is already an array (because other objects cannot be automatically updated in this fashion). If an error occurs use [PyArray_DiscardWritebackIfCopy](https://www.numpy.org/devdocs/reference/c-api/array.html#c.PyArray_DiscardWritebackIfCopy) (obj) on an array with these flags set. This will set the underlying base array writable without causing the contents to be copied back into the original array.
+    此标志用于指定将用于输入和输出的数组。
+    必须在接口例程末尾的 [Py_DECREF](https://docs.python.org/dev/c-api/refcounting.html#c.Py_DECREF) 之前调用 [PyArray_ResolveWritebackIfCopy](https://www.numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ResolveWritebackIfCopy) ，
+    以将临时数据写回传入的原始数组。
+    使用 [NPY_ARRAY_WRITEBACKIFCOPY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_WRITEBACKIFCOPY) 或 
+    [NPY_ARRAY_UPDATEIFCOPY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_UPDATEIFCOPY) 标志要求输入对象已经是数组(因为其他对象不能以这种方式自动更新)。
+    如果发生错误，请在设置了这些标志的数组上使用 [PyArray_DiscardWritebackIfCopy](https://www.numpy.org/devdocs/reference/c-api/array.html#c.PyArray_DiscardWritebackIfCopy)(obj)。
+    这将设置底层基本数组可写，而不会导致内容复制回原始数组。
 
-    Other useful flags that can be OR’d as additional requirements are:
+    可以作为附加要求进行OR运算的其他有用标志包括：
 
     [``NPY_ARRAY_FORCECAST``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_FORCECAST)
     
-    Cast to the desired type, even if it can’t be done without losing information.
+    强制转换为所需的类型，即使在不丢失信息的情况下也是如此。
     
     [``NPY_ARRAY_ENSURECOPY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_ENSURECOPY)
 
-    Make sure the resulting array is a copy of the original.
+    确保生成的数组是原始数组的副本。
 
     [``NPY_ARRAY_ENSUREARRAY``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_ENSUREARRAY)
 
-    Make sure the resulting object is an actual ndarray and not a sub- class.
+    确保生成的对象是实际的ndarray，而不是子类。
 
-::: tip Note
 
-Whether or not an array is byte-swapped is determined by the
-data-type of the array. Native byte-order arrays are always
-requested by [``PyArray_FROM_OTF``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_FROM_OTF) and so there is no need for a [``NPY_ARRAY_NOTSWAPPED``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_NOTSWAPPED) flag in the requirements argument. There
-is also no way to get a byte-swapped array from this routine.
+::: tip 注意
+
+数组是否进行字节交换取决于数组的数据类型。始终请求本机字节顺序数组[``PyArray_FROM_OTF``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_FROM_OTF)，因此[``NPY_ARRAY_NOTSWAPPED``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_NOTSWAPPED)require参数中不需要标志。也无法从此例程中获取字节交换数组。
 
 :::
 
-### Creating a brand-new ndarray
+### 创建一个全新的ndarray 
 
-Quite often, new arrays must be created from within extension-module
-code. Perhaps an output array is needed and you don’t want the caller
-to have to supply it. Perhaps only a temporary array is needed to hold
-an intermediate calculation. Whatever the need there are simple ways
-to get an ndarray object of whatever data-type is needed. The most
-general function for doing this is [``PyArray_NewFromDescr``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_NewFromDescr). All array
-creation functions go through this heavily re-used code. Because of
-its flexibility, it can be somewhat confusing to use. As a result,
-simpler forms exist that are easier to use. These forms are part of the
-[``PyArray_SimpleNew``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_SimpleNew) family of functions, which simplify the interface
-by providing default values for common use cases.
+通常，必须在扩展模块代码中创建新数组。也许需要输出数组，并且您不希望调用者必须提供它。也许只需要一个临时数组来进行中间计算。无论需要什么，都需要简单的方法来获得任何数据类型的ndarray对象。这样做最常见的功能是[``PyArray_NewFromDescr``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_NewFromDescr)。所有数组创建函数都经过这个重复使用的代码。由于其灵活性，使用起来可能有点混乱。结果，存在更易于使用的更简单的形式。这些表单是[``PyArray_SimpleNew``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_SimpleNew)函数族的一部分
+ ，它通过为常见用例提供默认值来简化界面。
 
-### Getting at ndarray memory and accessing elements of the ndarray
+### 获取ndarray内存并访问ndarray的元素
 
-If obj is an ndarray ([``PyArrayObject *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayObject)), then the data-area of the
-ndarray is pointed to by the void* pointer [``PyArray_DATA``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_DATA) (obj) or
-the char* pointer [``PyArray_BYTES``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_BYTES) (obj). Remember that (in general)
-this data-area may not be aligned according to the data-type, it may
-represent byte-swapped data, and/or it may not be writeable. If the
-data area is aligned and in native byte-order, then how to get at a
-specific element of the array is determined only by the array of
-npy_intp variables, [``PyArray_STRIDES``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_STRIDES) (obj). In particular, this
-c-array of integers shows how many **bytes** must be added to the
-current element pointer to get to the next element in each dimension.
-For arrays less than 4-dimensions there are ``PyArray_GETPTR{k}``
-(obj, …) macros where {k} is the integer 1, 2, 3, or 4 that make
-using the array strides easier. The arguments …. represent {k} non-
-negative integer indices into the array. For example, suppose ``E`` is
-a 3-dimensional ndarray. A (void*) pointer to the element ``E[i,j,k]``
-is obtained as [``PyArray_GETPTR3``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_GETPTR3) (E, i, j, k).
+如果obj是一个ndarray（），那么ndarray 的数据区域由void *指针（obj）或char *指针（obj）指向。请记住（通常）此数据区域可能未根据数据类型对齐，它可能表示字节交换数据，和/或可能无法写入。如果数据区域是对齐的并且是以本机字节顺序排列的，那么如何获取数组的特定元素只能由npy_intp变量数组（obj）确定。特别是，这个整数的c数组显示了必须向当前元素指针添加多少**字节**才能到达每个维度中的下一个元素。对于小于4维的阵列，有[``PyArrayObject *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayObject)[``PyArray_DATA``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_DATA)[``PyArray_BYTES``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_BYTES)[``PyArray_STRIDES``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_STRIDES)****``PyArray_GETPTR{k}``
+（obj，...）宏，其中{k}是整数1,2,3或4，这使得使用数组步幅更容易。争论...... 将{k}非负整数索引表示到数组中。例如，假设``E``是一个三维的ndarray。``E[i,j,k]``
+获得元素的（void *）指针作为[``PyArray_GETPTR3``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_GETPTR3)（E，i，j，k）。
 
-As explained previously, C-style contiguous arrays and Fortran-style
-contiguous arrays have particular striding patterns. Two array flags
-([``NPY_ARRAY_C_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_C_CONTIGUOUS) and [``NPY_ARRAY_F_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_F_CONTIGUOUS)) indicate
-whether or not the striding pattern of a particular array matches the
-C-style contiguous or Fortran-style contiguous or neither. Whether or
-not the striding pattern matches a standard C or Fortran one can be
-tested Using [``PyArray_IS_C_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_IS_C_CONTIGUOUS) (obj) and
-[``PyArray_ISFORTRAN``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ISFORTRAN) (obj) respectively. Most third-party
-libraries expect contiguous arrays.  But, often it is not difficult to
-support general-purpose striding. I encourage you to use the striding
-information in your own code whenever possible, and reserve
-single-segment requirements for wrapping third-party code. Using the
-striding information provided with the ndarray rather than requiring a
-contiguous striding reduces copying that otherwise must be made.
+如前所述，C风格的连续数组和Fortran风格的连续数组具有特定的跨步模式。两个数组标志（[``NPY_ARRAY_C_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_C_CONTIGUOUS)和[``NPY_ARRAY_F_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_F_CONTIGUOUS)）表示特定数组的跨步模式是否与C风格的连续或Fortran风格的连续匹配或两者都不匹配。可以使用[``PyArray_IS_C_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_IS_C_CONTIGUOUS)（obj）和（）
+ 来测试跨步模式是否匹配标准C或Fortran[``PyArray_ISFORTRAN``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ISFORTRAN)（obj）分别。大多数第三方库都期望连续的数组。但是，通常支持通用跨越并不困难。我鼓励您尽可能在自己的代码中使用跨步信息，并保留包裹第三方代码的单段要求。使用与ndarray一起提供的跨步信息而不是需要连续的跨步减少了必须进行的复制。
 
-## Example
+## 示例
 
-The following example shows how you might write a wrapper that accepts
-two input arguments (that will be converted to an array) and an output
-argument (that must be an array). The function returns None and
-updates the output array. Note the updated use of WRITEBACKIFCOPY semantics
-for NumPy v1.14 and above
+以下示例显示了如何编写一个包含两个输入参数（将转换为数组）和输出参数（必须是数组）的包装器。该函数返回None并更新输出数组。请注意NumPy v1.14及更高版本的WRITEBACKIFCOPY语义的更新使用
 
 ``` c
 static PyObject *

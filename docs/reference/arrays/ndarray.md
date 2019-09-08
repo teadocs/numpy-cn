@@ -1,32 +1,21 @@
-# The N-dimensional array (``ndarray``)
+# N维数组（``ndarray``）
 
-An [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) is a (usually fixed-size) multidimensional
-container of items of the same type and size. The number of dimensions
-and items in an array is defined by its [``shape``](generated/numpy.ndarray.shape.html#numpy.ndarray.shape),
-which is a [``tuple``](https://docs.python.org/dev/library/stdtypes.html#tuple) of *N* non-negative integers that specify the
-sizes of each dimension. The type of items in the array is specified by
-a separate [data-type object (dtype)](arrays.dtypes.html#arrays-dtypes), one of which
-is associated with each ndarray.
+一个 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)是具有相同类型和大小的项目的（通常是固定大小的）多维容器。尺寸和阵列中的项目的数量是由它的定义[``shape``](generated/numpy.ndarray.shape.html#numpy.ndarray.shape)，它是一种[``tuple``](https://docs.python.org/dev/library/stdtypes.html#tuple)的 *Ñ* 指定每一维的尺寸非负整数。数组中的项类型由单独的[数据类型对象（dtype）指定](arrays.dtypes.html#arrays-dtypes)，其中一个与每个ndarray相关联。
 
-As with other container objects in Python, the contents of an
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) can be accessed and modified by [indexing or
-slicing](arrays.indexing.html#arrays-indexing) the array (using, for example, *N* integers),
-and via the methods and attributes of the [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray).
+与Python中的其他容器对象一样，[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)可以通过[索引或切片](arrays.indexing.html#arrays-indexing)数组（例如，使用 *N个* 整数）以及通过方法和属性来访问和修改an的内容
+ [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)。
 
-Different [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray) can share the same data, so that
-changes made in one [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) may be visible in another. That
-is, an ndarray can be a *“view”* to another ndarray, and the data it
-is referring to is taken care of by the *“base”* ndarray. ndarrays can
-also be views to memory owned by Python [``strings``](https://docs.python.org/dev/library/stdtypes.html#str) or
-objects implementing the ``buffer`` or [array](arrays.interface.html#arrays-interface) interfaces.
+不同[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)可以共享相同的数据，
+因此在一个中[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)进行的更改可能在另一个中可见。
+也就是说，ndarray可以是另一个ndarray 的 *“view”* ，它所指的数据由 *“base”*  ndarray处理。
+ndarrays也可以是Python拥有的内存[``strings``](https://docs.python.org/dev/library/stdtypes.html#str)或实现``buffer``或[数组](arrays.interface.html#arrays-interface)接口的对象的视图。
 
-**Example:**
+**例子**：
 
-A 2-dimensional array of size 2 x 3, composed of 4-byte integer
-elements:
+尺寸为2 x 3的二维数组，由4字节整数元素组成：
 
 ``` python
->>> x = np.array([[1, 2, 3], [4, 5, 6]], np.int32)
+>>>>>> x = np.array([[1, 2, 3], [4, 5, 6]], np.int32)
 >>> type(x)
 <type 'numpy.ndarray'>
 >>> x.shape
@@ -35,17 +24,17 @@ elements:
 dtype('int32')
 ```
 
-The array can be indexed using Python container-like syntax:
+可以使用类似Python容器的语法对数组进行索引：
 
 ``` python
->>> # The element of x in the *second* row, *third* column, namely, 6.
+>>>>>> # The element of x in the *second* row, *third* column, namely, 6.
 >>> x[1, 2]
 ```
 
-For example [slicing](arrays.indexing.html#arrays-indexing) can produce views of the array:
+例如，[切片](arrays.indexing.html#arrays-indexing)可以生成数组的视图：
 
 ``` python
->>> y = x[:,1]
+>>>>>> y = x[:,1]
 >>> y
 array([2, 5])
 >>> y[0] = 9 # this also changes the corresponding element in x
@@ -56,53 +45,43 @@ array([[1, 9, 3],
        [4, 5, 6]])
 ```
 
-## Constructing arrays
+## 构造数组
 
-New arrays can be constructed using the routines detailed in
-[Array creation routines](routines.array-creation.html#routines-array-creation), and also by using the low-level
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) constructor:
+可以使用[Array创建](routines.array-creation.html#routines-array-creation)例程中详述的[例程](routines.array-creation.html#routines-array-creation)以及使用低级
+ 构造函数构建新数组
+ [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray](generated/numpy.ndarray.html#numpy.ndarray)(shape[, dtype, buffer, offset, …]) | An array object represents a multidimensional, homogeneous array of fixed-size items.
+[ndarray](generated/numpy.ndarray.html#numpy.ndarray)(shape[, dtype, buffer, offset, ...]) | 数组对象表示固定大小的项的多维同构数组。
 
+## 索引数组
 
-## Indexing arrays
+可以使用扩展的Python切片语法对数组建立索引 ``array[selection]``。
+类似的语法也用于访问[结构化数据类型中的](https://numpy.org/devdocs/glossary.html#term-structured-data-type)字段。
 
-Arrays can be indexed using an extended Python slicing syntax,
-``array[selection]``.  Similar syntax is also used for accessing
-fields in a [structured data type](https://numpy.org/devdocs/glossary.html#term-structured-data-type).
+::: tip 另见
 
-::: tip See also
-
-[Array Indexing](arrays.indexing.html#arrays-indexing).
+[数组索引](arrays.indexing.html#arrays-indexing)。
 
 :::
 
-## Internal memory layout of an ndarray
+## ndarray的内部存储器布局
 
-An instance of class [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) consists of a contiguous
-one-dimensional segment of computer memory (owned by the array, or by
-some other object), combined with an indexing scheme that maps *N*
-integers into the location of an item in the block.  The ranges in
-which the indices can vary is specified by the [``shape``](generated/numpy.ndarray.shape.html#numpy.ndarray.shape) of the array. How many bytes each item takes and how
-the bytes are interpreted is defined by the [data-type object](arrays.dtypes.html#arrays-dtypes) associated with the array.
+类的实例[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)由计算机内存的连续一维段（由数组拥有，或由某个其他对象拥有）组成，
+并与将 *N个*  整数映射到块中项的位置的索引方案相结合。索引可以变化的范围由[``shape``](generated/numpy.ndarray.shape.html#numpy.ndarray.shape)数组的指定。每个项目占用多少字节以及如何解释字节由与数组关联的[数据类型对象](arrays.dtypes.html#arrays-dtypes)定义。
 
-A segment of memory is inherently 1-dimensional, and there are many
-different schemes for arranging the items of an *N*-dimensional array
-in a 1-dimensional block. NumPy is flexible, and [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
-objects can accommodate any *strided indexing scheme*. In a strided
-scheme, the N-dimensional index <img class="math" src="/static/images/math/edb5f8b6064d0edc2bc57a1714249e0eae1a33e3.svg" alt="(n_0, n_1, ..., n_{N-1})"/> corresponds to the offset (in bytes):
+存储器段本质上是1维的，并且存在许多不同的方案用于在1维块中布置 *N* 维阵列的项。NumPy非常灵活，[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
+对象可以适应任何 *跨步索引方案* 。在跨步方案中，N维索引 <img class="math" src="/static/images/math/edb5f8b6064d0edc2bc57a1714249e0eae1a33e3.svg" alt="(n_0, n_1, ..., n_{N-1})"/> 对应于偏移量（以字节为单位）：
 
 <center>
 <img src="/static/images/math/1388948b609ce9a1d9ae0380d361628d6b385812.svg" alt="n_{\mathrm{offset}} = \sum_{k=0}^{N-1} s_k n_k"/>
 </center>
 
-from the beginning of the memory block associated with the
-array. Here,  are integers which specify the [``strides``](generated/numpy.ndarray.strides.html#numpy.ndarray.strides) of the array. The [column-major](https://numpy.org/devdocs/glossary.html#term-column-major) order (used,
-for example, in the Fortran language and in *Matlab*) and
-[row-major](https://numpy.org/devdocs/glossary.html#term-row-major) order (used in C) schemes are just specific kinds of
-strided scheme, and correspond to memory that can be *addressed* by the strides:
+从与数组关联的内存块的开头。
+这里是指定[``strides``](generated/numpy.ndarray.strides.html#numpy.ndarray.strides)数组的整数。
+的[column-major](https://numpy.org/devdocs/glossary.html#term-column-major)顺序（使用，例如，在Fortran语言和 *Matlab的* ）和
+[row-major](https://numpy.org/devdocs/glossary.html#term-row-major)顺序方案（在C中使用）都只是特定种类的跨距方案的，并对应于可以被存储器 *寻址* 由步幅：
 
 <center>
 <img src="/static/images/math/af328186eedd2e4200b34e0e6a31acae4dbc9d20.svg" alt="n_{\mathrm{offset}} = \sum_{k=0}^{N-1} s_k n_k"/>
@@ -110,231 +89,191 @@ strided scheme, and correspond to memory that can be *addressed* by the strides:
 
 where <img class="math" src="/static/images/math/5e6cfb16a1d0565098e1a35072ef6fbfef092db3.svg" alt="d_j"/> *= self.shape[j]*.
 
-Both the C and Fortran orders are [contiguous](https://docs.python.org/dev/glossary.html#term-contiguous), *i.e.,*
-single-segment, memory layouts, in which every part of the
-memory block can be accessed by some combination of the indices.
+C和Fortran命令都是[连续的](https://docs.python.org/dev/glossary.html#term-contiguous)，*即* 单段内存布局，
+其中内存块的每个部分都可以通过某些索引组合来访问。
 
-While a C-style and Fortran-style contiguous array, which has the corresponding
-flags set, can be addressed with the above strides, the actual strides may be
-different. This can happen in two cases:
+虽然具有相应标志集的C风格和Fortran风格的连续数组可以通过上述步骤来解决，但实际的步幅可能不同。这可能发生在两种情况：
 
-1. If ``self.shape[k] == 1`` then for any legal index ``index[k] == 0``.
-This means that in the formula for the offset  and thus
- and the value of  *= self.strides[k]* is
-arbitrary.
-1. If an array has no elements (``self.size == 0``) there is no legal
-index and the strides are never used. Any array with no elements may be
-considered C-style and Fortran-style contiguous.
+1. 如果 ``self.shape[k] == 1``，则对于任何合法索引 ``index[k] == 0``。这意味着在偏移量的公式中，因此和 *= self.strides[k]*  的值是任意的。
+1. 如果数组没有元素 (``self.size == 0``) ，则没有合法索引，并且从不使用跨距。任何没有元素的数组都可以被认为是C样式和Fortran样式的连续数组。
 
-Point 1. means that ``self`` and ``self.squeeze()`` always have the same
-contiguity and ``aligned`` flags value. This also means
-that even a high dimensional array could be C-style and Fortran-style
-contiguous at the same time.
+点 1.表示``self``并且``self.squeeze()``始终具有相同的连续性和``aligned``标志值。这也意味着即使是高维数组也可能同时是C风格和Fortran风格的连续。
 
-An array is considered aligned if the memory offsets for all elements and the
-base offset itself is a multiple of *self.itemsize*. Understanding
-*memory-alignment* leads to better performance on most hardware.
+如果所有元素的内存偏移量和基本偏移量本身是 *self.itemsize* 的倍数，则认为数组是对齐的。
+了解 *内存对齐* 可以在大多数硬件上实现更好的性能。
 
-::: tip Note
+::: tip 注意
 
-Points (1) and (2) are not yet applied by default. Beginning with
-NumPy 1.8.0, they are applied consistently only if the environment
-variable ``NPY_RELAXED_STRIDES_CHECKING=1`` was defined when NumPy
-was built. Eventually this will become the default.
+默认情况下尚未应用点（1）和（2）。从NumPy 1.8.0开始，只有``NPY_RELAXED_STRIDES_CHECKING=1``在构建NumPy时定义了环境变量时才会一致地应用它们。最终这将成为默认值。
 
-You can check whether this option was enabled when your NumPy was
-built by looking at the value of ``np.ones((10,1),
-order='C').flags.f_contiguous``. If this is ``True``, then your
-NumPy has relaxed strides checking enabled.
+您可以通过查看 ``np.ones((10,1), order='C').flags.f_contiguous`` 的值来检查在构建NumPy时是否启用了此选项。如果这是 ``True``，则您的NumPy已启用松弛步幅检查。
 
 :::
 
-::: danger Warning
+::: danger 警告
 
-It does *not* generally hold that ``self.strides[-1] == self.itemsize``
-for C-style contiguous arrays or ``self.strides[0] == self.itemsize`` for
-Fortran-style contiguous arrays is true.
+它通常不认为对于C型连续数组，``self.strides[-1] == self.itemsize`` 或对于Fortran样式连续数组，``self.strides[0] == self.itemsize`` 为真。
 
 :::
 
-Data in new [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray) is in the [row-major](https://numpy.org/devdocs/glossary.html#term-row-major)
-(C) order, unless otherwise specified, but, for example, [basic
-array slicing](arrays.indexing.html#arrays-indexing) often produces [views](https://numpy.org/devdocs/glossary.html#term-view)
-in a different scheme.
+除非另有说明，否则new [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)中的数据采用[行主](https://numpy.org/devdocs/glossary.html#term-row-major)（C）顺序，但是，例如，[基本数组切片](arrays.indexing.html#arrays-indexing)通常会
+以不同的方案生成[视图](https://numpy.org/devdocs/glossary.html#term-view)。
 
-::: tip Note
+::: tip 注意
 
-Several algorithms in NumPy work on arbitrarily strided arrays.
-However, some algorithms require single-segment arrays. When an
-irregularly strided array is passed in to such algorithms, a copy
-is automatically made.
+NumPy中的几种算法适用于任意跨步阵列。但是，某些算法需要单段数组。当不规则跨越的阵列传递给这样的算法时，自动进行复制。
 
 :::
 
-## Array attributes
+## 数组属性
 
-Array attributes reflect information that is intrinsic to the array
-itself. Generally, accessing an array through its attributes allows
-you to get and sometimes set intrinsic properties of the array without
-creating a new array. The exposed attributes are the core parts of an
-array and only some of them can be reset meaningfully without creating
-a new array. Information on each attribute is given below.
+数组属性反映了数组本身固有的信息。通常，通过其属性访问数组允许您获取并有时设置数组的内部属性，而无需创建新数组。公开的属性是数组的核心部分，只有一些属性可以有意义地重置而无需创建新数组。有关每个属性的信息如下。
 
-### Memory layout
+### 内存布局
 
-The following attributes contain information about the memory layout
-of the array:
+以下属性包含有关数组内存布局的信息：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.flags](generated/numpy.ndarray.flags.html#numpy.ndarray.flags) | Information about the memory layout of the array.
-[ndarray.shape](generated/numpy.ndarray.shape.html#numpy.ndarray.shape) | Tuple of array dimensions.
-[ndarray.strides](generated/numpy.ndarray.strides.html#numpy.ndarray.strides) | Tuple of bytes to step in each dimension when traversing an array.
-[ndarray.ndim](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim) | Number of array dimensions.
-[ndarray.data](generated/numpy.ndarray.data.html#numpy.ndarray.data) | Python buffer object pointing to the start of the array’s data.
-[ndarray.size](generated/numpy.ndarray.size.html#numpy.ndarray.size) | Number of elements in the array.
-[ndarray.itemsize](generated/numpy.ndarray.itemsize.html#numpy.ndarray.itemsize) | Length of one array element in bytes.
-[ndarray.nbytes](generated/numpy.ndarray.nbytes.html#numpy.ndarray.nbytes) | Total bytes consumed by the elements of the array.
-[ndarray.base](generated/numpy.ndarray.base.html#numpy.ndarray.base) | Base object if memory is from some other object.
+[ndarray.flags](generated/numpy.ndarray.flags.html#numpy.ndarray.flags) | 有关阵列内存布局的信息。
+[ndarray.shape](generated/numpy.ndarray.shape.html#numpy.ndarray.shape) | 数组维度的元组。
+[ndarray.strides](generated/numpy.ndarray.strides.html#numpy.ndarray.strides) | 遍历数组时每个维度中的字节元组。
+[ndarray.ndim](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim) | 数组维数。
+[ndarray.data](generated/numpy.ndarray.data.html#numpy.ndarray.data) | Python缓冲区对象指向数组的数据的开头。
+[ndarray.size](generated/numpy.ndarray.size.html#numpy.ndarray.size) | 数组中的元素数。
+[ndarray.itemsize](generated/numpy.ndarray.itemsize.html#numpy.ndarray.itemsize) | 一个数组元素的长度，以字节为单位
+[ndarray.nbytes](generated/numpy.ndarray.nbytes.html#numpy.ndarray.nbytes) | 数组元素消耗的总字节数。
+[ndarray.base](generated/numpy.ndarray.base.html#numpy.ndarray.base) | 如果内存来自其他对象，则为基础对象。
 
-### Data type
+### 数据类型
 
-::: tip See also
+::: tip 另见
 
-[Data type objects](arrays.dtypes.html#arrays-dtypes)
+[数据类型对象](arrays.dtypes.html#arrays-dtypes)
 
 :::
 
-The data type object associated with the array can be found in the
-[``dtype``](generated/numpy.ndarray.dtype.html#numpy.ndarray.dtype) attribute:
+可以在[``dtype``](generated/numpy.ndarray.dtype.html#numpy.ndarray.dtype)属性中找到与该数组关联的数据类型对象
+ ：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.dtype](generated/numpy.ndarray.dtype.html#numpy.ndarray.dtype) | Data-type of the array’s elements.
+[ndarray.dtype](generated/numpy.ndarray.dtype.html#numpy.ndarray.dtype) | 数组元素的数据类型。
 
-### Other attributes
+### 其他属性
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.T](generated/numpy.ndarray.T.html#numpy.ndarray.T) | The transposed array.
-[ndarray.real](generated/numpy.ndarray.real.html#numpy.ndarray.real) | The real part of the array.
-[ndarray.imag](generated/numpy.ndarray.imag.html#numpy.ndarray.imag) | The imaginary part of the array.
-[ndarray.flat](generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | A 1-D iterator over the array.
-[ndarray.ctypes](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) | An object to simplify the interaction of the array with the ctypes module.
+[ndarray.T](generated/numpy.ndarray.T.html#numpy.ndarray.T) | 转置数组。
+[ndarray.real](generated/numpy.ndarray.real.html#numpy.ndarray.real) | 数组的真实部分。
+[ndarray.imag](generated/numpy.ndarray.imag.html#numpy.ndarray.imag) | 数组的虚部。
+[ndarray.flat](generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | 数组上的一维迭代器。
+[ndarray.ctypes](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) | 一个简化数组与ctypes模块交互的对象。
 
-### Array interface
+### 数组接口
 
-::: tip See also
+::: tip 另见
 
-[The Array Interface](arrays.interface.html#arrays-interface).
+[阵列接口](arrays.interface.html#arrays-interface)。
 
 :::
 
-method | description
+方法 | 描述
 ---|---
-[\_\_array_interface__](arrays.interface.html#__array_interface__) | Python-side of the array interface
-\_\_array_struct__ | C-side of the array interface
+[__array_interface__](arrays.interface.html#__array_interface__) | 数组接口的Python端
+__array_struct__ | 阵列接口的C端
 
-### ``ctypes`` foreign function interface
+### ``ctypes``外部函数接口
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.ctypes](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) | An object to simplify the interaction of the array with the ctypes module.
+[ndarray.ctypes](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) | 一个简化数组与ctypes模块交互的对象。
 
-## Array methods
+## 数组方法
 
-An [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) object has many methods which operate on or with
-the array in some fashion, typically returning an array result. These
-methods are briefly explained below. (Each method’s docstring has a
-more complete description.)
+一个[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)对象具有上或与以某种方式在阵列，典型地返回一个数组结果操作的许多方法。下面简要说明这些方法。（每个方法的docstring都有更完整的描述。）
 
-For the following methods there are also corresponding functions in
-[``numpy``](index.html#module-numpy): [``all``](generated/numpy.all.html#numpy.all), [``any``](generated/numpy.any.html#numpy.any), [``argmax``](generated/numpy.argmax.html#numpy.argmax),
-[``argmin``](generated/numpy.argmin.html#numpy.argmin), [``argpartition``](generated/numpy.argpartition.html#numpy.argpartition), [``argsort``](generated/numpy.argsort.html#numpy.argsort), [``choose``](generated/numpy.choose.html#numpy.choose),
-[``clip``](generated/numpy.clip.html#numpy.clip), [``compress``](generated/numpy.compress.html#numpy.compress), [``copy``](generated/numpy.copy.html#numpy.copy), [``cumprod``](generated/numpy.cumprod.html#numpy.cumprod),
-[``cumsum``](generated/numpy.cumsum.html#numpy.cumsum), [``diagonal``](generated/numpy.diagonal.html#numpy.diagonal), [``imag``](generated/numpy.imag.html#numpy.imag), [``max``](generated/numpy.amax.html#numpy.amax),
-[``mean``](generated/numpy.mean.html#numpy.mean), [``min``](generated/numpy.amin.html#numpy.amin), [``nonzero``](generated/numpy.nonzero.html#numpy.nonzero), [``partition``](generated/numpy.partition.html#numpy.partition),
-[``prod``](generated/numpy.prod.html#numpy.prod), [``ptp``](generated/numpy.ptp.html#numpy.ptp), [``put``](generated/numpy.put.html#numpy.put), [``ravel``](generated/numpy.ravel.html#numpy.ravel), [``real``](generated/numpy.real.html#numpy.real),
-[``repeat``](generated/numpy.repeat.html#numpy.repeat), [``reshape``](generated/numpy.reshape.html#numpy.reshape), [``round``](generated/numpy.around.html#numpy.around),
-[``searchsorted``](generated/numpy.searchsorted.html#numpy.searchsorted), [``sort``](generated/numpy.sort.html#numpy.sort), [``squeeze``](generated/numpy.squeeze.html#numpy.squeeze), [``std``](generated/numpy.std.html#numpy.std),
-[``sum``](generated/numpy.sum.html#numpy.sum), [``swapaxes``](generated/numpy.swapaxes.html#numpy.swapaxes), [``take``](generated/numpy.take.html#numpy.take), [``trace``](generated/numpy.trace.html#numpy.trace),
-[``transpose``](generated/numpy.transpose.html#numpy.transpose), [``var``](generated/numpy.var.html#numpy.var).
+对于下面的方法在那里也相应的功能
 
-### Array conversion
+ [``numpy``](index.html#module-numpy)：[``all``](generated/numpy.all.html#numpy.all)，[``any``](generated/numpy.any.html#numpy.any)，[``argmax``](generated/numpy.argmax.html#numpy.argmax)，
+ [``argmin``](generated/numpy.argmin.html#numpy.argmin)，[``argpartition``](generated/numpy.argpartition.html#numpy.argpartition)，[``argsort``](generated/numpy.argsort.html#numpy.argsort)，[``choose``](generated/numpy.choose.html#numpy.choose)，
+ [``clip``](generated/numpy.clip.html#numpy.clip)，[``compress``](generated/numpy.compress.html#numpy.compress)，[``copy``](generated/numpy.copy.html#numpy.copy)，[``cumprod``](generated/numpy.cumprod.html#numpy.cumprod)，
+ [``cumsum``](generated/numpy.cumsum.html#numpy.cumsum)，[``diagonal``](generated/numpy.diagonal.html#numpy.diagonal)，[``imag``](generated/numpy.imag.html#numpy.imag)，[``max``](generated/numpy.amax.html#numpy.amax)，
+ [``mean``](generated/numpy.mean.html#numpy.mean)，[``min``](generated/numpy.amin.html#numpy.amin)，[``nonzero``](generated/numpy.nonzero.html#numpy.nonzero)，[``partition``](generated/numpy.partition.html#numpy.partition)，
+ [``prod``](generated/numpy.prod.html#numpy.prod)，[``ptp``](generated/numpy.ptp.html#numpy.ptp)，[``put``](generated/numpy.put.html#numpy.put)，[``ravel``](generated/numpy.ravel.html#numpy.ravel)，[``real``](generated/numpy.real.html#numpy.real)，
+ [``repeat``](generated/numpy.repeat.html#numpy.repeat)，[``reshape``](generated/numpy.reshape.html#numpy.reshape)，[``round``](generated/numpy.around.html#numpy.around)，
+ [``searchsorted``](generated/numpy.searchsorted.html#numpy.searchsorted)，[``sort``](generated/numpy.sort.html#numpy.sort)，[``squeeze``](generated/numpy.squeeze.html#numpy.squeeze)，[``std``](generated/numpy.std.html#numpy.std)，
+ [``sum``](generated/numpy.sum.html#numpy.sum)，[``swapaxes``](generated/numpy.swapaxes.html#numpy.swapaxes)，[``take``](generated/numpy.take.html#numpy.take)，[``trace``](generated/numpy.trace.html#numpy.trace)，
+ [``transpose``](generated/numpy.transpose.html#numpy.transpose)，[``var``](generated/numpy.var.html#numpy.var)。
 
-method | description
+### 数组转换
+
+方法 | 描述
 ---|---
-[ndarray.item](generated/numpy.ndarray.item.html#numpy.ndarray.item)(*args) | Copy an element of an array to a standard Python scalar and return it.
-[ndarray.tolist](generated/numpy.ndarray.tolist.html#numpy.ndarray.tolist)() | Return the array as an a.ndim-levels deep nested list of Python scalars.
-[ndarray.itemset](generated/numpy.ndarray.itemset.html#numpy.ndarray.itemset)(*args) | Insert scalar into an array (scalar is cast to array’s dtype, if possible)
-[ndarray.tostring](generated/numpy.ndarray.tostring.html#numpy.ndarray.tostring)([order]) | Construct Python bytes containing the raw data bytes in the array.
-[ndarray.tobytes](generated/numpy.ndarray.tobytes.html#numpy.ndarray.tobytes)([order]) | Construct Python bytes containing the raw data bytes in the array.
-[ndarray.tofile](generated/numpy.ndarray.tofile.html#numpy.ndarray.tofile)(fid[, sep, format]) | Write array to a file as text or binary (default).
-[ndarray.dump](generated/numpy.ndarray.dump.html#numpy.ndarray.dump)(file) | Dump a pickle of the array to the specified file.
-[ndarray.dumps](generated/numpy.ndarray.dumps.html#numpy.ndarray.dumps)() | Returns the pickle of the array as a string.
-[ndarray.astype](generated/numpy.ndarray.astype.html#numpy.ndarray.astype)(dtype[, order, casting, …]) | Copy of the array, cast to a specified type.
-[ndarray.byteswap](generated/numpy.ndarray.byteswap.html#numpy.ndarray.byteswap)([inplace]) | Swap the bytes of the array elements
-[ndarray.copy](generated/numpy.ndarray.copy.html#numpy.ndarray.copy)([order]) | Return a copy of the array.
-[ndarray.view](generated/numpy.ndarray.view.html#numpy.ndarray.view)([dtype, type]) | New view of array with the same data.
-[ndarray.getfield](generated/numpy.ndarray.getfield.html#numpy.ndarray.getfield)(dtype[, offset]) | Returns a field of the given array as a certain type.
-[ndarray.setflags](generated/numpy.ndarray.setflags.html#numpy.ndarray.setflags)([write, align, uic]) | Set array flags WRITEABLE, ALIGNED, (WRITEBACKIFCOPY and UPDATEIFCOPY), respectively.
-[ndarray.fill](generated/numpy.ndarray.fill.html#numpy.ndarray.fill)(value) | Fill the array with a scalar value.
+[ndarray.item](generated/numpy.ndarray.item.html#numpy.ndarray.item)(*args) | 将数组元素复制到标准Python标量并返回它。
+[ndarray.tolist](generated/numpy.ndarray.tolist.html#numpy.ndarray.tolist)() | 将数组作为a.ndim-levels深层嵌套的Python标量列表返回。
+[ndarray.itemset](generated/numpy.ndarray.itemset.html#numpy.ndarray.itemset)(*args)  | 将标量插入数组（如果可能，将标量转换为数组的dtype）
+[ndarray.tostring](generated/numpy.ndarray.tostring.html#numpy.ndarray.tostring)([order])  | 构造包含数组中原始数据字节的Python字节。
+[ndarray.tobytes](generated/numpy.ndarray.tobytes.html#numpy.ndarray.tobytes)([order])  | 构造包含数组中原始数据字节的Python字节。
+[ndarray.tofile](generated/numpy.ndarray.tofile.html#numpy.ndarray.tofile)(fid[, sep, format]) | 将数组作为文本或二进制写入文件（默认）。
+[ndarray.dump](generated/numpy.ndarray.dump.html#numpy.ndarray.dump)(file) | 将数组的pickle转储到指定的文件。
+[ndarray.dumps](generated/numpy.ndarray.dumps.html#numpy.ndarray.dumps)() | 以字符串形式返回数组的pickle。
+[ndarray.astype](generated/numpy.ndarray.astype.html#numpy.ndarray.astype)(dtype[, order, casting, …]) | 数组的副本，强制转换为指定的类型。
+[ndarray.byteswap](generated/numpy.ndarray.byteswap.html#numpy.ndarray.byteswap)([inplace]) | 交换数组元素的字节
+[ndarray.copy](generated/numpy.ndarray.copy.html#numpy.ndarray.copy)([order])  | 返回数组的副本。
+[ndarray.view](generated/numpy.ndarray.view.html#numpy.ndarray.view)([dtype, type]) | 具有相同数据的数组的新视图。
+[ndarray.getfield](generated/numpy.ndarray.getfield.html#numpy.ndarray.getfield)(dtype[, offset]) | 返回给定数组的字段作为特定类型。
+[ndarray.setflags](generated/numpy.ndarray.setflags.html#numpy.ndarray.setflags)([write, align, uic]) | 分别设置数组标志WRITEABLE，ALIGNED，（WRITEBACKIFCOPY和UPDATEIFCOPY）。
+[ndarray.fill](generated/numpy.ndarray.fill.html#numpy.ndarray.fill)(value) | 使用标量值填充数组。
 
-### Shape manipulation
+### 形状操作
 
-For reshape, resize, and transpose, the single tuple argument may be
-replaced with ``n`` integers which will be interpreted as an n-tuple.
+对于重新``n``整形，调整大小和转置，单个元组参数可以用将被解释为n元组的整数替换。
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.reshape](generated/numpy.ndarray.reshape.html#numpy.ndarray.reshape)(shape[, order]) | Returns an array containing the same data with a new shape.
-[ndarray.resize](generated/numpy.ndarray.resize.html#numpy.ndarray.resize)(new_shape[, refcheck]) | Change shape and size of array in-place.
-[ndarray.transpose](generated/numpy.ndarray.transpose.html#numpy.ndarray.transpose)(*axes) | Returns a view of the array with axes transposed.
-[ndarray.swapaxes](generated/numpy.ndarray.swapaxes.html#numpy.ndarray.swapaxes)(axis1, axis2) | Return a view of the array with axis1 and axis2 interchanged.
-[ndarray.flatten](generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten)([order]) | Return a copy of the array collapsed into one dimension.
-[ndarray.ravel](generated/numpy.ndarray.ravel.html#numpy.ndarray.ravel)([order]) | Return a flattened array.
-[ndarray.squeeze](generated/numpy.ndarray.squeeze.html#numpy.ndarray.squeeze)([axis]) | Remove single-dimensional entries from the shape of a.
+[ndarray.reshape](generated/numpy.ndarray.reshape.html#numpy.ndarray.reshape)(shape[, order]) | 返回包含具有新形状的相同数据的数组。
+[ndarray.resize](generated/numpy.ndarray.resize.html#numpy.ndarray.resize)(new_shape[, refcheck]) | 就地更改阵列的形状和大小。
+[ndarray.transpose](generated/numpy.ndarray.transpose.html#numpy.ndarray.transpose)(*axes) | 返回轴转置的数组视图。
+[ndarray.swapaxes](generated/numpy.ndarray.swapaxes.html#numpy.ndarray.swapaxes)(axis1, axis2) | 返回数组的视图，其中axis1和axis2互换。
+[ndarray.flatten](generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten)([order]) | 将折叠的数组的副本返回到一个维度。
+[ndarray.ravel](generated/numpy.ndarray.ravel.html#numpy.ndarray.ravel)([order]) | 返回一个扁平的数组。
+[ndarray.squeeze](generated/numpy.ndarray.squeeze.html#numpy.ndarray.squeeze)([axis]) | 从形状除去单维输入一个。
 
-### Item selection and manipulation
+### 项目选择和操作
 
-For array methods that take an *axis* keyword, it defaults to
-``None``. If axis is *None*, then the array is treated as a 1-D
-array. Any other value for *axis* represents the dimension along which
-the operation should proceed.
+对于采用 *axis* 关键字的数组方法，默认为 ``None``。
+如果axis为 *None* ，则将数组视为1-D数组。
+*轴的* 任何其他值表示操作应继续进行的维度。
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.take](generated/numpy.ndarray.take.html#numpy.ndarray.take)(indices[, axis, out, mode]) | Return an array formed from the elements of a at the given indices.
-[ndarray.put](generated/numpy.ndarray.put.html#numpy.ndarray.put)(indices, values[, mode]) | Set a.flat[n] = values[n] for all n in indices.
-[ndarray.repeat](generated/numpy.ndarray.repeat.html#numpy.ndarray.repeat)(repeats[, axis]) | Repeat elements of an array.
-[ndarray.choose](generated/numpy.ndarray.choose.html#numpy.ndarray.choose)(choices[, out, mode]) | Use an index array to construct a new array from a set of choices.
-[ndarray.sort](generated/numpy.ndarray.sort.html#numpy.ndarray.sort)([axis, kind, order]) | Sort an array in-place.
-[ndarray.argsort](generated/numpy.ndarray.argsort.html#numpy.ndarray.argsort)([axis, kind, order]) | Returns the indices that would sort this array.
-[ndarray.partition](generated/numpy.ndarray.partition.html#numpy.ndarray.partition)(kth[, axis, kind, order]) | Rearranges the elements in the array in such a way that the value of the element in kth position is in the position it would be in a sorted array.
-[ndarray.argpartition](generated/numpy.ndarray.argpartition.html#numpy.ndarray.argpartition)(kth[, axis, kind, order]) | Returns the indices that would partition this array.
-[ndarray.searchsorted](generated/numpy.ndarray.searchsorted.html#numpy.ndarray.searchsorted)(v[, side, sorter]) | Find indices where elements of v should be inserted in a to maintain order.
-[ndarray.nonzero](generated/numpy.ndarray.nonzero.html#numpy.ndarray.nonzero)() | Return the indices of the elements that are non-zero.
-[ndarray.compress](generated/numpy.ndarray.compress.html#numpy.ndarray.compress)(condition[, axis, out]) | Return selected slices of this array along given axis.
-[ndarray.diagonal](generated/numpy.ndarray.diagonal.html#numpy.ndarray.diagonal)([offset, axis1, axis2]) | Return specified diagonals.
+[ndarray.take](generated/numpy.ndarray.take.html#numpy.ndarray.take)(indices[, axis, out, mode]) | 返回由给定索引处的a元素组成的数组。
+[ndarray.put](generated/numpy.ndarray.put.html#numpy.ndarray.put)(indices, values[, mode]) | 为索引中的所有n设置。a.flat[n] = values[n]
+[ndarray.repeat](generated/numpy.ndarray.repeat.html#numpy.ndarray.repeat)(repeats[, axis]) | 重复数组的元素。
+[ndarray.choose](generated/numpy.ndarray.choose.html#numpy.ndarray.choose)(choices[, out, mode]) | 使用索引数组从一组选项中构造新数组。
+[ndarray.sort](generated/numpy.ndarray.sort.html#numpy.ndarray.sort)([axis, kind, order])  | 对数组进行就地排序。
+[ndarray.argsort](generated/numpy.ndarray.argsort.html#numpy.ndarray.argsort)([axis, kind, order])  | 返回将对此数组进行排序的索引。
+[ndarray.partition](generated/numpy.ndarray.partition.html#numpy.ndarray.partition)(kth[, axis, kind, order]) | 重新排列数组中的元素，使得第k个位置的元素值位于排序数组中的位置。
+[ndarray.argpartition](generated/numpy.ndarray.argpartition.html#numpy.ndarray.argpartition)(kth[, axis, kind, order]) | 返回将对此数组进行分区的索引。
+[ndarray.searchsorted](generated/numpy.ndarray.searchsorted.html#numpy.ndarray.searchsorted)(v[, side, sorter]) | 查找应在其中插入v的元素以维护顺序的索引。
+[ndarray.nonzero](generated/numpy.ndarray.nonzero.html#numpy.ndarray.nonzero)() | 返回非零元素的索引。
+[ndarray.compress](generated/numpy.ndarray.compress.html#numpy.ndarray.compress)(condition[, axis, out]) | 沿给定轴返回此数组的选定切片。
+[ndarray.diagonal](generated/numpy.ndarray.diagonal.html#numpy.ndarray.diagonal)([offset, axis1, axis2]) | 返回指定的对角线。
 
-### Calculation
+### 计算
 
-Many of these methods take an argument named *axis*. In such cases,
+其中许多方法都采用名为 *axis* 的参数。在这种情况下，
 
-- If *axis* is *None* (the default), the array is treated as a 1-D
-array and the operation is performed over the entire array. This
-behavior is also the default if self is a 0-dimensional array or
-array scalar. (An array scalar is an instance of the types/classes
-float32, float64, etc., whereas a 0-dimensional array is an ndarray
-instance containing precisely one array scalar.)
-- If *axis* is an integer, then the operation is done over the given
-axis (for each 1-D subarray that can be created along the given axis).
+- 如果 *axis* 为 *None* （默认值），则将数组视为1-D数组，并对整个数组执行操作。
+如果self是0维数组或数组标量，则此行为也是默认行为。
+（数组标量是类型/类float32，float64等的实例，而0维数组是包含恰好一个数组标量的ndarray实例。）
+- 如果 *axis* 是整数，则操作在给定轴上完成（对于可沿给定轴创建的每个1-D子阵列）。
 
-A 3-dimensional array of size 3 x 3 x 3, summed over each of its
-three axes
+尺寸为 3 x 3 x 3 的三维阵列，在其三个轴中的每个轴上求和
 
 ``` python
->>> x
+>>>>>> x
 array([[[ 0,  1,  2],
         [ 3,  4,  5],
         [ 6,  7,  8]],
@@ -362,209 +301,189 @@ array([[27, 30, 33],
         [57, 66, 75]]))
 ```
 
-The parameter *dtype* specifies the data type over which a reduction
-operation (like summing) should take place. The default reduce data
-type is the same as the data type of *self*. To avoid overflow, it can
-be useful to perform the reduction using a larger data type.
+参数 *dtype* 指定应该进行简化操作（如求和）的数据类型。
+默认的reduce数据类型与 *self* 的数据类型相同。
+为避免溢出，使用更大的数据类型执行缩减可能很有用。
 
-For several methods, an optional *out* argument can also be provided
-and the result will be placed into the output array given. The *out*
-argument must be an [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) and have the same number of
-elements. It can have a different data type in which case casting will
-be performed.
+对于多种方法，还可以提供可选的 *out* 参数，并将结果放入给定的输出数组中。
+该 *out* 参数必须是[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)与具有相同数目的元素。
+它可以具有不同的数据类型，在这种情况下将执行转换。
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.max](generated/numpy.ndarray.max.html#numpy.ndarray.max)([axis, out, keepdims, initial, …]) | Return the maximum along a given axis.
-[ndarray.argmax](generated/numpy.ndarray.argmax.html#numpy.ndarray.argmax)([axis, out]) | Return indices of the maximum values along the given axis.
-[ndarray.min](generated/numpy.ndarray.min.html#numpy.ndarray.min)([axis, out, keepdims, initial, …]) | Return the minimum along a given axis.
-[ndarray.argmin](generated/numpy.ndarray.argmin.html#numpy.ndarray.argmin)([axis, out]) | Return indices of the minimum values along the given axis of a.
-[ndarray.ptp](generated/numpy.ndarray.ptp.html#numpy.ndarray.ptp)([axis, out, keepdims]) | Peak to peak (maximum - minimum) value along a given axis.
-[ndarray.clip](generated/numpy.ndarray.clip.html#numpy.ndarray.clip)([min, max, out]) | Return an array whose values are limited to [min, max].
-[ndarray.conj](generated/numpy.ndarray.conj.html#numpy.ndarray.conj)() | Complex-conjugate all elements.
-[ndarray.round](generated/numpy.ndarray.round.html#numpy.ndarray.round)([decimals, out]) | Return a with each element rounded to the given number of decimals.
-[ndarray.trace](generated/numpy.ndarray.trace.html#numpy.ndarray.trace)([offset, axis1, axis2, dtype, out]) | Return the sum along diagonals of the array.
-[ndarray.sum](generated/numpy.ndarray.sum.html#numpy.ndarray.sum)([axis, dtype, out, keepdims, …]) | Return the sum of the array elements over the given axis.
-[ndarray.cumsum](generated/numpy.ndarray.cumsum.html#numpy.ndarray.cumsum)([axis, dtype, out]) | Return the cumulative sum of the elements along the given axis.
-[ndarray.mean](generated/numpy.ndarray.mean.html#numpy.ndarray.mean)([axis, dtype, out, keepdims]) | Returns the average of the array elements along given axis.
-[ndarray.var](generated/numpy.ndarray.var.html#numpy.ndarray.var)([axis, dtype, out, ddof, keepdims]) | Returns the variance of the array elements, along given axis.
-[ndarray.std](generated/numpy.ndarray.std.html#numpy.ndarray.std)([axis, dtype, out, ddof, keepdims]) | Returns the standard deviation of the array elements along given axis.
-[ndarray.prod](generated/numpy.ndarray.prod.html#numpy.ndarray.prod)([axis, dtype, out, keepdims, …]) | Return the product of the array elements over the given axis
-[ndarray.cumprod](generated/numpy.ndarray.cumprod.html#numpy.ndarray.cumprod)([axis, dtype, out]) | Return the cumulative product of the elements along the given axis.
-[ndarray.all](generated/numpy.ndarray.all.html#numpy.ndarray.all)([axis, out, keepdims]) | Returns True if all elements evaluate to True.
-[ndarray.any](generated/numpy.ndarray.any.html#numpy.ndarray.any)([axis, out, keepdims]) | Returns True if any of the elements of a evaluate to True.
+[ndarray.max](generated/numpy.ndarray.max.html#numpy.ndarray.max)([axis，out，keepdims，initial，...]） | 沿给定轴返回最大值。
+[ndarray.argmax](generated/numpy.ndarray.argmax.html#numpy.ndarray.argmax)([axis, out])  | 返回给定轴上的最大值的索引。
+[ndarray.min](generated/numpy.ndarray.min.html#numpy.ndarray.min)([axis，out，keepdims，initial，...]) | 沿给定轴返回最小值。
+[ndarray.argmin](generated/numpy.ndarray.argmin.html#numpy.ndarray.argmin)([axis, out]) | 返回最小值的索引沿给定轴线一个。
+[ndarray.ptp](generated/numpy.ndarray.ptp.html#numpy.ndarray.ptp)([axis, out, keepdims]) | 沿给定轴的峰峰值（最大值 - 最小值）。
+[ndarray.clip](generated/numpy.ndarray.clip.html#numpy.ndarray.clip)([min，max，out]) | 返回值限制为的数组。[min, max]
+[ndarray.conj](generated/numpy.ndarray.conj.html#numpy.ndarray.conj)() | 复合共轭所有元素。
+[ndarray.round](generated/numpy.ndarray.round.html#numpy.ndarray.round)([decimals, out]) | 返回a，每个元素四舍五入到给定的小数位数。
+[ndarray.trace](generated/numpy.ndarray.trace.html#numpy.ndarray.trace)([offset, axis1, axis2, dtype, out]) | 返回数组对角线的总和。
+[ndarray.sum](generated/numpy.ndarray.sum.html#numpy.ndarray.sum)([axis, dtype, out, keepdims, …])  | 返回给定轴上的数组元素的总和。
+[ndarray.cumsum](generated/numpy.ndarray.cumsum.html#numpy.ndarray.cumsum)([axis, dtype, out])  | 返回给定轴上元素的累积和。
+[ndarray.mean](generated/numpy.ndarray.mean.html#numpy.ndarray.mean)([axis, dtype, out, keepdims]) | 返回给定轴上数组元素的平均值。
+[ndarray.var](generated/numpy.ndarray.var.html#numpy.ndarray.var)([axis, dtype, out, ddof, keepdims]) | 返回给定轴的数组元素的方差。
+[ndarray.std](generated/numpy.ndarray.std.html#numpy.ndarray.std)([axis, dtype, out, ddof, keepdims]) | 返回沿给定轴的数组元素的标准偏差。
+[ndarray.prod](generated/numpy.ndarray.prod.html#numpy.ndarray.prod)([axis, dtype, out, keepdims, …]) | 返回给定轴上的数组元素的乘积
+[ndarray.cumprod](generated/numpy.ndarray.cumprod.html#numpy.ndarray.cumprod)([axis, dtype, out]) | 返回沿给定轴的元素的累积乘积。
+[ndarray.all](generated/numpy.ndarray.all.html#numpy.ndarray.all)([axis, out, keepdims]) | 如果所有元素都计算为True，则返回True。
+[ndarray.any](generated/numpy.ndarray.any.html#numpy.ndarray.any)([axis, out, keepdims]) | 如果任何元素，则返回true 一个评估为True。
 
-## Arithmetic, matrix multiplication, and comparison operations
+## 算术、矩阵乘法和比较运算
 
-Arithmetic and comparison operations on [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)
-are defined as element-wise operations, and generally yield
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) objects as results.
+算术和比较操作[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)
+被定义为逐元素操作，并且通常将 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)对象作为结果产生。
 
-Each of the arithmetic operations (``+``, ``-``, ``*``, ``/``, ``//``,
-``%``, ``divmod()``, ``**`` or ``pow()``, ``<<``, ``>>``, ``&``,
-``^``, ``|``, ``~``) and the comparisons (``==``, ``<``, ``>``,
-``<=``, ``>=``, ``!=``) is equivalent to the corresponding
-universal function (or [ufunc](https://numpy.org/devdocs/glossary.html#term-ufunc) for short) in NumPy.  For
-more information, see the section on [Universal Functions](ufuncs.html#ufuncs).
+每个算术运算（的``+``，``-``，``*``，``/``，``//``，
+ ``%``，``divmod()``，``**``或``pow()``，``<<``，``>>``，``&``，
+ ``^``，``|``，``~``）和比较（``==``，``<``，``>``，
+ ``<=``，``>=``，``!=``）等效于相应的通用功能（或[ufunc](https://numpy.org/devdocs/glossary.html#term-ufunc)的简称）中NumPy的。有关更多信息，请参阅[通用功能](ufuncs.html#ufuncs)部分。
 
-Comparison operators:
+比较运算符：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__lt__](generated/numpy.ndarray.__lt__.html#numpy.ndarray.__lt__)(self, value, /) | Return self<value.
-[ndarray.__le__](generated/numpy.ndarray.__le__.html#numpy.ndarray.__le__)(self, value, /) | Return self<=value.
-[ndarray.__gt__](generated/numpy.ndarray.__gt__.html#numpy.ndarray.__gt__)(self, value, /) | Return self>value.
-[ndarray.__ge__](generated/numpy.ndarray.__ge__.html#numpy.ndarray.__ge__)(self, value, /) | Return self>=value.
-[ndarray.__eq__](generated/numpy.ndarray.__eq__.html#numpy.ndarray.__eq__)(self, value, /) | Return self==value.
-[ndarray.__ne__](generated/numpy.ndarray.__ne__.html#numpy.ndarray.__ne__)(self, value, /) | Return self!=value.
+[ndarray.\__lt__](generated/numpy.ndarray.__lt__.html#numpy.ndarray.__lt__)(self, value, /) | 返回 self<value.
+[ndarray.\__le__](generated/numpy.ndarray.__le__.html#numpy.ndarray.__le__)(self, value, /) | 返回 self<=value.
+[ndarray.\__gt__](generated/numpy.ndarray.__gt__.html#numpy.ndarray.__gt__)(self, value, /) | 返回 self>value.
+[ndarray.\__ge__](generated/numpy.ndarray.__ge__.html#numpy.ndarray.__ge__)(self, value, /) | 返回 self>=value.
+[ndarray.\__eq__](generated/numpy.ndarray.__eq__.html#numpy.ndarray.__eq__)(self, value, /) | 返回 self==value.
+[ndarray.\__ne__](generated/numpy.ndarray.__ne__.html#numpy.ndarray.__ne__)(self, value, /) | 返回 self!=value.
 
-Truth value of an array (``bool``):
+array（``bool``）的真值：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__bool__](generated/numpy.ndarray.__bool__.html#numpy.ndarray.__bool__)(self, /) | self != 0
+[ndarray.\_\_bool__](generated/numpy.ndarray.__bool__.html#numpy.ndarray.__bool__)(self, /) | self != 0
 
-::: tip Note
+::: tip 注意
 
-Truth-value testing of an array invokes
-[``ndarray.__bool__``](generated/numpy.ndarray.__bool__.html#numpy.ndarray.__bool__), which raises an error if the number of
-elements in the array is larger than 1, because the truth value
-of such arrays is ambiguous. Use [``.any()``](generated/numpy.ndarray.any.html#numpy.ndarray.any) and
-[``.all()``](generated/numpy.ndarray.all.html#numpy.ndarray.all) instead to be clear about what is meant
-in such cases. (If the number of elements is 0, the array evaluates
-to ``False``.)
+数组的真值测试会调用
+ [``ndarray.\_\_bool__``](generated/numpy.ndarray.__bool__.html#numpy.ndarray.__bool__)，如果数组中的元素数大于1，则会引发错误，因为此类数组的真值是不明确的。使用[``.any()``](generated/numpy.ndarray.any.html#numpy.ndarray.any)而
+ [``.all()``](generated/numpy.ndarray.all.html#numpy.ndarray.all)不是清楚这种情况下的含义。（如果元素数为0，则数组的计算结果为``False``。）
 
 :::
 
-Unary operations:
+一元操作：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__neg__](generated/numpy.ndarray.__neg__.html#numpy.ndarray.__neg__)(self, /) | -self
-[ndarray.__pos__](generated/numpy.ndarray.__pos__.html#numpy.ndarray.__pos__)(self, /) | +self
-[ndarray.__abs__](generated/numpy.ndarray.__abs__.html#numpy.ndarray.__abs__)(self) | 
-[ndarray.__invert__](generated/numpy.ndarray.__invert__.html#numpy.ndarray.__invert__)(self, /) | ~self
+[ndarray.\_\_neg__](generated/numpy.ndarray.__neg__.html#numpy.ndarray.__neg__)(self, /) | -self
+[ndarray.\_\_pos__](generated/numpy.ndarray.__pos__.html#numpy.ndarray.__pos__)(self, /) | +self
+[ndarray.\_\_abs__](generated/numpy.ndarray.__abs__.html#numpy.ndarray.__abs__)(self) | 
+[ndarray.\_\_invert__](generated/numpy.ndarray.__invert__.html#numpy.ndarray.__invert__)(self, /) | ~self
 
-Arithmetic:
+算术：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__add__](generated/numpy.ndarray.__add__.html#numpy.ndarray.__add__)(self, value, /) | Return self+value.
-[ndarray.__sub__](generated/numpy.ndarray.__sub__.html#numpy.ndarray.__sub__)(self, value, /) | Return self-value.
-[ndarray.__mul__](generated/numpy.ndarray.__mul__.html#numpy.ndarray.__mul__)(self, value, /) | Return self*value.
-[ndarray.__truediv__](generated/numpy.ndarray.__truediv__.html#numpy.ndarray.__truediv__)(self, value, /) | Return self/value.
-[ndarray.__floordiv__](generated/numpy.ndarray.__floordiv__.html#numpy.ndarray.__floordiv__)(self, value, /) | Return self//value.
-[ndarray.__mod__](generated/numpy.ndarray.__mod__.html#numpy.ndarray.__mod__)(self, value, /) | Return self%value.
-[ndarray.__divmod__](generated/numpy.ndarray.__divmod__.html#numpy.ndarray.__divmod__)(self, value, /) | Return divmod(self, value).
-[ndarray.__pow__](generated/numpy.ndarray.__pow__.html#numpy.ndarray.__pow__)(self, value[, mod]) | Return pow(self, value, mod).
-[ndarray.__lshift__](generated/numpy.ndarray.__lshift__.html#numpy.ndarray.__lshift__)(self, value, /) | Return self<<value.
-[ndarray.__rshift__](generated/numpy.ndarray.__rshift__.html#numpy.ndarray.__rshift__)(self, value, /) | Return self>>value.
-[ndarray.__and__](generated/numpy.ndarray.__and__.html#numpy.ndarray.__and__)(self, value, /) | Return self&value.
-[ndarray.__or__](generated/numpy.ndarray.__or__.html#numpy.ndarray.__or__)(self, value, /) | Return self|value.
-[ndarray.__xor__](generated/numpy.ndarray.__xor__.html#numpy.ndarray.__xor__)(self, value, /) | Return self^value.
+[ndarray.\_\_add__](generated/numpy.ndarray.__add__.html#numpy.ndarray.__add__)(self, value, /) | 返回 self+value.
+[ndarray.\_\_sub__](generated/numpy.ndarray.__sub__.html#numpy.ndarray.__sub__)(self, value, /) | 返回 self-value.
+[ndarray.\_\_mul__](generated/numpy.ndarray.__mul__.html#numpy.ndarray.__mul__)(self, value, /) | 返回 self*value.
+[ndarray.\_\_truediv__](generated/numpy.ndarray.__truediv__.html#numpy.ndarray.__truediv__)(self, value, /) | 返回 self/value.
+[ndarray.\_\_floordiv__](generated/numpy.ndarray.__floordiv__.html#numpy.ndarray.__floordiv__)(self, value, /) | 返回 self//value.
+[ndarray.\_\_mod__](generated/numpy.ndarray.__mod__.html#numpy.ndarray.__mod__)(self, value, /) | 返回 self%value.
+[ndarray.\_\_divmod__](generated/numpy.ndarray.__divmod__.html#numpy.ndarray.__divmod__)(self, value, /) | 返回 divmod(self, value).
+[ndarray.\_\_pow__](generated/numpy.ndarray.__pow__.html#numpy.ndarray.__pow__)(self, value[, mod]) | 返回 pow(self, value, mod).
+[ndarray.\_\_lshift__](generated/numpy.ndarray.__lshift__.html#numpy.ndarray.__lshift__)(self, value, /) | 返回 self<<value.
+[ndarray.\_\_rshift__](generated/numpy.ndarray.__rshift__.html#numpy.ndarray.__rshift__)(self, value, /) | 返回 self>>value.
+[ndarray.\_\_and__](generated/numpy.ndarray.__and__.html#numpy.ndarray.__and__)(self, value, /) | 返回 self&value.
+[ndarray.\_\_or__](generated/numpy.ndarray.__or__.html#numpy.ndarray.__or__)(self, value, /) | 返回 self|value.
+[ndarray.\_\_xor__](generated/numpy.ndarray.__xor__.html#numpy.ndarray.__xor__)(self, value, /) | 返回 self^value.
 
-::: tip Note
+::: tip 注意
 
-- Any third argument to [``pow``](https://docs.python.org/dev/library/functions.html#pow) is silently ignored,
-as the underlying [``ufunc``](generated/numpy.power.html#numpy.power) takes only two arguments.
-- The three division operators are all defined; ``div`` is active
-by default, ``truediv`` is active when
-[``__future__``](https://docs.python.org/dev/library/__future__.html#module-__future__) division is in effect.
-- Because [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) is a built-in type (written in C), the
-``__r{op}__`` special methods are not directly defined.
-- The functions called to implement many arithmetic special methods
-for arrays can be modified using [``__array_ufunc__``](arrays.classes.html#numpy.class.__array_ufunc__).
+- [``pow``](https://docs.python.org/dev/library/functions.html#pow)默认忽略任何第三个参数，
+因为底层[``ufunc``](generated/numpy.power.html#numpy.power)只接受两个参数。
+- 三个划分算子都是定义的; ``div``默认情况下``truediv``处于活动状态，
+当[``__future__``](https://docs.python.org/dev/library/__future__.html#module-__future__)分割生效时处于活动状态。
+- 因为[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)是内置类型（用C编写），
+所以 ``__r{op}__`` 不直接定义特殊方法。
+- 可以使用调用为数组实现许多算术特殊方法的函数[``__array_ufunc__``](arrays.classes.html#numpy.class.__array_ufunc__)。
 
 :::
 
-Arithmetic, in-place:
+算术，就地：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__iadd__](generated/numpy.ndarray.__iadd__.html#numpy.ndarray.__iadd__)(self, value, /) | Return self+=value.
-[ndarray.__isub__](generated/numpy.ndarray.__isub__.html#numpy.ndarray.__isub__)(self, value, /) | Return self-=value.
-[ndarray.__imul__](generated/numpy.ndarray.__imul__.html#numpy.ndarray.__imul__)(self, value, /) | Return self*=value.
-[ndarray.__itruediv__](generated/numpy.ndarray.__itruediv__.html#numpy.ndarray.__itruediv__)(self, value, /) | Return self/=value.
-[ndarray.__ifloordiv__](generated/numpy.ndarray.__ifloordiv__.html#numpy.ndarray.__ifloordiv__)(self, value, /) | Return self//=value.
-[ndarray.__imod__](generated/numpy.ndarray.__imod__.html#numpy.ndarray.__imod__)(self, value, /) | Return self%=value.
-[ndarray.__ipow__](generated/numpy.ndarray.__ipow__.html#numpy.ndarray.__ipow__)(self, value, /) | Return self**=value.
-[ndarray.__ilshift__](generated/numpy.ndarray.__ilshift__.html#numpy.ndarray.__ilshift__)(self, value, /) | Return self<<=value.
-[ndarray.__irshift__](generated/numpy.ndarray.__irshift__.html#numpy.ndarray.__irshift__)(self, value, /) | Return self>>=value.
-[ndarray.__iand__](generated/numpy.ndarray.__iand__.html#numpy.ndarray.__iand__)(self, value, /) | Return self&=value.
-[ndarray.__ior__](generated/numpy.ndarray.__ior__.html#numpy.ndarray.__ior__)(self, value, /) | Return self|=value.
-[ndarray.__ixor__](generated/numpy.ndarray.__ixor__.html#numpy.ndarray.__ixor__)(self, value, /) | Return self^=value.
+[ndarray.\_\_iadd__](generated/numpy.ndarray.__iadd__.html#numpy.ndarray.__iadd__)(self, value, /) | 返回 self+=value。
+[ndarray.\_\_isub__](generated/numpy.ndarray.__isub__.html#numpy.ndarray.__isub__)(self, value, /) | 返回 self==value。
+[ndarray.\_\_imul__](generated/numpy.ndarray.__imul__.html#numpy.ndarray.__imul__)(self, value, /) | 返回 self*=value。
+[ndarray.\_\_itruediv__](generated/numpy.ndarray.__itruediv__.html#numpy.ndarray.__itruediv__)(self, value, /) | 返回 self/=value。
+[ndarray.\_\_ifloordiv__](generated/numpy.ndarray.__ifloordiv__.html#numpy.ndarray.__ifloordiv__)(self, value, /) | 返回 self//=value。
+[ndarray.\_\_imod__](generated/numpy.ndarray.__imod__.html#numpy.ndarray.__imod__)(self, value, /) | 返回 self％=value。
+[ndarray.\_\_ipow__](generated/numpy.ndarray.__ipow__.html#numpy.ndarray.__ipow__)(self, value, /) | 返回 self**=value。
+[ndarray.\_\_ilshift__](generated/numpy.ndarray.__ilshift__.html#numpy.ndarray.__ilshift__)(self, value, /) | 返回 self<<=value。
+[ndarray.\_\_irshift__](generated/numpy.ndarray.__irshift__.html#numpy.ndarray.__irshift__)(self, value, /) | 返回 self>>=value。
+[ndarray.\_\_iand__](generated/numpy.ndarray.__iand__.html#numpy.ndarray.__iand__)(self, value, /) | 返回 self&=value。
+[ndarray.\_\_ior__](generated/numpy.ndarray.__ior__.html#numpy.ndarray.__ior__)(self, value, /) | 返回 self|=value。
+[ndarray.\_\_ixor__](generated/numpy.ndarray.__ixor__.html#numpy.ndarray.__ixor__)(self, value, /) | 返回 self^=value。
 
-::: danger Warning
+::: danger 警告
 
-In place operations will perform the calculation using the
-precision decided by the data type of the two operands, but will
-silently downcast the result (if necessary) so it can fit back into
-the array.  Therefore, for mixed precision calculations, ``A {op}=
-B`` can be different than ``A = A {op} B``. For example, suppose
-``a = ones((3,3))``. Then, ``a += 3j`` is different than ``a = a +
-3j``: while they both perform the same computation, ``a += 3``
-casts the result to fit back in ``a``, whereas ``a = a + 3j``
-re-binds the name ``a`` to the result.
+就地操作将使用由两个操作数的数据类型决定的精度来执行计算，但会悄悄地向下转换结果(如果需要)，
+以便它可以重新适应数组。
+因此，对于混合精度计算，``A {op} = B`` 可以不同于 ``A = A {op} B``。例如，假设 ``a = ones(3，3)``。
+然后，``a += 3j`` 与 ``a = a + 3j`` 不同：当它们都执行相同的计算时，``a += 3`` 将结果强制转换为适合 ``a`` ，而 ``a = a+3j`` 将名称 ``a`` 重新绑定到结果。
 
 :::
 
-Matrix Multiplication:
+矩阵乘法：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__matmul__](generated/numpy.ndarray.__matmul__.html#numpy.ndarray.__matmul__)(self, value, /) | Return [self@value](mailto:self%40value).
+[ndarray.\_\_matmul__](generated/numpy.ndarray.__matmul__.html#numpy.ndarray.__matmul__)(self, value, /) | 返回 [self@value](mailto:self%40value)。
 
-::: tip Note
+::: tip 注意
 
-Matrix operators ``@`` and ``@=`` were introduced in Python 3.5
-following PEP465. NumPy 1.10.0 has a preliminary implementation of ``@``
-for testing purposes. Further documentation can be found in the
-[``matmul``](generated/numpy.matmul.html#numpy.matmul) documentation.
+Matrix 运算符 ``@`` 和 ``@=`` 是在PEP465之后的Python 3.5中引入的。NumPy 1.10.0为测试目的初步实现了 ``@``。
+进一步的文档可以在 [``matmul``](generated/numpy.matmul.html#numpy.matmul) 文档中找到。
 
 :::
 
-## Special methods
+## 特殊方法
 
-For standard library functions:
+对于标准库函数：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__copy__](generated/numpy.ndarray.__copy__.html#numpy.ndarray.__copy__)() | Used if [copy.copy](https://docs.python.org/dev/library/copy.html#copy.copy) is called on an array.
-[ndarray.__deepcopy__](generated/numpy.ndarray.__deepcopy__.html#numpy.ndarray.__deepcopy__)() | Used if [copy.deepcopy](https://docs.python.org/dev/library/copy.html#copy.deepcopy) is called on an array.
-[ndarray.__reduce__](generated/numpy.ndarray.__reduce__.html#numpy.ndarray.__reduce__)() | For pickling.
-[ndarray.__setstate__](generated/numpy.ndarray.__setstate__.html#numpy.ndarray.__setstate__)(state, /) | For unpickling.
+[ndarray.\_\_copy__](generated/numpy.ndarray.__copy__.html#numpy.ndarray.__copy__)() | 如果使用的[copy.copy](https://docs.python.org/dev/library/copy.html#copy.copy)是所谓的阵列上。
+[ndarray.\_\_deepcopy__](generated/numpy.ndarray.__deepcopy__.html#numpy.ndarray.__deepcopy__)() | 如果使用的[copy.deepcopy](https://docs.python.org/dev/library/copy.html#copy.deepcopy)是所谓的阵列上。
+[ndarray.\_\_reduce__](generated/numpy.ndarray.__reduce__.html#numpy.ndarray.__reduce__)() | 用于  pickling。
+[ndarray.\_\_setstate__](generated/numpy.ndarray.__setstate__.html#numpy.ndarray.__setstate__)（州，/） | 用于unpickling。
 
-Basic customization:
+基本定制：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__new__](generated/numpy.ndarray.__new__.html#numpy.ndarray.__new__)(\*args, \*\*kwargs) | Create and return a new object.
-[ndarray.__array__](generated/numpy.ndarray.__array__.html#numpy.ndarray.__array__)() | Returns either a new reference to self if dtype is not given or a new array of provided data type if dtype is different from the current dtype of the array.
-[ndarray.__array_wrap__](generated/numpy.ndarray.__array_wrap__.html#numpy.ndarray.__array_wrap__)() | 
+[ndarray.\_\_new__](generated/numpy.ndarray.__new__.html#numpy.ndarray.__new__)(\*args, \*\*kwargs) | 创建并返回一个新对象。
+[ndarray.\_\_array__](generated/numpy.ndarray.__array__.html#numpy.ndarray.__array__)() | 如果没有给出dtype，则返回对self的新引用;如果dtype与数组的当前dtype不同，则返回提供的数据类型的新数组。
+[ndarray.\_\_array_wrap__](generated/numpy.ndarray.__array_wrap__.html#numpy.ndarray.__array_wrap__)() | 
 
-Container customization: (see [Indexing](arrays.indexing.html#arrays-indexing))
+容器定制:(参见[索引](arrays.indexing.html#arrays-indexing)）
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__len__](generated/numpy.ndarray.__len__.html#numpy.ndarray.__len__)(self, /) | Return len(self).
-[ndarray.__getitem__](generated/numpy.ndarray.__getitem__.html#numpy.ndarray.__getitem__)(self, key, /) | Return self[key].
-[ndarray.__setitem__](generated/numpy.ndarray.__setitem__.html#numpy.ndarray.__setitem__)(self, key, value, /) | Set self[key] to value.
-[ndarray.__contains__](generated/numpy.ndarray.__contains__.html#numpy.ndarray.__contains__)(self, key, /) | Return key in self.
+[ndarray.\_\_len__](generated/numpy.ndarray.__len__.html#numpy.ndarray.__len__)(self, /) | 返回 len(self)。
+[ndarray.\_\_getitem__](generated/numpy.ndarray.__getitem__.html#numpy.ndarray.__getitem__)(self, key, /) | 返回 self[key]。
+[ndarray.\_\_setitem__](generated/numpy.ndarray.__setitem__.html#numpy.ndarray.__setitem__)(self, key, value, /)  | 将 self[key] 设置为value。
+[ndarray.\_\_contains__](generated/numpy.ndarray.__contains__.html#numpy.ndarray.__contains__)(self, key, /)  | 返回 self 的 key。
 
-Conversion; the operations ``int``, ``float`` and
-``complex``.
-. They work only on arrays that have one element in them
-and return the appropriate scalar.
+转换; 操作``int``，``float`` 和 ``complex``。
+它们仅适用于其中包含一个元素的数组，并返回相应的标量。
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__int__](generated/numpy.ndarray.__int__.html#numpy.ndarray.__int__)(self) | none
-[ndarray.__float__](generated/numpy.ndarray.__float__.html#numpy.ndarray.__float__)(self) | none
-[ndarray.__complex__](generated/numpy.ndarray.__complex__.html#numpy.ndarray.__complex__)() | none
+[ndarray.\_\_int__](generated/numpy.ndarray.__int__.html#numpy.ndarray.__int__)(self) | none
+[ndarray.\_\_float__](generated/numpy.ndarray.__float__.html#numpy.ndarray.__float__)(self) | none
+[ndarray.\_\_complex__](generated/numpy.ndarray.__complex__.html#numpy.ndarray.__complex__)() | none
 
-String representations:
+字符串表示：
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.__str__](generated/numpy.ndarray.__str__.html#numpy.ndarray.__str__)(self, /) | Return str(self).
-[ndarray.__repr__](generated/numpy.ndarray.__repr__.html#numpy.ndarray.__repr__)(self, /) | Return repr(self).
+[ndarray.\_\_str__](generated/numpy.ndarray.__str__.html#numpy.ndarray.__str__)(self, /) | 返回 str(self)。
+[ndarray.\_\_repr__](generated/numpy.ndarray.__repr__.html#numpy.ndarray.__repr__)(self, /) | 返回 repr(self)。
+

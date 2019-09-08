@@ -411,18 +411,18 @@ Comparison operators:
 
 method | description
 ---|---
-[ndarray.__lt__](generated/numpy.ndarray.__lt__.html#numpy.ndarray.__lt__)(self, value, /) | Return self<value.
-[ndarray.__le__](generated/numpy.ndarray.__le__.html#numpy.ndarray.__le__)(self, value, /) | Return self<=value.
-[ndarray.__gt__](generated/numpy.ndarray.__gt__.html#numpy.ndarray.__gt__)(self, value, /) | Return self>value.
-[ndarray.__ge__](generated/numpy.ndarray.__ge__.html#numpy.ndarray.__ge__)(self, value, /) | Return self>=value.
-[ndarray.__eq__](generated/numpy.ndarray.__eq__.html#numpy.ndarray.__eq__)(self, value, /) | Return self==value.
-[ndarray.__ne__](generated/numpy.ndarray.__ne__.html#numpy.ndarray.__ne__)(self, value, /) | Return self!=value.
+[ndarray.\__lt__](generated/numpy.ndarray.__lt__.html#numpy.ndarray.__lt__)(self, value, /) | Return self<value.
+[ndarray.\__le__](generated/numpy.ndarray.__le__.html#numpy.ndarray.__le__)(self, value, /) | Return self<=value.
+[ndarray.\__gt__](generated/numpy.ndarray.__gt__.html#numpy.ndarray.__gt__)(self, value, /) | Return self>value.
+[ndarray.\__ge__](generated/numpy.ndarray.__ge__.html#numpy.ndarray.__ge__)(self, value, /) | Return self>=value.
+[ndarray.\__eq__](generated/numpy.ndarray.__eq__.html#numpy.ndarray.__eq__)(self, value, /) | Return self==value.
+[ndarray.\__ne__](generated/numpy.ndarray.__ne__.html#numpy.ndarray.__ne__)(self, value, /) | Return self!=value.
 
 Truth value of an array (``bool``):
 
 method | description
 ---|---
-[ndarray.__bool__](generated/numpy.ndarray.__bool__.html#numpy.ndarray.__bool__)(self, /) | self != 0
+[ndarray.\_\_bool__](generated/numpy.ndarray.__bool__.html#numpy.ndarray.__bool__)(self, /) | self != 0
 
 ::: tip Note
 
@@ -440,28 +440,28 @@ Unary operations:
 
 method | description
 ---|---
-[ndarray.__neg__](generated/numpy.ndarray.__neg__.html#numpy.ndarray.__neg__)(self, /) | -self
-[ndarray.__pos__](generated/numpy.ndarray.__pos__.html#numpy.ndarray.__pos__)(self, /) | +self
-[ndarray.__abs__](generated/numpy.ndarray.__abs__.html#numpy.ndarray.__abs__)(self) | 
-[ndarray.__invert__](generated/numpy.ndarray.__invert__.html#numpy.ndarray.__invert__)(self, /) | ~self
+[ndarray.\_\_neg__](generated/numpy.ndarray.__neg__.html#numpy.ndarray.__neg__)(self, /) | -self
+[ndarray.\_\_pos__](generated/numpy.ndarray.__pos__.html#numpy.ndarray.__pos__)(self, /) | +self
+[ndarray.\_\_abs__](generated/numpy.ndarray.__abs__.html#numpy.ndarray.__abs__)(self) | 
+[ndarray.\_\_invert__](generated/numpy.ndarray.__invert__.html#numpy.ndarray.__invert__)(self, /) | ~self
 
 Arithmetic:
 
 method | description
 ---|---
-[ndarray.__add__](generated/numpy.ndarray.__add__.html#numpy.ndarray.__add__)(self, value, /) | Return self+value.
-[ndarray.__sub__](generated/numpy.ndarray.__sub__.html#numpy.ndarray.__sub__)(self, value, /) | Return self-value.
-[ndarray.__mul__](generated/numpy.ndarray.__mul__.html#numpy.ndarray.__mul__)(self, value, /) | Return self*value.
-[ndarray.__truediv__](generated/numpy.ndarray.__truediv__.html#numpy.ndarray.__truediv__)(self, value, /) | Return self/value.
-[ndarray.__floordiv__](generated/numpy.ndarray.__floordiv__.html#numpy.ndarray.__floordiv__)(self, value, /) | Return self//value.
-[ndarray.__mod__](generated/numpy.ndarray.__mod__.html#numpy.ndarray.__mod__)(self, value, /) | Return self%value.
-[ndarray.__divmod__](generated/numpy.ndarray.__divmod__.html#numpy.ndarray.__divmod__)(self, value, /) | Return divmod(self, value).
-[ndarray.__pow__](generated/numpy.ndarray.__pow__.html#numpy.ndarray.__pow__)(self, value[, mod]) | Return pow(self, value, mod).
-[ndarray.__lshift__](generated/numpy.ndarray.__lshift__.html#numpy.ndarray.__lshift__)(self, value, /) | Return self<<value.
-[ndarray.__rshift__](generated/numpy.ndarray.__rshift__.html#numpy.ndarray.__rshift__)(self, value, /) | Return self>>value.
-[ndarray.__and__](generated/numpy.ndarray.__and__.html#numpy.ndarray.__and__)(self, value, /) | Return self&value.
-[ndarray.__or__](generated/numpy.ndarray.__or__.html#numpy.ndarray.__or__)(self, value, /) | Return self|value.
-[ndarray.__xor__](generated/numpy.ndarray.__xor__.html#numpy.ndarray.__xor__)(self, value, /) | Return self^value.
+[ndarray.\_\_add__](generated/numpy.ndarray.__add__.html#numpy.ndarray.__add__)(self, value, /) | Return self+value.
+[ndarray.\_\_sub__](generated/numpy.ndarray.__sub__.html#numpy.ndarray.__sub__)(self, value, /) | Return self-value.
+[ndarray.\_\_mul__](generated/numpy.ndarray.__mul__.html#numpy.ndarray.__mul__)(self, value, /) | Return self*value.
+[ndarray.\_\_truediv__](generated/numpy.ndarray.__truediv__.html#numpy.ndarray.__truediv__)(self, value, /) | Return self/value.
+[ndarray.\_\_floordiv__](generated/numpy.ndarray.__floordiv__.html#numpy.ndarray.__floordiv__)(self, value, /) | Return self//value.
+[ndarray.\_\_mod__](generated/numpy.ndarray.__mod__.html#numpy.ndarray.__mod__)(self, value, /) | Return self%value.
+[ndarray.\_\_divmod__](generated/numpy.ndarray.__divmod__.html#numpy.ndarray.__divmod__)(self, value, /) | Return divmod(self, value).
+[ndarray.\_\_pow__](generated/numpy.ndarray.__pow__.html#numpy.ndarray.__pow__)(self, value[, mod]) | Return pow(self, value, mod).
+[ndarray.\_\_lshift__](generated/numpy.ndarray.__lshift__.html#numpy.ndarray.__lshift__)(self, value, /) | Return self<<value.
+[ndarray.\_\_rshift__](generated/numpy.ndarray.__rshift__.html#numpy.ndarray.__rshift__)(self, value, /) | Return self>>value.
+[ndarray.\_\_and__](generated/numpy.ndarray.__and__.html#numpy.ndarray.__and__)(self, value, /) | Return self&value.
+[ndarray.\_\_or__](generated/numpy.ndarray.__or__.html#numpy.ndarray.__or__)(self, value, /) | Return self|value.
+[ndarray.\_\_xor__](generated/numpy.ndarray.__xor__.html#numpy.ndarray.__xor__)(self, value, /) | Return self^value.
 
 ::: tip Note
 
@@ -481,18 +481,18 @@ Arithmetic, in-place:
 
 method | description
 ---|---
-[ndarray.__iadd__](generated/numpy.ndarray.__iadd__.html#numpy.ndarray.__iadd__)(self, value, /) | Return self+=value.
-[ndarray.__isub__](generated/numpy.ndarray.__isub__.html#numpy.ndarray.__isub__)(self, value, /) | Return self-=value.
-[ndarray.__imul__](generated/numpy.ndarray.__imul__.html#numpy.ndarray.__imul__)(self, value, /) | Return self*=value.
-[ndarray.__itruediv__](generated/numpy.ndarray.__itruediv__.html#numpy.ndarray.__itruediv__)(self, value, /) | Return self/=value.
-[ndarray.__ifloordiv__](generated/numpy.ndarray.__ifloordiv__.html#numpy.ndarray.__ifloordiv__)(self, value, /) | Return self//=value.
-[ndarray.__imod__](generated/numpy.ndarray.__imod__.html#numpy.ndarray.__imod__)(self, value, /) | Return self%=value.
-[ndarray.__ipow__](generated/numpy.ndarray.__ipow__.html#numpy.ndarray.__ipow__)(self, value, /) | Return self**=value.
-[ndarray.__ilshift__](generated/numpy.ndarray.__ilshift__.html#numpy.ndarray.__ilshift__)(self, value, /) | Return self<<=value.
-[ndarray.__irshift__](generated/numpy.ndarray.__irshift__.html#numpy.ndarray.__irshift__)(self, value, /) | Return self>>=value.
-[ndarray.__iand__](generated/numpy.ndarray.__iand__.html#numpy.ndarray.__iand__)(self, value, /) | Return self&=value.
-[ndarray.__ior__](generated/numpy.ndarray.__ior__.html#numpy.ndarray.__ior__)(self, value, /) | Return self|=value.
-[ndarray.__ixor__](generated/numpy.ndarray.__ixor__.html#numpy.ndarray.__ixor__)(self, value, /) | Return self^=value.
+[ndarray.\_\_iadd__](generated/numpy.ndarray.__iadd__.html#numpy.ndarray.__iadd__)(self, value, /) | Return self+=value.
+[ndarray.\_\_isub__](generated/numpy.ndarray.__isub__.html#numpy.ndarray.__isub__)(self, value, /) | Return self-=value.
+[ndarray.\_\_imul__](generated/numpy.ndarray.__imul__.html#numpy.ndarray.__imul__)(self, value, /) | Return self*=value.
+[ndarray.\_\_itruediv__](generated/numpy.ndarray.__itruediv__.html#numpy.ndarray.__itruediv__)(self, value, /) | Return self/=value.
+[ndarray.\_\_ifloordiv__](generated/numpy.ndarray.__ifloordiv__.html#numpy.ndarray.__ifloordiv__)(self, value, /) | Return self//=value.
+[ndarray.\_\_imod__](generated/numpy.ndarray.__imod__.html#numpy.ndarray.__imod__)(self, value, /) | Return self%=value.
+[ndarray.\_\_ipow__](generated/numpy.ndarray.__ipow__.html#numpy.ndarray.__ipow__)(self, value, /) | Return self**=value.
+[ndarray.\_\_ilshift__](generated/numpy.ndarray.__ilshift__.html#numpy.ndarray.__ilshift__)(self, value, /) | Return self<<=value.
+[ndarray.\_\_irshift__](generated/numpy.ndarray.__irshift__.html#numpy.ndarray.__irshift__)(self, value, /) | Return self>>=value.
+[ndarray.\_\_iand__](generated/numpy.ndarray.__iand__.html#numpy.ndarray.__iand__)(self, value, /) | Return self&=value.
+[ndarray.\_\_ior__](generated/numpy.ndarray.__ior__.html#numpy.ndarray.__ior__)(self, value, /) | Return self|=value.
+[ndarray.\_\_ixor__](generated/numpy.ndarray.__ixor__.html#numpy.ndarray.__ixor__)(self, value, /) | Return self^=value.
 
 ::: danger Warning
 
@@ -512,7 +512,7 @@ Matrix Multiplication:
 
 method | description
 ---|---
-[ndarray.__matmul__](generated/numpy.ndarray.__matmul__.html#numpy.ndarray.__matmul__)(self, value, /) | Return [self@value](mailto:self%40value).
+[ndarray.\_\_matmul__](generated/numpy.ndarray.__matmul__.html#numpy.ndarray.__matmul__)(self, value, /) | Return [self@value](mailto:self%40value).
 
 ::: tip Note
 
@@ -529,27 +529,27 @@ For standard library functions:
 
 method | description
 ---|---
-[ndarray.__copy__](generated/numpy.ndarray.__copy__.html#numpy.ndarray.__copy__)() | Used if [copy.copy](https://docs.python.org/dev/library/copy.html#copy.copy) is called on an array.
-[ndarray.__deepcopy__](generated/numpy.ndarray.__deepcopy__.html#numpy.ndarray.__deepcopy__)() | Used if [copy.deepcopy](https://docs.python.org/dev/library/copy.html#copy.deepcopy) is called on an array.
-[ndarray.__reduce__](generated/numpy.ndarray.__reduce__.html#numpy.ndarray.__reduce__)() | For pickling.
-[ndarray.__setstate__](generated/numpy.ndarray.__setstate__.html#numpy.ndarray.__setstate__)(state, /) | For unpickling.
+[ndarray.\_\_copy__](generated/numpy.ndarray.__copy__.html#numpy.ndarray.__copy__)() | Used if [copy.copy](https://docs.python.org/dev/library/copy.html#copy.copy) is called on an array.
+[ndarray.\_\_deepcopy__](generated/numpy.ndarray.__deepcopy__.html#numpy.ndarray.__deepcopy__)() | Used if [copy.deepcopy](https://docs.python.org/dev/library/copy.html#copy.deepcopy) is called on an array.
+[ndarray.\_\_reduce__](generated/numpy.ndarray.__reduce__.html#numpy.ndarray.__reduce__)() | For pickling.
+[ndarray.\_\_setstate__](generated/numpy.ndarray.__setstate__.html#numpy.ndarray.__setstate__)(state, /) | For unpickling.
 
 Basic customization:
 
 method | description
 ---|---
-[ndarray.__new__](generated/numpy.ndarray.__new__.html#numpy.ndarray.__new__)(\*args, \*\*kwargs) | Create and return a new object.
-[ndarray.__array__](generated/numpy.ndarray.__array__.html#numpy.ndarray.__array__)() | Returns either a new reference to self if dtype is not given or a new array of provided data type if dtype is different from the current dtype of the array.
-[ndarray.__array_wrap__](generated/numpy.ndarray.__array_wrap__.html#numpy.ndarray.__array_wrap__)() | 
+[ndarray.\_\_new__](generated/numpy.ndarray.__new__.html#numpy.ndarray.__new__)(\*args, \*\*kwargs) | Create and return a new object.
+[ndarray.\_\_array__](generated/numpy.ndarray.__array__.html#numpy.ndarray.__array__)() | Returns either a new reference to self if dtype is not given or a new array of provided data type if dtype is different from the current dtype of the array.
+[ndarray.\_\_array_wrap__](generated/numpy.ndarray.__array_wrap__.html#numpy.ndarray.__array_wrap__)() | 
 
 Container customization: (see [Indexing](arrays.indexing.html#arrays-indexing))
 
 method | description
 ---|---
-[ndarray.__len__](generated/numpy.ndarray.__len__.html#numpy.ndarray.__len__)(self, /) | Return len(self).
-[ndarray.__getitem__](generated/numpy.ndarray.__getitem__.html#numpy.ndarray.__getitem__)(self, key, /) | Return self[key].
-[ndarray.__setitem__](generated/numpy.ndarray.__setitem__.html#numpy.ndarray.__setitem__)(self, key, value, /) | Set self[key] to value.
-[ndarray.__contains__](generated/numpy.ndarray.__contains__.html#numpy.ndarray.__contains__)(self, key, /) | Return key in self.
+[ndarray.\_\_len__](generated/numpy.ndarray.__len__.html#numpy.ndarray.__len__)(self, /) | Return len(self).
+[ndarray.\_\_getitem__](generated/numpy.ndarray.__getitem__.html#numpy.ndarray.__getitem__)(self, key, /) | Return self[key].
+[ndarray.\_\_setitem__](generated/numpy.ndarray.__setitem__.html#numpy.ndarray.__setitem__)(self, key, value, /) | Set self[key] to value.
+[ndarray.\_\_contains__](generated/numpy.ndarray.__contains__.html#numpy.ndarray.__contains__)(self, key, /) | Return key in self.
 
 Conversion; the operations ``int``, ``float`` and
 ``complex``.
@@ -558,13 +558,13 @@ and return the appropriate scalar.
 
 method | description
 ---|---
-[ndarray.__int__](generated/numpy.ndarray.__int__.html#numpy.ndarray.__int__)(self) | none
-[ndarray.__float__](generated/numpy.ndarray.__float__.html#numpy.ndarray.__float__)(self) | none
-[ndarray.__complex__](generated/numpy.ndarray.__complex__.html#numpy.ndarray.__complex__)() | none
+[ndarray.\_\_int__](generated/numpy.ndarray.__int__.html#numpy.ndarray.__int__)(self) | none
+[ndarray.\_\_float__](generated/numpy.ndarray.__float__.html#numpy.ndarray.__float__)(self) | none
+[ndarray.\_\_complex__](generated/numpy.ndarray.__complex__.html#numpy.ndarray.__complex__)() | none
 
 String representations:
 
 method | description
 ---|---
-[ndarray.__str__](generated/numpy.ndarray.__str__.html#numpy.ndarray.__str__)(self, /) | Return str(self).
-[ndarray.__repr__](generated/numpy.ndarray.__repr__.html#numpy.ndarray.__repr__)(self, /) | Return repr(self).
+[ndarray.\_\_str__](generated/numpy.ndarray.__str__.html#numpy.ndarray.__str__)(self, /) | Return str(self).
+[ndarray.\_\_repr__](generated/numpy.ndarray.__repr__.html#numpy.ndarray.__repr__)(self, /) | Return repr(self).
