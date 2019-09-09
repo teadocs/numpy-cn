@@ -1,52 +1,47 @@
-# Development workflow
+# 开发工作流程
 
-You already have your own forked copy of the [NumPy](https://www.numpy.org) repository, by
-following [Making your own copy (fork) of NumPy](gitwash/development_setup.html#forking), [Set up your fork](gitwash/development_setup.html#set-up-fork), you have configured [git](https://git-scm.com/)
-by following [Git configuration](gitwash/configure_git.html#configure-git), and have linked the upstream
-repository as explained in [Linking your repository to the upstream repo](gitwash/development_setup.html#linking-to-upstream).
+您已经拥有自己的 [NumPy](https://www.numpy.org) 存储库的分叉副本，
+通过以下方式 [制作自己的NumPy副本（Fork）](gitwash.html#forking)以及
+[设置您的fork](gitwash.html#set-up-fork)，您已经按照[Git配置](gitwash.html#configure-git)了 [git](https://git-scm.com/) ，
+并且已经链接了上游存储库，如将您的存储库[链接到上游仓库](gitwash.html#linking-to-upstream)中所述。
 
-What is described below is a recommended workflow with Git.
+下面介绍的是Git的推荐工作流程。
 
-## Basic workflow
+## 基本工作流程
 
-In short:
+简而言之：
 
-1. Start a new  *feature branch*  for each set of edits that you do.
-See [below](#making-a-new-feature-branch).
-1. Hack away! See [below](#editing-workflow)
-1. When finished:
-    - *Contributors* : push your feature branch to your own Github repo, and [create a pull request](#asking-for-merging).
-    - *Core developers*  If you want to push changes without further review, see the notes [below](#pushing-to-main).
+1. 为您执行的每组编辑启动一个新 *功能分支* 。见[下文](#making-a-new-feature-branch)。
+1. 就是干！见[下文](#editing-workflow)
+1. 等结束了：
+  - *贡献者*：将您的功能分支推送到您自己的Github仓库，并 [创建一个拉取请求](#asking-for-merging)。
+  - *核心开发者*：如果想更改推不进一步审查，看笔记[如下](#pushing-to-main)。
 
-This way of working helps to keep work well organized and the history
-as clear as possible.
+这种工作方式有助于使工作井井有条，并使历史尽可能清晰。
 
-::: tip See also
+::: tip 另见
 
-There are many online tutorials to help you [learn git](https://www.atlassian.com/git/tutorials/). For discussions
-of specific git workflows, see these discussions on [linux git workflow](https://www.mail-archive.com/dri-devel@lists.sourceforge.net/msg39091.html),
-and [ipython git workflow](https://mail.python.org/pipermail/ipython-dev/2010-October/006746.html).
+有许多在线教程可以帮助您[学习git](https://www.atlassian.com/git/tutorials/)。有关特定git工作流的讨论，请参阅有关[linux git工作流](https://www.mail-archive.com/dri-devel@lists.sourceforge.net/msg39091.html)和[ipython git工作流的](https://mail.python.org/pipermail/ipython-dev/2010-October/006746.html)这些讨论。
 
 :::
 
-### Making a new feature branch
+### 创建新的功能分支
 
-First, fetch new commits from the ``upstream`` repository:
+首先，从``upstream``存储库中获取新的提交：
 
 ``` python
 git fetch upstream
 ```
 
-Then, create a new branch based on the master branch of the upstream
-repository:
+然后，基于上游存储库的主分支创建新分支：
 
 ``` python
 git checkout -b my-new-feature upstream/master
 ```
 
-### The editing workflow
+### 编辑工作流程
 
-#### Overview
+#### 概述
 
 ``` python
 # hack hack
@@ -58,7 +53,7 @@ git commit
 git push origin my-new-feature
 ```
 
-#### In more detail
+#### 更详细
 
 1. Make some changes. When you feel that you’ve made a complete, working set of related changes, move on to the next steps.
 1. Optional: Check which files have changed with git status (see git status). You’ll see a listing like this one:
@@ -87,37 +82,30 @@ git push origin my-new-feature
 
     For more information, see [git push](https://www.kernel.org/pub/software/scm/git/docs/git-push.html).
 
-::: tip Note
+::: tip 注意
 
-Assuming you have followed the instructions in these pages, git will create
-a default link to your [github](https://github.com/numpy/numpy) repo called ``origin``.  In git >= 1.7 you
-can ensure that the link to origin is permanently set by using the
-``--set-upstream`` option:
+假设您已按照这些页面中的说明操作，git将创建一个指向您的[github](https://github.com/numpy/numpy) repo 的默认链接``origin``。在git> = 1.7中，您可以使用以下``--set-upstream``选项确保永久设置到origin的链接：
 
 ``` python
 git push --set-upstream origin my-new-feature
 ```
 
-From now on [git](https://git-scm.com/) will know that ``my-new-feature`` is related to the
-``my-new-feature`` branch in your own [github](https://github.com/numpy/numpy) repo. Subsequent push calls
-are then simplified to the following:
+从现在开始，[git](https://git-scm.com/)将知道这``my-new-feature``与``my-new-feature``您自己的[github仓库中](https://github.com/numpy/numpy)的分支有关。随后的推送调用命令将简化为以下写法：
 
 ``` python
 git push
 ```
 
-You have to use ``--set-upstream`` for each new branch that you create.
+您必须使用``--set-upstream``您创建的每个新分支。
 
 :::
 
-It may be the case that while you were working on your edits, new commits have
-been added to ``upstream`` that affect your work. In this case, follow the
-[Rebasing on master](#rebasing-on-master) section of this document to apply those changes to
-your branch.
+可能的情况是，当您处理编辑时，会添加新的提交，``upstream`` 这会影响您的工作。
+在这种情况下，请按照本文档的 [Rebasing on master](#rebasing-on-master)部分将这些更改应用于您的分支。
 
-#### Writing the commit message
+#### 编写提交消息
 
-Commit messages should be clear and follow a few basic rules.  Example:
+提交消息应该是明确的，并遵循一些基本规则。例：
 
 ``` python
 ENH: add functionality X to numpy.<submodule>.
@@ -129,13 +117,11 @@ characters.  If the commit is related to a ticket, indicate that with
 "See #3456", "See ticket 3456", "Closes #3456" or similar.
 ```
 
-Describing the motivation for a change, the nature of a bug for bug fixes or
-some details on what an enhancement does are also good to include in a commit
-message.  Messages should be understandable without looking at the code
-changes.  A commit message like ``MAINT: fixed another one`` is an example of
-what not to do; the reader has to go look for context elsewhere.
+描述变更的动机，bug修复的bug的本质，或者关于增强所做的一些细节，也可以包含在提交消息中。
+消息应该是可以理解的，而不需要查看代码更改。像 ``Maint：Fixed Another one `` 这样的提交消息就是不应该做的事情的一个例子；
+读者必须到别处去寻找上下文。
 
-Standard acronyms to start the commit message with are:
+启动提交消息的标准首字母缩写词是：
 
 ``` python
 API: an (incompatible) API change
@@ -153,34 +139,25 @@ TST: addition or modification of tests
 REL: related to releasing numpy
 ```
 
-### Asking for your changes to be merged with the main repo
+### 要求您的更改与主仓库合并
 
-When you feel your work is finished, you can create a pull request (PR). Github
-has a nice help page that outlines the process for [filing pull requests](https://help.github.com/articles/using-pull-requests/#initiating-the-pull-request).
+当您觉得您的工作已经完成时，您可以创建拉取请求（PR）。Github有一个很好的帮助页面，概述了[提交拉取请求](https://help.github.com/articles/using-pull-requests/#initiating-the-pull-request)的过程。
 
-If your changes involve modifications to the API or addition/modification of a
-function, you should
+如果您的更改涉及API的修改或功能的添加/修改，您应该：
 
-- send an email to the [NumPy mailing list](https://scipy.org/scipylib/mailing-lists.html) with a link to your PR along with
-a description of and a motivation for your changes. This may generate
-changes and feedback. It might be prudent to start with this step if your
-change may be controversial.
-- add a release note to the ``doc/release/upcoming_changes/`` directory,
-following the instructions and format in the
-``doc/release/upcoming_changes/README.rst`` file.
+- 发送电子邮件到[NumPy邮件列表](https://scipy.org/scipylib/mailing-lists.html)，其中包含您PR的链接以及您的更改的描述和动机。这可能会产生变化和反馈。如果您的更改可能存在争议，那么从这一步骤开始可能是谨慎的做法。
+- ``doc/release/upcoming_changes/``按照``doc/release/upcoming_changes/README.rst``文件中的说明和格式向目录
+ 添加发行说明。
 
-### Rebasing on master
+### 重新拉取主分支
 
-This updates your feature branch with changes from the upstream [NumPy
-github](https://github.com/numpy/numpy) repo. If you do not absolutely need to do this, try to avoid doing
-it, except perhaps when you are finished. The first step will be to update
-the remote repository with new commits from upstream:
+这将通过上游[NumPy github存储库的](https://github.com/numpy/numpy)更改来更新您的功能分支。如果你不是绝对需要这样做，尽量避免这样做，除非你完成了。第一步是使用来自上游的新提交更新远程存储库：
 
 ``` python
 git fetch upstream
 ```
 
-Next, you need to update the feature branch:
+接下来，您需要更新功能分支：
 
 ``` python
 # go to the feature branch
@@ -191,43 +168,39 @@ git branch tmp my-new-feature
 git rebase upstream/master
 ```
 
-If you have made changes to files that have changed also upstream,
-this may generate merge conflicts that you need to resolve. See
-[below](#recovering-from-mess-up) for help in this case.
+如果您对上游已更改的文件进行了更改，则可能会生成需要解决的合并冲突。在这种情况下，请参阅
+ [下面](#recovering-from-mess-up)的帮助。
 
-Finally, remove the backup branch upon a successful rebase:
+最后，在成功的rebase后删除备份分支：
 
 ``` python
 git branch -D tmp
 ```
 
-::: tip Note
+::: tip 注意
 
-Rebasing on master is preferred over merging upstream back to your
-branch. Using ``git merge`` and ``git pull`` is discouraged when
-working on feature branches.
+在master上重新绑定比将上游合并到您的分支更受欢迎。在处理功能分支时使用和不鼓励使用。``git merge````git pull``
 
 :::
 
-### Recovering from mess-ups
+### 从混乱中恢复
 
-Sometimes, you mess up merges or rebases. Luckily, in Git it is
-relatively straightforward to recover from such mistakes.
+有时候，你搞砸了合并或重组。幸运的是，在Git中，从这些错误中恢复是相对简单的。
 
-If you mess up during a rebase:
+如果你在一次变革中陷入困境：
 
 ``` python
 git rebase --abort
 ```
 
-If you notice you messed up after the rebase:
+如果你注意到在rebase之后搞砸了你：
 
 ``` python
 # reset branch back to the saved point
 git reset --hard tmp
 ```
 
-If you forgot to make a backup branch:
+如果您忘记创建备份分支：
 
 ``` python
 # look at the reflog of the branch
@@ -242,26 +215,23 @@ git reflog show my-feature-branch
 git reset --hard my-feature-branch@{2}
 ```
 
-If you didn’t actually mess up but there are merge conflicts, you need to
-resolve those.  This can be one of the trickier things to get right.  For a
-good description of how to do this, see [this article on merging conflicts](https://git-scm.com/book/en/Git-Branching-Basic-Branching-and-Merging#Basic-Merge-Conflicts).
+如果您实际上并没有陷入困境，但存在合并冲突，则需要解决这些问题。这可能是一个比较棘手的事情。有关如何执行此操作的详细说明，请参阅[有关合并冲突的文章](https://git-scm.com/book/en/Git-Branching-Basic-Branching-and-Merging#Basic-Merge-Conflicts)。
 
-## Additional things you might want to do
+## 您可能想要做的其他事情
 
-### Rewriting commit history
+### 重写提交历史
 
-::: tip Note
+::: tip 注意
 
-Do this only for your own feature branches.
+仅对您自己的功能分支执行此操作。
 
 :::
 
-There’s an embarrassing typo in a commit you made? Or perhaps the you
-made several false starts you would like the posterity not to see.
+你做出的承诺中有一个令人尴尬的错字？或许你做了几个错误的开始，你希望后人不要看。
 
-This can be done via  *interactive rebasing* .
+这可以通过 *交互式变基* 来完成。
 
-Suppose that the commit history looks like this:
+假设提交历史记录如下所示：
 
 ``` python
 git log --oneline
@@ -274,13 +244,12 @@ a815645 Modify it so that it works
 ...
 ```
 
-and ``6ad92e5`` is the last commit in the ``master`` branch. Suppose we
-want to make the following changes:
+并且``6ad92e5``是``master``分支中的最后一次提交。假设我们要进行以下更改：
 
-- Rewrite the commit message for ``13d7934`` to something more sensible.
-- Combine the commits ``2dec1ac``, ``a815645``, ``eadc391`` into a single one.
+- 重写提交消息以``13d7934``获得更明智的信息。
+- 合并的提交``2dec1ac``，``a815645``，``eadc391``到一个单一的一个。
 
-We do as follows:
+我们做如下：
 
 ``` python
 # make a backup of the current state
@@ -289,7 +258,7 @@ git branch tmp HEAD
 git rebase -i 6ad92e5
 ```
 
-This will open an editor with the following text in it:
+这将打开一个编辑器，其中包含以下文本：
 
 ``` python
 pick 13d7934 First implementation
@@ -311,7 +280,7 @@ pick eadc391 Fix some remaining bugs
 #
 ```
 
-To achieve what we want, we will make the following changes to it:
+为了实现我们想要的目标，我们将对其进行以下更改：
 
 ``` python
 r 13d7934 First implementation
@@ -320,12 +289,10 @@ f a815645 Modify it so that it works
 f eadc391 Fix some remaining bugs
 ```
 
-This means that (i) we want to edit the commit message for
-``13d7934``, and (ii) collapse the last three commits into one. Now we
-save and quit the editor.
+这意味着（i）我们想要编辑提交消息
+ ``13d7934``，以及（ii）将最后三个提交合并为一个。现在我们保存并退出编辑器。
 
-Git will then immediately bring up an editor for editing the commit
-message. After revising it, we get the output:
+然后，Git会立即调出一个编辑器来编辑提交消息。修改后，我们得到输出：
 
 ``` python
 [detached HEAD 721fc64] FOO: First implementation
@@ -335,7 +302,7 @@ message. After revising it, we get the output:
 Successfully rebased and updated refs/heads/my-feature-branch.
 ```
 
-and the history looks now like this:
+历史现在看起来像这样：
 
 ``` python
 0f22701 Fix a few bugs + disable
@@ -343,9 +310,9 @@ and the history looks now like this:
 6ad92e5 * masked is now an instance of a new object, MaskedConstant
 ```
 
-If it went wrong, recovery is again possible as explained [above](#recovering-from-mess-up).
+如果出现问题，可以再次进行恢复，[如上所述](#recovering-from-mess-up)。
 
-### Deleting a branch on github
+### 删除github上的分支
 
 ``` python
 git checkout master
@@ -355,67 +322,57 @@ git branch -D my-unwanted-branch
 git push origin :my-unwanted-branch
 ```
 
-(Note the colon ``:`` before ``test-branch``.  See also:
-[https://github.com/guides/remove-a-remote-branch](https://github.com/guides/remove-a-remote-branch)
+（请注意``:``以前的冒号``test-branch``。另请参阅：[https](https://github.com/guides/remove-a-remote-branch)：
+ [//github.com/guides/remove-a-remote-branch](https://github.com/guides/remove-a-remote-branch)
 
-### Several people sharing a single repository
+### 几个人共享一个存储库
 
-If you want to work on some stuff with other people, where you are all
-committing into the same repository, or even the same branch, then just
-share it via [github](https://github.com/numpy/numpy).
+如果你想与其他人一起工作，你们都在同一个存储库，甚至同一个分支中，那么只需通过[github](https://github.com/numpy/numpy)共享它。
 
-First fork NumPy into your account, as from [Making your own copy (fork) of NumPy](gitwash/development_setup.html#forking).
+首先将NumPy分配到您的帐户，例如从NumPy [制作您自己的副本（分叉）](gitwash/development_setup.html#forking)。
 
-Then, go to your forked repository github page, say
-``https://github.com/your-user-name/numpy``
+然后，转到你的分叉存储库github页面，比方说 ``https://github.com/your-user-name/numpy``
 
-Click on the ‘Admin’ button, and add anyone else to the repo as a
-collaborator:
+点击“管理”按钮，然后将其他任何人作为协作者添加到仓库：
 
 ![pull_button](/static/images/pull_button.png)
 
-Now all those people can do:
+现在这些人都能做到：
 
 ``` python
 git clone git@github.com:your-user-name/numpy.git
 ```
 
-Remember that links starting with ``git@`` use the ssh protocol and are
-read-write; links starting with ``git://`` are read-only.
+请记住，以``git@``使用ssh协议开头的链接是可读写的; 以＃开头的链接``git://``是只读的。
 
-Your collaborators can then commit directly into that repo with the
-usual:
+然后，您的协作者可以通常使用以下方式直接进入该回购：
 
 ``` python
 git commit -am 'ENH - much better code'
 git push origin my-feature-branch # pushes directly into your repo
 ```
 
-### Exploring your repository
+### 探索您的存储库
 
-To see a graphical representation of the repository branches and
-commits:
+要查看存储库分支和提交的图形表示：
 
 ``` python
 gitk --all
 ```
 
-To see a linear list of commits for this branch:
+要查看此分支的提交历史列表：
 
 ``` python
 git log
 ```
 
-You can also look at the [network graph visualizer](https://github.com/blog/39-say-hello-to-the-network-graph-visualizer) for your [github](https://github.com/numpy/numpy)
-repo.
+您也可以在 [网络图形可视化](https://github.com/blog/39-say-hello-to-the-network-graph-visualizer) 工具中查看您的 [GitHub](https://github.com/numpy/numpy) 仓库。
 
-### Backporting
+### 反向移植
 
-Backporting is the process of copying new feature/fixes committed in
-[numpy/master](https://github.com/numpy/numpy) back to stable release branches. To do this you make a branch
-off the branch you are backporting to, cherry pick the commits you want from
-``numpy/master``, and then submit a pull request for the branch containing the
-backport.
+Backporting是将[numpy / master中](https://github.com/numpy/numpy)提交的新功能/修复复制
+ 回稳定版本分支的过程。要做到这一点，你要从你正在向后移植的分支上做一个分支，樱桃挑选你想要的提交
+ ``numpy/master``，然后提交一个包含backport的分支的pull请求。
 
 1. First, you need to make the branch you will work on. This needs to be based on the older version of NumPy (not master):
     ``` bash
@@ -445,13 +402,11 @@ backport.
     ```
 1. Finally make a pull request using Github. Make sure it is against the maintenance branch and not master, Github will usually suggest you make the pull request against master.
 
-### Pushing changes to the main repo
+### 将更改推送到主分支
 
- *This is only relevant if you have commit rights to the main NumPy repo.* 
+*仅当您拥有主NumPy仓库的提交权限时，这才有意义。* 
 
-When you have a set of “ready” changes in a feature branch ready for
-NumPy’s ``master`` or ``maintenance`` branches, you can push
-them to ``upstream`` as follows:
+如果您准备好NumPy ``master``或``maintenance``分支的功能分支中有一组“就绪”更改，则可以按``upstream``如下方式将它们推送到：
 
 1. First, merge or rebase on the target branch.
     1. Only a few, unrelated commits then prefer rebasing:
@@ -475,10 +430,8 @@ them to ``upstream`` as follows:
     git push upstream my-feature-branch:master
     ```
 
-::: tip Note
+::: tip 注意
 
-It’s usually a good idea to use the ``-n`` flag to ``git push`` to check
-first that you’re about to push the changes you want to the place you
-want.
+通常最好使用``-n``标志来检查您是否要将所需的更改推送到所需的位置。``git push``
 
 :::

@@ -1,277 +1,216 @@
-# Scalars
+# 标量
 
-Python defines only one type of a particular data class (there is only
-one integer type, one floating-point type, etc.). This can be
-convenient in applications that don’t need to be concerned with all
-the ways data can be represented in a computer.  For scientific
-computing, however, more control is often needed.
+Python只定义了一种特定数据类（只有一种整数类型，一种浮点类型等）。这在不需要关心数据在计算机中表示的所有方式的应用中是方便的。然而，对于科学计算，通常需要更多的控制。
 
-In NumPy, there are 24 new fundamental Python types to describe
-different types of scalars. These type descriptors are mostly based on
-the types available in the C language that CPython is written in, with
-several additional types compatible with Python’s types.
+在NumPy中，有24种新的基本Python类型来描述不同类型的标量。这些类型描述符主要基于CPython编写的C语言中可用的类型，其他几种类型与Python的类型兼容。
 
-Array scalars have the same attributes and methods as [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray). [[1]](#id2) This allows one to treat items of an array partly on
-the same footing as arrays, smoothing out rough edges that result when
-mixing scalar and array operations.
+数组标量具有与之相同的属性和方法[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)。[[1]](#id2)这允许人们将阵列中的项目部分地放在与阵列相同的基础上，从而平滑混合标量和阵列操作时产生的粗糙边缘。
 
-Array scalars live in a hierarchy (see the Figure below) of data
-types. They can be detected using the hierarchy: For example,
-``isinstance(val, np.generic)`` will return ``True`` if *val* is
-an array scalar object. Alternatively, what kind of array scalar is
-present can be determined using other members of the data type
-hierarchy. Thus, for example ``isinstance(val, np.complexfloating)``
-will return ``True`` if *val* is a complex valued type, while
-``isinstance(val, np.flexible)`` will return true if *val* is one
-of the flexible itemsize array types (``string``,
-``unicode``, ``void``).
+数组标量存在于数据类型的层次结构中（请参见下图）。
+可以使用层次结构检测它们：例如，如果Val是数组标量对象，则 ``isinstance(val，np.generic)`` 将返回 ``True``。
+或者，可以使用数据类型层次结构的其他成员来确定存在哪种数组标量。
+因此，例如，如果val是复数值类型，则 ``isinstance(val，np.complexfloat)`` 将返回 ``True``，
+而如果 *val* 是灵活的itemsize数组类型之一（``string``、``unicode``、``void``），
+则 ``isinstance(val，np.Flexible)`` 将返回 ``True``。
 
 ![dtype-hierarchy](/static/images/dtype-hierarchy.png)
 
-**Figure:** Hierarchy of type objects representing the array data
-types. Not shown are the two integer types ``intp`` and
-``uintp`` which just point to the integer type that holds a
-pointer for the platform. All the number types can be obtained
-using bit-width names as well.
+**图**：表示数组数据类型的类型对象的层次结构。
+未示出两种整数类型``intp``、``uintp``它们仅指向保存平台指针的整数类型。
+所有数字类型也可以使用位宽名称获得。
 
-[[1]](#id1)However, array scalars are immutable, so none of the array scalar attributes are settable.
+[[1]](#id1)但是，数组标量是不可变的，因此没有数组标量属性可以设置。
 
-## Built-in scalar types
+## 内置标量类型
 
-The built-in scalar types are shown below. Along with their (mostly)
-C-derived names, the integer, float, and complex data-types are also
-available using a bit-width convention so that an array of the right
-size can always be ensured (e.g. ``int8``, ``float64``,
-``complex128``). Two aliases (``intp`` and ``uintp``)
-pointing to the integer type that is sufficiently large to hold a C pointer
-are also provided. The C-like names are associated with character codes,
-which are shown in the table. Use of the character codes, however,
-is discouraged.
+内置标量类型如下所示。连同它们的（主要是）C衍生的名称时，整数，浮点数，和复杂的数据类型也可使用位宽度约定，以便正确的大小的阵列可以总是确保（例如``int8``，``float64``，
+ ``complex128``）。还提供了两个别名（``intp``和``uintp``）指向足以容纳C指针的整数类型。类似C的名称与字符代码相关联，如表中所示。但是，不鼓励使用字符代码。
 
-Some of the scalar types are essentially equivalent to fundamental
-Python types and therefore inherit from them as well as from the
-generic array scalar type:
+一些标量类型基本上等同于基本的Python类型，因此从它们以及通用数组标量类型继承：
 
-Array scalar type | Related Python type
+数组标量类型 | 相关的Python类型
 ---|---
-int_ | IntType (Python 2 only)
+int_ | IntType （仅限Python 2）
 float_ | FloatType
 complex_ | ComplexType
 bytes_ | BytesType
 unicode_ | UnicodeType
 
-The ``bool_`` data type is very similar to the Python
-``BooleanType`` but does not inherit from it because Python’s
-``BooleanType`` does not allow itself to be inherited from, and
-on the C-level the size of the actual bool data is not the same as a
-Python Boolean scalar.
+该``bool_``数据类型是非常类似的Python
+ ``BooleanType``，但不继承它，因为Python的
+ ``BooleanType``不允许自己被继承，并在C级的实际布尔数据的大小是不一样的一个Python布尔标量。
 
-::: danger Warning
+::: danger 警告
 
-The ``bool_`` type is not a subclass of the ``int_`` type
-(the ``bool_`` is not even a number type). This is different
-than Python’s default implementation of [``bool``](https://docs.python.org/dev/library/functions.html#bool) as a
-sub-class of int.
+该``bool_``类型不是该类型的子类``int_``（``bool_``甚至不是数字类型）。这与Python [``bool``](https://docs.python.org/dev/library/functions.html#bool)作为int的子类的默认实现不同。
 
 :::
 
-::: danger Warning
+::: danger 警告
 
-The ``int_`` type does **not** inherit from the
-[``int``](https://docs.python.org/dev/library/functions.html#int) built-in under Python 3, because type [``int``](https://docs.python.org/dev/library/functions.html#int) is no
-longer a fixed-width integer type.
+的``int_``类型并**没有**从继承
+ [``int``](https://docs.python.org/dev/library/functions.html#int)内置Python 3下，因为类型[``int``](https://docs.python.org/dev/library/functions.html#int)不再是固定宽度的整数类型。
 
 :::
 
-The default data type in NumPy is ``float_``.
+NumPy中的默认数据类型是``float_``。
 
-In the tables below, ``platform?`` means that the type may not be
-available on all platforms. Compatibility with different C or Python
-types is indicated: two types are compatible if their data is of the
-same size and interpreted in the same way.
+在下表中，``platform?``表示该类型可能并非在所有平台上都可用。指出了与不同C或Python类型的兼容性：如果两种类型的数据具有相同的大小并以相同的方式解释，则它们是兼容的。
 
-Booleans:
+布尔（Booleans）：
 
-Type | Remarks | Character code
+类型 | 备注 | 字符代码
 ---|---|---
-bool_ | compatible: Python bool | '?'
-bool8 | 8 bits |  
+bool_ | 兼容：Python bool | '?'
+bool8 | 8位 |  
 
-Integers:
+整数（Integers）：
 
-Type | Remarks | Character code
+类型 | 备注 | 字符代码
 ---|---|---
-byte | compatible: C char | 'b'
-short | compatible: C short | 'h'
-intc | compatible: C int | 'i'
-int_ | compatible: Python int | 'l'
-longlong | compatible: C long long | 'q'
-intp | large enough to fit a pointer | 'p'
-int8 | 8 bits |  
-int16 | 16 bits |  
-int32 | 32 bits |  
-int64 | 64 bits |  
+byte | 兼容：C char | 'b'
+short | 兼容：C短 | 'h'
+intc | 兼容：C int | 'i'
+int_ | 兼容：Python int | 'l'
+longlong | 兼容：C长 | 'q'
+intp | 大到足以适合指针 | 'p'
+int8 | 8位 |  
+int16 | 16位 |  
+int32 | 32位 |  
+int64 | 64位 |  
 
-Unsigned integers:
+无符号整数（Unsigned integers）：
 
-Type | Remarks | Character code
+类型 | 备注 | 字符代码
 ---|---|---
-ubyte | compatible: C unsigned char | 'B'
-ushort | compatible: C unsigned short | 'H'
-uintc | compatible: C unsigned int | 'I'
-uint | compatible: Python int | 'L'
-ulonglong | compatible: C long long | 'Q'
-uintp | large enough to fit a pointer | 'P'
-uint8 | 8 bits |  
-uint16 | 16 bits |  
-uint32 | 32 bits |  
-uint64 | 64 bits |  
+ubyte | compatible：C unsigned char | 'B'
+ushort | 兼容：C unsigned short | 'H'
+uintc | compatible：C unsigned int | 'I'
+uint | 兼容：Python int | 'L'
+ulonglong | 兼容：C长 | 'Q'
+uintp | 大到足以适合指针 | 'P'
+uint8 | 8位 |  
+uint16 | 16位 |  
+uint32 | 32位 |  
+uint64 | 64位 |  
 
-Floating-point numbers:
+浮点数字（Floating-point numbers）：
 
-Type | Remarks | Character code
+类型 | 备注 | 字符代码
 ---|---|---
 half |   | 'e'
-single | compatible: C float | 'f'
-double | compatible: C double |  
-float_ | compatible: Python float | 'd'
-longfloat | compatible: C long float | 'g'
-float16 | 16 bits |  
-float32 | 32 bits |  
-float64 | 64 bits |  
-float96 | 96 bits, platform? |  
-float128 | 128 bits, platform? |  
+single | 兼容：C浮动 | 'f'
+double | 兼容：C双 |  
+float_ | 兼容：Python float | 'd'
+longfloat | 兼容：C长浮 | 'g'
+float16 | 16位 |  
+float32 | 32位 |  
+float64 | 64位 |  
+float96 | 96位，平台？ |  
+float128 | 128位，平台？ |  
 
-Complex floating-point numbers:
+复杂的浮点数（Complex floating-point numbers）：
 
-Type | Remarks | Character code
+类型 | 备注 | 字符代码
 ---|---|---
 csingle |   | 'F'
-complex_ | compatible: Python complex | 'D'
+complex_ | 兼容：Python复杂 | 'D'
 clongfloat |   | 'G'
-complex64 | two 32-bit floats |  
-complex128 | two 64-bit floats |  
-complex192 | two 96-bit floats, platform? |  
-complex256 | two 128-bit floats, platform? |  
+complex64 | 两个32位浮点数 |  
+complex128 | 两个64位浮点数 |  
+complex192 | 两个96位浮动平台？ |  
+complex256 | 两个128位浮点数，平台？ |  
 
-Any Python object:
+任何Python对象（Any Python object）：
 
-Type | Remarks | Character code
+类型 | 备注 | 字符代码
 ---|---|---
-object_ | any Python object | 'O'
+object_ | 任何Python对象 | 'O'
 
-::: tip Note
+::: tip 注意
 
-The data actually stored in object arrays
-(*i.e.*, arrays having dtype ``object_``) are references to
-Python objects, not the objects themselves. Hence, object arrays
-behave more like usual Python [``lists``](https://docs.python.org/dev/library/stdtypes.html#list), in the sense
-that their contents need not be of the same Python type.
+实际存储在对象数组中的数据（ *即* 具有dtype的数组``object_``）是对Python对象的引用，而不是对象本身。因此，对象数组的行为更像普通的Python [``lists``](https://docs.python.org/dev/library/stdtypes.html#list)，因为它们的内容不必是相同的Python类型。
 
-The object type is also special because an array containing
-``object_`` items does not return an ``object_`` object
-on item access, but instead returns the actual object that
-the array item refers to.
+对象类型也是特殊的，因为包含``object_``项的数组
+ 不会``object_``在项访问时返回对象，而是返回数组项引用的实际对象。
 
 :::
 
-The following data types are **flexible**: they have no predefined
-size and the data they describe can be of different length in different
-arrays. (In the character codes ``#`` is an integer denoting how many
-elements the data type consists of.)
+以下数据类型是**灵活的**：它们没有预定义的大小，并且它们描述的数据在不同的数组中可以具有不同的长度。（在字符代码中``#``是一个整数，表示数据类型包含多少个元素。）
 
-Type | Remarks | Character code
+类型 | 备注 | 字符代码
 ---|---|---
-bytes_ | compatible: Python bytes | 'S#'
-unicode_ | compatible: Python unicode/str | 'U#'
+bytes_ | 兼容：Python字节 | 'S#'
+unicode_ | 兼容：Python unicode / str | 'U#'
 void |   | 'V#'
 
-::: danger Warning
+::: danger 警告
 
-See [Note on string types](arrays.dtypes.html#string-dtype-note).
+请参阅[字符串类型的注解](arrays.dtypes.html#string-dtype-note)。
 
-Numeric Compatibility: If you used old typecode characters in your
-Numeric code (which was never recommended), you will need to change
-some of them to the new characters. In particular, the needed
-changes are ``c -> S1``, ``b -> B``, ``1 -> b``, ``s -> h``, ``w ->
-H``, and ``u -> I``. These changes make the type character
-convention more consistent with other Python modules such as the
-[``struct``](https://docs.python.org/dev/library/struct.html#module-struct) module.
+数字兼容性：如果您在数字代码中使用了旧的类型代码字符（从未推荐过），
+则需要将其中一些更改为新字符。
+特别是，所需的更改是 ``c -> S1``, ``b -> B``, ``1 -> b``, ``s -> h``, ``w -> H`` 和 ``u -> I``。
+这些更改使类型字符约定与其他Python更加一致 诸如 [``struct``](https://docs.python.org/dev/library/struct.html#module-struct) 模块之类的模块。
 
 :::
 
-## Attributes
+## 属性
 
-The array scalar objects have an ``array priority`` of [``NPY_SCALAR_PRIORITY``](c-api/array.html#c.NPY_SCALAR_PRIORITY)
-(-1,000,000.0). They also do not (yet) have a [``ctypes``](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes)
-attribute. Otherwise, they share the same attributes as arrays:
+数组标量对象的 ``数组优先级`` 为``NPY_SCALAR_PRIORITY`` (-1，000，000.0)。它们也(还)没有 [``ctypes``](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) 属性。否则，它们与数组共享相同的属性：
 
-method | description
+方法 | 描述
 ---|---
-[generic.flags](generated/numpy.generic.flags.html#numpy.generic.flags) | integer value of flags
-[generic.shape](generated/numpy.generic.shape.html#numpy.generic.shape) | tuple of array dimensions
-[generic.strides](generated/numpy.generic.strides.html#numpy.generic.strides) | tuple of bytes steps in each dimension
-[generic.ndim](generated/numpy.generic.ndim.html#numpy.generic.ndim) | number of array dimensions
-[generic.data](generated/numpy.generic.data.html#numpy.generic.data) | pointer to start of data
-[generic.size](generated/numpy.generic.size.html#numpy.generic.size) | number of elements in the gentype
-[generic.itemsize](generated/numpy.generic.itemsize.html#numpy.generic.itemsize) | length of one element in bytes
-[generic.base](generated/numpy.generic.base.html#numpy.generic.base) | base object
-[generic.dtype](generated/numpy.generic.dtype.html#numpy.generic.dtype) | get array data-descriptor
-[generic.real](generated/numpy.generic.real.html#numpy.generic.real) | real part of scalar
-[generic.imag](generated/numpy.generic.imag.html#numpy.generic.imag) | imaginary part of scalar
-[generic.flat](generated/numpy.generic.flat.html#numpy.generic.flat) | a 1-d view of scalar
-[generic.T](generated/numpy.generic.T.html#numpy.generic.T) | transpose
-[generic.__array_interface__](generated/numpy.generic.__array_interface__.html#numpy.generic.__array_interface__) | Array protocol: Python side
-[generic.__array_struct__](generated/numpy.generic.__array_struct__.html#numpy.generic.__array_struct__) | Array protocol: struct
-[generic.__array_priority__](generated/numpy.generic.__array_priority__.html#numpy.generic.__array_priority__) | Array priority.
-[generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc.__array_wrap__(obj) return scalar from array
+[generic.flags](generated/numpy.generic.flags.html#numpy.generic.flags) | 标志的整数值
+[generic.shape](generated/numpy.generic.shape.html#numpy.generic.shape) | 数组维度的元组
+[generic.strides](generated/numpy.generic.strides.html#numpy.generic.strides) | 每个维度中的字节元组步骤
+[generic.ndim](generated/numpy.generic.ndim.html#numpy.generic.ndim) | 数组维数
+[generic.data](generated/numpy.generic.data.html#numpy.generic.data) | 指向数据开始的指针
+[generic.size](generated/numpy.generic.size.html#numpy.generic.size) | gentype中的元素数量
+[generic.itemsize](generated/numpy.generic.itemsize.html#numpy.generic.itemsize) | 一个元素的长度，以字节为单位
+[generic.base](generated/numpy.generic.base.html#numpy.generic.base) | 基础对象
+[generic.dtype](generated/numpy.generic.dtype.html#numpy.generic.dtype) | 获取数组数据描述符
+[generic.real](generated/numpy.generic.real.html#numpy.generic.real) | 标量的真实部分
+[generic.imag](generated/numpy.generic.imag.html#numpy.generic.imag) | 标量的虚部
+[generic.flat](generated/numpy.generic.flat.html#numpy.generic.flat) | 标量的一维视图
+[generic.T](generated/numpy.generic.T.html#numpy.generic.T) | 颠倒
+[generic.__array_interface__](generated/numpy.generic.__array_interface__.html#numpy.generic.__array_interface__) | 数组协议：Python端
+[generic.__array_struct__](generated/numpy.generic.__array_struct__.html#numpy.generic.__array_struct__) | 数组协议：struct
+[generic.__array_priority__](generated/numpy.generic.__array_priority__.html#numpy.generic.__array_priority__) | 数组优先级。
+[generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc .__ array_wrap __（obj）从数组返回标量
 
-## Indexing
+## 索引
 
-::: tip See also
+::: tip 另见
 
-[Indexing](arrays.indexing.html#arrays-indexing), [Data type objects (dtype)](arrays.dtypes.html#arrays-dtypes)
+[索引](arrays.indexing.html#arrays-indexing)，[数据类型对象（dtype）](arrays.dtypes.html#arrays-dtypes)
 
 :::
 
-Array scalars can be indexed like 0-dimensional arrays: if *x* is an
-array scalar,
+数组标量可以像0维数组一样索引：如果 *x* 是数组标量，
 
-- ``x[()]`` returns a copy of array scalar
-- ``x[...]`` returns a 0-dimensional [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
-- ``x['field-name']`` returns the array scalar in the field *field-name*.
-(*x* can have fields, for example, when it corresponds to a structured data type.)
+- ``x[()]`` 返回数组标量的副本
+- ``x[...]`` 返回0维 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
+- ``x['field-name']``返回字段 *field-name中* 的数组标量。（例如， *x* 可以包含字段，当它对应于结构化数据类型时。）
 
-## Methods
+## 方法
 
-Array scalars have exactly the same methods as arrays. The default
-behavior of these methods is to internally convert the scalar to an
-equivalent 0-dimensional array and to call the corresponding array
-method. In addition, math operations on array scalars are defined so
-that the same hardware flags are set and used to interpret the results
-as for [ufunc](ufuncs.html#ufuncs), so that the error state used for ufuncs
-also carries over to the math on array scalars.
+数组标量具有与数组完全相同的方法。这些方法的默认行为是在内部将标量转换为等效的0维数组并调用相应的数组方法。此外，阵列标量的数学运算被定义，使得在相同的硬件标志被设置，并用于解释结果作为[ufunc](ufuncs.html#ufuncs)，使得用于ufuncs错误状态也延续到上阵列标量的数学。
 
-The exceptions to the above rules are given below:
+以上规则的例外情况如下：
 
-method | description
+方法 | 描述
 ---|---
-[generic](generated/numpy.generic.html#numpy.generic) | Base class for numpy scalar types.
-[generic.__array__](generated/numpy.generic.__array__.html#numpy.generic.__array__)() | sc.__array__(dtype) return 0-dim array from scalar with specified dtype
-[generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc.__array_wrap__(obj) return scalar from array
-[generic.squeeze](generated/numpy.generic.squeeze.html#numpy.generic.squeeze)() | Not implemented (virtual attribute)
-[generic.byteswap](generated/numpy.generic.byteswap.html#numpy.generic.byteswap)() | Not implemented (virtual attribute)
-[generic.__reduce__](generated/numpy.generic.__reduce__.html#numpy.generic.__reduce__)() | helper for pickle
+[generic](generated/numpy.generic.html#numpy.generic) | numpy标量类型的基类。
+[generic.__array__](generated/numpy.generic.__array__.html#numpy.generic.__array__)() | sc .__ array __（dtype）从带有指定dtype的标量返回0-dim数组
+[generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc .__ array_wrap __（obj）从数组返回标量
+[generic.squeeze](generated/numpy.generic.squeeze.html#numpy.generic.squeeze)() | 未实现（虚拟属性）
+[generic.byteswap](generated/numpy.generic.byteswap.html#numpy.generic.byteswap)() | 未实现（虚拟属性）
+[generic.__reduce__](generated/numpy.generic.__reduce__.html#numpy.generic.__reduce__)() | 泡菜的助手
 [generic.__setstate__](generated/numpy.generic.__setstate__.html#numpy.generic.__setstate__)() | 
-[generic.setflags](generated/numpy.generic.setflags.html#numpy.generic.setflags)() | Not implemented (virtual attribute)
+[generic.setflags](generated/numpy.generic.setflags.html#numpy.generic.setflags)() | 未实现（虚拟属性）
 
-## Defining new types
+## 定义新类型
 
-There are two ways to effectively define a new array scalar type
-(apart from composing structured types [dtypes](arrays.dtypes.html#arrays-dtypes) from
-the built-in scalar types): One way is to simply subclass the
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) and overwrite the methods of interest. This will work to
-a degree, but internally certain behaviors are fixed by the data type of
-the array.  To fully customize the data type of an array you need to
-define a new data-type, and register it with NumPy. Such new types can only
-be defined in C, using the [NumPy C-API](c-api/index.html#c-api).
+有两种方法可以有效地定义新的数组标量类型（除了从内置标量类型组合结构化类型[dtypes](arrays.dtypes.html#arrays-dtypes)）：一种方法是简单地子类化
+ [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)并覆盖感兴趣的方法。这将在一定程度上起作用，但内部某些行为由数组的数据类型修复。要完全自定义数组的数据类型，您需要定义新的数据类型，并使用NumPy进行注册。这些新类型只能使用[NumPy C-API](c-api/index.html#c-api)在C中定义。

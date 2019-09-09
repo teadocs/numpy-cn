@@ -1,9 +1,9 @@
 # Development workflow
 
 You already have your own forked copy of the [NumPy](https://www.numpy.org) repository, by
-following [Making your own copy (fork) of NumPy](gitwash/development_setup.html#forking), [Set up your fork](gitwash/development_setup.html#set-up-fork), you have configured [git](https://git-scm.com/)
-by following [Git configuration](gitwash/configure_git.html#configure-git), and have linked the upstream
-repository as explained in [Linking your repository to the upstream repo](gitwash/development_setup.html#linking-to-upstream).
+following [Making your own copy (fork) of NumPy](gitwash.html#forking), [Set up your fork](gitwash.html#set-up-fork), you have configured [git](https://git-scm.com/)
+by following [Git configuration](gitwash.html#configure-git), and have linked the upstream
+repository as explained in [Linking your repository to the upstream repo](gitwash.html#linking-to-upstream).
 
 What is described below is a recommended workflow with Git.
 
@@ -364,7 +364,7 @@ If you want to work on some stuff with other people, where you are all
 committing into the same repository, or even the same branch, then just
 share it via [github](https://github.com/numpy/numpy).
 
-First fork NumPy into your account, as from [Making your own copy (fork) of NumPy](gitwash/development_setup.html#forking).
+First fork NumPy into your account, as from [Making your own copy (fork) of NumPy](gitwash.html#forking).
 
 Then, go to your forked repository github page, say
 ``https://github.com/your-user-name/numpy``
@@ -447,7 +447,7 @@ backport.
 
 ### Pushing changes to the main repo
 
- *This is only relevant if you have commit rights to the main NumPy repo.* 
+*This is only relevant if you have commit rights to the main NumPy repo.* 
 
 When you have a set of “ready” changes in a feature branch ready for
 NumPy’s ``master`` or ``maintenance`` branches, you can push

@@ -1,55 +1,36 @@
-# Data type objects (``dtype``)
+# 数据类型对象（``dtype``）
 
-A data type object (an instance of [``numpy.dtype``](generated/numpy.dtype.html#numpy.dtype) class)
-describes how the bytes in the fixed-size block of memory
-corresponding to an array item should be interpreted. It describes the
-following aspects of the data:
+数据类型对象（[``numpy.dtype``](generated/numpy.dtype.html#numpy.dtype)类的实例）描述了如何解释与数组项对应的固定大小的内存块中的字节。
+它描述了数据的以下几个方面：
 
-1. Type of the data (integer, float, Python object, etc.)
-1. Size of the data (how many bytes is in *e.g.* the integer)
-1. Byte order of the data ([little-endian](https://numpy.org/devdocs/glossary.html#term-little-endian) or [big-endian](https://numpy.org/devdocs/glossary.html#term-big-endian))
-1. If the data type is [structured data type](https://numpy.org/devdocs/glossary.html#term-structured-data-type), an aggregate of other
-data types, (*e.g.*, describing an array item consisting of
-an integer and a float),
-    1. what are the names of the “[fields](https://numpy.org/devdocs/glossary.html#term-field)” of the structure,
-by which they can be [accessed](arrays.indexing.html#arrays-indexing-fields),
-    1. what is the data-type of each [field](https://numpy.org/devdocs/glossary.html#term-field), and
-    1. which part of the memory block each field takes.
-1. If the data type is a sub-array, what is its shape and data type.
+1. 数据类型（整型、浮点型、Python对象等）。
+1. 数据的大小（例如整数中有多少字节）。
+1. 数据的顺序（[little-endian](https://numpy.org/devdocs/glossary.html#term-little-endian) 或 [big-endian](https://numpy.org/devdocs/glossary.html#term-big-endian)）。
+1. 如果数据类型是[结构化数据类型](https://numpy.org/devdocs/glossary.html#term-structured-data-type)，则是其他数据类型的集合(例如，描述由整数和浮点数组成的数组项)。
+    1.结构的“[字段](https://numpy.org/devdocs/glossary.html#term-field)”的名称是什么，通过这些名称可以[访问](arrays/indexing.html#arrays-indexing-fields)它们。
+    1. 每个[字段](https://numpy.org/devdocs/glossary.html#term-field))的数据类型是什么，以及
+    1. 每个字段占用内存块的哪一部分。
+1. 如果数据类型是子数组，那么它的形状和数据类型是什么。
 
-To describe the type of scalar data, there are several [built-in
-scalar types](arrays.scalars.html#arrays-scalars-built-in) in NumPy for various precision
-of integers, floating-point numbers, *etc*. An item extracted from an
-array, *e.g.*, by indexing, will be a Python object whose type is the
-scalar type associated with the data type of the array.
+为了描述标量数据的类型，在NumPy中存在用于整数、浮点数等的各种精度的几个[内置标量类型](arrays/scalars.html#arrays-scalars-built-in)。*例如*，*通过* 索引从数组中提取的项将是其类型是与数组的数据类型相关联的标量类型的 Python 对象。
 
-Note that the scalar types are not [``dtype``](generated/numpy.dtype.html#numpy.dtype) objects, even though
-they can be used in place of one whenever a data type specification is
-needed in NumPy.
+请注意，标量类型不是 [``dtype``](generated/numpy.dtype.html#numpy.dtype) 对象，即使在NumPy中需要数据类型规范时可以使用它们来代替dtype对象。
 
-Structured data types are formed by creating a data type whose
-[field](https://numpy.org/devdocs/glossary.html#term-field) contain other data types. Each field has a name by
-which it can be [accessed](arrays.indexing.html#arrays-indexing-fields). The parent data
-type should be of sufficient size to contain all its fields; the
-parent is nearly always based on the ``void`` type which allows
-an arbitrary item size. Structured data types may also contain nested
-structured sub-array data types in their fields.
+结构化数据类型是通过创建其[字段](https://numpy.org/devdocs/glossary.html#term-field)包含其他数据类型的数据类型来形成的。
+每个字段都有一个可以用来[访问](arrays/indexing.html#arrays-indexing-fields)它的名称。
+父数据类型应该有足够的大小来包含它的所有字段；父数据类型几乎总是基于void类型，该类型允许任意的项大小。
+结构化数据类型还可以在其字段中包含嵌套的结构子数组数据类型。
 
-Finally, a data type can describe items that are themselves arrays of
-items of another data type. These sub-arrays must, however, be of a
-fixed size.
+最后，数据类型可以描述本身就是另一种数据类型的项的数组的项。然而，这些子数组必须具有固定的大小。
 
-If an array is created using a data-type describing a sub-array,
-the dimensions of the sub-array are appended to the shape
-of the array when the array is created. Sub-arrays in a field of a
-structured type behave differently, see [Field Access](arrays.indexing.html#arrays-indexing-fields).
+如果使用描述子数组的数据类型创建数组，则在创建数组时，子数组的维数将附加到数组的形状。
+结构化类型字段中的子数组的行为有所不同，请参阅[字段访问](arrays/indexing.html#arrays-indexing-fields)。
 
-Sub-arrays always have a C-contiguous memory layout.
+子数组总是具有 C-contiguous 的存储器布局。
 
-**Example:**
+**示例：**
 
-A simple data type containing a 32-bit big-endian integer:
-(see [Specifying and constructing data types](#arrays-dtypes-constructing) for details on construction)
+包含32位 big-endia 整数的简单数据类型：（有关构造的详细信息，请参阅[指定和构造数据类型](#指定和构造数据类型)）
 
 ``` python
 >>> dt = np.dtype('>i4')
@@ -63,12 +44,11 @@ A simple data type containing a 32-bit big-endian integer:
 True
 ```
 
-The corresponding array scalar type is ``int32``.
+对应的数组标量类型为 ``int32``。
 
-**Example:**
+**示例：**
 
-A structured data type containing a 16-character string (in field ‘name’)
-and a sub-array of two 64-bit floating-point number (in field ‘grades’):
+结构化数据类型，包含16个字符的字符串（在字段“name”中）和两个64位浮点数的子数组（在字段“grades”中）：
 
 ``` python
 >>> dt = np.dtype([('name', np.unicode_, 16), ('grades', np.float64, (2,))])
@@ -78,8 +58,7 @@ dtype('|U16')
 dtype(('float64',(2,)))
 ```
 
-Items of an array of this data type are wrapped in an [array
-scalar](arrays.scalars.html#arrays-scalars) type that also has two fields:
+此数据类型的数组的项包装在[数组标量](arrays/scalars.html#arrays-scalars)类型中，该数组标量类型也有两个字段：
 
 ``` python
 >>> x = np.array([('Sarah', (8.0, 7.0)), ('John', (6.0, 7.0))], dtype=dt)
@@ -93,48 +72,40 @@ array([ 6.,  7.])
 <type 'numpy.ndarray'>
 ```
 
-## Specifying and constructing data types
+## 指定和构造数据类型
 
-Whenever a data-type is required in a NumPy function or method, either
-a [``dtype``](generated/numpy.dtype.html#numpy.dtype) object or something that can be converted to one can
-be supplied.  Such conversions are done by the [``dtype``](generated/numpy.dtype.html#numpy.dtype)
-constructor:
+每当在NumPy函数或方法中需要数据类型时，都可以提供 [``dtype``](generated/numpy.dtype.html#numpy.dtype) 对象或可以转换为 [``dtype``](generated/numpy.dtype.html#numpy.dtype) 的对象。此类转换由dtype构造函数完成：
 
-method | description
+方法 | 描述
 ---|---
-[dtype](generated/numpy.dtype.html#numpy.dtype)(obj[, align, copy]) | Create a data type object.
+[dtype](generated/numpy.dtype.html#numpy.dtype)(obj[, align, copy]) | 创建数据类型对象。
 
-What can be converted to a data-type object is described below:
+可以转换为数据类型对象的内容如下：
 
 - [``dtype``](generated/numpy.dtype.html#numpy.dtype) object
 
-  Used as-is.
+  按原样使用。
 
 - ``None``
 
-  The default data type: ``float_``.
+  默认数据类型：`float_``。
 
-- Array-scalar types
+- Array-scalar 类型
 
-  The 24 built-in [array scalar type objects](arrays.scalars.html#arrays-scalars-built-in) all convert to an associated data-type object.
-  This is true for their sub-classes as well.
+  24个内置[数组标量类型对象](arrays/scalars.html#arrays-scalars-built-in)都转换为关联的数据类型对象。对于他们的子类也是如此。
 
-  Note that not all data-type information can be supplied with a
-  type-object: for example, ``flexible`` data-types have
-  a default *itemsize* of 0, and require an explicitly given size
-  to be useful.
+  请注意，并非所有数据类型信息都可以与type-object一起提供：例如，灵活数据类型的默认 *itemsize* 为 0，并且需要显式给定的大小才有用。
 
   ``` python
   >>> dt = np.dtype(np.int32)      # 32-bit integer
   >>> dt = np.dtype(np.complex128) # 128-bit complex floating-point number
   ```
 
-- Generic types
+- 泛型类型
 
-  The generic hierarchical type objects convert to corresponding
-  type objects according to the associations:
+  泛型分层类型对象根据关联转换为相应的类型对象：
 
-  type | type
+  类型 | 类型
   ---|---
   number, inexact, [float](https://docs.python.org/dev/library/functions.html#float)ing | float
   complexfloating | cfloat
@@ -143,29 +114,26 @@ What can be converted to a data-type object is described below:
   character | string
   [generic](generated/numpy.generic.html#numpy.generic), flexible | void
 
-- Built-in Python types
+- 内置Python类型
 
-  Several python types are equivalent to a corresponding
-  array scalar when used to generate a [``dtype``](generated/numpy.dtype.html#numpy.dtype) object:
+  几个python类型在用于生成 [``dtype``](generated/numpy.dtype.html#numpy.dtype) 对象时等效于相应的数组标量：
 
-  type | type
+  类型 | 类型
   ---|---
   [int](https://docs.python.org/dev/library/functions.html#int) | int_
   [bool](https://docs.python.org/dev/library/functions.html#bool) | bool_
   [float](https://docs.python.org/dev/library/functions.html#float) | float_
   [complex](https://docs.python.org/dev/library/functions.html#complex) | cfloat
   [bytes](https://docs.python.org/dev/library/stdtypes.html#bytes) | bytes_
-  [str](https://docs.python.org/dev/library/stdtypes.html#str) | bytes_ (Python2) or unicode_ (Python3)
+  [str](https://docs.python.org/dev/library/stdtypes.html#str) | bytes_ (Python2) 或者 unicode_ (Python3)
   unicode | unicode_
   buffer | void
   (all others) | object_
 
-  Note that ``str`` refers to either null terminated bytes or unicode strings
-  depending on the Python version. In code targeting both Python 2 and 3
-  ``np.unicode_`` should be used as a dtype for strings.
-  See [Note on string types](#string-dtype-note).
+  请注意，``str`` 指的是以 null 结尾的字节或Unicode字符串，具体取决于Python版本。
+  在同时面向Python 2和3的代码中，``np.unicode_`` 应该用作字符串的dtype。参见[字符串类型说明](#string-dtype-note)。
 
-  **Example:**
+  **示例：**
 
   ``` python
   >>> dt = np.dtype(float)   # Python-compatible floating-point number
@@ -173,21 +141,20 @@ What can be converted to a data-type object is described below:
   >>> dt = np.dtype(object)  # Python object
   ```
 
-- Types with ``.dtype``
+- 带有 ``.dtype`` 的类型
 
-  Any type object with a ``dtype`` attribute: The attribute will be accessed and used directly. The attribute must return something that is convertible into a dtype object.
+  具有 ``dtype`` 属性的任何类型对象：将直接访问和使用该属性。该属性必须返回可转换为dtype对象的内容。
 
-Several kinds of strings can be converted. Recognized strings can be
-prepended with ``'>'`` ([big-endian](https://numpy.org/devdocs/glossary.html#term-big-endian)), ``'<'``
-([little-endian](https://numpy.org/devdocs/glossary.html#term-little-endian)), or ``'='`` (hardware-native, the default), to
-specify the byte order.
+可以转换几种类型的字符串。
+可以在识别的字符串前面加上 ``'>'`` （[big-endian](https://numpy.org/devdocs/glossary.html#term-big-endian)）、
+``'<'`` （[little-endian](https://numpy.org/devdocs/glossary.html#term-little-endian)） 
+或 ``'='`` (hardware-native、默认值)，以指定字节顺序。
 
-- One-character strings
+- 单字符串（One-character strings）
 
-  Each built-in data-type has a character code
-  (the updated Numeric typecodes), that uniquely identifies it.
+  每个内置数据类型都有一个字符代码（更新后的数字类型代码），用于唯一地标识它。
 
-  **Example:**
+  **示例：**
 
   ``` python
   >>> dt = np.dtype('b')  # byte, native byte order
@@ -196,15 +163,12 @@ specify the byte order.
   >>> dt = np.dtype('d')  # double-precision floating-point number
   ```
 
-- Array-protocol type strings (see [The Array Interface](arrays.interface.html#arrays-interface))
+- Array-protocol 类型字符串（请参阅 [数组接口](arrays/interface.html#数组接口)）
 
-  The first character specifies the kind of data and the remaining
-  characters specify the number of bytes per item, except for Unicode,
-  where it is interpreted as the number of characters.  The item size
-  must correspond to an existing type, or an error will be raised.  The
-  supported kinds are
+  第一个字符指定数据的类型，其余的字符指定每个项目的字节数，Unicode除外，在Unicode中，它被解释为字符数。
+  项大小必须对应于现有类型，否则将引发错误。支持的类型包括：
 
-  code | type
+  代码 | 类型
   ---|---
   '?' | boolean
   'b' | (signed) byte
@@ -220,7 +184,7 @@ specify the byte order.
   'U' | Unicode string
   'V' | raw data (void)
 
-  **Example:**
+  **示例：**
 
   ``` python
   >>> dt = np.dtype('i4')   # 32-bit signed integer
@@ -230,56 +194,45 @@ specify the byte order.
   >>> dt = np.dtype('U25')  # 25-character string
   ```
 
-  **Note on string types:**
+  **关于字符串类型的注解：**
 
-  For backward compatibility with Python 2 the ``S`` and ``a`` typestrings
-  remain zero-terminated bytes and ``np.string_`` continues to map to
-  ``np.bytes_``.
-  To use actual strings in Python 3 use ``U`` or ``np.unicode_``.
-  For signed bytes that do not need zero-termination ``b`` or ``i1`` can be
-  used.
+  为了与 Python 2 向后兼容，``S`` 和 ``a`` 类型字符串仍然是以零结尾的字节，``np.string_`` 继续映射到 ``np.bytes_``。
+  要在Python3中使用实际字符串，请使用 ``U`` 或 ``np.unicode_``。
+  对于不需要零终止的有符号字节，可以使用 ``b``` 或 ``i1``。
 
-- String with comma-separated fields
+- 带有逗号分隔字段的字符串
 
-  A short-hand notation for specifying the format of a structured data type is
-  a comma-separated string of basic formats.
+  用于指定结构化数据类型的格式的简写表示法是基本格式的逗号分隔字符串。
 
-  A basic format in this context is an optional shape specifier
-  followed by an array-protocol type string. Parenthesis are required
-  on the shape if it has more than one dimension. NumPy allows a modification
-  on the format in that any string that can uniquely identify the
-  type can be used to specify the data-type in a field.
-  The generated data-type fields are named ``'f0'``, ``'f1'``, …,
-  ``'f'`` where N (>1) is the number of comma-separated basic
-  formats in the string. If the optional shape specifier is provided,
-  then the data-type for the corresponding field describes a sub-array.
+  此上下文中的基本格式是可选的形状说明符，后跟数组协议类型字符串。
+  如果形状有多个维度，则需要在形状上加上括号。
+  NumPy允许对格式进行修改，因为可以唯一标识类型的任何字符串都可以用于指定字段中的数据类型。
+  生成的数据类型字段命名为 ``'f0'``、``'f1'``、...、``'f'`` 其中 N (>1) 是字符串中以逗号分隔的基本格式的数量。
+  如果提供了可选的形状说明符，则相应字段的数据类型描述一个子数组。
 
-  **Example:**
+  **示例：**
 
-  - field named ``f0`` containing a 32-bit integer
-  - field named ``f1`` containing a 2 x 3 sub-array
-  of 64-bit floating-point numbers
-  - field named ``f2`` containing a 32-bit floating-point number
+  - 名为 ``f0`` 的字段包含32位整数。
+  - 名为 ``f1`` 的字段，包含一个由64位浮点数组成的 2 x 3 子数组。
+  - 名为 ``f2`` 的字段包含32位浮点数。
 
   ``` python
   >>> dt = np.dtype("i4, (2,3)f8, f4")
   ```
 
-  - field named ``f0`` containing a 3-character string
-  - field named ``f1`` containing a sub-array of shape (3,)
-  containing 64-bit unsigned integers
-  - field named ``f2`` containing a 3 x 4 sub-array
-  containing 10-character strings
+  - 名为 ``f0`` 的字段包含3个字符的字符串。
+  - 名为 ``f1`` 的字段包含 shape(3,) 的子数组，其中包含64位无符号整数。
+  - 名为 ``f2`` 的字段包含10个字符串的 3 x 4 子数组。
 
   ``` python
   >>> dt = np.dtype("a3, 3u8, (3,4)a10")
   ```
 
-- Type strings
+- 类型字符串
 
-  Any string in ``numpy.sctypeDict``.keys():
+  ``numpy.sctypeDict``.keys() 中的任何字符串：
 
-  **Example:**
+  **示例：**
 
   ``` python
   >>> dt = np.dtype('uint32')   # 32-bit unsigned integer
@@ -288,11 +241,9 @@ specify the byte order.
 
 - ``(flexible_dtype, itemsize)``
 
-  The first argument must be an object that is converted to a
-  zero-sized flexible data-type object, the second argument is
-  an integer providing the desired itemsize.
+  第一个参数必须是转换为零大小的灵活数据类型对象的对象，第二个参数是提供所需项大小的整数。
 
-  **Example:**
+  **示例：**
 
   ``` python
   >>> dt = np.dtype((np.void, 10))  # 10-byte wide data block
@@ -301,13 +252,11 @@ specify the byte order.
 
 - ``(fixed_dtype, shape)``
 
-  The first argument is any object that can be converted into a
-  fixed-size data-type object. The second argument is the desired
-  shape of this type. If the shape parameter is 1, then the
-  data-type object is equivalent to fixed dtype. If *shape* is a
-  tuple, then the new dtype defines a sub-array of the given shape.
+  第一个参数是可以转换为固定大小的数据类型对象的任何对象。
+  第二个参数是此类型所需的形状。如果Shape参数为1，则数据类型对象等同于固定dtype。
+  如果 *shape* 是一个元组，那么新的dtype定义了给定形状的子数组。
 
-  **Example:**
+  **示例：**
 
   ``` python
   >>> dt = np.dtype((np.int32, (2,2)))          # 2 x 2 integer sub-array
@@ -317,38 +266,25 @@ specify the byte order.
 
 - ``[(field_name, field_dtype, field_shape), ...]``
 
-  *obj* should be a list of fields where each field is described by a
-  tuple of length 2 or 3. (Equivalent to the ``descr`` item in the
-  [``__array_interface__``](arrays.interface.html#__array_interface__) attribute.)
+  *obj* 应该是字段列表，其中每个字段由长度为2或3的元组描述。(相当于 [``__array_interface__``](arrays.interface.html#__array_interface__) 属性中的 ``descr`` 项。)
 
-  The first element, *field_name*, is the field name (if this is
-  ``''`` then a standard field name, ``'f#'``, is assigned).  The
-  field name may also be a 2-tuple of strings where the first string
-  is either a “title” (which may be any string or unicode string) or
-  meta-data for the field which can be any object, and the second
-  string is the “name” which must be a valid Python identifier.
+  第一个元素 *field_name* 是字段名称(如果这是 ``''`` ，则分配标准字段名称 ``'f#'``)。字段名称也可以是字符串的2元组，其中第一个字符串是“title”（可以是任何字符串或Unicode字符串）或字段的元数据，该字段可以是任何对象，而第二个字符串是“name”，它必须是有效的Python标识符。
 
-  The second element, *field_dtype*, can be anything that can be
-  interpreted as a data-type.
+  第二个元素 *field_dtype* 可以是任何可以解释为数据类型的元素。
 
-  The optional third element *field_shape* contains the shape if this
-  field represents an array of the data-type in the second
-  element. Note that a 3-tuple with a third argument equal to 1 is
-  equivalent to a 2-tuple.
+  如果该字段表示第二个元素中数据类型的数组，则可选的第三个元素 *field_shape* 包含形状。请注意，第三个参数等于1的3元组等同于2元组。
 
-  This style does not accept *align* in the [``dtype``](generated/numpy.dtype.html#numpy.dtype)
-  constructor as it is assumed that all of the memory is accounted
-  for by the array interface description.
+  这种样式不接受 [``dtype``](generated/numpy.dtype.html#numpy.dtype) 构造函数中的 *align* ，因为假设所有内存都由数组接口描述说明。
   
-  **Example:**
+  **示例：**
 
-  Data-type with fields ``big`` (big-endian 32-bit integer) and ``little`` (little-endian 32-bit integer):
+  具有字段 ``big`` (Big-Endian 32位整数）和 ``little``（Little-Endian 32位整数）的数据类型：
 
   ``` python
   >>> dt = np.dtype([('big', '>i4'), ('little', '<i4')])
   ```
 
-  Data-type with fields ``R``, ``G``, ``B``, ``A``, each being an unsigned 8-bit integer:
+  具有字段 ``R``、``G``、``B``、``A``的数据类型，每个字段都是无符号8位整数：
 
   ``` python
   >>> dt = np.dtype([('R','u1'), ('G','u1'), ('B','u1'), ('A','u1')])
@@ -356,42 +292,28 @@ specify the byte order.
 
 - ``{'names': ..., 'formats': ..., 'offsets': ..., 'titles': ..., 'itemsize': ...}``
 
-  This style has two required and three optional keys.  The *names*
-  and *formats* keys are required. Their respective values are
-  equal-length lists with the field names and the field formats.
-  The field names must be strings and the field formats can be any
-  object accepted by [``dtype``](generated/numpy.dtype.html#numpy.dtype) constructor.
+  这种样式有两个必需键和三个可选键。*名称（names）*和 *格式（formats）* 密钥是必需的。
+  它们各自的值是具有字段名称和字段格式的等长列表。
+  字段名称必须是字符串，字段格式可以是 [``dtype``](generated/numpy.dtype.html#numpy.dtype) 构造函数接受的任何对象。
 
-  When the optional keys *offsets* and *titles* are provided,
-  their values must each be lists of the same length as the *names*
-  and *formats* lists. The *offsets* value is a list of byte offsets
-  (limited to [``ctypes.c_int``](https://docs.python.org/dev/library/ctypes.html#ctypes.c_int)) for each field, while the *titles* value is a
-  list of titles for each field (``None`` can be used if no title is
-  desired for that field). The *titles* can be any ``string``
-  or ``unicode`` object and will add another entry to the
-  fields dictionary keyed by the title and referencing the same
-  field tuple which will contain the title as an additional tuple
-  member.
+  当提供可选键 *偏移量（offsets）* 和 *标题（titles）* 时，它们的值都必须是与名称和 *格式* 列表长度相同的列表。
+  偏移量值是每个字段的字节 *偏移量*（限于 [``ctypes.c_int``](https://docs.python.org/dev/library/ctypes.html#ctypes.c_int) ）的列表，而标题值是每个字段的 *标题* 列表（如果该字段不需要标题，则不能使用任何标题）。
+  *标题* 可以是任何字符串或 ``unicode`` 对象，并且将向字段字典中添加由 *标题* 键入的另一个条目，
+  并引用相同的字段元组，该字段元组将包含 *标题* 作为额外的元组成员。
 
-  The *itemsize* key allows the total size of the dtype to be
-  set, and must be an integer large enough so all the fields
-  are within the dtype. If the dtype being constructed is aligned,
-  the *itemsize* must also be divisible by the struct alignment. Total dtype
-  *itemsize* is limited to [``ctypes.c_int``](https://docs.python.org/dev/library/ctypes.html#ctypes.c_int).
+  *itemsize* 键允许设置dtype的总大小，并且必须是足够大的整数，以便所有字段都在dtype内。如果正在构造的dtype是对齐的，
+  那么 *itemsize* 也必须可以被struct对齐整除。总dtype项目大小限制为 [``ctypes.c_int``](https://docs.python.org/dev/library/ctypes.html#ctypes.c_int)。
 
-  **Example:**
+  **示例：**
 
-  Data type with fields ``r``, ``g``, ``b``, ``a``, each being
-  an 8-bit unsigned integer:
+  具有字段 ``r``、``g``、``b``、``a`` 的数据类型，每个字段都是8位无符号整数：
 
   ``` python
   >>> dt = np.dtype({'names': ['r','g','b','a'],
   ...                'formats': [uint8, uint8, uint8, uint8]})
   ```
 
-  Data type with fields ``r`` and ``b`` (with the given titles),
-  both being 8-bit unsigned integers, the first at byte position
-  0 from the start of the field and the second at position 2:
+  具有字段 ``r`` 和 ``b``（具有给定标题）的数据类型，两者都是8位无符号整数，第一个位于从字段开始的字节位置0，第二个位于位置2：
 
   ``` python
   >>> dt = np.dtype({'names': ['r','b'], 'formats': ['u1', 'u1'],
@@ -401,22 +323,16 @@ specify the byte order.
 
 - ``{'field1': ..., 'field2': ..., ...}``
 
-  This usage is discouraged, because it is ambiguous with the
-  other dict-based construction method. If you have a field
-  called ‘names’ and a field called ‘formats’ there will be
-  a conflict.
+  不鼓励使用这种用法，因为它与其他基于dict的构造方法有歧义。
+  如果您有一个名为 “Names” 的字段和一个名为 “Formats” 的字段，则会发生冲突。
 
-  This style allows passing in the [``fields``](generated/numpy.dtype.fields.html#numpy.dtype.fields)
-  attribute of a data-type object.
+  此样式允许传入数据类型对象的 [``fields``](generated/numpy.dtype.fields.html#numpy.dtype.fields) 属性。
 
-  *obj* should contain string or unicode keys that refer to
-  ``(data-type, offset)`` or ``(data-type, offset, title)`` tuples.
+  *obj* 应包含引用 ``(data-type，offset)`` 或 ``(data-type，offset，title)`` 元组的字符串或Unicode键。
 
-  **Example:**
+  **示例：**
 
-  Data type containing field ``col1`` (10-character string at
-  byte position 0), ``col2`` (32-bit float at byte position 10),
-  and ``col3`` (integers at byte position 14):
+  包含字段 ``col1``（字节位置0处的10个字符串）、``col2``（字节位置10处的32位浮点）和 ``col3``（字节位置14处的整数）的数据类型：
 
   ``` python
   >>> dt = np.dtype({'col1': ('U10', 0), 'col2': (float32, 10),
@@ -425,37 +341,29 @@ specify the byte order.
 
 - ``(base_dtype, new_dtype)``
 
-  In NumPy 1.7 and later, this form allows *base_dtype* to be interpreted as
-  a structured dtype. Arrays created with this dtype will have underlying
-  dtype *base_dtype* but will have fields and flags taken from *new_dtype*.
-  This is useful for creating custom structured dtypes, as done in
-  [record arrays](arrays.classes.html#arrays-classes-rec).
+  在NumPy 1.7和更高版本中，这种形式允许 *base_dtype* 被解释为结构化dtype。
+  使用此dtype创建的数组将具有基础dtype *base_dtype*，但将具有取自 *new_dtype* 的字段和标志。
+  这对于创建自定义结构化数据类型非常有用，就像在 [record arrays](arrays.classes.html#arrays-classes-rec) 中所做的那样。
 
-  This form also makes it possible to specify struct dtypes with overlapping
-  fields, functioning like the ‘union’ type in C. This usage is discouraged,
-  however, and the union mechanism is preferred.
+  这种形式还使指定具有重叠字段的struct dtype成为可能，其功能类似于C中的“Union”类型。然而，不鼓励使用这种用法，而首选联合机制。
 
-  Both arguments must be convertible to data-type objects with the same total
-  size.
+  这两个参数必须可以转换为具有相同总大小的数据类型对象。
 
-  **Example:**
+  **示例：**
 
-  32-bit integer, whose first two bytes are interpreted as an integer
-  via field ``real``, and the following two bytes via field ``imag``.
+  32位整数，其前两个字节通过field ``real``解释为整数，后面两个字节通过field ``imag`` 解释为整数。
 
   ``` python
   >>> dt = np.dtype((np.int32,{'real':(np.int16, 0),'imag':(np.int16, 2)})
   ```
 
-  32-bit integer, which is interpreted as consisting of a sub-array
-  of shape ``(4,)`` containing 8-bit integers:
+  32位整数，解释为由包含8位整数的 shape ``(4，)`` 的子数组成：
 
   ``` python
   >>> dt = np.dtype((np.int32, (np.int8, 4)))
   ```
 
-  32-bit integer, containing fields ``r``, ``g``, ``b``, ``a`` that
-  interpret the 4 bytes in the integer as four unsigned integers:
+  32位整数，包含字段 ``r``、``g``、``b``、``a``，将整数中的4个字节解释为四个无符号整数：
 
   ``` python
   >>> dt = np.dtype(('i4', [('r','u1'),('g','u1'),('b','u1'),('a','u1')]))
@@ -463,70 +371,70 @@ specify the byte order.
 
 ## ``dtype``
 
-NumPy data type descriptions are instances of the [``dtype``](generated/numpy.dtype.html#numpy.dtype) class.
+NumPy数据类型描述是 [``dtype``](generated/numpy.dtype.html#numpy.dtype) 类的实例。
 
-### Attributes
+### 属性
 
-The type of the data is described by the following [``dtype``](generated/numpy.dtype.html#numpy.dtype)  attributes:
+数据的类型由以下 [``dtype``](generated/numpy.dtype.html#numpy.dtype) 属性描述：
 
-method | description
+方法 | 描述
 ---|---
-[dtype.type](generated/numpy.dtype.type.html#numpy.dtype.type) | The type object used to instantiate a scalar of this data-type.
-[dtype.kind](generated/numpy.dtype.kind.html#numpy.dtype.kind) | A character code (one of ‘biufcmMOSUV’) identifying the general kind of data.
-[dtype.char](generated/numpy.dtype.char.html#numpy.dtype.char) | A unique character code for each of the 21 different built-in types.
-[dtype.num](generated/numpy.dtype.num.html#numpy.dtype.num) | A unique number for each of the 21 different built-in types.
-[dtype.str](generated/numpy.dtype.str.html#numpy.dtype.str) | The array-protocol typestring of this data-type object.
+[dtype.type](generated/numpy.dtype.type.html#numpy.dtype.type) | 用于实例化此数据类型的标量的类型对象。
+[dtype.kind](generated/numpy.dtype.kind.html#numpy.dtype.kind) | 识别一般数据类型的字符码( “biufcmMOSUV” 之一)。
+[dtype.char](generated/numpy.dtype.char.html#numpy.dtype.char) | 21种不同内置类型中的每一种都有唯一的字符码。
+[dtype.num](generated/numpy.dtype.num.html#numpy.dtype.num) | 21种不同内置类型中每种类型的唯一编号。
+[dtype.str](generated/numpy.dtype.str.html#numpy.dtype.str) | 此数据类型对象的数组协议类型字符串。
 
-Size of the data is in turn described by:
+数据的大小依次由以下内容描述：
 
-method | description
+方法 | 描述
 ---|---
-[dtype.name](generated/numpy.dtype.name.html#numpy.dtype.name) | A bit-width name for this data-type.
-[dtype.itemsize](generated/numpy.dtype.itemsize.html#numpy.dtype.itemsize) | The element size of this data-type object.
+[dtype.name](generated/numpy.dtype.name.html#numpy.dtype.name) | 此数据类型的位宽名称。
+[dtype.itemsize](generated/numpy.dtype.itemsize.html#numpy.dtype.itemsize) | 此数据类型对象的元素大小。
 
-Endianness of this data:
+此数据的字符顺序：
 
-method | description
+方法 | 描述
 ---|---
-[dtype.byteorder](generated/numpy.dtype.byteorder.html#numpy.dtype.byteorder) | A character indicating the byte-order of this data-type object.
+[dtype.byteorder](generated/numpy.dtype.byteorder.html#numpy.dtype.byteorder) | 指示此数据类型对象的字节顺序的字符。
 
-Information about sub-data-types in a [structured data type](https://numpy.org/devdocs/glossary.html#term-structured-data-type):
+有关结构化数据类型中的[子数据类型](https://numpy.org/devdocs/glossary.html#term-structured-data-type)的信息：
 
-method | description
+方法 | 描述
 ---|---
-[dtype.fields](generated/numpy.dtype.fields.html#numpy.dtype.fields) | Dictionary of named fields defined for this data type, or ``None``.
-[dtype.names](generated/numpy.dtype.names.html#numpy.dtype.names) | Ordered list of field names, or ``None`` if there are no fields.
+[dtype.fields](generated/numpy.dtype.fields.html#numpy.dtype.fields) | 为此数据类型定义的命名字段的字典，或 ``None``。
+[dtype.names](generated/numpy.dtype.names.html#numpy.dtype.names) | 字段名称的有序列表，如果没有字段，则为 ``None``。
 
-For data types that describe sub-arrays:
+对于描述子数组的数据类型：
 
-method | description
+方法 | 描述
 ---|---
-[dtype.subdtype](generated/numpy.dtype.subdtype.html#numpy.dtype.subdtype) | Tuple ``(item_dtype, shape)`` if this dtype describes a sub-array, and None otherwise.
-[dtype.shape](generated/numpy.dtype.shape.html#numpy.dtype.shape) | Shape tuple of the sub-array if this data type describes a sub-array, and ``()`` otherwise.
+[dtype.subdtype](generated/numpy.dtype.subdtype.html#numpy.dtype.subdtype) | 元组 ``(item_dtype，shape)``。如果此dtype描述子数组，则无其他。
+[dtype.shape](generated/numpy.dtype.shape.html#numpy.dtype.shape) | 如果此数据类型描述子数组，则为子数组的Shape元组，否则为 ``()``。
 
-Attributes providing additional information:
+提供附加信息的属性：
 
-method | description
+方法 | 描述
 ---|---
-[dtype.hasobject](generated/numpy.dtype.hasobject.html#numpy.dtype.hasobject) | Boolean indicating whether this dtype contains any reference-counted objects in any fields or sub-dtypes.
-[dtype.flags](generated/numpy.dtype.flags.html#numpy.dtype.flags) | Bit-flags describing how this data type is to be interpreted.
-[dtype.isbuiltin](generated/numpy.dtype.isbuiltin.html#numpy.dtype.isbuiltin) | Integer indicating how this dtype relates to the built-in dtypes.
-[dtype.isnative](generated/numpy.dtype.isnative.html#numpy.dtype.isnative) | Boolean indicating whether the byte order of this dtype is native to the platform.
-[dtype.descr](generated/numpy.dtype.descr.html#numpy.dtype.descr) | *\_\_array_interface__* description of the data-type.
-[dtype.alignment](generated/numpy.dtype.alignment.html#numpy.dtype.alignment) | The required alignment (bytes) of this data-type according to the compiler.
-[dtype.base](generated/numpy.dtype.base.html#numpy.dtype.base) | Returns dtype for the base element of the subarrays, regardless of their dimension or shape.
+[dtype.hasobject](generated/numpy.dtype.hasobject.html#numpy.dtype.hasobject) | 指示此数据类型在任何字段或子数据类型中是否包含任何引用计数对象的布尔值。
+[dtype.flags](generated/numpy.dtype.flags.html#numpy.dtype.flags) | 描述如何解释此数据类型的位标志。
+[dtype.isbuiltin](generated/numpy.dtype.isbuiltin.html#numpy.dtype.isbuiltin) | 指示此数据类型如何与内置数据类型相关的整数。
+[dtype.isnative](generated/numpy.dtype.isnative.html#numpy.dtype.isnative) | 指示此dtype的字节顺序是否为平台固有的布尔值。
+[dtype.descr](generated/numpy.dtype.descr.html#numpy.dtype.descr) | *\_\_array_interface__* 数据类型说明。
+[dtype.alignment](generated/numpy.dtype.alignment.html#numpy.dtype.alignment) | 根据编译器，此数据类型所需的对齐(字节)。
+[dtype.base](generated/numpy.dtype.base.html#numpy.dtype.base) | 返回子数组的基本元素的dtype，而不考虑其尺寸或形状。
 
-### Methods
+### 方法
 
-Data types have the following method for changing the byte order:
+数据类型具有以下更改字节顺序的方法：
 
-method | description
+方法 | 描述
 ---|---
-[dtype.newbyteorder](generated/numpy.dtype.newbyteorder.html#numpy.dtype.newbyteorder)([new_order]) | Return a new dtype with a different byte order.
+[dtype.newbyteorder](generated/numpy.dtype.newbyteorder.html#numpy.dtype.newbyteorder)([new_order]) | 返回具有不同字节顺序的新dtype。
 
-The following methods implement the pickle protocol:
+以下方法实现腌制（pickle）协议：
 
-method | description
+方法 | 描述
 ---|---
-[dtype.__reduce__](generated/numpy.dtype.__reduce__.html#numpy.dtype.__reduce__)() | helper for pickle
+[dtype.__reduce__](generated/numpy.dtype.__reduce__.html#numpy.dtype.__reduce__)() | 帮助腌制（pickle）
 [dtype.__setstate__](generated/numpy.dtype.__setstate__.html#numpy.dtype.__setstate__)() | 
