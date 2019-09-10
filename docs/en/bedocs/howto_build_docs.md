@@ -6,6 +6,8 @@ documentation for NumPy.  You will need Sphinx 1.8.3 or newer.
 If you only want to get the documentation, note that pre-built
 versions can be found at
 
+  - [https://docs.scipy.org/](https://docs.scipy.org/)
+
 in several different formats.
 
 ## Instructions

@@ -1,378 +1,161 @@
-# NumPy project governance and decision-making
+# NumPy项目治理和决策
 
-The purpose of this document is to formalize the governance process
-used by the NumPy project in both ordinary and extraordinary
-situations, and to clarify how decisions are made and how the various
-elements of our community interact, including the relationship between
-open source collaborative development and work that may be funded by
-for-profit or non-profit entities.
+本文档的目的是使NumPy项目在普通和特殊情况下使用的治理流程正式化，
+并阐明决策的制定方式以及社区各个元素如何相互作用，
+包括开源协作开发与工作之间的关系可能由营利性或非营利性实体提供资金。
 
-## Summary
+## 摘要
 
-NumPy is a community-owned and community-run project. To the maximum
-extent possible, decisions about project direction are made by community
-consensus (but note that “consensus” here has a somewhat technical
-meaning that might not match everyone’s expectations – see below). Some
-members of the community additionally contribute by serving on the NumPy
-steering council, where they are responsible for facilitating the
-establishment of community consensus, for stewarding project resources,
-and – in extreme cases – for making project decisions if the normal
-community-based process breaks down.
+NumPy是一个社区拥有和社区运营的项目。在最大程度上，
+关于项目方向的决定是由社区共识做出的（但请注意，这里的“共识”具有某种技术含义，可能与每个人的期望不符 - 见下文）。
+社区的一些成员还通过在NumPy指导委员会任职，他们负责促进建立社区共识，
+管理项目资源，以及 - 在极端情况下 - 如果正常的社区流程中断，则做出项目决策下。
 
-## The Project
+## 项目
 
-The NumPy Project (The Project) is an open source software project
-affiliated with the 501(c)3 NumFOCUS Foundation. The goal of The Project
-is to develop open source software for array-based computing in Python,
-and in particular the ``numpy`` package, along with related software
-such as ``f2py`` and the NumPy Sphinx extensions. The Software developed
-by The Project is released under the BSD (or similar) open source
-license, developed openly and hosted on public GitHub repositories under
-the ``numpy`` GitHub organization.
+NumPy项目（项目）是隶属于501（c）3 NumFOCUS基金会的开源软件项目。
+该项目的目标是开发用于Python的基于阵列的计算的开源软件，特别是``numpy``包，以及相关的软件，
+如``f2py``NumPy Sphinx扩展。该项目开发的软件是根据BSD（或类似）开源许可证发布的，
+该许可证是公开开发的，并托管在``numpy``GitHub组织下的公共GitHub存储库中。
 
-The Project is developed by a team of distributed developers, called
-Contributors. Contributors are individuals who have contributed code,
-documentation, designs or other work to the Project. Anyone can be a
-Contributor. Contributors can be affiliated with any legal entity or
-none. Contributors participate in the project by submitting, reviewing
-and discussing GitHub Pull Requests and Issues and participating in open
-and public Project discussions on GitHub, mailing lists, and other
-channels. The foundation of Project participation is openness and
-transparency.
+该项目由分布式开发人员团队开发，称为贡献者。贡献者是为项目贡献代码，文档，设计或其他工作的个人。任何人都可以成为贡献者。贡献者可以隶属于任何法人实体或不属于任何法人实体。贡献者通过提交，审阅和讨论GitHub Pull请求和问题以及参与GitHub，邮件列表和其他渠道的公开和公共项目讨论来参与该项目。项目参与的基础是开放性和透明度。
 
-The Project Community consists of all Contributors and Users of the
-Project. Contributors work on behalf of and are responsible to the
-larger Project Community and we strive to keep the barrier between
-Contributors and Users as low as possible.
+项目社区由项目的所有贡献者和用户组成。贡献者代表并负责更大的项目社区，我们努力尽可能降低贡献者和用户之间的关系。
 
-The Project is formally affiliated with the 501(c)3 NumFOCUS Foundation
-([http://numfocus.org](http://numfocus.org)), which serves as its fiscal sponsor, may hold
-project trademarks and other intellectual property, helps manage project
-donations and acts as a parent legal entity. NumFOCUS is the only legal
-entity that has a formal relationship with the project (see
-Institutional Partners section below).
+该项目正式隶属于501（c）3 NumFOCUS基金会（[http://numfocus.org](http://numfocus.org)），该基金会作为其财政赞助商，可以持有项目商标和其他知识产权，帮助管理项目捐赠并作为母公司法律行事实体。NumFOCUS是唯一与该项目有正式关系的法人实体（请参阅下面的机构合作伙伴部分）。
 
-## Governance
+## 治理
 
-This section describes the governance and leadership model of The
-Project.
+本节描述了项目的治理和领导模型。
 
-The foundations of Project governance are:
+项目治理的基础是：
 
-- Openness & Transparency
-- Active Contribution
-- Institutional Neutrality
+- 开放性和透明度
+- 积极贡献
+- 制度中立
 
-### Consensus-based decision making by the community
+### 基于共识的社区决策
 
-Normally, all project decisions will be made by consensus of all
-interested Contributors. The primary goal of this approach is to ensure
-that the people who are most affected by and involved in any given
-change can contribute their knowledge in the confidence that their
-voices will be heard, because thoughtful review from a broad community
-is the best mechanism we know of for creating high-quality software.
+通常，所有项目决策都将通过所有感兴趣的贡献者的共识来做出。这种方法的主要目标是确保受影响最大且参与任何特定变革的人能够自信地发表他们的声音，因为他们的声音会被广泛的社区认可是我们所知道的最佳机制。用于创建高质量的软件。
 
-The mechanism we use to accomplish this goal may be unfamiliar for those
-who are not experienced with the cultural norms around free/open-source
-software development. We provide a summary here, and highly recommend
-that all Contributors additionally read [Chapter 4: Social and Political
-Infrastructure](http://producingoss.com/en/producingoss.html#social-infrastructure)
-of Karl Fogel’s classic  *Producing Open Source Software* , and in
-particular the section on [Consensus-based
-Democracy](http://producingoss.com/en/producingoss.html#consensus-democracy),
-for a more detailed discussion.
+对于那些对自由/开源软件开发的文化规范没有经验的人来说，我们用来实现这一目标的机制可能并不熟悉。我们在此提供摘要，并强烈建议所有贡献者另外阅读[第4章：](http://producingoss.com/en/producingoss.html#social-infrastructure) 
+卡尔福格尔的经典 *制作开源软件的* [社会和政治基础设施](http://producingoss.com/en/producingoss.html#social-infrastructure)，特别是基于[共识的民主部分](http://producingoss.com/en/producingoss.html#consensus-democracy)，以进行更详细的讨论。
 
-In this context, consensus does  *not*  require:
+在此背景下，共识也 *不能* 要求：
 
-- that we wait to solicit everybody’s opinion on every change,
-- that we ever hold a vote on anything,
-- or that everybody is happy or agrees with every decision.
+- 我们等着征求每个人对每一个变化的看法，
+- 我们曾经对任何事情进行投票，
+- 或者每个人都乐于或同意每一个决定。
 
-For us, what consensus means is that we entrust  *everyone*  with the
-right to veto any change if they feel it necessary. While this may sound
-like a recipe for obstruction and pain, this is not what happens.
-Instead, we find that most people take this responsibility seriously,
-and only invoke their veto when they judge that a serious problem is
-being ignored, and that their veto is necessary to protect the project.
-And in practice, it turns out that such vetoes are almost never formally
-invoked, because their mere possibility ensures that Contributors are
-motivated from the start to find some solution that everyone can live
-with – thus accomplishing our goal of ensuring that all interested
-perspectives are taken into account.
+对我们来说，共识的意思是，如果认为有必要，我们会委托 *每个人* 否决任何改变。虽然这可能听起来像阻碍和疼痛的配方，但事实并非如此。相反，我们发现大多数人都认真对待这一责任，只有在他们判断出一个严重的问题被忽视时才会援引他们的否决权，并且他们的否决权是保护项目的必要条件。在实践中，事实证明，这种否决几乎从未被正式引用，因为它们的可能性确保了贡献者从一开始就有动力找到每个人都可以接受的解决方案 - 从而实现我们的目标，即确保所有感兴趣的观点都被采纳考虑到了。
 
-How do we know when consensus has been achieved? In principle, this is
-rather difficult, since consensus is defined by the absence of vetos,
-which requires us to somehow prove a negative. In practice, we use a
-combination of our best judgement (e.g., a simple and uncontroversial
-bug fix posted on GitHub and reviewed by a core developer is probably
-fine) and best efforts (e.g., all substantive API changes must be posted
-to the mailing list in order to give the broader community a chance to
-catch any problems and suggest improvements; we assume that anyone who
-cares enough about NumPy to invoke their veto right should be on the
-mailing list). If no-one bothers to comment on the mailing list after a
-few days, then it’s probably fine. And worst case, if a change is more
-controversial than expected, or a crucial critique is delayed because
-someone was on vacation, then it’s no big deal: we apologize for
-misjudging the situation, [back up, and sort things
-out](http://producingoss.com/en/producingoss.html#version-control-relaxation).
+我们如何知道何时达成共识？原则上，这是相当困难的，因为共识的定义是缺乏vetos，这要求我们以某种方式证明是消极的。在实践中，我们结合使用我们的最佳判断（例如，在GitHub上发布的简单且无争议的错误修复并由核心开发人员审核可能很好）并尽最大努力（例如，所有实质性API更改必须发布到邮件列表为了让更广泛的社区有机会发现任何问题并提出改进意见;我们假设任何关心NumPy的人都应该在邮件列表中使用他们的否决权。如果几天之后没有人在邮件列表上发表评论，那么它可能就好了。最糟糕的情况是，如果变更比预期更具争议性，[备份，并解决问题](http://producingoss.com/en/producingoss.html#version-control-relaxation)。
 
-If one does need to invoke a formal veto, then it should consist of:
+如果确实需要援引正式否决权，则应包括：
 
-- an unambiguous statement that a veto is being invoked,
-- an explanation of why it is being invoked, and
-- a description of what conditions (if any) would convince the vetoer
-to withdraw their veto.
+- 一个明确的声明，即正在援引否决权，
+- 解释为什么要调用它，以及
+- 描述哪些条件（如果有的话）会说服否决者撤回否决权。
 
-If all proposals for resolving some issue are vetoed, then the status
-quo wins by default.
+如果所有解决某些问题的提案都被否决，则默认情况下会获胜。
 
-In the worst case, if a Contributor is genuinely misusing their veto in
-an obstructive fashion to the detriment of the project, then they can be
-ejected from the project by consensus of the Steering Council – see
-below.
+在最糟糕的情况下，如果贡献者真的以阻碍方式滥用否决权而不利于项目，那么他们可以通过指导委员会的共识退出项目 - 见下文。
 
-### Steering Council
+### 指导委员会
 
-The Project will have a Steering Council that consists of Project
-Contributors who have produced contributions that are substantial in
-quality and quantity, and sustained over at least one year. The overall
-role of the Council is to ensure, with input from the Community, the
-long-term well-being of the project, both technically and as a
-community.
+该项目将设立一个由项目贡献者组成的指导委员会，他们的质量和数量都很大，并且至少持续了一年。理事会的总体作用是在共同体的投入下，确保项目的长期福祉，无论是技术上还是社区。
 
-During the everyday project activities, council members participate in
-all discussions, code review and other project activities as peers with
-all other Contributors and the Community. In these everyday activities,
-Council Members do not have any special power or privilege through their
-membership on the Council. However, it is expected that because of the
-quality and quantity of their contributions and their expert knowledge
-of the Project Software and Services that Council Members will provide
-useful guidance, both technical and in terms of project direction, to
-potentially less experienced contributors.
+在日常项目活动期间，理事会成员作为所有其他贡献者和社区的同行参与所有讨论，代码审查和其他项目活动。在这些日常活动中，理事会成员通过其在理事会的成员资格没有任何特殊的权力或特权。但是，由于其贡献的质量和数量以及他们对项目软件和服务的专业知识，理事会成员将在技术方面和项目方向方面为可能缺乏经验的贡献者提供有用的指导。
 
-The Steering Council and its Members play a special role in certain
-situations. In particular, the Council may, if necessary:
+指导委员会及其成员在某些情况下发挥着特殊作用。特别是，如有必要，理事会可以：
 
-- Make decisions about the overall scope, vision and direction of the
-project.
-- Make decisions about strategic collaborations with other
-organizations or individuals.
-- Make decisions about specific technical issues, features, bugs and
-pull requests. They are the primary mechanism of guiding the code
-review process and merging pull requests.
-- Make decisions about the Services that are run by The Project and
-manage those Services for the benefit of the Project and Community.
-- Update policy documents such as this one.
-- Make decisions when regular community discussion doesn’t produce
-consensus on an issue in a reasonable time frame.
+- 决定项目的总体范围，愿景和方向。
+- 制定与其他组织或个人的战略合作。
+- 针对特定技术问题，功能，错误和拉取请求做出决策。它们是指导代码审查过程和合并拉取请求的主要机制。
+- 制定有关项目运行的服务的决策，并为项目和社区的利益管理这些服务。
+- 更新此类政策文件。
+- 在定期社区讨论未能在合理的时间范围内就某个问题达成共识时做出决策。
 
-However, the Council’s primary responsibility is to facilitate the
-ordinary community-based decision making procedure described above. If
-we ever have to step in and formally override the community for the
-health of the Project, then we will do so, but we will consider reaching
-this point to indicate a failure in our leadership.
+但是，理事会的主要责任是促进上述基于社区的普通决策程序。如果我们必须介入并正式覆盖社区以确保项目的健康，那么我们将这样做，但我们将考虑达到这一点，以表明我们的领导失败。
 
-#### Council decision making
+#### 理事会决策
 
-If it becomes necessary for the Steering Council to produce a formal
-decision, then they will use a form of the [Apache Foundation voting
-process](https://www.apache.org/foundation/voting.html). This is a
-formalized version of consensus, in which +1 votes indicate agreement,
--1 votes are vetoes (and must be accompanied with a rationale, as
-above), and one can also vote fractionally (e.g. -0.5, +0.5) if one
-wishes to express an opinion without registering a full veto. These
-numeric votes are also often used informally as a way of getting a
-general sense of people’s feelings on some issue, and should not
-normally be taken as formal votes. A formal vote only occurs if
-explicitly declared, and if this does occur then the vote should be held
-open for long enough to give all interested Council Members a chance to
-respond – at least one week.
+如果指导委员会有必要做出正式决定，那么他们将使用[Apache Foundation投票流程的形式](https://www.apache.org/foundation/voting.html)。这是协商一致的正式版本，其中+1票表示同意，-1票是否决票（并且必须附有理由，如上所述），并且还可以进行小数表决（例如-0.5，+ 0.5）希望在没有登记完整否决权的情况下表达意见。这些数字投票也经常被非正式地用作在某些问题上获得人们感受的一般意义的方式，通常不应被视为正式投票。只有在明确宣布的情况下才会进行正式投票，如果确实发生这种情况，那么投票应该保持开放的时间足够长，以便让所有感兴趣的理事会成员有机会作出回应 - 至少一周。
 
-In practice, we anticipate that for most Steering Council decisions
-(e.g., voting in new members) a more informal process will suffice.
+在实践中，我们预计对于大多数指导委员会的决定（例如，在新成员中投票），更为非正式的过程就足够了。
 
-#### Council membership
+#### 理事会成员
 
-A list of current Steering Council Members is maintained at the
-page [Current steering council and institutional partners](people.html#governance-people).
+[当前指导委员会和机构合作伙伴](people.html#governance-people)保留了当前指导委员会成员的名单。
 
-To become eligible to join the Steering Council, an individual must be
-a Project Contributor who has produced contributions that are
-substantial in quality and quantity, and sustained over at least one
-year. Potential Council Members are nominated by existing Council
-members, and become members following consensus of the existing
-Council members, and confirmation that the potential Member is
-interested and willing to serve in that capacity. The Council will be
-initially formed from the set of existing Core Developers who, as of
-late 2015, have been significantly active over the last year.
+为了有资格加入指导委员会，个人必须是项目贡献者，他们已经产生了质量和数量都很大的贡献，并且至少持续了一年。潜在的理事会成员由现有的理事会成员提名，并在现有理事会成员达成共识后成为成员，并确认潜在成员有兴趣并愿意以此身份任职。理事会最初将由现有核心开发人员组成，截至2015年底，他们在过去一年中一直非常活跃。
 
-When considering potential Members, the Council will look at candidates
-with a comprehensive view of their contributions. This will include but
-is not limited to code, code review, infrastructure work, mailing list
-and chat participation, community help/building, education and outreach,
-design work, etc. We are deliberately not setting arbitrary quantitative
-metrics (like “100 commits in this repo”) to avoid encouraging behavior
-that plays to the metrics rather than the project’s overall well-being.
-We want to encourage a diverse array of backgrounds, viewpoints and
-talents in our team, which is why we explicitly do not define code as
-the sole metric on which council membership will be evaluated.
+在考虑潜在会员时，理事会将审视候选人，全面了解他们的贡献。这将包括但不限于代码，代码审查，基础设施工作，邮件列表和聊天参与，社区帮助/建设，教育和外展，设计工作等。我们故意不设置任意量化指标（如“100个提交中”）这个回购“）避免鼓励那些符合指标而非项目整体福祉的行为。我们希望在团队中鼓励各种各样的背景，观点和才能，这就是为什么我们明确地不将代码定义为评估理事会成员资格的唯一指标。
 
-If a Council member becomes inactive in the project for a period of one
-year, they will be considered for removal from the Council. Before
-removal, inactive Member will be approached to see if they plan on
-returning to active participation. If not they will be removed
-immediately upon a Council vote. If they plan on returning to active
-participation soon, they will be given a grace period of one year. If
-they don’t return to active participation within that time period they
-will be removed by vote of the Council without further grace period. All
-former Council members can be considered for membership again at any
-time in the future, like any other Project Contributor. Retired Council
-members will be listed on the project website, acknowledging the period
-during which they were active in the Council.
+如果安理会成员在该项目中不活动一年，则将考虑将其从理事会中删除。在移除之前，将联系非活动会员以查看他们是否计划返回积极参与。如果不是，他们将在理事会投票后立即被删除。如果他们计划很快恢复积极参与，他们将获得一年的宽限期。如果他们在该时间段内没有恢复积极参与，他们将在没有进一步宽限期的情况下通过理事会的表决予以撤职。与任何其他项目贡献者一样，所有前安理会成员可以在未来的任何时间再次成为会员。退休的安理会成员将列入项目网站，承认他们在安理会活动期间。
 
-The Council reserves the right to eject current Members, if they are
-deemed to be actively harmful to the project’s well-being, and attempts
-at communication and conflict resolution have failed. This requires the
-consensus of the remaining Members.
+如果被认为对项目的福祉有积极影响，理事会保留撤销现有成员的权利，并且通信和解决冲突的尝试都失败了。这需要其余成员的共识。
 
-#### Conflict of interest
+#### 利益冲突
 
-It is expected that the Council Members will be employed at a wide range
-of companies, universities and non-profit organizations. Because of
-this, it is possible that Members will have conflict of interests. Such
-conflict of interests include, but are not limited to:
+预计理事会成员将受雇于广泛的公司，大学和非营利组织。因此，会员可能会有利益冲突。这种利益冲突包括但不限于：
 
-- Financial interests, such as investments, employment or contracting
-work, outside of The Project that may influence their work on The
-Project.
-- Access to proprietary information of their employer that could
-potentially leak into their work with the Project.
+- 项目之外的可能影响其项目工作的财务利益，如投资，就业或承包工作。
+- 访问可能潜在泄漏到项目工作中的雇主的专有信息。
 
-All members of the Council shall disclose to the rest of the Council any
-conflict of interest they may have. Members with a conflict of interest
-in a particular issue may participate in Council discussions on that
-issue, but must recuse themselves from voting on the issue.
+理事会所有成员均应向理事会其他成员披露他们可能存在的任何利益冲突。在特定问题上存在利益冲突的成员可以参与理事会关于该问题的讨论，但必须回避对该问题的投票。
 
-#### Private communications of the Council
+#### 理事会的私人通讯
 
-To the maximum extent possible, Council discussions and activities
-will be public and done in collaboration and discussion with the
-Project Contributors and Community. The Council will have a private
-mailing list that will be used sparingly and only when a specific
-matter requires privacy. When private communications and decisions are
-needed, the Council will do its best to summarize those to the
-Community after eliding personal/private/sensitive information that
-should not be posted to the public internet.
+在最大程度上，理事会的讨论和活动将公开进行，并与项目贡献者和社区合作和讨论。理事会将有一个私人邮件列表，只有在特定事项需要隐私时才会谨慎使用。在需要私人通信和决策时，理事会将在删除不应发布到公共互联网上的个人/私人/敏感信息后，尽力向社群汇总。
 
-#### Subcommittees
+#### 小组委员会
 
-The Council can create subcommittees that provide leadership and
-guidance for specific aspects of the project. Like the Council as a
-whole, subcommittees should conduct their business in an open and public
-manner unless privacy is specifically called for. Private subcommittee
-communications should happen on the main private mailing list of the
-Council unless specifically called for.
+理事会可以设立小组委员会，为项目的具体方面提供领导和指导。与整个委员会一样，小组委员会应以公开和公开的方式开展业务，除非特别要求保密。除非特别要求，否则私人小组委员会的通讯应在理事会的主要私人邮件清单上进行。
 
-#### NumFOCUS Subcommittee
+#### NumFOCUS小组委员会
 
-The Council will maintain one narrowly focused subcommittee to manage
-its interactions with NumFOCUS.
+理事会将维持一个狭隘的小组委员会来管理其与NumFOCUS的互动。
 
-- The NumFOCUS Subcommittee is comprised of 5 persons who manage
-project funding that comes through NumFOCUS. It is expected that
-these funds will be spent in a manner that is consistent with the
-non-profit mission of NumFOCUS and the direction of the Project as
-determined by the full Council.
-- This Subcommittee shall NOT make decisions about the direction, scope
-or technical direction of the Project.
-- This Subcommittee will have 5 members, 4 of whom will be current
-Council Members and 1 of whom will be external to the Steering
-Council. No more than 2 Subcommitee Members can report to one person
-through employment or contracting work (including the reportee, i.e.
-the reportee + 1 is the max). This avoids effective majorities
-resting on one person.
+- NumFOCUS小组委员会由5名管理NumFOCUS项目资金的人员组成。预计这些资金的使用方式将与NumFOCUS的非营利使命和整个市议会确定的项目方向一致。
+- 本小组委员会不得就项目的方向，范围或技术方向作出决定。
+- 该小组委员会将有5名成员，其中4名将是现任理事会成员，其中1名将成为指导委员会的外部成员。不超过2名子项目成员可以通过工作或承包工作向一个人报告（包括报告人，即报告人+ 1是最大）。这避免了有效多数人依赖一个人。
 
-The current membership of the NumFOCUS Subcommittee is listed at the
-page [Current steering council and institutional partners](people.html#governance-people).
+NumFOCUS小组委员会的现有成员名单列在[当前指导委员会和机构合作伙伴](people.html#governance-people)的页面上。
 
-## Institutional Partners and Funding
+## 机构合作伙伴和资助
 
-The Steering Council are the primary leadership for the project. No
-outside institution, individual or legal entity has the ability to own,
-control, usurp or influence the project other than by participating in
-the Project as Contributors and Council Members. However, because
-institutions can be an important funding mechanism for the project, it
-is important to formally acknowledge institutional participation in the
-project. These are Institutional Partners.
+指导委员会是该项目的主要领导。除参与项目作为贡献者和理事会成员外，任何外部机构，个人或法人实体均无权拥有，控制，篡夺或影响项目。但是，由于机构可以成为项目的重要筹资机制，因此正式承认机构参与项目非常重要。这些是机构合作伙伴。
 
-An Institutional Contributor is any individual Project Contributor who
-contributes to the project as part of their official duties at an
-Institutional Partner. Likewise, an Institutional Council Member is any
-Project Steering Council Member who contributes to the project as part
-of their official duties at an Institutional Partner.
+机构贡献者是任何个人项目贡献者，他们在项目合作伙伴的官方职责中为项目做出贡献。同样，机构理事会成员是任何项目指导委员会成员，作为其在机构合作伙伴的公务职责的一部分，为该项目做出贡献。
 
-With these definitions, an Institutional Partner is any recognized legal
-entity in the United States or elsewhere that employs at least 1
-Institutional Contributor of Institutional Council Member. Institutional
-Partners can be for-profit or non-profit entities.
+根据这些定义，机构合作伙伴是在美国或其他地方拥有至少1名机构理事会成员机构贡献者的任何公认法律实体。机构合作伙伴可以是营利性或非营利性实体。
 
-Institutions become eligible to become an Institutional Partner by
-employing individuals who actively contribute to The Project as part of
-their official duties. To state this another way, the only way for a
-Partner to influence the project is by actively contributing to the open
-development of the project, in equal terms to any other member of the
-community of Contributors and Council Members. Merely using Project
-Software in institutional context does not allow an entity to become an
-Institutional Partner. Financial gifts do not enable an entity to become
-an Institutional Partner. Once an institution becomes eligible for
-Institutional Partnership, the Steering Council must nominate and
-approve the Partnership.
+机构有资格成为机构合作伙伴，雇用积极参与项目的个人作为其公务的一部分。换句话说，合作伙伴影响项目的唯一途径是与贡献者和理事会成员社区的任何其他成员平等地积极地为项目的开放发展做出贡献。仅仅在机构背景下使用项目软件不允许实体成为机构合作伙伴。金融礼品不能使实体成为机构合作伙伴。一旦机构有资格获得机构合作伙伴关系，指导委员会就必须提名并批准合作伙伴关系。
 
-If at some point an existing Institutional Partner stops having any
-contributing employees, then a one year grace period commences. If at
-the end of this one year period they continue not to have any
-contributing employees, then their Institutional Partnership will
-lapse, and resuming it will require going through the normal process
-for new Partnerships.
+如果现有的机构合作伙伴在某个时候停止拥有任何贡献员工，则开始一年的宽限期。如果在这一年结束时他们继续没有任何贡献员工，那么他们的机构合作关系将失效，并且恢复它将需要通过新的合作伙伴关系的正常流程。
 
-An Institutional Partner is free to pursue funding for their work on The
-Project through any legal means. This could involve a non-profit
-organization raising money from private foundations and donors or a
-for-profit company building proprietary products and services that
-leverage Project Software and Services. Funding acquired by
-Institutional Partners to work on The Project is called Institutional
-Funding. However, no funding obtained by an Institutional Partner can
-override the Steering Council. If a Partner has funding to do NumPy work
-and the Council decides to not pursue that work as a project, the
-Partner is free to pursue it on their own. However in this situation,
-that part of the Partner’s work will not be under the NumPy umbrella and
-cannot use the Project trademarks in a way that suggests a formal
-relationship.
+机构合作伙伴可以通过任何法律手段为其在项目上的工作自由寻求资金。这可能涉及一个非营利组织从私人基金会和捐赠者或营利性公司筹集资金，建立利用项目软件和服务的专有产品和服务。机构合作伙伴为该项目工作获得的资金称为机构资助。但是，机构合作伙伴获得的资金不能超越指导委员会。如果合作伙伴有资金进行NumPy工作，并且理事会决定不将该工作作为一个项目，合作伙伴可以自由地追求它。但是，在这种情况下，合作伙伴工作的这一部分将不属于NumPy保护伞，并且不能以暗示正式关系的方式使用项目商标。
 
-Institutional Partner benefits are:
+机构合作伙伴的好处是：
 
-- Acknowledgement on the NumPy websites, in talks and T-shirts.
-- Ability to acknowledge their own funding sources on the NumPy
-websites, in talks and T-shirts.
-- Ability to influence the project through the participation of their
-Council Member.
-- Council Members invited to NumPy Developer Meetings.
+- 对NumPy网站，会谈和T恤的认可。
+- 能够在NumPy网站，谈判和T恤上承认自己的资金来源。
+- 能够通过其理事会成员的参与来影响项目。
+- 理事会成员受邀参加NumPy开发者大会。
 
-A list of current Institutional Partners is maintained at the page
-[Current steering council and institutional partners](people.html#governance-people).
+当前的机构合作伙伴列表保留在[当前指导委员会和机构合作伙伴](people.html#governance-people)的页面上
+ 。
 
-## Document history
+## 文档历史
 
 [https://github.com/numpy/numpy/commits/master/doc/source/dev/governance/governance.rst](https://github.com/numpy/numpy/commits/master/doc/source/dev/governance/governance.rst)
 
-## Acknowledgements
+## 致谢
 
-Substantial portions of this document were adapted from the
-[Jupyter/IPython project’s governance document](https://github.com/jupyter/governance/blob/master/governance.md).
+本文档的大部分内容改编自
+ [Jupyter / IPython项目的治理文档](https://github.com/jupyter/governance/blob/master/governance.md)。
 
-## License
+## 许可证
 
-To the extent possible under law, the authors have waived all
-copyright and related or neighboring rights to the NumPy project
-governance and decision-making document, as per the [CC-0 public
-domain dedication / license](https://creativecommons.org/publicdomain/zero/1.0/).
+根据法律，作者根据[CC-0公共领域的奉献/许可](https://creativecommons.org/publicdomain/zero/1.0/)，放弃了NumPy项目治理和决策文件的所有版权及相关或相邻权利。

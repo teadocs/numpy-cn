@@ -187,12 +187,11 @@ of arbitrary dimension.
 
 :::
 
+- ``numpy.newaxis``
 
-``numpy.````newaxis``
-
-The [``newaxis``](constants.html#numpy.newaxis) object can be used in all slicing operations to
-create an axis of length one. [``newaxis``](constants.html#numpy.newaxis) is an alias for
-‘None’, and ‘None’ can be used in place of this with the same result.
+    The [``newaxis``](constants.html#numpy.newaxis) object can be used in all slicing operations to
+    create an axis of length one. [``newaxis``](constants.html#numpy.newaxis) is an alias for
+    ‘None’, and ‘None’ can be used in place of this with the same result.
 
 ## Advanced Indexing
 

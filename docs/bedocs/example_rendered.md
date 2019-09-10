@@ -1,49 +1,49 @@
-# Example Rendered
+# 渲染示例
 
-This is the docstring for the example.py module.  Modules names should
-have short, all-lowercase names.  The module name may have underscores if
-this improves readability.
+这是 example.py 模块的 docstring。模块名称应具有简短的全小写名称。
+如果这提高了可读性，则模块名称可能具有下划线。
 
-Every module should have a docstring at the very top of the file.  The
-module’s docstring may extend over multiple lines.  If your docstring does
-extend over multiple lines, the closing three quotation marks must be on
-a line by itself, preferably preceded by a blank line.
+每个模块都应该在文件的最顶部有一个docstring。
+模块的文档字符串可以扩展到多行。
+如果您的文档字符串确实延伸到多行，则结束三个引号必须单独在一行上，最好在前面加一个空行。
 
 - doc.example.``foo``( *var1* ,  *var2* ,  *long_var_name='hi'* )[[source]](https://github.com/numpy/numpy/blob/master/numpy/../../../../../doc/sphinxext/doc/example.py#L37-L123)
 
-    A one-line summary that does not use variable names or the function name.
+    不使用变量名称或函数名称的单行摘要。
 
-    Several sentences providing an extended description. Refer to variables using back-ticks, e.g.  *var* .
+    几个句子提供了扩展的描述。使用反向标记引用变量，例如：*var* 。
 
-    **Parameters:**
+    **参数：**
 
-    type | description
+    类型 | 描述
     ---|---
-    var1 : array_like | Array_like means all those objects – lists, nested lists, etc. – that can be converted to an array. We can also refer to variables like var1.
-    var2 : int | The type above can either refer to an actual Python type (e.g. int), or describe the type of the variable in more detail, e.g. (N,) ndarray or array_like.
-    long_var_name : {‘hi’, ‘ho’}, optional | Choices in brackets, default first when optional.
+    var1 : array_like | Array_like 表示可以转换为数组的所有对象、列表、嵌套列表等。我们也可以参考像var1这样的变量。
+    var2 : int | 上面的类型可以引用实际的Python类型（例如int），或者更详细地描述变量的类型，例如： (n, ) ndarray 或 array_like。
+    long_var_name : {‘hi’, ‘ho’}, optional | 括号中的选项，在可选时默认为默认值。
 
-    **Returns:**
-    type | description
+    **返回值：**
+
+    类型 | 描述
     ---|---
-    type | Explanation of anonymous return value of type type.
-    describe : type | Explanation of return value named describe.
-    out : type | Explanation of out.
-    type_without_description | 
+    type | 类型的匿名返回值的说明。
+    describe : type | 名为Describe的返回值的说明。
+    out : type | 输出说明
+    type_without_description | 无
 
-    **Other Parameters:**
-    type | description
+    **其他参数：**
+
+    类型 | 描述
     ---|---
-    only_seldom_used_keywords : type | Explanation
-    common_parameters_listed_above : type | Explanation
+    only_seldom_used_keywords : type | 说明
+    common_parameters_listed_above : type | 说明
 
-    **Raises:**
+    **额外：**
 
-    type | description
+    类型 | 描述
     ---|---
-    BadException | Because you shouldn’t have done that.
+    BadException | 因为你不该那么做。
 
-::: tip See also
+::: tip 另见
 
 ``otherfunc``
 
@@ -53,28 +53,27 @@ a line by itself, preferably preceded by a blank line.
 
 :::
 
-**Notes**
+**注解**
 
-Notes about the implementation algorithm (if needed).
+关于实现算法的注解（如果需要）。
 
-This can have multiple paragraphs.
+这可以有多个段落。
 
-You may include some math:
+可以包括一些数学公式：
 
 ![math](/static/images/math/003f271cc4b6ba7e6fb8c6b30c851c95ea8038ba.svg)
 
-And even use a Greek symbol like  inline.
+甚至使用像内联的希腊符号。
 
-**References**
+**参考**
 
-Cite the relevant literature, e.g. You may also cite these
-references in the notes section above.
+引用相关文献，例如 您也可以在上面的注释部分引用这些参考文献。
 
 O. McNoleg, “The integration of GIS, remote sensing, expert systems and adaptive co-kriging for environmental habitat modelling of the Highland Haggis using object-oriented, fuzzy-logic and neural-network techniques,” Computers & Geosciences, vol. 22, pp. 585-588, 1996.
 
-**Examples**
+**示例**
 
-These are written in doctest format, and should illustrate how to use the function.
+这些是以doctest格式编写的，应该说明如何使用该函数。
 
 ``` python
 >>>>>> a = [1, 2, 3]

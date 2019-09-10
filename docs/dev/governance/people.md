@@ -1,6 +1,6 @@
-# Current steering council and institutional partners
+# 现任指导委员会和机构合作伙伴
 
-## Steering council
+## 指导委员会
 
 - Sebastian Berg
 - Jaime Fernández del Río
@@ -15,12 +15,12 @@
 - Allan Haldane
 - Stefan van der Walt
 
-## Emeritus members
+## 名誉会员
 
 - Travis Oliphant - Project Founder / Emeritus Leader (served: 2005-2012)
 - Alex Griffing (served: 2015-2017)
 
-## NumFOCUS Subcommittee
+## NumFOCUS小组委员会
 
 - Chuck Harris
 - Ralf Gommers
@@ -28,7 +28,7 @@
 - Sebastian Berg
 - External member: Thomas Caswell
 
-## Institutional Partners
+## 机构合作伙伴
 
-- UC Berkeley (Stefan van der Walt, Matti Picus, Tyler Reddy, Sebastian Berg)
+- 加州大学伯克利分校 UC Berkeley (Stefan van der Walt, Matti Picus, Tyler Reddy, Sebastian Berg)
 - Quansight (Ralf Gommers, Hameer Abbasi)

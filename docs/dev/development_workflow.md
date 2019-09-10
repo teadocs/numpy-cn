@@ -53,10 +53,10 @@ git commit
 git push origin my-new-feature
 ```
 
-#### 更详细
+#### 更详细的内容
 
-1. Make some changes. When you feel that you’ve made a complete, working set of related changes, move on to the next steps.
-1. Optional: Check which files have changed with git status (see git status). You’ll see a listing like this one:
+1. 做一些更改之后，当您感觉您已经完成了一组完整的相关更改的工作集时，请继续执行下一步。
+1. 可选：检查哪些文件已使用git状态更改(请参阅git状态)。您将看到如下所示的清单：
     ```
     # On branch my-new-feature
     # Changed but not updated:
@@ -71,16 +71,16 @@ git push origin my-new-feature
     #  INSTALL
     no changes added to commit (use "git add" and/or "git commit -a")
     ```
-1. Optional: Compare the changes with the previous version using with ``git diff`` ([git diff](https://www.kernel.org/pub/software/scm/git/docs/git-diff.html)). This brings up a simple text browser interface that highlights the difference between your files and the previous version.
-1. Add any relevant modified or new files using ``git add modified_file`` (see [git add](https://www.kernel.org/pub/software/scm/git/docs/git-add.html)). This puts the files into a staging area, which is a queue of files that will be added to your next commit. Only add files that have related, complete changes. Leave files with unfinished changes for later commits.
-1. To commit the staged files into the local copy of your repo, do ``git commit``. At this point, a text editor will open up to allow you to write a commit message. Read the [commit message section](https://numpy.org/devdocs/dev/development_workflow.html#writing-the-commit-message) to be sure that you are writing a properly formatted and sufficiently detailed commit message. After saving your message and closing the editor, your commit will be saved. For trivial commits, a short commit message can be passed in through the command line using the ``-m`` flag. For example, ``git commit -am "ENH: Some message"``.
-1. In some cases, you will see this form of the commit command: ``git commit -a``. The extra ``-a`` flag automatically commits all modified files and removes all deleted files. This can save you some typing of numerous ``git add`` commands; however, it can add unwanted changes to a commit if you’re not careful. For more information, see [why the -a flag?](http://www.gitready.com/beginner/2009/01/18/the-staging-area.html) - and the helpful use-case description in the [tangled working copy problem](https://tomayko.com/writings/the-thing-about-git).
-1. Push the changes to your forked repo on [github](https://github.com/numpy/numpy):
+1. 可选：将更改与 ``git diff``（[git diff](https://www.kernel.org/pub/software/scm/git/docs/git-diff.html)）一起使用的以前版本进行比较。这将显示一个简单的文本浏览器界面，突出显示您的文件与以前版本之间的差异。
+1. 使用 ``git add modify_file`` 添加任何相关的已修改或新文件（请参阅 [git add](https://www.kernel.org/pub/software/scm/git/docs/git-add.html)）。这会将文件放入暂存区域，该区域是将添加到下一次提交的文件队列。仅添加具有相关完整更改的文件。留有未完成更改的文件供以后提交。
+1. 要将暂存的文件提交到仓库的本地副本中，请执行 ``git commit``。此时，将打开一个文本编辑器，允许您编写提交消息。阅读[提交消息部分](https://numpy.org/devdocs/dev/development_workflow.html#writing-the-commit-message)，确保您正在编写格式正确且足够详细的提交消息。保存消息并关闭编辑器后，您的提交将被保存。对于琐碎的提交，可以使用 ``-m`` 标志通过命令行传递简短的提交消息。例如，``git commit -am "ENH: Some message"``。
+1. 在某些情况下，您将看到这种形式的 commit 命令：``git commit -a``。 额外的 ``-a`` 标志自动提交所有已修改的文件并删除所有已删除的文件。 这可以节省一些 ``git add`` 命令的输入; 但是，如果您不小心，它可以为提交添加不需要的更改。 有关更多信息，请参阅[为什么-a标志？](http://www.gitready.com/beginner/2009/01/18/the-staging-area.html)，以及[纠结的工作副本问题](https://tomayko.com/writings/the-thing-about-git)中有用的用例描述。
+1. 将更改推送到[GitHub](https://github.com/numpy/numpy)上的主仓库分支：
     ``` bash
     git push origin my-new-feature
     ```
 
-    For more information, see [git push](https://www.kernel.org/pub/software/scm/git/docs/git-push.html).
+    有关更多信息，请参见[git推送（git push）](https://www.kernel.org/pub/software/scm/git/docs/git-push.html)。
 
 ::: tip 注意
 
@@ -96,12 +96,12 @@ git push --set-upstream origin my-new-feature
 git push
 ```
 
-您必须使用``--set-upstream``您创建的每个新分支。
+您必须使用 ``--set-upstream`` 创建的每个新分支。
 
 :::
 
 可能的情况是，当您处理编辑时，会添加新的提交，``upstream`` 这会影响您的工作。
-在这种情况下，请按照本文档的 [Rebasing on master](#rebasing-on-master)部分将这些更改应用于您的分支。
+在这种情况下，请按照本文档的 [Rebasing on master](#rebasing-on-master) 部分将这些更改应用于您的分支。
 
 #### 编写提交消息
 
@@ -374,14 +374,13 @@ Backporting是将[numpy / master中](https://github.com/numpy/numpy)提交的新
  回稳定版本分支的过程。要做到这一点，你要从你正在向后移植的分支上做一个分支，樱桃挑选你想要的提交
  ``numpy/master``，然后提交一个包含backport的分支的pull请求。
 
-1. First, you need to make the branch you will work on. This needs to be based on the older version of NumPy (not master):
+1. 首先，您需要创建要处理的分支。这需要基于较旧版本的NumPy（而不是master）：
     ``` bash
     # Make a new branch based on numpy/maintenance/1.8.x,
     # backport-3324 is our new name for the branch.
     git checkout -b backport-3324 upstream/maintenance/1.8.x
     ```
-1. Now you need to apply the changes from master to this branch using [git cherry-pick](https://www.kernel.org/pub/software/scm/git/docs/git-cherry-pick.html):
-
+1. 现在您需要使用[git cherry-pick](https://www.kernel.org/pub/software/scm/git/docs/git-cherry-pick.html)将变更从master应用到这个分支。
     ``` bash
     # Update remote
     git fetch upstream
@@ -395,37 +394,37 @@ Backporting是将[numpy / master中](https://github.com/numpy/numpy)提交的新
     # Fix any conflicts, then if needed:
     git cherry-pick --continue
     ```
-1. You might run into some conflicts cherry picking here. These are resolved the same way as merge/rebase conflicts. Except here you can use [git blame](https://www.kernel.org/pub/software/scm/git/docs/git-blame.html) to see the difference between master and the backported branch to make sure nothing gets screwed up.
-1. Push the new branch to your Github repository:
+1. 你可能会在这里遇到一些挑战。这些解决方法与 merge/rebase 冲突的解决方式相同。除了这里你可以使用 [git blame](https://www.kernel.org/pub/software/scm/git/docs/git-blame.html) 来查看 master 和 backported 分支之间的区别，以确保没有再搞砸别的事情了。
+1. 将新分支推送到Github存储库：
     ``` bash
     git push -u origin backport-3324
     ```
-1. Finally make a pull request using Github. Make sure it is against the maintenance branch and not master, Github will usually suggest you make the pull request against master.
+1. 最后使用Github发出拉取请求。确保它是针对维护分支而不是主分支，Github通常会建议你对master进行pull请求。
 
 ### 将更改推送到主分支
 
 *仅当您拥有主NumPy仓库的提交权限时，这才有意义。* 
 
-如果您准备好NumPy ``master``或``maintenance``分支的功能分支中有一组“就绪”更改，则可以按``upstream``如下方式将它们推送到：
+如果您准备好NumPy ``master``或``maintenance``分支的功能分支中有一组 “就绪” 更改，则可以按``upstream``如下方式将它们推送到：
 
-1. First, merge or rebase on the target branch.
-    1. Only a few, unrelated commits then prefer rebasing:
+1. 首先，在目标分支上合并（merge）或变基（rebase）。
+    1. 只有几个不相关的提交会更倾向于 rebase：
       ``` bash
       git fetch upstream
       git rebase upstream/master
       ```
-      See [Rebasing on master](https://numpy.org/devdocs/dev/development_workflow.html#rebasing-on-master).
-    1. If all of the commits are related, create a merge commit:
+      参见 [master分支上的rebase](https://numpy.org/devdocs/dev/development_workflow.html#rebasing-on-master).
+    1. 如果所有提交都相关，请创建合并提交：
       ``` bash
       git fetch upstream
       git merge --no-ff upstream/master
       ```
-1. Check that what you are going to push looks sensible:
+1. 检查你要推动的东西看起来是明智的：
     ``` bash
     git log -p upstream/master..
     git log --oneline --graph
     ```
-1. Push to upstream:
+1. 推送到上游：
     ``` bash
     git push upstream my-feature-branch:master
     ```

@@ -39,6 +39,14 @@ module.exports = function () {
       children: [
         ['/en/f2py/distutils', 'Using via numpy.distutils']
       ]
+    },
+    {
+      title: 'Advanced F2PY usages',
+      collapsable: true,
+      sidebarDepth: 3,
+      children: [
+        ['/en/f2py/advanced', 'Advanced F2PY usages']
+      ]
     }
   ]
 }

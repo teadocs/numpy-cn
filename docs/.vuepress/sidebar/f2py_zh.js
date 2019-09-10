@@ -39,6 +39,14 @@ module.exports = function () {
       children: [
         ['/f2py/distutils', '使用 numpy.distutils 模块']
       ]
+    },
+    {
+      title: '高级 f2py 用法',
+      collapsable: true,
+      sidebarDepth: 3,
+      children: [
+        ['/f2py/advanced', '高级 f2py 用法']
+      ]
     }
   ]
 }

@@ -1,11 +1,8 @@
-# Advanced F2PY usages
+# 高级F2PY用法
 
-## Adding self-written functions to F2PY generated modules
+## 将自编写函数添加到F2PY生成的模块
 
-Self-written Python C/API functions can be defined inside
-signature files using ``usercode`` and ``pymethoddef`` statements
-(they must be used inside the ``python module`` block). For
-example, the following signature file ``spam.pyf``
+可以使用 ``usercode`` 和 ``pymethoddef`` 语句在签名文件中定义自编的Python C / API函数（它们必须在 ``python模块`` 块中使用）。 例如，以下签名文件``spam.pyf``。
 
 ``` python
 !    -*- f90 -*-
@@ -29,13 +26,13 @@ python module spam
 end python module spam
 ```
 
-wraps the C library function ``system()``:
+包装C库函数``system()``：
 
 ``` python
 f2py -c spam.pyf
 ```
 
-In Python:
+在Python中：
 
 ``` python
 >>>>>> import spam
@@ -45,11 +42,9 @@ pearu
 sh: line 1: blah: command not found
 ```
 
-## Modifying the dictionary of a F2PY generated module
+## 修改F2PY生成模块的字典
 
-The following example illustrates how to add a user-defined
-variables to a F2PY generated extension module. Given the following
-signature file
+以下示例说明如何将用户定义的变量添加到F2PY生成的扩展模块。给出以下签名文件：
 
 ``` python
 !    -*- f90 -*-
@@ -65,14 +60,11 @@ python module var
 end python module
 ```
 
-compile it as ``f2py -c var.pyf``.
+将其编译为：``f2py -c var.pyf``
 
-Notice that the second ``usercode`` statement must be defined inside
-an ``interface`` block and where the module dictionary is available through
-the variable ``d`` (see ``f2py var.pyf``-generated ``varmodule.c`` for
-additional details).
+请注意，必须在 ``interface（接口）`` 块内定义第二个 ``usercode`` 语句，并且通过变量 ``d`` 可以获得模块字典（有关其他详细信息，请参阅``f2py var.pyf`` 生成的 ``varmodule.c``）。
 
-In Python:
+在Python中：
 
 ``` python
 >>>>>> import var

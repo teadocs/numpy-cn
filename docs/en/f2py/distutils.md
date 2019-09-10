@@ -47,44 +47,46 @@ match with the ```` used in signature file.  It is
 assumed that an F2PY signature file contains exactly one ``python
 module`` block.
 
-If ``sources`` does not contain a signature files, then F2PY is used
-to scan Fortran source files for routine signatures to construct the
-wrappers to Fortran codes.
+  If ``sources`` does not contain a signature files, then F2PY is used
+  to scan Fortran source files for routine signatures to construct the
+  wrappers to Fortran codes.
 
-Additional options to F2PY process can be given using ``Extension``
-class argument ``f2py_options``.
+  Additional options to F2PY process can be given using ``Extension``
+  class argument ``f2py_options``.
+
 - The following new ``distutils`` commands are defined:
 
-``build_src``
+  ``build_src``
 
-to construct Fortran wrapper extension modules, among many other things.
+  to construct Fortran wrapper extension modules, among many other things.
 
-``config_fc``
+  ``config_fc``
 
-to change Fortran compiler options
+  to change Fortran compiler options
 
-as well as ``build_ext`` and  ``build_clib`` commands are enhanced
-to support Fortran sources.
+  as well as ``build_ext`` and  ``build_clib`` commands are enhanced
+  to support Fortran sources.
 
-Run
+  Run
 
-``` python
-python <setup.py file> config_fc build_src build_ext --help
-```
+  ``` python
+  python <setup.py file> config_fc build_src build_ext --help
+  ```
 
-to see available options for these commands.
+  to see available options for these commands.
+
 - When building Python packages containing Fortran sources, then one
 can choose different Fortran compilers by using ``build_ext``
 command option ``--fcompiler=``. Here ```` can be one of the
 following names:
 
-``` python
-absoft sun mips intel intelv intele intelev nag compaq compaqv gnu vast pg hpux
-```
+  ``` python
+  absoft sun mips intel intelv intele intelev nag compaq compaqv gnu vast pg hpux
+  ```
 
-See ``numpy_distutils/fcompiler.py`` for up-to-date list of
-supported compilers or run
+  See ``numpy_distutils/fcompiler.py`` for up-to-date list of
+  supported compilers or run
 
-``` python
-f2py -c --help-fcompiler
-```
+  ``` python
+  f2py -c --help-fcompiler
+  ```

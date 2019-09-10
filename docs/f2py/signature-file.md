@@ -1,38 +1,20 @@
-# Signature file
+# 签名文件
 
-The syntax specification for signature files (.pyf files) is borrowed
-from the Fortran 90/95 language specification. Almost all Fortran
-90/95 standard constructs are understood, both in free and fixed
-format (recall that Fortran 77 is a subset of Fortran 90/95). F2PY
-introduces also some extensions to Fortran 90/95 language
-specification that help designing Fortran to Python interface, make it
-more “Pythonic”.
+签名文件（.pyf文件）的语法规范借鉴了Fortran 90/95语言规范。几乎所有的Fortran 90/95标准结构都以免费和固定格式被理解（回想一下Fortran 77是Fortran 90/95的子集）。F2PY 还引入了Fortran 90/95语言规范的一些扩展，有助于将Fortran设计为Python接口，使其更加“Pythonic”。
 
-Signature files may contain arbitrary Fortran code (so that Fortran
-codes can be considered as signature files). F2PY silently ignores
-Fortran constructs that are irrelevant for creating the interface.
-However, this includes also syntax errors. So, be careful not making
-ones;-).
+签名文件可能包含任意Fortran代码（因此Fortran代码可以被视为签名文件）。F2PY 默默地忽略与创建接口无关的Fortran构造。但是，这也包括语法错误。所以，小心不要制作;-)。
 
-In general, the contents of signature files is case-sensitive.  When
-scanning Fortran codes and writing a signature file, F2PY lowers all
-cases automatically except in multiline blocks or when ``--no-lower``
-option is used.
+通常，签名文件的内容区分大小写。扫描Fortran代码并写入签名文件时，除多行块或使用 ``--no-lower`` 选项外，F2PY 会自动降低所有情况。
 
-The syntax of signature files is presented below.
+签名文件的语法如下所示。
 
-## Python module block
+## Python模块块
 
-A signature file may contain one (recommended) or more ``python
-module`` blocks.  ``python module`` block describes the contents of
-a Python/C extension module ``module.c`` that F2PY
-generates.
+签名文件可能包含一个（推荐）或更多 ``python模块`` 块。 ``python模块`` 块描述了F2PY生成的Python / C扩展模块 ``module.c``的内容。
 
-Exception: if ``<modulename>`` contains a substring ``__user__``, then
-the corresponding ``python module`` block describes the signatures of
-so-called call-back functions (see [Call-back arguments](python-usage.html#call-back-arguments)).
+例外：如果 ``<modulename>`` 包含子字符串 ``__user__`` ，则相应的 ``python模块`` 块描述所谓的回调函数的签名（请参阅[回调参数](python-usage.html#call-back-arguments)）。
 
-A ``python module`` block has the following structure:
+python模块块具有以下结构：
 
 ``` python
 python module <modulename>
@@ -55,13 +37,11 @@ python module <modulename>
 end [python module [<modulename>]]
 ```
 
-Here brackets ``[]`` indicate an optional part, dots ``...`` indicate
-one or more of a previous part. So, ``[]...`` reads zero or more of a
-previous part.
+这里括号 ``[]`` 表示可选部分，点 ``...`` 表示前一部分中的一个或多个。 因此，``[]...`` 读取前一部分的零个或多个。
 
-## Fortran/C routine signatures
+## Fortran / C 的例程签名
 
-The signature of a Fortran routine has the following structure:
+Fortran例程的签名具有以下结构：
 
 ``` python
 [<typespec>] function | subroutine <routine name> \
@@ -95,7 +75,7 @@ block data [ <block data name> ]
 end [ block data [<block data name>] ]
 ```
 
-### Type declarations
+### 类型声明
 
 The definition of the ``<argument/variable type declaration>`` part is
 
@@ -131,7 +111,7 @@ and
 
 If an argument has no ``<argument type declaration>``, its type is determined by applying ``implicit`` rules to its name.
 
-### Statements
+### 声明
 
 - Attribute statements:
 
@@ -300,7 +280,7 @@ If an argument has no ``<argument type declaration>``, its type is determined by
         ``pymethoddef`` statement can be used only inside
         ``python module`` block.
 
-### Attributes
+### 属性
 
 The following attributes are used by F2PY:
 
@@ -561,9 +541,9 @@ The following attributes are used by F2PY:
 
     The corresponding variable is a parameter and it must have a fixed value. F2PY replaces all parameter occurrences by their corresponding values.
 
-## Extensions
+## 扩展
 
-### F2PY directives
+### F2PY 指令
 
 The so-called F2PY directives allow using F2PY signature file
 constructs also in Fortran 77/90 source codes. With this feature you
@@ -589,7 +569,7 @@ For fixed format Fortran codes, ``<comment char>`` must be at the
 first column of a file, of course. For free format Fortran codes,
 F2PY directives can appear anywhere in a file.
 
-### C expressions
+### C 表达式
 
 C expressions are used in the following parts of signature files:
 
@@ -649,7 +629,7 @@ F2PY may lower cases also in C expressions when scanning Fortran codes
 
 :::
 
-### Multiline blocks
+### 多行块
 
 A multiline block starts with ``'''`` (triple single-quotes) and ends
 with ``'''`` in some  *strictly*  subsequent line.  Multiline blocks can

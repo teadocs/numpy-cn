@@ -1,7 +1,11 @@
 module.exports = [
   {
-    text: '关于 NumPy',
+    text: '概述',
     link: '/about/'
+  },
+  {
+    text: 'NumPy 文章',
+    link: '/articles/'
   },
   {
     text: '用户指南',

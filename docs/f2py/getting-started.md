@@ -1,31 +1,16 @@
-# Three ways to wrap - getting started
+# 包装的三种方法 - 入门
 
-Wrapping Fortran or C functions to Python using F2PY consists of the
-following steps:
+使用F2PY将Fortran或C函数包装到Python包含以下步骤：
 
-- Creating the so-called signature file that contains descriptions of
-wrappers to Fortran or C functions, also called as signatures of the
-functions. In the case of Fortran routines, F2PY can create initial
-signature file by scanning Fortran source codes and
-catching all relevant information needed to create wrapper
-functions.
-- Optionally, F2PY created signature files can be edited to optimize
-wrappers functions, make them “smarter” and more “Pythonic”.
-- F2PY reads a signature file and writes a Python C/API module containing
-Fortran/C/Python bindings.
-- F2PY compiles all sources and builds an extension module containing
-the wrappers. In building extension modules, F2PY uses
-``numpy_distutils`` that supports a number of Fortran 77/90/95
-compilers, including Gnu, Intel,
-Sun Fortre, SGI MIPSpro, Absoft, NAG, Compaq etc. compilers.
+- 创建所谓的签名文件，其中包含对Fortran或C函数的包装器的描述，也称为函数的签名。对于Fortran例程，F2PY可以通过扫描Fortran源代码并捕获创建包装函数所需的所有相关信息来创建初始签名文件。
+- 可选地，可以编辑F2PY创建的签名文件以优化包装器功能，使它们“更智能”和更“Pythonic”。
+- F2PY读取签名文件并编写包含Fortran / C / Python绑定的Python C / API模块。
+- F2PY编译所有源并构建包含包装器的扩展模块。在构建扩展模块时，F2PY使用
+ ``numpy_distutils``它支持许多Fortran 77/90/95编译器，包括Gnu，Intel，Sun Fortre，SGI MIPSpro，Absoft，NAG，Compaq等编译器。
 
-Depending on a particular situation, these steps can be carried out
-either by just in one command or step-by-step, some steps can be
-omitted or combined with others.
+根据具体情况，这些步骤可以通过一个命令或一步一步执行，一些步骤可以省略或与其他步骤组合。
 
-Below I’ll describe three typical approaches of using F2PY.
-The following [example Fortran 77 code](fib1.f) will be used for
-illustration:
+下面我将描述使用F2PY的三种典型方法。以下[示例Fortran 77代码](fib1.f)将用于说明：
 
 ``` python
 C FILE: FIB1.F
@@ -48,19 +33,15 @@ C
 C END FILE FIB1.F
 ```
 
-## The quick way
+## 快捷的方式
 
-The quickest way to wrap the Fortran subroutine ``FIB`` to Python is
-to run
+将Fortran子例程包装``FIB``到Python 的最快方法是运行
 
 ``` python
 python -m numpy.f2py -c fib1.f -m fib1
 ```
 
-This command builds (see ``-c`` flag, execute ``python -m numpy.f2py`` without
-arguments to see the explanation of command line options) an extension
-module ``fib1.so`` (see ``-m`` flag) to the current directory. Now, in
-Python the Fortran subroutine ``FIB`` is accessible via ``fib1.fib``:
+此命令构建（参见``-c``flag，不带参数执行以查看命令行选项的说明）扩展模块（请参阅标志）到当前目录。现在，在Python中，可以通过以下方式访问Fortran子例程：``python -m numpy.f2py````fib1.so````-m````FIB````fib1.fib``
 
 ``` python
 >>>>>> import numpy
@@ -79,13 +60,10 @@ Optional arguments:
 [  0.   1.   1.   2.   3.   5.   8.  13.]
 ```
 
-::: tip Note
+::: tip 注意
 
-- Note that F2PY found that the second argument ``n`` is the
-dimension of the first array argument ``a``. Since by default all
-arguments are input-only arguments, F2PY concludes that ``n`` can
-be optional with the default value ``len(a)``.
-- One can use different values for optional ``n``:
+- 请注意，F2PY发现第二个参数``n``是第一个数组参数的维度``a``。由于默认情况下所有参数都是仅输入参数，因此F2PY ``n``可以使用默认值作为可选参数``len(a)``。
+- 可以使用不同的值来选择``n``：
 
 ``` python
 >>>>>> a1 = numpy.zeros(8,'d')
@@ -94,8 +72,7 @@ be optional with the default value ``len(a)``.
 [ 0.  1.  1.  2.  3.  5.  0.  0.]
 ```
 
-but an exception is raised when it is incompatible with the input
-array ``a``:
+但是当它与输入数组不兼容时会引发异常``a``：
 
 ``` python
 >>>>>> fib1.fib(a,10)
@@ -106,18 +83,10 @@ fib.error: (len(a)>=n) failed for 1st keyword n
 >>>
 ```
 
-This demonstrates one of the useful features in F2PY, that it,
-F2PY implements basic compatibility checks between related
-arguments in order to avoid any unexpected crashes.
-- When a NumPy array, that is Fortran contiguous and has a dtype
-corresponding to presumed Fortran type, is used as an input array
-argument, then its C pointer is directly passed to Fortran.
+这展示了F2PY中的一个有用功能，即F2PY实现相关参数之间的基本兼容性检查，以避免任何意外崩溃。
+- 当一个NumPy数组（即Fortran连续且具有与假定的Fortran类型相对应的dtype）用作输入数组参数时，其C指针将直接传递给Fortran。
 
-Otherwise F2PY makes a contiguous copy (with a proper dtype) of
-the input array and passes C pointer of the copy to Fortran
-subroutine. As a result, any possible changes to the (copy of)
-input array have no effect to the original argument, as
-demonstrated below:
+否则，F2PY会生成输入数组的连续副本（具有正确的dtype），并将副本的C指针传递给Fortran子例程。因此，对输入数组（副本）的任何可能更改都不会影响原始参数，如下所示：
 
 ``` python
 >>>>>> a = numpy.ones(8,'i')
@@ -126,15 +95,9 @@ demonstrated below:
 [1 1 1 1 1 1 1 1]
 ```
 
-Clearly, this is not an expected behaviour. The fact that the
-above example worked with ``dtype=float`` is considered
-accidental.
+显然，这不是预期的行为。上述示例使用的事实``dtype=float``被认为是偶然的。
 
-F2PY provides ``intent(inplace)`` attribute that would modify
-the attributes of an input array so that any changes made by
-Fortran routine will be effective also in input argument. For example,
-if one specifies ``intent(inplace) a`` (see below, how), then
-the example above would read:
+F2PY提供``intent(inplace)``了将修改输入数组属性的属性，以便Fortran例程所做的任何更改也将在输入参数中生效。例如，如果指定（见下文，如何），则上面的示例将为：``intent(inplace) a``
 
 ``` python
 >>>>>> a = numpy.ones(8,'i')
@@ -143,91 +106,67 @@ the example above would read:
 [  0.   1.   1.   2.   3.   5.   8.  13.]
 ```
 
-However, the recommended way to get changes made by Fortran
-subroutine back to python is to use ``intent(out)`` attribute. It
-is more efficient and a cleaner solution.
-- The usage of ``fib1.fib`` in Python is very similar to using
-``FIB`` in Fortran. However, using  *in situ*  output arguments in
-Python indicates a poor style as there is no safety mechanism
-in Python with respect to wrong argument types. When using Fortran
-or C, compilers naturally discover any type mismatches during
-compile time but in Python the types must be checked in
-runtime. So, using  *in situ*  output arguments in Python may cause
-difficult to find bugs, not to mention that the codes will be less
-readable when all required type checks are implemented.
+但是，将Fortran子例程所做的更改返回到python的推荐方法是使用``intent(out)``属性。它更有效，更清洁。
+- ``fib1.fib``Python中的用法与``FIB``在Fortran中使用非常相似
+ 。但是，在Python中使用 *原位* 输出参数表明样式很差，因为Python中没有关于错误参数类型的安全机制。使用Fortran或C时，编译器自然会在编译期间发现任何类型不匹配，但在Python中，必须在运行时检查类型。因此，在Python中使用 *原位* 输出参数可能会导致难以发现错误，更不用说在实现所有必需的类型检查时代码将不太可读。
 
-Though the demonstrated way of wrapping Fortran routines to Python
-is very straightforward, it has several drawbacks (see the comments
-above).  These drawbacks are due to the fact that there is no way
-that F2PY can determine what is the actual intention of one or the
-other argument, is it input or output argument, or both, or
-something else. So, F2PY conservatively assumes that all arguments
-are input arguments by default.
+虽然将Fortran例程包装到Python的演示方法非常简单，但它有几个缺点（参见上面的注释）。这些缺点是由于F2PY无法确定一个或另一个参数的实际意图，输入或输出参数，或两者，或其他东西。因此，F2PY保守地假定所有参数都是默认的输入参数。
 
-However, there are ways (see below) how to “teach” F2PY about the
-true intentions (among other things) of function arguments; and then
-F2PY is able to generate more Pythonic (more explicit, easier to
-use, and less error prone) wrappers to Fortran functions.
+但是，有一些方法（见下文）如何“教导”F2PY关于函数参数的真实意图（以及其他内容）; 然后F2PY能够为Fortran函数生成更多Pythonic（更明确，更易于使用，更不容易出错）的包装器。
 
 :::
 
-## The smart way
+## 聪明的方式
 
-Let’s apply the steps of wrapping Fortran functions to Python one by
-one.
+让我们逐个应用将Fortran函数包装到Python的步骤。
 
-- First, we create a signature file from ``fib1.f`` by running
+- 首先，我们``fib1.f``通过运行创建一个签名文件
 
-``` python
-python -m numpy.f2py fib1.f -m fib2 -h fib1.pyf
-```
+    ``` python
+    python -m numpy.f2py fib1.f -m fib2 -h fib1.pyf
+    ```
 
-The signature file is saved to ``fib1.pyf`` (see ``-h`` flag) and
-its contents is shown below.
+    签名文件保存到``fib1.pyf``（见``-h``标志），其内容如下所示。
 
-``` python
-!    -*- f90 -*-
-python module fib2 ! in 
-    interface  ! in :fib2
-        subroutine fib(a,n) ! in :fib2:fib1.f
-            real*8 dimension(n) :: a
-            integer optional,check(len(a)>=n),depend(a) :: n=len(a)
-        end subroutine fib
-    end interface 
-end python module fib2
+    ``` python
+    !    -*- f90 -*-
+    python module fib2 ! in 
+        interface  ! in :fib2
+            subroutine fib(a,n) ! in :fib2:fib1.f
+                real*8 dimension(n) :: a
+                integer optional,check(len(a)>=n),depend(a) :: n=len(a)
+            end subroutine fib
+        end interface 
+    end python module fib2
 
-! This file was auto-generated with f2py (version:2.28.198-1366).
-! See http://cens.ioc.ee/projects/f2py2e/
-```
-- Next, we’ll teach F2PY that the argument ``n`` is an input argument
-(use ``intent(in)`` attribute) and that the result, i.e. the
-contents of ``a`` after calling Fortran function ``FIB``, should be
-returned to Python (use ``intent(out)`` attribute). In addition, an
-array ``a`` should be created dynamically using the size given by
-the input argument ``n`` (use ``depend(n)`` attribute to indicate
-dependence relation).
+    ! This file was auto-generated with f2py (version:2.28.198-1366).
+    ! See http://cens.ioc.ee/projects/f2py2e/
+    ```
 
-The content of a modified version of ``fib1.pyf`` (saved as
-``fib2.pyf``) is as follows:
+- 接下来，我们将教导F2PY参数``n``是一个输入参数（use ``intent(in)``属性），结果，即``a``调用Fortran函数后的内容``FIB``，应该返回给Python（use ``intent(out)``属性）。此外，``a``应使用input参数给出的大小动态创建数组``n``（use ``depend(n)``属性表示依赖关系）。
 
-``` python
-!    -*- f90 -*-
-python module fib2 
-    interface
-        subroutine fib(a,n)
-            real*8 dimension(n),intent(out),depend(n) :: a
-            integer intent(in) :: n
-        end subroutine fib
-    end interface 
-end python module fib2
-```
-- And finally, we build the extension module by running
+    修改后的版本``fib1.pyf``（保存为
+    ``fib2.pyf``）的内容如下：
 
-``` python
-python -m numpy.f2py -c fib2.pyf fib1.f
-```
+    ``` python
+    !    -*- f90 -*-
+    python module fib2 
+        interface
+            subroutine fib(a,n)
+                real*8 dimension(n),intent(out),depend(n) :: a
+                integer intent(in) :: n
+            end subroutine fib
+        end interface 
+    end python module fib2
+    ```
 
-In Python:
+- 最后，我们通过运行构建扩展模块
+
+    ``` python
+    python -m numpy.f2py -c fib2.pyf fib1.f
+    ```
+
+在Python中：
 
 ``` python
 >>>>>> import fib2
@@ -243,37 +182,22 @@ Return objects:
 [  0.   1.   1.   2.   3.   5.   8.  13.]
 ```
 
-::: tip Note
+::: tip 注意
 
-- Clearly, the signature of ``fib2.fib`` now corresponds to the
-intention of Fortran subroutine ``FIB`` more closely: given the
-number ``n``, ``fib2.fib`` returns the first ``n`` Fibonacci numbers
-as a NumPy array. Also, the new Python signature ``fib2.fib``
-rules out any surprises that we experienced with ``fib1.fib``.
-- Note that by default using single ``intent(out)`` also implies
-``intent(hide)``. Argument that has ``intent(hide)`` attribute
-specified, will not be listed in the argument list of a wrapper
-function.
+- 显然，``fib2.fib``现在的签名``FIB``更接近Fortran子程序的意图：给定数字``n``，``fib2.fib``将第一个``n``Fibonacci数作为NumPy数组返回。此外，新的Python签名``fib2.fib``
+排除了我们遇到的任何意外``fib1.fib``。
+- 请注意，默认情况下使用single ``intent(out)``也意味着
+ ``intent(hide)``。具有``intent(hide)``指定属性的参数将不会列在包装函数的参数列表中。
 
 :::
 
-## The quick and smart way
+## 快捷而聪明的方式
 
-The “smart way” of wrapping Fortran functions, as explained above, is
-suitable for wrapping (e.g. third party) Fortran codes for which
-modifications to their source codes are not desirable nor even
-possible.
+如上所述，包装Fortran函数的“智能方法”适用于包装（例如第三方）Fortran代码，对其源代码的修改是不可取的，甚至也不可能。
 
-However, if editing Fortran codes is acceptable, then the generation
-of an intermediate signature file can be skipped in most
-cases. Namely, F2PY specific attributes can be inserted directly to
-Fortran source codes using the so-called F2PY directive. A F2PY
-directive defines special comment lines (starting with ``Cf2py``, for
-example) which are ignored by Fortran compilers but F2PY interprets
-them as normal lines.
+但是，如果编辑Fortran代码是可以接受的，则在大多数情况下可以跳过生成中间签名文件。即，可以使用所谓的F2PY指令将F2PY特定属性直接插入到Fortran源代码中。F2PY指令定义了特殊注释行（``Cf2py``例如，从Fortran编译器开始），但是F2PY将它们解释为普通行。
 
-Here is shown a [modified version of the example Fortran code](fib3.f), saved
-as ``fib3.f``:
+下面显示了[示例Fortran代码](fib3.f)的[修改版本](fib3.f)，保存为``fib3.f``：
 
 ``` python
 C FILE: FIB3.F
@@ -299,14 +223,13 @@ Cf2py depend(n) a
 C END FILE FIB3.F
 ```
 
-Building the extension module can be now carried out in one command:
+现在可以在一个命令中执行构建扩展模块：
 
 ``` python
 python -m numpy.f2py -c -m fib3 fib3.f
 ```
 
-Notice that the resulting wrapper to ``FIB`` is as “smart” as in
-previous case:
+请注意，生成的包装器与``FIB``前一种情况一样“智能”：
 
 ``` python
 >>>>>> import fib3
