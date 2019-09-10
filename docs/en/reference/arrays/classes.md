@@ -45,7 +45,7 @@ matrix-multiplication, rather than element-by-element multiplication.
 NumPy provides several hooks that classes can customize:
 
 
-- ``class.````__array_ufunc__``(*ufunc*, *method*, **inputs*, ***kwargs*)
+- ``class.__array_ufunc__``(*ufunc*, *method*, **inputs*, ***kwargs*)
 
   *New in version 1.13.* 
 
@@ -166,7 +166,7 @@ NumPy provides several hooks that classes can customize:
   :::
 
 
-- ``class.````__array_function__``(*func*, *types*, *args*, *kwargs*)
+- ``class.__array_function__``(*func*, *types*, *args*, *kwargs*)
 
   *New in version 1.16.* 
 
@@ -282,7 +282,7 @@ NumPy provides several hooks that classes can customize:
   this ensures that checking overloads has acceptable performance even when
   there are a large number of overloaded arguments.
 
-- ``class.````__array_finalize__``(*obj*)
+- ``class.__array_finalize__``(*obj*)
 
   This method is called whenever the system internally allocates a
   new array from *obj*, where *obj* is a subclass (subtype) of the
@@ -292,7 +292,7 @@ NumPy provides several hooks that classes can customize:
   a default implementation of this method that does nothing.
 
 
-- ``class.````__array_prepare__``(*array*, *context=None*)
+- ``class.__array_prepare__``(*array*, *context=None*)
 
   At the beginning of every [ufunc](ufuncs.html#ufuncs-output-type), this
   method is called on the input object with the highest array
@@ -312,7 +312,7 @@ NumPy provides several hooks that classes can customize:
   :::
 
 
-- ``class.````__array_wrap__``(*array*, *context=None*)
+- ``class.__array_wrap__``(*array*, *context=None*)
 
   At the end of every [ufunc](ufuncs.html#ufuncs-output-type), this method
   is called on the input object with the highest array priority, or
@@ -331,7 +331,7 @@ NumPy provides several hooks that classes can customize:
 
   :::
 
-- ``class.````__array_priority__``
+- ``class.__array_priority__``
 
   The value of this attribute is used to determine what type of
   object to return in situations where there is more than one
@@ -345,7 +345,7 @@ NumPy provides several hooks that classes can customize:
 
   :::
 
-- ``class.````__array__``([*dtype*])
+- ``class.__array__``([*dtype*])
 
   If a class (ndarray subclass or not) having the [``__array__``](#numpy.class.__array__)
   method is used as the output object of an [ufunc](ufuncs.html#ufuncs-output-type), results will be written to the object

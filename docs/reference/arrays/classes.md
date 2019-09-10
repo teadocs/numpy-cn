@@ -1,59 +1,46 @@
 # Standard array subclasses
 
-::: tip Note
+::: tip 注意
 
-Subclassing a ``numpy.ndarray`` is possible but if your goal is to create
-an array with *modified* behavior, as do dask arrays for distributed
-computation and cupy arrays for GPU-based computation, subclassing is
-discouraged. Instead, using numpy’s
-[dispatch mechanism](https://numpy.org/devdocs/user/basics.dispatch.html#basics-dispatch) is recommended.
+可以对 ``numpy.ndarray`` 进行子类化，
+但如果您的目标是创建具有 *修改* 的行为的数组，
+就像用于分布式计算的Dask数组和用于基于GPU的计算的cupy数组一样，则不鼓励子类化。
+相反，建议使用 numpy 的[调度机制](https://numpy.org/devdocs/user/basics.dispatch.html#basics-dispatch)。
 
 :::
 
-The [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) can be inherited from (in Python or in C)
-if desired. Therefore, it can form a foundation for many useful
-classes. Often whether to sub-class the array object or to simply use
-the core array component as an internal part of a new class is a
-difficult decision, and can be simply a matter of choice. NumPy has
-several tools for simplifying how your new object interacts with other
-array objects, and so the choice may not be significant in the
-end. One way to simplify the question is by asking yourself if the
-object you are interested in can be replaced as a single array or does
-it really require two or more arrays at its core.
+如果需要，可以从（ Python 或 C ）继承 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)。
+因此，它可以形成许多有用的类的基础。
+通常是对数组对象进行子类，还是简单地将核心数组件用作新类的内部部分，这是一个困难的决定，可能只是一个选择的问题。
+NumPy有几个工具可以简化新对象与其他数组对象的交互方式，因此最终选择可能并不重要。
+简化问题的一种方法是问问自己，您感兴趣的对象是否可以替换为单个数组，或者它的核心是否真的需要两个或更多个数组。
 
-Note that [``asarray``](generated/numpy.asarray.html#numpy.asarray) always returns the base-class ndarray. If
-you are confident that your use of the array object can handle any
-subclass of an ndarray, then [``asanyarray``](generated/numpy.asanyarray.html#numpy.asanyarray) can be used to allow
-subclasses to propagate more cleanly through your subroutine. In
-principal a subclass could redefine any aspect of the array and
-therefore, under strict guidelines, [``asanyarray``](generated/numpy.asanyarray.html#numpy.asanyarray) would rarely be
-useful. However, most subclasses of the array object will not
-redefine certain aspects of the array object such as the buffer
-interface, or the attributes of the array. One important example,
-however, of why your subroutine may not be able to handle an arbitrary
-subclass of an array is that matrices redefine the “*” operator to be
-matrix-multiplication, rather than element-by-element multiplication.
+注意，[``asarray``](generated/numpy.asarray.html#numpy.asarray) 总是返回基类ndarray。
+如果您确信使用数组对象可以处理ndarray的任何子类，
+那么可以使用 [``asanyarray``](generated/numpy.asanyarray.html#numpy.asanyarray) 来允许子类通过您的子例程更干净地传播。
+原则上，子类可以重新定义数组的任何方面，因此，在严格的指导原则下，[``asanyarray``](generated/numpy.asanyarray.html#numpy.asanyarray) 很少有用。
+然而，数组对象的大多数子类不会重新定义数组对象的某些方面，例如Buffer接口或数组的属性。
+但是，子例程可能无法处理数组的任意子类的一个重要示例是，矩阵将 “*” 运算符重新定义为矩阵乘法，而不是逐个元素的乘法。
 
-## Special attributes and methods
+## 特殊属性和方法
 
-::: tip See also
+::: tip 另见
 
 [Subclassing ndarray](https://numpy.org/devdocs/user/basics.subclassing.html#basics-subclassing)
 
 :::
 
-NumPy provides several hooks that classes can customize:
+NumPy提供了几个类可以自定义的钩子：
 
 
-- ``class.````__array_ufunc__``(*ufunc*, *method*, **inputs*, ***kwargs*)
+- ``class.__array_ufunc__``(*ufunc*, *method*, **inputs*, ***kwargs*)
 
-  *New in version 1.13.* 
+  *版本1.13中的新功能。* 
 
-  Any class, ndarray subclass or not, can define this method or set it to
-  [``None``](https://docs.python.org/dev/library/constants.html#None) in order to override the behavior of NumPy’s ufuncs. This works
-  quite similarly to Python’s ``__mul__`` and other binary operation routines.
+  任何类，ndarray子类是否可以定义此方法或将其设置为 [``None``](https://docs.python.org/dev/library/constants.html#None)  以覆盖NumPy的ufuncs的行为。
+  这与Python的__mul__和其他二进制操作例程非常相似。
 
-  - *ufunc* is the ufunc object that was called.
+  - *ufunc* 是被调用的ufunc对象。
   - *method* is a string indicating which Ufunc method was called
   (one of ``"__call__"``, ``"reduce"``, ``"reduceat"``,
   ``"accumulate"``, ``"outer"``, ``"inner"``).
@@ -75,7 +62,7 @@ NumPy provides several hooks that classes can customize:
   [``__array_ufunc__``](#numpy.class.__array_ufunc__) operations return [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented), a
   [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError) is raised.
 
-  ::: tip Note
+  ::: tip 注意
 
   We intend to re-implement numpy functions as (generalized)
   Ufunc, in which case it will become possible for them to be
@@ -126,7 +113,7 @@ NumPy provides several hooks that classes can customize:
   arr + obj``, i.e., ``arr`` would be replaced, contrary to what is expected
   for in-place array operations.)
 
-  ::: tip Note
+  ::: tip 注意
 
   If you define ``__array_ufunc__``:
 
@@ -156,7 +143,7 @@ NumPy provides several hooks that classes can customize:
 
   :::
 
-  ::: tip Note
+  ::: tip 注意
 
   If a class defines the [``__array_ufunc__``](#numpy.class.__array_ufunc__) method,
   this disables the [``__array_wrap__``](#numpy.class.__array_wrap__),
@@ -166,11 +153,11 @@ NumPy provides several hooks that classes can customize:
   :::
 
 
-- ``class.````__array_function__``(*func*, *types*, *args*, *kwargs*)
+- ``class.__array_function__``(*func*, *types*, *args*, *kwargs*)
 
   *New in version 1.16.* 
 
-  ::: tip Note
+  ::: tip 注意
 
   - In NumPy 1.17, the protocol is enabled by default, but can be disabled
   with ``NUMPY_EXPERIMENTAL_ARRAY_FUNCTION=0``.
@@ -282,7 +269,7 @@ NumPy provides several hooks that classes can customize:
   this ensures that checking overloads has acceptable performance even when
   there are a large number of overloaded arguments.
 
-- ``class.````__array_finalize__``(*obj*)
+- ``class.__array_finalize__``(*obj*)
 
   This method is called whenever the system internally allocates a
   new array from *obj*, where *obj* is a subclass (subtype) of the
@@ -292,7 +279,7 @@ NumPy provides several hooks that classes can customize:
   a default implementation of this method that does nothing.
 
 
-- ``class.````__array_prepare__``(*array*, *context=None*)
+- ``class.__array_prepare__``(*array*, *context=None*)
 
   At the beginning of every [ufunc](ufuncs.html#ufuncs-output-type), this
   method is called on the input object with the highest array
@@ -304,7 +291,7 @@ NumPy provides several hooks that classes can customize:
   the subclass and update metadata before returning the array to the
   ufunc for computation.
 
-  ::: tip Note
+  ::: tip 注意
 
   For ufuncs, it is hoped to eventually deprecate this method in
   favour of [``__array_ufunc__``](#numpy.class.__array_ufunc__).
@@ -312,7 +299,7 @@ NumPy provides several hooks that classes can customize:
   :::
 
 
-- ``class.````__array_wrap__``(*array*, *context=None*)
+- ``class.__array_wrap__``(*array*, *context=None*)
 
   At the end of every [ufunc](ufuncs.html#ufuncs-output-type), this method
   is called on the input object with the highest array priority, or
@@ -324,37 +311,37 @@ NumPy provides several hooks that classes can customize:
   into an instance of the subclass and update metadata before
   returning the array to the user.
 
-  ::: tip Note
+  ::: tip 注意
 
   For ufuncs, it is hoped to eventually deprecate this method in
   favour of [``__array_ufunc__``](#numpy.class.__array_ufunc__).
 
   :::
 
-- ``class.````__array_priority__``
+- ``class.__array_priority__``
 
   The value of this attribute is used to determine what type of
   object to return in situations where there is more than one
   possibility for the Python type of the returned object. Subclasses
   inherit a default value of 0.0 for this attribute.
 
-  ::: tip Note
+  ::: tip 注意
 
   For ufuncs, it is hoped to eventually deprecate this method in
   favour of [``__array_ufunc__``](#numpy.class.__array_ufunc__).
 
   :::
 
-- ``class.````__array__``([*dtype*])
+- ``class.__array__``([*dtype*])
 
   If a class (ndarray subclass or not) having the [``__array__``](#numpy.class.__array__)
   method is used as the output object of an [ufunc](ufuncs.html#ufuncs-output-type), results will be written to the object
   returned by [``__array__``](#numpy.class.__array__). Similar conversion is done on
   input arrays.
 
-## Matrix objects
+## 矩阵对象
 
-::: tip Note
+::: tip 注意
 
 It is strongly advised *not* to use the matrix subclass.  As described
 below, it makes writing functions that deal consistently with matrices
@@ -377,14 +364,14 @@ arrays:
 1. The default \_\_array_priority__ of matrix objects is 10.0, and therefore mixed operations with ndarrays always produce matrices.
 1. Matrices have special attributes which make calculations easier. These are
 
-    method | description
+    方法 | 描述
     ---|---
     matrix.T | Returns the transpose of the matrix.
     matrix.H | Returns the (complex) conjugate transpose of self.
     matrix.I | Returns the (multiplicative) inverse of invertible self.
     matrix.A | Return self as an ndarray object.
 
-::: danger Warning
+::: danger 警告
 
 Matrix objects over-ride multiplication, ‘*’, and power, ‘**’, to
 be matrix-multiplication and matrix power, respectively. If your
@@ -401,7 +388,7 @@ Matrices can be created from other matrices, strings, and anything
 else that can be converted to an ``ndarray`` . The name “mat “is an
 alias for “matrix “in NumPy.
 
-method | description
+方法 | 描述
 ---|---
 [matrix](generated/numpy.matrix.html#numpy.matrix)(data[, dtype, copy]) | **Note:** It is no longer recommended to use this class, even for linear
 [asmatrix](generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | Interpret the input as a matrix.
@@ -433,7 +420,7 @@ matrix([[ 0.7699,  0.7922,  0.3294],
         [ 0.3398,  0.7571,  0.8197]])
 ```
 
-## Memory-mapped file arrays
+## 内存映射文件数组
 
 Memory-mapped files are useful for reading and/or modifying small
 segments of a large file with regular layout, without reading the
@@ -448,7 +435,7 @@ they inherit from the ndarray): [``.flush()``](generated/numpy.memmap.flush.html
 must be called manually by the user to ensure that any changes to the
 array actually get written to disk.
 
-method | description
+方法 | 描述
 ---|---
 [memmap](generated/numpy.memmap.html#numpy.memmap) | Create a memory-map to an array stored in a binary file on disk.
 [memmap.flush](generated/numpy.memmap.flush.html#numpy.memmap.flush)(self) | Write any changes in the array to the file on disk.
@@ -468,15 +455,15 @@ Example:
 10.0 30.0
 ```
 
-## Character arrays (``numpy.char``)
+## 字符数组（``numpy.char``）
 
-::: tip See also
+::: tip 另见
 
 [Creating character arrays (numpy.char)](routines.array-creation.html#routines-array-creation-char)
 
 :::
 
-::: tip Note
+::: tip 注意
 
 The [``chararray``](generated/numpy.chararray.html#numpy.chararray) class exists for backwards compatibility with
 Numarray, it is not recommended for new development. Starting from numpy
@@ -499,7 +486,7 @@ data-type. However, a chararray can also be created using the
 [``numpy.chararray``](generated/numpy.chararray.html#numpy.chararray) constructor, or via the
 [``numpy.char.array``](generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array) function:
 
-method | description
+方法 | 描述
 ---|---
 [chararray](generated/numpy.chararray.html#numpy.chararray)(shape[, itemsize, unicode, …]) | Provides a convenient view on arrays of string and unicode values.
 [core.defchararray.array](generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array)(obj[, itemsize, …]) | Create a chararray.
@@ -509,9 +496,9 @@ that the chararray inherits the feature introduced by Numarray that
 white-space at the end of any element in the array will be ignored
 on item retrieval and comparison operations.
 
-## Record arrays (``numpy.rec``)
+## 记录数组（``numpy.rec``）
 
-::: tip See also
+::: tip 另见
 
 [Creating record arrays (numpy.rec)](routines.array-creation.html#routines-array-creation-rec), [Data type routines](routines.dtype.html#routines-dtype),
 [Data type objects (dtype)](arrays.dtypes.html#arrays-dtypes).
@@ -522,39 +509,35 @@ NumPy provides the [``recarray``](generated/numpy.recarray.html#numpy.recarray) 
 fields of a structured array as attributes, and a corresponding
 scalar data type object [``record``](generated/numpy.record.html#numpy.record).
 
-method | description
+方法 | 描述
 ---|---
-[recarray](generated/numpy.recarray.html#numpy.recarray) | Construct an ndarray that allows field access using attributes.
-[record](generated/numpy.record.html#numpy.record) | A data-type scalar that allows field access as attribute lookup.
+[recarray](generated/numpy.recarray.html#numpy.recarray) | 构造一个允许使用属性进行字段访问的ndarray。
+[record](generated/numpy.record.html#numpy.record) | 一种数据类型标量，允许字段访问作为属性查找。
 
-## Masked arrays (``numpy.ma``)
+## 掩码数组（``numpy.ma``）
 
-::: tip See also
+::: tip 另见
 
 [Masked arrays](maskedarray.html#maskedarray)
 
 :::
 
-## Standard container class
+## 标准容器类
 
-For backward compatibility and as a standard “container “class, the
-UserArray from Numeric has been brought over to NumPy and named
-[``numpy.lib.user_array.container``](generated/numpy.lib.user_array.container.html#numpy.lib.user_array.container) The container class is a
-Python class whose self.array attribute is an ndarray. Multiple
-inheritance is probably easier with numpy.lib.user_array.container
-than with the ndarray itself and so it is included by default. It is
-not documented here beyond mentioning its existence because you are
-encouraged to use the ndarray class directly if you can.
+为了向后兼容并作为标准的“容器”类，
+Numeric的UserArray已被引入NumPy并命名为 [``numpy.lib.user_array.container``](generated/numpy.lib.user_array.container.html#numpy.lib.user_array.container) 容器类是一个Python类，
+其self.array属性是一个ndarray。
+使用numpy.lib.user_array.container比使用ndarray本身更容易进行多重继承，因此默认包含它。
+除了提及它的存在之外，这里没有记录，因为如果可以的话，我们鼓励你直接使用ndarray类。
 
-method | description
+方法 | 描述
 ---|---
-[numpy.lib.user_array.container](generated/numpy.lib.user_array.container.html#numpy.lib.user_array.container)(data[, …]) | Standard container-class for easy multiple-inheritance.
+[numpy.lib.user_array.container](generated/numpy.lib.user_array.container.html#numpy.lib.user_array.container)(data[, …]) | 标准容器类，便于多重继承。
 
-## Array Iterators
+## 数组迭代器
 
-Iterators are a powerful concept for array processing. Essentially,
-iterators implement a generalized for-loop. If *myiter* is an iterator
-object, then the Python code:
+迭代器是数组处理的强大概念。本质上，迭代器实现了一个通用的for循环。
+如果 *myiter* 是一个迭代器对象，那么Python代码：
 
 ``` python
 for val in myiter:
@@ -563,25 +546,22 @@ for val in myiter:
     ...
 ```
 
-calls ``val = next(myiter)`` repeatedly until [``StopIteration``](https://docs.python.org/dev/library/exceptions.html#StopIteration) is
-raised by the iterator. There are several ways to iterate over an
-array that may be useful: default iteration, flat iteration, and
--dimensional enumeration.
+重复调用 ``val = next(myiter)``，直到迭代器引发 [``StopIteration``](https://docs.python.org/dev/library/exceptions.html#StopIteration)。
+有几种方法可以迭代可能有用的数组：默认迭代，平面迭代和-dimensional枚举。
 
-### Default iteration
+### 默认迭代
 
-The default iterator of an ndarray object is the default Python
-iterator of a sequence type. Thus, when the array object itself is
-used as an iterator. The default behavior is equivalent to:
+ndarray对象的默认迭代器是序列类型的默认Python迭代器。
+因此，当数组对象本身用作迭代器时。默认行为相当于：
 
 ``` python
 for i in range(arr.shape[0]):
     val = arr[i]
 ```
 
-This default iterator selects a sub-array of dimension 
-from the array. This can be a useful construct for defining recursive
-algorithms. To loop over the entire array requires  for-loops.
+此默认迭代器从数组中选择维度的子数组。
+这可以是用于定义递归算法的有用构造。
+要遍历整个数组，需要for循环。
 
 ``` python
 >>>>>> a = arange(24).reshape(3,2,4)+10
@@ -595,15 +575,13 @@ item: [[26 27 28 29]
  [30 31 32 33]]
 ```
 
-### Flat iteration
+### Flat 迭代
 
-method | description
+方法 | 描述
 ---|---
-[ndarray.flat](generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | A 1-D iterator over the array.
+[ndarray.flat](generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | 数组上的一维迭代器。
 
-As mentioned previously, the flat attribute of ndarray objects returns
-an iterator that will cycle over the entire array in C-style
-contiguous order.
+如前所述，ndarray 对象的 flat 属性返回一个迭代器，它将以C风格的连续顺序循环遍历整个数组。
 
 ``` python
 >>>>>> for i, val in enumerate(a.flat):
@@ -615,17 +593,15 @@ contiguous order.
 20 30
 ```
 
-Here, I’ve used the built-in enumerate iterator to return the iterator
-index as well as the value.
+在这里，我使用了内置的枚举迭代器来返回迭代器索引和值。
 
-### N-dimensional enumeration
+### N维枚举
 
-method | description
+方法 | 描述
 ---|---
-[ndenumerate](generated/numpy.ndenumerate.html#numpy.ndenumerate)(arr) | Multidimensional index iterator.
+[ndenumerate](generated/numpy.ndenumerate.html#numpy.ndenumerate)(arr) | 多维索引迭代器。
 
-Sometimes it may be useful to get the N-dimensional index while
-iterating. The ndenumerate iterator can achieve this.
+有时在迭代时获取N维索引可能是有用的。ndenumerate迭代器可以实现这一点。
 
 ``` python
 >>>>>> for i, val in ndenumerate(a):
@@ -636,17 +612,14 @@ iterating. The ndenumerate iterator can achieve this.
 (2, 1, 2) 32
 ```
 
-### Iterator for broadcasting
+### 广播迭代器
 
-method | description
+方法 | 描述
 ---|---
-[broadcast](generated/numpy.broadcast.html#numpy.broadcast) | Produce an object that mimics broadcasting.
+[broadcast](generated/numpy.broadcast.html#numpy.broadcast) | 创建一个模仿广播的对象。
 
-The general concept of broadcasting is also available from Python
-using the [``broadcast``](generated/numpy.broadcast.html#numpy.broadcast) iterator. This object takes 
-objects as inputs and returns an iterator that returns tuples
-providing each of the input sequence elements in the broadcasted
-result.
+广播的一般概念也可以使用 [``broadcast``](generated/numpy.broadcast.html#numpy.broadcast) 迭代器从Python获得。
+此对象将对象作为输入，并返回一个迭代器，该迭代器返回元组，提供广播结果中的每个输入序列元素。
 
 ``` python
 >>>>>> for val in broadcast([[1,0],[2,3]],[0,1]):
