@@ -41,37 +41,26 @@ NumPy提供了几个类可以自定义的钩子：
   这与Python的__mul__和其他二进制操作例程非常相似。
 
   - *ufunc* 是被调用的ufunc对象。
-  - *method* is a string indicating which Ufunc method was called
-  (one of ``"__call__"``, ``"reduce"``, ``"reduceat"``,
-  ``"accumulate"``, ``"outer"``, ``"inner"``).
-  - *inputs* is a tuple of the input arguments to the ``ufunc``.
-  - *kwargs* is a dictionary containing the optional input arguments
-  of the ufunc. If given, any ``out`` arguments, both positional
-  and keyword, are passed as a [``tuple``](https://docs.python.org/dev/library/stdtypes.html#tuple) in *kwargs*. See the
-  discussion in [Universal functions (ufunc)](ufuncs.html#ufuncs) for details.
+  - *method* 是一个字符串，指示调用了哪个Ufunc方法(``"__call__"``，``"reduce"``，``"acculate"``，``"outer"``，``"internal"`` 之一)。
+  - *inputs* 是 ``ufunc`` 的输入参数的元组。
+  - *kwargs* 是包含ufunc的可选输入参数的字典。
+  如果给定，任何 ``out`` 参数（包括位置参数和关键字）都将作为kwargs中的 [``元组``](https://docs.python.org/dev/library/stdtypes.html#tuple) 传递。有关详细信息，请参阅 [泛函数(ufunc)](ufuncs.html#ufuncs) 中的讨论。
 
-  The method should return either the result of the operation, or
-  [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented) if the operation requested is not implemented.
+  该方法应返回操作的结果，如果未实现请求的操作，则返回 [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented)。
 
-  If one of the input or output arguments has a [``__array_ufunc__``](#numpy.class.__array_ufunc__)
-  method, it is executed *instead* of the ufunc.  If more than one of the
-  arguments implements [``__array_ufunc__``](#numpy.class.__array_ufunc__), they are tried in the
-  order: subclasses before superclasses, inputs before outputs, otherwise
-  left to right. The first routine returning something other than
-  [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented) determines the result. If all of the
-  [``__array_ufunc__``](#numpy.class.__array_ufunc__) operations return [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented), a
-  [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError) is raised.
+  如果输入或输出参数之一具有 [``__array_ufunc__``](#numpy.class.__array_ufunc__) 方法，则执行该方法而不是ufunc。
+  如果多个参数实现 [``__array_ufunc__``](#numpy.class.__array_ufunc__) ，则按顺序尝试它们：子类在超类之前，输入在输出之前，否则从左到右。
+  返回 [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented) 以外的内容的第一个例程确定结果。
+  如果所有 [``__array_ufunc__``](#numpy.class.__array_ufunc__) 操作都返回 [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented)，则会引发 [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError)。
 
   ::: tip 注意
 
-  We intend to re-implement numpy functions as (generalized)
-  Ufunc, in which case it will become possible for them to be
-  overridden by the ``__array_ufunc__`` method.  A prime candidate is
-  [``matmul``](generated/numpy.matmul.html#numpy.matmul), which currently is not a Ufunc, but could be
-  relatively easily be rewritten as a (set of) generalized Ufuncs. The
-  same may happen with functions such as [``median``](generated/numpy.median.html#numpy.median),
-  [``amin``](generated/numpy.amin.html#numpy.amin), and [``argsort``](generated/numpy.argsort.html#numpy.argsort).
-
+  我们打算将numpy函数重新实现为(（通用的）ufunc，在这种情况下，
+  它们将可能被 ``__array_ufunc__`` 方法覆盖。
+  一个主要的候选是 [``matmul``](generated/numpy.matmul.html#numpy.matmul)，它目前不是Ufunc，
+  但可以相对容易地重写为（一组）通用Ufuncs。
+  对于[``median``](generated/numpy.median.html#numpy.median)、
+  [``amin``](generated/numpy.amin.html#numpy.amin)和 [``argsort``](generated/numpy.argsort.html#numpy.argsort) 等函数，可能会发生相同的情况。
   :::
 
   Like with some other special methods in python, such as ``__hash__`` and
@@ -411,7 +400,7 @@ matrix([[  1.+0.j,   5.+0.j,  10.+0.j],
         [  1.+0.j,   3.+0.j,   0.+4.j]])
 ```
 
-Example 3: Matrix creation from an array
+示例 3: 从数组创建矩阵
 
 ``` python
 >>>>>> mat(random.rand(3,3)).T
@@ -422,25 +411,20 @@ matrix([[ 0.7699,  0.7922,  0.3294],
 
 ## 内存映射文件数组
 
-Memory-mapped files are useful for reading and/or modifying small
-segments of a large file with regular layout, without reading the
-entire file into memory. A simple subclass of the ndarray uses a
-memory-mapped file for the data buffer of the array. For small files,
-the over-head of reading the entire file into memory is typically not
-significant, however for large files using memory mapping can save
-considerable resources.
+内存映射文件对于读取和/或修改具有规则布局的大文件的小段非常有用，
+而无需将整个文件读入内存。
+ndarray的一个简单子类使用内存映射文件作为数组的数据缓冲区。
+对于小文件，将整个文件读入内存的开销通常不大，但是对于大文件，使用内存映射可以节省大量资源。
 
-Memory-mapped-file arrays have one additional method (besides those
-they inherit from the ndarray): [``.flush()``](generated/numpy.memmap.flush.html#numpy.memmap.flush) which
-must be called manually by the user to ensure that any changes to the
-array actually get written to disk.
+内存映射文件数组还有一个额外的方法（除了它们从ndarray继承的方法之外）：[``.flush()``](generated/numpy.memmap.flush.html#numpy.memmap.flush)，
+用户必须手动调用该方法，以确保对阵列的任何更改都实际写入磁盘。
 
 方法 | 描述
 ---|---
-[memmap](generated/numpy.memmap.html#numpy.memmap) | Create a memory-map to an array stored in a binary file on disk.
-[memmap.flush](generated/numpy.memmap.flush.html#numpy.memmap.flush)(self) | Write any changes in the array to the file on disk.
+[memmap](generated/numpy.memmap.html#numpy.memmap) | 创建存储在磁盘上二进制文件中的数组的内存映射。
+[memmap.flush](generated/numpy.memmap.flush.html#numpy.memmap.flush)(self) | 将数组中的任何更改写入磁盘上的文件。
 
-Example:
+示例：
 
 ``` python
 >>>>>> a = memmap('newfile.dat', dtype=float, mode='w+', shape=1000)
@@ -459,42 +443,31 @@ Example:
 
 ::: tip 另见
 
-[Creating character arrays (numpy.char)](routines.array-creation.html#routines-array-creation-char)
+[创建字符数组(numpy.char)](routines.array-creation.html#routines-array-creation-char)
 
 :::
 
 ::: tip 注意
 
-The [``chararray``](generated/numpy.chararray.html#numpy.chararray) class exists for backwards compatibility with
-Numarray, it is not recommended for new development. Starting from numpy
-1.4, if one needs arrays of strings, it is recommended to use arrays of
-[``dtype``](generated/numpy.dtype.html#numpy.dtype) ``object_``, ``string_`` or ``unicode_``, and use the free functions
-in the [``numpy.char``](routines.char.html#module-numpy.char) module for fast vectorized string operations.
+[``chararray``](generated/numpy.chararray.html#numpy.chararray) 类的存在是为了与Numarray向后兼容，不建议在新开发中使用它。从 numpy 1.4 开始，如果需要字符串数组，建议使用[``dtype``](generated/numpy.dtype.html#numpy.dtype) ``object_``、 ``string_`` 或 ``unicode_`` 的数组，并使用 [``numpy.char``](routines.char.html#module-numpy.char) 模块中的自由函数进行快速矢量化字符串操作。
 
 :::
 
-These are enhanced arrays of either ``string_`` type or
-``unicode_`` type.  These arrays inherit from the
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray), but specially-define the operations ``+``, ``*``,
-and ``%`` on a (broadcasting) element-by-element basis.  These
-operations are not available on the standard [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) of
-character type. In addition, the [``chararray``](generated/numpy.chararray.html#numpy.chararray) has all of the
-standard [``string``](https://docs.python.org/dev/library/stdtypes.html#str) (and ``unicode``) methods,
-executing them on an element-by-element basis. Perhaps the easiest
-way to create a chararray is to use [``self.view(chararray)``](generated/numpy.ndarray.view.html#numpy.ndarray.view) where *self* is an ndarray of str or unicode
-data-type. However, a chararray can also be created using the
-[``numpy.chararray``](generated/numpy.chararray.html#numpy.chararray) constructor, or via the
-[``numpy.char.array``](generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array) function:
+这些是 ``string_`` 类型或 ``unicode_`` 类型的增强型数组。
+这些数组继承自 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) ，但在（逐个）元素的基础上特别定义了操作 ``+``, ``*``, 和 ``%`` 。
+这些操作在字符类型的标准 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 上不可用。
+此外，[``chararray``](generated/numpy.chararray.html#numpy.chararray) 具有所有标准 [``string``](https://docs.python.org/dev/library/stdtypes.html#str)（和``unicode`` ）方法，在逐个元素的基础上执行它们。
+也许创建chararray的最简单方法是使用 [``self.view(chararray)``](generated/numpy.ndarray.view.html#numpy.ndarray.view)，
+其中 *self* 是str或unicode数据类型的ndarray。
+但是，也可以使用 [``numpy.chararray``](generated/numpy.chararray.html#numpy.chararray) 构造函数或通过 [``numpy.char.array``](generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array) 函数创建chararray：
 
 方法 | 描述
 ---|---
-[chararray](generated/numpy.chararray.html#numpy.chararray)(shape[, itemsize, unicode, …]) | Provides a convenient view on arrays of string and unicode values.
-[core.defchararray.array](generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array)(obj[, itemsize, …]) | Create a chararray.
+[chararray](generated/numpy.chararray.html#numpy.chararray)(shape[, itemsize, unicode, …]) | 提供有关字符串和unicode值数组的便捷视图。
+[core.defchararray.array](generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array)(obj[, itemsize, …]) | 创建一个chararray。
 
-Another difference with the standard ndarray of str data-type is
-that the chararray inherits the feature introduced by Numarray that
-white-space at the end of any element in the array will be ignored
-on item retrieval and comparison operations.
+与 str 数据类型的标准 ndarray 的另一个不同之处是 chararray 继承了由 Numarray 引入的特性，
+即在项检索和比较操作中，数组中任何元素末尾的空格都将被忽略。
 
 ## 记录数组（``numpy.rec``）
 
@@ -505,9 +478,8 @@ on item retrieval and comparison operations.
 
 :::
 
-NumPy provides the [``recarray``](generated/numpy.recarray.html#numpy.recarray) class which allows accessing the
-fields of a structured array as attributes, and a corresponding
-scalar data type object [``record``](generated/numpy.record.html#numpy.record).
+NumPy提供了 [``recarray``](generated/numpy.recarray.html#numpy.recarray) 类，允许将结构化数组的字段作为属性进行访问，
+以及相应的标量数据类型对象 [``记录``](generated/numpy.record.html#numpy.record)。
 
 方法 | 描述
 ---|---
