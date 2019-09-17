@@ -1,4 +1,4 @@
-# Standard array subclasses
+# 标准数组子类
 
 ::: tip 注意
 
@@ -63,132 +63,76 @@ NumPy提供了几个类可以自定义的钩子：
   [``amin``](generated/numpy.amin.html#numpy.amin)和 [``argsort``](generated/numpy.argsort.html#numpy.argsort) 等函数，可能会发生相同的情况。
   :::
 
-  Like with some other special methods in python, such as ``__hash__`` and
-  ``__iter__``, it is possible to indicate that your class does *not*
-  support ufuncs by setting ``__array_ufunc__ = None``. Ufuncs always raise
-  [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError) when called on an object that sets
-  ``__array_ufunc__ = None``.
+  与python中的其他一些特殊方法一样，例如 ``__hash__`` 和 ``__iter__``，
+  可以通过设置 ``__array_ufunc__ = None`` 来指示您的类不支持ufuncs。
+  当对设置 ``__array_ufunc__ = None`` 的对象调用时，ufuncs 总是引发 [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError)。
 
-  The presence of [``__array_ufunc__``](#numpy.class.__array_ufunc__) also influences how
-  [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) handles binary operations like ``arr + obj`` and ``arr
-  < obj`` when ``arr`` is an [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) and ``obj`` is an instance
-  of a custom class. There are two possibilities. If
-  ``obj.__array_ufunc__`` is present and not [``None``](https://docs.python.org/dev/library/constants.html#None), then
-  ``ndarray.__add__`` and friends will delegate to the ufunc machinery,
-  meaning that ``arr + obj`` becomes ``np.add(arr, obj)``, and then
-  [``add``](generated/numpy.add.html#numpy.add) invokes ``obj.__array_ufunc__``. This is useful if you
-  want to define an object that acts like an array.
+  当arr是ndarray且obj是自定义类的实例时，[``__array_ufunc__``](#numpy.class.__array_ufunc__) 的存在也会影响 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 处理 ``arr + obj`` 和 `arr
+  < obj`` 等二进制操作的方式。
+  有两种可能性。如果 ``obj.__array_ufunc__`` 存在而不是无，则 ``ndarray.__add__` 和 friends 将委托给 ufunc 机器，
+  这意味着 ``arr + obj`` 变为 ``np.add(arr，obj)``，然后 [``add``](generated/numpy.add.html#numpy.add) 调用 ``obj.__array_ufunc__``。如果您想定义一个像数组一样作用的对象，这是很有用的。
 
-  Alternatively, if ``obj.__array_ufunc__`` is set to [``None``](https://docs.python.org/dev/library/constants.html#None), then as a
-  special case, special methods like ``ndarray.__add__`` will notice this
-  and *unconditionally* raise [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError). This is useful if you want to
-  create objects that interact with arrays via binary operations, but
-  are not themselves arrays. For example, a units handling system might have
-  an object ``m`` representing the “meters” unit, and want to support the
-  syntax ``arr * m`` to represent that the array has units of “meters”, but
-  not want to otherwise interact with arrays via ufuncs or otherwise. This
-  can be done by setting ``__array_ufunc__ = None`` and defining ``__mul__``
-  and ``__rmul__`` methods. (Note that this means that writing an
-  ``__array_ufunc__`` that always returns [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented) is not
-  quite the same as setting ``__array_ufunc__ = None``: in the former
-  case, ``arr + obj`` will raise [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError), while in the latter
-  case it is possible to define a ``__radd__`` method to prevent this.)
+  或者，如果 ``obj.__array_ufunc__`` 设置为 [``None``](https://docs.python.org/dev/library/constants.html#None)，
+  那么作为一种特殊情况，像 ``ndarray.__add__`` 这样的特殊方法会注意到这一点，并 *无条件* 地引发 [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError)。
+  如果要创建通过二进制操作与数组交互的对象，但本身不是数组，则这很有用。
+  例如，单位处理系统可能具有表示 “meters” 单位的对象 ``m``，并且希望支持语法 ``arr * m`` 来表示数组具有 “meters” 单位，
+  但不想通过 ufuncs 或其他方式与数组交互。
+  这可以通过设置 ``__array_ufunc_ = none`` 并定义 ``__mul_`` 和 ``__rmul__`` 方法来完成。
+  （请注意，这意味着编写始终返回 [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented) 的``__array_ufunc__`` 与设置 ``__array_ufunc__ = none`` 并不完全相同：
+  在前一种情况下，``arr + obj`` 将引发 [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError)，而在后一种情况下，可以定义 ``__radd__`` 方法来防止这种情况。）
 
-  The above does not hold for in-place operators, for which [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
-  never returns [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented).  Hence, ``arr += obj`` would always
-  lead to a [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError).  This is because for arrays in-place operations
-  cannot generically be replaced by a simple reverse operation.  (For
-  instance, by default, ``arr += obj`` would be translated to ``arr =
-  arr + obj``, i.e., ``arr`` would be replaced, contrary to what is expected
-  for in-place array operations.)
+  以上不适用于 in-place 操作符，[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 从不返回 [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented)。因此，``arr += obj`` 总是会导致 [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError)。这是因为对于数组来说，in-place 操作一般不能被简单的反向操作所取代。(例如，默认情况下，``arr += obj`` 将被转换为 ``arr= arr + obj``，即 ``arr`` 将被替换，这与就地数组操作的预期相反。)
 
   ::: tip 注意
 
-  If you define ``__array_ufunc__``:
+  如果定义 ``__array_ufunc__``：
 
-  - If you are not a subclass of [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray), we recommend your
-  class define special methods like ``__add__`` and ``__lt__`` that
-  delegate to ufuncs just like ndarray does.  An easy way to do this
-  is to subclass from [``NDArrayOperatorsMixin``](generated/numpy.lib.mixins.NDArrayOperatorsMixin.html#numpy.lib.mixins.NDArrayOperatorsMixin).
-  - If you subclass [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray), we recommend that you put all your
-  override logic in ``__array_ufunc__`` and not also override special
-  methods. This ensures the class hierarchy is determined in only one
-  place rather than separately by the ufunc machinery and by the binary
-  operation rules (which gives preference to special methods of
-  subclasses; the alternative way to enforce a one-place only hierarchy,
-  of setting [``__array_ufunc__``](#numpy.class.__array_ufunc__) to [``None``](https://docs.python.org/dev/library/constants.html#None), would seem very
-  unexpected and thus confusing, as then the subclass would not work at
-  all with ufuncs).
-  - [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) defines its own [``__array_ufunc__``](#numpy.class.__array_ufunc__), which,
-  evaluates the ufunc if no arguments have overrides, and returns
-  [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented) otherwise. This may be useful for subclasses
-  for which [``__array_ufunc__``](#numpy.class.__array_ufunc__) converts any instances of its own
-  class to [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray): it can then pass these on to its
-  superclass using ``super().__array_ufunc__(*inputs, **kwargs)``,
-  and finally return the results after possible back-conversion. The
-  advantage of this practice is that it ensures that it is possible
-  to have a hierarchy of subclasses that extend the behaviour. See
-  [Subclassing ndarray](https://numpy.org/devdocs/user/basics.subclassing.html#basics-subclassing) for details.
+  - 如果您不是 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 的子类，我们建议您的类定义特殊的方法，如 ``__add__`` 和 ``__lt__``，它们像 ndarray 一样委托给 ufuncs。一种简单的方法是从 [``NDArrayOperatorsMixin``](generated/numpy.lib.mixins.NDArrayOperatorsMixin.html#numpy.lib.mixins.NDArrayOperatorsMixin) 子类。
+  - 如果您是 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 的子类，
+  我们建议您将所有覆盖逻辑放在 [``__array_ufunc__``](#numpy.class.__array_ufunc__) 中，并且不要覆盖特殊方法。
+  这确保了类层次结构只在一个地方确定，而不是由ufunc机制和二元运算规则单独确定（优先考虑子类的特殊方法；强制实施只有一个位置的层次结构的替代方法，即将[``__array_ufunc__``](#numpy.class.__array_ufunc__) 设置为 [``None``](https://docs.python.org/dev/library/constants.html#None)，似乎非常出乎意料，因此令人困惑，因为这样子类将根本不能与ufuncs一起工作）。
+  - [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 定义自己的 [``__array_ufunc__``](#numpy.class.__array_ufunc__)，如果没有参数有覆盖，则计算ufunc，否则返回 [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented)。这对于 [``__array_ufunc__``](#numpy.class.__array_ufunc__) 将其自身类的任何实例转换为 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 的子类可能很有用：然后它可以使用 ``super().__array_ufunc__(*inputs, **kwargs)`` 将这些实例传递给其超类，并最终在可能的反向转换后返回结果。这种做法的优点是，它确保了有可能具有扩展行为的子类的层次结构。有关详细信息，请参见 [Subclassing ndarray](https://numpy.org/devdocs/user/basics.subclassing.html#basics-subclassing)。
 
   :::
 
   ::: tip 注意
 
-  If a class defines the [``__array_ufunc__``](#numpy.class.__array_ufunc__) method,
-  this disables the [``__array_wrap__``](#numpy.class.__array_wrap__),
-  [``__array_prepare__``](#numpy.class.__array_prepare__), [``__array_priority__``](#numpy.class.__array_priority__) mechanism
-  described below for ufuncs (which may eventually be deprecated).
+  如果类定义了 [``__array_ufunc__``](#numpy.class.__array_ufunc__) 方法，这将禁用下面为 ufuncs 描述的 [``__array_wrap__``](#numpy.class.__array_wrap__)、[``__array_prepare__``](#numpy.class.__array_prepare__)、[``__array_priority__``](#numpy.class.__array_priority__) 机制（最终可能会被弃用）。
 
   :::
-
 
 - ``class.__array_function__``(*func*, *types*, *args*, *kwargs*)
 
-  *New in version 1.16.* 
+  *版本1.16中的新增功能。* 
 
   ::: tip 注意
 
-  - In NumPy 1.17, the protocol is enabled by default, but can be disabled
-  with ``NUMPY_EXPERIMENTAL_ARRAY_FUNCTION=0``.
-  - In NumPy 1.16, you need to set the environment variable
-  ``NUMPY_EXPERIMENTAL_ARRAY_FUNCTION=1`` before importing NumPy to use
-  NumPy function overrides.
-  - Eventually, expect to ``__array_function__`` to always be enabled.
+  - 在NumPy 1.17中，默认情况下启用该协议，但可以禁用该协议，设置 ``NUMPY_EXPERIMENTAL_ARRAY_FUNCTION = 0``。
+  - 在NumPy 1.16中，您需要设置环境变量
+  - 在NumPy 1.16中，您需要在导入NumPy之前设置环境变量 ``NUMPY_EXPERIMENTAL_ARRAY_FUNCTION = 1`` 以使用NumPy函数覆盖。
+  - 最终，期望始终启用``__array_function__``。
 
   :::
 
-  - ``func`` is an arbitrary callable exposed by NumPy’s public API,
-  which was called in the form ``func(*args, **kwargs)``.
-  - ``types`` is a [collection](collections.abc.Collection)
-  of unique argument types from the original NumPy function call that
-  implement ``__array_function__``.
-  - The tuple ``args`` and dict ``kwargs`` are directly passed on from the
-  original call.
+  - ``func`` 是由NumPy的公共API公开的任意可调用的，它以 ``func(*args, **kwargs)`` 的形式调用。
+  - ``types`` 是来自实现 __array_function__ 的原始NumPy函数调用的唯一参数类型的[集合](collections.abc.Collection)。
+  - 元组 ``args`` 和dict ``kwargs`` 直接从原始调用传递。
 
-  As a convenience for ``__array_function__`` implementors, ``types``
-  provides all argument types with an ``'__array_function__'`` attribute.
-  This allows implementors to quickly identify cases where they should defer
-  to ``__array_function__`` implementations on other arguments.
-  Implementations should not rely on the iteration order of ``types``.
+  为了方便 ``__array_function__`` 实现者，``types`` 为所有参数类型提供了 ``'__array_function__'`` 属性。
+  这允许实现者快速识别他们应该遵循其他参数的 ``__array_function__`` 实现的情况。
+  实现不应该依赖于``类型``的迭代顺序。
+  
+  ``__array_function__`` 的大多数实现都将从两个检查开始：
 
-  Most implementations of ``__array_function__`` will start with two
-  checks:
+  1. 给定的函数是否知道如何重载？
+  1. 我们知道如何处理的类型的所有参数都是？
 
-  1. Is the given function something that we know how to overload?
-  1. Are all arguments of a type that we know how to handle?
+  如果这些条件成立，``__array_function__`` 应该返回调用 ``func(*args, **kwargs)`` 实现的结果。
+  否则，它应该返回 sentinel 值 ``NotImplemented``，表示该函数未由这些类型实现。
 
-  If these conditions hold, ``__array_function__`` should return the result
-  from calling its implementation for ``func(*args, **kwargs)``.  Otherwise,
-  it should return the sentinel value ``NotImplemented``, indicating that the
-  function is not implemented by these types.
+  对 ``__array_function__`` 的返回值没有一般要求，尽管大多数合理的实现应该返回与函数参数之一具有相同类型的数组。
 
-  There are no general requirements on the return value from
-  ``__array_function__``, although most sensible implementations should
-  probably return array(s) with the same type as one of the function’s
-  arguments.
-
-  It may also be convenient to define a custom decorators (``implements``
-  below) for registering ``__array_function__`` implementations.
+  还可以方便地定义用于注册 ``__array_function__`` 实现的自定义装饰器（比如下面的``实现（implements）``)。
 
   ``` python
   HANDLED_FUNCTIONS = {}
@@ -219,171 +163,121 @@ NumPy提供了几个类可以自定义的钩子：
       ...  # implementation of broadcast_to for MyArray objects
   ```
 
-  Note that it is not required for ``__array_function__`` implementations to
-  include *all* of the corresponding NumPy function’s optional arguments
-  (e.g., ``broadcast_to`` above omits the irrelevant ``subok`` argument).
-  Optional arguments are only passed in to ``__array_function__`` if they
-  were explicitly used in the NumPy function call.
+  请注意，``__array_function__`` 实现不需要包含 *所有* 相应的NumPy函数的可选参数
+  （例如，上面的 ``broadcast_to`` 省略了无关的 ``subok`` 参数）。
+  如果在NumPy函数调用中明确使用了可选参数，则它们仅传递给 ``__array_function__``。
 
-  Just like the case for builtin special methods like ``__add__``, properly
-  written ``__array_function__`` methods should always return
-  ``NotImplemented`` when an unknown type is encountered. Otherwise, it will
-  be impossible to correctly override NumPy functions from another object
-  if the operation also includes one of your objects.
+  就像内置特殊方法（如 ``__add__`` ）的情况一样，
+  正确编写的 ``__array_function__`` 方法应始终在遇到未知类型时返回 ``NotImplemented``。
+  否则，如果操作还包含一个对象，则无法从另一个对象正确覆盖NumPy函数。
 
-  For the most part, the rules for dispatch with ``__array_function__``
-  match those for ``__array_ufunc__``. In particular:
+  在大多数情况下，``__array_function__`` 的调度规则与 ``__array_ufunc__`` 的调度规则相匹配。尤其是：
 
-  - NumPy will gather implementations of ``__array_function__`` from all
-  specified inputs and call them in order: subclasses before
-  superclasses, and otherwise left to right. Note that in some edge cases
-  involving subclasses, this differs slightly from the
-  [current behavior](https://bugs.python.org/issue30140) of Python.
-  - Implementations of ``__array_function__`` indicate that they can
-  handle the operation by returning any value other than
-  ``NotImplemented``.
-  - If all ``__array_function__`` methods return ``NotImplemented``,
-  NumPy will raise ``TypeError``.
+  - NumPy将从所有指定的输入中收集 ``__array_function__`` 的实现，并按顺序调用它们：超类之前的子类，否则从左到右。
+  请注意，在涉及子类的某些边缘情况下，这与Python的[当前行为](https://bugs.python.org/issue30140)略有不同。
+  - ``__array_function__`` 的实现表明它们可以通过返回除 ``NotImplemented`` 之外的任何值来处理操作。
+  - 如果所有 ``__array_function__`` 方法都返回 ``NotImplemented``，NumPy 将引发 ``TypeError``。
 
-  If no ``__array_function__`` methods exists, NumPy will default to calling
-  its own implementation, intended for use on NumPy arrays. This case arises,
-  for example, when all array-like arguments are Python numbers or lists.
-  (NumPy arrays do have a ``__array_function__`` method, given below, but it
-  always returns ``NotImplemented`` if any argument other than a NumPy array
-  subclass implements ``__array_function__``.)
+  如果不存在 ``__array_function__`` 方法，NumPy将默认调用自己的实现，用于NumPy数组。
+  例如，当所有类似数组的参数都是Python数字或列表时，会出现这种情况。
+  （NumPy数组确实有一个 ``__array_function__`` 方法，
+  如下所示，但如果除NumPy数组子类之外的任何参数都实现了 ``__array_function__``，它总是返回 ``NotImplemented``。）
 
-  One deviation from the current behavior of ``__array_ufunc__`` is that
-  NumPy will only call ``__array_function__`` on the *first* argument of each
-  unique type. This matches Python’s [rule for calling reflected methods](https://docs.python.org/3/reference/datamodel.html#object.__ror__), and
-  this ensures that checking overloads has acceptable performance even when
-  there are a large number of overloaded arguments.
+  与 ``__array_ufunc__`` 的当前行为的一个偏差是，NumPy将仅对每个唯一类型的第一个参数调用 ``__array_function__``。
+  这与Python[调用反射方法的规则相匹配](https://docs.python.org/3/reference/datamodel.html#object.__ror__)，这确保了检查重载具有可接受的性能，即使存在大量重载参数。
 
 - ``class.__array_finalize__``(*obj*)
 
-  This method is called whenever the system internally allocates a
-  new array from *obj*, where *obj* is a subclass (subtype) of the
-  [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray). It can be used to change attributes of *self*
-  after construction (so as to ensure a 2-d matrix for example), or
-  to update meta-information from the “parent.” Subclasses inherit
-  a default implementation of this method that does nothing.
-
+  只要系统在内部从 *obj* 分配一个新数组，就会调用此方法，其中 *obj* 是 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 的子类（子类型）。 
+  它可以用于在构造之后更改 *self* 的属性（例如，以确保二维矩阵），
+  或者从“父”更新元信息。子类继承此方法的默认实现，该方法不执行任何操作。
 
 - ``class.__array_prepare__``(*array*, *context=None*)
 
-  At the beginning of every [ufunc](ufuncs.html#ufuncs-output-type), this
-  method is called on the input object with the highest array
-  priority, or the output object if one was specified. The output
-  array is passed in and whatever is returned is passed to the ufunc.
-  Subclasses inherit a default implementation of this method which
-  simply returns the output array unmodified. Subclasses may opt to
-  use this method to transform the output array into an instance of
-  the subclass and update metadata before returning the array to the
-  ufunc for computation.
+  在每个ufunc的开头，在具有最高数组优先级的输入对象上调用此方法，如果指定了一个输出对象，则调用此方法。
+  传入输出数组，返回的任何内容都传递给 [ufunc](ufuncs.html#ufuncs-output-type)。
+  子类继承此方法的默认实现，它只是简单地返回未修改的输出数组。
+  子类可以选择使用此方法将输出数组转换为子类的实例，并在将数组返回到ufunc进行计算之前更新元数据。
 
   ::: tip 注意
 
-  For ufuncs, it is hoped to eventually deprecate this method in
-  favour of [``__array_ufunc__``](#numpy.class.__array_ufunc__).
+  对于 ufuncs，希望最终弃用这个方法，而不是 [``__array_ufunc__``](#numpy.class.__array_ufunc__)。
 
   :::
 
-
 - ``class.__array_wrap__``(*array*, *context=None*)
 
-  At the end of every [ufunc](ufuncs.html#ufuncs-output-type), this method
-  is called on the input object with the highest array priority, or
-  the output object if one was specified. The ufunc-computed array
-  is passed in and whatever is returned is passed to the user.
-  Subclasses inherit a default implementation of this method, which
-  transforms the array into a new instance of the object’s class.
-  Subclasses may opt to use this method to transform the output array
-  into an instance of the subclass and update metadata before
-  returning the array to the user.
+  在每个 [ufunc](ufuncs.html#ufuncs-output-type) 的末尾，对具有最高数组优先级的输入对象或输出对象(如果指定了一个)调用此方法。
+  传入ufunc计算的数组，并将返回的任何内容传递给用户。
+  子类继承此方法的默认实现，该方法将数组转换为对象类的新实例。
+  子类可以选择使用此方法将输出数组转换为子类的实例，并在将数组返回给用户之前更新元数据。
 
   ::: tip 注意
 
-  For ufuncs, it is hoped to eventually deprecate this method in
-  favour of [``__array_ufunc__``](#numpy.class.__array_ufunc__).
+  对于ufuncs，希望最终弃用此方法，取而代之的是 [``__array_ufunc__``](#numpy.class.__array_ufunc__)。
 
   :::
 
 - ``class.__array_priority__``
 
-  The value of this attribute is used to determine what type of
-  object to return in situations where there is more than one
-  possibility for the Python type of the returned object. Subclasses
-  inherit a default value of 0.0 for this attribute.
+  该属性的值用于确定在返回对象的Python类型有多种可能性的情况下返回哪种类型的对象。子类继承此属性的默认值0.0。
 
   ::: tip 注意
 
-  For ufuncs, it is hoped to eventually deprecate this method in
-  favour of [``__array_ufunc__``](#numpy.class.__array_ufunc__).
+  对于ufuncs，希望最终弃用此方法，取而代之的是 [``__array_ufunc__``](#numpy.class.__array_ufunc__)。
 
   :::
 
 - ``class.__array__``([*dtype*])
 
-  If a class (ndarray subclass or not) having the [``__array__``](#numpy.class.__array__)
-  method is used as the output object of an [ufunc](ufuncs.html#ufuncs-output-type), results will be written to the object
-  returned by [``__array__``](#numpy.class.__array__). Similar conversion is done on
-  input arrays.
+  如果将具有 [``__array__``](#numpy.class.__array__) 方法的类（是否ndarray子类）用作 [ufunc](ufuncs.html#ufuncs-output-type) 的输出对象，
+  则结果将写入 [``__array__``](#numpy.class.__array__) 返回的对象。在输入数组上进行类似的转换。
 
 ## 矩阵对象
 
 ::: tip 注意
 
-It is strongly advised *not* to use the matrix subclass.  As described
-below, it makes writing functions that deal consistently with matrices
-and regular arrays very difficult. Currently, they are mainly used for
-interacting with ``scipy.sparse``. We hope to provide an alternative
-for this use, however, and eventually remove the ``matrix`` subclass.
+强烈建议*不要*使用矩阵子类。如下所述，它使得编写一致处理矩阵和规则数组的函数变得非常困难。
+目前，它们主要用于与 ``scipy.sparse`` 进行交互。
+但是，我们希望为此用途提供一种替代方法，并最终删除 ``matrix`` 子类。
 
 :::
 
-[``matrix``](generated/numpy.matrix.html#numpy.matrix) objects inherit from the ndarray and therefore, they
-have the same attributes and methods of ndarrays. There are six
-important differences of matrix objects, however, that may lead to
-unexpected results when you use matrices but expect them to act like
-arrays:
+[``matrix``](generated/numpy.matrix.html#numpy.matrix) 对象继承自ndarray，因此它们具有ndarray的相同属性和方法。
+但是，当您使用矩阵但希望它们像数组一样工作时，可能会导致意外结果的矩阵对象有六个重要差异：
 
-1. Matrix objects can be created using a string notation to allow Matlab-style syntax where spaces separate columns and semicolons (‘;’) separate rows.
-1. Matrix objects are always two-dimensional. This has far-reaching implications, in that m.ravel() is still two-dimensional (with a 1 in the first dimension) and item selection returns two-dimensional objects so that sequence behavior is fundamentally different than arrays.
-1. Matrix objects over-ride multiplication to be matrix-multiplication. Make sure you understand this for functions that you may want to receive matrices. Especially in light of the fact that asanyarray(m) returns a matrix when m is a matrix.
-1. Matrix objects over-ride power to be matrix raised to a power. The same warning about using power inside a function that uses asanyarray(…) to get an array object holds for this fact.
-1. The default \_\_array_priority__ of matrix objects is 10.0, and therefore mixed operations with ndarrays always produce matrices.
-1. Matrices have special attributes which make calculations easier. These are
+1. 可以使用字符串表示法创建 Matrix 对象，以允许 Matlab 样式的语法，其中空格分隔列，分号 (';') 分隔行。
+1. Matrix对象始终是二维的。这具有深远的含义，因为 m.ravel() 仍然是二维的(第一维为1)，并且 item selection 返回二维对象，因此序列行为与数组根本不同。
+1. 矩阵对象覆盖乘法成为矩阵乘法。确保您了解您可能希望接收矩阵的函数的这一点。特别是考虑到当m是矩阵时 asanyarray(m) 返回矩阵的事实。
+1. 矩阵对象超越幂被矩阵提升为幂。关于在使用 asanyarray(…) 的函数中使用电源的相同警告。获取此事实的数组对象保持。
+1. 矩阵对象的默认 \_\_array_priority__ 为10.0，因此与ndarray的混合运算始终生成矩阵。
+1. 矩阵具有使计算更容易的特殊属性。这些是
 
     方法 | 描述
     ---|---
-    matrix.T | Returns the transpose of the matrix.
-    matrix.H | Returns the (complex) conjugate transpose of self.
-    matrix.I | Returns the (multiplicative) inverse of invertible self.
-    matrix.A | Return self as an ndarray object.
+    matrix.T | 返回矩阵的转置。
+    matrix.H | 返回self的（复数）共轭转置。
+    matrix.I | 返回可逆self的（乘法）逆。
+    matrix.A | 将self作为ndarray对象返回。
 
 ::: danger 警告
 
-Matrix objects over-ride multiplication, ‘*’, and power, ‘**’, to
-be matrix-multiplication and matrix power, respectively. If your
-subroutine can accept sub-classes and you do not convert to base-
-class arrays, then you must use the ufuncs multiply and power to
-be sure that you are performing the correct operation for all
-inputs.
+Matrix对象覆盖乘法 ‘\*’ 和 ‘\*\*’（幂），分别为矩阵乘法和矩阵幂。
+如果您的子例程可以接受子类，并且您没有转换为基类数组，
+则必须使用ufuncs multiply和power来确保对所有输入执行正确的操作。
 
 :::
 
-The matrix class is a Python subclass of the ndarray and can be used
-as a reference for how to construct your own subclass of the ndarray.
-Matrices can be created from other matrices, strings, and anything
-else that can be converted to an ``ndarray`` . The name “mat “is an
-alias for “matrix “in NumPy.
+Matrix类是ndarray的Python子类，可以用作如何构造自己的ndarray子类的参考。
+矩阵可以从其他矩阵、字符串和任何可以转换为 ``ndarray`` 的东西中创建。名称 “mat” 是NumPy中 “matrix” 的别名。
 
 方法 | 描述
 ---|---
-[matrix](generated/numpy.matrix.html#numpy.matrix)(data[, dtype, copy]) | **Note:** It is no longer recommended to use this class, even for linear
-[asmatrix](generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | Interpret the input as a matrix.
-[bmat](generated/numpy.bmat.html#numpy.bmat)(obj[, ldict, gdict]) | Build a matrix object from a string, nested sequence, or array.
+[matrix](generated/numpy.matrix.html#numpy.matrix)(data[, dtype, copy]) | **注意：** 不建议再使用这个类，即使是线性的
+[asmatrix](generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | 将输入解析为矩阵。
+[bmat](generated/numpy.bmat.html#numpy.bmat)(obj[, ldict, gdict]) | 从字符串、嵌套序列或数组构建矩阵对象。
 
-Example 1: Matrix creation from a string
+示例1：从字符串创建矩阵
 
 ``` python
 >>>>>> a=mat('1 2 3; 4 5 3')
@@ -392,7 +286,7 @@ Example 1: Matrix creation from a string
  [-0.1345  0.0819]]
 ```
 
-Example 2: Matrix creation from nested sequence
+示例2：从嵌套序列创建矩阵
 
 ``` python
 >>>>>> mat([[1,5,10],[1.0,3,4j]])
