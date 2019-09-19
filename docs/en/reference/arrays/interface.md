@@ -291,10 +291,10 @@ hex-string (now it is an integer or a long integer).
 (except for version) in the __array_interface__ dictionary were
 their own attribute: Thus to obtain the Python-side information you
 had to access separately the attributes:
-    1. __array_data__
-    1. __array_shape__
-    1. __array_strides__
-    1. __array_typestr__
-    1. __array_descr__
-    1. __array_offset__
-    1. __array_mask__
+    - __array_data__
+    - __array_shape__
+    - __array_strides__
+    - __array_typestr__
+    - __array_descr__
+    - __array_offset__
+    - __array_mask__

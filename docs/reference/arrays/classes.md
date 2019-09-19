@@ -44,7 +44,7 @@ NumPy提供了几个类可以自定义的钩子：
   - *method* 是一个字符串，指示调用了哪个Ufunc方法(``"__call__"``，``"reduce"``，``"acculate"``，``"outer"``，``"internal"`` 之一)。
   - *inputs* 是 ``ufunc`` 的输入参数的元组。
   - *kwargs* 是包含ufunc的可选输入参数的字典。
-  如果给定，任何 ``out`` 参数（包括位置参数和关键字）都将作为kwargs中的 [``元组``](https://docs.python.org/dev/library/stdtypes.html#tuple) 传递。有关详细信息，请参阅 [泛函数(ufunc)](ufuncs.html#ufuncs) 中的讨论。
+  如果给定，任何 ``out`` 参数（包括位置参数和关键字）都将作为kwargs中的 [``元组``](https://docs.python.org/dev/library/stdtypes.html#tuple) 传递。有关详细信息，请参阅 [通函数(ufunc)](ufuncs.html#ufuncs) 中的讨论。
 
   该方法应返回操作的结果，如果未实现请求的操作，则返回 [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented)。
 

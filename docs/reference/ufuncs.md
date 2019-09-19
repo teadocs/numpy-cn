@@ -1,186 +1,99 @@
-# Universal functions (``ufunc``)
+# 通函数（``ufunc``）
 
-A universal function (or [ufunc](https://numpy.org/devdocs/glossary.html#term-ufunc) for short) is a function that
-operates on [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray) in an element-by-element fashion,
-supporting [array broadcasting](#ufuncs-broadcasting), [type
-casting](#ufuncs-casting), and several other standard features. That
-is, a ufunc is a “[vectorized](https://numpy.org/devdocs/glossary.html#term-vectorization)” wrapper for a function that
-takes a fixed number of specific inputs and produces a fixed number of
-specific outputs.
+通函数（或简称为[ufunc](https://numpy.org/devdocs/glossary.html#term-ufunc)）是一种[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)以逐元素方式操作的函数，支持[阵列广播](#ufuncs-broadcasting)，[类型转换](#ufuncs-casting)和其他一些标准功能。也就是说，ufunc是一个函数的 “ [矢量化](https://numpy.org/devdocs/glossary.html#term-vectorization) ” 包装器，它接受固定数量的特定输入并产生固定数量的特定输出。
 
-In NumPy, universal functions are instances of the
-``numpy.ufunc`` class. Many of the built-in functions are
-implemented in compiled C code. The basic ufuncs operate on scalars, but
-there is also a generalized kind for which the basic elements are sub-arrays
-(vectors, matrices, etc.), and broadcasting is done over other dimensions.
-One can also produce custom ``ufunc`` instances using the
-[``frompyfunc``](generated/numpy.frompyfunc.html#numpy.frompyfunc) factory function.
+在NumPy中，通函数是``numpy.ufunc``类的实例 。
+许多内置函数都是在编译的C代码中实现的。
+基本的ufuncs对标量进行操作，但也有一种通用类型，基本元素是子数组（向量，矩阵等），
+广播是在其他维度上完成的。也可以``ufunc``使用[``frompyfunc``](generated/numpy.frompyfunc.html#numpy.frompyfunc)工厂函数生成自定义实例。
 
-## Broadcasting
+## 广播
 
-Each universal function takes array inputs and produces array outputs
-by performing the core function element-wise on the inputs (where an
-element is generally a scalar, but can be a vector or higher-order
-sub-array for generalized ufuncs). Standard
-broadcasting rules are applied so that inputs not sharing exactly the
-same shapes can still be usefully operated on. Broadcasting can be
-understood by four rules:
+每个通函数接受数组输入并通过在输入上逐元素地执行核心功能来生成数组输出（其中元素通常是标量，但可以是用于广义ufunc的向量或更高阶子数组）。应用标准广播规则，以便仍然可以有效地操作不共享完全相同形状的输入。广播可以通过四个规则来理解：
 
-1. All input arrays with [``ndim``](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim) smaller than the
-input array of largest [``ndim``](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim), have 1’s
-prepended to their shapes.
-1. The size in each dimension of the output shape is the maximum of all
-the input sizes in that dimension.
-1. An input can be used in the calculation if its size in a particular
-dimension either matches the output size in that dimension, or has
-value exactly 1.
-1. If an input has a dimension size of 1 in its shape, the first data
-entry in that dimension will be used for all calculations along
-that dimension. In other words, the stepping machinery of the
-[ufunc](https://numpy.org/devdocs/glossary.html#term-ufunc) will simply not step along that dimension (the
-[stride](arrays.ndarray.html#memory-layout) will be 0 for that dimension).
+1. 所有输入数组都[``ndim``](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim)小于最大的输入数组，[``ndim``](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim)其形状前面有1个。
+1. 输出形状的每个维度的大小是该维度中所有输入大小的最大值。
+1. 如果输入在特定维度中的大小与该维度中的输出大小匹配，或者其值正好为1，则可以在计算中使用该输入。
+1. 如果输入的形状尺寸为1，则该维度中的第一个数据条目将用于沿该维度的所有计算。换句话说，[ufunc](https://numpy.org/devdocs/glossary.html#term-ufunc)的步进机械
+ 将不会沿着该维度步进（对于该维度，
+ [步幅](arrays.ndarray.html#memory-layout)将为0）。
 
-Broadcasting is used throughout NumPy to decide how to handle
-disparately shaped arrays; for example, all arithmetic operations (``+``,
-``-``, ``*``, …) between [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray) broadcast the
-arrays before operation.
+整个NumPy使用广播来决定如何处理不同形状的阵列; 例如，所有算术运算（``+``，
+ ``-``，``*``之间，...）[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)的阵列操作之前广播。
 
-A set of arrays is called “broadcastable” to the same shape if
-the above rules produce a valid result, *i.e.*, one of the following
-is true:
+如果上述规则产生有效结果，则将一组数组称为“可广播”到相同的形状， *即* 满足下列条件之一：
 
-1. The arrays all have exactly the same shape.
-1. The arrays all have the same number of dimensions and the length of
-each dimensions is either a common length or 1.
-1. The arrays that have too few dimensions can have their shapes prepended
-with a dimension of length 1 to satisfy property 2.
+1. 阵列都具有完全相同的形状。
+1. 阵列都具有相同的维数，每个维度的长度是公共长度或1。
+1. 尺寸太小的阵列可以使其形状前置为长度为1的尺寸以满足属性2。
 
-If ``a.shape`` is (5,1), ``b.shape`` is (1,6), ``c.shape`` is (6,)
-and ``d.shape`` is () so that *d* is a scalar, then *a*, *b*, *c*,
-and *d* are all broadcastable to dimension (5,6); and
+如果``a.shape``是 (5,1)，``b.shape``是 (1,6)，``c.shape``是 (6，)并且``d.shape``是 () 使得 *d* 是标量，则 *a* ， *b* ， *c* 和 *d* 都可以广播到维度 (5, 6); 和：
 
-- *a* acts like a (5,6) array where ``a[:,0]`` is broadcast to the other
-columns,
-- *b* acts like a (5,6) array where ``b[0,:]`` is broadcast
-to the other rows,
-- *c* acts like a (1,6) array and therefore like a (5,6) array
-where ``c[:]`` is broadcast to every row, and finally,
-- *d* acts like a (5,6) array where the single value is repeated.
+- *a* 的作用类似于（5,6）数组，其中 [:, 0] 广播到其他列，
+- *b* 的作用类似于（5,6）数组，其中 b[0, :] 广播到其他行，
+- *c* 就像一个（1,6）数组，因此像一个（5,6）数组，其中 c[:] 广播到每一行，最后，
+- *d* 的作用类似于（5,6）数组，其中重复单个值。
 
-## Output type determination
+## 输出类型确定
 
-The output of the ufunc (and its methods) is not necessarily an
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray), if all input arguments are not [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray).
-Indeed, if any input defines an [``__array_ufunc__``](arrays.classes.html#numpy.class.__array_ufunc__) method,
-control will be passed completely to that function, i.e., the ufunc is
-[overridden](ufuncs.overrides).
+[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)如果所有输入参数都不是，则ufunc（及其方法）的输出不一定
+ 是[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)。实际上，如果任何输入定义了一个[``__array_ufunc__``](arrays.classes.html#numpy.class.__array_ufunc__)方法，控件将完全传递给该函数，即[重写](ufuncs.overrides) ufunc
+ 。
 
-If none of the inputs overrides the ufunc, then
-all output arrays will be passed to the [``__array_prepare__``](arrays.classes.html#numpy.class.__array_prepare__) and
-[``__array_wrap__``](arrays.classes.html#numpy.class.__array_wrap__) methods of the input (besides
-[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray), and scalars) that defines it **and** has
-the highest [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) of any other input to the
-universal function. The default [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) of the
-ndarray is 0.0, and the default [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) of a subtype
-is 0.0. Matrices have [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) equal to 10.0.
+如果没有任何输入覆盖ufunc，则所有输出数组将被传递给输入的 [``__array_prepare__``](arrays.classes.html#numpy.class.__array_prepare__) 和[``__array_wrap__``](arrays.classes.html#numpy.class.__array_wrap__) 方法（除了 [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray) 和scalars），
+这些方法定义它并且具有通用函数的任何其他输入的最高 [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) 。 
+ndarray的默认 [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) 为0.0，子类型的默认 [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) 为0.0。
+矩阵的 [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) 等于10.0。
 
-All ufuncs can also take output arguments. If necessary, output will
-be cast to the data-type(s) of the provided output array(s). If a class
-with an [``__array__``](arrays.classes.html#numpy.class.__array__) method is used for the output, results will be
-written to the object returned by [``__array__``](arrays.classes.html#numpy.class.__array__). Then, if the class
-also has an [``__array_prepare__``](arrays.classes.html#numpy.class.__array_prepare__) method, it is called so metadata
-may be determined based on the context of the ufunc (the context
-consisting of the ufunc itself, the arguments passed to the ufunc, and
-the ufunc domain.) The array object returned by
-[``__array_prepare__``](arrays.classes.html#numpy.class.__array_prepare__) is passed to the ufunc for computation.
-Finally, if the class also has an [``__array_wrap__``](arrays.classes.html#numpy.class.__array_wrap__) method, the returned
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) result will be passed to that method just before
-passing control back to the caller.
+所有ufunc也可以获取输出参数。如有必要，输出将转换为提供的输出数组的数据类型。如果将带有[``__array__``](arrays.classes.html#numpy.class.__array__)方法的类用于输出，则结果将写入返回的对象[``__array__``](arrays.classes.html#numpy.class.__array__)。然后，如果类也有一个[``__array_prepare__``](arrays.classes.html#numpy.class.__array_prepare__)方法，则调用它，因此可以根据ufunc的上下文确定元数据（由ufunc本身组成的上下文，传递给ufunc的参数和ufunc域。）数组对象返回者
+ [``__array_prepare__``](arrays.classes.html#numpy.class.__array_prepare__)传递给ufunc进行计算。最后，如果类也有一个[``__array_wrap__``](arrays.classes.html#numpy.class.__array_wrap__)方法，返回的
+ [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)结果将在将控制权传递给调用者之前传递给该方法。
 
-## Use of internal buffers
+## 使用内部缓冲区
 
-Internally, buffers are used for misaligned data, swapped data, and
-data that has to be converted from one data type to another. The size
-of internal buffers is settable on a per-thread basis. There can
-be up to 
-buffers of the specified size created to handle the data from all the
-inputs and outputs of a ufunc. The default size of a buffer is
-10,000 elements. Whenever buffer-based calculation would be needed,
-but all input arrays are smaller than the buffer size, those
-misbehaved or incorrectly-typed arrays will be copied before the
-calculation proceeds. Adjusting the size of the buffer may therefore
-alter the speed at which ufunc calculations of various sorts are
-completed. A simple interface for setting this variable is accessible
-using the function
+在内部，缓冲区用于未对齐的数据，交换的数据以及必须从一种数据类型转换为另一种数据类型的数据。内部缓冲区的大小可以基于每个线程设置。最多可以
+创建指定大小的缓冲区来处理来自ufunc的所有输入和输出的数据。缓冲区的默认大小为10,000个元素。每当需要基于缓冲区的计算，但所有输入数组都小于缓冲区大小时，将在计算进行之前复制那些行为不当或类型不正确的数组。因此，调整缓冲区的大小可能会改变各种类型的ufunc计算完成的速度。可以使用该函数访问用于设置此变量的简单界面
 
-method | description
+方法 | 描述
 ---|---
-[setbufsize](generated/numpy.setbufsize.html#numpy.setbufsize)(size) | Set the size of the buffer used in ufuncs.
+[setbufsize](generated/numpy.setbufsize.html#numpy.setbufsize)(size) | 设置ufuncs中使用的缓冲区的大小。
 
-## Error handling
+## 错误处理
 
-Universal functions can trip special floating-point status registers
-in your hardware (such as divide-by-zero). If available on your
-platform, these registers will be regularly checked during
-calculation. Error handling is controlled on a per-thread basis,
-and can be configured using the functions
+通用功能可以使硬件中的特殊浮点状态寄存器跳闸（例如除零）。如果在您的平台上可用，则在计算期间将定期检查这些寄存器。错误处理基于每个线程进行控制，并且可以使用这些函数进行配置
 
-method | description
+方法 | 描述
 ---|---
-[seterr](generated/numpy.seterr.html#numpy.seterr)([all, divide, over, under, invalid]) | Set how floating-point errors are handled.
-[seterrcall](generated/numpy.seterrcall.html#numpy.seterrcall)(func) | Set the floating-point error callback function or log object.
+[seterr](generated/numpy.seterr.html#numpy.seterr)([all, divide, over, under, invalid]) | 设置如何处理浮点错误。
+[seterrcall](generated/numpy.seterrcall.html#numpy.seterrcall)(func) | 设置浮点错误回调函数或日志对象。
 
-## Casting Rules
+## 映射规则
 
-::: tip Note
+::: tip 注意
 
-In NumPy 1.6.0, a type promotion API was created to encapsulate the
-mechanism for determining output types. See the functions
-[``result_type``](generated/numpy.result_type.html#numpy.result_type), [``promote_types``](generated/numpy.promote_types.html#numpy.promote_types), and
-[``min_scalar_type``](generated/numpy.min_scalar_type.html#numpy.min_scalar_type) for more details.
+在NumPy 1.6.0中，创建了一个类型提升API来封装用于确定输出类型的机制。有关详细信息，
+ 请参阅函数
+ [``result_type``](generated/numpy.result_type.html#numpy.result_type)，。[``promote_types``](generated/numpy.promote_types.html#numpy.promote_types)[``min_scalar_type``](generated/numpy.min_scalar_type.html#numpy.min_scalar_type)
 
 :::
 
-At the core of every ufunc is a one-dimensional strided loop that
-implements the actual function for a specific type combination. When a
-ufunc is created, it is given a static list of inner loops and a
-corresponding list of type signatures over which the ufunc operates.
-The ufunc machinery uses this list to determine which inner loop to
-use for a particular case. You can inspect the [``.types``](generated/numpy.ufunc.types.html#numpy.ufunc.types) attribute for a particular ufunc to see which type
-combinations have a defined inner loop and which output type they
-produce ([character codes](arrays.scalars.html#arrays-scalars-character-codes) are used
-in said output for brevity).
+每个ufunc的核心是一维跨步循环，它实现特定类型组合的实际功能。创建ufunc时，会给出一个内部循环的静态列表以及ufunc操作的相应类型签名列表。ufunc机器使用此列表来确定用于特定情况的内部循环。您可以检查[``.types``](generated/numpy.ufunc.types.html#numpy.ufunc.types)特定ufunc 的属性，以查看哪些类型组合具有已定义的内部循环以及它们生成的输出类型（为简洁起见，在所述输出中使用[字符代码](arrays.scalars.html#arrays-scalars-character-codes)）。
 
-Casting must be done on one or more of the inputs whenever the ufunc
-does not have a core loop implementation for the input types provided.
-If an implementation for the input types cannot be found, then the
-algorithm searches for an implementation with a type signature to
-which all of the inputs can be cast “safely.” The first one it finds
-in its internal list of loops is selected and performed, after all
-necessary type casting. Recall that internal copies during ufuncs (even
-for casting) are limited to the size of an internal buffer (which is user
-settable).
+每当ufunc没有提供的输入类型的核心循环实现时，必须在一个或多个输入上进行强制转换。如果无法找到输入类型的实现，则算法搜索具有类型签名的实现，所有输入都可以“安全地”强制转换到该实现。在所有必要的类型转换之后，选择并执行在其内部循环列表中找到的第一个循环。回想一下，ufuncs期间的内部副本(甚至对于转换)限制为内部缓冲区的大小(可由用户设置)。
 
-::: tip Note
+::: tip 注意
 
-Universal functions in NumPy are flexible enough to have mixed type
-signatures. Thus, for example, a universal function could be defined
-that works with floating-point and integer values. See [``ldexp``](generated/numpy.ldexp.html#numpy.ldexp)
-for an example.
+NumPy中的通用功能足够灵活，可以具有混合类型签名。因此，例如，可以定义使用浮点和整数值的通函数。请参阅[``ldexp``](generated/numpy.ldexp.html#numpy.ldexp)
+示例。
 
 :::
 
-By the above description, the casting rules are essentially
-implemented by the question of when a data type can be cast “safely”
-to another data type. The answer to this question can be determined in
-Python with a function call: [``can_cast(fromtype, totype)``](generated/numpy.can_cast.html#numpy.can_cast). The Figure below shows the results of this call for
-the 24 internally supported types on the author’s 64-bit system. You
-can generate this table for your system with the code given in the Figure.
+通过以上描述，强制转换规则基本上是通过何时可以将数据类型 “安全地” 强制转换为另一数据类型的问题来实现的。这个问题的答案可以通过函数调用在Python中确定：[``can_cast(fromtype, totype)``](generated/numpy.can_cast.html#numpy.can_cast)。下图显示了对作者的64位系统上的24个内部支持的类型进行调用的结果。您可以使用图中给出的代码为您的系统生成此表。
 
-Code segment showing the “can cast safely” table for a 32-bit system.
+显示32位系统的“可以安全转换”表的代码段。
 
 ``` python
->>> def print_table(ntypes):
+>>>>>> def print_table(ntypes):
 ...     print 'X',
 ...     for char in ntypes: print char,
 ...     print
@@ -219,433 +132,327 @@ M 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
 m 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 ```
 
-You should note that, while included in the table for completeness,
-the ‘S’, ‘U’, and ‘V’ types cannot be operated on by ufuncs. Also,
-note that on a 32-bit system the integer types may have different
-sizes, resulting in a slightly altered table.
+您应该注意，虽然表中包含了完整性，但是ufuncs无法对“S”，“U”和“V”类型进行操作。另请注意，在32位系统上，整数类型可能具有不同的大小，从而导致表稍微改变。
 
-Mixed scalar-array operations use a different set of casting rules
-that ensure that a scalar cannot “upcast” an array unless the scalar is
-of a fundamentally different kind of data (*i.e.*, under a different
-hierarchy in the data-type hierarchy) than the array.  This rule
-enables you to use scalar constants in your code (which, as Python
-types, are interpreted accordingly in ufuncs) without worrying about
-whether the precision of the scalar constant will cause upcasting on
-your large (small precision) array.
+混合标量数组操作使用一组不同的强制转换规则，以确保标量不能“向上”数组，除非标量是一种根本不同类型的数据（ *即* ，在数据类型层次结构中的不同层次结构下），而不是阵列。此规则使您可以在代码中使用标量常量（在Python类型中，相应地在ufunc中进行解释），而不必担心标量常量的精度是否会导致大型（小精度）数组的上转。
 
-## Overriding Ufunc behavior
+## 覆盖Ufunc行为
 
-Classes (including ndarray subclasses) can override how ufuncs act on
-them by defining certain special methods.  For details, see
-[Standard array subclasses](arrays.classes.html#arrays-classes).
+类（包括ndarray子类）可以通过定义某些特殊方法来覆盖ufunc对它们的作用。有关详细信息，请参阅
+ [标准数组子类](arrays.classes.html#arrays-classes)。
 
 ## ``ufunc``
 
-### Optional keyword arguments
+### 可选的关键字参数
 
-All ufuncs take optional keyword arguments. Most of these represent
-advanced usage and will not typically be used.
+所有ufunc都采用可选的关键字参数。其中大多数代表高级用法，通常不会被使用。
 
-- *out*
+- *out* 
 
-  *New in version 1.6.* 
+    *版本1.6中的新功能。* 
 
-  The first output can be provided as either a positional or a keyword
-  parameter. Keyword ‘out’ arguments are incompatible with positional
-  ones.
+    第一个输出可以作为位置参数或关键字参数提供。关键字'out'参数与位置参数不兼容。
 
-  *New in version 1.10.* 
+    *版本1.10中的新功能。* 
 
-  The ‘out’ keyword argument is expected to be a tuple with one entry per
-  output (which can be *None* for arrays to be allocated by the ufunc).
-  For ufuncs with a single output, passing a single array (instead of a
-  tuple holding a single array) is also valid.
+    'out'关键字参数应该是一个元组，每个输出有一个条目（对于由ufunc分配的数组，它可以是 *None* ）。对于具有单个输出的ufunc，传递单个数组（而不是包含单个数组的元组）也是有效的。
 
-  Passing a single array in the ‘out’ keyword argument to a ufunc with
-  multiple outputs is deprecated, and will raise a warning in numpy 1.10,
-  and an error in a future release.
+    不推荐将'out'关键字参数中的单个数组传递给具有多个输出的ufunc，并且将在numpy 1.10中引发警告，并在将来的版本中引发错误。
 
-  If ‘out’ is None (the default), a uninitialized return array is created.
-  The output array is then filled with the results of the ufunc in the places
-  that the broadcast ‘where’ is True. If ‘where’ is the scalar True (the
-  default), then this corresponds to the entire output being filled.
-  Note that outputs not explicitly filled are left with their
-  uninitialized values.
+    如果'out'为None（默认值），则创建一个未初始化的返回数组。然后在广播“where”为True的位置填充输出数组的ufunc结果。如果'where'是标量True（默认值），那么这对应于填充的整个输出。请注意，未明确填充的输出将保留未初始化的值。
 
-- *where*
+- *where* 
 
-  *New in version 1.7.* 
+    *版本1.7中的新功能。* 
 
-  Accepts a boolean array which is broadcast together with the operands.
-  Values of True indicate to calculate the ufunc at that position, values
-  of False indicate to leave the value in the output alone. This argument
-  cannot be used for generalized ufuncs as those take non-scalar input.
+    接受与操作数一起广播的布尔数组。值True表示计算该位置的ufunc，值False表示仅将值保留在输出中。此参数不能用于广义ufunc，因为它们采用非标量输入。
 
-  Note that if an uninitialized return array is created, values of False
-  will leave those values **uninitialized**.
+    请注意，如果创建了未初始化的返回数组，则值False将使这些值保持**未初始化状态**。
 
-- *axes*
+- *axes* 
 
-  *New in version 1.15.* 
+    *版本1.15中的新功能。* 
 
-  A list of tuples with indices of axes a generalized ufunc should operate
-  on. For instance, for a signature of ``(i,j),(j,k)->(i,k)`` appropriate
-  for matrix multiplication, the base elements are two-dimensional matrices
-  and these are taken to be stored in the two last axes of each argument.
-  The corresponding axes keyword would be ``[(-2, -1), (-2, -1), (-2, -1)]``.
-  For simplicity, for generalized ufuncs that operate on 1-dimensional arrays
-  (vectors), a single integer is accepted instead of a single-element tuple,
-  and for generalized ufuncs for which all outputs are scalars, the output
-  tuples can be omitted.
+    具有广义ufunc应对其操作的轴的索引的元组的列表。
+    例如，对于适合于矩阵乘法的 ``(i，j)，(j，k)->(i，k)`` 的签名，基本元素是二维矩阵，
+    并且这些基本元素被认为存储在每个自变量的最后两个轴中。相应的axes关键字将是 ``[(-2，-1)，(-2，-1)，(-2，-1)]``。
+    为了简单起见，对于在一维数组（向量）上操作的广义ufuncs，
+    接受单个整数而不是单元素元组，并且对于其所有输出都是标量的广义ufuncs，
+    可以省略输出元组。
 
-- *axis*
+- *axis* 
 
-  *New in version 1.15.* 
+    *版本1.15中的新功能。* 
 
-  A single axis over which a generalized ufunc should operate. This is a
-  short-cut for ufuncs that operate over a single, shared core dimension,
-  equivalent to passing in ``axes`` with entries of ``(axis,)`` for each
-  single-core-dimension argument and ``()`` for all others.  For instance,
-  for a signature ``(i),(i)->()``, it is equivalent to passing in
-  ``axes=[(axis,), (axis,), ()]``.
+    广义ufunc应在其上运行的单个轴。这是在单个共享核心维度上运行的ufunc的快捷方式，
+    相当于传入每个单核维度参数的``axes``条目``(axis,)``以及``()``所有其他参数。
+    例如，对于签名``(i),(i)->()``，它相当于传入 ``axes=[(axis,), (axis,), ()]``。
 
-- *keepdims*
+- *keepdims* 
 
-  *New in version 1.15.* 
+    *版本1.15中的新功能。* 
 
-  If this is set to *True*, axes which are reduced over will be left in the
-  result as a dimension with size one, so that the result will broadcast
-  correctly against the inputs. This option can only be used for generalized
-  ufuncs that operate on inputs that all have the same number of core
-  dimensions and with outputs that have no core dimensions , i.e., with
-  signatures like ``(i),(i)->()`` or ``(m,m)->()``. If used, the location of
-  the dimensions in the output can be controlled with ``axes`` and ``axis``.
+    如果将此值设置为 *True* ，则减小的轴将作为尺寸为1的尺寸保留在结果中，以便结果将针对输入正确广播。此选项只能用于对输入进行操作的通用ufunc，这些输入都具有相同数量的核心维度，并且输出没有核心维度，即具有类似``(i),(i)->()``或的签名``(m,m)->()``。如果使用，可以使用``axes``和控制输出中尺寸的位置``axis``。
 
-- *casting*
+- *casting* 
 
-  *New in version 1.6.* 
+    *版本1.6中的新功能。* 
 
-  May be ‘no’, ‘equiv’, ‘safe’, ‘same_kind’, or ‘unsafe’.
-  See [``can_cast``](generated/numpy.can_cast.html#numpy.can_cast) for explanations of the parameter values.
+    可能是'不'，'等于'，'安全'，'same_kind'或'不安全'。有关[``can_cast``](generated/numpy.can_cast.html#numpy.can_cast)参数值的说明，请参阅。
 
-  Provides a policy for what kind of casting is permitted. For compatibility
-  with previous versions of NumPy, this defaults to ‘unsafe’ for numpy < 1.7.
-  In numpy 1.7 a transition to ‘same_kind’ was begun where ufuncs produce a
-  DeprecationWarning for calls which are allowed under the ‘unsafe’
-  rules, but not under the ‘same_kind’ rules. From numpy 1.10 and
-  onwards, the default is ‘same_kind’.
+    提供允许何种类型转换的策略。为了与以前版本的NumPy兼容，对于numpy <1.7，默认为“unsafe”。在numpy 1.7中，开始过渡到'same_kind'，其中ufunc为“不安全”规则允许的呼叫产生DeprecationWarning，但不在'same_kind'规则下。从numpy 1.10开始，默认为'same_kind'。
 
-- *order*
+- *order* 
 
-  *New in version 1.6.* 
+    *版本1.6中的新功能。* 
 
-  Specifies the calculation iteration order/memory layout of the output array.
-  Defaults to ‘K’. ‘C’ means the output should be C-contiguous, ‘F’ means
-  F-contiguous, ‘A’ means F-contiguous if the inputs are F-contiguous and
-  not also not C-contiguous, C-contiguous otherwise, and ‘K’ means to match
-  the element ordering of the inputs as closely as possible.
+    指定输出数组的计算迭代顺序/内存布局。默认为“K”。'C'表示输出应该是C连续的，'F'表示F-连续，'A'表示F-连续，如果输入是F-连续的而且也不是C-连续的，否则是C-连续的，'K' '意味着尽可能地匹配输入的元素排序。
 
-- *dtype*
+- *dtype* 
 
-  *New in version 1.6.* 
+    *版本1.6中的新功能。* 
 
-  Overrides the dtype of the calculation and output arrays. Similar to
-  *signature*.
+    覆盖计算和输出数组的dtype。与 *signature* 类似。
 
-*subok*
+- *subok* 
 
-  *New in version 1.6.* 
+    *版本1.6中的新功能。* 
 
-  Defaults to true. If set to false, the output will always be a strict
-  array, not a subtype.
+    默认为true。如果设置为false，则输出将始终为严格数组，而不是子类型。
 
-- *signature*
+- *signature* 
 
-  Either a data-type, a tuple of data-types, or a special signature string indicating the input and output types of a ufunc. This argument allows you to provide a specific signature for the 1-d loop to use in the underlying calculation. If the loop specified does not exist for the ufunc, then a TypeError is raised. Normally, a suitable loop is found automatically by comparing the input types with what is available and searching for a loop with data-types to which all inputs can be cast safely. This keyword argument lets you bypass that search and choose a particular loop. A list of available signatures is provided by the types attribute of the ufunc object. For backwards compatibility this argument can also be provided as sig, although the long form is preferred. Note that this should not be confused with the generalized ufunc [signature](https://www.numpy.org/devdocs/reference/c-api/generalized-ufuncs.html#details-of-signature) that is stored in the signature attribute of the of the ufunc object.
+    数据类型、数据类型的元组或指示ufunc的输入和输出类型的特殊签名字符串。
+    此参数允许您为1-d循环提供在基础计算中使用的特定签名。
+    如果为ufunc指定的循环不存在，则引发TypeError。
+    通常，通过将输入类型与可用的输入类型进行比较并搜索具有所有输入都可以安全强制转换到的数据类型的循环，可以自动找到合适的循环。
+    此关键字参数允许您绕过该搜索并选择特定循环。
+    可用签名的列表由ufunc对象的types属性提供。为了向后兼容，该参数也可以作为sig提供，
+    但最好使用长形式。请注意，这不应与存储在ufunc对象的签名属性中的通用ufunc签名混淆。
 
-*extobj*
+- *extobj* 
 
-  a list of length 1, 2, or 3 specifying the ufunc buffer-size, the error mode integer, and the error call-back function. Normally, these values are looked up in a thread-specific dictionary. Passing them here circumvents that look up and uses the low-level specification provided for the error mode. This may be useful, for example, as an optimization for calculations requiring many ufunc calls on small arrays in a loop.
+    长度为1、2或3的列表，指定ufunc缓冲区大小、错误模式整数和错误回调函数。
+    通常，这些值在特定于线程的字典中查找。在这里传递它们可以绕过查找并使用为错误模式提供的低级规范。
+    这可能是有用的，例如，作为对循环中的小阵列上需要许多ufunc调用的计算的优化。
 
-### Attributes
+### 属性
 
-There are some informational attributes that universal functions
-possess. None of the attributes can be set.
+通用功能具有一些信息属性。没有属性可以设置。
 
-attribute | description
+属性 | 描述
 ---|---
-__doc__ | A docstring for each ufunc. The first part of the docstring is dynamically generated from the number of outputs, the name, and the number of inputs. The second part of the docstring is provided at creation time and stored with the ufunc.
-__name__ | The name of the ufunc.
+\_\_doc__ | 每个ufunc的文档字符串。docstring的第一部分是根据输出数量，名称和输入数量动态生成的。docstring的第二部分在创建时提供，并与ufunc一起存储。
+\_\_name__ | ufunc的名称。
 
-method | description
+方法 | 描述
 ---|---
-[ufunc.nin](generated/numpy.ufunc.nin.html#numpy.ufunc.nin) | The number of inputs.
-[ufunc.nout](generated/numpy.ufunc.nout.html#numpy.ufunc.nout) | The number of outputs.
-[ufunc.nargs](generated/numpy.ufunc.nargs.html#numpy.ufunc.nargs) | The number of arguments.
-[ufunc.ntypes](generated/numpy.ufunc.ntypes.html#numpy.ufunc.ntypes) | The number of types.
-[ufunc.types](generated/numpy.ufunc.types.html#numpy.ufunc.types) | Returns a list with types grouped input->output.
-[ufunc.identity](generated/numpy.ufunc.identity.html#numpy.ufunc.identity) | The identity value.
-[ufunc.signature](generated/numpy.ufunc.signature.html#numpy.ufunc.signature) | Definition of the core elements a generalized ufunc operates on.
+[ufunc.nin](generated/numpy.ufunc.nin.html#numpy.ufunc.nin) | 输入数量。
+[ufunc.nout](generated/numpy.ufunc.nout.html#numpy.ufunc.nout) | 输出数量。
+[ufunc.nargs](generated/numpy.ufunc.nargs.html#numpy.ufunc.nargs) | 参数的数量。
+[ufunc.ntypes](generated/numpy.ufunc.ntypes.html#numpy.ufunc.ntypes) | 类型数量。
+[ufunc.types](generated/numpy.ufunc.types.html#numpy.ufunc.types) | 返回包含input-> output类型的列表。
+[ufunc.identity](generated/numpy.ufunc.identity.html#numpy.ufunc.identity) | 身份价值。
+[ufunc.signature](generated/numpy.ufunc.signature.html#numpy.ufunc.signature) | 广义ufunc操作的核心元素的定义。
 
-### Methods
+### 方法
 
-All ufuncs have four methods. However, these methods only make sense on scalar
-ufuncs that take two input arguments and return one output argument.
-Attempting to call these methods on other ufuncs will cause a
-[``ValueError``](https://docs.python.org/dev/library/exceptions.html#ValueError). The reduce-like methods all take an *axis* keyword, a *dtype*
-keyword, and an *out* keyword, and the arrays must all have dimension >= 1.
-The *axis* keyword specifies the axis of the array over which the reduction
-will take place (with negative values counting backwards). Generally, it is an
-integer, though for [``ufunc.reduce``](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce), it can also be a tuple of [``int``](https://docs.python.org/dev/library/functions.html#int) to
-reduce over several axes at once, or *None*, to reduce over all axes.
-The *dtype* keyword allows you to manage a very common problem that arises
-when naively using [``ufunc.reduce``](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce). Sometimes you may
-have an array of a certain data type and wish to add up all of its
-elements, but the result does not fit into the data type of the
-array. This commonly happens if you have an array of single-byte
-integers. The *dtype* keyword allows you to alter the data type over which
-the reduction takes place (and therefore the type of the output). Thus,
-you can ensure that the output is a data type with precision large enough
-to handle your output. The responsibility of altering the reduce type is
-mostly up to you. There is one exception: if no *dtype* is given for a
-reduction on the “add” or “multiply” operations, then if the input type is
-an integer (or Boolean) data-type and smaller than the size of the
-``int_`` data type, it will be internally upcast to the ``int_``
-(or ``uint``) data-type. Finally, the *out* keyword allows you to provide
-an output array (for single-output ufuncs, which are currently the only ones
-supported; for future extension, however, a tuple with a single argument
-can be passed in). If *out* is given, the *dtype* argument is ignored.
+所有ufunc都有四种方法。但是，这些方法仅对采用两个输入参数并返回一个输出参数的标量ufunc有意义。试图在其他ufunc上调用这些方法会导致a
+ [``ValueError``](https://docs.python.org/dev/library/exceptions.html#ValueError)。类似reduce的方法都采用 *axis* 关键字，
+ *dtype* 关键字和 *out* 关键字，并且数组必须都具有维> = 1。*轴* 关键字指定将在其上进行缩减的数组的轴（具有负数）值倒计时）。通常，它是一个整数，但是[``ufunc.reduce``](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce)，它也可以是一次[``int``](https://docs.python.org/dev/library/functions.html#int)减少多个轴或 *无* ，以减少所有轴的元组。在 *D型* 关键字允许您管理天真使用时出现的非常常见的问题[``ufunc.reduce``](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce)。有时您可能拥有某种数据类型的数组，并希望将其所有元素相加，但结果不适合数组的数据类型。如果您有一个单字节整数数组，通常会发生这种情况。的 *D型细胞* 关键字允许以改变在其上发生还原（以及因此输出的类型）的数据类型。因此，您可以确保输出是一种精度足以处理输出的数据类型。改变减少类型的责任主要取决于你。有一个例外：如果没有 *dtype* 给出减少“add”或“multiply”操作，然后如果输入类型是整数（或布尔）数据类型且小于``int_``数据类型的大小 ，它将在内部向上转换为``int_`` 或``uint``） 数据类型。最后， *out* 关键字允许您提供一个输出数组（对于单输出ufunc，这是当前唯一支持的;对于将来的扩展，但是，可以传入一个带有单个参数的元组）。如果给出 *out* ，则忽略 *dtype* 参数。
 
-Ufuncs also have a fifth method that allows in place operations to be
-performed using fancy indexing. No buffering is used on the dimensions where
-fancy indexing is used, so the fancy index can list an item more than once and
-the operation will be performed on the result of the previous operation for
-that item.
+Ufuncs还有第五种方法，允许使用花哨的索引来执行就地操作。在使用花式索引的维度上不使用缓冲，因此花式索引可以多次列出项目，并且将对该项目的上一个操作的结果执行操作。
 
-method | description
+方法 | 描述
 ---|---
-[ufunc.reduce](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce)(a[, axis, dtype, out, …]) | Reduces a’s dimension by one, by applying ufunc along one axis.
-[ufunc.accumulate](generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate)(array[, axis, dtype, out]) | Accumulate the result of applying the operator to all elements.
-[ufunc.reduceat](generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat)(a, indices[, axis, dtype, out]) | Performs a (local) reduce with specified slices over a single axis.
-[ufunc.outer](generated/numpy.ufunc.outer.html#numpy.ufunc.outer)(A, B, **kwargs) | Apply the ufunc op to all pairs (a, b) with a in A and b in B.
-[ufunc.at](generated/numpy.ufunc.at.html#numpy.ufunc.at)(a, indices[, b]) | Performs unbuffered in place operation on operand ‘a’ for elements specified by ‘indices’.
+[ufunc.reduce](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce)(a[, axis, dtype, out, …]) | 减少一个接一个的尺寸，由沿一个轴施加ufunc。
+[ufunc.accumulate](generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate)(array[, axis, dtype, out]) | 累积将运算符应用于所有元素的结果。
+[ufunc.reduceat](generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat)(a, indices[, axis, dtype, out]) | 在单个轴上使用指定切片执行（局部）缩减。
+[ufunc.outer](generated/numpy.ufunc.outer.html#numpy.ufunc.outer)(A, B, **kwargs) | 将ufunc op应用于所有对（a，b），其中a中的a和b中的b。
+[ufunc.at](generated/numpy.ufunc.at.html#numpy.ufunc.at)(a, indices[, b]) | 对'index'指定的元素在操作数'a'上执行无缓冲的就地操作。
 
-::: danger Warning
+::: danger 警告
 
-A reduce-like operation on an array with a data-type that has a
-range “too small” to handle the result will silently wrap. One
-should use [``dtype``](generated/numpy.dtype.html#numpy.dtype) to increase the size of the data-type over which
-reduction takes place.
+对数组类型进行类似reduce的操作，其数据类型的范围“太小”，无法处理结果，将以静默方式进行换行。应该[``dtype``](generated/numpy.dtype.html#numpy.dtype)用来增加减少发生的数据类型的大小。
 
 :::
 
-## Available ufuncs
+## 可用ufuncs 
 
-There are currently more than 60 universal functions defined in
-[``numpy``](index.html#module-numpy) on one or more types, covering a wide variety of
-operations. Some of these ufuncs are called automatically on arrays
-when the relevant infix notation is used (*e.g.*, [``add(a, b)``](generated/numpy.add.html#numpy.add)
-is called internally when ``a + b`` is written and *a* or *b* is an
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)). Nevertheless, you may still want to use the ufunc
-call in order to use the optional output argument(s) to place the
-output(s) in an object (or objects) of your choice.
+目前在 [``numpy``](index.html#module-numpy) 中定义了一种或多种类型的60多种通用功能，涵盖了各种各样的操作。
+当使用相关的中缀符号时，在阵列上自动调用这些ufunc中的一些（例如，当写入 ``a + b`` 并且 *a* 或 *b* 是 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 时，在内部调用 [``add(a, b)``](generated/numpy.add.html#numpy.add)）。
+尽管如此，您可能仍希望使用ufunc调用以使用可选的输出参数将输出放置在您选择的对象（或多个对象）中。
 
-Recall that each ufunc operates element-by-element. Therefore, each scalar
-ufunc will be described as if acting on a set of scalar inputs to
-return a set of scalar outputs.
+回想一下，每个ufunc都是逐个元素运行的。因此，每个标量ufunc将被描述为如果作用于一组标量输入以返回一组标量输出。
 
-::: tip Note
+::: tip 注意
 
-The ufunc still returns its output(s) even if you use the optional
-output argument(s).
+即使您使用可选的输出参数，ufunc仍会返回其输出。
 
 :::
 
-### Math operations
+### 数学运算
 
-method | description
+方法 | 描述
 ---|---
-[add](generated/numpy.add.html#numpy.add)(x1, x2, /[, out, where, casting, order, …]) | Add arguments element-wise.
-[subtract](generated/numpy.subtract.html#numpy.subtract)(x1, x2, /[, out, where, casting, …]) | Subtract arguments, element-wise.
-[multiply](generated/numpy.multiply.html#numpy.multiply)(x1, x2, /[, out, where, casting, …]) | Multiply arguments element-wise.
-[divide](generated/numpy.divide.html#numpy.divide)(x1, x2, /[, out, where, casting, …]) | Returns a true division of the inputs, element-wise.
-[logaddexp](https://www.numpy.org/devdocs/reference/generated/numpy.logaddexp.html#numpy.logaddexp)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs.
-[logaddexp2](generated/numpy.logaddexp2.html#numpy.logaddexp2)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs in base-2.
-[true_divide](generated/numpy.true_divide.html#numpy.true_divide)(x1, x2, /[, out, where, …]) | Returns a true division of the inputs, element-wise.
-[floor_divide](generated/numpy.floor_divide.html#numpy.floor_divide)(x1, x2, /[, out, where, …]) | Return the largest integer smaller or equal to the division of the inputs.
-[negative](generated/numpy.negative.html#numpy.negative)(x, /[, out, where, casting, order, …]) | Numerical negative, element-wise.
-[positive](generated/numpy.positive.html#numpy.positive)(x, /[, out, where, casting, order, …]) | Numerical positive, element-wise.
-[power](generated/numpy.power.html#numpy.power)(x1, x2, /[, out, where, casting, …]) | First array elements raised to powers from second array, element-wise.
-[remainder](generated/numpy.remainder.html#numpy.remainder)(x1, x2, /[, out, where, casting, …]) | Return element-wise remainder of division.
-[mod](generated/numpy.mod.html#numpy.mod)(x1, x2, /[, out, where, casting, order, …]) | Return element-wise remainder of division.
-[fmod](generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, casting, …]) | Return the element-wise remainder of division.
-[divmod](generated/numpy.divmod.html#numpy.divmod)(x1, x2[, out1, out2], / [[, out, …]) | Return element-wise quotient and remainder simultaneously.
-[absolute](generated/numpy.absolute.html#numpy.absolute)(x, /[, out, where, casting, order, …]) | Calculate the absolute value element-wise.
-[fabs](generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
-[rint](generated/numpy.rint.html#numpy.rint)(x, /[, out, where, casting, order, …]) | Round elements of the array to the nearest integer.
-[sign](generated/numpy.sign.html#numpy.sign)(x, /[, out, where, casting, order, …]) | Returns an element-wise indication of the sign of a number.
-[heaviside](generated/numpy.heaviside.html#numpy.heaviside)(x1, x2, /[, out, where, casting, …]) | Compute the Heaviside step function.
-[conj](generated/numpy.conj.html#numpy.conj)(x, /[, out, where, casting, order, …]) | Return the complex [conjugate](generated/numpy.conjugate.html#numpy.conjugate), element-wise.
-conjugate(x, /[, out, where, casting, …]) | Return the complex conjugate, element-wise.
-exp(x, /[, out, where, casting, order, …]) | Calculate the exponential of all elements in the input array.
-exp2(x, /[, out, where, casting, order, …]) | Calculate 2**p for all p in the input array.
-log(x, /[, out, where, casting, order, …]) | Natural logarithm, element-wise.
-[log2](generated/numpy.log2.html#numpy.log2)(x, /[, out, where, casting, order, …]) | Base-2 logarithm of x.
-[log10](generated/numpy.log10.html#numpy.log10)(x, /[, out, where, casting, order, …]) | Return the base 10 logarithm of the input array, element-wise.
-[expm1](generated/numpy.expm1.html#numpy.expm1)(x, /[, out, where, casting, order, …]) | Calculate exp(x) - 1 for all elements in the array.
-[log1p](generated/numpy.log1p.html#numpy.log1p)(x, /[, out, where, casting, order, …]) | Return the natural logarithm of one plus the input array, element-wise.
-[sqrt](generated/numpy.sqrt.html#numpy.sqrt)(x, /[, out, where, casting, order, …]) | Return the non-negative [square](generated/numpy.square.html#numpy.square)-root of an array, element-wise.
-square(x, /[, out, where, casting, order, …]) | Return the element-wise square of the input.
-[cbrt](generated/numpy.cbrt.html#numpy.cbrt)(x, /[, out, where, casting, order, …]) | Return the cube-root of an array, element-wise.
-[reciprocal](generated/numpy.reciprocal.html#numpy.reciprocal)(x, /[, out, where, casting, …]) | Return the reciprocal of the argument, element-wise.
-[gcd](generated/numpy.gcd.html#numpy.gcd)(x1, x2, /[, out, where, casting, order, …]) | Returns the greatest common divisor of |x1| and |x2|
-[lcm](generated/numpy.lcm.html#numpy.lcm)(x1, x2, /[, out, where, casting, order, …]) | Returns the lowest common multiple of |x1| and |x2|
+[add](generated/numpy.add.html#numpy.add)(x1, x2, /[, out, where, cast, order, ...]) | 按元素添加参数。
+[subtract](generated/numpy.subtract.html#numpy.subtract)(x1, x2, /[, out, where, cast, ...]) | 从元素方面减去参数。
+[multiply](generated/numpy.multiply.html#numpy.multiply)(x1, x2, /[, out, where, cast, ...]) | 在元素方面乘以论证。
+[divide](generated/numpy.divide.html#numpy.divide)(x1, x2, /[, out, where, cast, ...]) | 以元素方式返回输入的真正除法。
+[[log](generated/numpy.log.html#numpy.log)add[exp](generated/numpy.exp.html#numpy.exp)](generated/numpy.logaddexp.html#numpy.logaddexp)(x1, x2, /[, out, where, cast, ...]) | 输入的取幂之和的对数。
+[logadd[exp2](generated/numpy.exp2.html#numpy.exp2)](generated/numpy.logaddexp2.html#numpy.logaddexp2)(x1, x2, /[, out, where, cast, ...]) | base-2中输入的取幂之和的对数。
+[true_divide](generated/numpy.true_divide.html#numpy.true_divide)(x1, x2, /[, out, where, ...]) | 以元素方式返回输入的真正除法。
+[floor_divide](generated/numpy.floor_divide.html#numpy.floor_divide)(x1, x2, /[, out, where, ...]) | 返回小于或等于输入除法的最大整数。
+[negative](generated/numpy.negative.html#numpy.negative)(x, /[, out, where, cast, order, ...]) | 数字否定, 元素方面。
+[positive](generated/numpy.positive.html#numpy.positive)(x, /[, out, where, cast, order, ...]) | 数字正面, 元素方面。
+[power](generated/numpy.power.html#numpy.power)(x1, x2, /[, out, where, cast, ...]) | 第一个数组元素从第二个数组提升到幂, 逐个元素。
+[remainder](generated/numpy.remainder.html#numpy.remainder)(x1, x2, /[, out, where, cast, ...]) | 返回除法元素的余数。
+[mod](generated/numpy.mod.html#numpy.mod)(x1, x2, /[, out, where, cast, order, ...]) | 返回除法元素的余数。
+[fmod](generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, cast, ...]) | 返回除法的元素余数。
+[divmod](generated/numpy.divmod.html#numpy.divmod)(x1, x2 [, out1, out2], /[[, out, ...]) | 同时返回逐元素的商和余数。
+[absolute](generated/numpy.absolute.html#numpy.absolute)(x, /[, out, where, cast, order, ...]) | 逐个元素地计算绝对值。
+[fabs](generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, cast, order, ...]) | 以元素方式计算绝对值。
+[rint](generated/numpy.rint.html#numpy.rint)(x, /[, out, where, cast, order, ...]) | 将数组的元素舍入为最接近的整数。
+[sign](generated/numpy.sign.html#numpy.sign)(x, /[, out, where, cast, order, ...]) | 返回数字符号的元素指示。
+[heaviside](generated/numpy.heaviside.html#numpy.heaviside)(x1, x2, /[, out, where, cast, ...]) | 计算Heaviside阶跃函数。
+[conj](generated/numpy.conj.html#numpy.conj)(x, /[, out, where, cast, order, ...]) | 以元素方式返回复共轭。
+[conjugate](generated/numpy.conjugate.html#numpy.conjugate)(x, /[, out, where, cast, ...]) | 以元素方式返回复共轭。
+exp(x, /[, out, where, cast, order, ...]) | 计算输入数组中所有元素的指数。
+exp2(x, /[, out, where, cast, order, ...]) | 计算输入数组中所有p的2 ** p。
+log(x, /[, out, where, cast, order, ...]) | 自然对数, 元素方面。
+[log2](generated/numpy.log2.html#numpy.log2)(x, /[, out, where, cast, order, ...]) | x的基数为2的对数。
+[log10](generated/numpy.log10.html#numpy.log10)(x, /[, out, where, cast, order, ...]) | 以元素方式返回输入数组的基数10对数。
+[expm1](generated/numpy.expm1.html#numpy.expm1)(x, /[, out, where, cast, order, ...]) | 计算数组中的所有元素。exp(x) - 1
+[log1p](generated/numpy.log1p.html#numpy.log1p)(x, /[, out, where, cast, order, ...]) | 返回一个加上输入数组的自然对数, 逐个元素。
+[sqrt](generated/numpy.sqrt.html#numpy.sqrt)(x, /[, out, where, cast, order, ...]) | 以元素方式返回数组的非负平方根。
+[square](generated/numpy.square.html#numpy.square)(x, /[, out, where, cast, order, ...]) | 返回输入的元素方块。
+[cbrt](generated/numpy.cbrt.html#numpy.cbrt)(x, /[, out, where, cast, order, ...]) | 以元素方式返回数组的立方根。
+[reciprocal](generated/numpy.reciprocal.html#numpy.reciprocal)(x, /[, out, where, cast, ...]) | 以元素方式返回参数的倒数。
+[gcd](generated/numpy.gcd.html#numpy.gcd)(x1, x2, /[, out, where, cast, order, ...]) | 返回|x1|和的最大公约数|x2|
+[lcm](generated/numpy.lcm.html#numpy.lcm)(x1, x2, /[, out, where, cast, order, ...]) | 返回|x1|和的最小公倍数|x2|
 
-::: tip Tip
+::: tip 提示 
 
-The optional output arguments can be used to help you save memory
-for large calculations. If your arrays are large, complicated
-expressions can take longer than absolutely necessary due to the
-creation and (later) destruction of temporary calculation
-spaces. For example, the expression ``G = a * b + c`` is equivalent to
-``t1 = A * B; G = T1 + C; del t1``. It will be more quickly executed
-as ``G = A * B; add(G, C, G)`` which is the same as
-``G = A * B; G += C``.
+可选的输出参数可用于帮助您节省大型计算的内存。
+如果您的数组很大，由于临时计算空间的创建和（稍后）破坏，复杂的表达式可能需要比绝对必要的时间更长的时间。
+例如，表达式 ``G = a * b + c`` 等于 ``t1 = A * B; G = T1 + C; del t1``。
+它将更快地执行为 ``G = A * B; add(G, C, G)`` 与 ``G = A * B; G + = C`` 相同.
 
 :::
 
-### Trigonometric functions
+### 三角函数
 
-All trigonometric functions use radians when an angle is called for.
-The ratio of degrees to radians is 180° / π.
+当需要角度时, 所有三角函数都使用弧度。度与弧度的比率是
 
-method | description
+方法 | 描述
 ---|---
-[sin](generated/numpy.sin.html#numpy.sin)(x, /[, out, where, casting, order, …]) | Trigonometric sine, element-wise.
-[cos](generated/numpy.cos.html#numpy.cos)(x, /[, out, where, casting, order, …]) | Cosine element-wise.
-[tan](generated/numpy.tan.html#numpy.tan)(x, /[, out, where, casting, order, …]) | Compute tangent element-wise.
-[arcsin](generated/numpy.arcsin.html#numpy.arcsin)(x, /[, out, where, casting, order, …]) | Inverse sine, element-wise.
-[arccos](generated/numpy.arccos.html#numpy.arccos)(x, /[, out, where, casting, order, …]) | Trigonometric inverse cosine, element-wise.
-[arctan](generated/numpy.arctan.html#numpy.arctan)(x, /[, out, where, casting, order, …]) | Trigonometric inverse tangent, element-wise.
-[arctan2](generated/numpy.arctan2.html#numpy.arctan2)(x1, x2, /[, out, where, casting, …]) | Element-wise arc tangent of x1/x2 choosing the quadrant correctly.
-[hypot](generated/numpy.hypot.html#numpy.hypot)(x1, x2, /[, out, where, casting, …]) | Given the “legs” of a right triangle, return its hypotenuse.
-[sinh](generated/numpy.sinh.html#numpy.sinh)(x, /[, out, where, casting, order, …]) | Hyperbolic sine, element-wise.
-[cosh](generated/numpy.cosh.html#numpy.cosh)(x, /[, out, where, casting, order, …]) | Hyperbolic cosine, element-wise.
-[tanh](generated/numpy.tanh.html#numpy.tanh)(x, /[, out, where, casting, order, …]) | Compute hyperbolic tangent element-wise.
-[arcsinh](generated/numpy.arcsinh.html#numpy.arcsinh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic sine element-wise.
-[arccosh](generated/numpy.arccosh.html#numpy.arccosh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic cosine, element-wise.
-[arctanh](generated/numpy.arctanh.html#numpy.arctanh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic tangent element-wise.
-[deg2rad](generated/numpy.deg2rad.html#numpy.deg2rad)(x, /[, out, where, casting, order, …]) | Convert angles from degrees to radians.
-[rad2deg](generated/numpy.rad2deg.html#numpy.rad2deg)(x, /[, out, where, casting, order, …]) | Convert angles from radians to degrees.
+[sin](generated/numpy.sin.html#numpy.sin)(x, /[, out, where, cast, order, ...]) | 三角正弦, 元素方式。
+[cos](generated/numpy.cos.html#numpy.cos)(x, /[, out, where, cast, order, ...]) | 余弦元素。
+[tan](generated/numpy.tan.html#numpy.tan)(x, /[, out, where, cast, order, ...]) | 计算切线元素。
+[arcsin](generated/numpy.arcsin.html#numpy.arcsin)(x, /[, out, where, cast, order, ...]) | 反向正弦, 元素方式。
+[arccos](generated/numpy.arccos.html#numpy.arccos)(x, /[, out, where, cast, order, ...]) | 三角反余弦, 元素方式。
+[arctan](generated/numpy.arctan.html#numpy.arctan)(x, /[, out, where, cast, order, ...]) | 三角反正切, 逐元素。
+[arctan2](generated/numpy.arctan2.html#numpy.arctan2)(x1, x2, /[, out, where, cast, ...]) | x1/x2正确选择象限的逐元素反正切。
+[hypot](generated/numpy.hypot.html#numpy.hypot)(x1, x2, /[, out, where, cast, ...]) | 给定直角三角形的“腿”, 返回其斜边。
+[sinh](generated/numpy.sinh.html#numpy.sinh)(x, /[, out, where, cast, order, ...]) | 双曲正弦, 元素。
+[cosh](generated/numpy.cosh.html#numpy.cosh)(x, /[, out, where, cast, order, ...]) | 双曲余弦, 元素。
+[tanh](generated/numpy.tanh.html#numpy.tanh)(x, /[, out, where, cast, order, ...]) | 计算双曲正切元素。
+[arcsinh](generated/numpy.arcsinh.html#numpy.arcsinh)(x, /[, out, where, cast, order, ...]) | 逆双曲正弦元素。
+[arccosh](generated/numpy.arccosh.html#numpy.arccosh)(x, /[, out, where, cast, order, ...]) | 反双曲余弦, 元素。
+[arctanh](generated/numpy.arctanh.html#numpy.arctanh)(x, /[, out, where, cast, order, ...]) | 逆双曲正切元素。
+[deg2rad](generated/numpy.deg2rad.html#numpy.deg2rad)(x, /[, out, where, cast, order, ...]) | 将角度从度数转换为弧度。
+[rad2deg](generated/numpy.rad2deg.html#numpy.rad2deg)(x, /[, out, where, cast, order, ...]) | 将角度从弧度转换为度数。
 
-### Bit-twiddling functions
+### 位运算函数
 
-These function all require integer arguments and they manipulate the
-bit-pattern of those arguments.
+这些函数都需要整数参数, 并且它们操纵这些参数的位模式。
 
-method | description
+方法 | 描述
 ---|---
-[bitwise_and](generated/numpy.bitwise_and.html#numpy.bitwise_and)(x1, x2, /[, out, where, …]) | Compute the bit-wise AND of two arrays element-wise.
-[bitwise_or](generated/numpy.bitwise_or.html#numpy.bitwise_or)(x1, x2, /[, out, where, casting, …]) | Compute the bit-wise OR of two arrays element-wise.
-[bitwise_xor](generated/numpy.bitwise_xor.html#numpy.bitwise_xor)(x1, x2, /[, out, where, …]) | Compute the bit-wise XOR of two arrays element-wise.
-[invert](generated/numpy.invert.html#numpy.invert)(x, /[, out, where, casting, order, …]) | Compute bit-wise inversion, or bit-wise NOT, element-wise.
-[left_shift](generated/numpy.left_shift.html#numpy.left_shift)(x1, x2, /[, out, where, casting, …]) | Shift the bits of an integer to the left.
-[right_shift](generated/numpy.right_shift.html#numpy.right_shift)(x1, x2, /[, out, where, …]) | Shift the bits of an integer to the right.
+[bitwise_and](generated/numpy.bitwise_and.html#numpy.bitwise_and)(x1, x2, /[, out, where, ...]) | 逐个元素地计算两个数组的逐位AND。
+[bitwise_or](generated/numpy.bitwise_or.html#numpy.bitwise_or)(x1, x2, /[, out, where, cast, ...]) | 逐个元素地计算两个数组的逐位OR。
+[bitwise_xor](generated/numpy.bitwise_xor.html#numpy.bitwise_xor)(x1, x2, /[, out, where, ...]) | 逐个元素地计算两个数组的逐位XOR。
+[invert](generated/numpy.invert.html#numpy.invert)(x, /[, out, where, cast, order, ...]) | 计算逐位反转, 或逐位NOT, 逐元素计算。
+[left_shift](generated/numpy.left_shift.html#numpy.left_shift)(x1, x2, /[, out, where, cast, ...]) | 将整数位移到左侧。
+[right_shift](generated/numpy.right_shift.html#numpy.right_shift)(x1, x2, /[, out, where, ...]) | 将整数位移到右侧。
 
-### Comparison functions
+### 比较函数
 
-method | description
+方法 | 描述
 ---|---
-[greater](generated/numpy.greater.html#numpy.greater)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 > x2) element-wise.
-[greater_equal](generated/numpy.greater_equal.html#numpy.greater_equal)(x1, x2, /[, out, where, …]) | Return the truth value of (x1 >= x2) element-wise.
-[less](generated/numpy.less.html#numpy.less)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 < x2) element-wise.
-[less_equal](generated/numpy.less_equal.html#numpy.less_equal)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 =< x2) element-wise.
-[not_equal](generated/numpy.not_equal.html#numpy.not_equal)(x1, x2, /[, out, where, casting, …]) | Return (x1 != x2) element-wise.
-equal(x1, x2, /[, out, where, casting, …]) | Return (x1 == x2) element-wise.
+[greater](generated/numpy.greater.html#numpy.greater)(x1, x2, /[, out, where, cast, ...]) | 以元素方式返回(x1 > x2)的真值。
+[greater_equal](generated/numpy.greater_equal.html#numpy.greater_equal)(x1, x2, /[, out, where, ...]) | 以元素方式返回(x1 >= x2)的真值。
+[less](generated/numpy.less.html#numpy.less)(x1, x2, /[, out, where, cast, ...]) | 返回(x1 < x2)元素的真值。
+[less_equal](generated/numpy.less_equal.html#numpy.less_equal)(x1, x2, /[, out, where, cast, ...]) | 以元素方式返回(x1 =< x2)的真值。
+[not_equal](generated/numpy.not_equal.html#numpy.not_equal)(x1, x2, /[, out, where, cast, ...]) | 以元素方式返回(x1 != x2)。
+[equal](generated/numpy.equal.html#numpy.equal)(x1, x2, /[, out, where, cast, ...]) | 以元素方式返回(x1 == x2)。
 
-::: danger Warning
+::: danger 警告
 
-Do not use the Python keywords ``and`` and ``or`` to combine
-logical array expressions. These keywords will test the truth
-value of the entire array (not element-by-element as you might
-expect). Use the bitwise operators & and | instead.
+不要使用Python关键字``and``并``or``组合逻辑数组表达式。这些关键字将测试整个数组的真值(不是你想象的逐个元素)。使用按位运算符＆和| 代替。
 
 :::
 
-method | description
+方法 | 描述
 ---|---
-[logical_and](generated/numpy.logical_and.html#numpy.logical_and)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 AND x2 element-wise.
-[logical_or](generated/numpy.logical_or.html#numpy.logical_or)(x1, x2, /[, out, where, casting, …]) | Compute the truth value of x1 OR x2 element-wise.
-[logical_xor](generated/numpy.logical_xor.html#numpy.logical_xor)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 XOR x2, element-wise.
-[logical_not](generated/numpy.logical_not.html#numpy.logical_not)(x, /[, out, where, casting, …]) | Compute the truth value of NOT x element-wise.
+[logical_and](generated/numpy.logical_and.html#numpy.logical_and)(x1, x2, /[, out, where, ...]) | 计算x1和x2元素的真值。
+[logical_or](generated/numpy.logical_or.html#numpy.logical_or)(x1, x2, /[, out, where, cast, ...]) | 计算x1 OR x2元素的真值。
+[logical_xor](generated/numpy.logical_xor.html#numpy.logical_xor)(x1, x2, /[, out, where, ...]) | 以元素方式计算x1 XOR x2的真值。
+[logical_not](generated/numpy.logical_not.html#numpy.logical_not)(x, /[, out, where, cast, ...]) | 计算NOT x元素的真值。
 
-::: danger Warning
+::: danger 警告
 
-The bit-wise operators & and | are the proper way to perform
-element-by-element array comparisons. Be sure you understand the
-operator precedence: ``(a > 2) & (a < 5)`` is the proper syntax because
-``a > 2 & a < 5`` will result in an error due to the fact that ``2 & a``
-is evaluated first.
+逐位运算符＆和| 是执行逐个元素数组比较的正确方法。
+确保您理解运算符优先级：``(a > 2) ＆ (a < 5)`` 是正确的语法，
+因为 ``a > 2 & a < 5`` 将导致错误，因为首先计算 ``2 ＆ a``。
 
 :::
 
-method | description
+方法 | 描述
 ---|---
-[maximum](generated/numpy.maximum.html#numpy.maximum)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
+[maximum](generated/numpy.maximum.html#numpy.maximum)(x1, x2, /[, out, where, cast, ...]) | 元素最大的数组元素。
 
-::: tip Tip
+::: tip 提示
 
-The Python function ``max()`` will find the maximum over a one-dimensional
-array, but it will do so using a slower sequence interface. The reduce
-method of the maximum ufunc is much faster. Also, the ``max()`` method
-will not give answers you might expect for arrays with greater than
-one dimension. The reduce method of minimum also allows you to compute
-a total minimum over an array.
+Python函数``max()``将在一维数组中找到最大值, 但它将使用较慢的序列接口来实现。最大ufunc的reduce方法要快得多。此外, 该``max()``方法不会给出具有多
+个维度的数组所期望的答案。reduce的minimal方法还允许您计算数组的总最小值。
 
 :::
 
-method | description
+方法 | 描述
 ---|---
-[minimum](generated/numpy.minimum.html#numpy.minimum)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
+[minimum](generated/numpy.minimum.html#numpy.minimum)(x1, x2, /[, out, where, cast, ...]) | 元素最小的数组元素。
 
-::: danger Warning
+::: danger 警告
 
-the behavior of ``maximum(a, b)`` is different than that of ``max(a, b)``.
-As a ufunc, ``maximum(a, b)`` performs an element-by-element comparison
-of *a* and *b* and chooses each element of the result according to which
-element in the two arrays is larger. In contrast, ``max(a, b)`` treats
-the objects *a* and *b* as a whole, looks at the (total) truth value of
-``a > b`` and uses it to return either *a* or *b* (as a whole). A similar
-difference exists between ``minimum(a, b)`` and ``min(a, b)``.
+``maximum(a，b)`` 的行为与 ``max(a，b)`` 的行为不同。作为 ufunc，``maximum(a，b)`` 执行 *a* 和 *b* 的逐个元素比较，并根据两个数组中哪个元素较大来选择结果的每个元素。相反，``max(a，b)`` 将对象a和b视为一个整体，查看 ``a > b`` 的(总)真值，并使用它返回a或b(作为一个整体)。在 ``minimum(a，b)`` 和 ``min(a，b)`` 之间存在类似的差异。
 
 :::
 
-method | description
+方法 | 描述
 ---|---
-[fmax](generated/numpy.fmax.html#numpy.fmax)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
-[fmin](generated/numpy.fmin.html#numpy.fmin)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
+[fmax](generated/numpy.fmax.html#numpy.fmax)(x1, x2, /[, out, where, cast, ...]) | 元素最大的数组元素。
+[fmin](generated/numpy.fmin.html#numpy.fmin)(x1, x2, /[, out, where, cast, ...]) | 元素最小的数组元素。
 
-### Floating functions
+### 浮动函数
 
-Recall that all of these functions work element-by-element over an
-array, returning an array output. The description details only a
-single operation.
+回想一下, 所有这些函数都在一个数组上逐个元素地工作, 返回一个数组输出。该描述仅详细说明了一个操作。
 
-method | description
+方法 | 描述
 ---|---
-[isfinite](generated/numpy.isfinite.html#numpy.isfinite)(x, /[, out, where, casting, order, …]) | Test element-wise for finiteness (not infinity or not Not a Number).
-[isinf](generated/numpy.isinf.html#numpy.isinf)(x, /[, out, where, casting, order, …]) | Test element-wise for positive or negative infinity.
-[isnan](generated/numpy.isnan.html#numpy.isnan)(x, /[, out, where, casting, order, …]) | Test element-wise for NaN and return result as a boolean array.
-[isnat](generated/numpy.isnat.html#numpy.isnat)(x, /[, out, where, casting, order, …]) | Test element-wise for NaT (not a time) and return result as a boolean array.
-[fabs](generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
-[signbit](generated/numpy.signbit.html#numpy.signbit)(x, /[, out, where, casting, order, …]) | Returns element-wise True where signbit is set (less than zero).
-[copysign](generated/numpy.copysign.html#numpy.copysign)(x1, x2, /[, out, where, casting, …]) | Change the sign of x1 to that of x2, element-wise.
-[nextafter](generated/numpy.nextafter.html#numpy.nextafter)(x1, x2, /[, out, where, casting, …]) | Return the next floating-point value after x1 towards x2, element-wise.
-[spacing](generated/numpy.spacing.html#numpy.spacing)(x, /[, out, where, casting, order, …]) | Return the distance between x and the nearest adjacent number.
-[modf](generated/numpy.modf.html#numpy.modf)(x[, out1, out2], / [[, out, where, …]) | Return the fractional and integral parts of an array, element-wise.
-[ldexp](generated/numpy.ldexp.html#numpy.ldexp)(x1, x2, /[, out, where, casting, …]) | Returns x1 * 2**x2, element-wise.
-[frexp](generated/numpy.frexp.html#numpy.frexp)(x[, out1, out2], / [[, out, where, …]) | Decompose the elements of x into mantissa and twos exponent.
-[fmod](generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, casting, …]) | Return the element-wise remainder of division.
-[floor](generated/numpy.floor.html#numpy.floor)(x, /[, out, where, casting, order, …]) | Return the floor of the input, element-wise.
-[ceil](generated/numpy.ceil.html#numpy.ceil)(x, /[, out, where, casting, order, …]) | Return the ceiling of the input, element-wise.
-[trunc](generated/numpy.trunc.html#numpy.trunc)(x, /[, out, where, casting, order, …]) | Return the truncated value of the input, element-wise.
+[isfinite](generated/numpy.isfinite.html#numpy.isfinite)(x, /[, out, where, cast, order, ...]) | 测试元素的有限性(不是无穷大或不是数字)。
+[isinf](generated/numpy.isinf.html#numpy.isinf)(x, /[, out, where, cast, order, ...]) | 正面或负面无穷大的元素测试。
+[isnan](generated/numpy.isnan.html#numpy.isnan)(x, /[, out, where, cast, order, ...]) | 测试NaN的元素, 并将结果作为布尔数组返回。
+[isnat](generated/numpy.isnat.html#numpy.isnat)(x, /[, out, where, cast, order, ...]) | 为NaT(不是时间)测试元素, 并将结果作为布尔数组返回。
+[fabs](generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, cast, order, ...]) | 以元素方式计算绝对值。
+[signbit](generated/numpy.signbit.html#numpy.signbit)(x, /[, out, where, cast, order, ...]) | 返回元素为True设置signbit(小于零)。
+[copysign](generated/numpy.copysign.html#numpy.copysign)(x1, x2, /[, out, where, cast, ...]) | 将元素x1的符号更改为x2的符号。
+[nextafter](generated/numpy.nextafter.html#numpy.nextafter)(x1, x2, /[, out, where, cast, ...]) | 将x1之后的下一个浮点值返回x2(元素方向)。
+[spacing](generated/numpy.spacing.html#numpy.spacing)(x, /[, out, where, cast, order, ...]) | 返回x与最近的相邻数字之间的距离。
+[modf](generated/numpy.modf.html#numpy.modf)(x [, out1, out2], /[[, out, where, ...]) | 以元素方式返回数组的小数和整数部分。
+[ldexp](generated/numpy.ldexp.html#numpy.ldexp)(x1, x2, /[, out, where, cast, ...]) | 以元素方式返回x1 * 2 ** x2。
+[frexp](generated/numpy.frexp.html#numpy.frexp)(x [, out1, out2], /[[, out, where, ...]) | 将x的元素分解为尾数和二进制指数。
+[fmod](generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, cast, ...]) | 返回除法的元素余数。
+[floor](generated/numpy.floor.html#numpy.floor)(x, /[, out, where, cast, order, ...]) | 以元素方式返回输入的底限。
+[ceil](generated/numpy.ceil.html#numpy.ceil)(x, /[, out, where, cast, order, ...]) | 以元素方式返回输入的上限。
+[trunc](generated/numpy.trunc.html#numpy.trunc)(x, /[, out, where, cast, order, ...]) | 以元素方式返回输入的截断值。

@@ -352,7 +352,7 @@ advanced usage and will not typically be used.
   Overrides the dtype of the calculation and output arrays. Similar to
   *signature*.
 
-*subok*
+- *subok*
 
   *New in version 1.6.* 
 
@@ -363,7 +363,7 @@ advanced usage and will not typically be used.
 
   Either a data-type, a tuple of data-types, or a special signature string indicating the input and output types of a ufunc. This argument allows you to provide a specific signature for the 1-d loop to use in the underlying calculation. If the loop specified does not exist for the ufunc, then a TypeError is raised. Normally, a suitable loop is found automatically by comparing the input types with what is available and searching for a loop with data-types to which all inputs can be cast safely. This keyword argument lets you bypass that search and choose a particular loop. A list of available signatures is provided by the types attribute of the ufunc object. For backwards compatibility this argument can also be provided as sig, although the long form is preferred. Note that this should not be confused with the generalized ufunc [signature](https://www.numpy.org/devdocs/reference/c-api/generalized-ufuncs.html#details-of-signature) that is stored in the signature attribute of the of the ufunc object.
 
-*extobj*
+- *extobj*
 
   a list of length 1, 2, or 3 specifying the ufunc buffer-size, the error mode integer, and the error call-back function. Normally, these values are looked up in a thread-specific dictionary. Passing them here circumvents that look up and uses the low-level specification provided for the error mode. This may be useful, for example, as an optimization for calculations requiring many ufunc calls on small arrays in a loop.
 

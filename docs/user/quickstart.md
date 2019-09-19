@@ -328,9 +328,9 @@ array([[ 0,  1,  3,  6],
        [ 8, 17, 27, 38]])
 ```
 
-### 泛函数
+### 通函数
 
-NumPy提供熟悉的数学函数，例如sin，cos和exp。在NumPy中，这些被称为“泛函数”（``ufunc``）。在NumPy中，这些函数在数组上按元素进行运算，产生一个数组作为输出。
+NumPy提供熟悉的数学函数，例如sin，cos和exp。在NumPy中，这些被称为“通函数”（``ufunc``）。在NumPy中，这些函数在数组上按元素进行运算，产生一个数组作为输出。
 
 ``` python
 >>>>>> B = np.arange(3)
@@ -345,7 +345,7 @@ array([ 0.        ,  1.        ,  1.41421356])
 array([ 2.,  0.,  6.])
 ```
 
-::: tip 另见这些泛函数
+::: tip 另见这些通函数
 
 [``all``](https://numpy.org/devdocs/reference/generated/numpy.all.html#numpy.all)，
  [``any``](https://numpy.org/devdocs/reference/generated/numpy.any.html#numpy.any)，

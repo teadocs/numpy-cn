@@ -23,11 +23,11 @@ module.exports = function () {
       ['/reference/constants', '常量']
     ]
   }, {
-    title: '泛函数(ufunc)',
+    title: '通函数(ufunc)',
     collapsable: true,
     sidebarDepth: 3,
     children: [
-      ['/reference/ufuncs', '泛函数(ufunc)']
+      ['/reference/ufuncs', '通函数(ufunc)']
     ]
   }, {
     title: '常用API',
@@ -92,7 +92,7 @@ module.exports = function () {
       ['/reference/c-api/array', '数组API'],
       ['/reference/c-api/iterator', '数组迭代API'],
       ['/reference/c-api/ufunc', 'UFunc API'],
-      ['/reference/c-api/generalized-ufuncs', '通常泛函数API'],
+      ['/reference/c-api/generalized-ufuncs', '通常通函数API'],
       ['/reference/c-api/coremath', 'NumPy核心库'],
       ['/reference/c-api/deprecations', '弃用的 C API ']
     ]

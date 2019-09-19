@@ -1,15 +1,14 @@
-# Constants
+# 常量
 
-NumPy includes several constants:
+NumPy包括几个常量：
 
 - numpy.``Inf``
 
-  IEEE 754 floating point representation of (positive) infinity.
+  IEEE 754 浮点表示（正）无穷大。
 
-  Use [``inf``](#numpy.inf) because [``Inf``](#numpy.Inf), [``Infinity``](#numpy.Infinity), [``PINF``](#numpy.PINF) and [``infty``](#numpy.infty) are aliases for
-  [``inf``](#numpy.inf). For more details, see [``inf``](#numpy.inf).
+  使用 [``inf``](#numpy.inf) 是因为 [``Inf``](#numpy.Inf)，[``Infinity``](#numpy.Infinity)，[``PINF``](#numpy.PINF) 和 [``infty``](#numpy.infty) 是 [``inf``](#numpy.inf) 的别名。有关更多详细信息，请参阅 [``inf``](#numpy.inf) 。
 
-  ::: tip See Also
+  ::: tip 另见
 
   inf
 
@@ -17,25 +16,23 @@ NumPy includes several constants:
 
 - numpy.``Infinity``
 
-  IEEE 754 floating point representation of (positive) infinity.
+  IEEE 754 浮点表示（正）无穷大。
 
-  Use [``inf``](#numpy.inf) because [``Inf``](#numpy.Inf), [``Infinity``](#numpy.Infinity), [``PINF``](#numpy.PINF) and [``infty``](#numpy.infty) are aliases for
-  [``inf``](#numpy.inf). For more details, see [``inf``](#numpy.inf).
+  使用 [``inf``](#numpy.inf) 是因为 [``Inf``](#numpy.Inf)，[``Infinity``](#numpy.Infinity)，[``PINF``](#numpy.PINF) 和 [``infty``](#numpy.infty) 是 [``inf``](#numpy.inf) 的别名。有关更多详细信息，请参阅 [``inf``](#numpy.inf)。
 
-  ::: tip See Also
+  ::: tip 另见
 
   inf
 
   :::
 
 - numpy.``NAN``
+  
+  IEEE 754 浮点表示非数字（NaN）。
 
-  IEEE 754 floating point representation of Not a Number (NaN).
+  [``NaN``](#numpy.NaN)  和 [``NAN``](#numpy.NAN) 是 [``nan``](#numpy.nan) 的等价定义。请使用 [``nan``](#numpy.nan) 而不是 [``NAN``](#numpy.NAN)。
 
-  [``NaN``](#numpy.NaN) and [``NAN``](#numpy.NAN) are equivalent definitions of [``nan``](#numpy.nan). Please use
-  [``nan``](#numpy.nan) instead of [``NAN``](#numpy.NAN).
-
-  ::: tip See Also
+  ::: tip 另见
 
   nan
 
@@ -43,37 +40,36 @@ NumPy includes several constants:
 
 - numpy.``NINF``
 
-  IEEE 754 floating point representation of negative infinity.
+  IEEE 754 浮点表示负无穷大。
 
-  **Returns** 
+  **返回** 
 
-  y : *float* (A floating point representation of negative infinity.)
+  y : *float* (负无穷大的浮点表示)
 
-  ::: tip See Also
+  ::: tip 另见
 
-  isinf : Shows which elements are positive or negative infinity
+  isinf : 显示哪些元素为正或负无穷大
 
-  isposinf : Shows which elements are positive infinity
+  isposinf : 显示哪些元素是正无穷大
 
-  isneginf : Shows which elements are negative infinity
+  isneginf : 显示哪些元素为负无穷大
 
-  isnan : Shows which elements are Not a Number
+  isnan : 显示哪些元素不是数字
 
-  isfinite : Shows which elements are finite (not one of Not a Number,
-  positive infinity and negative infinity)
-
-  :::
-
-  ::: tip Notes
-
-  NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
-  (IEEE 754). This means that Not a Number is not equivalent to infinity.
-  Also that positive infinity is not equivalent to negative infinity. But
-  infinity is equivalent to positive infinity.
+  isfinite : 显示哪些元素是有限的（不是非数字，正无穷大和负无穷大中的一个）
 
   :::
 
-  Examples
+  ::: tip 注意
+
+  NumPy使用IEEE二进制浮点算法标准（IEEE 754）。
+  这意味着Not a Number不等于无穷大。
+  此外，正无穷大不等于负无穷大。
+  但无穷大相当于正无穷大。
+
+  :::
+
+  **例子：**
 
   ``` python
   >>> np.NINF
@@ -84,36 +80,35 @@ NumPy includes several constants:
 
 - numpy.``NZERO``
 
-  IEEE 754 floating point representation of negative zero.
+  IEEE 754 浮点表示负零。
 
-  **Returns**
+  **返回**
 
-  y : *float* A (floating point representation of negative zero.)
+  y : *float* A (负零点的浮点表示)
 
-  ::: tip See Also
+  ::: tip 另见
 
-  PZERO : Defines positive zero.
+  PZERO : 定义正零。
 
-  isinf : Shows which elements are positive or negative infinity.
+  isinf : 显示哪些元素为正或负无穷大。
 
-  isposinf : Shows which elements are positive infinity.
+  isposinf : 显示哪些元素是正无穷大。
 
-  isneginf : Shows which elements are negative infinity.
+  isneginf : 显示哪些元素为负无穷大。
 
-  isnan : Shows which elements are Not a Number.
+  isnan : 显示哪些元素不是数字。
 
-  isfinite : *Shows which elements are finite - not one of* (Not a Number, positive infinity and negative infinity.)
+  isfinite : *显示哪些元素是有限的* - 不是（非数字，正无穷大和负无穷大）之一。
   
   :::
 
-  ::: tip Notes
+  ::: tip 注意
 
-  NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
-  (IEEE 754). Negative zero is considered to be a finite number.
+  NumPy使用IEEE二进制浮点算法标准（IEEE 754）。 负零被认为是有限数。
 
   :::
 
-  Examples
+  **例子：**
 
   ``` python
   >>> np.NZERO
@@ -133,12 +128,11 @@ NumPy includes several constants:
 
 - numpy.``NaN``
 
-  IEEE 754 floating point representation of Not a Number (NaN).
+  IEEE 754浮点表示非数字（NaN）。
 
-  [``NaN``](#numpy.NaN) and [``NAN``](#numpy.NAN) are equivalent definitions of [``nan``](#numpy.nan). Please use
-  [``nan``](#numpy.nan) instead of [``NaN``](#numpy.NaN).
+  [``NaN``](#numpy.NaN) 和 [``NAN``](#numpy.NaN)是 [``nan``](#numpy.nan) 的等价定义。 请使用 [``nan``](#numpy.nan) 而不是 [``NaN``](#numpy.NaN)。
 
-  ::: tip See Also
+  ::: tip 另见
 
   nan
 
@@ -146,12 +140,11 @@ NumPy includes several constants:
 
 - numpy.``PINF``
 
-  IEEE 754 floating point representation of (positive) infinity.
+  IEEE 754 浮点表示（正）无穷大。
 
-  Use [``inf``](#numpy.inf) because [``Inf``](#numpy.Inf), [``Infinity``](#numpy.Infinity), [``PINF``](#numpy.PINF) and [``infty``](#numpy.infty) are aliases for
-  [``inf``](#numpy.inf). For more details, see [``inf``](#numpy.inf).
+  使用 [``inf``](#numpy.inf) 是因为 [``Inf``](#numpy.Inf)，[``Infinity``](#numpy.Infinity)，[``PINF``](#numpy.PINF) 和 [``infty``](#numpy.infty) 是 [``inf``](#numpy.inf) 的别名。有关更多详细信息，请参阅 [``inf``](#numpy.inf) 。
 
-  ::: tip See Also
+  ::: tip 另见
 
   inf
 
@@ -159,36 +152,35 @@ NumPy includes several constants:
 
 - numpy.``PZERO``
 
-  IEEE 754 floating point representation of positive zero.
+  IEEE 754浮点表示正零。
 
-  **Returns**
+  **返回**
 
-  y : *float* (A floating point representation of positive zero.)
+  y : *float* （正零的浮点表示。）
 
-  ::: tip See Also
+  ::: tip 另见
 
-  NZERO : Defines negative zero.
+  NZERO : 定义负零。
 
-  isinf : Shows which elements are positive or negative infinity.
+  isinf : 显示哪些元素为正或负无穷大。
 
-  isposinf : Shows which elements are positive infinity.
+  isposinf : 显示哪些元素是正无穷大。
 
-  isneginf : Shows which elements are negative infinity.
+  isneginf : 显示哪些元素为负无穷大。
 
-  isnan : Shows which elements are Not a Number.
+  isnan : 显示哪些元素不是数字。
 
-  isfinite : *Shows which elements are finite - not one of* (Not a Number, positive infinity and negative infinity.)
+  isfinite : *显示哪些元素是有限的* - 不是（非数字，正无穷大和负无穷大）之一。
   
   :::
 
-  ::: tip Notes
+  ::: tip 注意
 
-  NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
-  (IEEE 754). Positive zero is considered to be a finite number.
+  NumPy使用IEEE二进制浮点算法标准（IEEE 754）。正零被认为是有限数。
 
   :::
 
-  Examples
+  **例子：**
 
   ``` python
   >>> np.PZERO
@@ -208,17 +200,17 @@ NumPy includes several constants:
 
 - numpy.``e``
 
-  Euler’s constant, base of natural logarithms, Napier’s constant.
+  欧拉的常数，自然对数的基础，纳皮尔的常数。
 
   ``e = 2.71828182845904523536028747135266249775724709369995...``
 
-  ::: tip See Also
+  ::: tip 另见
 
-  exp : Exponential function log : Natural logarithm
+  exp : 指数函数日志：自然对数
 
   :::
 
-  References
+  参考
 
   [https://en.wikipedia.org/wiki/E_%28mathematical_constant%29](https://en.wikipedia.org/wiki/E_%28mathematical_constant%29)
 
@@ -226,40 +218,39 @@ NumPy includes several constants:
 
   ``γ = 0.5772156649015328606065120900824024310421...``
 
-  References
+  参考
 
   [https://en.wikipedia.org/wiki/Euler-Mascheroni_constant](https://en.wikipedia.org/wiki/Euler-Mascheroni_constant)
 
 - numpy.``inf``
 
-  IEEE 754 floating point representation of (positive) infinity.
+  IEEE 754浮点表示（正）无穷大。
 
-  Returns y : *float* (A floating point representation of positive infinity.)
+  返回 y : *float* （正无穷大的浮点表示。）
 
-  ::: tip See Also
+  ::: tip 另见
 
-  isinf : Shows which elements are positive or negative infinity
+  isinf : 显示哪些元素为正或负无穷大。
 
-  isposinf : Shows which elements are positive infinity
+  isposinf : 显示哪些元素是正无穷大。
 
-  isneginf : Shows which elements are negative infinity
+  isneginf : 显示哪些元素为负无穷大。
 
-  isnan : Shows which elements are Not a Number
+  isnan : 显示哪些元素不是数字。
 
-  isfinite : Shows which elements are finite (not one of Not a Number, positive infinity and negative infinity)
+  isfinite : 显示哪些元素是有限的（不是非数字，正无穷大和负无穷大中的一个）
 
   :::
 
-  ::: tip Notes
+  ::: tip 注意
 
-  NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
-  (IEEE 754). This means that Not a Number is not equivalent to infinity.
-  Also that positive infinity is not equivalent to negative infinity. But
-  infinity is equivalent to positive infinity.
+  NumPy使用IEEE二进制浮点算法标准（IEEE 754）。
+  这意味着Not a Number不等于无穷大。 此外，正无穷大不等于负无穷大。
+  但无穷大相当于正无穷大。
 
-  [``Inf``](#numpy.Inf), [``Infinity``](#numpy.Infinity), [``PINF``](#numpy.PINF) and [``infty``](#numpy.infty) are aliases for [``inf``](#numpy.inf).
+  [``Inf``](#numpy.Inf), [``Infinity``](#numpy.Infinity), [``PINF``](#numpy.PINF) 和 [``infty``](#numpy.infty) 是 [``inf``](#numpy.inf) 的别名。
 
-  Examples
+  **例子：**
 
   ``` python
   >>> np.inf
@@ -270,12 +261,11 @@ NumPy includes several constants:
 
 - numpy.``infty``
 
-  IEEE 754 floating point representation of (positive) infinity.
+  IEEE 754浮点表示（正）无穷大。
 
-  Use [``inf``](#numpy.inf) because [``Inf``](#numpy.Inf), [``Infinity``](#numpy.Infinity), [``PINF``](#numpy.PINF) and [``infty``](#numpy.infty) are aliases for
-  [``inf``](#numpy.inf). For more details, see [``inf``](#numpy.inf).
+  使用 [``inf``](#numpy.inf) 是因为 [``Inf``](#numpy.Inf) ，[``Infinity``](#numpy.Infinity)，[``PINF``](#numpy.PINF) 和 [``infty``](#numpy.infty)  是 [``inf``](#numpy.inf) 的别名。有关更多详细信息，请参阅 [``inf``](#numpy.inf)。
 
-  ::: tip See Also
+  ::: tip 另见
 
   inf
 
@@ -283,29 +273,27 @@ NumPy includes several constants:
 
 - numpy.``nan``
 
-  IEEE 754 floating point representation of Not a Number (NaN).
+  IEEE 754浮点表示非数字（NaN）。
 
-  Returns y : A floating point representation of Not a Number.
+  返回 y : 非数字的浮点表示。
 
-  ::: tip See Also
+  ::: tip 另见
 
-  isnan : Shows which elements are Not a Number.
+  isnan : 显示哪些元素不是数字。
 
-  isfinite : Shows which elements are finite (not one of
-  Not a Number, positive infinity and negative infinity)
-
-  :::
-
-  ::: tip Notes
-
-  NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
-  (IEEE 754). This means that Not a Number is not equivalent to infinity.
-
-  [``NaN``](#numpy.NaN) and [``NAN``](#numpy.NAN) are aliases of [``nan``](#numpy.nan).
+  isfinite : 显示哪些元素是有限的（不是非数字，正无穷大和负无穷大中的一个）
 
   :::
 
-  Examples
+  ::: tip 注意
+
+  NumPy使用IEEE二进制浮点算法标准（IEEE 754）。 这意味着Not a Number不等于无穷大。
+
+  [``NaN``](#numpy.NaN) 和 [``NAN``](#numpy.NAN) 是 [``nan``](#numpy.nan) 的别名。
+
+  :::
+
+  **例子：**
 
   ``` python
   >>> np.nan
@@ -318,15 +306,15 @@ NumPy includes several constants:
 
 - numpy.``newaxis``
 
-  A convenient alias for None, useful for indexing arrays.
+  None的便捷别名，对索引数组很有用。
 
-  ::: tip See Also
+  ::: tip 另见
 
   [``numpy.doc.indexing``](https://numpy.org/devdocs/user/basics.indexing.html#module-numpy.doc.indexing)
 
   :::
   
-  Examples
+  **例子：**
 
   ``` python
   >>> newaxis is None
@@ -348,7 +336,7 @@ NumPy includes several constants:
   [0, 2, 4]])
   ```
 
-  Outer product, same as ``outer(x, y)``:
+  外积，与 ``outer(x, y)`` 相同：
 
   ``` python
   >>> y = np.arange(3, 6)
@@ -358,7 +346,7 @@ NumPy includes several constants:
   [ 6,  8, 10]])
   ```
 
-  ``x[newaxis, :]`` is equivalent to ``x[newaxis]`` and ``x[None]``:
+  ``x[newaxis, :]`` 相当于 ``x[newaxis]`` 和 ``x[None]``：
 
   ``` python
   >>> x[newaxis, :].shape
@@ -375,6 +363,6 @@ NumPy includes several constants:
 
   ``pi = 3.1415926535897932384626433...``
 
-  References
+  参考
 
   [https://en.wikipedia.org/wiki/Pi](https://en.wikipedia.org/wiki/Pi)
