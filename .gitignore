@@ -2,8 +2,11 @@ build/
 dist/
 docs/user_guide/.DS_Store
 docs/.DS_Store
+docs/.vuepress/theme
 static/.DS_Store
 static/images/.DS_Store
 .DS_Store
 .temp
 node_modules
+package-lock.json
+yarn.lock
