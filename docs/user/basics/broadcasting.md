@@ -2,7 +2,7 @@
 
 ::: tip 另见
 
-- [``numpy.broadcast``](/reference/generated/numpy.broadcast.html#numpy.broadcast)
+- [``numpy.broadcast``](https://numpy.org/devdocs/reference/generated/numpy.broadcast.html#numpy.broadcast)
 - [Numpy中的数组广播](https://numpy.org/devdocs/user/theory.broadcasting.html#array-broadcasting-in-numpy)
 
 :::
@@ -18,7 +18,7 @@
 NumPy 操作通常在逐个元素的基础上在数组对上完成。在最简单的情况下，两个数组必须具有完全相同的形状，如下例所示：
 
 ``` python
->>>>>> a = np.array([1.0, 2.0, 3.0])
+>>> a = np.array([1.0, 2.0, 3.0])
 >>> b = np.array([2.0, 2.0, 2.0])
 >>> a * b
 array([ 2.,  4.,  6.])
@@ -27,7 +27,7 @@ array([ 2.,  4.,  6.])
 当数组的形状满足某些约束时，NumPy的广播规则放宽了这种约束。当一个数组和一个标量值在一个操作中组合时，会发生最简单的广播示例：
 
 ``` python
->>>>>> a = np.array([1.0, 2.0, 3.0])
+>>> a = np.array([1.0, 2.0, 3.0])
 >>> b = 2.0
 >>> a * b
 array([ 2.,  4.,  6.])
@@ -102,7 +102,7 @@ B      (3d array):  8 x 4 x 3 # second from last dimensions mismatched
 实践中广播的一个例子：
 
 ``` python
->>>>>> x = np.arange(4)
+>>> x = np.arange(4)
 >>> xx = x.reshape(4,1)
 >>> y = np.ones(5)
 >>> z = np.ones((3,4))
@@ -149,7 +149,7 @@ array([[ 1.,  2.,  3.,  4.],
 广播提供了一种方便的方式来获取两个数组的外积（或任何其他外部操作）。以下示例显示了两个1-d数组的外积操作：
 
 ``` python
->>>>>> a = np.array([0.0, 10.0, 20.0, 30.0])
+>>> a = np.array([0.0, 10.0, 20.0, 30.0])
 >>> b = np.array([1.0, 2.0, 3.0])
 >>> a[:, np.newaxis] + b
 array([[  1.,   2.,   3.],

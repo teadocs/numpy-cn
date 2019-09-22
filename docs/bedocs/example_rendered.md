@@ -76,7 +76,7 @@ O. McNoleg, “The integration of GIS, remote sensing, expert systems and adapti
 这些是以doctest格式编写的，应该说明如何使用该函数。
 
 ``` python
->>>>>> a = [1, 2, 3]
+>>> a = [1, 2, 3]
 >>> print [x + 3 for x in a]
 [4, 5, 6]
 >>> print "a\n\nb"

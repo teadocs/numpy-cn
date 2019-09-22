@@ -10,7 +10,7 @@ discouraged. Instead, using numpy’s
 
 :::
 
-The [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) can be inherited from (in Python or in C)
+The [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) can be inherited from (in Python or in C)
 if desired. Therefore, it can form a foundation for many useful
 classes. Often whether to sub-class the array object or to simply use
 the core array component as an internal part of a new class is a
@@ -21,12 +21,12 @@ end. One way to simplify the question is by asking yourself if the
 object you are interested in can be replaced as a single array or does
 it really require two or more arrays at its core.
 
-Note that [``asarray``](generated/numpy.asarray.html#numpy.asarray) always returns the base-class ndarray. If
+Note that [``asarray``](https://numpy.org/devdocs/reference/generated/numpy.asarray.html#numpy.asarray) always returns the base-class ndarray. If
 you are confident that your use of the array object can handle any
-subclass of an ndarray, then [``asanyarray``](generated/numpy.asanyarray.html#numpy.asanyarray) can be used to allow
+subclass of an ndarray, then [``asanyarray``](https://numpy.org/devdocs/reference/generated/numpy.asanyarray.html#numpy.asanyarray) can be used to allow
 subclasses to propagate more cleanly through your subroutine. In
 principal a subclass could redefine any aspect of the array and
-therefore, under strict guidelines, [``asanyarray``](generated/numpy.asanyarray.html#numpy.asanyarray) would rarely be
+therefore, under strict guidelines, [``asanyarray``](https://numpy.org/devdocs/reference/generated/numpy.asanyarray.html#numpy.asanyarray) would rarely be
 useful. However, most subclasses of the array object will not
 redefine certain aspects of the array object such as the buffer
 interface, or the attributes of the array. One important example,
@@ -80,10 +80,10 @@ NumPy provides several hooks that classes can customize:
   We intend to re-implement numpy functions as (generalized)
   Ufunc, in which case it will become possible for them to be
   overridden by the ``__array_ufunc__`` method.  A prime candidate is
-  [``matmul``](generated/numpy.matmul.html#numpy.matmul), which currently is not a Ufunc, but could be
+  [``matmul``](https://numpy.org/devdocs/reference/generated/numpy.matmul.html#numpy.matmul), which currently is not a Ufunc, but could be
   relatively easily be rewritten as a (set of) generalized Ufuncs. The
-  same may happen with functions such as [``median``](generated/numpy.median.html#numpy.median),
-  [``amin``](generated/numpy.amin.html#numpy.amin), and [``argsort``](generated/numpy.argsort.html#numpy.argsort).
+  same may happen with functions such as [``median``](https://numpy.org/devdocs/reference/generated/numpy.median.html#numpy.median),
+  [``amin``](https://numpy.org/devdocs/reference/generated/numpy.amin.html#numpy.amin), and [``argsort``](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort).
 
   :::
 
@@ -94,13 +94,13 @@ NumPy provides several hooks that classes can customize:
   ``__array_ufunc__ = None``.
 
   The presence of [``__array_ufunc__``](#numpy.class.__array_ufunc__) also influences how
-  [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) handles binary operations like ``arr + obj`` and ``arr
-  < obj`` when ``arr`` is an [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) and ``obj`` is an instance
+  [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) handles binary operations like ``arr + obj`` and ``arr
+  < obj`` when ``arr`` is an [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) and ``obj`` is an instance
   of a custom class. There are two possibilities. If
   ``obj.__array_ufunc__`` is present and not [``None``](https://docs.python.org/dev/library/constants.html#None), then
   ``ndarray.__add__`` and friends will delegate to the ufunc machinery,
   meaning that ``arr + obj`` becomes ``np.add(arr, obj)``, and then
-  [``add``](generated/numpy.add.html#numpy.add) invokes ``obj.__array_ufunc__``. This is useful if you
+  [``add``](https://numpy.org/devdocs/reference/generated/numpy.add.html#numpy.add) invokes ``obj.__array_ufunc__``. This is useful if you
   want to define an object that acts like an array.
 
   Alternatively, if ``obj.__array_ufunc__`` is set to [``None``](https://docs.python.org/dev/library/constants.html#None), then as a
@@ -118,7 +118,7 @@ NumPy provides several hooks that classes can customize:
   case, ``arr + obj`` will raise [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError), while in the latter
   case it is possible to define a ``__radd__`` method to prevent this.)
 
-  The above does not hold for in-place operators, for which [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
+  The above does not hold for in-place operators, for which [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)
   never returns [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented).  Hence, ``arr += obj`` would always
   lead to a [``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError).  This is because for arrays in-place operations
   cannot generically be replaced by a simple reverse operation.  (For
@@ -130,11 +130,11 @@ NumPy provides several hooks that classes can customize:
 
   If you define ``__array_ufunc__``:
 
-  - If you are not a subclass of [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray), we recommend your
+  - If you are not a subclass of [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray), we recommend your
   class define special methods like ``__add__`` and ``__lt__`` that
   delegate to ufuncs just like ndarray does.  An easy way to do this
-  is to subclass from [``NDArrayOperatorsMixin``](generated/numpy.lib.mixins.NDArrayOperatorsMixin.html#numpy.lib.mixins.NDArrayOperatorsMixin).
-  - If you subclass [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray), we recommend that you put all your
+  is to subclass from [``NDArrayOperatorsMixin``](https://numpy.org/devdocs/reference/generated/numpy.lib.mixins.NDArrayOperatorsMixin.html#numpy.lib.mixins.NDArrayOperatorsMixin).
+  - If you subclass [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray), we recommend that you put all your
   override logic in ``__array_ufunc__`` and not also override special
   methods. This ensures the class hierarchy is determined in only one
   place rather than separately by the ufunc machinery and by the binary
@@ -143,11 +143,11 @@ NumPy provides several hooks that classes can customize:
   of setting [``__array_ufunc__``](#numpy.class.__array_ufunc__) to [``None``](https://docs.python.org/dev/library/constants.html#None), would seem very
   unexpected and thus confusing, as then the subclass would not work at
   all with ufuncs).
-  - [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) defines its own [``__array_ufunc__``](#numpy.class.__array_ufunc__), which,
+  - [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) defines its own [``__array_ufunc__``](#numpy.class.__array_ufunc__), which,
   evaluates the ufunc if no arguments have overrides, and returns
   [``NotImplemented``](https://docs.python.org/dev/library/constants.html#NotImplemented) otherwise. This may be useful for subclasses
   for which [``__array_ufunc__``](#numpy.class.__array_ufunc__) converts any instances of its own
-  class to [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray): it can then pass these on to its
+  class to [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray): it can then pass these on to its
   superclass using ``super().__array_ufunc__(*inputs, **kwargs)``,
   and finally return the results after possible back-conversion. The
   advantage of this practice is that it ensures that it is possible
@@ -286,7 +286,7 @@ NumPy provides several hooks that classes can customize:
 
   This method is called whenever the system internally allocates a
   new array from *obj*, where *obj* is a subclass (subtype) of the
-  [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray). It can be used to change attributes of *self*
+  [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray). It can be used to change attributes of *self*
   after construction (so as to ensure a 2-d matrix for example), or
   to update meta-information from the “parent.” Subclasses inherit
   a default implementation of this method that does nothing.
@@ -364,7 +364,7 @@ for this use, however, and eventually remove the ``matrix`` subclass.
 
 :::
 
-[``matrix``](generated/numpy.matrix.html#numpy.matrix) objects inherit from the ndarray and therefore, they
+[``matrix``](https://numpy.org/devdocs/reference/generated/numpy.matrix.html#numpy.matrix) objects inherit from the ndarray and therefore, they
 have the same attributes and methods of ndarrays. There are six
 important differences of matrix objects, however, that may lead to
 unexpected results when you use matrices but expect them to act like
@@ -403,14 +403,14 @@ alias for “matrix “in NumPy.
 
 method | description
 ---|---
-[matrix](generated/numpy.matrix.html#numpy.matrix)(data[, dtype, copy]) | **Note:** It is no longer recommended to use this class, even for linear
-[asmatrix](generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | Interpret the input as a matrix.
-[bmat](generated/numpy.bmat.html#numpy.bmat)(obj[, ldict, gdict]) | Build a matrix object from a string, nested sequence, or array.
+[matrix](https://numpy.org/devdocs/reference/generated/numpy.matrix.html#numpy.matrix)(data[, dtype, copy]) | **Note:** It is no longer recommended to use this class, even for linear
+[asmatrix](https://numpy.org/devdocs/reference/generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | Interpret the input as a matrix.
+[bmat](https://numpy.org/devdocs/reference/generated/numpy.bmat.html#numpy.bmat)(obj[, ldict, gdict]) | Build a matrix object from a string, nested sequence, or array.
 
 Example 1: Matrix creation from a string
 
 ``` python
->>>>>> a=mat('1 2 3; 4 5 3')
+>>> a=mat('1 2 3; 4 5 3')
 >>> print (a*a.T).I
 [[ 0.2924 -0.1345]
  [-0.1345  0.0819]]
@@ -419,7 +419,7 @@ Example 1: Matrix creation from a string
 Example 2: Matrix creation from nested sequence
 
 ``` python
->>>>>> mat([[1,5,10],[1.0,3,4j]])
+>>> mat([[1,5,10],[1.0,3,4j]])
 matrix([[  1.+0.j,   5.+0.j,  10.+0.j],
         [  1.+0.j,   3.+0.j,   0.+4.j]])
 ```
@@ -427,7 +427,7 @@ matrix([[  1.+0.j,   5.+0.j,  10.+0.j],
 Example 3: Matrix creation from an array
 
 ``` python
->>>>>> mat(random.rand(3,3)).T
+>>> mat(random.rand(3,3)).T
 matrix([[ 0.7699,  0.7922,  0.3294],
         [ 0.2792,  0.0101,  0.9219],
         [ 0.3398,  0.7571,  0.8197]])
@@ -444,19 +444,19 @@ significant, however for large files using memory mapping can save
 considerable resources.
 
 Memory-mapped-file arrays have one additional method (besides those
-they inherit from the ndarray): [``.flush()``](generated/numpy.memmap.flush.html#numpy.memmap.flush) which
+they inherit from the ndarray): [``.flush()``](https://numpy.org/devdocs/reference/generated/numpy.memmap.flush.html#numpy.memmap.flush) which
 must be called manually by the user to ensure that any changes to the
 array actually get written to disk.
 
 method | description
 ---|---
-[memmap](generated/numpy.memmap.html#numpy.memmap) | Create a memory-map to an array stored in a binary file on disk.
-[memmap.flush](generated/numpy.memmap.flush.html#numpy.memmap.flush)(self) | Write any changes in the array to the file on disk.
+[memmap](https://numpy.org/devdocs/reference/generated/numpy.memmap.html#numpy.memmap) | Create a memory-map to an array stored in a binary file on disk.
+[memmap.flush](https://numpy.org/devdocs/reference/generated/numpy.memmap.flush.html#numpy.memmap.flush)(self) | Write any changes in the array to the file on disk.
 
 Example:
 
 ``` python
->>>>>> a = memmap('newfile.dat', dtype=float, mode='w+', shape=1000)
+>>> a = memmap('newfile.dat', dtype=float, mode='w+', shape=1000)
 >>> a[10] = 10.0
 >>> a[30] = 30.0
 >>> del a
@@ -478,31 +478,31 @@ Example:
 
 ::: tip Note
 
-The [``chararray``](generated/numpy.chararray.html#numpy.chararray) class exists for backwards compatibility with
+The [``chararray``](https://numpy.org/devdocs/reference/generated/numpy.chararray.html#numpy.chararray) class exists for backwards compatibility with
 Numarray, it is not recommended for new development. Starting from numpy
 1.4, if one needs arrays of strings, it is recommended to use arrays of
-[``dtype``](generated/numpy.dtype.html#numpy.dtype) ``object_``, ``string_`` or ``unicode_``, and use the free functions
+[``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) ``object_``, ``string_`` or ``unicode_``, and use the free functions
 in the [``numpy.char``](routines.char.html#module-numpy.char) module for fast vectorized string operations.
 
 :::
 
 These are enhanced arrays of either ``string_`` type or
 ``unicode_`` type.  These arrays inherit from the
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray), but specially-define the operations ``+``, ``*``,
+[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray), but specially-define the operations ``+``, ``*``,
 and ``%`` on a (broadcasting) element-by-element basis.  These
-operations are not available on the standard [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) of
-character type. In addition, the [``chararray``](generated/numpy.chararray.html#numpy.chararray) has all of the
+operations are not available on the standard [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) of
+character type. In addition, the [``chararray``](https://numpy.org/devdocs/reference/generated/numpy.chararray.html#numpy.chararray) has all of the
 standard [``string``](https://docs.python.org/dev/library/stdtypes.html#str) (and ``unicode``) methods,
 executing them on an element-by-element basis. Perhaps the easiest
-way to create a chararray is to use [``self.view(chararray)``](generated/numpy.ndarray.view.html#numpy.ndarray.view) where *self* is an ndarray of str or unicode
+way to create a chararray is to use [``self.view(chararray)``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.view.html#numpy.ndarray.view) where *self* is an ndarray of str or unicode
 data-type. However, a chararray can also be created using the
-[``numpy.chararray``](generated/numpy.chararray.html#numpy.chararray) constructor, or via the
-[``numpy.char.array``](generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array) function:
+[``numpy.chararray``](https://numpy.org/devdocs/reference/generated/numpy.chararray.html#numpy.chararray) constructor, or via the
+[``numpy.char.array``](https://numpy.org/devdocs/reference/generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array) function:
 
 method | description
 ---|---
-[chararray](generated/numpy.chararray.html#numpy.chararray)(shape[, itemsize, unicode, …]) | Provides a convenient view on arrays of string and unicode values.
-[core.defchararray.array](generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array)(obj[, itemsize, …]) | Create a chararray.
+[chararray](https://numpy.org/devdocs/reference/generated/numpy.chararray.html#numpy.chararray)(shape[, itemsize, unicode, …]) | Provides a convenient view on arrays of string and unicode values.
+[core.defchararray.array](https://numpy.org/devdocs/reference/generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array)(obj[, itemsize, …]) | Create a chararray.
 
 Another difference with the standard ndarray of str data-type is
 that the chararray inherits the feature introduced by Numarray that
@@ -518,14 +518,14 @@ on item retrieval and comparison operations.
 
 :::
 
-NumPy provides the [``recarray``](generated/numpy.recarray.html#numpy.recarray) class which allows accessing the
+NumPy provides the [``recarray``](https://numpy.org/devdocs/reference/generated/numpy.recarray.html#numpy.recarray) class which allows accessing the
 fields of a structured array as attributes, and a corresponding
-scalar data type object [``record``](generated/numpy.record.html#numpy.record).
+scalar data type object [``record``](https://numpy.org/devdocs/reference/generated/numpy.record.html#numpy.record).
 
 method | description
 ---|---
-[recarray](generated/numpy.recarray.html#numpy.recarray) | Construct an ndarray that allows field access using attributes.
-[record](generated/numpy.record.html#numpy.record) | A data-type scalar that allows field access as attribute lookup.
+[recarray](https://numpy.org/devdocs/reference/generated/numpy.recarray.html#numpy.recarray) | Construct an ndarray that allows field access using attributes.
+[record](https://numpy.org/devdocs/reference/generated/numpy.record.html#numpy.record) | A data-type scalar that allows field access as attribute lookup.
 
 ## Masked arrays (``numpy.ma``)
 
@@ -539,7 +539,7 @@ method | description
 
 For backward compatibility and as a standard “container “class, the
 UserArray from Numeric has been brought over to NumPy and named
-[``numpy.lib.user_array.container``](generated/numpy.lib.user_array.container.html#numpy.lib.user_array.container) The container class is a
+[``numpy.lib.user_array.container``](https://numpy.org/devdocs/reference/generated/numpy.lib.user_array.container.html#numpy.lib.user_array.container) The container class is a
 Python class whose self.array attribute is an ndarray. Multiple
 inheritance is probably easier with numpy.lib.user_array.container
 than with the ndarray itself and so it is included by default. It is
@@ -548,7 +548,7 @@ encouraged to use the ndarray class directly if you can.
 
 method | description
 ---|---
-[numpy.lib.user_array.container](generated/numpy.lib.user_array.container.html#numpy.lib.user_array.container)(data[, …]) | Standard container-class for easy multiple-inheritance.
+[numpy.lib.user_array.container](https://numpy.org/devdocs/reference/generated/numpy.lib.user_array.container.html#numpy.lib.user_array.container)(data[, …]) | Standard container-class for easy multiple-inheritance.
 
 ## Array Iterators
 
@@ -584,7 +584,7 @@ from the array. This can be a useful construct for defining recursive
 algorithms. To loop over the entire array requires  for-loops.
 
 ``` python
->>>>>> a = arange(24).reshape(3,2,4)+10
+>>> a = arange(24).reshape(3,2,4)+10
 >>> for val in a:
 ...     print 'item:', val
 item: [[10 11 12 13]
@@ -599,14 +599,14 @@ item: [[26 27 28 29]
 
 method | description
 ---|---
-[ndarray.flat](generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | A 1-D iterator over the array.
+[ndarray.flat](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | A 1-D iterator over the array.
 
 As mentioned previously, the flat attribute of ndarray objects returns
 an iterator that will cycle over the entire array in C-style
 contiguous order.
 
 ``` python
->>>>>> for i, val in enumerate(a.flat):
+>>> for i, val in enumerate(a.flat):
 ...     if i%5 == 0: print i, val
 0 10
 5 15
@@ -622,13 +622,13 @@ index as well as the value.
 
 method | description
 ---|---
-[ndenumerate](generated/numpy.ndenumerate.html#numpy.ndenumerate)(arr) | Multidimensional index iterator.
+[ndenumerate](https://numpy.org/devdocs/reference/generated/numpy.ndenumerate.html#numpy.ndenumerate)(arr) | Multidimensional index iterator.
 
 Sometimes it may be useful to get the N-dimensional index while
 iterating. The ndenumerate iterator can achieve this.
 
 ``` python
->>>>>> for i, val in ndenumerate(a):
+>>> for i, val in ndenumerate(a):
 ...     if sum(i)%5 == 0: print i, val
 (0, 0, 0) 10
 (1, 1, 3) 25
@@ -640,16 +640,16 @@ iterating. The ndenumerate iterator can achieve this.
 
 method | description
 ---|---
-[broadcast](generated/numpy.broadcast.html#numpy.broadcast) | Produce an object that mimics broadcasting.
+[broadcast](https://numpy.org/devdocs/reference/generated/numpy.broadcast.html#numpy.broadcast) | Produce an object that mimics broadcasting.
 
 The general concept of broadcasting is also available from Python
-using the [``broadcast``](generated/numpy.broadcast.html#numpy.broadcast) iterator. This object takes 
+using the [``broadcast``](https://numpy.org/devdocs/reference/generated/numpy.broadcast.html#numpy.broadcast) iterator. This object takes 
 objects as inputs and returns an iterator that returns tuples
 providing each of the input sequence elements in the broadcasted
 result.
 
 ``` python
->>>>>> for val in broadcast([[1,0],[2,3]],[0,1]):
+>>> for val in broadcast([[1,0],[2,3]],[0,1]):
 ...     print val
 (1, 0)
 (0, 1)

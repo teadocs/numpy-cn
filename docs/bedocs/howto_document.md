@@ -442,7 +442,7 @@ docstring由标题分隔的许多部分组成（弃用警告除外）。每个�
 
 位于 **参数** 部分下方的 **属性** 部分可用于描述类的非方法属性：
 
-``` rst
+```
 Attributes
 ----------
 x : float
@@ -453,7 +453,7 @@ y : float
 
 属性和具有自己的文档字符串的属性可以按名称简单列出：
 
-``` rst
+```
 Attributes
 ----------
 real
@@ -516,7 +516,7 @@ class Photo(ndarray):
 
 使用与适用的功能概述相同的部分：
 
-``` rst
+```
 1. summary
 2. extended summary (optional)
 3. see also (optional)
@@ -530,7 +530,7 @@ class Photo(ndarray):
 
 每个模块都应该有一个至少包含摘要行的文档字符串。其他部分是可选的，并且应该在适当时使用与记录函数相同的顺序：
 
-``` rst
+```
 1. summary
 2. extended summary
 3. routine listings
@@ -548,14 +548,14 @@ class Photo(ndarray):
 
 - 等式：如上面的**注释**部分所述，LaTeX格式应保持最小。通常可以将方程式显示为Python代码或伪代码，这在终端中更易读。对于内联显示器，请使用双反键（如）。要在上方和下方显示空行，请使用双冒号并缩进代码，例如：``y = np.sin(x)``
 
-``` rst
+```
 end of previous sentence::
 
     y = np.sin(x)
 ```
 - 注释和警告：如果文档字符串中的某些点值得特别强调，则可以在警告的上下文附近（部分内部）使用注释或警告的reST指令。句法：
 
-``` rst
+```
 .. warning:: Warning text.
 
 .. note:: Note text.
@@ -565,14 +565,14 @@ end of previous sentence::
 - array_like：对于带有不仅可以有 *ndarray* 类型的参数的函数，还有可以转换为ndarray的类型（即标量类型，序列类型），可以使用 *array_like* 类型记录这些参数。
 - 链接：如果您需要在docstring中包含超链接，请注意某些文档字符串部分未被解析为标准reST，并且在这些部分中，numpydoc可能会被超链接目标混淆，例如：
 
-``` rst
+```
 .. _Example: http://www.example.com
 ```
 
 如果Sphinx构建发出表单警告
  ，那就是正在发生的事情。要避免此问题，请使用内联超链接表单：``WARNING: Unknown target name: "example"``
 
-``` rst
+```
 `Example <http://www.example.com>`_
 ```
 

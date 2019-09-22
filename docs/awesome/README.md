@@ -12,7 +12,7 @@ sidebar: auto
 <p></p>
 <p></p>
 <center>
-<img style="width: 180px" src="/logo_awesome.svg">
+<img style="width: 180px" src="/logo_awesome.png">
 <h1>NumPy 精选资源</h1>
 </center>
 
@@ -23,16 +23,29 @@ sidebar: auto
 ## 精选文章
 
 <awesome :data="[
+  {
+    tag: '知乎',
+    name: 'CS231n课程笔记翻译：Python Numpy教程',
+    href: 'https://zhuanlan.zhihu.com/p/20878530'
+  }
 ]"></awesome>
 
 ## 视频教程
 
 <awesome :data="[
-]"></awesome>
-
-## 推荐书籍
-
-这里给出学习版下载地址，有条件者，还请支持正版。
-
-<awesome :data="[
+  {
+    tag: 'bilibili',
+    name: 'numpy & pandas (莫烦 python 数据处理教程)',
+    href: 'https://www.bilibili.com/video/av16378934?from=search&seid=15880205862713615709'
+  },
+  {
+    tag: 'bilibili',
+    name: '3小时教你入门numpy',
+    href: 'https://www.bilibili.com/video/av50452482?from=search&seid=15665791184414712904'
+  },
+  {
+    tag: 'bilibili',
+    name: '弱鸡才用tensorflow，强者一个numpy就够：从零开始神经网络第一期',
+    href: 'https://www.bilibili.com/video/av51197008?from=search&seid=16295793003409858066'
+  }
 ]"></awesome>

@@ -77,7 +77,7 @@ O. McNoleg, “The integration of GIS, remote sensing, expert systems and adapti
 These are written in doctest format, and should illustrate how to use the function.
 
 ``` python
->>>>>> a = [1, 2, 3]
+>>> a = [1, 2, 3]
 >>> print [x + 3 for x in a]
 [4, 5, 6]
 >>> print "a\n\nb"

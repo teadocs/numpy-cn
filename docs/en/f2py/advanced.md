@@ -38,7 +38,7 @@ f2py -c spam.pyf
 In Python:
 
 ``` python
->>>>>> import spam
+>>> import spam
 >>> status = spam.system('whoami')
 pearu
 >> status = spam.system('blah')
@@ -75,7 +75,7 @@ additional details).
 In Python:
 
 ``` python
->>>>>> import var
+>>> import var
 >>> var.BAR
 5
 ```

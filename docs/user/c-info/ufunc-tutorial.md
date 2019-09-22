@@ -6,7 +6,7 @@
 
 ## 创建一个新的ufunc
 
-在阅读本文之前，通过阅读/略读[扩展和嵌入Python解释器的](https://docs.python.org/extending/index.html)第1部分中的教程以及[如何扩展NumPy](c-info.how-to-extend.html)，可以帮助您熟悉Python的C扩展基础知识。[](c-info.how-to-extend.html)
+在阅读本文之前，通过阅读/略读[扩展和嵌入Python解释器的](https://docs.python.org/extending/index.html)第1部分中的教程以及[如何扩展NumPy](how-to-extend.html)，可以帮助您熟悉Python的C扩展基础知识。
 
 umath模块是一个计算机生成的C模块，可以创建许多ufunc。它提供了许多如何创建通用函数的示例。使用ufunc机制创建自己的ufunc也不困难。假设您有一个函数，您想要在其输入上逐个元素地操作。通过创建一个新的ufunc，您将获得一个处理的函数
 
@@ -20,7 +20,7 @@ umath模块是一个计算机生成的C模块，可以创建许多ufunc。它提
 在接下来的几节中，我们提供了可以轻松修改的示例代码，以创建自己的ufunc。这些示例是logit函数的连续更完整或复杂版本，这是统计建模中的常见功能。Logit也很有趣，因为由于IEEE标准（特别是IEEE 754）的神奇之处，下面创建的所有logit函数都自动具有以下行为。
 
 ``` python
->>>>>> logit(0)
+>>> logit(0)
 -inf
 >>> logit(1)
 inf
@@ -172,7 +172,7 @@ setup(name = 'spam',
 将垃圾邮件模块导入python后，您可以通过spam.logit调用logit。请注意，上面使用的函数不能按原样应用于numpy数组。为此，我们必须在其上调用numpy.vectorize。例如，如果在包含垃圾邮件库或垃圾邮件的文件中打开了python解释器，则可以执行以下命令：
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> import spam
 >>> spam.logit(0)
 -inf
@@ -191,7 +191,7 @@ array([       -inf, -2.07944154, -1.25276297, -0.69314718, -0.22314355,
 
 结果编辑功能并不快！numpy.vectorize只是循环遍历spam.logit。循环在C级完成，但numpy数组不断被解析并重新构建。这很贵。当作者将numpy.vectorize（spam.logit）与下面构造的logit ufuncs进行比较时，logit ufuncs几乎快4倍。当然，取决于功能的性质，可以实现更大或更小的加速。
 
-## 一个dtype的示例NumPy ufunc
+## 一种dtype的NumPy ufunc示例
 
 为简单起见，我们为单个dtype提供了一个ufunc，即'f8'双精度型。与前一节一样，我们首先给出.c文件，然后是用于创建包含ufunc的模块的setup.py文件。
 
@@ -367,7 +367,7 @@ if __name__ == "__main__":
 安装完上述内容后，可以按如下方式导入和使用。
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> import npufunc
 >>> npufunc.logit(0.5)
 0.0
@@ -637,7 +637,7 @@ if __name__ == "__main__":
 安装完上述内容后，可以按如下方式导入和使用。
 
 ``` python
->>>>>> import numpy as np
+>>> import numpy as np
 >>> import npufunc
 >>> npufunc.logit(0.5)
 0.0
@@ -648,9 +648,9 @@ array([       -inf, -1.09861229,  0.        ,  1.09861229,         inf])
 
 ## 示例具有多个参数/返回值的NumPy ufunc
 
-我们的最后一个例子是一个带有多个参数的ufunc。它是对具有单个dtype的数据的logit ufunc的代码的修改。我们计算（A * B，logit（A * B））。
+我们的最后一个例子是一个带有多个参数的ufunc。它是对具有单个dtype的数据的logit ufunc的代码的修改。我们计算 (A\*B, logit(A\*B))。
 
-我们只提供C代码，因为setup.py文件与[Example NumPy ufunc中](#example-numpy-ufunc-for-one-dtype)的setup.py文件完全相同，只有一行[dtype](#example-numpy-ufunc-for-one-dtype)
+我们只给出 C 代码，因为setup.py文件与[一种dtype的NumPy ufunc示例](#一种dtype的numpy-ufunc示例)中的setup.py文件完全相同，只是一行
 
 ``` python
 config.add_extension('npufunc', ['single_type_logit.c'])
@@ -797,7 +797,7 @@ PyMODINIT_FUNC initnpufunc(void)
 此示例显示如何为结构化数组dtype创建ufunc。在这个例子中，我们展示了一个简单的ufunc，用于添加两个带有dtype'u8，u8，u8'的数组。该过程与其他示例略有不同，因为调用[``PyUFunc_FromFuncAndData``](https://numpy.org/devdocs/reference/c-api/ufunc.html#c.PyUFunc_FromFuncAndData)不会为自定义dtypes和结构化数组dtypes完全注册ufunc。我们还需要调用
  [``PyUFunc_RegisterLoopForDescr``](https://numpy.org/devdocs/reference/c-api/ufunc.html#c.PyUFunc_RegisterLoopForDescr)完成设置ufunc。
 
-我们只提供C代码，因为setup.py文件与[Example NumPy ufunc中](#example-numpy-ufunc-for-one-dtype)的setup.py文件完全相同，只有一行[dtype](#example-numpy-ufunc-for-one-dtype)
+我们只提供C代码，因为setup.py文件与[一种dtype的NumPy ufunc示例](#一种dtype的numpy-ufunc示例)的setup.py文件完全相同，只有一行。
 
 ``` python
 config.add_extension('npufunc', ['single_type_logit.c'])

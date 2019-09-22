@@ -1,6 +1,6 @@
 # Data type objects (``dtype``)
 
-A data type object (an instance of [``numpy.dtype``](generated/numpy.dtype.html#numpy.dtype) class)
+A data type object (an instance of [``numpy.dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) class)
 describes how the bytes in the fixed-size block of memory
 corresponding to an array item should be interpreted. It describes the
 following aspects of the data:
@@ -23,7 +23,7 @@ of integers, floating-point numbers, *etc*. An item extracted from an
 array, *e.g.*, by indexing, will be a Python object whose type is the
 scalar type associated with the data type of the array.
 
-Note that the scalar types are not [``dtype``](generated/numpy.dtype.html#numpy.dtype) objects, even though
+Note that the scalar types are not [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) objects, even though
 they can be used in place of one whenever a data type specification is
 needed in NumPy.
 
@@ -96,17 +96,17 @@ array([ 6.,  7.])
 ## Specifying and constructing data types
 
 Whenever a data-type is required in a NumPy function or method, either
-a [``dtype``](generated/numpy.dtype.html#numpy.dtype) object or something that can be converted to one can
-be supplied.  Such conversions are done by the [``dtype``](generated/numpy.dtype.html#numpy.dtype)
+a [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) object or something that can be converted to one can
+be supplied.  Such conversions are done by the [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype)
 constructor:
 
 method | description
 ---|---
-[dtype](generated/numpy.dtype.html#numpy.dtype)(obj[, align, copy]) | Create a data type object.
+[dtype](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype)(obj[, align, copy]) | Create a data type object.
 
 What can be converted to a data-type object is described below:
 
-- [``dtype``](generated/numpy.dtype.html#numpy.dtype) object
+- [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) object
 
   Used as-is.
 
@@ -141,12 +141,12 @@ What can be converted to a data-type object is described below:
   integer, signedinteger | int_
   unsignedinteger | uint
   character | string
-  [generic](generated/numpy.generic.html#numpy.generic), flexible | void
+  [generic](https://numpy.org/devdocs/reference/generated/numpy.generic.html#numpy.generic), flexible | void
 
 - Built-in Python types
 
   Several python types are equivalent to a corresponding
-  array scalar when used to generate a [``dtype``](generated/numpy.dtype.html#numpy.dtype) object:
+  array scalar when used to generate a [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) object:
 
   type | type
   ---|---
@@ -336,7 +336,7 @@ specify the byte order.
   element. Note that a 3-tuple with a third argument equal to 1 is
   equivalent to a 2-tuple.
 
-  This style does not accept *align* in the [``dtype``](generated/numpy.dtype.html#numpy.dtype)
+  This style does not accept *align* in the [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype)
   constructor as it is assumed that all of the memory is accounted
   for by the array interface description.
   
@@ -360,7 +360,7 @@ specify the byte order.
   and *formats* keys are required. Their respective values are
   equal-length lists with the field names and the field formats.
   The field names must be strings and the field formats can be any
-  object accepted by [``dtype``](generated/numpy.dtype.html#numpy.dtype) constructor.
+  object accepted by [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) constructor.
 
   When the optional keys *offsets* and *titles* are provided,
   their values must each be lists of the same length as the *names*
@@ -406,7 +406,7 @@ specify the byte order.
   called ‘names’ and a field called ‘formats’ there will be
   a conflict.
 
-  This style allows passing in the [``fields``](generated/numpy.dtype.fields.html#numpy.dtype.fields)
+  This style allows passing in the [``fields``](https://numpy.org/devdocs/reference/generated/numpy.dtype.fields.html#numpy.dtype.fields)
   attribute of a data-type object.
 
   *obj* should contain string or unicode keys that refer to
@@ -463,58 +463,58 @@ specify the byte order.
 
 ## ``dtype``
 
-NumPy data type descriptions are instances of the [``dtype``](generated/numpy.dtype.html#numpy.dtype) class.
+NumPy data type descriptions are instances of the [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) class.
 
 ### Attributes
 
-The type of the data is described by the following [``dtype``](generated/numpy.dtype.html#numpy.dtype)  attributes:
+The type of the data is described by the following [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype)  attributes:
 
 method | description
 ---|---
-[dtype.type](generated/numpy.dtype.type.html#numpy.dtype.type) | The type object used to instantiate a scalar of this data-type.
-[dtype.kind](generated/numpy.dtype.kind.html#numpy.dtype.kind) | A character code (one of ‘biufcmMOSUV’) identifying the general kind of data.
-[dtype.char](generated/numpy.dtype.char.html#numpy.dtype.char) | A unique character code for each of the 21 different built-in types.
-[dtype.num](generated/numpy.dtype.num.html#numpy.dtype.num) | A unique number for each of the 21 different built-in types.
-[dtype.str](generated/numpy.dtype.str.html#numpy.dtype.str) | The array-protocol typestring of this data-type object.
+[dtype.type](https://numpy.org/devdocs/reference/generated/numpy.dtype.type.html#numpy.dtype.type) | The type object used to instantiate a scalar of this data-type.
+[dtype.kind](https://numpy.org/devdocs/reference/generated/numpy.dtype.kind.html#numpy.dtype.kind) | A character code (one of ‘biufcmMOSUV’) identifying the general kind of data.
+[dtype.char](https://numpy.org/devdocs/reference/generated/numpy.dtype.char.html#numpy.dtype.char) | A unique character code for each of the 21 different built-in types.
+[dtype.num](https://numpy.org/devdocs/reference/generated/numpy.dtype.num.html#numpy.dtype.num) | A unique number for each of the 21 different built-in types.
+[dtype.str](https://numpy.org/devdocs/reference/generated/numpy.dtype.str.html#numpy.dtype.str) | The array-protocol typestring of this data-type object.
 
 Size of the data is in turn described by:
 
 method | description
 ---|---
-[dtype.name](generated/numpy.dtype.name.html#numpy.dtype.name) | A bit-width name for this data-type.
-[dtype.itemsize](generated/numpy.dtype.itemsize.html#numpy.dtype.itemsize) | The element size of this data-type object.
+[dtype.name](https://numpy.org/devdocs/reference/generated/numpy.dtype.name.html#numpy.dtype.name) | A bit-width name for this data-type.
+[dtype.itemsize](https://numpy.org/devdocs/reference/generated/numpy.dtype.itemsize.html#numpy.dtype.itemsize) | The element size of this data-type object.
 
 Endianness of this data:
 
 method | description
 ---|---
-[dtype.byteorder](generated/numpy.dtype.byteorder.html#numpy.dtype.byteorder) | A character indicating the byte-order of this data-type object.
+[dtype.byteorder](https://numpy.org/devdocs/reference/generated/numpy.dtype.byteorder.html#numpy.dtype.byteorder) | A character indicating the byte-order of this data-type object.
 
 Information about sub-data-types in a [structured data type](https://numpy.org/devdocs/glossary.html#term-structured-data-type):
 
 method | description
 ---|---
-[dtype.fields](generated/numpy.dtype.fields.html#numpy.dtype.fields) | Dictionary of named fields defined for this data type, or ``None``.
-[dtype.names](generated/numpy.dtype.names.html#numpy.dtype.names) | Ordered list of field names, or ``None`` if there are no fields.
+[dtype.fields](https://numpy.org/devdocs/reference/generated/numpy.dtype.fields.html#numpy.dtype.fields) | Dictionary of named fields defined for this data type, or ``None``.
+[dtype.names](https://numpy.org/devdocs/reference/generated/numpy.dtype.names.html#numpy.dtype.names) | Ordered list of field names, or ``None`` if there are no fields.
 
 For data types that describe sub-arrays:
 
 method | description
 ---|---
-[dtype.subdtype](generated/numpy.dtype.subdtype.html#numpy.dtype.subdtype) | Tuple ``(item_dtype, shape)`` if this dtype describes a sub-array, and None otherwise.
-[dtype.shape](generated/numpy.dtype.shape.html#numpy.dtype.shape) | Shape tuple of the sub-array if this data type describes a sub-array, and ``()`` otherwise.
+[dtype.subdtype](https://numpy.org/devdocs/reference/generated/numpy.dtype.subdtype.html#numpy.dtype.subdtype) | Tuple ``(item_dtype, shape)`` if this dtype describes a sub-array, and None otherwise.
+[dtype.shape](https://numpy.org/devdocs/reference/generated/numpy.dtype.shape.html#numpy.dtype.shape) | Shape tuple of the sub-array if this data type describes a sub-array, and ``()`` otherwise.
 
 Attributes providing additional information:
 
 method | description
 ---|---
-[dtype.hasobject](generated/numpy.dtype.hasobject.html#numpy.dtype.hasobject) | Boolean indicating whether this dtype contains any reference-counted objects in any fields or sub-dtypes.
-[dtype.flags](generated/numpy.dtype.flags.html#numpy.dtype.flags) | Bit-flags describing how this data type is to be interpreted.
-[dtype.isbuiltin](generated/numpy.dtype.isbuiltin.html#numpy.dtype.isbuiltin) | Integer indicating how this dtype relates to the built-in dtypes.
-[dtype.isnative](generated/numpy.dtype.isnative.html#numpy.dtype.isnative) | Boolean indicating whether the byte order of this dtype is native to the platform.
-[dtype.descr](generated/numpy.dtype.descr.html#numpy.dtype.descr) | *\_\_array_interface__* description of the data-type.
-[dtype.alignment](generated/numpy.dtype.alignment.html#numpy.dtype.alignment) | The required alignment (bytes) of this data-type according to the compiler.
-[dtype.base](generated/numpy.dtype.base.html#numpy.dtype.base) | Returns dtype for the base element of the subarrays, regardless of their dimension or shape.
+[dtype.hasobject](https://numpy.org/devdocs/reference/generated/numpy.dtype.hasobject.html#numpy.dtype.hasobject) | Boolean indicating whether this dtype contains any reference-counted objects in any fields or sub-dtypes.
+[dtype.flags](https://numpy.org/devdocs/reference/generated/numpy.dtype.flags.html#numpy.dtype.flags) | Bit-flags describing how this data type is to be interpreted.
+[dtype.isbuiltin](https://numpy.org/devdocs/reference/generated/numpy.dtype.isbuiltin.html#numpy.dtype.isbuiltin) | Integer indicating how this dtype relates to the built-in dtypes.
+[dtype.isnative](https://numpy.org/devdocs/reference/generated/numpy.dtype.isnative.html#numpy.dtype.isnative) | Boolean indicating whether the byte order of this dtype is native to the platform.
+[dtype.descr](https://numpy.org/devdocs/reference/generated/numpy.dtype.descr.html#numpy.dtype.descr) | *\_\_array_interface__* description of the data-type.
+[dtype.alignment](https://numpy.org/devdocs/reference/generated/numpy.dtype.alignment.html#numpy.dtype.alignment) | The required alignment (bytes) of this data-type according to the compiler.
+[dtype.base](https://numpy.org/devdocs/reference/generated/numpy.dtype.base.html#numpy.dtype.base) | Returns dtype for the base element of the subarrays, regardless of their dimension or shape.
 
 ### Methods
 
@@ -522,11 +522,11 @@ Data types have the following method for changing the byte order:
 
 method | description
 ---|---
-[dtype.newbyteorder](generated/numpy.dtype.newbyteorder.html#numpy.dtype.newbyteorder)([new_order]) | Return a new dtype with a different byte order.
+[dtype.newbyteorder](https://numpy.org/devdocs/reference/generated/numpy.dtype.newbyteorder.html#numpy.dtype.newbyteorder)([new_order]) | Return a new dtype with a different byte order.
 
 The following methods implement the pickle protocol:
 
 method | description
 ---|---
-[dtype.__reduce__](generated/numpy.dtype.__reduce__.html#numpy.dtype.__reduce__)() | helper for pickle
-[dtype.__setstate__](generated/numpy.dtype.__setstate__.html#numpy.dtype.__setstate__)() | 
+[dtype.__reduce__](https://numpy.org/devdocs/reference/generated/numpy.dtype.__reduce__.html#numpy.dtype.__reduce__)() | helper for pickle
+[dtype.__setstate__](https://numpy.org/devdocs/reference/generated/numpy.dtype.__setstate__.html#numpy.dtype.__setstate__)() | 

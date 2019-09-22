@@ -42,11 +42,11 @@ module.exports = function () {
       ]
     },
     {
-      title: '与Matlab比较',
+      title: '与 Matlab 比较',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/user/numpy_for_matlab_users', 'NumPy对于Matlab用户']
+        ['/user/numpy_for_matlab_users', '与 Matlab 比较']
       ]
     },
     {

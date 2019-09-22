@@ -67,11 +67,11 @@ module.exports = function () {
       ['/reference/routines/window', '窗口函数']
     ]
   }, {
-    title: '打包(numpy.distutils)',
+    title: '打包（numpy.distutils）',
     collapsable: true,
     sidebarDepth: 3,
     children: [
-      ['/reference/distutils', '打包(numpy.distutils)']
+      ['/reference/distutils', '打包（numpy.distutils）']
     ]
   }, {
     title: 'NumPy Distutils 的用户指南',

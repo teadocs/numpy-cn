@@ -349,7 +349,8 @@ array([(0, 2, 3), (4, 0, -999)],
 
 ### 快捷方式函数
 
-除了 [genfromtxt](/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) 之外，numpy.lib.io模块还提供了几个从 [genfromtxt](/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) 派生的方便函数。这些函数的工作方式与原始函数相同，但它们具有不同的默认值。
+除了 [genfromtxt](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) 之外，numpy.lib.io模块还提供了几个从 
+[genfromtxt](https://numpy.org/devdocs/reference/generated/numpy.genfromtxt.html#numpy.genfromtxt) 派生的方便函数。这些函数的工作方式与原始函数相同，但它们具有不同的默认值。
 
-- **recfromtxt** - 返回标准 [numpy.recarray](/reference/generated/numpy.recarray.html#numpy.recarray)（如果 ``usemask=False``）或 MaskedRecords数组（如果 ``usemaske=True``）。默认dtype是 ``dtype=None`` ，意味着将自动确定每列的类型。
+- **recfromtxt** - 返回标准 [numpy.recarray](https://numpy.org/devdocs/reference/generated/numpy.recarray.html#numpy.recarray)（如果 ``usemask=False``）或 MaskedRecords数组（如果 ``usemaske=True``）。默认dtype是 ``dtype=None`` ，意味着将自动确定每列的类型。
 - **recfromcsv** - 类似 recfromtxt，但有默认值 ``delimiter=","`` 。

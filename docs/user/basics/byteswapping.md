@@ -103,7 +103,7 @@ True
 1
 ```
 
-现在阵列 *已* 在内存中更改：
+现在数组 *已* 在内存中更改：
 
 ``` python
 >>> fixed_end_mem_arr.tobytes() == big_end_buffer

@@ -12,7 +12,7 @@
 
 虽然ndarray对象旨在允许在Python中进行快速计算，但它也被设计为通用的并且满足各种各样的计算需求。因此，如果绝对速度是必不可少的，那么就不能替换特定于您的应用程序和硬件的精心编制的循环。这是numpy包含f2py的原因之一，因此可以使用易于使用的机制将（简单的）C / C ++和（任意）Fortran代码直接链接到Python中。我们鼓励您使用和改进此机制。本节的目的不是记录此工具，而是记录编写此工具所依赖的扩展模块的更基本步骤。
 
-当扩展模块被编写，编译并安装到Python路径（sys.path）中的某个位置时，可以将代码导入到Python中，就好像它是标准的python文件一样。它将包含已在C代码中定义和编译的对象和方法。在Python中执行此操作的基本步骤已有详细记录，您可以在[www.python.org上的](https://www.python.org)在线文档中找到更多信息。
+当扩展模块被编写，编译并安装到Python路径（sys.path）中的某个位置时，可以将代码导入到Python中，就好像它是标准的python文件一样。它将包含已在C代码中定义和编译的对象和方法。在Python中执行此操作的基本步骤已有详细记录，您可以在[www.python.org](https://www.python.org)上的在线文档中找到更多信息。
 
 除了Python C-API之外，NumPy还有一个完整而丰富的C-API，允许在C级上进行复杂的操作。但是，对于大多数应用程序，通常只使用少量API调用。如果你需要做的就是提取一个指向内存的指针以及一些形状信息以传递给另一个计算例程，那么你将使用非常不同的调用，然后如果你试图创建一个类似于数组的新类型或添加一个新数据ndarrays的类型。本章介绍了最常用的API调用和宏。
 
@@ -126,7 +126,7 @@ kwds参数包含一个Python字典，其键是关键字参数的名称，其值�
  [``PyArg_UnpackTuple``](https://docs.python.org/dev/c-api/arg.html#c.PyArg_UnpackTuple)您收到对元组中对象的借用引用，不应更改其函数内的引用计数。通过练习，您可以学会正确引用计数，但一开始可能会令人沮丧。
 
 引用计数错误的一个常见来源是[``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue)
-函数。请特别注意'N'格式字符和'O'格式字符之间的区别。如果在子例程中创建一个新对象（例如输出数组），并且在返回值的元组中将其传回，则最应该使用“N”格式字符。[``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue)。“O”字符将引用计数增加1。这将为调用者提供一个全新阵列的两个引用计数。删除变量并且引用计数减1时，仍会有额外的引用计数，并且永远不会释放该数组。您将有一个引用计数引起的内存泄漏。使用'N'字符将避免这种情况，因为它将使用单个引用计数返回给调用者一个对象（在元组内）。
+函数。请特别注意'N'格式字符和'O'格式字符之间的区别。如果在子例程中创建一个新对象（例如输出数组），并且在返回值的元组中将其传回，则最应该使用“N”格式字符。[``Py_BuildValue``](https://docs.python.org/dev/c-api/arg.html#c.Py_BuildValue)。“O”字符将引用计数增加1。这将为调用者提供一个全新数组的两个引用计数。删除变量并且引用计数减1时，仍会有额外的引用计数，并且永远不会释放该数组。您将有一个引用计数引起的内存泄漏。使用'N'字符将避免这种情况，因为它将使用单个引用计数返回给调用者一个对象（在元组内）。
 
 ## 处理数组对象
 
@@ -160,7 +160,7 @@ NumPy的大多数扩展模块都需要访问ndarray对象（或其中一个子�
     可以转换为数组的对象包括：
     1)任何嵌套的Sequence对象，
     2)暴露数组接口的任何对象，
-    3)具有[数组](https://www.numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array__)方法的任何对象(应该返回ndarray)，
+    3)具有[数组](/reference/arrays/classes.html#numpy.class.__array__)方法的任何对象(应该返回ndarray)，
     以及4)任何标量对象(变成零维数组)。
     否则符合要求的ndarray的子类将被传递。如果要确保基类ndarray，
     则在Requirements标志中使用 [NPY_ARRAY_ENSUREARRAY](https://www.numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_ENSUREARRAY)。
@@ -236,16 +236,22 @@ NumPy的大多数扩展模块都需要访问ndarray对象（或其中一个子�
 
 ### 创建一个全新的ndarray 
 
-通常，必须在扩展模块代码中创建新数组。也许需要输出数组，并且您不希望调用者必须提供它。也许只需要一个临时数组来进行中间计算。无论需要什么，都需要简单的方法来获得任何数据类型的ndarray对象。这样做最常见的功能是[``PyArray_NewFromDescr``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_NewFromDescr)。所有数组创建函数都经过这个重复使用的代码。由于其灵活性，使用起来可能有点混乱。结果，存在更易于使用的更简单的形式。这些表单是[``PyArray_SimpleNew``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_SimpleNew)函数族的一部分
+通常，必须在扩展模块代码中创建新数组。也许需要输出数组，
+并且您不希望调用者必须提供它。
+也许只需要一个临时数组来进行中间计算。
+无论需要什么，都需要简单的方法来获得任何数据类型的ndarray对象。
+这样做最常见的功能是[``PyArray_NewFromDescr``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_NewFromDescr)。
+所有数组创建函数都经过这个重复使用的代码。由于其灵活性，使用起来可能有点混乱。
+结果，存在更易于使用的更简单的形式。这些表单是[``PyArray_SimpleNew``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_SimpleNew)函数族的一部分
  ，它通过为常见用例提供默认值来简化界面。
 
 ### 获取ndarray内存并访问ndarray的元素
 
-如果obj是一个ndarray（），那么ndarray 的数据区域由void *指针（obj）或char *指针（obj）指向。请记住（通常）此数据区域可能未根据数据类型对齐，它可能表示字节交换数据，和/或可能无法写入。如果数据区域是对齐的并且是以本机字节顺序排列的，那么如何获取数组的特定元素只能由npy_intp变量数组（obj）确定。特别是，这个整数的c数组显示了必须向当前元素指针添加多少**字节**才能到达每个维度中的下一个元素。对于小于4维的阵列，有[``PyArrayObject *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayObject)[``PyArray_DATA``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_DATA)[``PyArray_BYTES``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_BYTES)[``PyArray_STRIDES``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_STRIDES)****``PyArray_GETPTR{k}``
+如果obj是一个 ndarray()，那么ndarray 的数据区域由void *指针（obj）或char *指针（obj）指向。请记住（通常）此数据区域可能未根据数据类型对齐，它可能表示字节交换数据，和/或可能无法写入。如果数据区域是对齐的并且是以本机字节顺序排列的，那么如何获取数组的特定元素只能由npy_intp变量数组（obj）确定。特别是，这个整数的c数组显示了必须向当前元素指针添加多少**字节**才能到达每个维度中的下一个元素。对于小于4维的数组，有[``PyArrayObject *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayObject)[``PyArray_DATA``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_DATA)[``PyArray_BYTES``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_BYTES)[``PyArray_STRIDES``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_STRIDES)****``PyArray_GETPTR{k}``
 （obj，...）宏，其中{k}是整数1,2,3或4，这使得使用数组步幅更容易。争论...... 将{k}非负整数索引表示到数组中。例如，假设``E``是一个三维的ndarray。``E[i,j,k]``
 获得元素的（void *）指针作为[``PyArray_GETPTR3``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_GETPTR3)（E，i，j，k）。
 
-如前所述，C风格的连续数组和Fortran风格的连续数组具有特定的跨步模式。两个数组标志（[``NPY_ARRAY_C_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_C_CONTIGUOUS)和[``NPY_ARRAY_F_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_F_CONTIGUOUS)）表示特定数组的跨步模式是否与C风格的连续或Fortran风格的连续匹配或两者都不匹配。可以使用[``PyArray_IS_C_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_IS_C_CONTIGUOUS)（obj）和（）
+如前所述，C风格的连续数组和Fortran风格的连续数组具有特定的跨步模式。两个数组标志（[``NPY_ARRAY_C_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_C_CONTIGUOUS)和[``NPY_ARRAY_F_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.NPY_ARRAY_F_CONTIGUOUS)）表示特定数组的跨步模式是否与C风格的连续或Fortran风格的连续匹配或两者都不匹配。可以使用[``PyArray_IS_C_CONTIGUOUS``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_IS_C_CONTIGUOUS)（obj）和()
  来测试跨步模式是否匹配标准C或Fortran[``PyArray_ISFORTRAN``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ISFORTRAN)（obj）分别。大多数第三方库都期望连续的数组。但是，通常支持通用跨越并不困难。我鼓励您尽可能在自己的代码中使用跨步信息，并保留包裹第三方代码的单段要求。使用与ndarray一起提供的跨步信息而不是需要连续的跨步减少了必须进行的复制。
 
 ## 示例

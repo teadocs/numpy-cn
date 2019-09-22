@@ -32,35 +32,35 @@ letters, for a “Not A Time” value.
 A simple ISO date:
 
 ``` python
->>>>>> np.datetime64('2005-02-25')
+>>> np.datetime64('2005-02-25')
 numpy.datetime64('2005-02-25')
 ```
 
 Using months for the unit:
 
 ``` python
->>>>>> np.datetime64('2005-02')
+>>> np.datetime64('2005-02')
 numpy.datetime64('2005-02')
 ```
 
 Specifying just the month, but forcing a ‘days’ unit:
 
 ``` python
->>>>>> np.datetime64('2005-02', 'D')
+>>> np.datetime64('2005-02', 'D')
 numpy.datetime64('2005-02-01')
 ```
 
 From a date and time:
 
 ``` python
->>>>>> np.datetime64('2005-02-25T03:30')
+>>> np.datetime64('2005-02-25T03:30')
 numpy.datetime64('2005-02-25T03:30')
 ```
 
 NAT (not a time):
 
 ``` python
->>>>>> numpy.datetime64('nat')
+>>> numpy.datetime64('nat')
 numpy.datetime64('NaT')
 ```
 
@@ -71,24 +71,24 @@ datetime type with generic units.
 **Example:**
 
 ``` python
->>>>>> np.array(['2007-07-13', '2006-01-13', '2010-08-13'], dtype='datetime64')
+>>> np.array(['2007-07-13', '2006-01-13', '2010-08-13'], dtype='datetime64')
 array(['2007-07-13', '2006-01-13', '2010-08-13'], dtype='datetime64[D]')
 ```
 
 ``` python
->>>>>> np.array(['2001-01-01T12:00', '2002-02-03T13:56:03.172'], dtype='datetime64')
+>>> np.array(['2001-01-01T12:00', '2002-02-03T13:56:03.172'], dtype='datetime64')
 array(['2001-01-01T12:00:00.000-0600', '2002-02-03T13:56:03.172-0600'], dtype='datetime64[ms]')
 ```
 
 The datetime type works with many common NumPy functions, for
-example [``arange``](generated/numpy.arange.html#numpy.arange) can be used to generate ranges of dates.
+example [``arange``](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange) can be used to generate ranges of dates.
 
 **Example:**
 
 All the dates for one month:
 
 ``` python
->>>>>> np.arange('2005-02', '2005-03', dtype='datetime64[D]')
+>>> np.arange('2005-02', '2005-03', dtype='datetime64[D]')
 array(['2005-02-01', '2005-02-02', '2005-02-03', '2005-02-04',
        '2005-02-05', '2005-02-06', '2005-02-07', '2005-02-08',
        '2005-02-09', '2005-02-10', '2005-02-11', '2005-02-12',
@@ -108,12 +108,12 @@ because the moment of time is still being represented exactly.
 **Example:**
 
 ``` python
->>>>>> np.datetime64('2005') == np.datetime64('2005-01-01')
+>>> np.datetime64('2005') == np.datetime64('2005-01-01')
 True
 ```
 
 ``` python
->>>>>> np.datetime64('2010-03-14T15Z') == np.datetime64('2010-03-14T15:00:00.00Z')
+>>> np.datetime64('2010-03-14T15Z') == np.datetime64('2010-03-14T15:00:00.00Z')
 True
 ```
 
@@ -130,17 +130,17 @@ data type also accepts the string “NAT” in place of the number for a “Not 
 **Example:**
 
 ``` python
->>>>>> numpy.timedelta64(1, 'D')
+>>> numpy.timedelta64(1, 'D')
 numpy.timedelta64(1,'D')
 ```
 
 ``` python
->>>>>> numpy.timedelta64(4, 'h')
+>>> numpy.timedelta64(4, 'h')
 numpy.timedelta64(4,'h')
 ```
 
 ``` python
->>>>>> numpy.timedelta64('nAt')
+>>> numpy.timedelta64('nAt')
 numpy.timedelta64('NaT')
 ```
 
@@ -150,37 +150,37 @@ simple datetime calculations.
 **Example:**
 
 ``` python
->>>>>> np.datetime64('2009-01-01') - np.datetime64('2008-01-01')
+>>> np.datetime64('2009-01-01') - np.datetime64('2008-01-01')
 numpy.timedelta64(366,'D')
 ```
 
 ``` python
->>>>>> np.datetime64('2009') + np.timedelta64(20, 'D')
+>>> np.datetime64('2009') + np.timedelta64(20, 'D')
 numpy.datetime64('2009-01-21')
 ```
 
 ``` python
->>>>>> np.datetime64('2011-06-15T00:00') + np.timedelta64(12, 'h')
+>>> np.datetime64('2011-06-15T00:00') + np.timedelta64(12, 'h')
 numpy.datetime64('2011-06-15T12:00-0500')
 ```
 
 ``` python
->>>>>> np.timedelta64(1,'W') / np.timedelta64(1,'D')
+>>> np.timedelta64(1,'W') / np.timedelta64(1,'D')
 7.0
 ```
 
 ``` python
->>>>>> np.timedelta64(1,'W') % np.timedelta64(10,'D')
+>>> np.timedelta64(1,'W') % np.timedelta64(10,'D')
 numpy.timedelta64(7,'D')
 ```
 
 ``` python
->>>>>> numpy.datetime64('nat') - numpy.datetime64('2009-01-01')
+>>> numpy.datetime64('nat') - numpy.datetime64('2009-01-01')
 numpy.timedelta64('NaT','D')
 ```
 
 ``` python
->>>>>> numpy.datetime64('2009-01-01') + numpy.timedelta64('nat')
+>>> numpy.datetime64('2009-01-01') + numpy.timedelta64('nat')
 numpy.datetime64('NaT')
 ```
 
@@ -193,16 +193,16 @@ different months have different numbers of days.
 **Example:**
 
 ``` python
->>>>>> a = np.timedelta64(1, 'Y')
+>>> a = np.timedelta64(1, 'Y')
 ```
 
 ``` python
->>>>>> np.timedelta64(a, 'M')
+>>> np.timedelta64(a, 'M')
 numpy.timedelta64(12,'M')
 ```
 
 ``` python
->>>>>> np.timedelta64(a, 'D')
+>>> np.timedelta64(a, 'D')
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: Cannot cast NumPy timedelta64 scalar from metadata [Y] to [D] according to the rule 'same_kind'
@@ -262,23 +262,23 @@ weekmasks are possible that specify other sets of valid days.
 The “busday” functions can additionally check a list of “holiday” dates,
 specific dates that are not valid days.
 
-The function [``busday_offset``](generated/numpy.busday_offset.html#numpy.busday_offset) allows you to apply offsets
+The function [``busday_offset``](https://numpy.org/devdocs/reference/generated/numpy.busday_offset.html#numpy.busday_offset) allows you to apply offsets
 specified in business days to datetimes with a unit of ‘D’ (day).
 
 **Example:**
 
 ``` python
->>>>>> np.busday_offset('2011-06-23', 1)
+>>> np.busday_offset('2011-06-23', 1)
 numpy.datetime64('2011-06-24')
 ```
 
 ``` python
->>>>>> np.busday_offset('2011-06-23', 2)
+>>> np.busday_offset('2011-06-23', 2)
 numpy.datetime64('2011-06-27')
 ```
 
 When an input date falls on the weekend or a holiday,
-[``busday_offset``](generated/numpy.busday_offset.html#numpy.busday_offset) first applies a rule to roll the
+[``busday_offset``](https://numpy.org/devdocs/reference/generated/numpy.busday_offset.html#numpy.busday_offset) first applies a rule to roll the
 date to a valid business day, then applies the offset. The
 default rule is ‘raise’, which simply raises an exception.
 The rules most typically used are ‘forward’ and ‘backward’.
@@ -286,29 +286,29 @@ The rules most typically used are ‘forward’ and ‘backward’.
 **Example:**
 
 ``` python
->>>>>> np.busday_offset('2011-06-25', 2)
+>>> np.busday_offset('2011-06-25', 2)
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 ValueError: Non-business day date in busday_offset
 ```
 
 ``` python
->>>>>> np.busday_offset('2011-06-25', 0, roll='forward')
+>>> np.busday_offset('2011-06-25', 0, roll='forward')
 numpy.datetime64('2011-06-27')
 ```
 
 ``` python
->>>>>> np.busday_offset('2011-06-25', 2, roll='forward')
+>>> np.busday_offset('2011-06-25', 2, roll='forward')
 numpy.datetime64('2011-06-29')
 ```
 
 ``` python
->>>>>> np.busday_offset('2011-06-25', 0, roll='backward')
+>>> np.busday_offset('2011-06-25', 0, roll='backward')
 numpy.datetime64('2011-06-24')
 ```
 
 ``` python
->>>>>> np.busday_offset('2011-06-25', 2, roll='backward')
+>>> np.busday_offset('2011-06-25', 2, roll='backward')
 numpy.datetime64('2011-06-28')
 ```
 
@@ -320,7 +320,7 @@ is necessary to get a desired answer.
 The first business day on or after a date:
 
 ``` python
->>>>>> np.busday_offset('2011-03-20', 0, roll='forward')
+>>> np.busday_offset('2011-03-20', 0, roll='forward')
 numpy.datetime64('2011-03-21','D')
 >>> np.busday_offset('2011-03-22', 0, roll='forward')
 numpy.datetime64('2011-03-22','D')
@@ -329,7 +329,7 @@ numpy.datetime64('2011-03-22','D')
 The first business day strictly after a date:
 
 ``` python
->>>>>> np.busday_offset('2011-03-20', 1, roll='backward')
+>>> np.busday_offset('2011-03-20', 1, roll='backward')
 numpy.datetime64('2011-03-21','D')
 >>> np.busday_offset('2011-03-22', 1, roll='backward')
 numpy.datetime64('2011-03-23','D')
@@ -343,23 +343,23 @@ weekmask.
 **Example:**
 
 ``` python
->>>>>> np.busday_offset('2012-05', 1, roll='forward', weekmask='Sun')
+>>> np.busday_offset('2012-05', 1, roll='forward', weekmask='Sun')
 numpy.datetime64('2012-05-13','D')
 ```
 
 When performance is important for manipulating many business dates
 with one particular choice of weekmask and holidays, there is
-an object [``busdaycalendar``](generated/numpy.busdaycalendar.html#numpy.busdaycalendar) which stores the data necessary
+an object [``busdaycalendar``](https://numpy.org/devdocs/reference/generated/numpy.busdaycalendar.html#numpy.busdaycalendar) which stores the data necessary
 in an optimized form.
 
 ### np.is_busday():
 
-To test a datetime64 value to see if it is a valid day, use [``is_busday``](generated/numpy.is_busday.html#numpy.is_busday).
+To test a datetime64 value to see if it is a valid day, use [``is_busday``](https://numpy.org/devdocs/reference/generated/numpy.is_busday.html#numpy.is_busday).
 
 **Example:**
 
 ``` python
->>>>>> np.is_busday(np.datetime64('2011-07-15'))  # a Friday
+>>> np.is_busday(np.datetime64('2011-07-15'))  # a Friday
 True
 >>> np.is_busday(np.datetime64('2011-07-16')) # a Saturday
 False
@@ -373,12 +373,12 @@ array([ True,  True,  True,  True,  True, False, False], dtype='bool')
 ### np.busday_count():
 
 To find how many valid days there are in a specified range of datetime64
-dates, use [``busday_count``](generated/numpy.busday_count.html#numpy.busday_count):
+dates, use [``busday_count``](https://numpy.org/devdocs/reference/generated/numpy.busday_count.html#numpy.busday_count):
 
 **Example:**
 
 ``` python
->>>>>> np.busday_count(np.datetime64('2011-07-11'), np.datetime64('2011-07-18'))
+>>> np.busday_count(np.datetime64('2011-07-11'), np.datetime64('2011-07-18'))
 5
 >>> np.busday_count(np.datetime64('2011-07-18'), np.datetime64('2011-07-11'))
 -5
@@ -390,7 +390,7 @@ how many of them are valid dates, you can do this:
 **Example:**
 
 ``` python
->>>>>> a = np.arange(np.datetime64('2011-07-11'), np.datetime64('2011-07-18'))
+>>> a = np.arange(np.datetime64('2011-07-11'), np.datetime64('2011-07-18'))
 >>> np.count_nonzero(np.is_busday(a))
 5
 ```
@@ -445,7 +445,7 @@ it handles by converting to UTC. However, the resulting datetime is timezone
 naive:
 
 ``` python
->>>>>> np.datetime64('2000-01-01T00:00:00-08')
+>>> np.datetime64('2000-01-01T00:00:00-08')
 DeprecationWarning: parsing timezone aware datetimes is deprecated; this will raise an error in the future
 numpy.datetime64('2000-01-01T08:00:00')
 ```

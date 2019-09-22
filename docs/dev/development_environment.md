@@ -100,7 +100,7 @@ $ virtualenv numpy-dev
 除了使用之外``runtests.py``，还有各种方法来运行测试。在解释器内部，测试可以像这样运行：
 
 ``` python
->>>>>> np.test()
+>>> np.test()
 >>> np.test('full')   # Also run tests marked as slow
 >>> np.test('full', verbose=2)   # Additionally print test name/file
 

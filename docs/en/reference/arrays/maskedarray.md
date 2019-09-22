@@ -13,7 +13,7 @@ of invalid data. For example, a sensor may have failed to record a data, or
 recorded an invalid value. The [``numpy.ma``](#module-numpy.ma) module provides a convenient
 way to address this issue, by introducing masked arrays.
 
-A masked array is the combination of a standard [``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray) and a
+A masked array is the combination of a standard [``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) and a
 mask. A mask is either [``nomask``](maskedarray.baseclass.html#numpy.ma.nomask), indicating that no value of the
 associated array is invalid, or an array of booleans that determines for each
 element of the associated array whether the value is valid or not. When an
@@ -50,7 +50,7 @@ into account:
 ## The ``numpy.ma`` module
 
 The main feature of the [``numpy.ma``](#module-numpy.ma) module is the [``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray)
-class, which is a subclass of [``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray). The class, its
+class, which is a subclass of [``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray). The class, its
 attributes and methods are described in more details in the
 [MaskedArray class](maskedarray.baseclass.html#maskedarray-baseclass) section.
 
@@ -84,11 +84,11 @@ There are several ways to construct a masked array.
 
 - A first possibility is to directly invoke the [``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray) class.
 - A second possibility is to use the two masked array constructors,
-[``array``](generated/numpy.ma.array.html#numpy.ma.array) and [``masked_array``](generated/numpy.ma.masked_array.html#numpy.ma.masked_array).
+[``array``](https://numpy.org/devdocs/reference/generated/numpy.ma.array.html#numpy.ma.array) and [``masked_array``](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_array.html#numpy.ma.masked_array).
   method | description
   ---|---
-  [array](generated/numpy.ma.array.html#numpy.ma.array)(data[, dtype, copy, order, mask, …]) | An array class with possibly masked values.
-  [masked_array](generated/numpy.ma.masked_array.html#numpy.ma.masked_array) | alias of numpy.ma.core.MaskedArray
+  [array](https://numpy.org/devdocs/reference/generated/numpy.ma.array.html#numpy.ma.array)(data[, dtype, copy, order, mask, …]) | An array class with possibly masked values.
+  [masked_array](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_array.html#numpy.ma.masked_array) | alias of numpy.ma.core.MaskedArray
 - A third option is to take the view of an existing array. In that case, the
   mask of the view is set to [``nomask``](maskedarray.baseclass.html#numpy.ma.nomask) if the array has no named fields,
   or an array of boolean with the same structure as the array otherwise.
@@ -108,40 +108,40 @@ There are several ways to construct a masked array.
 - Yet another possibility is to use any of the following functions:
   method | description
   ---|---
-  [asarray](generated/numpy.ma.asarray.html#numpy.ma.asarray)(a[, dtype, order]) | Convert the input to a masked array of the given data-type.
-  [asanyarray](generated/numpy.ma.asanyarray.html#numpy.ma.asanyarray)(a[, dtype]) | Convert the input to a masked array, conserving subclasses.
-  [fix_invalid](generated/numpy.ma.fix_invalid.html#numpy.ma.fix_invalid)(a[, mask, copy, fill_value]) | Return input with invalid data masked and replaced by a fill value.
-  [masked_equal](generated/numpy.ma.masked_equal.html#numpy.ma.masked_equal)(x, value[, copy]) | Mask an array where equal to a given value.
-  [masked_greater](generated/numpy.ma.masked_greater.html#numpy.ma.masked_greater)(x, value[, copy]) | Mask an array where greater than a given value.
-  [masked_greater_equal](generated/numpy.ma.masked_greater_equal.html#numpy.ma.masked_greater_equal)(x, value[, copy]) | Mask an array where greater than or equal to a given value.
-  [masked_inside](generated/numpy.ma.masked_inside.html#numpy.ma.masked_inside)(x, v1, v2[, copy]) | Mask an array inside a given interval.
-  [masked_invalid](generated/numpy.ma.masked_invalid.html#numpy.ma.masked_invalid)(a[, copy]) | Mask an array where invalid values occur (NaNs or infs).
-  [masked_less](generated/numpy.ma.masked_less.html#numpy.ma.masked_less)(x, value[, copy]) | Mask an array where less than a given value.
-  [masked_less_equal](generated/numpy.ma.masked_less_equal.html#numpy.ma.masked_less_equal)(x, value[, copy]) | Mask an array where less than or equal to a given value.
-  [masked_not_equal](generated/numpy.ma.masked_not_equal.html#numpy.ma.masked_not_equal)(x, value[, copy]) | Mask an array where not equal to a given value.
-  [masked_object](generated/numpy.ma.masked_object.html#numpy.ma.masked_object)(x, value[, copy, shrink]) | Mask the array x where the data are exactly equal to value.
-  [masked_outside](generated/numpy.ma.masked_outside.html#numpy.ma.masked_outside)(x, v1, v2[, copy]) | Mask an array outside a given interval.
-  [masked_values](generated/numpy.ma.masked_values.html#numpy.ma.masked_values)(x, value[, rtol, atol, copy, …]) | Mask using floating point equality.
-  [masked_where](generated/numpy.ma.masked_where.html#numpy.ma.masked_where)(condition, a[, copy]) | Mask an array where a condition is met.
+  [asarray](https://numpy.org/devdocs/reference/generated/numpy.ma.asarray.html#numpy.ma.asarray)(a[, dtype, order]) | Convert the input to a masked array of the given data-type.
+  [asanyarray](https://numpy.org/devdocs/reference/generated/numpy.ma.asanyarray.html#numpy.ma.asanyarray)(a[, dtype]) | Convert the input to a masked array, conserving subclasses.
+  [fix_invalid](https://numpy.org/devdocs/reference/generated/numpy.ma.fix_invalid.html#numpy.ma.fix_invalid)(a[, mask, copy, fill_value]) | Return input with invalid data masked and replaced by a fill value.
+  [masked_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_equal.html#numpy.ma.masked_equal)(x, value[, copy]) | Mask an array where equal to a given value.
+  [masked_greater](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_greater.html#numpy.ma.masked_greater)(x, value[, copy]) | Mask an array where greater than a given value.
+  [masked_greater_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_greater_equal.html#numpy.ma.masked_greater_equal)(x, value[, copy]) | Mask an array where greater than or equal to a given value.
+  [masked_inside](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_inside.html#numpy.ma.masked_inside)(x, v1, v2[, copy]) | Mask an array inside a given interval.
+  [masked_invalid](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_invalid.html#numpy.ma.masked_invalid)(a[, copy]) | Mask an array where invalid values occur (NaNs or infs).
+  [masked_less](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_less.html#numpy.ma.masked_less)(x, value[, copy]) | Mask an array where less than a given value.
+  [masked_less_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_less_equal.html#numpy.ma.masked_less_equal)(x, value[, copy]) | Mask an array where less than or equal to a given value.
+  [masked_not_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_not_equal.html#numpy.ma.masked_not_equal)(x, value[, copy]) | Mask an array where not equal to a given value.
+  [masked_object](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_object.html#numpy.ma.masked_object)(x, value[, copy, shrink]) | Mask the array x where the data are exactly equal to value.
+  [masked_outside](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_outside.html#numpy.ma.masked_outside)(x, v1, v2[, copy]) | Mask an array outside a given interval.
+  [masked_values](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_values.html#numpy.ma.masked_values)(x, value[, rtol, atol, copy, …]) | Mask using floating point equality.
+  [masked_where](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_where.html#numpy.ma.masked_where)(condition, a[, copy]) | Mask an array where a condition is met.
 
 ## Accessing the data
 
 The underlying data of a masked array can be accessed in several ways:
 
 - through the [``data``](maskedarray.baseclass.html#numpy.ma.MaskedArray.data) attribute. The output is a view of the
-array as a [``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray) or one of its subclasses, depending on the
+array as a [``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) or one of its subclasses, depending on the
 type of the underlying data at the masked array creation.
-- through the [``__array__``](generated/numpy.ma.MaskedArray.__array__.html#numpy.ma.MaskedArray.__array__) method. The output is then a
-[``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray).
-- by directly taking a view of the masked array as a [``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
+- through the [``__array__``](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.__array__.html#numpy.ma.MaskedArray.__array__) method. The output is then a
+[``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray).
+- by directly taking a view of the masked array as a [``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)
 or one of its subclass (which is actually what using the
 [``data``](maskedarray.baseclass.html#numpy.ma.MaskedArray.data) attribute does).
-- by using the [``getdata``](generated/numpy.ma.getdata.html#numpy.ma.getdata) function.
+- by using the [``getdata``](https://numpy.org/devdocs/reference/generated/numpy.ma.getdata.html#numpy.ma.getdata) function.
 
 None of these methods is completely satisfactory if some entries have been
 marked as invalid. As a general rule, where a representation of the array is
 required without any masked entries, it is recommended to fill the array with
-the [``filled``](generated/numpy.ma.filled.html#numpy.ma.filled) method.
+the [``filled``](https://numpy.org/devdocs/reference/generated/numpy.ma.filled.html#numpy.ma.filled) method.
 
 ## Accessing the mask
 
@@ -149,7 +149,7 @@ The mask of a masked array is accessible through its [``mask``](maskedarray.base
 attribute. We must keep in mind that a ``True`` entry in the mask indicates an
 *invalid* data.
 
-Another possibility is to use the [``getmask``](generated/numpy.ma.getmask.html#numpy.ma.getmask) and [``getmaskarray``](generated/numpy.ma.getmaskarray.html#numpy.ma.getmaskarray)
+Another possibility is to use the [``getmask``](https://numpy.org/devdocs/reference/generated/numpy.ma.getmask.html#numpy.ma.getmask) and [``getmaskarray``](https://numpy.org/devdocs/reference/generated/numpy.ma.getmaskarray.html#numpy.ma.getmaskarray)
 functions. ``getmask(x)`` outputs the mask of ``x`` if ``x`` is a masked
 array, and the special value [``nomask``](maskedarray.baseclass.html#numpy.ma.nomask) otherwise. ``getmaskarray(x)``
 outputs the mask of ``x`` if ``x`` is a masked array. If ``x`` has no invalid
@@ -160,7 +160,7 @@ entry or is not a masked array, the function outputs  a boolean array of
 
 To retrieve only the valid entries, we can use the inverse of the mask as an
 index. The inverse of the mask can be calculated with the
-[``numpy.logical_not``](generated/numpy.logical_not.html#numpy.logical_not) function or simply with the ``~`` operator:
+[``numpy.logical_not``](https://numpy.org/devdocs/reference/generated/numpy.logical_not.html#numpy.logical_not) function or simply with the ``~`` operator:
 
 ``` python
 >>> x = ma.array([[1, 2], [3, 4]], mask=[[0, 1], [1, 0]])
@@ -170,8 +170,8 @@ masked_array(data = [1 4],
        fill_value = 999999)
 ```
 
-Another way to retrieve the valid data is to use the [``compressed``](generated/numpy.ma.compressed.html#numpy.ma.compressed)
-method, which returns a one-dimensional [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) (or one of its
+Another way to retrieve the valid data is to use the [``compressed``](https://numpy.org/devdocs/reference/generated/numpy.ma.compressed.html#numpy.ma.compressed)
+method, which returns a one-dimensional [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) (or one of its
 subclasses, depending on the value of the [``baseclass``](maskedarray.baseclass.html#numpy.ma.MaskedArray.baseclass)
 attribute):
 
@@ -180,7 +180,7 @@ attribute):
 array([1, 4])
 ```
 
-Note that the output of [``compressed``](generated/numpy.ma.compressed.html#numpy.ma.compressed) is always 1D.
+Note that the output of [``compressed``](https://numpy.org/devdocs/reference/generated/numpy.ma.compressed.html#numpy.ma.compressed) is always 1D.
 
 ## Modifying the mask
 
@@ -277,8 +277,8 @@ Unmasking an entry by direct assignment will silently fail if the masked
 array has a *hard* mask, as shown by the ``hardmask`` attribute. This
 feature was introduced to prevent overwriting the mask. To force the
 unmasking of an entry where the array has a hard mask, the mask must first
-to be softened using the [``soften_mask``](generated/numpy.ma.soften_mask.html#numpy.ma.soften_mask) method before the allocation.
-It can be re-hardened with [``harden_mask``](generated/numpy.ma.harden_mask.html#numpy.ma.harden_mask):
+to be softened using the [``soften_mask``](https://numpy.org/devdocs/reference/generated/numpy.ma.soften_mask.html#numpy.ma.soften_mask) method before the allocation.
+It can be re-hardened with [``harden_mask``](https://numpy.org/devdocs/reference/generated/numpy.ma.harden_mask.html#numpy.ma.harden_mask):
 
 ``` python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1], hard_mask=True)
@@ -321,7 +321,7 @@ masked_array(data = [1 2 3],
 
 ## Indexing and slicing
 
-As a [``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray) is a subclass of [``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray), it inherits
+As a [``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray) is a subclass of [``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray), it inherits
 its mechanisms for indexing and slicing.
 
 When accessing a single entry of a masked array with no named fields, the
@@ -403,7 +403,7 @@ should not rely on this data remaining unchanged.
 
 The [``numpy.ma``](#module-numpy.ma) module comes with a specific implementation of most
 ufuncs. Unary and binary functions that have a validity domain (such as
-[``log``](generated/numpy.log.html#numpy.log) or [``divide``](generated/numpy.divide.html#numpy.divide)) return the [``masked``](maskedarray.baseclass.html#numpy.ma.masked)
+[``log``](https://numpy.org/devdocs/reference/generated/numpy.log.html#numpy.log) or [``divide``](https://numpy.org/devdocs/reference/generated/numpy.divide.html#numpy.divide)) return the [``masked``](maskedarray.baseclass.html#numpy.ma.masked)
 constant whenever the input is masked or falls outside the validity domain:
 
 ``` python

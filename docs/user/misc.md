@@ -9,7 +9,7 @@ NaNs 可以用作简陋的占位类型（如果你并不在乎初始的值是什
 注意：不能使用相等来测试 NaN。例如：
 
 ``` python
->>>>>> myarr = np.array([1., 0., np.nan, 3.])
+>>> myarr = np.array([1., 0., np.nan, 3.])
 >>> np.nonzero(myarr == np.nan)
 (array([], dtype=int64),)
 >>> np.nan == np.nan  # is always False! Use special numpy functions instead.
@@ -73,7 +73,7 @@ nan
 ## 示例
 
 ``` python
->>>>>> oldsettings = np.seterr(all='warn')
+>>> oldsettings = np.seterr(all='warn')
 >>> np.zeros(5,dtype=np.float32)/0.
 invalid value encountered in divide
 >>> j = np.seterr(under='ignore')
@@ -165,7 +165,7 @@ saw stupid error!
 
 ## Fortran 的接口：
 
-包装 Fortran 代码的明确选择是 [f2py](https://docs.scipy.org/doc/numpy/f2py/)。
+包装 Fortran 代码的明确选择是 [f2py](/f2py/)。
 
 Pyfort是一个较旧的选择，但不再支持。Fwrap是一个看起来很有希望但不再开发的新项目。
 

@@ -1,6 +1,8 @@
 # 编写自定义数组容器
 
-NumPy 的分派机制(在numpy版本v1.16中引入)是编写与numpy API兼容并提供numpy功能的自定义实现的自定义N维数组容器的推荐方法。应用包括 [dask](http://dask.pydata.org) 数组(分布在多个节点上的N维数组)和 [cupy](https://docs-cupy.chainer.org/en/stable/) 数组(GPU上的N维数组)。
+NumPy 的分派机制(在numpy版本v1.16中引入)是编写与numpy API兼容并提供numpy功能的自定义实现的自定义N维数组容器的推荐方法。
+应用包括 [dask](http://dask.pydata.org) 数组(分布在多个节点上的N维数组) 
+和 [cupy](https://docs-cupy.chainer.org/en/stable/) 数组(GPU上的N维数组)。
 
 为了获得编写自定义数组容器的感觉，我们将从一个简单的示例开始，该示例具有相当狭窄的实用程序，但说明了所涉及的概念。
 
@@ -121,7 +123,7 @@ DiagonalArray(N=5, value=0.8414709848078965)
 TypeError: unsupported operand type(s) for *: 'DiagonalArray' and 'int'
 ```
 
-为了支持它，我们需要定义Python接口 ``__add__``， ``__lt__`` 等，以便调度到相应的ufunc。 我们可以通过继承mixin [``NDArrayOperatorsMixin``](/reference/generated/numpy.lib.mixins.NDArrayOperatorsMixin.html#numpy.lib.mixins.NDArrayOperatorsMixin) 来方便地实现这一点。
+为了支持它，我们需要定义Python接口 ``__add__``， ``__lt__`` 等，以便调度到相应的ufunc。 我们可以通过继承mixin [``NDArrayOperatorsMixin``](https://numpy.org/devdocs/reference/generated/numpy.lib.mixins.NDArrayOperatorsMixin.html#numpy.lib.mixins.NDArrayOperatorsMixin) 来方便地实现这一点。
 
 ``` python
 >>> import numpy.lib.mixins

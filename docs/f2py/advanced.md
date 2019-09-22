@@ -35,7 +35,7 @@ f2py -c spam.pyf
 在Python中：
 
 ``` python
->>>>>> import spam
+>>> import spam
 >>> status = spam.system('whoami')
 pearu
 >> status = spam.system('blah')
@@ -67,7 +67,7 @@ end python module
 在Python中：
 
 ``` python
->>>>>> import var
+>>> import var
 >>> var.BAR
 5
 ```

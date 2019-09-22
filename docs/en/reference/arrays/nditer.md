@@ -1,17 +1,17 @@
 # Iterating Over Arrays
 
-The iterator object [``nditer``](generated/numpy.nditer.html#numpy.nditer), introduced in NumPy 1.6, provides
+The iterator object [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer), introduced in NumPy 1.6, provides
 many flexible ways to visit all the elements of one or more arrays in
 a systematic fashion. This page introduces some basic ways to use the
 object for computations on arrays in Python, then concludes with how one
 can accelerate the inner loop in Cython. Since the Python exposure of
-[``nditer``](generated/numpy.nditer.html#numpy.nditer) is a relatively straightforward mapping of the C array
+[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) is a relatively straightforward mapping of the C array
 iterator API, these ideas will also provide help working with array
 iteration from C or C++.
 
 ## Single Array Iteration
 
-The most basic task that can be done with the [``nditer``](generated/numpy.nditer.html#numpy.nditer) is to
+The most basic task that can be done with the [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) is to
 visit every element of an array. Each element is provided one by one
 using the standard Python iterator interface.
 
@@ -59,7 +59,7 @@ have been put into a different memory layout.
 
 There are times when it is important to visit the elements of an array
 in a specific order, irrespective of the layout of the elements in memory.
-The [``nditer``](generated/numpy.nditer.html#numpy.nditer) object provides an *order* parameter to control this
+The [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) object provides an *order* parameter to control this
 aspect of iteration. The default, having the behavior described above,
 is order=’K’ to keep the existing order. This can be overridden with
 order=’C’ for C order and order=’F’ for Fortran order.
@@ -80,7 +80,7 @@ order=’C’ for C order and order=’F’ for Fortran order.
 
 ### Modifying Array Values
 
-By default, the [``nditer``](generated/numpy.nditer.html#numpy.nditer) treats the input operand as a read-only
+By default, the [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) treats the input operand as a read-only
 object. To be able to modify the array elements, you must specify either
 read-write or write-only mode using the *‘readwrite’* or *‘writeonly’*
 per-operand flags.
@@ -123,7 +123,7 @@ better approach is to move the one-dimensional innermost loop into your
 code, external to the iterator. This way, NumPy’s vectorized operations
 can be used on larger chunks of the elements being visited.
 
-The [``nditer``](generated/numpy.nditer.html#numpy.nditer) will try to provide chunks that are
+The [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) will try to provide chunks that are
 as large as possible to the inner loop. By forcing ‘C’ and ‘F’ order,
 we get different external loop sizes. This mode is enabled by specifying
 an iterator flag.
@@ -159,7 +159,7 @@ or multidimensional index to look up values in a different array.
 
 The Python iterator protocol doesn’t have a natural way to query these
 additional values from the iterator, so we introduce an alternate syntax
-for iterating with an [``nditer``](generated/numpy.nditer.html#numpy.nditer). This syntax explicitly works
+for iterating with an [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer). This syntax explicitly works
 with the iterator object itself, so its properties are readily accessible
 during iteration. With this looping construct, the current value is
 accessible by indexing into the iterator, and the index being tracked
@@ -205,7 +205,7 @@ array([[ 0,  1,  2],
 
 Tracking an index or multi-index is incompatible with using an external
 loop, because it requires a different index value per element. If
-you try to combine these flags, the [``nditer``](generated/numpy.nditer.html#numpy.nditer) object will
+you try to combine these flags, the [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) object will
 raise an exception
 
 **Example:**
@@ -374,7 +374,7 @@ TypeError: Iterator requested dtype could not be cast from dtype('float64') to d
 NumPy has a set of rules for dealing with arrays that have differing
 shapes which are applied whenever functions take multiple operands
 which combine element-wise. This is called
-[broadcasting](ufuncs.html#ufuncs-broadcasting).  The [``nditer``](generated/numpy.nditer.html#numpy.nditer)
+[broadcasting](ufuncs.html#ufuncs-broadcasting).  The [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)
 object can apply these rules for you when you need to write such a function.
 
 As an example, we print out the result of broadcasting a one and
@@ -412,10 +412,10 @@ ValueError: operands could not be broadcast together with shapes (2) (2,3)
 A common case in NumPy functions is to have outputs allocated based
 on the broadcasting of the input, and additionally have an optional
 parameter called ‘out’ where the result will be placed when it is
-provided. The [``nditer``](generated/numpy.nditer.html#numpy.nditer) object provides a convenient idiom that
+provided. The [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) object provides a convenient idiom that
 makes it very easy to support this mechanism.
 
-We’ll show how this works by creating a function [``square``](generated/numpy.square.html#numpy.square) which squares
+We’ll show how this works by creating a function [``square``](https://numpy.org/devdocs/reference/generated/numpy.square.html#numpy.square) which squares
 its input. Let’s start with a minimal function definition excluding ‘out’
 parameter support.
 
@@ -432,7 +432,7 @@ parameter support.
 array([1, 4, 9])
 ```
 
-By default, the [``nditer``](generated/numpy.nditer.html#numpy.nditer) uses the flags ‘allocate’ and ‘writeonly’
+By default, the [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) uses the flags ‘allocate’ and ‘writeonly’
 for operands that are passed in as None. This means we were able to provide
 just the two operands to the iterator, and it handled the rest.
 
@@ -497,7 +497,7 @@ ValueError: non-broadcastable output operand with shape (3) doesn't match the br
 ### Outer Product Iteration
 
 Any binary operation can be extended to an array operation in an outer
-product fashion like in [``outer``](generated/numpy.outer.html#numpy.outer), and the [``nditer``](generated/numpy.nditer.html#numpy.nditer) object
+product fashion like in [``outer``](https://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer), and the [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) object
 provides a way to accomplish this by explicitly mapping the axes of
 the operands.  It is also possible to do this with [``newaxis``](constants.html#numpy.newaxis)
 indexing, but we will show you how to directly use the nditer *op_axes*
@@ -542,13 +542,13 @@ array([[[ 0,  0,  0,  0],
         [ 8, 10, 12, 14]]])
 ```
 
-Note that once the iterator is closed we can not access [``operands``](generated/numpy.nditer.operands.html#numpy.nditer.operands)
+Note that once the iterator is closed we can not access [``operands``](https://numpy.org/devdocs/reference/generated/numpy.nditer.operands.html#numpy.nditer.operands)
 and must use a reference created inside the context manager.
 
 ### Reduction Iteration
 
 Whenever a writeable operand has fewer elements than the full iteration space,
-that operand is undergoing a reduction. The [``nditer``](generated/numpy.nditer.html#numpy.nditer) object requires
+that operand is undergoing a reduction. The [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) object requires
 that any reduction operand be flagged as read-write, and only allows
 reductions when ‘reduce_ok’ is provided as an iterator flag.
 
@@ -637,13 +637,13 @@ Those who want really good performance out of their low level operations
 should strongly consider directly using the iteration API provided
 in C, but for those who are not comfortable with C or C++, Cython
 is a good middle ground with reasonable performance tradeoffs. For
-the [``nditer``](generated/numpy.nditer.html#numpy.nditer) object, this means letting the iterator take care
+the [``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) object, this means letting the iterator take care
 of broadcasting, dtype conversion, and buffering, while giving the inner
 loop to Cython.
 
 For our example, we’ll create a sum of squares function. To start,
 let’s implement this function in straightforward Python. We want to
-support an ‘axis’ parameter similar to the numpy [``sum``](generated/numpy.sum.html#numpy.sum) function,
+support an ‘axis’ parameter similar to the numpy [``sum``](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum) function,
 so we will need to construct a list for the *op_axes* parameter.
 Here’s how this looks.
 

@@ -24,7 +24,7 @@ C END OF FTYPE.F
 在Python中：
 
 ``` python
->>>>>> import ftype
+>>> import ftype
 >>> print ftype.__doc__
 This module 'ftype' is auto-generated with f2py (version:2.28.198-1366).
 Functions:
@@ -77,7 +77,7 @@ C END OF FILE SCALAR.F
 在Python中：
 
 ``` python
->>>>>> import scalar
+>>> import scalar
 >>> print scalar.foo.__doc__
 foo - Function signature:
   foo(a,b)
@@ -140,7 +140,7 @@ C END OF FILE STRING.F
 Python会话：
 
 ``` python
->>>>>> import mystring
+>>> import mystring
 >>> print mystring.foo.__doc__
 foo - Function signature:
   foo(a,b,c,d)
@@ -231,7 +231,7 @@ C END OF FILE ARRAY.F
 在Python中：
 
 ``` python
->>>>>> import arr
+>>> import arr
 >>> from numpy import array
 >>> print arr.foo.__doc__
 foo - Function signature:
@@ -324,7 +324,7 @@ C END OF FILE CALLBACK.F
 在Python中：
 
 ``` python
->>>>>> import callback
+>>> import callback
 >>> print callback.foo.__doc__
 foo - Function signature:
   r = foo(fun,[fun_extra_args])
@@ -413,7 +413,7 @@ cf2py intent(in,out,copy) x
 在Python中：
 
 ``` python
->>>>>> import foo
+>>> import foo
 >>> foo.calculate(range(5), lambda x: x*x)
 array([  0.,   1.,   4.,   9.,  16.])
 >>> import math
@@ -449,7 +449,7 @@ cf2py    intent(callback, hide) fpy
 在Python中：
 
 ``` python
->>>>>> import pfromf
+>>> import pfromf
 >>> pfromf.f2()
 Traceback (most recent call last):
   File "<stdin>", line 1, in ?
@@ -539,7 +539,7 @@ C END OF COMMON.F
 在Python中：
 
 ``` python
->>>>>> import common
+>>> import common
 >>> print common.data.__doc__
 i - 'i'-scalar
 x - 'i'-array(4)
@@ -600,7 +600,7 @@ end module mod
 在Python中：
 
 ``` python
->>>>>> import moddata
+>>> import moddata
 >>> print moddata.mod.__doc__
 i - 'i'-scalar
 x - 'i'-array(4)
@@ -655,7 +655,7 @@ end module mod
 在Python中：
 
 ``` python
->>>>>> import allocarr 
+>>> import allocarr 
 >>> print allocarr.mod.__doc__
 b - 'f'-array(-1,-1), not allocated
 foo - Function signature:

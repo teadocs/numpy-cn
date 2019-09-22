@@ -44,7 +44,7 @@ python -m numpy.f2py -c fib1.f -m fib1
 此命令构建（参见``-c``flag，不带参数执行以查看命令行选项的说明）扩展模块（请参阅标志）到当前目录。现在，在Python中，可以通过以下方式访问Fortran子例程：``python -m numpy.f2py````fib1.so````-m````FIB````fib1.fib``
 
 ``` python
->>>>>> import numpy
+>>> import numpy
 >>> import fib1
 >>> print fib1.fib.__doc__
 fib - Function signature:
@@ -66,7 +66,7 @@ Optional arguments:
 - 可以使用不同的值来选择``n``：
 
 ``` python
->>>>>> a1 = numpy.zeros(8,'d')
+>>> a1 = numpy.zeros(8,'d')
 >>> fib1.fib(a1,6)
 >>> print a1
 [ 0.  1.  1.  2.  3.  5.  0.  0.]
@@ -75,7 +75,7 @@ Optional arguments:
 但是当它与输入数组不兼容时会引发异常``a``：
 
 ``` python
->>>>>> fib1.fib(a,10)
+>>> fib1.fib(a,10)
 fib:n=10
 Traceback (most recent call last):
   File "<stdin>", line 1, in ?
@@ -89,7 +89,7 @@ fib.error: (len(a)>=n) failed for 1st keyword n
 否则，F2PY会生成输入数组的连续副本（具有正确的dtype），并将副本的C指针传递给Fortran子例程。因此，对输入数组（副本）的任何可能更改都不会影响原始参数，如下所示：
 
 ``` python
->>>>>> a = numpy.ones(8,'i')
+>>> a = numpy.ones(8,'i')
 >>> fib1.fib(a)
 >>> print a
 [1 1 1 1 1 1 1 1]
@@ -100,7 +100,7 @@ fib.error: (len(a)>=n) failed for 1st keyword n
 F2PY提供``intent(inplace)``了将修改输入数组属性的属性，以便Fortran例程所做的任何更改也将在输入参数中生效。例如，如果指定（见下文，如何），则上面的示例将为：``intent(inplace) a``
 
 ``` python
->>>>>> a = numpy.ones(8,'i')
+>>> a = numpy.ones(8,'i')
 >>> fib1.fib(a)
 >>> print a
 [  0.   1.   1.   2.   3.   5.   8.  13.]
@@ -169,7 +169,7 @@ F2PY提供``intent(inplace)``了将修改输入数组属性的属性，以便For
 在Python中：
 
 ``` python
->>>>>> import fib2
+>>> import fib2
 >>> print fib2.fib.__doc__
 fib - Function signature:
   a = fib(n)
@@ -232,7 +232,7 @@ python -m numpy.f2py -c -m fib3 fib3.f
 请注意，生成的包装器与``FIB``前一种情况一样“智能”：
 
 ``` python
->>>>>> import fib3
+>>> import fib3
 >>> print fib3.fib.__doc__
 fib - Function signature:
   a = fib(n)

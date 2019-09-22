@@ -286,7 +286,7 @@ Fortran to Python Interface Generator.
     **Examples:**
 
     ``` python
-    >>>>>> import numpy.f2py
+    >>> import numpy.f2py
     >>> fsource = '''
     ...       subroutine foo
     ...       print*, "Hello world!"

@@ -277,7 +277,7 @@ Fortran到Python接口生成器。
     **示例：**
 
     ``` python
-    >>>>>> import numpy.f2py
+    >>> import numpy.f2py
     >>> fsource = '''
     ...       subroutine foo
     ...       print*, "Hello world!"

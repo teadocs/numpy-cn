@@ -8,10 +8,10 @@ MATLAB®和NumPy / SciPy有很多共同之处。但是有很多不同之处。�
 
 MATLAB | NumPy
 ---|---
-在MATLAB®中，基本数据类型是双精度浮点数的多维数组。大多数表达式采用这样的数组并返回这样的数 对这些数组的2-D实例的操作被设计成或多或少地像线性代数中的矩阵运算。 | 在NumPy中，基本类型是多维的array。包括2D在内的所有维度中对这些阵列的操作是逐元素操作。人们需要使用线性代数的特定函数（尽管对于矩阵乘法，可以@在python 3.5及更高版本中使用运算符）。
-MATLAB®使用基于1（一）的索引。使用（1）找到序列的初始元素。 [请参阅注释索引](#numpy-for-matlab-users-notes) | Python使用基于0（零）的索引。使用[0]找到序列的初始元素。
+在MATLAB®中，基本数据类型是双精度浮点数的多维数组。大多数表达式采用这样的数组并返回这样的数 对这些数组的2-D实例的操作被设计成或多或少地像线性代数中的矩阵运算。 | 在NumPy中，基本类型是多维的array。包括2D在内的所有维度中对这些数组的操作是逐元素操作。人们需要使用线性代数的特定函数（尽管对于矩阵乘法，可以@在python 3.5及更高版本中使用运算符）。
+MATLAB®使用基于1（一）的索引。使用（1）找到序列的初始元素。 [请参阅备注](#备注) | Python使用基于0（零）的索引。使用[0]找到序列的初始元素。
 MATLAB®的脚本语言是为执行线性代数而创建的。基本矩阵操作的语法很好而且干净，但是用于添加GUI和制作完整应用程序的API或多或少都是事后的想法。 | NumPy基于Python，它从一开始就被设计成一种优秀的通用编程语言。虽然Matlab的一些数组操作的语法比NumPy更紧凑，但NumPy（由于是Python的附加组件）可以做许多Matlab不能做的事情，例如正确处理矩阵堆栈。
-在MATLAB®中，数组具有按值传递的语义，并具有惰性写入时复制方案，以防止在实际需要之前实际创建副本。切片操作复制阵列的一部分。 | 在NumPy数组中有传递引用语义。切片操作是对数组的视图。
+在MATLAB®中，数组具有按值传递的语义，并具有惰性写入时复制方案，以防止在实际需要之前实际创建副本。切片操作复制数组的一部分。 | 在NumPy数组中有传递引用语义。切片操作是对数组的视图。
 
 ## 'array'或'matrix'？我应该使用哪个？
 
@@ -32,10 +32,10 @@ MATLAB®的脚本语言是为执行线性代数而创建的。基本矩阵操作
 ### 长答案
 
 NumPy包含``array``类和``matrix``类。所述
- ``array``类旨在是对许多种数值计算的通用n维阵列中，而``matrix``意在具体促进线性代数计算。在实践中，两者之间只有少数关键差异。
+ ``array``类旨在是对许多种数值计算的通用n维数组中，而``matrix``意在具体促进线性代数计算。在实践中，两者之间只有少数关键差异。
 
 - 运算符``*``和``@``函数``dot()``，以及``multiply()``：
-    - 对于``数组``，``*``表示逐元素乘法，而 ``@`` 表示矩阵乘法; 它们具有相关的函数 ``multiply()`` 和 ``dot()`` 。（在python 3.5之前，``@`` 不存在，并且必须使用``dot（）`` 进行矩阵乘法）。
+    - 对于``数组``，``*``表示逐元素乘法，而 ``@`` 表示矩阵乘法; 它们具有相关的函数 ``multiply()`` 和 ``dot()`` 。（在python 3.5之前，``@`` 不存在，并且必须使用``dot()`` 进行矩阵乘法）。
     - 对于``矩阵``，``*`` 表示矩阵乘法，对于逐元素乘法，必须使用 ``multiply()`` 函数。
 - 矢量处理（一维数组）
     - 对于``数组``，向量形状1xN，Nx1和N都是不同的东西。 像 ``A[:, 1]`` 这样的操作返回形状N的一维数组，而不是形状Nx1的二维数组。 在一维数组上转置什么都不做。
@@ -91,11 +91,11 @@ import scipy.linalg
 MATLAB | NumPy | 注释
 ---|---|---
 help func | info(func)或者help(func)或func?（在IPython的） | 获得函数func的帮助
-which func | [请参阅注释帮助](numpy-for-matlab-users.notes) | 找出func定义的位置
+which func | [请参阅备注](#备注) | 找出func定义的位置
 type func | source(func)或者func??（在Ipython中） | func的打印源（如果不是本机函数）
 a && b | a and b | 短路逻辑AND运算符（Python本机运算符）; 只有标量参数
 a || b | a or b | 短路逻辑OR运算符（Python本机运算符）; 只有标量参数
-1*i，1*j， 1i，1j | 1j | 复数
+1\*i，1\*j， 1i，1j | 1j | 复数
 eps | np.spacing(1) | 1与最近的浮点数之间的距离。
 ode45 | scipy.integrate.solve_ivp(f) | 将ODE与Runge-Kutta 4,5集成
 ode15s | scipy.integrate.solve_ivp(f, method='BDF') | 将ODE与BDF方法集成
@@ -107,7 +107,7 @@ MATLAB | NumPy | 注释
 ndims(a) | ndim(a) 要么 a.ndim | 获取数组的维数
 numel(a) | size(a) 要么 a.size | 获取数组的元素数
 size(a) | shape(a) 要么 a.shape | 得到矩阵的“大小”
-size(a,n) | a.shape[n-1] | 获取数组第n维元素的数量a。（请注意，MATLAB®使用基于1的索引，而Python使用基于0的索引，请参阅注释[INDEXING](#numpy-for-matlab-users-notes)）
+size(a,n) | a.shape[n-1] | 获取数组第n维元素的数量a。（请注意，MATLAB®使用基于1的索引，而Python使用基于0的索引，请参阅[备注](#备注)）
 [ 1 2 3; 4 5 6 ] | array([[1.,2.,3.], [4.,5.,6.]]) | 2x3矩阵文字
 [ a b; c d ] | block([[a,b], [c,d]]) | 从块构造一个矩阵a，b，c，和d
 a(end) | a[-1] | 访问1xn矩阵中的最后一个元素 a
@@ -137,7 +137,7 @@ a(: ) = 3 | a[:] = 3 | 将所有值设置为相同的标量值
 y=x | y = x.copy() | numpy通过引用分配
 y=x(2,:) | y = x[1,:].copy() | numpy切片是参考
 y=x(: ) | y = x.flatten() | 将数组转换为向量（请注意，这会强制复制）
-1:10 | arange(1.,11.)或r_[1.:11.]或 r_[1:10:10j] | 创建一个增加的向量（参见注释[[范围](#numpy-for-matlab-users-notes)](#numpy-for-matlab-users-notes)）
+1:10 | arange(1.,11.)或r_[1.:11.]或 r_[1:10:10j] | 创建一个增加的向量（参见[备注](#备注)）
 0:9 | arange(10.)或 r_[:10.]或 r_[:9:10j] | 创建一个增加的向量（参见注释范围）
 [1:10]' | arange(1.,11.)[:, newaxis] | 创建列向量
 zeros(3,4) | zeros((3,4)) | 3x4二维数组，充满64位浮点零
@@ -160,13 +160,13 @@ max(a) | a.max(0) | 每列矩阵的最大元素 a
 max(a,[],2) | a.max(1) | 每行矩阵的最大元素 a
 max(a,b) | maximum(a, b) | 比较a和b逐个元素，并返回每对中的最大值
 norm(v) | sqrt(v @ v) 要么 np.linalg.norm(v) | L2矢量的规范 v
-a & b | logical_and(a,b) | 逐个元素AND运算符（NumPy [[ufunc](#numpy-for-matlab-users-notes)](#numpy-for-matlab-users-notes)）[[请参阅注释LOGICOPS](#numpy-for-matlab-users-notes)](#numpy-for-matlab-users-notes)
+a & b | logical_and(a,b) | 逐个元素AND运算符（NumPy [ufunc](#备注)）[请参阅备注LOGICOPS](#备注)
 a | b | logical_or(a,b) | 逐个元素OR运算符（NumPy ufunc）请参阅注释LOGICOPS
 bitand(a,b) | a & b | 按位AND运算符（Python native和NumPy ufunc）
 bitor(a,b) | a | b | 按位OR运算符（Python native和NumPy ufunc）
 inv(a) | linalg.inv(a) | 方阵的逆 a
 pinv(a) | linalg.pinv(a) | 矩阵的伪逆 a
-rank(a) | linalg.matrix_rank(a) | 二维阵列/矩阵的矩阵秩 a
+rank(a) | linalg.matrix_rank(a) | 二维数组/矩阵的矩阵秩 a
 a\b | linalg.solve(a,b)如果a是正方形; linalg.lstsq(a,b) 除此以外 | ax = b的解为x
 b/a | 解决aT xT = bT | xa = b的解为x
 [U,S,V]=svd(a) | U, S, Vh = linalg.svd(a), V = Vh.T | 奇异值分解 a
@@ -188,7 +188,7 @@ squeeze(a) | a.squeeze() |  
 
 ## 备注
 
-**子矩阵**：使用该``ix_``命令可以使用索引列表完成**对子**矩阵的分配。例如，对于2D阵列``a``，可能会做：``ind=[1,3]; a[np.ix_(ind,ind)]+=100``。
+**子矩阵**：使用该``ix_``命令可以使用索引列表完成**对子**矩阵的分配。例如，对于2D数组``a``，可能会做：``ind=[1,3]; a[np.ix_(ind,ind)]+=100``。
 
 **帮助**：有MATLAB的没有直接等价``which``的命令，但命令``help``和``source``通常会列出其中函数所在的文件名。Python还有一个``inspect``模块（do ``import inspect``），它提供了一个``getfile``经常工作的模块。
 

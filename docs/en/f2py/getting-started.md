@@ -63,7 +63,7 @@ module ``fib1.so`` (see ``-m`` flag) to the current directory. Now, in
 Python the Fortran subroutine ``FIB`` is accessible via ``fib1.fib``:
 
 ``` python
->>>>>> import numpy
+>>> import numpy
 >>> import fib1
 >>> print fib1.fib.__doc__
 fib - Function signature:
@@ -88,7 +88,7 @@ be optional with the default value ``len(a)``.
 - One can use different values for optional ``n``:
 
 ``` python
->>>>>> a1 = numpy.zeros(8,'d')
+>>> a1 = numpy.zeros(8,'d')
 >>> fib1.fib(a1,6)
 >>> print a1
 [ 0.  1.  1.  2.  3.  5.  0.  0.]
@@ -98,7 +98,7 @@ but an exception is raised when it is incompatible with the input
 array ``a``:
 
 ``` python
->>>>>> fib1.fib(a,10)
+>>> fib1.fib(a,10)
 fib:n=10
 Traceback (most recent call last):
   File "<stdin>", line 1, in ?
@@ -120,7 +120,7 @@ input array have no effect to the original argument, as
 demonstrated below:
 
 ``` python
->>>>>> a = numpy.ones(8,'i')
+>>> a = numpy.ones(8,'i')
 >>> fib1.fib(a)
 >>> print a
 [1 1 1 1 1 1 1 1]
@@ -137,7 +137,7 @@ if one specifies ``intent(inplace) a`` (see below, how), then
 the example above would read:
 
 ``` python
->>>>>> a = numpy.ones(8,'i')
+>>> a = numpy.ones(8,'i')
 >>> fib1.fib(a)
 >>> print a
 [  0.   1.   1.   2.   3.   5.   8.  13.]
@@ -230,7 +230,7 @@ python -m numpy.f2py -c fib2.pyf fib1.f
 In Python:
 
 ``` python
->>>>>> import fib2
+>>> import fib2
 >>> print fib2.fib.__doc__
 fib - Function signature:
   a = fib(n)
@@ -309,7 +309,7 @@ Notice that the resulting wrapper to ``FIB`` is as “smart” as in
 previous case:
 
 ``` python
->>>>>> import fib3
+>>> import fib3
 >>> print fib3.fib.__doc__
 fib - Function signature:
   a = fib(n)

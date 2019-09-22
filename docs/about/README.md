@@ -22,7 +22,7 @@ NumPy是在[BSD许可](/license/)下获得许可的，允许重用而不受限�
 
 NumPy可以使用许多高质量的在线教程、课程和书籍。为了快速了解NumPy，我们提供了[NumPy教程](/user/quickstart.html)。我们还推荐[SciPy Lecture Notes](https://scipy-lectures.org/)，以更广泛地介绍科学Python生态系统。
 
-有关SciPy堆栈（NumPy提供基本阵列数据结构）的更多信息，请参阅[scipy.org](https://www.scipy.org/)。
+有关SciPy堆栈（NumPy提供基本数组数据结构）的更多信息，请参阅[scipy.org](https://www.scipy.org/)。
 
 ## 文档
 

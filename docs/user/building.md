@@ -23,7 +23,7 @@ python setup.py build_ext --inplace
 NumPy构建系统使用``setuptools``（从numpy 1.11.0开始，之前很简单``distutils``）和``numpy.distutils``。使用``virtualenv``应该按预期工作。
 
 *注意：有关在NumPy上进行开发工作的构建说明，请参阅* 
-[设置和使用开发环境](https://numpy.org/devdocs/dev/development_environment.html#development-environment)。
+[设置和使用开发环境](/dev/development_environment.html)。
 
 ## 测试
 
@@ -33,7 +33,7 @@ NumPy构建系统使用``setuptools``（从numpy 1.11.0开始，之前很简单`
 $ python runtests.py -v -m full
 ```
 
-有关测试的详细信息，请参阅[测试版本](https://numpy.org/devdocs/dev/development_environment.html#testing-builds)。
+有关测试的详细信息，请参阅[测试版本](/dev/development_environment.html#测试构建)。
 
 ### 并行构建
 
@@ -54,7 +54,9 @@ python setup.py build_ext --inplace -j 4
 
 ## FORTRAN ABI不匹配
 
-两个最受欢迎的开源fortran编译器是g77和gfortran。不幸的是，它们不兼容ABI，这意味着你应该避免混合使用彼此构建的库。特别是，如果您的blas / lapack / atlas是使用g77构建的，那么在构建numpy和scipy时 *必须* 使用g77; 
+两个最受欢迎的开源fortran编译器是g77和gfortran。不幸的是，它们不兼容ABI，
+这意味着你应该避免混合使用彼此构建的库。特别是，如果您的blas / lapack / atlas是使用g77构建的，
+那么在构建numpy和scipy时 *必须* 使用g77; 
 相反，如果你的地图集是用gfortran 构建的，你 *必须* 用gfortran
 建立numpy / scipy。这适用于可能使用了不同FORTRAN编译器的大多数其他情况。
 
@@ -74,7 +76,10 @@ python setup.py build --help-fcompiler
 
 ### 如何检查BLAS / LAPACK /地图集ABI 
 
-检查用于构建库的编译器的一种相对简单且可靠的方法是在库上使用ldd。如果libg2c.so是依赖项，则表示已使用g77。如果libgfortran.so是依赖项，则使用gfortran。如果两者都是依赖关系，这意味着两者都已被使用，这几乎总是一个非常糟糕的主意。
+检查用于构建库的编译器的一种相对简单且可靠的方法是在库上使用ldd。
+如果libg2c.so是依赖项，则表示已使用g77。
+如果libgfortran.so是依赖项，则使用gfortran。
+如果两者都是依赖关系，这意味着两者都已被使用，这几乎总是一个非常糟糕的主意。
 
 ## 加速BLAS / LAPACK库
 

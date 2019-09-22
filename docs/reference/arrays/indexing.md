@@ -2,32 +2,38 @@
 
 ::: tip 另见
 
-[索引基础知识](https://numpy.org/devdocs/user/basics.indexing.html#basics-indexing)
+[索引基础知识](/user/basics/indexing.html)
 
 :::
 
-[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)可以使用标准Python ``x[obj]``语法对其进行索引
+[``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)可以使用标准Python ``x[obj]``语法对其进行索引
  ，其中 *x* 是数组， *obj* 是选择。有三种可用的索引：字段访问，基本切片，高级索引。哪一个发生取决于 *obj* 。
 
 ::: tip 注意
 
-在Python中，相当于
- ; 后者只是前者的语法糖。``x[(exp1, exp2, ..., expN)]````x[exp1, exp2, ..., expN]``
+在 Python 中，``x[(exp1，exp2，.，EXPN)]`` 等同于 ``x[exp1，exp2，.，EXPN]`` ；后者只是前者的语法糖。
 
 :::
 
 ## 基本切片和索引
 
-基本切片将Python的切片基本概念扩展到N维。当 *obj* 是一个[``slice``](https://docs.python.org/dev/library/functions.html#slice)对象（由``start:stop:step``括号内的符号构造），整数或切片对象和整数的元组时，会发生基本切片。``Ellipsis``
-和[``newaxis``](constants.html#numpy.newaxis)物体也可以穿插其中。
+基本切片将Python的切片基本概念扩展到N维。
+当 *obj* 是一个[``slice``](https://docs.python.org/dev/library/functions.html#slice)
+对象（由``start:stop:step``括号内的符号构造），
+整数或切片对象和整数的元组时，会发生基本切片。``Ellipsis``
+和[``newaxis``](/reference/constants.html#numpy.newaxis)物体也可以穿插其中。
 
-*从版本1.15.0开始不推荐使用：* 为了保持向后兼容Numeric中的常见用法，如果选择对象是包含对象的任何非nararray和非元组序列（例如a [``list``](https://docs.python.org/dev/library/stdtypes.html#list)）
- [``slice``](https://docs.python.org/dev/library/functions.html#slice)，则也会启动基本切片``Ellipsis``，或者[``newaxis``](constants.html#numpy.newaxis)
+*从版本1.15.0开始不推荐使用：* 为了保持向后兼容Numeric中的常见用法，
+如果选择对象是包含对象的任何非nararray和非元组序列（例如a [``list``](https://docs.python.org/dev/library/stdtypes.html#list)）
+ [``slice``](https://docs.python.org/dev/library/functions.html#slice)，
+ 则也会启动基本切片``Ellipsis``，或者[``newaxis``](constants.html#numpy.newaxis)
 对象，但不是整数数组或其他嵌入序列。
 
-使用 *N个* 整数进行索引的最简单情况返回表示相应项的[数组标量](arrays.scalars.html#arrays-scalars)。正如在Python中，所有指数是基于零：对 *我* 个索引，取值范围为其中是
-  *我* 的阵列的形状的个元素。负指数被解释为从数组的末尾开始计数（ *即* ，如果
- ，则意味着）。
+使用N个整数进行索引的最简单情况返回表示相应项的[数组标量](scalars.html)。
+与Python一样，所有索引都是从零开始的：对于第i个索引 <img class="math" src="/static/images/math/4fbb0705523f8fdd2c3c5f55e4f8c4a9a46f18a6.svg" alt="n_i">，
+有效范围为 <img class="math" src="/static/images/math/e2ed5018d325d2eed8f60b87169eef062d34e19e.svg" alt="0 \le n_i < d_i">，
+其中 <img class="math" src="/static/images/math/93f9b5333c1aa73b70b1a61bf3bfbb88be44ecf2.svg" alt="d_i"> 是数组形状的第i个元素。
+负索引被解释为从数组的末尾开始计数(即，如果 <img class="math" src="/static/images/math/c51e6b77da6dcf80b0afd223631451edab2ffcba.svg" alt="n_i < 0"> ，则表示 <img class="math" src="/static/images/math/d3f3fd2a242879a858674e0a3983f119d6265236.svg" alt="n_i + d_i">)。
 
 基本切片生成的所有数组始终
 是原始数组的[视图](https://numpy.org/devdocs/glossary.html#term-view)。
@@ -40,10 +46,7 @@ NumPy切片创建[视图](https://numpy.org/devdocs/glossary.html#term-view)而�
 
 序列切片的标准规则适用于基于每维的基本切片（包括使用步骤索引）。要记住的一些有用的概念包括：
 
-- 基本切片语法是``i:j:k``其中 *我* 是起始索引，
-  *Ĵ* 是停止索引，并且 *ķ* 是步骤（）。这将选择 *米* 元件（在对应的尺寸）与索引值 *我* ， *I + K* ，...， *1 +（M - 1）K* 其中
- 和 *q* 和 *- [R* 是通过将所获得的商和余数 *的J -我* 通过 *ķ* ： *Ĵ -  i = qk + r* ，因此
-  *i +（m  -  1）k 。
+- 基本切片语法是 ``i:j:k``，其中 *i* 是起始索引，*j* 是停止索引，*k* 是步骤（<img class="math" src="/static/images/math/3bf28764fb6d6c43a60af989993514e85c51a308.svg" alt="k\neq0">）。这将选择具有索引值（在相应的维度中）*i, i+k, ..., i+(m-1) k* 的 *m* 个元素，其中 <img class="math" src="/static/images/math/a12ce497cac8b44aac74086b97925bdf76d51292.svg" alt="m = q + (r\neq0)">，*q* 和 *r* 是 *j-i* 除以 *k* 得到的商和余数：*j - i = q k + r*，使得*i + ( m - 1 ) k < j*。
 
     **示例：**
 
@@ -65,10 +68,10 @@ NumPy切片创建[视图](https://numpy.org/devdocs/glossary.html#term-view)而�
     array([7, 6, 5, 4])
     ```
 
-- 假设 *n* 是要切片的维度中的元素数。然后，如果 *我* 没有给出其默认值为0  *K> 0* 和
-  *N - 1* 为 *ķ<0*  。如果没有给出 *j，* 则对于 *k> 0*  
-，默认为 *n*  ; 对于 *k <0* ，默认为 *-n-1* 。如果没有给出 *k，* 则默认为1.注意，
- 与此相同，表示沿此轴选择所有索引。 **  **  **  ** ``::````:``
+- 假设n是被切片的维度中的元素的数量。
+  然后，如果没有给出 *i*，则对于 *k* > *0* ，它默认为 *0*，对于 *k* < *0*，它默认为 *n* - *1*。
+  如果没有给出*j*，则对于*k* > *0*，它默认为*n*，对于*k* < *0*，则默认为 - *n* - *1*。
+  如果没有给定*k*，则默认为*1*。请注意 ``::`` 与 ``:`` 相同，表示选择沿此轴的所有索引。
 
     **示例：**
 
@@ -78,7 +81,7 @@ NumPy切片创建[视图](https://numpy.org/devdocs/glossary.html#term-view)而�
     ```
 
 - 如果选择元组中的对象数小于
-  *N* ，则``:``假定任何后续维。
+  *N* ，则 ``:`` 假定任何后续维。
 
     **示例：**
 
@@ -88,10 +91,10 @@ NumPy切片创建[视图](https://numpy.org/devdocs/glossary.html#term-view)而�
     (2, 3, 1)
     >>> x[1:2]
     array([[[4],
-            [5],
+            [5]
             [6]]])
     ```
-
+ 
 - ``Ellipsis``扩展``:``为选择元组索引所有维度所需的对象数。在大多数情况下，这意味着扩展选择元组的长度是``x.ndim``。可能只存在一个省略号。
 
     **示例：**
@@ -113,7 +116,7 @@ NumPy切片创建[视图](https://numpy.org/devdocs/glossary.html#term-view)而�
     ```
 
 - 整数 *i* 返回相同的值，``i:i+1`` **除了**返回的对象的维度减少1.特别是，具有第 *p* 个元素的整数（和所有其他条目``:``）的选择元组返回具有维度的相应子数组 *N  -  1* 。如果 *N = 1，*  
-则返回的对象是数组标量。[Scalars](arrays.scalars.html#arrays-scalars)中解释了这些对象。
+则返回的对象是数组标量。[Scalars](scalars.html)中解释了这些对象。
 - 如果选择元组具有所有条目 ``:`` 除了第p个条目是切片对象 ``i:j:k``，那么返回的数组具有通过连接通过元素i，i+k，… 的整数索引返回的子数组而形成的维数N。i + ( m  - 1 ) k < j 。
 - 在切片元组中具有多于一个非``:``条目的基本切片的作用类似于使用单个非``:``条目重复应用切片，其中连续获取非``:``条目(所有其他非``:``条目被替换为``:``)。因此，``x[ind1,...,ind2,:]`` 在基本切片下的作用类似于 ``x[ind1][...,ind2,:]``。
 
@@ -140,7 +143,7 @@ NumPy切片创建[视图](https://numpy.org/devdocs/glossary.html#term-view)而�
 
 ## 高级索引
 
-当选择对象 *obj* 是非元组序列对象，[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)（数据类型为整数或bool）或具有至少一个序列对象或ndarray（数据类型为integer或bool）的元组时，将触发高级索引。高级索引有两种类型：整数和布尔值。
+当选择对象 *obj* 是非元组序列对象，[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)（数据类型为整数或bool）或具有至少一个序列对象或ndarray（数据类型为integer或bool）的元组时，将触发高级索引。高级索引有两种类型：整数和布尔值。
 
 高级索引始终返回数据的 *副本* （与返回[视图的](https://numpy.org/devdocs/glossary.html#term-view)基本切片形成对比）。
 
@@ -161,7 +164,7 @@ NumPy切片创建[视图](https://numpy.org/devdocs/glossary.html#term-view)而�
 
 当索引包含尽可能多的整数数组时，索引的数组具有维度，索引是直接的，但与切片不同。
 
-高级索引始终作为 *一个* 整体进行 [广播](ufuncs.html#ufuncs-broadcasting) 和迭代：
+高级索引始终作为 *一个* 整体进行 [广播](/reference/ufuncs.html#广播) 和迭代：
 
 ``` python
 result[i_1, ..., i_M] == x[ind_1[i_1, ..., i_M], ind_2[i_1, ..., i_M],
@@ -182,7 +185,7 @@ result[i_1, ..., i_M] == x[ind_1[i_1, ..., i_M], ind_2[i_1, ..., i_M],
 array([1, 4, 5])
 ```
 
-为了实现类似于上面的基本切片的行为，可以使用广播。该功能[``ix_``](generated/numpy.ix_.html#numpy.ix_)可以帮助这种广播。通过示例可以最好地理解这一点。
+为了实现类似于上面的基本切片的行为，可以使用广播。该功能[``ix_``](https://numpy.org/devdocs/reference/generated/numpy.ix_.html#numpy.ix_)可以帮助这种广播。通过示例可以最好地理解这一点。
 
 **示例：**
 
@@ -217,7 +220,7 @@ array([[ 0,  2],
        [ 9, 11]])
 ```
 
-这种广播也可以使用 [``ix_``](generated/numpy.ix_.html#numpy.ix_)： 功能来实现。
+这种广播也可以使用 [``ix_``](https://numpy.org/devdocs/reference/generated/numpy.ix_.html#numpy.ix_)： 功能来实现。
 
 ``` python
 >>> x[np.ix_(rows, columns)]
@@ -229,7 +232,7 @@ array([[ 0,  2],
 
 #### 结合高级索引和基本索引
 
-当至少有一个slice（``:``），省略号（``...``）或[``newaxis``](constants.html#numpy.newaxis)
+当至少有一个slice（``:``），省略号（``...``）或[``newaxis``](/reference/constants.html#numpy.newaxis)
 索引（或者数组的维度多于高级索引）时，行为可能会更复杂。这就像连接每个高级索引元素的索引结果一样
 
 在最简单的情况下，只有一个 *单一的* 指标先进。单个高级索引可以例如替换切片，并且结果数组将是相同的，但是，它是副本并且可以具有不同的存储器布局。当可能时，切片是优选的。
@@ -245,7 +248,7 @@ array([[4, 5]])
 
 了解情况的最简单方法可能是考虑结果形状。索引操作分为两部分，即由基本索引（不包括整数）定义的子空间和来自高级索引部分的子空间。需要区分两种索引组合：
 
-- 高级索引由切片分隔，``Ellipsis``或[``newaxis``](constants.html#numpy.newaxis)。例如。``x[arr1, :, arr2]``
+- 高级索引由切片分隔，``Ellipsis``或[``newaxis``](/reference/constants.html#numpy.newaxis)。例如。``x[arr1, :, arr2]``
 - 高级索引都是相邻的。例如 ``x[..., arr1, arr2, :]``，但不是 ``x[arr1, :, 1]``，因为 ``1`` 是这方面的高级索引。
 
 在第一种情况下，高级索引操作产生的维度首先出现在结果数组中，然后是子空间维度。
@@ -264,8 +267,8 @@ array([[4, 5]])
 并``ind_2``可以广播到形状（2,3,4）。然后
  ``x[:,ind_1,ind_2]``具有形状（10,2,3,4,40,50），因为来自X的（20,30）形子空间已经被索引的（2,3,4）子空间替换。但是，它
  ``x[:,ind_1,:,ind_2]``具有形状（2,3,4,10,30,50），因为在索引子空间中没有明确的位置，所以它在开头就被添加了。始终可以使用
- [``.transpose()``](generated/numpy.ndarray.transpose.html#numpy.ndarray.transpose)在任何需要的位置移动子空间。
- 请注意，此示例无法使用复制[``take``](generated/numpy.take.html#numpy.take)。
+ [``.transpose()``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.transpose.html#numpy.ndarray.transpose)在任何需要的位置移动子空间。
+ 请注意，此示例无法使用复制[``take``](https://numpy.org/devdocs/reference/generated/numpy.take.html#numpy.take)。
 
 ### 布尔数组索引
 
@@ -277,13 +280,13 @@ array([[4, 5]])
 
 如果 ``obj.ndim == x.ndim``，``x[obj]`` 返回一个1维数组，
 其中填充了与obj的 ``True`` 值对应的x的元素。
-搜索顺序将以[行为主](https://numpy.org/devdocs/glossary.html#term-row-major)，
+搜索顺序为[ row-major](https://numpy.org/devdocs/glossary.html#term-row-major)，
 C样式。如果 *obj* 在 *x* 的界限之外的条目上有True值，
 则会引发索引错误。如果 *obj* 小于 *x* ，则等同于用**False**填充它。
 
 **示例：**
 
-一个常见的用例是过滤所需的元素值。例如，可能希望从阵列中选择非NaN的所有条目：
+一个常见的用例是过滤所需的元素值。例如，可能希望从数组中选择非NaN的所有条目：
 
 ``` python
 >>> x = np.array([[1., 2.], [np.nan, 3.], [np.nan, np.nan]])
@@ -331,13 +334,13 @@ array([0, 1])
 
 由于额外的维度，最后一个只给出了第一个元素。比较``rowsum.nonzero()``以了解此示例。
 
-通过[``obj.nonzero()``](generated/numpy.ndarray.nonzero.html#numpy.ndarray.nonzero)类比可以最好地理解组合多个布尔索引数组或布尔与整数索引数组
- 。该函数[``ix_``](generated/numpy.ix_.html#numpy.ix_)
+通过[``obj.nonzero()``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.nonzero.html#numpy.ndarray.nonzero)类比可以最好地理解组合多个布尔索引数组或布尔与整数索引数组
+ 。该函数[``ix_``](https://numpy.org/devdocs/reference/generated/numpy.ix_.html#numpy.ix_)
 还支持布尔数组，并且可以毫无意外地工作。
 
 **示例：**
 
-使用布尔索引选择加起来为偶数的所有行。同时，应使用高级整数索引选择列0和2。使用该[``ix_``](generated/numpy.ix_.html#numpy.ix_)功能可以通过以下方式完成：
+使用布尔索引选择加起来为偶数的所有行。同时，应使用高级整数索引选择列0和2。使用该[``ix_``](https://numpy.org/devdocs/reference/generated/numpy.ix_.html#numpy.ix_)功能可以通过以下方式完成：
 
 ``` python
 >>> x = array([[ 0,  1,  2],
@@ -376,8 +379,8 @@ array([[ 3,  5],
 - 当省略号（``...``）存在但没有大小（即替换为零
  ``:``）时，结果仍将始终为数组。如果没有高级索引，则为视图，否则为副本。
 - ``nonzero``布尔数组的等价性不适用于零维布尔数组。
-- 当高级索引操作的结果没有元素但单个索引超出范围时，是否``IndexError``引发了未定义（例如，超出范围）。``x[[], [123]]````123``
-- 当在赋值期间发生 *转换* 错误时（例如，使用字符串序列更新数值数组），被分配的数组可能最终处于不可预测的部分更新状态。但是，如果发生任何其他错误（例如超出范围索引），则阵列将保持不变。
+- 当高级索引操作的结果没有元素但单个索引超出界限时，是否引发 ``IndexError`` 是未定义的(例如，``x[[], [123]]`` 中的 ``123`` 超出界限)。
+- 当在赋值期间发生 *转换* 错误时（例如，使用字符串序列更新数值数组），被分配的数组可能最终处于不可预测的部分更新状态。但是，如果发生任何其他错误（例如超出范围索引），则数组将保持不变。
 - 高级索引结果的内存布局针对每个索引操作进行了优化，并且不能假设特定的内存顺序。
 - 当使用一个子类（尤其是其操纵它的形状），默认``ndarray.__setitem__``行为会调用``__getitem__``的
   *基本* 索引而不是 *先进的* 索引。对于这样的子类，最好``ndarray.__setitem__``使用 *基类*  ndarray视图调用数据。如果子类不返回视图，则 *必须* 执行此操作``__getitem__``。
@@ -386,18 +389,23 @@ array([[ 3,  5],
 
 ::: tip 另见
 
-[数据类型对象（dtype）](arrays.dtypes.html#arrays-dtypes)，[标量](arrays.scalars.html#arrays-scalars)
+[数据类型对象（dtype）](dtypes.html)、
+[标量](scalars.html)
 
 :::
 
-如果[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)对象是结构化数组
+如果[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)对象是结构化数组
 ，则可以通过使用字符串索引数组来访问数组的[字段](https://numpy.org/devdocs/glossary.html#term-field)，类似于字典。
 
 索引``x['field-name']``返回数组的新[视图](https://numpy.org/devdocs/glossary.html#term-view)，该[视图](https://numpy.org/devdocs/glossary.html#term-view)与 *x* 具有相同的形状（当字段是子数组时除外）但是数据类型``x.dtype['field-name']``并且仅包含指定字段中的部分数据。还
- [记录阵列](arrays.classes.html#arrays-classes-rec)标量可以被“索引”这种方式。
+ [记录数组](arrays.classes.html#arrays-classes-rec)标量可以被“索引”这种方式。
 
 索引到结构化数组也可以使用字段名称列表来完成，
-  *例如*  ``x[['field-name1','field-name2']]``。从NumPy 1.16开始，这将返回仅包含这些字段的视图。在旧版本的numpy中，它返回了一个副本。有关多字段索引的详细信息，请参阅[结构化阵列](https://numpy.org/devdocs/user/basics.rec.html#structured-arrays)的用户指南部分。
+*例如*  ``x[['field-name1','field-name2']]``。
+从NumPy 1.16开始，这将返回仅包含这些字段的视图。
+在旧版本的numpy中，它返回了一个副本。
+有关多字段索引的详细信息，
+请参阅用户指南部分的[结构化数组](/user/basics/rec.html#结构化数组)。
 
 如果访问的字段是子数组，则子数组的尺寸将附加到结果的形状。
 
@@ -415,4 +423,4 @@ dtype('float64')
 
 ## Flat Iterator索引
 
-[``x.flat``](generated/numpy.ndarray.flat.html#numpy.ndarray.flat)返回一个迭代器，它将遍历整个数组（以C-contiguous样式，最后一个索引变化最快）。只要选择对象不是元组，也可以使用基本切片或高级索引对此迭代器对象建立索引。这应该从[``x.flat``](generated/numpy.ndarray.flat.html#numpy.ndarray.flat)一维视图的事实中清楚。它可以用于具有1维C风格平面索引的整数索引。因此，任何返回数组的形状都是整数索引对象的形状。
+[``x.flat``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flat.html#numpy.ndarray.flat)返回一个迭代器，它将遍历整个数组（以C-contiguous样式，最后一个索引变化最快）。只要选择对象不是元组，也可以使用基本切片或高级索引对此迭代器对象建立索引。这应该从[``x.flat``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flat.html#numpy.ndarray.flat)一维视图的事实中清楚。它可以用于具有1维C风格平面索引的整数索引。因此，任何返回数组的形状都是整数索引对象的形状。

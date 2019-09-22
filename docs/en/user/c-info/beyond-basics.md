@@ -370,6 +370,22 @@ object structure. All other entries can be NULL and will be filled in
 by [``PyType_Ready``](https://docs.python.org/dev/c-api/type.html#c.PyType_Ready) with appropriate functions from the parent
 type(s). In particular, to create a sub-type in C follow these steps:
 
+
+1. If needed create a new C-structure to handle each instance of your type. A typical C-structure would be:
+
+    ``` c
+    typedef _new_struct {
+        PyArrayObject base;
+        /* new things here */
+    } NewArrayObject;
+    ```
+    
+    Notice that the full PyArrayObject is used as the first entry in order to ensure that the binary layout of instances of the new type is identical to the PyArrayObject.
+1. Fill in a new Python type-object structure with pointers to new functions that will over-ride the default behavior while leaving any function that should remain the same unfilled (or NULL). The tp_name element should be different.
+1. Fill in the tp_base member of the new type-object structure with a pointer to the (main) parent type object. For multiple-inheritance, also fill in the tp_bases member with a tuple containing all of the parent objects in the order they should be used to define inheritance. Remember, all parent-types must have the same C-structure for multiple inheritance to work properly.
+1. Call [PyType_Ready](https://docs.python.org/dev/c-api/type.html#c.PyType_Ready) (\<pointer_to_new_type\>). If this function returns a negative number, a failure occurred and the type is not initialized. Otherwise, the type is ready to be used. It is generally important to place a reference to the new type into the module dictionary so it can be accessed from Python.
+
+
 More information on creating sub-types in C can be learned by reading
 PEP 253 (available at [https://www.python.org/dev/peps/pep-0253](https://www.python.org/dev/peps/pep-0253)).
 

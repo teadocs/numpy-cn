@@ -26,9 +26,10 @@ module.exports = {
       sidebar: {
         '/user/': require('../sidebar/user_zh')(),
         '/reference/': require('../sidebar/reference_zh')(),
-        '/f2py': require('../sidebar/f2py_zh')(),
-        '/dev': require('../sidebar/dev_zh')(),
-        '/bedocs': require('../sidebar/bedocs_zh')()
+        '/f2py/': require('../sidebar/f2py_zh')(),
+        '/dev/': require('../sidebar/dev_zh')(),
+        '/bedocs/': require('../sidebar/bedocs_zh')(),
+        '/articles/': require('../sidebar/articles_zh')()
       }
     },
     '/en/': {
@@ -40,9 +41,9 @@ module.exports = {
       sidebar: {
         '/en/user/': require('../sidebar/user_en')(),
         '/en/reference/': require('../sidebar/reference_en')(),
-        '/en/f2py': require('../sidebar/f2py_en')(),
-        '/en/dev': require('../sidebar/dev_en')(),
-        '/en/bedocs': require('../sidebar/bedocs_en')()
+        '/en/f2py/': require('../sidebar/f2py_en')(),
+        '/en/dev/': require('../sidebar/dev_en')(),
+        '/en/bedocs/': require('../sidebar/bedocs_en')(),
       }
     }
   }

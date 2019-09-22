@@ -46,8 +46,79 @@ array([('Rex', 5, 81.), ('Fido', 5, 27.)],
 
 ### 结构化数据类型创建
 
-可以使用该函数创建结构化数据类型[``numpy.dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype)。有4种不同的规范形式，其灵活性和简洁性各不相同。这些在“ [数据类型对象”](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing)参考页面中进一步记录
- ，总结如下：
+可以使用该函数创建结构化数据类型[``numpy.dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype)。有4种不同的规范形式，
+其灵活性和简洁性各不相同。这些在 “[数据类型对象](/reference/arrays/dtypes.html)” 参考页面中进一步记录，总结如下：
+
+1. 元组列表，每个字段一个元组
+
+    每个元组都具有以下形式``（字段名称、数据类型、形状）``，其中Shape是可选的。
+    ``fieldname`` 是字符串（如果使用标题，则为元组，请参见下面的[字段标题](#字段标题)），
+    datatype 可以是任何可转换为数据类型的对象，而 ``shape`` 是指定子数组形状的整数元组。
+
+    ``` python
+    >>> np.dtype([('x', 'f4'), ('y', np.float32), ('z', 'f4', (2, 2))])
+    dtype([('x', '<f4'), ('y', '<f4'), ('z', '<f4', (2, 2))])
+    ```
+
+    如果 ``fieldname`` 是空字符串 ``''`` ，则将为字段指定格式为 ``f#`` 的默认名称，
+    其中 ``#`` 是字段的整数索引，从左侧开始从0开始计数：
+
+    ``` python
+    >>> np.dtype([('x', 'f4'), ('', 'i4'), ('z', 'i8')])
+    dtype([('x', '<f4'), ('f1', '<i4'), ('z', '<i8')])
+    ```
+
+    自动确定结构内字段的字节偏移量和总结构项大小。
+1. 逗号分隔的数据类型规范字符串
+
+    在这个速记符号中，任何 [字符串dtype规范](/reference/arrays/dtypes.html#arrays-dtypes-constructing) 都可以在字符串中使用，
+    并用逗号分隔。
+    字段的项目大小和字节偏移是自动确定的，并且字段名称被赋予默认名称 ``f0``、``f1``等。
+
+    ``` python
+    >>> np.dtype('i8, f4, S3')
+    dtype([('f0', '<i8'), ('f1', '<f4'), ('f2', 'S3')])
+    >>> np.dtype('3int8, float32, (2, 3)float64')
+    dtype([('f0', 'i1', (3,)), ('f1', '<f4'), ('f2', '<f8', (2, 3))])
+    ```
+1. 字段参数组字典
+
+    这是最灵活的规范形式，因为它允许控制字段的字节偏移和结构的项目大小。
+
+    字典有两个必需键 “names” 和 “format”，以及四个可选键 “offsets”、“itemsize”、“Aligned” 和 “title”。
+    名称和格式的值应该分别是相同长度的字段名列表和dtype规范列表。
+    可选的 “offsets” 值应该是整数字节偏移量的列表，结构中的每个字段都有一个偏移量。
+    如果未给出 “Offsets” ，则自动确定偏移量。可选的 “itemsize” 值应该是一个整数，
+    描述dtype的总大小（以字节为单位），它必须足够大以包含所有字段。
+
+    ``` python
+    >>> np.dtype({'names': ['col1', 'col2'], 'formats': ['i4', 'f4']})
+    dtype([('col1', '<i4'), ('col2', '<f4')])
+    >>> np.dtype({'names': ['col1', 'col2'],
+    ...           'formats': ['i4', 'f4'],
+    ...           'offsets': [0, 4],
+    ...           'itemsize': 12})
+    dtype({'names':['col1','col2'], 'formats':['<i4','<f4'], 'offsets':[0,4], 'itemsize':12})
+    ```
+
+    可以选择偏移量，使得字段重叠，尽管这将意味着分配给一个字段可能会破坏任何重叠字段的数据。
+    作为一个例外，numpy.object类型的字段不能与其他字段重叠，因为存在破坏内部对象指针然后取消引用它的风险。
+
+    可选的“Aligned”值可以设置为True，以使自动偏移计算使用对齐的偏移量（请参阅[自动字节偏移量和对齐](#自动字节偏移和对齐)），
+    就好像numpy.dtype的“Align”关键字参数已设置为True一样。
+
+    可选的 ‘titles’ 值应该是长度与 ‘names’ 相同的标题列表，请参阅下面的[字段标题](#字段标题)。
+1. 字段名称字典
+    不鼓励使用这种形式的规范，但这里有文档记录，因为较旧的numpy代码可能会使用它。
+    字典的关键字是字段名称，值是指定类型和偏移量的元组：
+
+    ``` python
+    >>> np.dtype({'col1': ('i1', 0), 'col2': ('f4', 1)})
+    dtype([('col1', 'i1'), ('col2', '<f4')])
+    ```
+
+    不鼓励使用这种形式，因为Python字典在Python 3.6之前的Python版本中不保留顺序，
+    并且结构化dtype中字段的顺序有意义。[字段标题](#字段标题)可以通过使用3元组来指定，见下文。  
 
 ### 操作和显示结构化数据类型
 
@@ -62,14 +133,16 @@ array([('Rex', 5, 81.), ('Fido', 5, 27.)],
 
 可以通过``names``使用相同长度的字符串序列分配属性来修改字段名称。
 
-dtype对象还具有类似字典的属性，``fields``其键是字段名称（和[字段标题](#titles)，见下文），其值是包含每个字段的dtype和字节偏移量的元组。
+dtype对象还具有类似字典的属性，``fields``其键是字段名称（和[字段标题](#字段标题)，见下文），
+其值是包含每个字段的dtype和字节偏移量的元组。
 
 ``` python
 >>> d.fields
 mappingproxy({'x': (dtype('int64'), 0), 'y': (dtype('float32'), 8)})
 ```
 
-对于非结构化数组，``names``和``fields``属性都相同``None``。测试 *dtype* 是否结构化的推荐方法是， *如果dt.names不是None* 而不是 *dt.names* ，则考虑具有0字段的dtypes。
+对于非结构化数组，``names``和``fields``属性都相同``None``。
+测试 *dtype* 是否结构化的推荐方法是， *如果dt.names不是None* 而不是 *dt.names* ，则考虑具有0字段的dtypes。
 
 如果可能，结构化数据类型的字符串表示形式显示在“元组列表”表单中，否则numpy将回退到使用更通用的字典表单。
 
@@ -135,10 +208,10 @@ dtype([(('my title', 'name'), '<i4')])
 
 ### 联合类型
 
-结构化数据类型在numpy中实现，``numpy.void``默认情况下具有基类型
- ，但可以使用[数据类型对象中](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing)描述的dtype规范的形式
- 将其他numpy类型解释为结构化类型。这里是所需的底层dtype，将复制字段和标志
- 。这个dtype类似于C中的'union'。``(base_dtype, dtype)``[](https://numpy.org/devdocs/reference/arrays.dtypes.html#arrays-dtypes-constructing)``base_dtype````dtype``
+默认情况下，结构化数据类型在numpy中实现为基本类型 ``numpy.void``，
+但是可以使用 [数据类型对象中](/reference/arrays/dtypes.html) 中描述的dtype规范的 ``(base_dtype, dtype)`` 
+形式将其他 numpy 类型解释为结构化类型。
+这里，``base_dtype`` 是所需的底层 ``dtype``，字段和标志将从dtype复制。此 dtype 类似于 C 中的“Union”。
 
 ## 索引和分配给结构化数组
 
@@ -188,7 +261,7 @@ TypeError: Cannot cast scalar from dtype([('A', '<i4'), ('B', '<i4')]) to dtype(
 
 #### 来自其他结构化数组的赋值
 
-两个结构化数组之间的分配就像源元素已转换为元组然后分配给目标元素一样。也就是说，源阵列的第一个字段分配给目标数组的第一个字段，第二个字段同样分配，依此类推，而不管字段名称如何。具有不同数量的字段的结构化数组不能彼此分配。未包含在任何字段中的目标结构的字节不受影响。
+两个结构化数组之间的分配就像源元素已转换为元组然后分配给目标元素一样。也就是说，源数组的第一个字段分配给目标数组的第一个字段，第二个字段同样分配，依此类推，而不管字段名称如何。具有不同数量的字段的结构化数组不能彼此分配。未包含在任何字段中的目标结构的字节不受影响。
 
 ``` python
 >>> a = np.zeros(3, dtype=[('a', 'i8'), ('b', 'f4'), ('c', 'S3')])
@@ -199,9 +272,9 @@ array([(0., b'0.0', b''), (0., b'0.0', b''), (0., b'0.0', b'')],
       dtype=[('x', '<f4'), ('y', 'S3'), ('z', 'O')])
 ```
 
-#### 涉及子阵列的分配
+#### 涉及子数组的分配
 
-分配给子阵列的字段时，首先将指定的值广播到子阵列的形状。
+分配给子数组的字段时，首先将指定的值广播到子数组的形状。
 
 ### 索引结构化数组
 
@@ -327,7 +400,7 @@ array([(2, 0, 3.), (2, 0, 3.), (2, 0, 3.)],
       dtype=[('a', '<i4'), ('b', '<i4'), ('c', '<f4')])
 ```
 
-这遵循上述结构化阵列分配规则。例如，这意味着可以使用适当的多字段索引交换两个字段的值：
+这遵循上述结构化数组分配规则。例如，这意味着可以使用适当的多字段索引交换两个字段的值：
 
 ``` python
 >>> a[['a', 'c']] = a[['c', 'a']]
@@ -391,7 +464,7 @@ array([False, False])
 
 目前，如果两个void结构化数组的dtypes不相等，则比较失败，返回标量值``False``。从numpy 1.10开始不推荐使用此行为，并且将来会引发错误或执行元素比较。
 
-在``<``与``>``运营商总是返回``False``比较空洞结构阵列时，与算术和位操作不被支持。
+在``<``与``>``运营商总是返回``False``比较空洞结构数组时，与算术和位操作不被支持。
 
 ## 记录数组
 
@@ -425,9 +498,9 @@ b'World'
 >>> recordarr = np.rec.array(arr)
 ```
 
-该``numpy.rec``模块提供了许多其他便利函数来创建记录数组，请参阅[记录数组创建例程](https://numpy.org/devdocs/reference/routines.array-creation.html#routines-array-creation-rec)。
+该``numpy.rec``模块提供了许多其他便利函数来创建记录数组，请参阅[记录数组创建例程](/reference/routines/array-creation.html#routines-array-creation-rec)。
 
-可以使用适当的[视图](numpy-ndarray-view)获取结构化数组的记录数组表示：
+可以使用适当的视图获取结构化数组的记录数组表示：
 
 ``` python
 >>> arr = np.array([(1, 2., 'Hello'), (2, 3., "World")],
@@ -706,12 +779,9 @@ dtype((numpy.record, [('foo', '<i4'), ('bar', '<f4'), ('baz', 'S10')]))
 
   ::: tip 提示
 
-  - The output is sorted along the key.
-  - A temporary array is formed by dropping the fields not in the key for
-  the two arrays and concatenating the result. This array is then
-  sorted, and the common entries selected. The output is constructed by
-  filling the fields with the selected entries. Matching is not
-  preserved if there are some duplicates…
+  - 输出按 key 排序。
+  - 通过删除不在两个数组的键中的字段并连接结果来形成临时数组。然后对该数组进行排序，并选择公共条目。
+  通过用所选条目填充字段来构造输出。如果存在一些重复的…，则不保留匹配
 
   :::
 

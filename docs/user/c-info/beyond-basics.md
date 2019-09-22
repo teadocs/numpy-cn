@@ -18,7 +18,7 @@
 
 在数组的当前元素处理数据之后，可以使用macro [``PyArray_ITER_NEXT``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ITER_NEXT)（``iter``）获取数组的下一个元素
  。迭代总是以C风格的连续方式进行（最后一个索引变化最快）。的
- [``PyArray_ITER_GOTO``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ITER_GOTO)（``iter``，``destination``）可以用来跳到一个特定点的阵列，其中在``destination``是npy_intp数据类型与空间的阵列，以处理潜在的阵列中的维度中的至少数。有时使用[``PyArray_ITER_GOTO1D``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ITER_GOTO1D)（``iter``，``index``）将跳转到由值给出的1-d索引是有用的``index``。但是，最常见的用法在以下示例中给出。
+ [``PyArray_ITER_GOTO``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ITER_GOTO)（``iter``，``destination``）可以用来跳到一个特定点的数组，其中在``destination``是npy_intp数据类型与空间的数组，以处理潜在的数组中的维度中的至少数。有时使用[``PyArray_ITER_GOTO1D``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_ITER_GOTO1D)（``iter``，``index``）将跳转到由值给出的1-d索引是有用的``index``。但是，最常见的用法在以下示例中给出。
 
 ``` c
 PyObject *obj; /* assumed to be some ndarray object */
@@ -76,11 +76,17 @@ while (iter2->index < iter2->size)  {
 
 ### 在多个数组上广播
 
-当操作中涉及多个数组时，您可能希望使用与数学运算（ *即*  ufuncs）相同的广播规则。这可以使用[``PyArrayMultiIterObject``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayMultiIterObject)。这是从Python命令numpy.broadcast返回的对象，它几乎和C一样容易使用。使用函数
- [``PyArray_MultiIterNew``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_MultiIterNew)（``n``，``...``）（用``n``输入对象代替``...``）。输入对象可以是数组或可以转换为数组的任何东西。返回指向PyArrayMultiIterObject的指针。广播已经完成，它调整了迭代器，以便所有需要完成的工作都可以进入每个数组中的下一个元素，以便为每个输入调用PyArray_ITER_NEXT。此递增由[``PyArray_MultiIter_NEXT``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_MultiIter_NEXT)（``obj``）宏自动执行
- （可以将多重转换器``obj``作为a 或a处理
- ）。来自输入号码的数据可使用
- （，），总（广播）大小为（）。以下是使用此功能的示例。``PyArrayMultiObject *``[``PyObject *``](https://docs.python.org/dev/c-api/structures.html#c.PyObject)``i``[``PyArray_MultiIter_DATA``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_MultiIter_DATA)``obj````i````PyArray_MultiIter_SIZE````obj``
+当一个操作涉及多个数组时，您可能希望使用数学操作(即ufuncs)使用的相同广播规则。
+这可以使用 [``PyArrayMultiIterObject``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayMultiIterObject) 轻松完成。
+这是从Python命令numpy.Broadcast返回的对象，它几乎和C一样容易使用。
+函数 [PyArray_MultiIterNew](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_MultiIterNew)(``n``, ``...``)。使用（``n``个输入对象代替）。
+输入对象可以是数组或任何可以转换为数组的对象。
+返回指向 [``PyArrayMultiIterObject``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayMultiIterObject) 的指针。
+广播已经完成，它调整迭代器，以便为每个输入调用PyArray_ITER_NEXT，
+以便前进到每个数组中的下一个元素。
+这种递增由 [PyArray_MultiIter_NEXT](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_MultiIter_NEXT)(``Obj``)宏自动执行（它可以将乘法器 ``obj`` 处理为 PyArrayMultiObject \* 或 [PyObject \*](https://docs.python.org/dev/c-api/structures.html#c.PyObject)）。
+输入编号 ``i`` 中的数据可使用[PyArray_MultiIter_DATA](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_MultiIter_DATA)(``obj``, ``i``)和总（广播）大小作为**PyArray_MultiIter_SIZE**(``Obj``)。
+下面是使用此功能的示例。
 
 ``` c
 mobj = PyArray_MultiIterNew(2, obj1, obj2);
@@ -93,7 +99,8 @@ while(size--) {
 }
 ```
 
-function [``PyArray_RemoveSmallest``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_RemoveSmallest)（``multi``）可用于获取多迭代器对象并调整所有迭代器，以便迭代不会发生在最大维度上（它使得该维度的大小为1）。循环使用指针的代码很可能也需要每个迭代器的步幅数据。此信息存储在multi-> iters [i]  - > strides中。
+function [``PyArray_RemoveSmallest``](https://numpy.org/devdocs/reference/c-api/array.html#c.PyArray_RemoveSmallest)(``multi``) 可用于获取多迭代器对象并调整所有迭代器，以便迭代不会发生在最大维度上（它使得该维度的大小为1）。
+循环使用指针的代码很可能也需要每个迭代器的步幅数据。此信息存储在 multi->iters[i]->strides 中。
 
 在NumPy源代码中使用多迭代器有几个例子，因为它使N维广播代码编写起来非常简单。浏览源代码以获取更多示例。
 
@@ -157,8 +164,11 @@ Py_DECREF(doub);
 
 您可能还希望为数据类型注册低级ufunc循环，以便数据类型的ndarray可以无缝地应用数学。注册具有完全相同的arg_types签名的新循环，静默替换该数据类型的任何先前注册的循环。
 
-在为ufunc注册1-d循环之前，必须先创建ufunc。然后[``PyUFunc_RegisterLoopForType``](https://numpy.org/devdocs/reference/c-api/ufunc.html#c.PyUFunc_RegisterLoopForType)
-使用循环所需的信息调用（...）。此函数的返回值是``0``过程成功并且``-1``如果未成功则设置错误条件。
+在为ufunc注册一维循环之前，必须预先创建ufunc。
+然后调用 [PyUFunc_RegisterLoopForType](https://numpy.org/devdocs/reference/c-api/ufunc.html#c.PyUFunc_RegisterLoopForType)(…)。
+以及循环所需的信息。
+如果进程成功，则此函数的返回值为0；
+如果进程不成功，则返回 ``-1``，并设置错误条件。
 
 ## 在C中对ndarray进行子类型化
 
@@ -167,15 +177,34 @@ Py_DECREF(doub);
 与Python对象相对应的所有C结构必须以[``PyObject_HEAD``](https://docs.python.org/dev/c-api/structures.html#c.PyObject_HEAD)（或[``PyObject_VAR_HEAD``](https://docs.python.org/dev/c-api/structures.html#c.PyObject_VAR_HEAD)）开头
  。同样，任何子类型都必须具有C结构，该结构以与父类型完全相同的内存布局（或多重继承的情况下的所有父类型）开始。这样做的原因是Python可能会尝试访问子类型结构的成员，就像它具有父结构一样（ *即* 它会将指定的指针强制转换为指向父结构的指针，然后取消引用其中一个成员）。如果内存布局不兼容，则此尝试将导致不可预测的行为（最终导致内存冲突和程序崩溃）。
 
-其中一个元素[``PyObject_HEAD``](https://docs.python.org/dev/c-api/structures.html#c.PyObject_HEAD)是指向类型 - 对象结构的指针。通过创建新的类型 - 对象结构并使用函数和指针填充它来描述所需的类型行为，可以创建新的Python类型。通常，还会创建一个新的C结构，以包含该类型的每个对象所需的特定于实例的信息。例如，
- [``&PyArray_Type``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Type)是指向ndarray的类型 - 对象表的指针，而变量是指向ndarray的特定实例的指针（ndarray结构的一个成员又是指向类型 - 对象表的指针）。最后
- （<pointer_to_type_object>）必须为每个新的Python类型调用。[``PyArrayObject *``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayObject)[``&PyArray_Type``](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Type)[``PyType_Ready``](https://docs.python.org/dev/c-api/type.html#c.PyType_Ready)
+[PyObject_HEAD](https://docs.python.org/dev/c-api/structures.html#c.PyObject_HEAD)中的元素之一是指向  type-object 结构的指针。
+通过创建一个新的类型-对象结构并用函数和指针填充它来创建一个新的Python类型，
+以描述该类型的所需行为。
+通常，还会创建一个新的C结构来包含该类型的每个对象所需的特定于实例的信息。
+例如，[&PyArray_Type](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Type)是指向ndarray的类型-对象表的指针，
+而[PyArrayObject \*](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArrayObject)变量是指向ndarray的特定实例的指针
+（ndarray结构的成员之一反过来是指向类型-对象表 [&PyArray_Type](https://numpy.org/devdocs/reference/c-api/types-and-structures.html#c.PyArray_Type) 的指针）。
+最后，必须为每个新的Python类型调用 [PyType_Ready](https://docs.python.org/dev/c-api/type.html#c.PyType_Ready)(\<POINTER_TO_TYPE_OBJECT\>)。
 
 ### 创建子类型
 
 要创建子类型，必须遵循类似的过程，除了只有不同的行为需要在类型 - 对象结构中使用新条目。所有其他条目都可以为NULL，并将使用[``PyType_Ready``](https://docs.python.org/dev/c-api/type.html#c.PyType_Ready)父类型中的相应函数填充。特别是，要在C中创建子类型，请按照下列步骤操作：
 
-有关在C中创建子类型的更多信息，请参阅PEP 253（可从[https://www.python.org/dev/peps/pep-0253获取](https://www.python.org/dev/peps/pep-0253)）。
+1. 如果需要，创建一个新的C结构来处理类型的每个实例。典型的 C 的结构是：
+
+    ``` c
+    typedef _new_struct {
+        PyArrayObject base;
+        /* new things here */
+    } NewArrayObject;
+    ```
+    
+    请注意，完整的PyArrayObject用作第一个条目，以确保新类型的实例的二进制布局与PyArrayObject相同。
+1. 使用指向新函数的指针填充新的Python类型对象结构，这些新函数将覆盖默认行为，同时保留任何应该保持相同的未填充(或空)的函数。tp_name元素应该不同。
+1. 用指向（Main）父类型对象的指针填充新类型对象结构的tp_base成员。对于多重继承，还要用一个元组填充tp_base成员，该元组包含所有父对象（按照它们用于定义继承的顺序）。请记住，所有父类型必须具有相同的C结构，才能使多重继承正常工作。
+1. 调用[PyType_Ready](https://docs.python.org/dev/c-api/type.html#c.PyType_Ready)(\<pointer_to_new_type\>)。如果此函数返回负数，则表示发生故障，并且类型未初始化。否则，该类型就可以使用了。通常，将对新类型的引用放入模块字典中，以便可以从Python访问它，这一点通常很重要。
+
+有关在 C 中创建子类型的更多信息，请参阅PEP 253（可从[https://www.python.org/dev/peps/pep-0253](https://www.python.org/dev/peps/pep-0253)获取）。
 
 ### ndarray子类型的特定功能
 
@@ -183,31 +212,43 @@ Py_DECREF(doub);
 
 #### __array_finalize__方法
 
-``ndarray.````__array_finalize__``
+- ndarray.``__array_finalize__``
 
-ndarray的几个数组创建函数允许创建特定子类型的规范。这允许在许多例程中无缝地处理子类型。但是，当以这种方式创建子类型时，__new__方法和__init__方法都不会被调用。而是分配子类型并填充适当的实例结构成员。最后，[``__array_finalize__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_finalize__)
-在对象字典中查找属性。如果它存在而不是None，那么它可以是包含指向a的指针的CObject，``PyArray_FinalizeFunc``也可以是采用单个参数的方法（可以是None）。
+    ndarray的几个数组创建函数允许创建特定子类型的规范。这允许在许多例程中无缝地处理子类型。
+    但是，当以这种方式创建子类型时，__new__方法和__init__方法都不会被调用。
+    而是分配子类型并填充适当的实例结构成员。
+    最后，[``__array_finalize__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_finalize__)
+    在对象字典中查找属性。如果它存在而不是None，那么它可以是包含指向a的指针的CObject，``PyArray_FinalizeFunc``也可以是采用单个参数的方法（可以是None）。
 
-如果[``__array_finalize__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_finalize__)属性是CObject，则指针必须是指向具有签名的函数的指针：
+    如果[``__array_finalize__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_finalize__)属性是CObject，
+    则指针必须是指向具有签名的函数的指针：
 
-``` c
-(int) (PyArrayObject *, PyObject *)
-```
+    ``` c
+    (int) (PyArrayObject *, PyObject *)
+    ```
 
-第一个参数是新创建的子类型。第二个参数（如果不是NULL）是“父”数组（如果数组是使用切片或其他操作创建的，其中存在明显可区分的父项）。这个例程可以做任何想做的事情。它应该在错误时返回-1，否则返回0。
+    第一个参数是新创建的子类型。
+    第二个参数（如果不是NULL）是“父”数组（如果数组是使用切片或其他操作创建的，其中存在明显可区分的父项）。
+    这个例程可以做任何想做的事情。它应该在错误时返回-1，否则返回0。
 
-如果[``__array_finalize__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_finalize__)属性不是None也不是CObject，那么它必须是一个Python方法，它将父数组作为参数（如果没有父元素，则可以是None），并且不返回任何内容。将捕获并处理此方法中的错误。
+    如果[``__array_finalize__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_finalize__)属性不是None也不是CObject，
+    那么它必须是一个Python方法，它将父数组作为参数（如果没有父元素，则可以是None），
+    并且不返回任何内容。将捕获并处理此方法中的错误。
 
 #### __array_priority__属性
 
-``ndarray.````__array_priority__``
+- ndarray.``__array_priority__``
 
-当涉及两个或更多个子类型的操作出现时，该属性允许简单但灵活地确定哪个子类型应被视为“主要”。在使用不同子类型的操作中，具有最大[``__array_priority__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_priority__)
-属性的子类型将确定输出的子类型。如果两个子类型相同，[``__array_priority__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_priority__)则第一个参数的子类型确定输出。[``__array_priority__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_priority__)对于基本ndarray类型，default
- 属性返回值0.0，对于子类型，返回1.0。此属性也可以由不是ndarray的子​​类型的对象定义，并且可以用于确定[``__array_wrap__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_wrap__)应该为返回输出调用哪个方法。
+  当涉及两个或更多个子类型的操作出现时，该属性允许简单但灵活地确定哪个子类型应被视为“主要”。在使用不同子类型的操作中，具有最大[``__array_priority__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_priority__)
+  属性的子类型将确定输出的子类型。如果两个子类型相同，[``__array_priority__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_priority__)则第一个参数的子类型确定输出。[``__array_priority__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_priority__)对于基本ndarray类型，default
+  属性返回值0.0，对于子类型，返回1.0。此属性也可以由不是ndarray的子​​类型的对象定义，并且可以用于确定[``__array_wrap__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_wrap__)应该为返回输出调用哪个方法。
 
 #### __array_wrap__方法
 
-``ndarray.````__array_wrap__``
+- ndarray.``__array_wrap__``
 
-任何类或类型都可以定义此方法，该方法应采用ndarray参数并返回该类型的实例。它可以看作是该[``__array__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array__)方法的反面。ufuncs（和其他NumPy函数）使用此方法允许其他对象通过。对于Python> 2.4，它也可以用来编写一个装饰器，它将一个仅适用于ndarrays的函数转换为一个可以使用[``__array__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array__)和[``__array_wrap__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_wrap__)方法处理任何类型的函数。
+    任何类或类型都可以定义此方法，该方法应采用ndarray参数并返回该类型的实例。
+    它可以看作是该[``__array__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array__)方法的反面。
+    ufuncs（和其他NumPy函数）使用此方法允许其他对象通过。
+    对于Python > 2.4，它也可以用来编写一个装饰器，
+    它将一个仅适用于ndarrays的函数转换为一个可以使用[``__array__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array__)和[``__array_wrap__``](https://numpy.org/devdocs/reference/arrays.classes.html#numpy.class.__array_wrap__)方法处理任何类型的函数。

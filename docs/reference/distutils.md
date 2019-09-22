@@ -1,46 +1,43 @@
-# Packaging (``numpy.distutils``)
+# 打包（``numpy.distutils``）
 
-NumPy provides enhanced distutils functionality to make it easier to
-build and install sub-packages, auto-generate code, and extension
-modules that use Fortran-compiled libraries. To use features of NumPy
-distutils, use the ``setup`` command from
-``numpy.distutils.core``. A useful [``Configuration``](#numpy.distutils.misc_util.Configuration) class is also provided in
-[``numpy.distutils.misc_util``](#module-numpy.distutils.misc_util) that can make it easier to construct
-keyword arguments to pass to the setup function (by passing the
-dictionary obtained from the todict() method of the class). More
-information is available in the [NumPy Distutils - Users Guide](distutils_guide.html#distutils-user-guide).
+NumPy提供了增强的distutils功能，
+使用 Fortran-compiled 库的子包、自动生成代码和扩展模块的生成和安装变得更加容易。
+要使用NumPy distutils的功能，请使用 ``numpy.distutils.core`` 中的 ``setup`` 命令。
+numpy.distutils.misc_util中还提供了一个有用的 [``配置``](#numpy.distutils.misc_util.Configuration) 类，
+它可以更容易地构造要传递给 setup 函数的关键字参数（通过传递从类的 todict() 方法获得的字典）。
+有关详细信息，请参阅[NumPy Distutils - Users Guide](distutils_guide.html#distutils-user-guide)（NumPy Distutils-用户指南）。
 
-## Modules in ``numpy.distutils``
+## ``numpy.distutils`` 中的模块
 
-### misc_util
+### misc_util 模块
 
-method | discription
+方法 | 描述
 ---|---
-[get_numpy_include_dirs](generated/numpy.distutils.misc_util.get_numpy_include_dirs.html#numpy.distutils.misc_util.get_numpy_include_dirs)() | 
-[dict_append](generated/numpy.distutils.misc_util.dict_append.html#numpy.distutils.misc_util.dict_append)(d, \*\*kws) | 
-[appendpath](generated/numpy.distutils.misc_util.appendpath.html#numpy.distutils.misc_util.appendpath)(prefix, path) | 
-[allpath](generated/numpy.distutils.misc_util.allpath.html#numpy.distutils.misc_util.allpath)(name) | Convert a /-separated pathname to one using the OS’s path separator.
-[dot_join](generated/numpy.distutils.misc_util.dot_join.html#numpy.distutils.misc_util.dot_join)(\*args) | 
-[generate_config_py](generated/numpy.distutils.misc_util.generate_config_py.html#numpy.distutils.misc_util.generate_config_py)(target) | Generate config.py file containing system_info information used during building the package.
-[get_cmd](generated/numpy.distutils.misc_util.get_cmd.html#numpy.distutils.misc_util.get_cmd)(cmdname[, _cache]) | 
-[terminal_has_colors](generated/numpy.distutils.misc_util.terminal_has_colors.html#numpy.distutils.misc_util.terminal_has_colors)() | 
-[red_text](generated/numpy.distutils.misc_util.red_text.html#numpy.distutils.misc_util.red_text)(s) | 
-[green_text](generated/numpy.distutils.misc_util.green_text.html#numpy.distutils.misc_util.green_text)(s) | 
-[yellow_text](generated/numpy.distutils.misc_util.yellow_text.html#numpy.distutils.misc_util.yellow_text)(s) | 
-[blue_text](generated/numpy.distutils.misc_util.blue_text.html#numpy.distutils.misc_util.blue_text)(s) | 
-[cyan_text](generated/numpy.distutils.misc_util.cyan_text.html#numpy.distutils.misc_util.cyan_text)(s) | 
-[cyg2win32](generated/numpy.distutils.misc_util.cyg2win32.html#numpy.distutils.misc_util.cyg2win32)(path) | 
-[all_strings](generated/numpy.distutils.misc_util.all_strings.html#numpy.distutils.misc_util.all_strings)(lst) | Return True if all items in lst are string objects.
-[has_f_sources](generated/numpy.distutils.misc_util.has_f_sources.html#numpy.distutils.misc_util.has_f_sources)(sources) | Return True if sources contains Fortran files
-[has_cxx_sources](generated/numpy.distutils.misc_util.has_cxx_sources.html#numpy.distutils.misc_util.has_cxx_sources)(sources) | Return True if sources contains C++ files
-[filter_sources](generated/numpy.distutils.misc_util.filter_sources.html#numpy.distutils.misc_util.filter_sources)(sources) | Return four lists of filenames containing C, C++, Fortran, and Fortran 90 module sources, respectively.
-[get_dependencies](generated/numpy.distutils.misc_util.get_dependencies.html#numpy.distutils.misc_util.get_dependencies)(sources) | 
-[is_local_src_dir](generated/numpy.distutils.misc_util.is_local_src_dir.html#numpy.distutils.misc_util.is_local_src_dir)(directory) | Return true if directory is local directory.
-[get_ext_source_files](generated/numpy.distutils.misc_util.get_ext_source_files.html#numpy.distutils.misc_util.get_ext_source_files)(ext) | 
-[get_script_files](generated/numpy.distutils.misc_util.get_script_files.html#numpy.distutils.misc_util.get_script_files)(scripts) | 
+[get_numpy_include_dirs](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_numpy_include_dirs.html#numpy.distutils.misc_util.get_numpy_include_dirs)() | 
+[dict_append](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.dict_append.html#numpy.distutils.misc_util.dict_append)(d, \*\*kws) | 
+[appendpath](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.appendpath.html#numpy.distutils.misc_util.appendpath)(prefix, path) | 
+[allpath](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.allpath.html#numpy.distutils.misc_util.allpath)(name) | 使用操作系统的路径分隔符 / 将分隔的路径名转换为路径名。
+[dot_join](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.dot_join.html#numpy.distutils.misc_util.dot_join)(\*args) | 
+[generate_config_py](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.generate_config_py.html#numpy.distutils.misc_util.generate_config_py)(target) |生成config.py文件，其中包含构建包期间使用的SYSTEM_INFO信息。
+[get_cmd](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_cmd.html#numpy.distutils.misc_util.get_cmd)(cmdname[, _cache]) | 
+[terminal_has_colors](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.terminal_has_colors.html#numpy.distutils.misc_util.terminal_has_colors)() | 
+[red_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.red_text.html#numpy.distutils.misc_util.red_text)(s) | 
+[green_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.green_text.html#numpy.distutils.misc_util.green_text)(s) | 
+[yellow_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.yellow_text.html#numpy.distutils.misc_util.yellow_text)(s) | 
+[blue_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.blue_text.html#numpy.distutils.misc_util.blue_text)(s) | 
+[cyan_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.cyan_text.html#numpy.distutils.misc_util.cyan_text)(s) | 
+[cyg2win32](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.cyg2win32.html#numpy.distutils.misc_util.cyg2win32)(path) | 
+[all_strings](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.all_strings.html#numpy.distutils.misc_util.all_strings)(lst) | 如果lst中的所有项都是String对象，则返回True。
+[has_f_sources](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.has_f_sources.html#numpy.distutils.misc_util.has_f_sources)(sources) | 如果源包含Fortran文件，则返回True。
+[has_cxx_sources](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.has_cxx_sources.html#numpy.distutils.misc_util.has_cxx_sources)(sources) | 如果源包含C+文件，则返回True。
+[filter_sources](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.filter_sources.html#numpy.distutils.misc_util.filter_sources)(sources) | 返回分别包含C、C+、Fortran和Fortran 90模块源的四个文件名列表。
+[get_dependencies](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_dependencies.html#numpy.distutils.misc_util.get_dependencies)(sources) | 
+[is_local_src_dir](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.is_local_src_dir.html#numpy.distutils.misc_util.is_local_src_dir)(directory) | 如果目录是本地目录，则返回True。
+[get_ext_source_files](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_ext_source_files.html#numpy.distutils.misc_util.get_ext_source_files)(ext) | 
+[get_script_files](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_script_files.html#numpy.distutils.misc_util.get_script_files)(scripts) | 
 
 
-- *class* ``numpy.distutils.misc_util.``Configuration``(*package_name=None*, *parent_name=None*, *top_path=None*, *package_path=None*, \*\**attrs*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L731-L2070)
+- *class* ``numpy.distutils.misc_util.``Configuration``(*package_name=None*, *parent_name=None*, *top_path=None*, *package_path=None*, \*\**attrs*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L731-L2070)
 
   Construct a configuration instance for the given package name. If
   *parent_name* is not None, then construct the package as a
@@ -50,57 +47,56 @@ method | discription
   files in the numpy distribution are good examples of how to use
   the [``Configuration``](#numpy.distutils.misc_util.Configuration) instance.
 
-  - ``todict``(*self*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L838-L855)
+  - ``todict``(*self*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L838-L855)
 
-    Return a dictionary compatible with the keyword arguments of distutils
-    setup function.
+    返回与distutils setup函数的关键字参数兼容的字典。
 
-    **Examples:**
+    **示例：**
 
     ``` python
     >>> setup(**config.todict())                           #doctest: +SKIP
     ```
 
-  - ``get_distribution``(*self*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L881-L884)
+  - ``get_distribution``(*self*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L881-L884)
 
     Return the distutils distribution object for self.
 
-  - ``get_subpackage``(*self*, *subpackage_name*, *subpackage_path=None*, *parent_name=None*, *caller_level=1*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L949-L1008)
+  - ``get_subpackage``(*self*, *subpackage_name*, *subpackage_path=None*, *parent_name=None*, *caller_level=1*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L949-L1008)
 
     Return list of subpackage configurations. 
 
-    **Parameters:**
-    type | description
+    **参数：**
+    类型 | 描述
     --- | ---
     subpackage_name : str or None | Name of the subpackage to get the configuration. ‘*’ in subpackage_name is handled as a wildcard.
     subpackage_path : str | If None, then the path is assumed to be the local path plus the subpackage_name. If a setup.py file is not found in the subpackage_path, then a default configuration is used.
     parent_name : str |  Parent name.
 
-  - ``add_subpackage``(*self*, *subpackage_name*, *subpackage_path=None*, *standalone=False*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1010-L1051)
+  - ``add_subpackage``(*self*, *subpackage_name*, *subpackage_path=None*, *standalone=False*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1010-L1051)
 
     Add a sub-package to the current Configuration instance.
 
     This is useful in a setup.py script for adding sub-packages to a package.
 
-    **Parameters:**
+    **参数：**
 
-    type | description
+    类型 | 描述
     --- | ---
     subpackage_name : str | name of the subpackage
     subpackage_path : str | if given, the subpackage path such as the subpackage is in subpackage_path / subpackage_name. If None,the subpackage is assumed to be located in the local path / subpackage_name.
     standalone : bool | 
 
-  - ``add_data_files``(*self*, **files*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1183-L1332)
+  - ``add_data_files``(*self*, **files*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1183-L1332)
 
     Add data files to configuration data_files.
 
-    **Parameters:**
+    **参数：**
 
-    type | description
+    类型 | 描述
     --- | ---
     files : sequence | Argument(s) can be either 1、2-sequence (``<datadir prefix>``,``<path to data file(s)>``) 2、paths to data files where python datadir prefix defaults to package dir.
 
-    **Notes:**
+    **注释：**
 
     The form of each element of the files sequence is very flexible
     allowing many combinations of where to get the files from the package
@@ -180,7 +176,7 @@ method | discription
     Python2.4 Lib site-packages mypackage mysubpackage’).
 
 
-  - ``add_data_dir``(*self*, *data_path*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1053-L1172)
+  - ``add_data_dir``(*self*, *data_path*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1053-L1172)
 
     Recursively add files under data_path to data_files list.
 
@@ -190,13 +186,13 @@ method | discription
     argument shows where in the install directory the data directory
     should be installed to.
 
-    **Parameters:**
+    **参数：**
 
-    type | description
+    类型 | 描述
     --- | ---
     data_path : seq or str | Argument can be either 1、2-sequence (``<datadir suffix>``, ``<path to data directory>``) 2、path to data directory where python datadir suffix defaults to package dir.
 
-    **Notes:**
+    **注释：**
 
     Rules for installation paths:
 
@@ -239,7 +235,7 @@ method | discription
         car.dat
     ```
 
-  - ``add_include_dirs``(*self*, **paths*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1352-L1366)
+  - ``add_include_dirs``(*self*, **paths*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1352-L1366)
 
     Add paths to configuration include directories.
 
@@ -247,7 +243,7 @@ method | discription
     list. This list will be visible to all extension modules of the
     current package.
 
-  - ``add_headers``(*self*, **files*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1368-L1400)
+  - ``add_headers``(*self*, **files*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1368-L1400)
 
     Add installable headers to configuration.
 
@@ -256,15 +252,15 @@ method | discription
     is a tuple, then its first argument specifies the actual installation
     location relative to the ``<python-include>`` path.
 
-    **Parameters:**
+    **参数：**
 
-    type | description
+    类型 | 描述
     --- | ---
     files : str or seq | Argument(s) can be either:
 
     2-sequence (``<includedir suffix>``,``<path to header file(s)>``) path(s) to header file(s) where python includedir suffix will default to package name.
 
-  - ``add_extension``(*self*, *name*, *sources*, ***kw*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1425-L1526)
+  - ``add_extension``(*self*, *name*, *sources*, ***kw*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1425-L1526)
 
     Add extension to configuration.
 
@@ -272,9 +268,9 @@ method | discription
     method also takes the following optional keyword arguments that are
     passed on to the Extension constructor.
 
-    **Parameters:**
+    **参数：**
 
-    type | description
+    类型 | 描述
     --- | ---
     name : str | name of the extension
     sources : seq | list of the sources. The list of sources may contain functions (called source generators) which must take an extension instance and a build directory as inputs and return a source file or list of source files or None. If None is returned then no sources are generated. If the Extension instance has no sources after processing all source generators, then no extension module is built.
@@ -297,30 +293,30 @@ method | discription
     module_dirs : | 
     extra_info : dict or list | dict or list of dict of keywords to be appended to keywords.
 
-    **Notes:**
+    **注释：**
     
     The self.paths(…) method is applied to all lists that may contain paths.
 
-  - ``add_library``(*self*, *name*, *sources*, ***build_info*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1528-L1562)
+  - ``add_library``(*self*, *name*, *sources*, ***build_info*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1528-L1562)
 
       Add library to configuration.
 
-      **Parameters:**
+      **参数：**
 
-      type | description
+      类型 | 描述
       --- | ---
       name : str | Name of the extension.
       sources : sequence | List of the sources. The list of sources may contain functions (called source generators) which must take an extension instance and a build directory as inputs and return a source file or list of source files or None. If None is returned then no sources are generated. If the Extension instance has no sources after processing all source generators, then no extension module is built.
       build_info : dict, optional | The following keys are allowed: 1、depends 2、macros 3、include_dirs 4、extra_compiler_args 5、extra_f77_compile_args 6、extra_f90_compile_args 7、f2py_options 8、language
 
-  - ``add_scripts``(*self*, **files*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1703-L1717)
+  - ``add_scripts``(*self*, **files*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1703-L1717)
 
     Add scripts to configuration.
 
     Add the sequence of files to the beginning of the scripts list.
     Scripts will be installed under the ``<prefix>``/bin/ directory.
 
-- ``add_installed_library``(*self*, *name*, *sources*, *install_dir*, *build_info=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1580-L1629)
+- ``add_installed_library``(*self*, *name*, *sources*, *install_dir*, *build_info=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1580-L1629)
 
     Similar to add_library, but the specified library is installed.
 
@@ -328,56 +324,56 @@ method | discription
     extensions, but libraries built through this method will be installed
     so that they can be reused by third-party packages.
 
-    **Parameters:**
+    **参数：**
 
-    type | description
+    类型 | 描述
     ---|---
     name : str | Name of the installed library.
     sources : sequence | List of the library’s source files. See [add_library](#numpy.distutils.misc_util.Configuration.add_library) for details.
     install_dir : str | Path to install the library, relative to the current sub-package.
     build_info : dict, optional | The following keys are allowed: 1、depends 2、macros 3、include_dirs 4、extra_compiler_args 5、extra_f77_compile_args 6、extra_f90_compile_args 7、f2py_options 8、language
 
-    **Returns:** None
+    **返回：** None
 
-    ::: tip See also
+    ::: tip 另见
 
     [``add_library``](#numpy.distutils.misc_util.Configuration.add_library), [``add_npy_pkg_config``](#numpy.distutils.misc_util.Configuration.add_npy_pkg_config), [``get_info``](#numpy.distutils.misc_util.Configuration.get_info)
 
     :::
 
-    **Notes**
+    **注释**
 
     The best way to encode the options required to link against the specified
     C libraries is to use a “libname.ini” file, and use [``get_info``](#numpy.distutils.misc_util.Configuration.get_info) to
     retrieve the required options (see [``add_npy_pkg_config``](#numpy.distutils.misc_util.Configuration.add_npy_pkg_config) for more
     information).
 
-  - ``add_npy_pkg_config``(*self*, *template*, *install_dir*, *subst_dict=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1631-L1700)
+  - ``add_npy_pkg_config``(*self*, *template*, *install_dir*, *subst_dict=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1631-L1700)
 
     Generate and install a npy-pkg config file from a template.
 
     The config file generated from *template* is installed in the
     given install directory, using *subst_dict* for variable substitution.
 
-    **Parameters:**
-    type | description
+    **参数：**
+    类型 | 描述
     ---|---
     template : str | The path of the template, relatively to the current package path.
     install_dir : str | Where to install the npy-pkg config file, relatively to the current package path.
     subst_dict : dict, optional | If given, any string of the form @key@ will be replaced by subst_dict[key] in the template file when installed. The install prefix is always available through the variable @prefix@, since the install prefix is not easy to get reliably from setup.py.
 
-    ::: tip See also
+    ::: tip 另见
 
     [``add_installed_library``](#numpy.distutils.misc_util.Configuration.add_installed_library), [``get_info``](#numpy.distutils.misc_util.Configuration.get_info)
 
     :::
 
-    **Notes**
+    **注释**
 
     This works for both standard installs and in-place builds, i.e. the
     ``@prefix@`` refer to the source directory for in-place builds.
 
-    **Examples:**
+    **示例：**
 
     ``` python
     config.add_npy_pkg_config('foo.ini.in', 'lib', {'foo': bar})
@@ -411,7 +407,7 @@ method | discription
 
     and will be installed as foo.ini in the ‘lib’ subpath.
 
-  - ``paths``(*self*, **paths*, ***kws*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1402-L1415)
+  - ``paths``(*self*, **paths*, ***kws*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1402-L1415)
 
     Apply glob to paths and prepend local_path if needed.
 
@@ -421,52 +417,52 @@ method | discription
     of sources for extension modules and libraries and scripts and allows
     path-names be relative to the source directory.
 
-  - ``get_config_cmd``(*self*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1757-L1769)
+  - ``get_config_cmd``(*self*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1757-L1769)
 
     Returns the numpy.distutils config command instance.
 
-  - ``get_build_temp_dir``(*self*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1771-L1778)
+  - ``get_build_temp_dir``(*self*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1771-L1778)
 
     Return a path to a temporary directory where temporary files should be placed.
 
-  - ``have_f77c``(*self*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1780-L1797)
+  - ``have_f77c``(*self*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1780-L1797)
 
     Check for availability of Fortran 77 compiler.
 
     Use it inside source generating function to ensure that setup distribution instance has been initialized.
 
-    **Notes**
+    **注释**
 
     True if a Fortran 77 compiler is available (because a simple Fortran 77
     code was able to be compiled successfully).
 
-  - ``have_f90c``(*self*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1799-L1816)
+  - ``have_f90c``(*self*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1799-L1816)
 
     Check for availability of Fortran 90 compiler.
 
     Use it inside source generating function to ensure that
     setup distribution instance has been initialized.
 
-    **Notes**
+    **注释**
 
     True if a Fortran 90 compiler is available (because a simple Fortran
     90 code was able to be compiled successfully)
 
-  - ``get_version``(*self*, *version_file=None*, *version_variable=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1899-L1967)
+  - ``get_version``(*self*, *version_file=None*, *version_variable=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1899-L1967)
 
     Try to get version string of a package.
 
     Return a version string of the current package or None if the version
     information could not be detected.
 
-    **Notes**
+    **注释**
 
     This method scans files named
     \_\_version__.py, ``<packagename>``_version.py, version.py, and
     \_\_svn_version__.py for string variables version, \_\_version__, and
     ``<packagename>``_version, until a version number is found.
 
-  - ``make_svn_version_py``(*self*, *delete=True*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1969-L2008)
+  - ``make_svn_version_py``(*self*, *delete=True*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L1969-L2008)
 
     Appends a data function to the data_files list that will generate
     __svn_version__.py file to the current package directory.
@@ -475,7 +471,7 @@ method | discription
     it will be removed after python exits but will be available
     when sdist, etc commands are executed.
 
-    **Notes**
+    **注释**
 
     If __svn_version__.py existed before, nothing is done.
 
@@ -483,7 +479,7 @@ method | discription
     intended for working with source directories that are in an SVN
     repository.
 
-  - ``make_config_py``(*self*, *name='__config__'*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L2050-L2058)
+  - ``make_config_py``(*self*, *name='__config__'*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L2050-L2058)
 
     Generate package __config__.py file containing system_info
     information used during building the package.
@@ -491,24 +487,24 @@ method | discription
     This file is installed to the
     package installation directory.
 
-  - ``get_info``(*self*, **names*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L2060-L2070)
+  - ``get_info``(*self*, **names*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L2060-L2070)
 
     Get resources information.
 
     Return information (from system_info.get_info) for all of the names in
     the argument list in a single dictionary.
 
-### Other modules
+### 其他模块
 
-module | description
+模块名 | 描述
 ---|---
-[system_info.get_info](generated/numpy.distutils.system_info.get_info.html#numpy.distutils.system_info.get_info)(name[, notfound_action]) | notfound_action:
-[system_info.get_standard_file](generated/numpy.distutils.system_info.get_standard_file.html#numpy.distutils.system_info.get_standard_file)(fname) | Returns a list of files named ‘fname’ from 1) System-wide directory (directory-location of this module) 2) Users HOME directory (os.environ[‘HOME’]) 3) Local directory
-[cpuinfo.cpu](generated/numpy.distutils.cpuinfo.cpu.html#numpy.distutils.cpuinfo.cpu) | 
-[log.set_verbosity](generated/numpy.distutils.log.set_verbosity.html#numpy.distutils.log.set_verbosity)(v[, force]) | 
-[exec_command](generated/numpy.distutils.exec_command.html#module-numpy.distutils.exec_command) | exec_command
+[system_info.get_info](https://numpy.org/devdocs/reference/generated/numpy.distutils.system_info.get_info.html#numpy.distutils.system_info.get_info)(name[, notfound_action]) | notfound_action:
+[system_info.get_standard_file](https://numpy.org/devdocs/reference/generated/numpy.distutils.system_info.get_standard_file.html#numpy.distutils.system_info.get_standard_file)(fname) | Returns a list of files named ‘fname’ from 1) System-wide directory (directory-location of this module) 2) Users HOME directory (os.environ[‘HOME’]) 3) Local directory
+[cpuinfo.cpu](https://numpy.org/devdocs/reference/generated/numpy.distutils.cpuinfo.cpu.html#numpy.distutils.cpuinfo.cpu) | 
+[log.set_verbosity](https://numpy.org/devdocs/reference/generated/numpy.distutils.log.set_verbosity.html#numpy.distutils.log.set_verbosity)(v[, force]) | 
+[exec_command](https://numpy.org/devdocs/reference/generated/numpy.distutils.exec_command.html#module-numpy.distutils.exec_command) | exec_command
 
-## Building Installable C libraries
+## 构建可安装的C库
 
 Conventional C libraries (installed through *add_library*) are not installed, and
 are just used during the build (they are statically linked).  An installable C
@@ -522,7 +518,7 @@ install the C library, you just use the method *add_installed_library* instead o
 >>> config.add_installed_library('foo', sources=['foo.c'], install_dir='lib')
 ```
 
-### npy-pkg-config files
+### npy-pkg-config 文件
 
 To make the necessary build options available to third parties, you could use
 the *npy-pkg-config* mechanism implemented in [``numpy.distutils``](#module-numpy.distutils). This mechanism is
@@ -582,27 +578,23 @@ this is not easy to get from setup.py).  npy-pkg-config files can also be
 installed at the same location as used for numpy, using the path returned from
 *get_npy_pkg_dir* function.
 
-### Reusing a C library from another package
+### 重用另一个包中的C库
 
-Info are easily retrieved from the *get_info* function in
-[``numpy.distutils.misc_util``](#module-numpy.distutils.misc_util):
+可以从 [``numpy.distutils.misc_util``](#module-numpy.distutils.misc_util) 中的 *get_info* 函数轻松检索信息：
 
 ``` python
 >>> info = get_info('npymath')
 >>> config.add_extension('foo', sources=['foo.c'], extra_info=**info)
 ```
 
-An additional list of paths to look for .ini files can be given to *get_info*.
+可以将用于查找 .ini 文件的其他路径列表提供给 *get_info*。
 
-## Conversion of ``.src`` files
+## ``.src``文件的转换
 
-NumPy distutils supports automatic conversion of source files named
-``<somefile>``.src. This facility can be used to maintain very similar
-code blocks requiring only simple changes between blocks. During the
-build phase of setup, if a template file named ``<somefile>``.src is
-encountered, a new file named ``<somefile>`` is constructed from the
-template and placed in the build directory to be used instead. Two
-forms of template conversion are supported. The first form occurs for
-files named ``<file>``.ext.src where ext is a recognized Fortran
-extension (f, f90, f95, f77, for, ftn, pyf). The second form is used
-for all other cases. See [Conversion of .src files using Templates](distutils_guide.html#templating).
+NumPy distutils支持名为 ``<somefile>``.src的源文件的自动转换。
+这个工具可以用来维护非常相似的代码块，只需要在块之间进行简单的更改。
+在安装程序的构建阶段，如果遇到名为 ``<somefile>`` .src的模板文件，
+则会从该模板构建名为 ``<somefile>`` 的新文件，并将其放在要使用的构建目录中。
+支持两种形式的模板转换。第一种形式出现在名为 ``<file>``.ext.src的文件中，
+其中ext是公认的Fortran扩展名(f，f90，f95，f77，for，FTN，pyf)。
+第二种形式用于所有其他情况。请参见使用[模板转换.src文件](distutils_guide.html#templating)。

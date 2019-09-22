@@ -245,7 +245,7 @@ element-by-element into full easy-to use functions that seamlessly
 implement broadcasting, type-checking and buffered coercion, and
 output-argument handling. New universal functions are normally created
 in C, although there is a mechanism for creating ufuncs from Python
-functions ([``frompyfunc``](generated/numpy.frompyfunc.html#numpy.frompyfunc)). The user must supply a 1-D loop that
+functions ([``frompyfunc``](https://numpy.org/devdocs/reference/generated/numpy.frompyfunc.html#numpy.frompyfunc)). The user must supply a 1-D loop that
 implements the basic function taking the input scalar values and
 placing the resulting scalars into the appropriate output slots as
 explained in implementation.

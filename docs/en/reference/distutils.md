@@ -16,28 +16,28 @@ information is available in the [NumPy Distutils - Users Guide](distutils_guide.
 
 method | discription
 ---|---
-[get_numpy_include_dirs](generated/numpy.distutils.misc_util.get_numpy_include_dirs.html#numpy.distutils.misc_util.get_numpy_include_dirs)() | 
-[dict_append](generated/numpy.distutils.misc_util.dict_append.html#numpy.distutils.misc_util.dict_append)(d, \*\*kws) | 
-[appendpath](generated/numpy.distutils.misc_util.appendpath.html#numpy.distutils.misc_util.appendpath)(prefix, path) | 
-[allpath](generated/numpy.distutils.misc_util.allpath.html#numpy.distutils.misc_util.allpath)(name) | Convert a /-separated pathname to one using the OS’s path separator.
-[dot_join](generated/numpy.distutils.misc_util.dot_join.html#numpy.distutils.misc_util.dot_join)(\*args) | 
-[generate_config_py](generated/numpy.distutils.misc_util.generate_config_py.html#numpy.distutils.misc_util.generate_config_py)(target) | Generate config.py file containing system_info information used during building the package.
-[get_cmd](generated/numpy.distutils.misc_util.get_cmd.html#numpy.distutils.misc_util.get_cmd)(cmdname[, _cache]) | 
-[terminal_has_colors](generated/numpy.distutils.misc_util.terminal_has_colors.html#numpy.distutils.misc_util.terminal_has_colors)() | 
-[red_text](generated/numpy.distutils.misc_util.red_text.html#numpy.distutils.misc_util.red_text)(s) | 
-[green_text](generated/numpy.distutils.misc_util.green_text.html#numpy.distutils.misc_util.green_text)(s) | 
-[yellow_text](generated/numpy.distutils.misc_util.yellow_text.html#numpy.distutils.misc_util.yellow_text)(s) | 
-[blue_text](generated/numpy.distutils.misc_util.blue_text.html#numpy.distutils.misc_util.blue_text)(s) | 
-[cyan_text](generated/numpy.distutils.misc_util.cyan_text.html#numpy.distutils.misc_util.cyan_text)(s) | 
-[cyg2win32](generated/numpy.distutils.misc_util.cyg2win32.html#numpy.distutils.misc_util.cyg2win32)(path) | 
-[all_strings](generated/numpy.distutils.misc_util.all_strings.html#numpy.distutils.misc_util.all_strings)(lst) | Return True if all items in lst are string objects.
-[has_f_sources](generated/numpy.distutils.misc_util.has_f_sources.html#numpy.distutils.misc_util.has_f_sources)(sources) | Return True if sources contains Fortran files
-[has_cxx_sources](generated/numpy.distutils.misc_util.has_cxx_sources.html#numpy.distutils.misc_util.has_cxx_sources)(sources) | Return True if sources contains C++ files
-[filter_sources](generated/numpy.distutils.misc_util.filter_sources.html#numpy.distutils.misc_util.filter_sources)(sources) | Return four lists of filenames containing C, C++, Fortran, and Fortran 90 module sources, respectively.
-[get_dependencies](generated/numpy.distutils.misc_util.get_dependencies.html#numpy.distutils.misc_util.get_dependencies)(sources) | 
-[is_local_src_dir](generated/numpy.distutils.misc_util.is_local_src_dir.html#numpy.distutils.misc_util.is_local_src_dir)(directory) | Return true if directory is local directory.
-[get_ext_source_files](generated/numpy.distutils.misc_util.get_ext_source_files.html#numpy.distutils.misc_util.get_ext_source_files)(ext) | 
-[get_script_files](generated/numpy.distutils.misc_util.get_script_files.html#numpy.distutils.misc_util.get_script_files)(scripts) | 
+[get_numpy_include_dirs](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_numpy_include_dirs.html#numpy.distutils.misc_util.get_numpy_include_dirs)() | 
+[dict_append](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.dict_append.html#numpy.distutils.misc_util.dict_append)(d, \*\*kws) | 
+[appendpath](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.appendpath.html#numpy.distutils.misc_util.appendpath)(prefix, path) | 
+[allpath](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.allpath.html#numpy.distutils.misc_util.allpath)(name) | Convert a /-separated pathname to one using the OS’s path separator.
+[dot_join](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.dot_join.html#numpy.distutils.misc_util.dot_join)(\*args) | 
+[generate_config_py](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.generate_config_py.html#numpy.distutils.misc_util.generate_config_py)(target) | Generate config.py file containing system_info information used during building the package.
+[get_cmd](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_cmd.html#numpy.distutils.misc_util.get_cmd)(cmdname[, _cache]) | 
+[terminal_has_colors](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.terminal_has_colors.html#numpy.distutils.misc_util.terminal_has_colors)() | 
+[red_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.red_text.html#numpy.distutils.misc_util.red_text)(s) | 
+[green_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.green_text.html#numpy.distutils.misc_util.green_text)(s) | 
+[yellow_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.yellow_text.html#numpy.distutils.misc_util.yellow_text)(s) | 
+[blue_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.blue_text.html#numpy.distutils.misc_util.blue_text)(s) | 
+[cyan_text](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.cyan_text.html#numpy.distutils.misc_util.cyan_text)(s) | 
+[cyg2win32](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.cyg2win32.html#numpy.distutils.misc_util.cyg2win32)(path) | 
+[all_strings](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.all_strings.html#numpy.distutils.misc_util.all_strings)(lst) | Return True if all items in lst are string objects.
+[has_f_sources](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.has_f_sources.html#numpy.distutils.misc_util.has_f_sources)(sources) | Return True if sources contains Fortran files
+[has_cxx_sources](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.has_cxx_sources.html#numpy.distutils.misc_util.has_cxx_sources)(sources) | Return True if sources contains C++ files
+[filter_sources](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.filter_sources.html#numpy.distutils.misc_util.filter_sources)(sources) | Return four lists of filenames containing C, C++, Fortran, and Fortran 90 module sources, respectively.
+[get_dependencies](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_dependencies.html#numpy.distutils.misc_util.get_dependencies)(sources) | 
+[is_local_src_dir](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.is_local_src_dir.html#numpy.distutils.misc_util.is_local_src_dir)(directory) | Return true if directory is local directory.
+[get_ext_source_files](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_ext_source_files.html#numpy.distutils.misc_util.get_ext_source_files)(ext) | 
+[get_script_files](https://numpy.org/devdocs/reference/generated/numpy.distutils.misc_util.get_script_files.html#numpy.distutils.misc_util.get_script_files)(scripts) | 
 
 
 - *class* ``numpy.distutils.misc_util.``Configuration``(*package_name=None*, *parent_name=None*, *top_path=None*, *package_path=None*, \*\**attrs*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/distutils/misc_util.py#L731-L2070)
@@ -502,11 +502,11 @@ method | discription
 
 module | description
 ---|---
-[system_info.get_info](generated/numpy.distutils.system_info.get_info.html#numpy.distutils.system_info.get_info)(name[, notfound_action]) | notfound_action:
-[system_info.get_standard_file](generated/numpy.distutils.system_info.get_standard_file.html#numpy.distutils.system_info.get_standard_file)(fname) | Returns a list of files named ‘fname’ from 1) System-wide directory (directory-location of this module) 2) Users HOME directory (os.environ[‘HOME’]) 3) Local directory
-[cpuinfo.cpu](generated/numpy.distutils.cpuinfo.cpu.html#numpy.distutils.cpuinfo.cpu) | 
-[log.set_verbosity](generated/numpy.distutils.log.set_verbosity.html#numpy.distutils.log.set_verbosity)(v[, force]) | 
-[exec_command](generated/numpy.distutils.exec_command.html#module-numpy.distutils.exec_command) | exec_command
+[system_info.get_info](https://numpy.org/devdocs/reference/generated/numpy.distutils.system_info.get_info.html#numpy.distutils.system_info.get_info)(name[, notfound_action]) | notfound_action:
+[system_info.get_standard_file](https://numpy.org/devdocs/reference/generated/numpy.distutils.system_info.get_standard_file.html#numpy.distutils.system_info.get_standard_file)(fname) | Returns a list of files named ‘fname’ from 1) System-wide directory (directory-location of this module) 2) Users HOME directory (os.environ[‘HOME’]) 3) Local directory
+[cpuinfo.cpu](https://numpy.org/devdocs/reference/generated/numpy.distutils.cpuinfo.cpu.html#numpy.distutils.cpuinfo.cpu) | 
+[log.set_verbosity](https://numpy.org/devdocs/reference/generated/numpy.distutils.log.set_verbosity.html#numpy.distutils.log.set_verbosity)(v[, force]) | 
+[exec_command](https://numpy.org/devdocs/reference/generated/numpy.distutils.exec_command.html#module-numpy.distutils.exec_command) | exec_command
 
 ## Building Installable C libraries
 

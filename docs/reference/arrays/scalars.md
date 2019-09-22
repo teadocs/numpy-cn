@@ -4,7 +4,7 @@ Python只定义了一种特定数据类（只有一种整数类型，一种浮�
 
 在NumPy中，有24种新的基本Python类型来描述不同类型的标量。这些类型描述符主要基于CPython编写的C语言中可用的类型，其他几种类型与Python的类型兼容。
 
-数组标量具有与之相同的属性和方法[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray)。[[1]](#id2)这允许人们将阵列中的项目部分地放在与阵列相同的基础上，从而平滑混合标量和阵列操作时产生的粗糙边缘。
+数组标量具有与之相同的属性和方法[``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)。[[1]](#id2)这允许人们将数组中的项目部分地放在与数组相同的基础上，从而平滑混合标量和数组操作时产生的粗糙边缘。
 
 数组标量存在于数据类型的层次结构中（请参见下图）。
 可以使用层次结构检测它们：例如，如果Val是数组标量对象，则 ``isinstance(val，np.generic)`` 将返回 ``True``。
@@ -23,7 +23,7 @@ Python只定义了一种特定数据类（只有一种整数类型，一种浮�
 
 ## 内置标量类型
 
-内置标量类型如下所示。连同它们的（主要是）C衍生的名称时，整数，浮点数，和复杂的数据类型也可使用位宽度约定，以便正确的大小的阵列可以总是确保（例如``int8``，``float64``，
+内置标量类型如下所示。连同它们的（主要是）C衍生的名称时，整数，浮点数，和复杂的数据类型也可使用位宽度约定，以便正确的大小的数组可以总是确保（例如``int8``，``float64``，
  ``complex128``）。还提供了两个别名（``intp``和``uintp``）指向足以容纳C指针的整数类型。类似C的名称与字符代码相关联，如表中所示。但是，不鼓励使用字符代码。
 
 一些标量类型基本上等同于基本的Python类型，因此从它们以及通用数组标量类型继承：
@@ -157,60 +157,67 @@ void |   | 'V#'
 
 ## 属性
 
-数组标量对象的 ``数组优先级`` 为``NPY_SCALAR_PRIORITY`` (-1，000，000.0)。它们也(还)没有 [``ctypes``](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) 属性。否则，它们与数组共享相同的属性：
+数组标量对象的 ``数组优先级`` 为``NPY_SCALAR_PRIORITY`` (-1，000，000.0)。它们也(还)没有 [``ctypes``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes) 属性。否则，它们与数组共享相同的属性：
 
 方法 | 描述
 ---|---
-[generic.flags](generated/numpy.generic.flags.html#numpy.generic.flags) | 标志的整数值
-[generic.shape](generated/numpy.generic.shape.html#numpy.generic.shape) | 数组维度的元组
-[generic.strides](generated/numpy.generic.strides.html#numpy.generic.strides) | 每个维度中的字节元组步骤
-[generic.ndim](generated/numpy.generic.ndim.html#numpy.generic.ndim) | 数组维数
-[generic.data](generated/numpy.generic.data.html#numpy.generic.data) | 指向数据开始的指针
-[generic.size](generated/numpy.generic.size.html#numpy.generic.size) | gentype中的元素数量
-[generic.itemsize](generated/numpy.generic.itemsize.html#numpy.generic.itemsize) | 一个元素的长度，以字节为单位
-[generic.base](generated/numpy.generic.base.html#numpy.generic.base) | 基础对象
-[generic.dtype](generated/numpy.generic.dtype.html#numpy.generic.dtype) | 获取数组数据描述符
-[generic.real](generated/numpy.generic.real.html#numpy.generic.real) | 标量的真实部分
-[generic.imag](generated/numpy.generic.imag.html#numpy.generic.imag) | 标量的虚部
-[generic.flat](generated/numpy.generic.flat.html#numpy.generic.flat) | 标量的一维视图
-[generic.T](generated/numpy.generic.T.html#numpy.generic.T) | 颠倒
-[generic.__array_interface__](generated/numpy.generic.__array_interface__.html#numpy.generic.__array_interface__) | 数组协议：Python端
-[generic.__array_struct__](generated/numpy.generic.__array_struct__.html#numpy.generic.__array_struct__) | 数组协议：struct
-[generic.__array_priority__](generated/numpy.generic.__array_priority__.html#numpy.generic.__array_priority__) | 数组优先级。
-[generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc .__ array_wrap __（obj）从数组返回标量
+[generic.flags](https://numpy.org/devdocs/reference/generated/numpy.generic.flags.html#numpy.generic.flags) | 标志的整数值
+[generic.shape](https://numpy.org/devdocs/reference/generated/numpy.generic.shape.html#numpy.generic.shape) | 数组维度的元组
+[generic.strides](https://numpy.org/devdocs/reference/generated/numpy.generic.strides.html#numpy.generic.strides) | 每个维度中的字节元组步骤
+[generic.ndim](https://numpy.org/devdocs/reference/generated/numpy.generic.ndim.html#numpy.generic.ndim) | 数组维数
+[generic.data](https://numpy.org/devdocs/reference/generated/numpy.generic.data.html#numpy.generic.data) | 指向数据开始的指针
+[generic.size](https://numpy.org/devdocs/reference/generated/numpy.generic.size.html#numpy.generic.size) | gentype中的元素数量
+[generic.itemsize](https://numpy.org/devdocs/reference/generated/numpy.generic.itemsize.html#numpy.generic.itemsize) | 一个元素的长度，以字节为单位
+[generic.base](https://numpy.org/devdocs/reference/generated/numpy.generic.base.html#numpy.generic.base) | 基础对象
+[generic.dtype](https://numpy.org/devdocs/reference/generated/numpy.generic.dtype.html#numpy.generic.dtype) | 获取数组数据描述符
+[generic.real](https://numpy.org/devdocs/reference/generated/numpy.generic.real.html#numpy.generic.real) | 标量的真实部分
+[generic.imag](https://numpy.org/devdocs/reference/generated/numpy.generic.imag.html#numpy.generic.imag) | 标量的虚部
+[generic.flat](https://numpy.org/devdocs/reference/generated/numpy.generic.flat.html#numpy.generic.flat) | 标量的一维视图
+[generic.T](https://numpy.org/devdocs/reference/generated/numpy.generic.T.html#numpy.generic.T) | 颠倒
+[generic.__array_interface__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_interface__.html#numpy.generic.__array_interface__) | 数组协议：Python端
+[generic.__array_struct__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_struct__.html#numpy.generic.__array_struct__) | 数组协议：struct
+[generic.__array_priority__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_priority__.html#numpy.generic.__array_priority__) | 数组优先级。
+[generic.__array_wrap__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc .__ array_wrap __（obj）从数组返回标量
 
 ## 索引
 
 ::: tip 另见
 
-[索引](arrays.indexing.html#arrays-indexing)，[数据类型对象（dtype）](arrays.dtypes.html#arrays-dtypes)
+[索引](indexing.html)、
+[数据类型对象（dtype）](dtypes.html)
 
 :::
 
 数组标量可以像0维数组一样索引：如果 *x* 是数组标量，
 
 - ``x[()]`` 返回数组标量的副本
-- ``x[...]`` 返回0维 [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
+- ``x[...]`` 返回0维 [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)
 - ``x['field-name']``返回字段 *field-name中* 的数组标量。（例如， *x* 可以包含字段，当它对应于结构化数据类型时。）
 
 ## 方法
 
-数组标量具有与数组完全相同的方法。这些方法的默认行为是在内部将标量转换为等效的0维数组并调用相应的数组方法。此外，阵列标量的数学运算被定义，使得在相同的硬件标志被设置，并用于解释结果作为[ufunc](ufuncs.html#ufuncs)，使得用于ufuncs错误状态也延续到上阵列标量的数学。
+数组标量具有与数组完全相同的方法。这些方法的默认行为是在内部将标量转换为等效的0维数组并调用相应的数组方法。
+此外，数组标量的数学运算被定义，使得在相同的硬件标志被设置，
+并用于解释结果作为通函数（[ufunc](/reference/ufuncs.html)），
+使得用于ufuncs错误状态也延续到上数组标量的数学。
 
 以上规则的例外情况如下：
 
 方法 | 描述
 ---|---
-[generic](generated/numpy.generic.html#numpy.generic) | numpy标量类型的基类。
-[generic.__array__](generated/numpy.generic.__array__.html#numpy.generic.__array__)() | sc .__ array __（dtype）从带有指定dtype的标量返回0-dim数组
-[generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc .__ array_wrap __（obj）从数组返回标量
-[generic.squeeze](generated/numpy.generic.squeeze.html#numpy.generic.squeeze)() | 未实现（虚拟属性）
-[generic.byteswap](generated/numpy.generic.byteswap.html#numpy.generic.byteswap)() | 未实现（虚拟属性）
-[generic.__reduce__](generated/numpy.generic.__reduce__.html#numpy.generic.__reduce__)() | 泡菜的助手
-[generic.__setstate__](generated/numpy.generic.__setstate__.html#numpy.generic.__setstate__)() | 
-[generic.setflags](generated/numpy.generic.setflags.html#numpy.generic.setflags)() | 未实现（虚拟属性）
+[generic](https://numpy.org/devdocs/reference/generated/numpy.generic.html#numpy.generic) | numpy标量类型的基类。
+[generic.__array__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array__.html#numpy.generic.__array__)() | sc .__ array __（dtype）从带有指定dtype的标量返回0-dim数组
+[generic.__array_wrap__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc .__ array_wrap __（obj）从数组返回标量
+[generic.squeeze](https://numpy.org/devdocs/reference/generated/numpy.generic.squeeze.html#numpy.generic.squeeze)() | 未实现（虚拟属性）
+[generic.byteswap](https://numpy.org/devdocs/reference/generated/numpy.generic.byteswap.html#numpy.generic.byteswap)() | 未实现（虚拟属性）
+[generic.__reduce__](https://numpy.org/devdocs/reference/generated/numpy.generic.__reduce__.html#numpy.generic.__reduce__)() | 泡菜的助手
+[generic.__setstate__](https://numpy.org/devdocs/reference/generated/numpy.generic.__setstate__.html#numpy.generic.__setstate__)() | 
+[generic.setflags](https://numpy.org/devdocs/reference/generated/numpy.generic.setflags.html#numpy.generic.setflags)() | 未实现（虚拟属性）
 
 ## 定义新类型
 
-有两种方法可以有效地定义新的数组标量类型（除了从内置标量类型组合结构化类型[dtypes](arrays.dtypes.html#arrays-dtypes)）：一种方法是简单地子类化
- [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)并覆盖感兴趣的方法。这将在一定程度上起作用，但内部某些行为由数组的数据类型修复。要完全自定义数组的数据类型，您需要定义新的数据类型，并使用NumPy进行注册。这些新类型只能使用[NumPy C-API](c-api/index.html#c-api)在C中定义。
+有两种方法可以有效地定义新的数组标量类型（除了从内置标量类型组合结构化类型[dtypes](dtypes.html)）：一种方法是简单地子类化
+ [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)并覆盖感兴趣的方法。
+ 这将在一定程度上起作用，但内部某些行为由数组的数据类型修复。要完全自定义数组的数据类型，
+ 您需要定义新的数据类型，并使用NumPy进行注册。
+ 这些新类型只能使用[NumPy C-API](/reference/c-api/index.html)在C中定义。

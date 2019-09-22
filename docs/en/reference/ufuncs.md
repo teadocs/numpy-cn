@@ -1,7 +1,7 @@
 # Universal functions (``ufunc``)
 
 A universal function (or [ufunc](https://numpy.org/devdocs/glossary.html#term-ufunc) for short) is a function that
-operates on [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray) in an element-by-element fashion,
+operates on [``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) in an element-by-element fashion,
 supporting [array broadcasting](#ufuncs-broadcasting), [type
 casting](#ufuncs-casting), and several other standard features. That
 is, a ufunc is a “[vectorized](https://numpy.org/devdocs/glossary.html#term-vectorization)” wrapper for a function that
@@ -14,7 +14,7 @@ implemented in compiled C code. The basic ufuncs operate on scalars, but
 there is also a generalized kind for which the basic elements are sub-arrays
 (vectors, matrices, etc.), and broadcasting is done over other dimensions.
 One can also produce custom ``ufunc`` instances using the
-[``frompyfunc``](generated/numpy.frompyfunc.html#numpy.frompyfunc) factory function.
+[``frompyfunc``](https://numpy.org/devdocs/reference/generated/numpy.frompyfunc.html#numpy.frompyfunc) factory function.
 
 ## Broadcasting
 
@@ -26,8 +26,8 @@ broadcasting rules are applied so that inputs not sharing exactly the
 same shapes can still be usefully operated on. Broadcasting can be
 understood by four rules:
 
-1. All input arrays with [``ndim``](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim) smaller than the
-input array of largest [``ndim``](generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim), have 1’s
+1. All input arrays with [``ndim``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim) smaller than the
+input array of largest [``ndim``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.ndim.html#numpy.ndarray.ndim), have 1’s
 prepended to their shapes.
 1. The size in each dimension of the output shape is the maximum of all
 the input sizes in that dimension.
@@ -42,7 +42,7 @@ that dimension. In other words, the stepping machinery of the
 
 Broadcasting is used throughout NumPy to decide how to handle
 disparately shaped arrays; for example, all arithmetic operations (``+``,
-``-``, ``*``, …) between [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray) broadcast the
+``-``, ``*``, …) between [``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) broadcast the
 arrays before operation.
 
 A set of arrays is called “broadcastable” to the same shape if
@@ -70,7 +70,7 @@ where ``c[:]`` is broadcast to every row, and finally,
 ## Output type determination
 
 The output of the ufunc (and its methods) is not necessarily an
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray), if all input arguments are not [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray).
+[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray), if all input arguments are not [``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray).
 Indeed, if any input defines an [``__array_ufunc__``](arrays.classes.html#numpy.class.__array_ufunc__) method,
 control will be passed completely to that function, i.e., the ufunc is
 [overridden](ufuncs.overrides).
@@ -78,7 +78,7 @@ control will be passed completely to that function, i.e., the ufunc is
 If none of the inputs overrides the ufunc, then
 all output arrays will be passed to the [``__array_prepare__``](arrays.classes.html#numpy.class.__array_prepare__) and
 [``__array_wrap__``](arrays.classes.html#numpy.class.__array_wrap__) methods of the input (besides
-[``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray), and scalars) that defines it **and** has
+[``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray), and scalars) that defines it **and** has
 the highest [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) of any other input to the
 universal function. The default [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) of the
 ndarray is 0.0, and the default [``__array_priority__``](arrays.classes.html#numpy.class.__array_priority__) of a subtype
@@ -94,7 +94,7 @@ consisting of the ufunc itself, the arguments passed to the ufunc, and
 the ufunc domain.) The array object returned by
 [``__array_prepare__``](arrays.classes.html#numpy.class.__array_prepare__) is passed to the ufunc for computation.
 Finally, if the class also has an [``__array_wrap__``](arrays.classes.html#numpy.class.__array_wrap__) method, the returned
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) result will be passed to that method just before
+[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) result will be passed to that method just before
 passing control back to the caller.
 
 ## Use of internal buffers
@@ -115,7 +115,7 @@ using the function
 
 method | description
 ---|---
-[setbufsize](generated/numpy.setbufsize.html#numpy.setbufsize)(size) | Set the size of the buffer used in ufuncs.
+[setbufsize](https://numpy.org/devdocs/reference/generated/numpy.setbufsize.html#numpy.setbufsize)(size) | Set the size of the buffer used in ufuncs.
 
 ## Error handling
 
@@ -127,8 +127,8 @@ and can be configured using the functions
 
 method | description
 ---|---
-[seterr](generated/numpy.seterr.html#numpy.seterr)([all, divide, over, under, invalid]) | Set how floating-point errors are handled.
-[seterrcall](generated/numpy.seterrcall.html#numpy.seterrcall)(func) | Set the floating-point error callback function or log object.
+[seterr](https://numpy.org/devdocs/reference/generated/numpy.seterr.html#numpy.seterr)([all, divide, over, under, invalid]) | Set how floating-point errors are handled.
+[seterrcall](https://numpy.org/devdocs/reference/generated/numpy.seterrcall.html#numpy.seterrcall)(func) | Set the floating-point error callback function or log object.
 
 ## Casting Rules
 
@@ -136,8 +136,8 @@ method | description
 
 In NumPy 1.6.0, a type promotion API was created to encapsulate the
 mechanism for determining output types. See the functions
-[``result_type``](generated/numpy.result_type.html#numpy.result_type), [``promote_types``](generated/numpy.promote_types.html#numpy.promote_types), and
-[``min_scalar_type``](generated/numpy.min_scalar_type.html#numpy.min_scalar_type) for more details.
+[``result_type``](https://numpy.org/devdocs/reference/generated/numpy.result_type.html#numpy.result_type), [``promote_types``](https://numpy.org/devdocs/reference/generated/numpy.promote_types.html#numpy.promote_types), and
+[``min_scalar_type``](https://numpy.org/devdocs/reference/generated/numpy.min_scalar_type.html#numpy.min_scalar_type) for more details.
 
 :::
 
@@ -146,7 +146,7 @@ implements the actual function for a specific type combination. When a
 ufunc is created, it is given a static list of inner loops and a
 corresponding list of type signatures over which the ufunc operates.
 The ufunc machinery uses this list to determine which inner loop to
-use for a particular case. You can inspect the [``.types``](generated/numpy.ufunc.types.html#numpy.ufunc.types) attribute for a particular ufunc to see which type
+use for a particular case. You can inspect the [``.types``](https://numpy.org/devdocs/reference/generated/numpy.ufunc.types.html#numpy.ufunc.types) attribute for a particular ufunc to see which type
 combinations have a defined inner loop and which output type they
 produce ([character codes](arrays.scalars.html#arrays-scalars-character-codes) are used
 in said output for brevity).
@@ -165,7 +165,7 @@ settable).
 
 Universal functions in NumPy are flexible enough to have mixed type
 signatures. Thus, for example, a universal function could be defined
-that works with floating-point and integer values. See [``ldexp``](generated/numpy.ldexp.html#numpy.ldexp)
+that works with floating-point and integer values. See [``ldexp``](https://numpy.org/devdocs/reference/generated/numpy.ldexp.html#numpy.ldexp)
 for an example.
 
 :::
@@ -173,7 +173,7 @@ for an example.
 By the above description, the casting rules are essentially
 implemented by the question of when a data type can be cast “safely”
 to another data type. The answer to this question can be determined in
-Python with a function call: [``can_cast(fromtype, totype)``](generated/numpy.can_cast.html#numpy.can_cast). The Figure below shows the results of this call for
+Python with a function call: [``can_cast(fromtype, totype)``](https://numpy.org/devdocs/reference/generated/numpy.can_cast.html#numpy.can_cast). The Figure below shows the results of this call for
 the 24 internally supported types on the author’s 64-bit system. You
 can generate this table for your system with the code given in the Figure.
 
@@ -326,7 +326,7 @@ advanced usage and will not typically be used.
   *New in version 1.6.* 
 
   May be ‘no’, ‘equiv’, ‘safe’, ‘same_kind’, or ‘unsafe’.
-  See [``can_cast``](generated/numpy.can_cast.html#numpy.can_cast) for explanations of the parameter values.
+  See [``can_cast``](https://numpy.org/devdocs/reference/generated/numpy.can_cast.html#numpy.can_cast) for explanations of the parameter values.
 
   Provides a policy for what kind of casting is permitted. For compatibility
   with previous versions of NumPy, this defaults to ‘unsafe’ for numpy < 1.7.
@@ -379,13 +379,13 @@ __name__ | The name of the ufunc.
 
 method | description
 ---|---
-[ufunc.nin](generated/numpy.ufunc.nin.html#numpy.ufunc.nin) | The number of inputs.
-[ufunc.nout](generated/numpy.ufunc.nout.html#numpy.ufunc.nout) | The number of outputs.
-[ufunc.nargs](generated/numpy.ufunc.nargs.html#numpy.ufunc.nargs) | The number of arguments.
-[ufunc.ntypes](generated/numpy.ufunc.ntypes.html#numpy.ufunc.ntypes) | The number of types.
-[ufunc.types](generated/numpy.ufunc.types.html#numpy.ufunc.types) | Returns a list with types grouped input->output.
-[ufunc.identity](generated/numpy.ufunc.identity.html#numpy.ufunc.identity) | The identity value.
-[ufunc.signature](generated/numpy.ufunc.signature.html#numpy.ufunc.signature) | Definition of the core elements a generalized ufunc operates on.
+[ufunc.nin](https://numpy.org/devdocs/reference/generated/numpy.ufunc.nin.html#numpy.ufunc.nin) | The number of inputs.
+[ufunc.nout](https://numpy.org/devdocs/reference/generated/numpy.ufunc.nout.html#numpy.ufunc.nout) | The number of outputs.
+[ufunc.nargs](https://numpy.org/devdocs/reference/generated/numpy.ufunc.nargs.html#numpy.ufunc.nargs) | The number of arguments.
+[ufunc.ntypes](https://numpy.org/devdocs/reference/generated/numpy.ufunc.ntypes.html#numpy.ufunc.ntypes) | The number of types.
+[ufunc.types](https://numpy.org/devdocs/reference/generated/numpy.ufunc.types.html#numpy.ufunc.types) | Returns a list with types grouped input->output.
+[ufunc.identity](https://numpy.org/devdocs/reference/generated/numpy.ufunc.identity.html#numpy.ufunc.identity) | The identity value.
+[ufunc.signature](https://numpy.org/devdocs/reference/generated/numpy.ufunc.signature.html#numpy.ufunc.signature) | Definition of the core elements a generalized ufunc operates on.
 
 ### Methods
 
@@ -396,10 +396,10 @@ Attempting to call these methods on other ufuncs will cause a
 keyword, and an *out* keyword, and the arrays must all have dimension >= 1.
 The *axis* keyword specifies the axis of the array over which the reduction
 will take place (with negative values counting backwards). Generally, it is an
-integer, though for [``ufunc.reduce``](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce), it can also be a tuple of [``int``](https://docs.python.org/dev/library/functions.html#int) to
+integer, though for [``ufunc.reduce``](https://numpy.org/devdocs/reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce), it can also be a tuple of [``int``](https://docs.python.org/dev/library/functions.html#int) to
 reduce over several axes at once, or *None*, to reduce over all axes.
 The *dtype* keyword allows you to manage a very common problem that arises
-when naively using [``ufunc.reduce``](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce). Sometimes you may
+when naively using [``ufunc.reduce``](https://numpy.org/devdocs/reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce). Sometimes you may
 have an array of a certain data type and wish to add up all of its
 elements, but the result does not fit into the data type of the
 array. This commonly happens if you have an array of single-byte
@@ -424,17 +424,17 @@ that item.
 
 method | description
 ---|---
-[ufunc.reduce](generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce)(a[, axis, dtype, out, …]) | Reduces a’s dimension by one, by applying ufunc along one axis.
-[ufunc.accumulate](generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate)(array[, axis, dtype, out]) | Accumulate the result of applying the operator to all elements.
-[ufunc.reduceat](generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat)(a, indices[, axis, dtype, out]) | Performs a (local) reduce with specified slices over a single axis.
-[ufunc.outer](generated/numpy.ufunc.outer.html#numpy.ufunc.outer)(A, B, **kwargs) | Apply the ufunc op to all pairs (a, b) with a in A and b in B.
-[ufunc.at](generated/numpy.ufunc.at.html#numpy.ufunc.at)(a, indices[, b]) | Performs unbuffered in place operation on operand ‘a’ for elements specified by ‘indices’.
+[ufunc.reduce](https://numpy.org/devdocs/reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce)(a[, axis, dtype, out, …]) | Reduces a’s dimension by one, by applying ufunc along one axis.
+[ufunc.accumulate](https://numpy.org/devdocs/reference/generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate)(array[, axis, dtype, out]) | Accumulate the result of applying the operator to all elements.
+[ufunc.reduceat](https://numpy.org/devdocs/reference/generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat)(a, indices[, axis, dtype, out]) | Performs a (local) reduce with specified slices over a single axis.
+[ufunc.outer](https://numpy.org/devdocs/reference/generated/numpy.ufunc.outer.html#numpy.ufunc.outer)(A, B, **kwargs) | Apply the ufunc op to all pairs (a, b) with a in A and b in B.
+[ufunc.at](https://numpy.org/devdocs/reference/generated/numpy.ufunc.at.html#numpy.ufunc.at)(a, indices[, b]) | Performs unbuffered in place operation on operand ‘a’ for elements specified by ‘indices’.
 
 ::: danger Warning
 
 A reduce-like operation on an array with a data-type that has a
 range “too small” to handle the result will silently wrap. One
-should use [``dtype``](generated/numpy.dtype.html#numpy.dtype) to increase the size of the data-type over which
+should use [``dtype``](https://numpy.org/devdocs/reference/generated/numpy.dtype.html#numpy.dtype) to increase the size of the data-type over which
 reduction takes place.
 
 :::
@@ -444,9 +444,9 @@ reduction takes place.
 There are currently more than 60 universal functions defined in
 [``numpy``](index.html#module-numpy) on one or more types, covering a wide variety of
 operations. Some of these ufuncs are called automatically on arrays
-when the relevant infix notation is used (*e.g.*, [``add(a, b)``](generated/numpy.add.html#numpy.add)
+when the relevant infix notation is used (*e.g.*, [``add(a, b)``](https://numpy.org/devdocs/reference/generated/numpy.add.html#numpy.add)
 is called internally when ``a + b`` is written and *a* or *b* is an
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)). Nevertheless, you may still want to use the ufunc
+[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)). Nevertheless, you may still want to use the ufunc
 call in order to use the optional output argument(s) to place the
 output(s) in an object (or objects) of your choice.
 
@@ -465,41 +465,41 @@ output argument(s).
 
 method | description
 ---|---
-[add](generated/numpy.add.html#numpy.add)(x1, x2, /[, out, where, casting, order, …]) | Add arguments element-wise.
-[subtract](generated/numpy.subtract.html#numpy.subtract)(x1, x2, /[, out, where, casting, …]) | Subtract arguments, element-wise.
-[multiply](generated/numpy.multiply.html#numpy.multiply)(x1, x2, /[, out, where, casting, …]) | Multiply arguments element-wise.
-[divide](generated/numpy.divide.html#numpy.divide)(x1, x2, /[, out, where, casting, …]) | Returns a true division of the inputs, element-wise.
+[add](https://numpy.org/devdocs/reference/generated/numpy.add.html#numpy.add)(x1, x2, /[, out, where, casting, order, …]) | Add arguments element-wise.
+[subtract](https://numpy.org/devdocs/reference/generated/numpy.subtract.html#numpy.subtract)(x1, x2, /[, out, where, casting, …]) | Subtract arguments, element-wise.
+[multiply](https://numpy.org/devdocs/reference/generated/numpy.multiply.html#numpy.multiply)(x1, x2, /[, out, where, casting, …]) | Multiply arguments element-wise.
+[divide](https://numpy.org/devdocs/reference/generated/numpy.divide.html#numpy.divide)(x1, x2, /[, out, where, casting, …]) | Returns a true division of the inputs, element-wise.
 [logaddexp](https://www.numpy.org/devdocs/reference/generated/numpy.logaddexp.html#numpy.logaddexp)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs.
-[logaddexp2](generated/numpy.logaddexp2.html#numpy.logaddexp2)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs in base-2.
-[true_divide](generated/numpy.true_divide.html#numpy.true_divide)(x1, x2, /[, out, where, …]) | Returns a true division of the inputs, element-wise.
-[floor_divide](generated/numpy.floor_divide.html#numpy.floor_divide)(x1, x2, /[, out, where, …]) | Return the largest integer smaller or equal to the division of the inputs.
-[negative](generated/numpy.negative.html#numpy.negative)(x, /[, out, where, casting, order, …]) | Numerical negative, element-wise.
-[positive](generated/numpy.positive.html#numpy.positive)(x, /[, out, where, casting, order, …]) | Numerical positive, element-wise.
-[power](generated/numpy.power.html#numpy.power)(x1, x2, /[, out, where, casting, …]) | First array elements raised to powers from second array, element-wise.
-[remainder](generated/numpy.remainder.html#numpy.remainder)(x1, x2, /[, out, where, casting, …]) | Return element-wise remainder of division.
-[mod](generated/numpy.mod.html#numpy.mod)(x1, x2, /[, out, where, casting, order, …]) | Return element-wise remainder of division.
-[fmod](generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, casting, …]) | Return the element-wise remainder of division.
-[divmod](generated/numpy.divmod.html#numpy.divmod)(x1, x2[, out1, out2], / [[, out, …]) | Return element-wise quotient and remainder simultaneously.
-[absolute](generated/numpy.absolute.html#numpy.absolute)(x, /[, out, where, casting, order, …]) | Calculate the absolute value element-wise.
-[fabs](generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
-[rint](generated/numpy.rint.html#numpy.rint)(x, /[, out, where, casting, order, …]) | Round elements of the array to the nearest integer.
-[sign](generated/numpy.sign.html#numpy.sign)(x, /[, out, where, casting, order, …]) | Returns an element-wise indication of the sign of a number.
-[heaviside](generated/numpy.heaviside.html#numpy.heaviside)(x1, x2, /[, out, where, casting, …]) | Compute the Heaviside step function.
-[conj](generated/numpy.conj.html#numpy.conj)(x, /[, out, where, casting, order, …]) | Return the complex [conjugate](generated/numpy.conjugate.html#numpy.conjugate), element-wise.
+[logaddexp2](https://numpy.org/devdocs/reference/generated/numpy.logaddexp2.html#numpy.logaddexp2)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs in base-2.
+[true_divide](https://numpy.org/devdocs/reference/generated/numpy.true_divide.html#numpy.true_divide)(x1, x2, /[, out, where, …]) | Returns a true division of the inputs, element-wise.
+[floor_divide](https://numpy.org/devdocs/reference/generated/numpy.floor_divide.html#numpy.floor_divide)(x1, x2, /[, out, where, …]) | Return the largest integer smaller or equal to the division of the inputs.
+[negative](https://numpy.org/devdocs/reference/generated/numpy.negative.html#numpy.negative)(x, /[, out, where, casting, order, …]) | Numerical negative, element-wise.
+[positive](https://numpy.org/devdocs/reference/generated/numpy.positive.html#numpy.positive)(x, /[, out, where, casting, order, …]) | Numerical positive, element-wise.
+[power](https://numpy.org/devdocs/reference/generated/numpy.power.html#numpy.power)(x1, x2, /[, out, where, casting, …]) | First array elements raised to powers from second array, element-wise.
+[remainder](https://numpy.org/devdocs/reference/generated/numpy.remainder.html#numpy.remainder)(x1, x2, /[, out, where, casting, …]) | Return element-wise remainder of division.
+[mod](https://numpy.org/devdocs/reference/generated/numpy.mod.html#numpy.mod)(x1, x2, /[, out, where, casting, order, …]) | Return element-wise remainder of division.
+[fmod](https://numpy.org/devdocs/reference/generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, casting, …]) | Return the element-wise remainder of division.
+[divmod](https://numpy.org/devdocs/reference/generated/numpy.divmod.html#numpy.divmod)(x1, x2[, out1, out2], / [[, out, …]) | Return element-wise quotient and remainder simultaneously.
+[absolute](https://numpy.org/devdocs/reference/generated/numpy.absolute.html#numpy.absolute)(x, /[, out, where, casting, order, …]) | Calculate the absolute value element-wise.
+[fabs](https://numpy.org/devdocs/reference/generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
+[rint](https://numpy.org/devdocs/reference/generated/numpy.rint.html#numpy.rint)(x, /[, out, where, casting, order, …]) | Round elements of the array to the nearest integer.
+[sign](https://numpy.org/devdocs/reference/generated/numpy.sign.html#numpy.sign)(x, /[, out, where, casting, order, …]) | Returns an element-wise indication of the sign of a number.
+[heaviside](https://numpy.org/devdocs/reference/generated/numpy.heaviside.html#numpy.heaviside)(x1, x2, /[, out, where, casting, …]) | Compute the Heaviside step function.
+[conj](https://numpy.org/devdocs/reference/generated/numpy.conj.html#numpy.conj)(x, /[, out, where, casting, order, …]) | Return the complex [conjugate](https://numpy.org/devdocs/reference/generated/numpy.conjugate.html#numpy.conjugate), element-wise.
 conjugate(x, /[, out, where, casting, …]) | Return the complex conjugate, element-wise.
 exp(x, /[, out, where, casting, order, …]) | Calculate the exponential of all elements in the input array.
 exp2(x, /[, out, where, casting, order, …]) | Calculate 2**p for all p in the input array.
 log(x, /[, out, where, casting, order, …]) | Natural logarithm, element-wise.
-[log2](generated/numpy.log2.html#numpy.log2)(x, /[, out, where, casting, order, …]) | Base-2 logarithm of x.
-[log10](generated/numpy.log10.html#numpy.log10)(x, /[, out, where, casting, order, …]) | Return the base 10 logarithm of the input array, element-wise.
-[expm1](generated/numpy.expm1.html#numpy.expm1)(x, /[, out, where, casting, order, …]) | Calculate exp(x) - 1 for all elements in the array.
-[log1p](generated/numpy.log1p.html#numpy.log1p)(x, /[, out, where, casting, order, …]) | Return the natural logarithm of one plus the input array, element-wise.
-[sqrt](generated/numpy.sqrt.html#numpy.sqrt)(x, /[, out, where, casting, order, …]) | Return the non-negative [square](generated/numpy.square.html#numpy.square)-root of an array, element-wise.
+[log2](https://numpy.org/devdocs/reference/generated/numpy.log2.html#numpy.log2)(x, /[, out, where, casting, order, …]) | Base-2 logarithm of x.
+[log10](https://numpy.org/devdocs/reference/generated/numpy.log10.html#numpy.log10)(x, /[, out, where, casting, order, …]) | Return the base 10 logarithm of the input array, element-wise.
+[expm1](https://numpy.org/devdocs/reference/generated/numpy.expm1.html#numpy.expm1)(x, /[, out, where, casting, order, …]) | Calculate exp(x) - 1 for all elements in the array.
+[log1p](https://numpy.org/devdocs/reference/generated/numpy.log1p.html#numpy.log1p)(x, /[, out, where, casting, order, …]) | Return the natural logarithm of one plus the input array, element-wise.
+[sqrt](https://numpy.org/devdocs/reference/generated/numpy.sqrt.html#numpy.sqrt)(x, /[, out, where, casting, order, …]) | Return the non-negative [square](https://numpy.org/devdocs/reference/generated/numpy.square.html#numpy.square)-root of an array, element-wise.
 square(x, /[, out, where, casting, order, …]) | Return the element-wise square of the input.
-[cbrt](generated/numpy.cbrt.html#numpy.cbrt)(x, /[, out, where, casting, order, …]) | Return the cube-root of an array, element-wise.
-[reciprocal](generated/numpy.reciprocal.html#numpy.reciprocal)(x, /[, out, where, casting, …]) | Return the reciprocal of the argument, element-wise.
-[gcd](generated/numpy.gcd.html#numpy.gcd)(x1, x2, /[, out, where, casting, order, …]) | Returns the greatest common divisor of |x1| and |x2|
-[lcm](generated/numpy.lcm.html#numpy.lcm)(x1, x2, /[, out, where, casting, order, …]) | Returns the lowest common multiple of |x1| and |x2|
+[cbrt](https://numpy.org/devdocs/reference/generated/numpy.cbrt.html#numpy.cbrt)(x, /[, out, where, casting, order, …]) | Return the cube-root of an array, element-wise.
+[reciprocal](https://numpy.org/devdocs/reference/generated/numpy.reciprocal.html#numpy.reciprocal)(x, /[, out, where, casting, …]) | Return the reciprocal of the argument, element-wise.
+[gcd](https://numpy.org/devdocs/reference/generated/numpy.gcd.html#numpy.gcd)(x1, x2, /[, out, where, casting, order, …]) | Returns the greatest common divisor of |x1| and |x2|
+[lcm](https://numpy.org/devdocs/reference/generated/numpy.lcm.html#numpy.lcm)(x1, x2, /[, out, where, casting, order, …]) | Returns the lowest common multiple of |x1| and |x2|
 
 ::: tip Tip
 
@@ -521,22 +521,22 @@ The ratio of degrees to radians is 180° / π.
 
 method | description
 ---|---
-[sin](generated/numpy.sin.html#numpy.sin)(x, /[, out, where, casting, order, …]) | Trigonometric sine, element-wise.
-[cos](generated/numpy.cos.html#numpy.cos)(x, /[, out, where, casting, order, …]) | Cosine element-wise.
-[tan](generated/numpy.tan.html#numpy.tan)(x, /[, out, where, casting, order, …]) | Compute tangent element-wise.
-[arcsin](generated/numpy.arcsin.html#numpy.arcsin)(x, /[, out, where, casting, order, …]) | Inverse sine, element-wise.
-[arccos](generated/numpy.arccos.html#numpy.arccos)(x, /[, out, where, casting, order, …]) | Trigonometric inverse cosine, element-wise.
-[arctan](generated/numpy.arctan.html#numpy.arctan)(x, /[, out, where, casting, order, …]) | Trigonometric inverse tangent, element-wise.
-[arctan2](generated/numpy.arctan2.html#numpy.arctan2)(x1, x2, /[, out, where, casting, …]) | Element-wise arc tangent of x1/x2 choosing the quadrant correctly.
-[hypot](generated/numpy.hypot.html#numpy.hypot)(x1, x2, /[, out, where, casting, …]) | Given the “legs” of a right triangle, return its hypotenuse.
-[sinh](generated/numpy.sinh.html#numpy.sinh)(x, /[, out, where, casting, order, …]) | Hyperbolic sine, element-wise.
-[cosh](generated/numpy.cosh.html#numpy.cosh)(x, /[, out, where, casting, order, …]) | Hyperbolic cosine, element-wise.
-[tanh](generated/numpy.tanh.html#numpy.tanh)(x, /[, out, where, casting, order, …]) | Compute hyperbolic tangent element-wise.
-[arcsinh](generated/numpy.arcsinh.html#numpy.arcsinh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic sine element-wise.
-[arccosh](generated/numpy.arccosh.html#numpy.arccosh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic cosine, element-wise.
-[arctanh](generated/numpy.arctanh.html#numpy.arctanh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic tangent element-wise.
-[deg2rad](generated/numpy.deg2rad.html#numpy.deg2rad)(x, /[, out, where, casting, order, …]) | Convert angles from degrees to radians.
-[rad2deg](generated/numpy.rad2deg.html#numpy.rad2deg)(x, /[, out, where, casting, order, …]) | Convert angles from radians to degrees.
+[sin](https://numpy.org/devdocs/reference/generated/numpy.sin.html#numpy.sin)(x, /[, out, where, casting, order, …]) | Trigonometric sine, element-wise.
+[cos](https://numpy.org/devdocs/reference/generated/numpy.cos.html#numpy.cos)(x, /[, out, where, casting, order, …]) | Cosine element-wise.
+[tan](https://numpy.org/devdocs/reference/generated/numpy.tan.html#numpy.tan)(x, /[, out, where, casting, order, …]) | Compute tangent element-wise.
+[arcsin](https://numpy.org/devdocs/reference/generated/numpy.arcsin.html#numpy.arcsin)(x, /[, out, where, casting, order, …]) | Inverse sine, element-wise.
+[arccos](https://numpy.org/devdocs/reference/generated/numpy.arccos.html#numpy.arccos)(x, /[, out, where, casting, order, …]) | Trigonometric inverse cosine, element-wise.
+[arctan](https://numpy.org/devdocs/reference/generated/numpy.arctan.html#numpy.arctan)(x, /[, out, where, casting, order, …]) | Trigonometric inverse tangent, element-wise.
+[arctan2](https://numpy.org/devdocs/reference/generated/numpy.arctan2.html#numpy.arctan2)(x1, x2, /[, out, where, casting, …]) | Element-wise arc tangent of x1/x2 choosing the quadrant correctly.
+[hypot](https://numpy.org/devdocs/reference/generated/numpy.hypot.html#numpy.hypot)(x1, x2, /[, out, where, casting, …]) | Given the “legs” of a right triangle, return its hypotenuse.
+[sinh](https://numpy.org/devdocs/reference/generated/numpy.sinh.html#numpy.sinh)(x, /[, out, where, casting, order, …]) | Hyperbolic sine, element-wise.
+[cosh](https://numpy.org/devdocs/reference/generated/numpy.cosh.html#numpy.cosh)(x, /[, out, where, casting, order, …]) | Hyperbolic cosine, element-wise.
+[tanh](https://numpy.org/devdocs/reference/generated/numpy.tanh.html#numpy.tanh)(x, /[, out, where, casting, order, …]) | Compute hyperbolic tangent element-wise.
+[arcsinh](https://numpy.org/devdocs/reference/generated/numpy.arcsinh.html#numpy.arcsinh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic sine element-wise.
+[arccosh](https://numpy.org/devdocs/reference/generated/numpy.arccosh.html#numpy.arccosh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic cosine, element-wise.
+[arctanh](https://numpy.org/devdocs/reference/generated/numpy.arctanh.html#numpy.arctanh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic tangent element-wise.
+[deg2rad](https://numpy.org/devdocs/reference/generated/numpy.deg2rad.html#numpy.deg2rad)(x, /[, out, where, casting, order, …]) | Convert angles from degrees to radians.
+[rad2deg](https://numpy.org/devdocs/reference/generated/numpy.rad2deg.html#numpy.rad2deg)(x, /[, out, where, casting, order, …]) | Convert angles from radians to degrees.
 
 ### Bit-twiddling functions
 
@@ -545,22 +545,22 @@ bit-pattern of those arguments.
 
 method | description
 ---|---
-[bitwise_and](generated/numpy.bitwise_and.html#numpy.bitwise_and)(x1, x2, /[, out, where, …]) | Compute the bit-wise AND of two arrays element-wise.
-[bitwise_or](generated/numpy.bitwise_or.html#numpy.bitwise_or)(x1, x2, /[, out, where, casting, …]) | Compute the bit-wise OR of two arrays element-wise.
-[bitwise_xor](generated/numpy.bitwise_xor.html#numpy.bitwise_xor)(x1, x2, /[, out, where, …]) | Compute the bit-wise XOR of two arrays element-wise.
-[invert](generated/numpy.invert.html#numpy.invert)(x, /[, out, where, casting, order, …]) | Compute bit-wise inversion, or bit-wise NOT, element-wise.
-[left_shift](generated/numpy.left_shift.html#numpy.left_shift)(x1, x2, /[, out, where, casting, …]) | Shift the bits of an integer to the left.
-[right_shift](generated/numpy.right_shift.html#numpy.right_shift)(x1, x2, /[, out, where, …]) | Shift the bits of an integer to the right.
+[bitwise_and](https://numpy.org/devdocs/reference/generated/numpy.bitwise_and.html#numpy.bitwise_and)(x1, x2, /[, out, where, …]) | Compute the bit-wise AND of two arrays element-wise.
+[bitwise_or](https://numpy.org/devdocs/reference/generated/numpy.bitwise_or.html#numpy.bitwise_or)(x1, x2, /[, out, where, casting, …]) | Compute the bit-wise OR of two arrays element-wise.
+[bitwise_xor](https://numpy.org/devdocs/reference/generated/numpy.bitwise_xor.html#numpy.bitwise_xor)(x1, x2, /[, out, where, …]) | Compute the bit-wise XOR of two arrays element-wise.
+[invert](https://numpy.org/devdocs/reference/generated/numpy.invert.html#numpy.invert)(x, /[, out, where, casting, order, …]) | Compute bit-wise inversion, or bit-wise NOT, element-wise.
+[left_shift](https://numpy.org/devdocs/reference/generated/numpy.left_shift.html#numpy.left_shift)(x1, x2, /[, out, where, casting, …]) | Shift the bits of an integer to the left.
+[right_shift](https://numpy.org/devdocs/reference/generated/numpy.right_shift.html#numpy.right_shift)(x1, x2, /[, out, where, …]) | Shift the bits of an integer to the right.
 
 ### Comparison functions
 
 method | description
 ---|---
-[greater](generated/numpy.greater.html#numpy.greater)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 > x2) element-wise.
-[greater_equal](generated/numpy.greater_equal.html#numpy.greater_equal)(x1, x2, /[, out, where, …]) | Return the truth value of (x1 >= x2) element-wise.
-[less](generated/numpy.less.html#numpy.less)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 < x2) element-wise.
-[less_equal](generated/numpy.less_equal.html#numpy.less_equal)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 =< x2) element-wise.
-[not_equal](generated/numpy.not_equal.html#numpy.not_equal)(x1, x2, /[, out, where, casting, …]) | Return (x1 != x2) element-wise.
+[greater](https://numpy.org/devdocs/reference/generated/numpy.greater.html#numpy.greater)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 > x2) element-wise.
+[greater_equal](https://numpy.org/devdocs/reference/generated/numpy.greater_equal.html#numpy.greater_equal)(x1, x2, /[, out, where, …]) | Return the truth value of (x1 >= x2) element-wise.
+[less](https://numpy.org/devdocs/reference/generated/numpy.less.html#numpy.less)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 < x2) element-wise.
+[less_equal](https://numpy.org/devdocs/reference/generated/numpy.less_equal.html#numpy.less_equal)(x1, x2, /[, out, where, casting, …]) | Return the truth value of (x1 =< x2) element-wise.
+[not_equal](https://numpy.org/devdocs/reference/generated/numpy.not_equal.html#numpy.not_equal)(x1, x2, /[, out, where, casting, …]) | Return (x1 != x2) element-wise.
 equal(x1, x2, /[, out, where, casting, …]) | Return (x1 == x2) element-wise.
 
 ::: danger Warning
@@ -574,10 +574,10 @@ expect). Use the bitwise operators & and | instead.
 
 method | description
 ---|---
-[logical_and](generated/numpy.logical_and.html#numpy.logical_and)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 AND x2 element-wise.
-[logical_or](generated/numpy.logical_or.html#numpy.logical_or)(x1, x2, /[, out, where, casting, …]) | Compute the truth value of x1 OR x2 element-wise.
-[logical_xor](generated/numpy.logical_xor.html#numpy.logical_xor)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 XOR x2, element-wise.
-[logical_not](generated/numpy.logical_not.html#numpy.logical_not)(x, /[, out, where, casting, …]) | Compute the truth value of NOT x element-wise.
+[logical_and](https://numpy.org/devdocs/reference/generated/numpy.logical_and.html#numpy.logical_and)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 AND x2 element-wise.
+[logical_or](https://numpy.org/devdocs/reference/generated/numpy.logical_or.html#numpy.logical_or)(x1, x2, /[, out, where, casting, …]) | Compute the truth value of x1 OR x2 element-wise.
+[logical_xor](https://numpy.org/devdocs/reference/generated/numpy.logical_xor.html#numpy.logical_xor)(x1, x2, /[, out, where, …]) | Compute the truth value of x1 XOR x2, element-wise.
+[logical_not](https://numpy.org/devdocs/reference/generated/numpy.logical_not.html#numpy.logical_not)(x, /[, out, where, casting, …]) | Compute the truth value of NOT x element-wise.
 
 ::: danger Warning
 
@@ -591,7 +591,7 @@ is evaluated first.
 
 method | description
 ---|---
-[maximum](generated/numpy.maximum.html#numpy.maximum)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
+[maximum](https://numpy.org/devdocs/reference/generated/numpy.maximum.html#numpy.maximum)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
 
 ::: tip Tip
 
@@ -606,7 +606,7 @@ a total minimum over an array.
 
 method | description
 ---|---
-[minimum](generated/numpy.minimum.html#numpy.minimum)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
+[minimum](https://numpy.org/devdocs/reference/generated/numpy.minimum.html#numpy.minimum)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
 
 ::: danger Warning
 
@@ -622,8 +622,8 @@ difference exists between ``minimum(a, b)`` and ``min(a, b)``.
 
 method | description
 ---|---
-[fmax](generated/numpy.fmax.html#numpy.fmax)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
-[fmin](generated/numpy.fmin.html#numpy.fmin)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
+[fmax](https://numpy.org/devdocs/reference/generated/numpy.fmax.html#numpy.fmax)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
+[fmin](https://numpy.org/devdocs/reference/generated/numpy.fmin.html#numpy.fmin)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
 
 ### Floating functions
 
@@ -633,19 +633,19 @@ single operation.
 
 method | description
 ---|---
-[isfinite](generated/numpy.isfinite.html#numpy.isfinite)(x, /[, out, where, casting, order, …]) | Test element-wise for finiteness (not infinity or not Not a Number).
-[isinf](generated/numpy.isinf.html#numpy.isinf)(x, /[, out, where, casting, order, …]) | Test element-wise for positive or negative infinity.
-[isnan](generated/numpy.isnan.html#numpy.isnan)(x, /[, out, where, casting, order, …]) | Test element-wise for NaN and return result as a boolean array.
-[isnat](generated/numpy.isnat.html#numpy.isnat)(x, /[, out, where, casting, order, …]) | Test element-wise for NaT (not a time) and return result as a boolean array.
-[fabs](generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
-[signbit](generated/numpy.signbit.html#numpy.signbit)(x, /[, out, where, casting, order, …]) | Returns element-wise True where signbit is set (less than zero).
-[copysign](generated/numpy.copysign.html#numpy.copysign)(x1, x2, /[, out, where, casting, …]) | Change the sign of x1 to that of x2, element-wise.
-[nextafter](generated/numpy.nextafter.html#numpy.nextafter)(x1, x2, /[, out, where, casting, …]) | Return the next floating-point value after x1 towards x2, element-wise.
-[spacing](generated/numpy.spacing.html#numpy.spacing)(x, /[, out, where, casting, order, …]) | Return the distance between x and the nearest adjacent number.
-[modf](generated/numpy.modf.html#numpy.modf)(x[, out1, out2], / [[, out, where, …]) | Return the fractional and integral parts of an array, element-wise.
-[ldexp](generated/numpy.ldexp.html#numpy.ldexp)(x1, x2, /[, out, where, casting, …]) | Returns x1 * 2**x2, element-wise.
-[frexp](generated/numpy.frexp.html#numpy.frexp)(x[, out1, out2], / [[, out, where, …]) | Decompose the elements of x into mantissa and twos exponent.
-[fmod](generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, casting, …]) | Return the element-wise remainder of division.
-[floor](generated/numpy.floor.html#numpy.floor)(x, /[, out, where, casting, order, …]) | Return the floor of the input, element-wise.
-[ceil](generated/numpy.ceil.html#numpy.ceil)(x, /[, out, where, casting, order, …]) | Return the ceiling of the input, element-wise.
-[trunc](generated/numpy.trunc.html#numpy.trunc)(x, /[, out, where, casting, order, …]) | Return the truncated value of the input, element-wise.
+[isfinite](https://numpy.org/devdocs/reference/generated/numpy.isfinite.html#numpy.isfinite)(x, /[, out, where, casting, order, …]) | Test element-wise for finiteness (not infinity or not Not a Number).
+[isinf](https://numpy.org/devdocs/reference/generated/numpy.isinf.html#numpy.isinf)(x, /[, out, where, casting, order, …]) | Test element-wise for positive or negative infinity.
+[isnan](https://numpy.org/devdocs/reference/generated/numpy.isnan.html#numpy.isnan)(x, /[, out, where, casting, order, …]) | Test element-wise for NaN and return result as a boolean array.
+[isnat](https://numpy.org/devdocs/reference/generated/numpy.isnat.html#numpy.isnat)(x, /[, out, where, casting, order, …]) | Test element-wise for NaT (not a time) and return result as a boolean array.
+[fabs](https://numpy.org/devdocs/reference/generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
+[signbit](https://numpy.org/devdocs/reference/generated/numpy.signbit.html#numpy.signbit)(x, /[, out, where, casting, order, …]) | Returns element-wise True where signbit is set (less than zero).
+[copysign](https://numpy.org/devdocs/reference/generated/numpy.copysign.html#numpy.copysign)(x1, x2, /[, out, where, casting, …]) | Change the sign of x1 to that of x2, element-wise.
+[nextafter](https://numpy.org/devdocs/reference/generated/numpy.nextafter.html#numpy.nextafter)(x1, x2, /[, out, where, casting, …]) | Return the next floating-point value after x1 towards x2, element-wise.
+[spacing](https://numpy.org/devdocs/reference/generated/numpy.spacing.html#numpy.spacing)(x, /[, out, where, casting, order, …]) | Return the distance between x and the nearest adjacent number.
+[modf](https://numpy.org/devdocs/reference/generated/numpy.modf.html#numpy.modf)(x[, out1, out2], / [[, out, where, …]) | Return the fractional and integral parts of an array, element-wise.
+[ldexp](https://numpy.org/devdocs/reference/generated/numpy.ldexp.html#numpy.ldexp)(x1, x2, /[, out, where, casting, …]) | Returns x1 * 2**x2, element-wise.
+[frexp](https://numpy.org/devdocs/reference/generated/numpy.frexp.html#numpy.frexp)(x[, out1, out2], / [[, out, where, …]) | Decompose the elements of x into mantissa and twos exponent.
+[fmod](https://numpy.org/devdocs/reference/generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, casting, …]) | Return the element-wise remainder of division.
+[floor](https://numpy.org/devdocs/reference/generated/numpy.floor.html#numpy.floor)(x, /[, out, where, casting, order, …]) | Return the floor of the input, element-wise.
+[ceil](https://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil)(x, /[, out, where, casting, order, …]) | Return the ceiling of the input, element-wise.
+[trunc](https://numpy.org/devdocs/reference/generated/numpy.trunc.html#numpy.trunc)(x, /[, out, where, casting, order, …]) | Return the truncated value of the input, element-wise.

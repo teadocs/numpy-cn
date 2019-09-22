@@ -34,7 +34,7 @@ and build a wrapper using ``f2py -c ftype.f -m ftype``.
 In Python:
 
 ``` python
->>>>>> import ftype
+>>> import ftype
 >>> print ftype.__doc__
 This module 'ftype' is auto-generated with f2py (version:2.28.198-1366).
 Functions:
@@ -96,7 +96,7 @@ and wrap it using ``f2py -c -m scalar scalar.f``.
 In Python:
 
 ``` python
->>>>>> import scalar
+>>> import scalar
 >>> print scalar.foo.__doc__
 foo - Function signature:
   foo(a,b)
@@ -166,7 +166,7 @@ and wrap it using ``f2py -c -m mystring string.f``.
 Python session:
 
 ``` python
->>>>>> import mystring
+>>> import mystring
 >>> print mystring.foo.__doc__
 foo - Function signature:
   foo(a,b,c,d)
@@ -284,7 +284,7 @@ and wrap it using ``f2py -c -m arr array.f -DF2PY_REPORT_ON_ARRAY_COPY=1``.
 In Python:
 
 ``` python
->>>>>> import arr
+>>> import arr
 >>> from numpy import array
 >>> print arr.foo.__doc__
 foo - Function signature:
@@ -377,7 +377,7 @@ and wrap it using ``f2py -c -m callback callback.f``.
 In Python:
 
 ``` python
->>>>>> import callback
+>>> import callback
 >>> print callback.foo.__doc__
 foo - Function signature:
   r = foo(fun,[fun_extra_args])
@@ -487,7 +487,7 @@ Finally, build an extension module using ``f2py -c -m foo calculate.f``
 In Python:
 
 ``` python
->>>>>> import foo
+>>> import foo
 >>> foo.calculate(range(5), lambda x: x*x)
 array([  0.,   1.,   4.,   9.,  16.])
 >>> import math
@@ -529,7 +529,7 @@ and wrap it using ``f2py -c -m pfromf extcallback.f``.
 In Python:
 
 ``` python
->>>>>> import pfromf
+>>> import pfromf
 >>> pfromf.f2()
 Traceback (most recent call last):
   File "<stdin>", line 1, in ?
@@ -636,7 +636,7 @@ and wrap it using ``f2py -c -m common common.f``.
 In Python:
 
 ``` python
->>>>>> import common
+>>> import common
 >>> print common.data.__doc__
 i - 'i'-scalar
 x - 'i'-array(4)
@@ -698,7 +698,7 @@ and wrap it using ``f2py -c -m moddata moddata.f90``.
 In Python:
 
 ``` python
->>>>>> import moddata
+>>> import moddata
 >>> print moddata.mod.__doc__
 i - 'i'-scalar
 x - 'i'-array(4)
@@ -753,7 +753,7 @@ and wrap it using ``f2py -c -m allocarr allocarr.f90``.
 In Python:
 
 ``` python
->>>>>> import allocarr 
+>>> import allocarr 
 >>> print allocarr.mod.__doc__
 b - 'f'-array(-1,-1), not allocated
 foo - Function signature:

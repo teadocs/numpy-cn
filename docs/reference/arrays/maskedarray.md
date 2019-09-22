@@ -1,14 +1,22 @@
 # 掩码数组
 
-## 理由
+### 理由
 
-掩码数组是包含了丢失或无效条目的数组。[``numpy.ma``](#module-numpy.ma)模块为numpy提供了几乎类似工作的替代方案，支持带掩码的数据矩阵。
+掩码数组是包含了丢失或无效条目的数组。
+[numpy.ma](#numpy-ma模块) 模块为numpy提供了几乎类似工作的替代方案，
+支持带掩码的数据矩阵。
 
-## 什么是掩码数组？
+### 什么是掩码数组？
 
-在许多情况下，数据集可能不完整或因无效数据的存在而受到污染。例如，传感器可能无法记录数据或记录无效值。该[``numpy.ma``](#module-numpy.ma)模块通过引入掩码数组提供了一种解决此问题的便捷方法。
+在许多情况下，数据集可能不完整或因无效数据的存在而受到污染。
+例如，传感器可能无法记录数据或记录无效值。
+[numpy.ma](#numpy-ma模块) 模块通过引入掩码数组提供了一种解决此问题的便捷方法。
 
-掩码数组是标准 [``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 和掩码的组合。掩码或者是 [``nomask``](maskedarray.baseclass.html#numpy.ma.nomask)，指示关联数组的任何值都是无效的，或者是布尔数组的数组，用于确定关联数组的每个元素的值是否有效。当掩码的元素为 ``False`` 时，关联数组的相应元素是有效的，并且被称为未掩码。当掩码的元素为 ``True`` 时，关联数组的相应元素称为掩码（无效）。
+掩码数组是标准 [``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) 和掩码的组合。
+掩码或者是 [``nomask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.nomask)，
+指示关联数组的任何值都是无效的，或者是布尔数组的数组，用于确定关联数组的每个元素的值是否有效。
+当掩码的元素为 ``False`` 时，关联数组的相应元素是有效的，并且被称为未掩码。
+当掩码的元素为 ``True`` 时，关联数组的相应元素称为掩码（无效）。
 
 该包确保在计算中不使用被掩码的条目。
 
@@ -35,11 +43,11 @@
 
 ## ``numpy.ma``模块
 
-[``numpy.ma``](#module-numpy.ma)模块的主要特性是[``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray)
-类，它是的子类[``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray)。在[MaskedArray类](maskedarray.baseclass.html#maskedarray-baseclass)部分中更详细地描述了类、其属性和方法
- 。
+[numpy.ma](#numpy-ma模块) 模块的主要特性是[``MaskedArray``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray)
+类，它是的子类[``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)。
+在[MaskedArray类](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#maskedarray-baseclass)部分中更详细地描述了类、其属性和方法。
 
-[``numpy.ma``](#module-numpy.ma) 模块可以用作 [``numpy``](index.html#module-numpy) 的补充：
+[numpy.ma](#numpy-ma模块) 模块可以用作 [``numpy``](index.html) 的补充：
 
 ``` python
 >>> import numpy as np
@@ -58,24 +66,24 @@
 >>> z = masked_values([1.0, 1.e20, 3.0, 4.0], 1.e20)
 ```
 
-有关掩码数组创建方法的完整讨论，请参阅[构造掩码数组](#maskedarray-generic-constructing)一节。
+有关掩码数组创建方法的完整讨论，请参阅[构造掩码数组](#创建掩码数组)一节。
 
-# 使用 numpy.ma 模块
+## 使用 numpy.ma 模块
 
-## 创建掩码数组
+### 创建掩码数组
 
 有几种方法可以创建一个掩码数组。
 
-- 第一种可能性是直接调用类：[``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray)。
+- 第一种可能性是直接调用类：[``MaskedArray``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray)。
 - 第二种可能性是使用两个掩码数组构造函数，
- [``array``](generated/numpy.ma.array.html#numpy.ma.array)和[``masked_array``](generated/numpy.ma.masked_array.html#numpy.ma.masked_array)。
+ [``array``](https://numpy.org/devdocs/reference/generated/numpy.ma.array.html#numpy.ma.array)和[``masked_array``](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_array.html#numpy.ma.masked_array)。
 
   方法 | 描述
   ---|---
-  [array](generated/numpy.ma.array.html#numpy.ma.array)(data[, dtype, copy, order, mask, …]) | 具有可能掩码值的数组类。
-  [masked_array](generated/numpy.ma.masked_array.html#numpy.ma.masked_array) | 别名 numpy.ma.core.MaskedArray
+  [array](https://numpy.org/devdocs/reference/generated/numpy.ma.array.html#numpy.ma.array)(data[, dtype, copy, order, mask, …]) | 具有可能掩码值的数组类。
+  [masked_array](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_array.html#numpy.ma.masked_array) | 别名 numpy.ma.core.MaskedArray
 
-- 第三种选择是获取现有数组的视图。在这种情况下，[``nomask``](maskedarray.baseclass.html#numpy.ma.nomask)如果数组没有命名字段，则视图的掩码设置为，否则设置为与数组具有相同结构的布尔数组。
+- 第三种选择是获取现有数组的视图。在这种情况下，[``nomask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.nomask)如果数组没有命名字段，则视图的掩码设置为，否则设置为与数组具有相同结构的布尔数组。
 
   ``` python
   >>> x = np.array([1, 2, 3])
@@ -95,47 +103,47 @@
 
   方法 | 描述
   ---|---
-  [asarray](generated/numpy.ma.asarray.html#numpy.ma.asarray)(a[, dtype, order]) | 将输入转换为给定数据类型的掩码数组。
-  [asanyarray](generated/numpy.ma.asanyarray.html#numpy.ma.asanyarray)(a[, dtype]) | 将输入转换为掩码数组，保留子类。
-  [fix_invalid](generated/numpy.ma.fix_invalid.html#numpy.ma.fix_invalid)(a[, mask, copy, fill_value]) | 返回带有无效数据的输入，并用填充值替换。
-  [masked_equal](generated/numpy.ma.masked_equal.html#numpy.ma.masked_equal)(x, value[, copy]) | 掩码一个等于给定值的数组。
-  [masked_greater](generated/numpy.ma.masked_greater.html#numpy.ma.masked_greater)(x, value[, copy]) | 掩码大于给定值的数组。
-  [masked_greater_equal](generated/numpy.ma.masked_greater_equal.html#numpy.ma.masked_greater_equal)(x, value[, copy]) | 掩码大于或等于给定值的数组。
-  [masked_inside](generated/numpy.ma.masked_inside.html#numpy.ma.masked_inside)(x, v1, v2[, copy]) | 在给定间隔内掩码数组。
-  [masked_invalid](generated/numpy.ma.masked_invalid.html#numpy.ma.masked_invalid)(a[, copy]) | 掩码出现无效值的数组（NaN或infs）。
-  [masked_less](generated/numpy.ma.masked_less.html#numpy.ma.masked_less)(x, value[, copy]) | 掩码小于给定值的数组。
-  [masked_less_equal](generated/numpy.ma.masked_less_equal.html#numpy.ma.masked_less_equal)(x, value[, copy]) | 掩码小于或等于给定值的数组。
-  [masked_not_equal](generated/numpy.ma.masked_not_equal.html#numpy.ma.masked_not_equal)(x, value[, copy]) | 掩码不等于给定值的数组。
-  [masked_object](generated/numpy.ma.masked_object.html#numpy.ma.masked_object)(x, value[, copy, shrink]) | 掩码数组x，其中数据完全等于值。
-  [masked_outside](generated/numpy.ma.masked_outside.html#numpy.ma.masked_outside)(x, v1, v2[, copy]) | 在给定间隔之外掩码数组。
-  [masked_values](generated/numpy.ma.masked_values.html#numpy.ma.masked_values)(x, value[, rtol, atol, copy, …]) | 掩码使用浮点相等。
-  [masked_where](generated/numpy.ma.masked_where.html#numpy.ma.masked_where)(condition, a[, copy]) | 掩码满足条件的数组。
+  [asarray](https://numpy.org/devdocs/reference/generated/numpy.ma.asarray.html#numpy.ma.asarray)(a[, dtype, order]) | 将输入转换为给定数据类型的掩码数组。
+  [asanyarray](https://numpy.org/devdocs/reference/generated/numpy.ma.asanyarray.html#numpy.ma.asanyarray)(a[, dtype]) | 将输入转换为掩码数组，保留子类。
+  [fix_invalid](https://numpy.org/devdocs/reference/generated/numpy.ma.fix_invalid.html#numpy.ma.fix_invalid)(a[, mask, copy, fill_value]) | 返回带有无效数据的输入，并用填充值替换。
+  [masked_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_equal.html#numpy.ma.masked_equal)(x, value[, copy]) | 掩码一个等于给定值的数组。
+  [masked_greater](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_greater.html#numpy.ma.masked_greater)(x, value[, copy]) | 掩码大于给定值的数组。
+  [masked_greater_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_greater_equal.html#numpy.ma.masked_greater_equal)(x, value[, copy]) | 掩码大于或等于给定值的数组。
+  [masked_inside](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_inside.html#numpy.ma.masked_inside)(x, v1, v2[, copy]) | 在给定间隔内掩码数组。
+  [masked_invalid](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_invalid.html#numpy.ma.masked_invalid)(a[, copy]) | 掩码出现无效值的数组（NaN或infs）。
+  [masked_less](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_less.html#numpy.ma.masked_less)(x, value[, copy]) | 掩码小于给定值的数组。
+  [masked_less_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_less_equal.html#numpy.ma.masked_less_equal)(x, value[, copy]) | 掩码小于或等于给定值的数组。
+  [masked_not_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_not_equal.html#numpy.ma.masked_not_equal)(x, value[, copy]) | 掩码不等于给定值的数组。
+  [masked_object](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_object.html#numpy.ma.masked_object)(x, value[, copy, shrink]) | 掩码数组x，其中数据完全等于值。
+  [masked_outside](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_outside.html#numpy.ma.masked_outside)(x, v1, v2[, copy]) | 在给定间隔之外掩码数组。
+  [masked_values](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_values.html#numpy.ma.masked_values)(x, value[, rtol, atol, copy, …]) | 掩码使用浮点相等。
+  [masked_where](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_where.html#numpy.ma.masked_where)(condition, a[, copy]) | 掩码满足条件的数组。
 
-## 访问数据
+### 访问数据
 
 可以通过多种方式访问​​掩码数组的基础数据：
 
-- 通过[``data``](maskedarray.baseclass.html#numpy.ma.MaskedArray.data)属性。输出是数组的视图，作为[``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray)其子类之一，具体取决于掩码数组创建时基础数据的类型。
-- 通过 [``__array__``](generated/numpy.ma.MaskedArray.__array__.html#numpy.ma.MaskedArray.__array__) 方法。然后输出为[``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray)。
-- 通过直接将掩码数组视为 [``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray) 或其子类之一 （这实际上是使用 [``data``](maskedarray.baseclass.html#numpy.ma.MaskedArray.data) 属性所做的）。
-- 通过使用[``getdata``](generated/numpy.ma.getdata.html#numpy.ma.getdata)函数。
+- 通过[``data``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray.data)属性。输出是数组的视图，作为[``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)其子类之一，具体取决于掩码数组创建时基础数据的类型。
+- 通过 [``__array__``](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.__array__.html#numpy.ma.MaskedArray.__array__) 方法。然后输出为[``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)。
+- 通过直接将掩码数组视为 [``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) 或其子类之一 （这实际上是使用 [``data``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray.data) 属性所做的）。
+- 通过使用[``getdata``](https://numpy.org/devdocs/reference/generated/numpy.ma.getdata.html#numpy.ma.getdata)函数。
 
-如果某些条目被标记为无效，则这些方法都不是完全令人满意的。作为一般规则，在需要不带任何掩码条目的数组表示的情况下，建议使用该[``filled``](generated/numpy.ma.filled.html#numpy.ma.filled)方法填充数组。
+如果某些条目被标记为无效，则这些方法都不是完全令人满意的。作为一般规则，在需要不带任何掩码条目的数组表示的情况下，建议使用该[``filled``](https://numpy.org/devdocs/reference/generated/numpy.ma.filled.html#numpy.ma.filled)方法填充数组。
 
-## 访问掩码
+### 访问掩码
 
-掩码数组的掩码可通过其[``mask``](maskedarray.baseclass.html#numpy.ma.MaskedArray.mask)
+掩码数组的掩码可通过其[``mask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray.mask)
 属性访问。我们必须记住，``True``掩码中的条目表示
   *无效* 数据。
 
-另一种可能性是使用[``getmask``](generated/numpy.ma.getmask.html#numpy.ma.getmask)和[``getmaskarray``](generated/numpy.ma.getmaskarray.html#numpy.ma.getmaskarray)
-函数。``getmask(x)``输出``x``if 的掩码``x``是掩码数组，[``nomask``](maskedarray.baseclass.html#numpy.ma.nomask)否则输出特殊值。``getmaskarray(x)``
+另一种可能性是使用[``getmask``](https://numpy.org/devdocs/reference/generated/numpy.ma.getmask.html#numpy.ma.getmask)和[``getmaskarray``](https://numpy.org/devdocs/reference/generated/numpy.ma.getmaskarray.html#numpy.ma.getmaskarray)
+函数。``getmask(x)``输出``x``if 的掩码``x``是掩码数组，[``nomask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.nomask)否则输出特殊值。``getmaskarray(x)``
 输出``x``if 的掩码``x``是掩码数组。如果``x``没有无效条目或不是掩码数组，则该函数输出一个``False``具有尽可能多的元素的布尔数组
  ``x``。
 
-## 仅访问有效条目
+### 仅访问有效条目
 
-要仅检索有效条目，我们可以使用掩码的反转作为索引。掩码的反转可以使用[``numpy.logical_not``](generated/numpy.logical_not.html#numpy.logical_not)函数计算，也可以
+要仅检索有效条目，我们可以使用掩码的反转作为索引。掩码的反转可以使用[``numpy.logical_not``](https://numpy.org/devdocs/reference/generated/numpy.logical_not.html#numpy.logical_not)函数计算，也可以
  使用``~``运算符计算：
 
 ``` python
@@ -146,8 +154,8 @@ masked_array(data = [1 4],
        fill_value = 999999)
 ```
 
-检索有效数据的另一种方法是使用该[``compressed``](generated/numpy.ma.compressed.html#numpy.ma.compressed)
-方法，该方法返回一维[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)(或其子类之一，具体取决于[``baseclass``](maskedarray.baseclass.html#numpy.ma.MaskedArray.baseclass)
+检索有效数据的另一种方法是使用该[``compressed``](https://numpy.org/devdocs/reference/generated/numpy.ma.compressed.html#numpy.ma.compressed)
+方法，该方法返回一维[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)(或其子类之一，具体取决于[``baseclass``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray.baseclass)
 属性的值）：
 
 ``` python
@@ -155,13 +163,13 @@ masked_array(data = [1 4],
 array([1, 4])
 ```
 
-请注意，输出[``compressed``](generated/numpy.ma.compressed.html#numpy.ma.compressed)始终为1D。
+请注意，输出[``compressed``](https://numpy.org/devdocs/reference/generated/numpy.ma.compressed.html#numpy.ma.compressed)始终为1D。
 
-## 修改掩码
+### 修改掩码
 
-### 掩码条目
+#### 掩码条目
 
-将掩码数组的一个或多个特定条目标记为无效的推荐方法是[``masked``](maskedarray.baseclass.html#numpy.ma.masked)为它们分配特殊值：
+将掩码数组的一个或多个特定条目标记为无效的推荐方法是[``masked``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.masked)为它们分配特殊值：
 
 ``` python
 >>> x = ma.array([1, 2, 3])
@@ -190,12 +198,12 @@ masked_array(data = [-- -- 3 4],
        fill_value = 999999)
 ```
 
-第二种可能性是[``mask``](maskedarray.baseclass.html#numpy.ma.MaskedArray.mask)直接修改，但不鼓励这种用法。
+第二种可能性是[``mask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray.mask)直接修改，但不鼓励这种用法。
 
 ::: tip 注意
 
-使用简单的非结构化数据类型创建新的掩码数组时，掩码最初设置为特殊value[``nomask``](maskedarray.baseclass.html#numpy.ma.nomask)，该值大致对应于布尔值``False``。尝试设置元素
- [``nomask``](maskedarray.baseclass.html#numpy.ma.nomask)将失败并出现[``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError)异常，因为布尔值不支持项目分配。
+使用简单的非结构化数据类型创建新的掩码数组时，掩码最初设置为特殊value[``nomask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.nomask)，该值大致对应于布尔值``False``。尝试设置元素
+ [``nomask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.nomask)将失败并出现[``TypeError``](https://docs.python.org/dev/library/exceptions.html#TypeError)异常，因为布尔值不支持项目分配。
 
 :::
 
@@ -221,7 +229,7 @@ masked_array(data = [1 -- 3],
        fill_value = 999999)
 ```
 
-### 取消掩码条目
+#### 取消掩码条目
 
 要取消掩码一个或多个特定条目，我们可以为它们分配一个或多个新的有效值：
 
@@ -240,7 +248,7 @@ masked_array(data = [1 2 5],
 
 ::: tip 注意
 
-如果掩码数组具有 *硬* 掩码，则通过直接分配取消掩码条目将无声地失败，如``hardmask``属性所示。引入此功能是为了防止覆盖掩码。要强制取消掩码数组具有硬掩码的条目，必须首先使用[``soften_mask``](generated/numpy.ma.soften_mask.html#numpy.ma.soften_mask)分配前的方法软化掩码。可以通过以下方式重新强化[``harden_mask``](generated/numpy.ma.harden_mask.html#numpy.ma.harden_mask)：
+如果掩码数组具有 *硬* 掩码，则通过直接分配取消掩码条目将无声地失败，如``hardmask``属性所示。引入此功能是为了防止覆盖掩码。要强制取消掩码数组具有硬掩码的条目，必须首先使用[``soften_mask``](https://numpy.org/devdocs/reference/generated/numpy.ma.soften_mask.html#numpy.ma.soften_mask)分配前的方法软化掩码。可以通过以下方式重新强化[``harden_mask``](https://numpy.org/devdocs/reference/generated/numpy.ma.harden_mask.html#numpy.ma.harden_mask)：
 
 ``` python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1], hard_mask=True)
@@ -264,7 +272,7 @@ masked_array(data = [1 2 5],
 
 :::
 
-要取消掩码掩码数组的所有掩码条目（假设掩码不是硬掩码），最简单的解决方案是将常量赋value[``nomask``](maskedarray.baseclass.html#numpy.ma.nomask)给掩码：
+要取消掩码掩码数组的所有掩码条目（假设掩码不是硬掩码），最简单的解决方案是将常量赋value[``nomask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.nomask)给掩码：
 
 ``` python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1])
@@ -279,12 +287,12 @@ masked_array(data = [1 2 3],
        fill_value = 999999)
 ```
 
-## 索引和切片
+### 索引和切片
 
-作为a [``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray)的子类[``numpy.ndarray``](generated/numpy.ndarray.html#numpy.ndarray)，它继承了索引和切片的机制。
+作为a [``MaskedArray``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray)的子类[``numpy.ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)，它继承了索引和切片的机制。
 
 当访问没有命名字段的掩码数组的单个条目时，输出是标量（如果掩码的相应条目是
- ``False``）或特殊value[``masked``](maskedarray.baseclass.html#numpy.ma.masked)(如果掩码的相应条目是``True``）：
+ ``False``）或特殊value[``masked``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.masked)(如果掩码的相应条目是``True``）：
 
 ``` python
 >>> x = ma.array([1, 2, 3], mask=[0, 0, 1])
@@ -315,7 +323,7 @@ masked_array(data = (3, --),
 ```
 
 访问切片时，输出是一个掩码数组，其
- [``data``](maskedarray.baseclass.html#numpy.ma.MaskedArray.data)属性是原始数据的视图，其掩码是[``nomask``](maskedarray.baseclass.html#numpy.ma.nomask)(如果原始数组中没有无效条目）或原始掩码的相应切片视图。视图是确保将掩模的任何修改传播到原始视图所必需的。
+ [``data``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray.data)属性是原始数据的视图，其掩码是[``nomask``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.nomask)(如果原始数组中没有无效条目）或原始掩码的相应切片视图。视图是确保将掩模的任何修改传播到原始视图所必需的。
 
 ``` python
 >>> x = ma.array([1, 2, 3, 4, 5], mask=[0, 1, 0, 0, 1])
@@ -335,10 +343,9 @@ array([False,  True, False, False,  True])
 array([ 1, -1,  3,  4,  5])
 ```
 
-访问具有结构化数据类型的掩码数组的字段将返回a
- [``MaskedArray``](maskedarray.baseclass.html#numpy.ma.MaskedArray)。
+访问具有结构化数据类型的掩码数组的字段将返回一个[``MaskedArray``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.MaskedArray)。
 
-## 掩码数组的操作
+### 掩码数组的操作
 
 掩码数组支持算术和比较操作。尽可能不处理掩码数组的无效条目，这意味着操作之前和之后相应的``data``条目 *应该* 相同。
 
@@ -349,8 +356,8 @@ array([ 1, -1,  3,  4,  5])
 :::
 
 该[``numpy.ma``](#module-numpy.ma)模块附带了大多数ufunc的特定实现。
-只要输入被掩码或超出有效域，具有有效域（例如[``log``](generated/numpy.log.html#numpy.log)或[``divide``](generated/numpy.divide.html#numpy.divide)）的一元和二元函数
- [``masked``](maskedarray.baseclass.html#numpy.ma.masked)就会返回常量：
+只要输入被掩码或超出有效域，具有有效域（例如[``log``](https://numpy.org/devdocs/reference/generated/numpy.log.html#numpy.log)或[``divide``](https://numpy.org/devdocs/reference/generated/numpy.divide.html#numpy.divide)）的一元和二元函数
+ [``masked``](https://numpy.org/devdocs/reference/maskedarray.baseclass.html#numpy.ma.masked)就会返回常量：
 
 ``` python
 >>> ma.log([-1, 0, 1, 2])
@@ -368,9 +375,9 @@ masked_array(data = [-- -- 0.0 0.69314718056 --],
              mask = [ True  True False False  True],
        fill_value = 1e+20)
 ```
-# 示例
+## 示例
 
-## 具有表示缺失数据的给定值的数据
+### 具有表示缺失数据的给定值的数据
 
 让我们考虑一个元素列表``x``，其中值为-9999。代表缺失的数据。我们希望计算数据的平均值和异常矢量（偏离平均值）：
 
@@ -386,7 +393,7 @@ masked_array(data = [-- -- 0.0 0.69314718056 --],
 [-2.0 -1.0 -- 1.0 2.0]
 ```
 
-## 填写缺失的数据
+### 填写缺失的数据
 
 现在假设我们希望打印相同的数据，但缺失值被平均值替换。
 
@@ -395,7 +402,7 @@ masked_array(data = [-- -- 0.0 0.69314718056 --],
 [ 0.  1.  2.  3.  4.]
 ```
 
-## 数值运算
+### 数值运算
 
 数值运算可以轻松执行，无需担心缺失值，除以零，负数的平方根等：
 
@@ -409,7 +416,7 @@ masked_array(data = [-- -- 0.0 0.69314718056 --],
 
 输出的四个值是无效的：第一个值来自取负数的平方根，第二个来自除以零，以及最后两个输入被掩码的位置。
 
-## 忽略极值
+### 忽略极值
 
 让我们考虑一个``d``介于0和1之间的随机浮点数组。我们希望计算值的平均值，``d``同时忽略范围之外的任何数据：``[0.1, 0.9]``
 

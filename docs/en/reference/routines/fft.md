@@ -4,39 +4,39 @@
 
 method | description
 ---|---
-[fft](generated/numpy.fft.fft.html#numpy.fft.fft)(a[, n, axis, norm]) | Compute the one-dimensional discrete Fourier Transform.
-[ifft](generated/numpy.fft.ifft.html#numpy.fft.ifft)(a[, n, axis, norm]) | Compute the one-dimensional inverse discrete Fourier Transform.
-[fft2](generated/numpy.fft.fft2.html#numpy.fft.fft2)(a[, s, axes, norm]) | Compute the 2-dimensional discrete Fourier Transform
-[ifft2](generated/numpy.fft.ifft2.html#numpy.fft.ifft2)(a[, s, axes, norm]) | Compute the 2-dimensional inverse discrete Fourier Transform.
-[fftn](generated/numpy.fft.fftn.html#numpy.fft.fftn)(a[, s, axes, norm]) | Compute the N-dimensional discrete Fourier Transform.
-[ifftn](generated/numpy.fft.ifftn.html#numpy.fft.ifftn)(a[, s, axes, norm]) | Compute the N-dimensional inverse discrete Fourier Transform.
+[fft](https://numpy.org/devdocs/reference/generated/numpy.fft.fft.html#numpy.fft.fft)(a[, n, axis, norm]) | Compute the one-dimensional discrete Fourier Transform.
+[ifft](https://numpy.org/devdocs/reference/generated/numpy.fft.ifft.html#numpy.fft.ifft)(a[, n, axis, norm]) | Compute the one-dimensional inverse discrete Fourier Transform.
+[fft2](https://numpy.org/devdocs/reference/generated/numpy.fft.fft2.html#numpy.fft.fft2)(a[, s, axes, norm]) | Compute the 2-dimensional discrete Fourier Transform
+[ifft2](https://numpy.org/devdocs/reference/generated/numpy.fft.ifft2.html#numpy.fft.ifft2)(a[, s, axes, norm]) | Compute the 2-dimensional inverse discrete Fourier Transform.
+[fftn](https://numpy.org/devdocs/reference/generated/numpy.fft.fftn.html#numpy.fft.fftn)(a[, s, axes, norm]) | Compute the N-dimensional discrete Fourier Transform.
+[ifftn](https://numpy.org/devdocs/reference/generated/numpy.fft.ifftn.html#numpy.fft.ifftn)(a[, s, axes, norm]) | Compute the N-dimensional inverse discrete Fourier Transform.
 
 ## Real FFTs
 
 method | description
 ---|---
-[rfft](generated/numpy.fft.rfft.html#numpy.fft.rfft)(a[, n, axis, norm]) | Compute the one-dimensional discrete Fourier Transform for real input.
-[irfft](generated/numpy.fft.irfft.html#numpy.fft.irfft)(a[, n, axis, norm]) | Compute the inverse of the n-point DFT for real input.
-[rfft2](generated/numpy.fft.rfft2.html#numpy.fft.rfft2)(a[, s, axes, norm]) | Compute the 2-dimensional FFT of a real array.
-[irfft2](generated/numpy.fft.irfft2.html#numpy.fft.irfft2)(a[, s, axes, norm]) | Compute the 2-dimensional inverse FFT of a real array.
-[rfftn](generated/numpy.fft.rfftn.html#numpy.fft.rfftn)(a[, s, axes, norm]) | Compute the N-dimensional discrete Fourier Transform for real input.
-[irfftn](generated/numpy.fft.irfftn.html#numpy.fft.irfftn)(a[, s, axes, norm]) | Compute the inverse of the N-dimensional FFT of real input.
+[rfft](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft.html#numpy.fft.rfft)(a[, n, axis, norm]) | Compute the one-dimensional discrete Fourier Transform for real input.
+[irfft](https://numpy.org/devdocs/reference/generated/numpy.fft.irfft.html#numpy.fft.irfft)(a[, n, axis, norm]) | Compute the inverse of the n-point DFT for real input.
+[rfft2](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft2.html#numpy.fft.rfft2)(a[, s, axes, norm]) | Compute the 2-dimensional FFT of a real array.
+[irfft2](https://numpy.org/devdocs/reference/generated/numpy.fft.irfft2.html#numpy.fft.irfft2)(a[, s, axes, norm]) | Compute the 2-dimensional inverse FFT of a real array.
+[rfftn](https://numpy.org/devdocs/reference/generated/numpy.fft.rfftn.html#numpy.fft.rfftn)(a[, s, axes, norm]) | Compute the N-dimensional discrete Fourier Transform for real input.
+[irfftn](https://numpy.org/devdocs/reference/generated/numpy.fft.irfftn.html#numpy.fft.irfftn)(a[, s, axes, norm]) | Compute the inverse of the N-dimensional FFT of real input.
 
 ## Hermitian FFTs
 
 method | description
 ---|---
-[hfft](generated/numpy.fft.hfft.html#numpy.fft.hfft)(a[, n, axis, norm]) | Compute the FFT of a signal that has Hermitian symmetry, i.e., a real spectrum.
-[ihfft](generated/numpy.fft.ihfft.html#numpy.fft.ihfft)(a[, n, axis, norm]) | Compute the inverse FFT of a signal that has Hermitian symmetry.
+[hfft](https://numpy.org/devdocs/reference/generated/numpy.fft.hfft.html#numpy.fft.hfft)(a[, n, axis, norm]) | Compute the FFT of a signal that has Hermitian symmetry, i.e., a real spectrum.
+[ihfft](https://numpy.org/devdocs/reference/generated/numpy.fft.ihfft.html#numpy.fft.ihfft)(a[, n, axis, norm]) | Compute the inverse FFT of a signal that has Hermitian symmetry.
 
 ## Helper routines
 
 method | description
 ---|---
-[fftfreq](generated/numpy.fft.fftfreq.html#numpy.fft.fftfreq)(n[, d]) | Return the Discrete Fourier Transform sample frequencies.
-[rfftfreq](generated/numpy.fft.rfftfreq.html#numpy.fft.rfftfreq)(n[, d]) | Return the Discrete Fourier Transform sample frequencies (for usage with rfft, irfft).
-[fftshift](generated/numpy.fft.fftshift.html#numpy.fft.fftshift)(x[, axes]) | Shift the zero-frequency component to the center of the spectrum.
-[ifftshift](generated/numpy.fft.ifftshift.html#numpy.fft.ifftshift)(x[, axes]) | The inverse of [fftshift](generated/numpy.fft.fftshift.html#numpy.fft.fftshift).
+[fftfreq](https://numpy.org/devdocs/reference/generated/numpy.fft.fftfreq.html#numpy.fft.fftfreq)(n[, d]) | Return the Discrete Fourier Transform sample frequencies.
+[rfftfreq](https://numpy.org/devdocs/reference/generated/numpy.fft.rfftfreq.html#numpy.fft.rfftfreq)(n[, d]) | Return the Discrete Fourier Transform sample frequencies (for usage with rfft, irfft).
+[fftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift)(x[, axes]) | Shift the zero-frequency component to the center of the spectrum.
+[ifftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.ifftshift.html#numpy.fft.ifftshift)(x[, axes]) | The inverse of [fftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift).
 
 ## Background information
 
@@ -118,7 +118,7 @@ component at frequency  is the complex conjugate of the
 component at frequency , which means that for real
 inputs there is no information in the negative frequency components that
 is not already available from the positive frequency components.
-The family of [``rfft``](generated/numpy.fft.rfft.html#numpy.fft.rfft) functions is
+The family of [``rfft``](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft.html#numpy.fft.rfft) functions is
 designed to operate on real inputs, and exploits this symmetry by
 computing only the positive frequency components, up to and including the
 Nyquist frequency.  Thus, ``n`` input points produce ``n/2+1`` complex
@@ -126,7 +126,7 @@ output points.  The inverses of this family assumes the same symmetry of
 its input, and for an output of ``n`` points uses ``n/2+1`` input points.
 
 Correspondingly, when the spectrum is purely real, the signal is
-Hermitian.  The [``hfft``](generated/numpy.fft.hfft.html#numpy.fft.hfft) family of functions exploits this symmetry by
+Hermitian.  The [``hfft``](https://numpy.org/devdocs/reference/generated/numpy.fft.hfft.html#numpy.fft.hfft) family of functions exploits this symmetry by
 using ``n/2+1`` complex points in the input (time) domain for ``n`` real
 points in the frequency domain.
 

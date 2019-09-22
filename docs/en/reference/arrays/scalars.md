@@ -11,7 +11,7 @@ different types of scalars. These type descriptors are mostly based on
 the types available in the C language that CPython is written in, with
 several additional types compatible with Python’s types.
 
-Array scalars have the same attributes and methods as [``ndarrays``](generated/numpy.ndarray.html#numpy.ndarray). [[1]](#id2) This allows one to treat items of an array partly on
+Array scalars have the same attributes and methods as [``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray). [[1]](#id2) This allows one to treat items of an array partly on
 the same footing as arrays, smoothing out rough edges that result when
 mixing scalar and array operations.
 
@@ -203,28 +203,28 @@ convention more consistent with other Python modules such as the
 ## Attributes
 
 The array scalar objects have an ``array priority`` of [``NPY_SCALAR_PRIORITY``](c-api/array.html#c.NPY_SCALAR_PRIORITY)
-(-1,000,000.0). They also do not (yet) have a [``ctypes``](generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes)
+(-1,000,000.0). They also do not (yet) have a [``ctypes``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.ctypes.html#numpy.ndarray.ctypes)
 attribute. Otherwise, they share the same attributes as arrays:
 
 method | description
 ---|---
-[generic.flags](generated/numpy.generic.flags.html#numpy.generic.flags) | integer value of flags
-[generic.shape](generated/numpy.generic.shape.html#numpy.generic.shape) | tuple of array dimensions
-[generic.strides](generated/numpy.generic.strides.html#numpy.generic.strides) | tuple of bytes steps in each dimension
-[generic.ndim](generated/numpy.generic.ndim.html#numpy.generic.ndim) | number of array dimensions
-[generic.data](generated/numpy.generic.data.html#numpy.generic.data) | pointer to start of data
-[generic.size](generated/numpy.generic.size.html#numpy.generic.size) | number of elements in the gentype
-[generic.itemsize](generated/numpy.generic.itemsize.html#numpy.generic.itemsize) | length of one element in bytes
-[generic.base](generated/numpy.generic.base.html#numpy.generic.base) | base object
-[generic.dtype](generated/numpy.generic.dtype.html#numpy.generic.dtype) | get array data-descriptor
-[generic.real](generated/numpy.generic.real.html#numpy.generic.real) | real part of scalar
-[generic.imag](generated/numpy.generic.imag.html#numpy.generic.imag) | imaginary part of scalar
-[generic.flat](generated/numpy.generic.flat.html#numpy.generic.flat) | a 1-d view of scalar
-[generic.T](generated/numpy.generic.T.html#numpy.generic.T) | transpose
-[generic.__array_interface__](generated/numpy.generic.__array_interface__.html#numpy.generic.__array_interface__) | Array protocol: Python side
-[generic.__array_struct__](generated/numpy.generic.__array_struct__.html#numpy.generic.__array_struct__) | Array protocol: struct
-[generic.__array_priority__](generated/numpy.generic.__array_priority__.html#numpy.generic.__array_priority__) | Array priority.
-[generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc.__array_wrap__(obj) return scalar from array
+[generic.flags](https://numpy.org/devdocs/reference/generated/numpy.generic.flags.html#numpy.generic.flags) | integer value of flags
+[generic.shape](https://numpy.org/devdocs/reference/generated/numpy.generic.shape.html#numpy.generic.shape) | tuple of array dimensions
+[generic.strides](https://numpy.org/devdocs/reference/generated/numpy.generic.strides.html#numpy.generic.strides) | tuple of bytes steps in each dimension
+[generic.ndim](https://numpy.org/devdocs/reference/generated/numpy.generic.ndim.html#numpy.generic.ndim) | number of array dimensions
+[generic.data](https://numpy.org/devdocs/reference/generated/numpy.generic.data.html#numpy.generic.data) | pointer to start of data
+[generic.size](https://numpy.org/devdocs/reference/generated/numpy.generic.size.html#numpy.generic.size) | number of elements in the gentype
+[generic.itemsize](https://numpy.org/devdocs/reference/generated/numpy.generic.itemsize.html#numpy.generic.itemsize) | length of one element in bytes
+[generic.base](https://numpy.org/devdocs/reference/generated/numpy.generic.base.html#numpy.generic.base) | base object
+[generic.dtype](https://numpy.org/devdocs/reference/generated/numpy.generic.dtype.html#numpy.generic.dtype) | get array data-descriptor
+[generic.real](https://numpy.org/devdocs/reference/generated/numpy.generic.real.html#numpy.generic.real) | real part of scalar
+[generic.imag](https://numpy.org/devdocs/reference/generated/numpy.generic.imag.html#numpy.generic.imag) | imaginary part of scalar
+[generic.flat](https://numpy.org/devdocs/reference/generated/numpy.generic.flat.html#numpy.generic.flat) | a 1-d view of scalar
+[generic.T](https://numpy.org/devdocs/reference/generated/numpy.generic.T.html#numpy.generic.T) | transpose
+[generic.__array_interface__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_interface__.html#numpy.generic.__array_interface__) | Array protocol: Python side
+[generic.__array_struct__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_struct__.html#numpy.generic.__array_struct__) | Array protocol: struct
+[generic.__array_priority__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_priority__.html#numpy.generic.__array_priority__) | Array priority.
+[generic.__array_wrap__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc.__array_wrap__(obj) return scalar from array
 
 ## Indexing
 
@@ -238,7 +238,7 @@ Array scalars can be indexed like 0-dimensional arrays: if *x* is an
 array scalar,
 
 - ``x[()]`` returns a copy of array scalar
-- ``x[...]`` returns a 0-dimensional [``ndarray``](generated/numpy.ndarray.html#numpy.ndarray)
+- ``x[...]`` returns a 0-dimensional [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)
 - ``x['field-name']`` returns the array scalar in the field *field-name*.
 (*x* can have fields, for example, when it corresponds to a structured data type.)
 
@@ -256,21 +256,21 @@ The exceptions to the above rules are given below:
 
 method | description
 ---|---
-[generic](generated/numpy.generic.html#numpy.generic) | Base class for numpy scalar types.
-[generic.__array__](generated/numpy.generic.__array__.html#numpy.generic.__array__)() | sc.__array__(dtype) return 0-dim array from scalar with specified dtype
-[generic.__array_wrap__](generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc.__array_wrap__(obj) return scalar from array
-[generic.squeeze](generated/numpy.generic.squeeze.html#numpy.generic.squeeze)() | Not implemented (virtual attribute)
-[generic.byteswap](generated/numpy.generic.byteswap.html#numpy.generic.byteswap)() | Not implemented (virtual attribute)
-[generic.__reduce__](generated/numpy.generic.__reduce__.html#numpy.generic.__reduce__)() | helper for pickle
-[generic.__setstate__](generated/numpy.generic.__setstate__.html#numpy.generic.__setstate__)() | 
-[generic.setflags](generated/numpy.generic.setflags.html#numpy.generic.setflags)() | Not implemented (virtual attribute)
+[generic](https://numpy.org/devdocs/reference/generated/numpy.generic.html#numpy.generic) | Base class for numpy scalar types.
+[generic.__array__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array__.html#numpy.generic.__array__)() | sc.__array__(dtype) return 0-dim array from scalar with specified dtype
+[generic.__array_wrap__](https://numpy.org/devdocs/reference/generated/numpy.generic.__array_wrap__.html#numpy.generic.__array_wrap__)() | sc.__array_wrap__(obj) return scalar from array
+[generic.squeeze](https://numpy.org/devdocs/reference/generated/numpy.generic.squeeze.html#numpy.generic.squeeze)() | Not implemented (virtual attribute)
+[generic.byteswap](https://numpy.org/devdocs/reference/generated/numpy.generic.byteswap.html#numpy.generic.byteswap)() | Not implemented (virtual attribute)
+[generic.__reduce__](https://numpy.org/devdocs/reference/generated/numpy.generic.__reduce__.html#numpy.generic.__reduce__)() | helper for pickle
+[generic.__setstate__](https://numpy.org/devdocs/reference/generated/numpy.generic.__setstate__.html#numpy.generic.__setstate__)() | 
+[generic.setflags](https://numpy.org/devdocs/reference/generated/numpy.generic.setflags.html#numpy.generic.setflags)() | Not implemented (virtual attribute)
 
 ## Defining new types
 
 There are two ways to effectively define a new array scalar type
 (apart from composing structured types [dtypes](arrays.dtypes.html#arrays-dtypes) from
 the built-in scalar types): One way is to simply subclass the
-[``ndarray``](generated/numpy.ndarray.html#numpy.ndarray) and overwrite the methods of interest. This will work to
+[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray) and overwrite the methods of interest. This will work to
 a degree, but internally certain behaviors are fixed by the data type of
 the array.  To fully customize the data type of an array you need to
 define a new data-type, and register it with NumPy. Such new types can only

@@ -15,7 +15,7 @@ For example, for functions like ``log`` with branch cuts, the versions in this
 module provide the mathematically valid answers in the complex plane:
 
 ``` python
->>>>>> import math
+>>> import math
 >>> from numpy.lib import scimath
 >>> scimath.log(-math.exp(1)) == (1+1j*math.pi)
 True

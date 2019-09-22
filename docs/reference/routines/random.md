@@ -124,8 +124,8 @@ rg.random()
 The Box-Muller method used to produce NumPy’s normals is no longer available
 in [``Generator``](generator.html#numpy.random.Generator).  It is not possible to reproduce the exact random
 values using Generator for the normal distribution or any other
-distribution that relies on the normal such as the [``RandomState.gamma``](generated/numpy.random.mtrand.RandomState.gamma.html#numpy.random.mtrand.RandomState.gamma) or
-[``RandomState.standard_t``](generated/numpy.random.mtrand.RandomState.standard_t.html#numpy.random.mtrand.RandomState.standard_t). If you require bitwise backward compatible
+distribution that relies on the normal such as the [``RandomState.gamma``](https://numpy.org/devdocs/reference/generated/numpy.random.mtrand.RandomState.gamma.html#numpy.random.mtrand.RandomState.gamma) or
+[``RandomState.standard_t``](https://numpy.org/devdocs/reference/generated/numpy.random.mtrand.RandomState.standard_t.html#numpy.random.mtrand.RandomState.standard_t). If you require bitwise backward compatible
 streams, use [``RandomState``](legacy.html#numpy.random.mtrand.RandomState).
 
 :::
@@ -146,13 +146,13 @@ source of randomness that is used in cryptographic applications (e.g.,
 to be used in numba.
 - The bit generators can be used in downstream projects via
 [Cython](extending.html#randomgen-cython).
-- [``integers``](generated/numpy.random.Generator.integers.html#numpy.random.Generator.integers) is now the canonical way to generate integer
+- [``integers``](https://numpy.org/devdocs/reference/generated/numpy.random.Generator.integers.html#numpy.random.Generator.integers) is now the canonical way to generate integer
 random numbers from a discrete uniform distribution. The ``rand`` and
 ``randn`` methods are only available through the legacy [``RandomState``](legacy.html#numpy.random.mtrand.RandomState).
 The ``endpoint`` keyword can be used to specify open or closed intervals.
 This replaces both ``randint`` and the deprecated ``random_integers``.
-- [``random``](generated/numpy.random.Generator.random.html#numpy.random.Generator.random) is now the canonical way to generate floating-point
-random numbers, which replaces [``RandomState.random_sample``](generated/numpy.random.mtrand.RandomState.random_sample.html#numpy.random.mtrand.RandomState.random_sample),
+- [``random``](https://numpy.org/devdocs/reference/generated/numpy.random.Generator.random.html#numpy.random.Generator.random) is now the canonical way to generate floating-point
+random numbers, which replaces [``RandomState.random_sample``](https://numpy.org/devdocs/reference/generated/numpy.random.mtrand.RandomState.random_sample.html#numpy.random.mtrand.RandomState.random_sample),
 *RandomState.sample*, and *RandomState.ranf*. This is consistent with
 Python’s [``random.random``](https://docs.python.org/dev/library/random.html#random.random).
 - All BitGenerators in numpy use [``SeedSequence``](bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence) to convert seeds into

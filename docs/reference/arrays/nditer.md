@@ -1,16 +1,19 @@
 # 迭代数组
 
-[``nditer``](generated/numpy.nditer.html#numpy.nditer)NumPy 1.6中引入的迭代器对象提供了许多灵活的方法来以系统的方式访问一个或多个数组的所有元素。本页介绍了在Python中使用该对象进行数组计算的一些基本方法，然后总结了如何在Cython中加速内部循环。由于Python暴露
- [``nditer``](generated/numpy.nditer.html#numpy.nditer)是C数组迭代器API的相对简单的映射，因此这些想法​​还将提供有关使用C或C ++的数组迭代的帮助。
+[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)NumPy 1.6中引入的迭代器对象提供了许多灵活的方法来以系统的方式访问一个或多个数组的所有元素。
+本页介绍了在Python中使用该对象进行数组计算的一些基本方法，然后总结了如何在Cython中加速内部循环。
+由于Python暴露
+[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer) 是C数组迭代器API的相对简单的映射，
+因此这些想法​​还将提供有关使用C或C ++的数组迭代的帮助。
 
 ## 单数组迭代
 
-可以使用的最基本任务[``nditer``](generated/numpy.nditer.html#numpy.nditer)是访问数组的每个元素。使用标准Python迭代器接口逐个提供每个元素。
+可以使用的最基本任务[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)是访问数组的每个元素。使用标准Python迭代器接口逐个提供每个元素。
 
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a):
 ...     print(x, end=' ')
 ...
@@ -24,7 +27,7 @@
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a.T):
 ...     print(x, end=' ')
 ...
@@ -32,7 +35,7 @@
 ```
 
 ``` python
->>>>>> for x in np.nditer(a.T.copy(order='C')):
+>>> for x in np.nditer(a.T.copy(order='C')):
 ...     print(x, end=' ')
 ...
 0 3 1 4 2 5
@@ -44,14 +47,14 @@
 ### 控制迭代顺序
 
 有时，无论内存中元素的布局如何，以特定顺序访问数组的元素都很重要。
-该[``nditer``](generated/numpy.nditer.html#numpy.nditer)对象提供了一个 *命令* 参数来控制迭代的这个方面。
+该[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)对象提供了一个 *命令* 参数来控制迭代的这个方面。
 具有上述行为的默认值是order ='K'以保持现有订单。
 对于C顺序，可以使用order ='C'覆盖它，对于Fortran顺序，可以使用order ='F'覆盖它。
 
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a, order='F'):
 ...     print(x, end=' ')
 ...
@@ -64,7 +67,7 @@
 
 ### 修改数组值
 
-默认情况下，[``nditer``](generated/numpy.nditer.html#numpy.nditer)将输入操作数视为只读对象。
+默认情况下，[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)将输入操作数视为只读对象。
 为了能够修改数组元素，必须使用 *'readwrite'* 或 *'writeonly'*  每操作数标志指定读写或只写模式。
 
 然后，nditer将生成可写的缓冲区数组，您可以修改它们。
@@ -79,7 +82,7 @@
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> a
 array([[0, 1, 2],
        [3, 4, 5]])
@@ -99,7 +102,7 @@ array([[ 0,  2,  4],
 更好的方法是将一维最内层循环移动到迭代器外部的代码中。
 这样，NumPy的矢量化操作可以用在被访问元素的较大块上。
 
-该[``nditer``](generated/numpy.nditer.html#numpy.nditer)会尽量提供尽可能大的内循环块。
+该[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)会尽量提供尽可能大的内循环块。
 通过强制'C'和'F'顺序，我们得到不同的外部循环大小。通过指定迭代器标志来启用此模式。
 
 观察到默认情况下保持本机内存顺序，迭代器能够提供单个一维块，而在强制Fortran命令时，它必须提供三个块，每个块包含两个元素。
@@ -107,7 +110,7 @@ array([[ 0,  2,  4],
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a, flags=['external_loop']):
 ...     print(x, end=' ')
 ...
@@ -115,7 +118,7 @@ array([[ 0,  2,  4],
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['external_loop'], order='F'):
+>>> for x in np.nditer(a, flags=['external_loop'], order='F'):
 ...     print(x, end=' ')
 ...
 [0 3] [1 4] [2 5]
@@ -127,7 +130,7 @@ array([[ 0,  2,  4],
 例如，您可能希望以内存顺序访问数组的元素，但使用C顺序，Fortran顺序或多维索引来查找不同数组中的值。
 
 Python迭代器协议没有从迭代器查询这些附加值的自然方法，
-因此我们引入了一个替代语法来迭代[``nditer``](generated/numpy.nditer.html#numpy.nditer)。
+因此我们引入了一个替代语法来迭代[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)。
 此语法显式使用迭代器对象本身，因此在迭代期间可以轻松访问其属性。使用此循环结构，可以通过索引到迭代器来访问当前值，并且正在跟踪的索引是属性 *索引* 或 *multi_index，* 具体取决于请求的内容。
 
 遗憾的是，Python交互式解释器在循环的每次迭代期间打印出while循环内的表达式的值。我们使用这个循环结构修改了示例中的输出，以便更具可读性。
@@ -135,7 +138,7 @@ Python迭代器协议没有从迭代器查询这些附加值的自然方法，
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> it = np.nditer(a, flags=['f_index'])
 >>> while not it.finished:
 ...     print("%d <%d>" % (it[0], it.index), end=' ')
@@ -145,7 +148,7 @@ Python迭代器协议没有从迭代器查询这些附加值的自然方法，
 ```
 
 ``` python
->>>>>> it = np.nditer(a, flags=['multi_index'])
+>>> it = np.nditer(a, flags=['multi_index'])
 >>> while not it.finished:
 ...     print("%d <%s>" % (it[0], it.multi_index), end=' ')
 ...     it.iternext()
@@ -154,7 +157,7 @@ Python迭代器协议没有从迭代器查询这些附加值的自然方法，
 ```
 
 ``` python
->>>>>> it = np.nditer(a, flags=['multi_index'], op_flags=['writeonly'])
+>>> it = np.nditer(a, flags=['multi_index'], op_flags=['writeonly'])
 >>> with it:
 ....    while not it.finished:
 ...         it[0] = it.multi_index[1] - it.multi_index[0]
@@ -165,12 +168,12 @@ array([[ 0,  1,  2],
        [-1,  0,  1]])
 ```
 
-跟踪索引或多索引与使用外部循环不兼容，因为它需要每个元素具有不同的索引值。如果您尝试组合这些标志，该[``nditer``](generated/numpy.nditer.html#numpy.nditer)对象将引发异常
+跟踪索引或多索引与使用外部循环不兼容，因为它需要每个元素具有不同的索引值。如果您尝试组合这些标志，该[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)对象将引发异常
 
 **示例：**
 
 ``` python
->>>>>> a = np.zeros((2,3))
+>>> a = np.zeros((2,3))
 >>> it = np.nditer(a, flags=['c_index', 'external_loop'])
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -188,7 +191,7 @@ ValueError: Iterator flag EXTERNAL_LOOP cannot be used if an index or multi-inde
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3)
+>>> a = np.arange(6).reshape(2,3)
 >>> for x in np.nditer(a, flags=['external_loop'], order='F'):
 ...     print(x, end=' ')
 ...
@@ -196,7 +199,7 @@ ValueError: Iterator flag EXTERNAL_LOOP cannot be used if an index or multi-inde
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['external_loop','buffered'], order='F'):
+>>> for x in np.nditer(a, flags=['external_loop','buffered'], order='F'):
 ...     print(x, end=' ')
 ...
 [0 3 1 4 2 5]
@@ -215,7 +218,7 @@ ValueError: Iterator flag EXTERNAL_LOOP cannot be used if an index or multi-inde
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3) - 3
+>>> a = np.arange(6).reshape(2,3) - 3
 >>> for x in np.nditer(a, op_dtypes=['complex128']):
 ...     print(np.sqrt(x), end=' ')
 ...
@@ -229,7 +232,7 @@ TypeError: Iterator operand required copying or buffering, but neither copying n
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6).reshape(2,3) - 3
+>>> a = np.arange(6).reshape(2,3) - 3
 >>> for x in np.nditer(a, op_flags=['readonly','copy'],
 ...                 op_dtypes=['complex128']):
 ...     print(np.sqrt(x), end=' ')
@@ -238,7 +241,7 @@ TypeError: Iterator operand required copying or buffering, but neither copying n
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['complex128']):
+>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['complex128']):
 ...     print(np.sqrt(x), end=' ')
 ...
 1.73205080757j 1.41421356237j 1j 0j (1+0j) (1.41421356237+0j)
@@ -249,7 +252,7 @@ TypeError: Iterator operand required copying or buffering, but neither copying n
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6.)
+>>> a = np.arange(6.)
 >>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['float32']):
 ...     print(x, end=' ')
 ...
@@ -259,7 +262,7 @@ TypeError: Iterator operand 0 dtype could not be cast from dtype('float64') to d
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['float32'],
+>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['float32'],
 ...                 casting='same_kind'):
 ...     print(x, end=' ')
 ...
@@ -267,7 +270,7 @@ TypeError: Iterator operand 0 dtype could not be cast from dtype('float64') to d
 ```
 
 ``` python
->>>>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['int32'], casting='same_kind'):
+>>> for x in np.nditer(a, flags=['buffered'], op_dtypes=['int32'], casting='same_kind'):
 ...     print(x, end=' ')
 ...
 Traceback (most recent call last):
@@ -280,7 +283,7 @@ TypeError: Iterator operand 0 dtype could not be cast from dtype('float64') to d
 **示例：**
 
 ``` python
->>>>>> a = np.arange(6)
+>>> a = np.arange(6)
 >>> for x in np.nditer(a, flags=['buffered'], op_flags=['readwrite'],
 ...                 op_dtypes=['float64'], casting='same_kind'):
 ...     x[...] = x / 2.0
@@ -293,15 +296,15 @@ TypeError: Iterator requested dtype could not be cast from dtype('float64') to d
 ## 广播数组迭代
 
 NumPy有一套规则来处理具有不同形状的数组，只要函数采用多个组合元素的操作数，就会应用这些规则。
-这称为[广播](ufuncs.html#ufuncs-broadcasting)。
-[``nditer``](generated/numpy.nditer.html#numpy.nditer)当您需要编写此类函数时，该对象可以为您应用这些规则。
+这称为[广播](/reference/ufuncs.html#广播)。
+[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)当您需要编写此类函数时，该对象可以为您应用这些规则。
 
-作为示例，我们一起打印出一维和二维阵列的结果。
+作为示例，我们一起打印出一维和二维数组的结果。
 
 **示例：**
 
 ``` python
->>>>>> a = np.arange(3)
+>>> a = np.arange(3)
 >>> b = np.arange(6).reshape(2,3)
 >>> for x, y in np.nditer([a,b]):
 ...     print("%d:%d" % (x,y), end=' ')
@@ -314,7 +317,7 @@ NumPy有一套规则来处理具有不同形状的数组，只要函数采用多
 **示例：**
 
 ``` python
->>>>>> a = np.arange(2)
+>>> a = np.arange(2)
 >>> b = np.arange(6).reshape(2,3)
 >>> for x, y in np.nditer([a,b]):
 ...     print("%d:%d" % (x,y), end=' ')
@@ -326,14 +329,14 @@ ValueError: operands could not be broadcast together with shapes (2) (2,3)
 
 ### 迭代器分配的输出数组
 
-NumPy函数的一个常见情况是根据输入的广播分配输出，另外还有一个名为'out'的可选参数，其中结果将在提供时放置。该[``nditer``](generated/numpy.nditer.html#numpy.nditer)对象提供了一种方便的习惯用法，使得支持这种机制非常容易。
+NumPy函数的一个常见情况是根据输入的广播分配输出，另外还有一个名为'out'的可选参数，其中结果将在提供时放置。该[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)对象提供了一种方便的习惯用法，使得支持这种机制非常容易。
 
-我们将通过创建一个[``square``](generated/numpy.square.html#numpy.square)对其输入进行平方的函数来展示它是如何工作的。让我们从最小的函数定义开始，不包括'out'参数支持。
+我们将通过创建一个[``square``](https://numpy.org/devdocs/reference/generated/numpy.square.html#numpy.square)对其输入进行平方的函数来展示它是如何工作的。让我们从最小的函数定义开始，不包括'out'参数支持。
 
 **示例：**
 
 ``` python
->>>>>> def square(a):
+>>> def square(a):
 ...     with np.nditer([a, None]) as it:
 ...         for x, y in it:
 ...             y[...] = x*x
@@ -343,7 +346,7 @@ NumPy函数的一个常见情况是根据输入的广播分配输出，另外还
 array([1, 4, 9])
 ```
 
-默认情况下，对于[``nditer``](generated/numpy.nditer.html#numpy.nditer)作为None传入的操作数，使用标志'allocate'和'writeonly'。这意味着我们只能为迭代器提供两个操作数，并处理其余的操作数。
+默认情况下，对于[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)作为None传入的操作数，使用标志'allocate'和'writeonly'。这意味着我们只能为迭代器提供两个操作数，并处理其余的操作数。
 
 当添加'out'参数时，我们必须显式提供这些标志，因为如果有人将数组作为'out'传入，迭代器将默认为'readonly'，并且我们的内部循环将失败。'readonly'是输入数组的默认值，是为了防止无意中触发减少操作的混淆。如果默认为'readwrite'，则任何广播操作也会触发减少，这个主题将在本文档的后面部分介绍。
 
@@ -354,7 +357,7 @@ array([1, 4, 9])
 **示例：**
 
 ``` python
->>>>>> def square(a, out=None):
+>>> def square(a, out=None):
 ...     it = np.nditer([a, out],
 ...             flags = ['external_loop', 'buffered'],
 ...             op_flags = [['readonly'],
@@ -367,12 +370,12 @@ array([1, 4, 9])
 ```
 
 ``` python
->>>>>> square([1,2,3])
+>>> square([1,2,3])
 array([1, 4, 9])
 ```
 
 ``` python
->>>>>> b = np.zeros((3,))
+>>> b = np.zeros((3,))
 >>> square([1,2,3], out=b)
 array([ 1.,  4.,  9.])
 >>> b
@@ -380,7 +383,7 @@ array([ 1.,  4.,  9.])
 ```
 
 ``` python
->>>>>> square(np.arange(6).reshape(2,3), out=b)
+>>> square(np.arange(6).reshape(2,3), out=b)
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   File "<stdin>", line 4, in square
@@ -389,22 +392,26 @@ ValueError: non-broadcastable output operand with shape (3) doesn't match the br
 
 ### 外部产品迭代
 
-任何二进制操作都可以像外部产品一样扩展到数组操作[``outer``](generated/numpy.outer.html#numpy.outer)，并且该[``nditer``](generated/numpy.nditer.html#numpy.nditer)对象提供了一种通过显式映射操作数的轴来实现此目的的方法。也可以使用[``newaxis``](constants.html#numpy.newaxis)
-索引来完成此操作，但我们将向您展示如何直接使用nditer  *op_axes*  
-参数来完成此操作而不使用中间视图。
+任何二进制操作都可以像外部产品一样扩展到数组操作[``outer``](https://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer)，
+并且该[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)对象提供了一种通过显式映射操作数的轴来实现此目的的方法。
+也可以使用[``newaxis``](/reference/constants.html#numpy.newaxis)
+索引来完成此操作，但我们将向您展示如何直接使用nditer *op_axes* 参数来完成此操作而不使用中间视图。
 
-我们将做一个简单的外部产品，将第一个操作数的尺寸放在第二个操作数的尺寸之前。所述 *op_axes*  
-参数需要轴中的一个列表中的每个操作数，并从迭代器的轴来的操作数的轴提供了一个映射。
+我们将做一个简单的外部产品，将第一个操作数的尺寸放在第二个操作数的尺寸之前。
+所述 *op_axes* 参数需要轴中的一个列表中的每个操作数，并从迭代器的轴来的操作数的轴提供了一个映射。
 
-假设第一个操作数是一维的，第二个操作数是二维的。迭代器将具有三个维度，因此 *op_axes*  
-将具有两个3元素列表。第一个列表选取第一个操作数的一个轴，其余迭代器轴为-1，最终结果为[0，-1，-1]。第二个列表选取第二个操作数的两个轴，但不应与第一个操作数中选取的轴重叠。它的列表是[-1,0,1]。输出操作数以标准方式映射到迭代器轴，因此我们可以提供None而不是构造另一个列表。
+假设第一个操作数是一维的，第二个操作数是二维的。迭代器将具有三个维度，
+因此 *op_axes*  将具有两个3元素列表。第一个列表选取第一个操作数的一个轴，
+其余迭代器轴为-1，最终结果为[0，-1，-1]。
+第二个列表选取第二个操作数的两个轴，但不应与第一个操作数中选取的轴重叠。
+它的列表是[-1,0,1]。输出操作数以标准方式映射到迭代器轴，因此我们可以提供None而不是构造另一个列表。
 
 内循环中的操作是简单的乘法。与外部产品有关的一切都由迭代器设置处理。
 
 **示例：**
 
 ``` python
->>>>>> a = np.arange(3)
+>>> a = np.arange(3)
 >>> b = np.arange(8).reshape(2,4)
 >>> it = np.nditer([a, b, None], flags=['external_loop'],
 ...             op_axes=[[0, -1, -1], [-1, 0, 1], None])
@@ -422,19 +429,19 @@ array([[[ 0,  0,  0,  0],
         [ 8, 10, 12, 14]]])
 ```
 
-请注意，一旦迭代器关闭，我们就无法访问[``operands``](generated/numpy.nditer.operands.html#numpy.nditer.operands)
+请注意，一旦迭代器关闭，我们就无法访问[``operands``](https://numpy.org/devdocs/reference/generated/numpy.nditer.operands.html#numpy.nditer.operands)
 ，必须使用在上下文管理器中创建的引用。
 
 ### 减少迭代
 
-每当可写操作数的元素少于完整迭代空间时，该操作数就会减少。该[``nditer``](generated/numpy.nditer.html#numpy.nditer)对象要求将任何减少操作数标记为读写，并且仅当'reduce_ok'作为迭代器标志提供时才允许减少。
+每当可写操作数的元素少于完整迭代空间时，该操作数就会减少。该[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)对象要求将任何减少操作数标记为读写，并且仅当'reduce_ok'作为迭代器标志提供时才允许减少。
 
 举一个简单的例子，考虑获取数组中所有元素的总和。
 
 **示例：**
 
 ``` python
->>>>>> a = np.arange(24).reshape(2,3,4)
+>>> a = np.arange(24).reshape(2,3,4)
 >>> b = np.array(0)
 >>> with np.nditer([a, b], flags=['reduce_ok', 'external_loop'],
 ...                     op_flags=[['readonly'], ['readwrite']]) as it:
@@ -452,7 +459,7 @@ array(276)
 **示例：**
 
 ``` python
->>>>>> a = np.arange(24).reshape(2,3,4)
+>>> a = np.arange(24).reshape(2,3,4)
 >>> it = np.nditer([a, None], flags=['reduce_ok', 'external_loop'],
 ...             op_flags=[['readonly'], ['readwrite', 'allocate']],
 ...             op_axes=[None, [0,1,-1]])
@@ -477,7 +484,7 @@ array([[ 6, 22, 38],
 **示例：**
 
 ``` python
->>>>>> a = np.arange(24).reshape(2,3,4)
+>>> a = np.arange(24).reshape(2,3,4)
 >>> it = np.nditer([a, None], flags=['reduce_ok', 'external_loop',
 ...                                  'buffered', 'delay_bufalloc'],
 ...             op_flags=[['readonly'], ['readwrite', 'allocate']],
@@ -496,14 +503,14 @@ array([[ 6, 22, 38],
 
 ## 将内循环放在Cython中
 
-那些希望从低级别操作中获得真正良好性能的人应该强烈考虑直接使用C中提供的迭代API，但对于那些不熟悉C或C ++的人来说，Cython是一个良好的中间地带，具有合理的性能权衡。对于[``nditer``](generated/numpy.nditer.html#numpy.nditer)对象，这意味着让迭代器处理广播，dtype转换和缓冲，同时给Cython提供内部循环。
+那些希望从低级别操作中获得真正良好性能的人应该强烈考虑直接使用C中提供的迭代API，但对于那些不熟悉C或C ++的人来说，Cython是一个良好的中间地带，具有合理的性能权衡。对于[``nditer``](https://numpy.org/devdocs/reference/generated/numpy.nditer.html#numpy.nditer)对象，这意味着让迭代器处理广播，dtype转换和缓冲，同时给Cython提供内部循环。
 
-对于我们的例子，我们将创建一个平方和函数。首先，让我们在简单的Python中实现这个功能。我们想要支持类似于numpy [``sum``](generated/numpy.sum.html#numpy.sum)函数的'axis'参数，因此我们需要为 *op_axes* 参数构造一个列表。这是这个看起来如何。
+对于我们的例子，我们将创建一个平方和函数。首先，让我们在简单的Python中实现这个功能。我们想要支持类似于numpy [``sum``](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum)函数的'axis'参数，因此我们需要为 *op_axes* 参数构造一个列表。这是这个看起来如何。
 
 **示例：**
 
 ``` python
->>>>>> def axis_to_axeslist(axis, ndim):
+>>> def axis_to_axeslist(axis, ndim):
 ...     if axis is None:
 ...         return [-1] * ndim
 ...     else:
@@ -603,7 +610,7 @@ $ gcc -shared -pthread -fPIC -fwrapv -O2 -Wall -I/usr/include/python2.7 -fno-str
 **示例：**
 
 ``` python
->>>>>> from sum_squares import sum_squares_cy
+>>> from sum_squares import sum_squares_cy
 >>> a = np.arange(6).reshape(2,3)
 >>> sum_squares_cy(a)
 array(55.0)
@@ -614,7 +621,7 @@ array([  5.,  50.])
 在IPython中做一点时间表明，Cython内部循环的减少的开销和内存分配提供了比简单的Python代码和使用NumPy的内置和函数的表达式更好的加速：
 
 ``` python
->>>>>> a = np.random.rand(1000,1000)
+>>> a = np.random.rand(1000,1000)
 
 >>> timeit sum_squares_py(a, axis=-1)
 10 loops, best of 3: 37.1 ms per loop
