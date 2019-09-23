@@ -29,7 +29,7 @@ module.exports = {
         '/f2py/': require('../sidebar/f2py_zh')(),
         '/dev/': require('../sidebar/dev_zh')(),
         '/bedocs/': require('../sidebar/bedocs_zh')(),
-        '/articles/': require('../sidebar/articles_zh')()
+        '/article/': require('../sidebar/article_zh')()
       }
     },
     '/en/': {

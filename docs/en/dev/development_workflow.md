@@ -156,7 +156,7 @@ REL: related to releasing numpy
 ### Asking for your changes to be merged with the main repo
 
 When you feel your work is finished, you can create a pull request (PR). Github
-has a nice help page that outlines the process for [filing pull requests](https://help.github.com/articles/using-pull-requests/#initiating-the-pull-request).
+has a nice help page that outlines the process for [filing pull requests](https://help.github.com/article/using-pull-requests/#initiating-the-pull-request).
 
 If your changes involve modifications to the API or addition/modification of a
 function, you should

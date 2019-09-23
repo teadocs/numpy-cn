@@ -1,6 +1,6 @@
 # C-Types Foreign Function Interface (``numpy.ctypeslib``)
 
-- ``numpy.ctypeslib.``as_array``(*obj*, *shape=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L505-L523)
+- ``numpy.ctypeslib.``as_array(*obj*, *shape=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L505-L523)
 
   Create a numpy array from a ctypes array or POINTER.
 
@@ -9,12 +9,12 @@
   The shape parameter must be given if converting from a ctypes POINTER.
   The shape parameter is ignored if converting from a ctypes array
 
-- ``numpy.ctypeslib.``as_ctypes``(*obj*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L526-L541)[¶](#numpy.ctypeslib.as_ctypes)
+- ``numpy.ctypeslib.``as_ctypes(*obj*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L526-L541)[¶](#numpy.ctypeslib.as_ctypes)
 
   Create and return a ctypes object from a numpy array.  Actually
-  anything that exposes the __array_interface__ is accepted.
+  anything that exposes the \_\_array_interface__ is accepted.
 
-- ``numpy.ctypeslib.``as_ctypes_type``(*dtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L464-L502)
+- ``numpy.ctypeslib.``as_ctypes_type(*dtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L464-L502)
 
   Convert a dtype into a ctypes type.
 
@@ -44,16 +44,19 @@
     - insert padding fields
     - reorder fields to be sorted by offset
     - discard field titles
+
   - ``as_ctypes_type(np.dtype(ctype))`` will:
     - discard the class names of [``ctypes.Structure``](https://docs.python.org/dev/library/ctypes.html#ctypes.Structure)s and[``ctypes.Union``](https://docs.python.org/dev/library/ctypes.html#ctypes.Union)s
     - convert single-element [``ctypes.Union``](https://docs.python.org/dev/library/ctypes.html#ctypes.Union)s into single-element[``ctypes.Structure``](https://docs.python.org/dev/library/ctypes.html#ctypes.Structure)s
     - insert padding fields
+  
+  :::
 
-- ``numpy.ctypeslib.``ctypes_load_library``(**args*, ***kwds*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/utils.py#L98-L101)
+- ``numpy.ctypeslib.``ctypes_load_library(**args*, ***kwds*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/utils.py#L98-L101)
 
   [``ctypes_load_library``](#numpy.ctypeslib.ctypes_load_library) is deprecated, use [``load_library``](#numpy.ctypeslib.load_library) instead!
 
-  It is possible to load a library using \>\>\> lib = ctypes.cdll[<full_path_name>] # doctest: +SKIP
+  It is possible to load a library using \>\>\> lib = ctypes.cdll[\<full_path_name\>] \# doctest: +SKIP
 
   But there are cross-platform considerations, such as library file extensions,
   plus the fact Windows will just load the first library it finds with that name.  
@@ -75,8 +78,9 @@
   ---|---
   OSError | If there is no library with the expected extension, or the library is defective and cannot be loaded.
 
-- ``numpy.ctypeslib.``load_library``(*libname*, *loader_path*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L93-L157)
-  It is possible to load a library using  \>\>\> lib = ctypes.cdll[<full_path_name>] # doctest: +SKIP
+- ``numpy.ctypeslib.``load_library(*libname*, *loader_path*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L93-L157)
+
+  It is possible to load a library using \>\>\> lib = ctypes.cdll[\<full_path_name\>] \# doctest: +SKIP
 
   But there are cross-platform considerations, such as library file extensions,
   plus the fact Windows will just load the first library it finds with that name.  
@@ -98,7 +102,7 @@
   ---|---
   OSError | If there is no library with the expected extension, or the library is defective and cannot be loaded.
 
-- ``numpy.ctypeslib.``ndpointer``(*dtype=None*, *ndim=None*, *shape=None*, *flags=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L231-L346)
+- ``numpy.ctypeslib.``ndpointer(*dtype=None*, *ndim=None*, *shape=None*, *flags=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L231-L346)
 
   Array-checking restype/argtypes.
 
@@ -117,6 +121,8 @@
   ndim : int, optional | Number of array dimensions.
   shape : tuple of ints, optional | Array shape.
   flags : str or tuple of str | Array flags; may be one or more of:
+
+  Possible items for flags:
     - C_CONTIGUOUS / C / CONTIGUOUS
     - F_CONTIGUOUS / F / FORTRAN
     - OWNDATA / O

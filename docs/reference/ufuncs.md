@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 通函数ufunc
+  - name: description
+    content: 通函数（或简称为ufunc） 是一种ndarrays以逐元素方式操作的函数，支持数组广播，类型转换和其他一些标准功能。
+---
+
 # 通函数（``ufunc``）
 
 通函数（或简称为[ufunc](https://numpy.org/devdocs/glossary.html#term-ufunc)）

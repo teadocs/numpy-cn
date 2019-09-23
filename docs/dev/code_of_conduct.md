@@ -1,122 +1,88 @@
-# NumPy Code of Conduct
+---
+meta:
+  - name: keywords
+    content: NumPy 行为准则
+  - name: description
+    content: 该行为准则适用于NumPy项目管理的所有空间，包括所有公共和私人邮件列表，问题跟踪器，Wiki，博客，Twitter和我们社区...
+---
 
-## Introduction
+# NumPy 行为准则
 
-This code of conduct applies to all spaces managed by the NumPy project,
-including all public and private mailing lists, issue trackers, wikis, blogs,
-Twitter, and any other communication channel used by our community.  The NumPy
-project does not organise in-person events, however events related to our
-community should have a code of conduct similar in spirit to this one.
+## 介绍
 
-This code of conduct should be honored by everyone who participates in
-the NumPy community formally or informally, or claims any affiliation with the
-project, in any project-related activities and especially when representing the
-project, in any role.
+该行为准则适用于NumPy项目管理的所有空间，包括所有公共和私人邮件列表，问题跟踪器，Wiki，博客，Twitter和我们社区使用的任何其他通信渠道。 NumPy项目没有组织现场活动，但是与我们社区有关的活动应具有与该活动类似的行为准则。
 
-This code is not exhaustive or complete. It serves to distill our common
-understanding of a collaborative, shared environment and goals. Please try to
-follow this code in spirit as much as in letter, to create a friendly and
-productive environment that enriches the surrounding community.
+正式或非正式地参加NumPy社区的任何人，或在与项目有关的任何活动中，尤其是在代表项目时，以任何角色与该项目有任何从属关系的人，均应遵守本行为准则。
 
-## Specific Guidelines
+该代码不是穷举或完整的。 它有助于提炼我们对协作，共享环境和目标的共识。 请尽量遵循本准则，并遵循本准则，以创建一个友好而富有成效的环境，以丰富周围的社区。
 
-We strive to:
+## 具体准则
 
-1. Be open. We invite anyone to participate in our community. We prefer to use public methods of communication for project-related messages, unless discussing something sensitive. This applies to messages for help or project-related support, too; not only is a public support request much more likely to result in an answer to a question, it also ensures that any inadvertent mistakes in answering are more easily detected and corrected.
-1. Be empathetic, welcoming, friendly, and patient. We work together to resolve conflict, and assume good intentions. We may all experience some frustration from time to time, but we do not allow frustration to turn into a personal attack. A community where people feel uncomfortable or threatened is not a productive one.
-1. Be collaborative. Our work will be used by other people, and in turn we will depend on the work of others. When we make something for the benefit of the project, we are willing to explain to others how it works, so that they can build on the work to make it even better. Any decision we make will affect users and colleagues, and we take those consequences seriously when making decisions.
-1. Be inquisitive. Nobody knows everything! Asking questions early avoids many problems later, so we encourage questions, although we may direct them to the appropriate forum. We will try hard to be responsive and helpful.
-1. Be careful in the words that we choose. We are careful and respectful in our communication and we take responsibility for our own speech. Be kind to others. Do not insult or put down other participants. We will not accept harassment or other exclusionary behaviour, such as:
-    - Violent threats or language directed against another person.
-    - Sexist, racist, or otherwise discriminatory jokes and language.
-    - Posting sexually explicit or violent material.
-    - Posting (or threatening to post) other people’s personally identifying information (“doxing”).
-    - Sharing private content, such as emails sent privately or non-publicly, or unlogged forums such as IRC channel history, without the sender’s consent.
-    - Personal insults, especially those using racist or sexist terms.
-    - Unwelcome sexual attention.
-    - Excessive profanity. Please avoid swearwords; people differ greatly in their sensitivity to swearing.
-    - Repeated harassment of others. In general, if someone asks you to stop, then stop.
-    - Advocating for, or encouraging, any of the above behaviour.
+我们努力做到：
 
-## Diversity Statement
+1. 打开。我们邀请任何人参加我们的社区。除非讨论敏感内容，否则我们倾向于使用公共的通信方式来处理与项目相关的消息。这也适用于寻求帮助或与项目相关的支持的消息；公共支持请求不仅更有可能导致对问题的答案，而且还可以确保更容易地发现和纠正任何无意中的回答错误。
+1. 富有同情心，热情，友好和耐心。我们共同努力解决冲突，并表现出良好的意愿。我们可能会不时遇到一些挫败感，但是我们不允许挫败感变成人身攻击。人们感到不舒服或受到威胁的社区不是一个富有成效的社区。
+1. 保持合作。我们的工作将被他人使用，反过来，我们将依赖他人的工作。当我们为项目造福某些东西时，我们愿意向其他人解释它是如何工作的，以便他们可以在工作的基础上做得更好。我们做出的任何决定都会影响用户和同事，我们在做出决定时会认真对待这些后果。
+1. 保持好奇心。没人知道一切！尽早提出问题可以避免以后出现很多问题，因此尽管我们可以将其引导到适当的论坛，但我们鼓励提出问题。我们将努力做出回应并提供帮助。
+1. 请谨慎选择我们要使用的字词。我们在交流中非常谨慎和尊重，我们对自己的讲话负责。善待他人。不要侮辱或放下其他参与者。我们将不接受骚扰或其他排他性行为，例如：
+    - 针对他人的暴力威胁或语言。
+    - 性别歧视，种族歧视或其他歧视性笑话和语言。
+    - 发布色情或暴力内容。
+    - 发布（或威胁发布）其他人的个人身份信息（“doxing”）。
+    - 未经发件人同意，共享私人内容，例如私下或非公开发送的电子邮件，或未记录的论坛（例如IRC频道历史记录）。
+    - 个人侮辱，尤其是那些使用种族主义或性别歧视条款的侮辱。
+    - 不受欢迎的性关注。
+    - 亵渎过多。请避免骂人；人们对起誓的敏感性差异很大。
+    - 多次骚扰他人。通常，如果有人要您停止，请停止。
+    - 提倡或鼓励上述任何行为。
 
-The NumPy project welcomes and encourages participation by everyone. We are
-committed to being a community that everyone enjoys being part of. Although
-we may not always be able to accommodate each individual’s preferences, we try
-our best to treat everyone kindly.
+## 多样性声明
 
-No matter how you identify yourself or how others perceive you: we welcome you.
-Though no list can hope to be comprehensive, we explicitly honour diversity in:
-age, culture, ethnicity, genotype, gender identity or expression, language,
-national origin, neurotype, phenotype, political beliefs, profession, race,
-religion, sexual orientation, socioeconomic status, subculture and technical
-ability, to the extent that these do not conflict with this code of conduct.
+NumPy项目欢迎并鼓励大家参与。我们致力于成为一个每个人都喜欢成为其中一员的社区。虽然我们可能并不总是能够适应每个人的喜好，但我们尽力善待每个人。
 
-Though we welcome people fluent in all languages, NumPy development is
-conducted in English.
+无论你如何认同自己或他人如何看待你：我们欢迎你。虽然没有一个清单可以指望是全面的，但我们明确尊重以下方面的多样性：年龄、文化、种族、基因型、性别认同或表达、语言、民族血统、神经型、表型、政治信仰、职业、种族、宗教、性取向、社会经济地位、亚文化和技术能力，只要这些不与本行为准则相冲突。
 
-Standards for behaviour in the NumPy community are detailed in the Code of
-Conduct above. Participants in our community should uphold these standards
-in all their interactions and help others to do so as well (see next section).
+虽然我们欢迎能流利使用所有语言的人，但NumPy的开发是用英语进行的。
 
-## Reporting Guidelines
+NumPy社区的行为标准在上面的行为准则中有详细的说明。我们社区的参与者应该在他们所有的互动中坚持这些标准，并帮助其他人也这样做(见下一节)。
 
-We know that it is painfully common for internet communication to start at or
-devolve into obvious and flagrant abuse.  We also recognize that sometimes
-people may have a bad day, or be unaware of some of the guidelines in this Code
-of Conduct. Please keep this in mind when deciding on how to respond to a
-breach of this Code.
+## 报告准则
 
-For clearly intentional breaches, report those to the Code of Conduct committee
-(see below). For possibly unintentional breaches, you may reply to the person
-and point out this code of conduct (either in public or in private, whatever is
-most appropriate). If you would prefer not to do that, please feel free to
-report to the Code of Conduct Committee directly, or ask the Committee for
-advice, in confidence.
+我们知道，互联网通信开始于或沦为明显和公然的滥用是令人痛苦的普遍现象。我们还认识到，有时人们可能会有糟糕的一天，或者不知道本行为准则中的一些准则。在决定如何应对违反本规范的行为时，请牢记这一点。
 
-You can report issues to the NumPy Code of Conduct committee, at
-[numpy-conduct@googlegroups.com](mailto:numpy-conduct%40googlegroups.com). Currently, the committee consists of:
+对于明显的故意违规行为，请向行为守则委员会报告(见下文)。对于可能无意的违规行为，您可以回复此人并指出本行为准则(无论是公开还是私下，只要是最合适的)。如果您不愿意这样做，请随时直接向行为守则委员会报告，或私下向委员会征求意见。
+
+您可以向NumPy行为准则委员会报告问题，网址为 [numpy-conduct@googlegroups.com](mailto:numpy-conduct%40googlegroups.com)。
+目前，该委员会包括：
 
 - Stefan van der Walt
 - Nathaniel J. Smith
 - Ralf Gommers
 
-If your report involves any members of the committee, or if they feel they have
-a conflict of interest in handling it, then they will recuse themselves from
-considering your report. Alternatively, if for any reason you feel
-uncomfortable making a report to the committee, then you can also contact:
+如果你的报告涉及委员会的任何成员，或者如果他们觉得他们在处理它时有利益冲突，那么他们会回避考虑你的报告。
+或者，如果出于任何原因，您对向委员会提交报告感到不舒服，那么您也可以联系：
 
-- Senior [NumFOCUS staff](https://numfocus.org/code-of-conduct#persons-responsible): [conduct@numfocus.org](mailto:conduct%40numfocus.org)
+- [NumFOCUS高管](https://numfocus.org/code-of-conduct#persons-responsible): [conduct@numfocus.org](mailto:conduct%40numfocus.org)
 
-## Incident reporting resolution & Code of Conduct enforcement
+## 事件报告解决和行为准则执行
 
-*This section summarizes the most important points, more details can be found in*  [NumPy Code of Conduct - How to follow up on a report](report_handling_manual.html#coc-reporting-manual).
+*本节总结了最重要的几点，可以在* [NumPy行为准则-如何跟进报告中找到更多详细信息](https://numpy.org/devdocs/dev/conduct/report_handling_manual.html)。
 
-We will investigate and respond to all complaints. The NumPy Code of Conduct
-Committee and the NumPy Steering Committee (if involved) will protect the
-identity of the reporter, and treat the content of complaints as confidential
-(unless the reporter agrees otherwise).
+我们会调查并回应所有投诉。NumPy行为准则委员会和NumPy指导委员会(如果涉及)将保护记者的身份，并将投诉内容视为机密(除非记者另有同意)。
 
-In case of severe and obvious breaches, e.g. personal threat or violent, sexist
-or racist language, we will immediately disconnect the originator from NumPy
-communication channels; please see the manual for details.
+如果出现严重和明显的违规行为，例如个人威胁或暴力、性别歧视或种族主义语言，我们将立即断开发起者与NumPy通信渠道的连接；有关详细信息，请参阅手册。
 
-In cases not involving clear severe and obvious breaches of this code of
-conduct, the process for acting on any received code of conduct violation
-report will be:
+在不涉及明显、严重和明显违反本行为守则的情况下，对收到的任何违反行为守则报告采取行动的过程如下：
 
-1. acknowledge report is received
-1. reasonable discussion/feedback
-1. mediation (if feedback didn’t help, and only if both reporter and reportee agree to this)
-1. enforcement via transparent decision (see [Resolutions](report_handling_manual.html#coc-resolutions)) by the
-Code of Conduct Committee
+1. 收到确认报告
+1. 合理的讨论/反馈
+1. 调解（如果反馈没有帮助，并且只有在记者和被报告者都同意的情况下）
+1. 通过行为守则委员会的透明决定（见[决议](https://numpy.org/devdocs/dev/conduct/report_handling_manual.html#coc-resolutions)）实施
 
-The committee will respond to any report as soon as possible, and at most
-within 72 hours.
+委员会将尽快且最多在72小时内回应任何报告。
 
-## Endnotes
+## 尾注
 
-We are thankful to the groups behind the following documents, from which we
-drew content and inspiration:
+我们感谢以下文档背后的团队，我们从中汲取了内容和启发：
 
-- [The SciPy Code of Conduct](https://docs.scipy.org/doc/scipy/reference/dev/conduct/code_of_conduct.html)
+- [SciPy代码规范](https://docs.scipy.org/doc/scipy/reference/dev/conduct/code_of_conduct.html)

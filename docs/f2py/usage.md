@@ -1,4 +1,12 @@
-# Using F2PY
+---
+meta:
+  - name: keywords
+    content: 使用 NumPy F2PY
+  - name: description
+    content: F2PY既可以用作命令行工具 f2py，也可以用作Python模块 numpy.f2py。 虽然我们尝试将命令行工具安装为numpy设置的一部分...
+---
+
+# 使用 F2PY
 
 F2PY既可以用作命令行工具 ``f2py``，也可以用作Python模块 ``numpy.f2py``。
 虽然我们尝试将命令行工具安装为numpy设置的一部分，但是像Windows这样的某些平台却难以将可执行文件可靠地放在 ``PATH`` 上。
@@ -222,7 +230,7 @@ python -m numpy.f2py
 
 Fortran到Python接口生成器。
 
-- ``numpy.f2py.````run_main``( *comline_list* )[[点击查看源代码]](https://github.com/numpy/numpy/blob/master/numpy/f2py/f2py2e.py#L398-L461)
+- ``numpy.f2py``.run_main( *comline_list* )[[点击查看源代码]](https://github.com/numpy/numpy/blob/master/numpy/f2py/f2py2e.py#L398-L461)
 
     相当于运行：
 
@@ -253,7 +261,7 @@ Fortran到Python接口生成器。
                       '/home/users/pearu/src_cvs/f2py/src/fortranobject.c']}}
     ```
 
-- ``numpy.f2py.````compile``( *source* ,  *modulename='untitled'* ,  *extra_args=''* ,  *verbose=True* ,  *source_fn=None* ,  *extension='.f'* )[[点击查看源代码]](https://github.com/numpy/numpy/blob/master/numpy/f2py/__init__.py#L23-L117)
+- ``numpy.f2py``.compile( *source* ,  *modulename='untitled'* ,  *extra_args=''* ,  *verbose=True* ,  *source_fn=None* ,  *extension='.f'* )[[点击查看源代码]](https://github.com/numpy/numpy/blob/master/numpy/f2py/__init__.py#L23-L117)
 
     使用f2py从Fortran 77源字符串构建扩展模块。
 

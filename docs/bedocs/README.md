@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 的文档相关
+  - name: description
+    content: NumPy 的文档相关内容
+---
+
 # NumPy 的文档相关
 
 - [一份给NumPy/SciPy的文档做贡献的指南](howto_document.html)

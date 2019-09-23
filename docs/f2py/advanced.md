@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 使用 ``numpy.distutils`` 模块
+  - name: description
+    content: numpy.distutils 是NumPy扩展标准Python distutils的一部分，用于处理Fortran源代码和F2PY签名文件...
+---
+
 # 高级F2PY用法
 
 ## 将自编写函数添加到F2PY生成的模块

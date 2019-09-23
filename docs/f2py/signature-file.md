@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 签名文件
+  - name: description
+    content: 签名文件（.pyf文件）的语法规范借鉴了Fortran 90/95语言规范。几乎所有的Fortran 90/95标准结构都以免费和固定格式被理解...
+---
+
 # 签名文件
 
 签名文件（.pyf文件）的语法规范借鉴了Fortran 90/95语言规范。几乎所有的Fortran 90/95标准结构都以免费和固定格式被理解（回想一下Fortran 77是Fortran 90/95的子集）。F2PY 还引入了Fortran 90/95语言规范的一些扩展，有助于将Fortran设计为Python接口，使其更加“Pythonic”。
@@ -12,7 +20,7 @@
 
 签名文件可能包含一个（推荐）或更多 ``python模块`` 块。 ``python模块`` 块描述了F2PY生成的Python / C扩展模块 ``module.c``的内容。
 
-例外：如果 ``<modulename>`` 包含子字符串 ``__user__`` ，则相应的 ``python模块`` 块描述所谓的回调函数的签名（请参阅[回调参数](python-usage.html#call-back-arguments)）。
+例外：如果 ``<modulename>`` 包含子字符串 ``__user__`` ，则相应的 ``python模块`` 块描述所谓的回调函数的签名（请参阅[回调参数](python-usage.html#回调参数)）。
 
 python模块块具有以下结构：
 
@@ -54,8 +62,7 @@ Fortran例程的签名具有以下结构：
 end [ function | subroutine [<routine name>] ]
 ```
 
-From a Fortran routine signature F2PY generates a Python/C extension
-function that has the following signature:
+从Fortran例程签名中，F2PY生成具有以下签名的 Python/C 扩展函数：
 
 ``` python
 def <routine name>(<required arguments>[,<optional arguments>]):
@@ -63,7 +70,7 @@ def <routine name>(<required arguments>[,<optional arguments>]):
      return <return variables>
 ```
 
-The signature of a Fortran block data has the following structure:
+Fortran块数据的签名具有以下结构：
 
 ``` python
 block data [ <block data name> ]
@@ -77,13 +84,13 @@ end [ block data [<block data name>] ]
 
 ### 类型声明
 
-The definition of the ``<argument/variable type declaration>`` part is
+``<argument/variable type declaration>`` 部分的定义是：
 
 ``` python
 <typespec> [ [<attrspec>] :: ] <entitydecl>
 ```
 
-where
+当
 
 ``` python
 <typespec> := byte | character [<charselector>]
@@ -102,22 +109,22 @@ where
                        [ , <entitydecl> ]
 ```
 
-and
+并且
 
 - ``<attrspec>`` is a comma separated list of [attributes](#attributes);
 - ``<arrayspec>`` is a comma separated list of dimension bounds;
 - ``<init_expr>`` is a [C expression](#c-expressions).
 - ``<intlen>`` may be negative integer for ``integer`` type specifications. In such cases ``integer*`` represents unsigned C integers.
 
-If an argument has no ``<argument type declaration>``, its type is determined by applying ``implicit`` rules to its name.
+如果参数没有 ``<argument type Declaration>``，则通过对其名称应用``隐式（implicit）``规则来确定其类型。
 
 ### 声明
 
-- Attribute statements:
+- 属性声明：
 
     The ``<argument/variable attribute statement>`` is ``<argument/variable type declaration>`` without ``<typespec>``. In addition, in an attribute statement one cannot use other attributes, also ``<entitydecl>`` can be only a list of names.
 
-- Use statements:
+- 使用声明：
 
     The definition of the ``<use statement>`` part is
 

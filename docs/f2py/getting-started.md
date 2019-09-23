@@ -1,4 +1,12 @@
-# 包装的三种方法 - 入门
+---
+meta:
+  - name: keywords
+    content: NumPy 打包的三种方法 - 入门
+  - name: description
+    content: 使用F2PY将Fortran或C函数包装到Python包含以下步骤：
+---
+
+# 打包的三种方法 - 入门
 
 使用F2PY将Fortran或C函数包装到Python包含以下步骤：
 
@@ -10,7 +18,7 @@
 
 根据具体情况，这些步骤可以通过一个命令或一步一步执行，一些步骤可以省略或与其他步骤组合。
 
-下面我将描述使用F2PY的三种典型方法。以下[示例Fortran 77代码](fib1.f)将用于说明：
+下面我将描述使用F2PY的三种典型方法。以下示例 ``Fortran 77代码`` 将说明：
 
 ``` python
 C FILE: FIB1.F
@@ -41,7 +49,7 @@ C END FILE FIB1.F
 python -m numpy.f2py -c fib1.f -m fib1
 ```
 
-此命令构建（参见``-c``flag，不带参数执行以查看命令行选项的说明）扩展模块（请参阅标志）到当前目录。现在，在Python中，可以通过以下方式访问Fortran子例程：``python -m numpy.f2py````fib1.so````-m````FIB````fib1.fib``
+此命令构建（参见``-c``flag，不带参数执行以查看命令行选项的说明）扩展模块（请参阅标志）到当前目录。现在，在Python中，可以通过以下方式访问Fortran子例程：``python -m numpy.f2py``fib1.so``-m``FIB``fib1.fib``
 
 ``` python
 >>> import numpy
@@ -197,7 +205,7 @@ Return objects:
 
 但是，如果编辑Fortran代码是可以接受的，则在大多数情况下可以跳过生成中间签名文件。即，可以使用所谓的F2PY指令将F2PY特定属性直接插入到Fortran源代码中。F2PY指令定义了特殊注释行（``Cf2py``例如，从Fortran编译器开始），但是F2PY将它们解释为普通行。
 
-下面显示了[示例Fortran代码](fib3.f)的[修改版本](fib3.f)，保存为``fib3.f``：
+下面显示了示例Fortran代码的修改版本，保存为``fib3.f``：
 
 ``` python
 C FILE: FIB3.F

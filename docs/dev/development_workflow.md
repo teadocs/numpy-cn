@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 开发工作流程
+  - name: description
+    content: 您已经拥有自己的 NumPy 存储库的分叉副本，通过以下方式...
+---
+
 # 开发工作流程
 
 您已经拥有自己的 [NumPy](https://www.numpy.org) 存储库的分叉副本，
@@ -141,7 +149,7 @@ REL: related to releasing numpy
 
 ### 要求您的更改与主仓库合并
 
-当您觉得您的工作已经完成时，您可以创建拉取请求（PR）。Github有一个很好的帮助页面，概述了[提交拉取请求](https://help.github.com/articles/using-pull-requests/#initiating-the-pull-request)的过程。
+当您觉得您的工作已经完成时，您可以创建拉取请求（PR）。Github有一个很好的帮助页面，概述了[提交拉取请求](https://help.github.com/article/using-pull-requests/#initiating-the-pull-request)的过程。
 
 如果您的更改涉及API的修改或功能的添加/修改，您应该：
 
@@ -179,7 +187,7 @@ git branch -D tmp
 
 ::: tip 注意
 
-在master上重新绑定比将上游合并到您的分支更受欢迎。在处理功能分支时使用和不鼓励使用。``git merge````git pull``
+在master上重新绑定比将上游合并到您的分支更受欢迎。在处理功能分支时使用和不鼓励使用。``git merge``git pull``
 
 :::
 

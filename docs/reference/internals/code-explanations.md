@@ -1,4 +1,4 @@
- # NumPy C Code Explanations
+ # NumPy C代码说明
 
 > Fanaticism consists of redoubling your efforts when you have forgotten
 > your aim.

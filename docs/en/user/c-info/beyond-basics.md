@@ -397,7 +397,7 @@ facilitate the interoperation of sub-types with the base ndarray type.
 #### The __array_finalize__ method
 
 
-``ndarray.````__array_finalize__``[¶](#ndarray.__array_finalize__)
+``ndarray.``__array_finalize__``[¶](#ndarray.__array_finalize__)
 
 Several array-creation functions of the ndarray allow
 specification of a particular sub-type to be created. This allows
@@ -432,7 +432,7 @@ nothing. Errors in this method will be caught and handled.
 #### The __array_priority__ attribute
 
 
-``ndarray.````__array_priority__``[¶](#ndarray.__array_priority__)
+``ndarray.``__array_priority__``[¶](#ndarray.__array_priority__)
 
 This attribute allows simple but flexible determination of which sub-
 type should be considered “primary” when an operation involving two or
@@ -450,7 +450,7 @@ the return output.
 #### The __array_wrap__ method
 
 
-``ndarray.````__array_wrap__``[¶](#ndarray.__array_wrap__)
+``ndarray.``__array_wrap__``[¶](#ndarray.__array_wrap__)
 
 Any class or type can define this method which should take an ndarray
 argument and return an instance of the type. It can be seen as the

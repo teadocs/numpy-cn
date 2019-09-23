@@ -687,7 +687,7 @@ an incomplete struct.
 
     [``NpyIter_Deallocate``](#c.NpyIter_Deallocate) must be called for each copy.
 
-``int NpyIter_RemoveAxis(NpyIter* iter, int axis)````
+``int NpyIter_RemoveAxis(NpyIter* iter, int axis)``
 
     Removes an axis from iteration.  This requires that
     [``NPY_ITER_MULTI_INDEX``](#c.NPY_ITER_MULTI_INDEX) was set for iterator creation, and does

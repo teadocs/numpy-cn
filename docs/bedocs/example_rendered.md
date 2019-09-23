@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 渲染示例
+  - name: description
+    content: 这是 example.py 模块的 docstring。模块名称应具有简短的全小写名称。
+---
+
 # 渲染示例
 
 这是 example.py 模块的 docstring。模块名称应具有简短的全小写名称。

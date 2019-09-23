@@ -19,7 +19,7 @@ module.exports = ctx => ({
   extraWatchFiles: [
     '.vuepress/nav/en.js',
     '.vuepress/nav/zh.js',
-    '.vuepress/sidebar/articles_zh.js',
+    '.vuepress/sidebar/article_zh.js',
     '.vuepress/sidebar/bedocs_en.js',
     '.vuepress/sidebar/bedocs_zh.js',
     '.vuepress/sidebar/dev_en.js',

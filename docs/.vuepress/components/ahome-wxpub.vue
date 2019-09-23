@@ -30,9 +30,9 @@ export default {
           url: "https://mp.weixin.qq.com/s/QUUYEimknwt5v3RUxIf8kQ"
         },
         {
-          poster: "https://www.pypandas.cn/static/images/recommend/03.jpeg",
-          title: "程序员是如何通过开源项目月入 10 万金的？",
-          url: "https://mp.weixin.qq.com/s/bgM6RkvEO95JE4SUDa4SrQ"
+          poster: "https://www.pypandas.cn/static/images/recommend/05.jpeg",
+          title: "几百个不同领域的数据集分享给你，别让巧妇难为无米之炊。",
+          url: "https://mp.weixin.qq.com/s/lVKa2j2yXbjpjom4GD5Btw"
         },
         {
           poster: "https://www.pypandas.cn/static/images/recommend/04.jpeg",

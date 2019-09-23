@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 与 Matlab 比较
+  - name: description
+    content: MATLAB®和NumPy / SciPy有很多共同之处。但是有很多不同之处。创建NumPy和SciPy是...
+---
+
 # 与 Matlab 比较
 
 ## 介绍

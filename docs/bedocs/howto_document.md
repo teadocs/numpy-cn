@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 一份给NumPy/SciPy的文档做贡献的指南
+  - name: description
+    content: 将Sphinx与numpy约定结合使用时，应使用numpydoc扩展名，以便正确处理文档字符串。
+---
+
 # 一份给NumPy/SciPy的文档做贡献的指南
 
 将[Sphinx](https://www.sphinx-doc.org/)与numpy约定结合使用时，应使用``numpydoc``扩展名，以便正确处理文档字符串。例如，Sphinx ``Parameters``将从您的docstring中提取该
@@ -13,7 +21,7 @@
 - [GitHub上的numpydoc](https://github.com/numpy/numpydoc/)
 
 请注意，对于numpy中的文档，没有必要
- 在示例的开头进行。但是，某些子模块（例如，默认情况下不会导入），您必须明确包含它们：``import numpy as np````fft``
+ 在示例的开头进行。但是，某些子模块（例如，默认情况下不会导入），您必须明确包含它们：``import numpy as np``fft``
 
 ``` python
 import numpy.fft
@@ -580,7 +588,7 @@ end of previous sentence::
 
 对于段落，缩进很重要并且表示输出中的缩进。新段落标有空行。
 
-使用``*italics*``，``**bold**``并且````monospace````如果需要任何的解释（但不包括变量名和文档测试代码或者多行代码）。变量，模块，函数和类名应该写在单个back-ticks（```numpy```）之间。
+使用``*italics*``，``**bold**``并且``monospace``如果需要任何的解释（但不包括变量名和文档测试代码或者多行代码）。变量，模块，函数和类名应该写在单个back-ticks（```numpy```）之间。
 
 在[此示例文档中](http://docutils.sourceforge.net/docs/user/rst/demo.txt)可以找到更广泛的reST标记[示例](http://docutils.sourceforge.net/docs/user/rst/demo.txt) ; 该[快速参考](http://docutils.sourceforge.net/docs/user/rst/quickref.html)是编辑时非常有用。
 

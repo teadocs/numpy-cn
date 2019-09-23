@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 设置和使用您的 Numpy 开发环境
+  - name: description
+    content: 由于NumPy包含用C和Cython编写的部分，需要在使用前进行编译，因此请确保安装了必要的编译器和Python开发头...
+---
+
 # 设置和使用您的开发环境
 
 ## 推荐的开发设置
@@ -69,7 +77,7 @@ $ set PYTHONPATH=/path/to/numpy
 现在，在NumPy中编辑Python源文件``.py``，只需重新启动解释器，即可立即测试和使用您的更改（在文件中）。
 
 请注意，在repo base dir外部进行可见内部构建的另一种方法是使用。这不是调整，而是将文件安装到您的站点包中以及调整
- 那里，因此它是一个更永久（和神奇）的操作。``python setup.py develop````PYTHONPATH````.egg-link````easy-install.pth``
+ 那里，因此它是一个更永久（和神奇）的操作。``python setup.py develop``PYTHONPATH``.egg-link``easy-install.pth``
 
 ## 其他构建选项
 
@@ -93,7 +101,7 @@ $ export PYTHONPATH=/some/owned/folder/lib/python3.4/site-packages
 $ virtualenv numpy-dev
 ```
 
-现在，只要您想切换到虚拟环境，就可以使用该命令，退出虚拟环境并返回到以前的shell。``source numpy-dev/bin/activate````deactivate``
+现在，只要您想切换到虚拟环境，就可以使用该命令，退出虚拟环境并返回到以前的shell。``source numpy-dev/bin/activate``deactivate``
 
 ## 运行测试
 

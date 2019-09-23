@@ -43,7 +43,7 @@ build directory.
 - ``Extension`` class argument ``sources`` may contain Fortran source
 files. In addition, the list ``sources`` may contain at most one
 F2PY signature file, and then the name of an Extension module must
-match with the ```` used in signature file.  It is
+match with the `` used in signature file.  It is
 assumed that an F2PY signature file contains exactly one ``python
 module`` block.
 
@@ -77,7 +77,7 @@ module`` block.
 
 - When building Python packages containing Fortran sources, then one
 can choose different Fortran compilers by using ``build_ext``
-command option ``--fcompiler=``. Here ```` can be one of the
+command option ``--fcompiler=``. Here `` can be one of the
 following names:
 
   ``` python

@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 打包
+  - name: description
+    content: NumPy提供了增强的distutils功能， 使用 Fortran-compiled 库的子包、自动生成代码和扩展模块的生成和安装变得更加容易。 要使用NumPy distutils的功能，请使用...
+---
+
 # 打包（``numpy.distutils``）
 
 NumPy提供了增强的distutils功能，

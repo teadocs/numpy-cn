@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 其他杂项
+  - name: description
+    content: 在 NumPy 中定义的特殊值可以通过：nan，inf，NaNs 可以用作简陋的占位类型（如果你并不在乎初始的值是什么的话）...
+---
+
 # 其他杂项
 
 ## IEEE 754 浮点特殊值

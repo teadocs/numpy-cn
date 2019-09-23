@@ -1,51 +1,53 @@
-# NumPy Distutils - Users Guide
+---
+meta:
+  - name: keywords
+    content: NumPy Distutils-用户指南
+  - name: description
+    content: 本文档的目的是描述如何向SciPy添加新工具。
+---
 
-## SciPy structure
+# NumPy Distutils-用户指南
 
-Currently SciPy project consists of two packages:
+## SciPy的结构
 
-- NumPy — it provides packages like:
-  - numpy.distutils - extension to Python distutils
-  - numpy.f2py - a tool to bind Fortran/C codes to Python
-  - numpy.core - future replacement of Numeric and numarray packages
-  - numpy.lib - extra utility functions
-  - numpy.testing - numpy-style tools for unit testing
-  - etc
-- SciPy — a collection of scientific tools for Python.
+当前，SciPy项目包含两个软件包：
 
-The aim of this document is to describe how to add new tools to SciPy.
+- NumPy-它提供以下软件包：
+    - numpy.distutils-Python distutils的扩展
+    - numpy.f2py-将Fortran / C代码绑定到Python的工具
+    - numpy.core-将来替换数值和numarray软件包
+    - numpy.lib-额外的实用程序功能
+    - numpy.testing-用于单元测试的numpy风格的工具
+    - 等等
+- SciPy-Python的科学工具的集合。
 
-## Requirements for SciPy packages
+本文档的目的是描述如何向SciPy添加新工具。
 
-SciPy consists of Python packages, called SciPy packages, that are
-available to Python users via the ``scipy`` namespace. Each SciPy package
-may contain other SciPy packages. And so on. Therefore, the SciPy
-directory tree is a tree of packages with arbitrary depth and width.
-Any SciPy package may depend on NumPy packages but the dependence on other
-SciPy packages should be kept minimal or zero.
+## SciPy软件包的要求
 
-A SciPy package contains, in addition to its sources, the following
-files and directories:
+SciPy由称为SciPy软件包的Python软件包组成，可通过``scipy``名称空间供Python用户使用。
+每个SciPy程序包可能包含其他SciPy程序包。等等。
+因此，SciPy目录树是具有任意深度和宽度的包的树。
+任何SciPy软件包都可能依赖于NumPy软件包，
+但对其他SciPy软件包的依赖关系应保持最小或为零。
 
-- ``setup.py`` — building script
-- ``__init__.py`` — package initializer
-- ``tests/`` — directory of unittests
+一个SciPy软件包，除了其来源外，还包含以下文件和目录：
 
-Their contents are described below.
+- ``setup.py`` —— 构建脚本
+- ``__init__.py`` —— 包初始化
+- ``tests/`` —— 单元测试目录
 
-## The ``setup.py`` file
+其内容如下。
 
-In order to add a Python package to SciPy, its build script (``setup.py``)
-must meet certain requirements. The most important requirement is that the
-package define a ``configuration(parent_package='',top_path=None)`` function
-which returns a dictionary suitable for passing to
-``numpy.distutils.core.setup(..)``. To simplify the construction of
-this dictionary, ``numpy.distutils.misc_util`` provides the
-``Configuration`` class, described below.
+## ``setup.py`` 文件
 
-### SciPy pure Python package example
+为了将Python包添加到SciPy，其构建脚本（``setup.py``）必须满足某些要求。最重要的要求是，程序包定义一个``configuration(parent_package='',top_path=None)``函数，该函数返回适合传递给的字典
+ ``numpy.distutils.core.setup(..)``。为了简化此字典的构造，请``numpy.distutils.misc_util``提供``Configuration``下面描述的
+ 类。
 
-Below is an example of a minimal ``setup.py`` file for a pure SciPy package:
+### SciPy纯Python包示例
+
+以下是``setup.py``纯SciPy软件包的最小文件示例：
 
 ``` python
 #!/usr/bin/env python
@@ -60,66 +62,40 @@ if __name__ == "__main__":
     setup(configuration=configuration)
 ```
 
-The arguments of the ``configuration`` function specify the name of
-parent SciPy package (``parent_package``) and the directory location
-of the main ``setup.py`` script (``top_path``).  These arguments,
-along with the name of the current package, should be passed to the
-``Configuration`` constructor.
+该``configuration``函数的参数指定父SciPy包的名称（``parent_package``）和主``setup.py``脚本的目录位置（``top_path``）。这些参数以及当前包的名称应传递给
+ ``Configuration``构造函数。
 
-The ``Configuration`` constructor has a fourth optional argument,
-``package_path``, that can be used when package files are located in
-a different location than the directory of the ``setup.py`` file.
+该``Configuration``构造函数有第四个可选参数
+ ``package_path``，可以在包文件位于不同的位置比的目录中使用的``setup.py``文件。
 
-Remaining ``Configuration`` arguments are all keyword arguments that will
-be used to initialize attributes of ``Configuration``
-instance. Usually, these keywords are the same as the ones that
-``setup(..)`` function would expect, for example, ``packages``,
-``ext_modules``, ``data_files``, ``include_dirs``, ``libraries``,
-``headers``, ``scripts``, ``package_dir``, etc.  However, the direct
-specification of these keywords is not recommended as the content of
-these keyword arguments will not be processed or checked for the
-consistency of SciPy building system.
+其余``Configuration``参数是将用于初始化``Configuration``
+实例属性的所有关键字参数。通常情况下，这些关键字是一样的那些
+ ``setup(..)``功能所期望的，例如``packages``，
+ ``ext_modules``，``data_files``，``include_dirs``，``libraries``，
+ ``headers``，``scripts``，``package_dir``，等。然而，不建议使用这些关键字的直接指定为这些关键字参数的内容将不会被处理或检查SciPy构建系统的一致性。
 
-Finally, ``Configuration`` has ``.todict()`` method that returns all
-the configuration data as a dictionary suitable for passing on to the
-``setup(..)`` function.
+最后，``Configuration``具有``.todict()``方法，该方法将所有配置数据作为适合于传递给``setup(..)``函数的字典返回
+ 。
 
-### ``Configuration`` instance attributes
+### ``Configuration``实例属性
 
-In addition to attributes that can be specified via keyword arguments
-to ``Configuration`` constructor, ``Configuration`` instance (let us
-denote as ``config``) has the following attributes that can be useful
-in writing setup scripts:
+除了可以通过``Configuration``构造函数的关键字参数指定的属性外，``Configuration``实例（让我们表示为``config``）具有以下属性，这些属性在编写安装脚本时可能会有用：
 
-- ``config.name`` - full name of the current package. The names of parent
-packages can be extracted as ``config.name.split('.')``.
-- ``config.local_path`` - path to the location of current ``setup.py`` file.
-- ``config.top_path`` - path to the location of main ``setup.py`` file.
+- ``config.name``-当前软件包的全名。父包的名称可以提取为``config.name.split('.')``。
+- ``config.local_path``-当前``setup.py``文件位置的路径。
+- ``config.top_path``-主``setup.py``文件位置的路径。
 
-### ``Configuration`` instance methods
+### ``Configuration``实例方法
 
-- ``config.todict()`` — returns configuration dictionary suitable for
-passing to ``numpy.distutils.core.setup(..)`` function.
-- ``config.paths(*paths) --- applies ``glob.glob(..)`` to items of
-``paths`` if necessary. Fixes ``paths`` item that is relative to
-``config.local_path``.
-- ``config.get_subpackage(subpackage_name,subpackage_path=None)`` —
-returns a list of subpackage configurations. Subpackage is looked in the
-current directory under the name ``subpackage_name`` but the path
-can be specified also via optional ``subpackage_path`` argument.
-If ``subpackage_name`` is specified as ``None`` then the subpackage
-name will be taken the basename of ``subpackage_path``.
-Any ``*`` used for subpackage names are expanded as wildcards.
-- ``config.add_subpackage(subpackage_name,subpackage_path=None)`` —
-add SciPy subpackage configuration to the current one. The meaning
-and usage of arguments is explained above, see
-``config.get_subpackage()`` method.
-- ``config.add_data_files(*files)`` — prepend ``files`` to ``data_files``
-list. If ``files`` item is a tuple then its first element defines
-the suffix of where data files are copied relative to package installation
-directory and the second element specifies the path to data
-files. By default data files are copied under package installation
-directory. For example,
+- ``config.todict()``—返回适合传递给``numpy.distutils.core.setup(..)``函数的配置字典。
+- ``config.paths(*paths) --- applies ``glob.glob(..)``到``paths``必要的项目
+ 。修复``paths``相对于的项目
+ ``config.local_path``。
+- ``config.get_subpackage(subpackage_name,subpackage_path=None)``—返回子包配置的列表。子包在名称下的当前目录中查找，``subpackage_name``但是也可以通过可选``subpackage_path``参数指定路径。如果``subpackage_name``指定为，``None``则子包名称将作为的基本名称``subpackage_path``。``*``用于子包名称的任何名称都将扩展为通配符。
+- ``config.add_subpackage(subpackage_name,subpackage_path=None)``—将SciPy子程序包配置添加到当前配置中。参数的含义和用法已在上面说明，请参见
+ ``config.get_subpackage()``方法。
+- ``config.add_data_files(*files)``-在前面加上``files``要``data_files``
+列出。如果``files``item是一个元组，则其第一个元素定义相对于软件包安装目录复制数据文件的后缀，第二个元素指定数据文件的路径。默认情况下，数据文件复制在软件包安装目录下。例如，
 
 ``` python
 config.add_data_files('foo.dat',
@@ -129,9 +105,9 @@ config.add_data_files('foo.dat',
                       )
 ```
 
-will install data files to the following locations
+将数据文件安装到以下位置
 
-```
+``` python
 <installation path of config.name package>/
   foo.dat
   fun/
@@ -143,18 +119,10 @@ will install data files to the following locations
   can.dat
 ```
 
-Path to data files can be a function taking no arguments and
-returning path(s) to data files – this is a useful when data files
-are generated while building the package. (XXX: explain the step
-when this function are called exactly)
-- ``config.add_data_dir(data_path)`` — add directory ``data_path``
-recursively to ``data_files``. The whole directory tree starting at
-``data_path`` will be copied under package installation directory.
-If ``data_path`` is a tuple then its first element defines
-the suffix of where data files are copied relative to package installation
-directory and the second element specifies the path to data directory.
-By default, data directory are copied under package installation
-directory under the basename of ``data_path``. For example,
+数据文件的路径可以是不带参数且返回数据文件路径的函数-当在构建程序包时生成数据文件时，这很有用。（XXX：说明确切调用此函数的步骤）
+- ``config.add_data_dir(data_path)``—将目录``data_path``
+递归添加到中``data_files``。始于的整个目录树
+ ``data_path``将复制到软件包安装目录下。如果``data_path``是一个元组，则其第一个元素定义相对于软件包安装目录复制数据文件的后缀，第二个元素指定数据目录的路径。默认情况下，数据目录被复制到基本名称为的软件包安装目录下``data_path``。例如，
 
 ``` python
 config.add_data_dir('fun')  # fun/ contains foo.dat bar/car.dat
@@ -162,7 +130,7 @@ config.add_data_dir(('sun','fun'))
 config.add_data_dir(('gun','/full/path/to/fun'))
 ```
 
-will install data files to the following locations
+将数据文件安装到以下位置
 
 ``` python
 <installation path of config.name package>/
@@ -179,50 +147,32 @@ will install data files to the following locations
      bar/
         car.dat
 ```
-- ``config.add_include_dirs(*paths)`` — prepend ``paths`` to
-``include_dirs`` list. This list will be visible to all extension
-modules of the current package.
-- ``config.add_headers(*files)`` — prepend ``files`` to ``headers``
-list. By default, headers will be installed under
-``/include/pythonX.X//``
-directory. If ``files`` item is a tuple then it’s first argument
-specifies the installation suffix relative to
-``/include/pythonX.X/`` path.  This is a Python distutils
-method; its use is discouraged for NumPy and SciPy in favour of
-``config.add_data_files(*files)``.
-- ``config.add_scripts(*files)`` — prepend ``files`` to ``scripts``
-list. Scripts will be installed under ``/bin/`` directory.
-- ``config.add_extension(name,sources,**kw)`` — create and add an
-``Extension`` instance to ``ext_modules`` list. The first argument
-``name`` defines the name of the extension module that will be
-installed under ``config.name`` package. The second argument is
-a list of sources. ``add_extension`` method takes also keyword
-arguments that are passed on to the ``Extension`` constructor.
-The list of allowed keywords is the following: ``include_dirs``,
-``define_macros``, ``undef_macros``, ``library_dirs``, ``libraries``,
-``runtime_library_dirs``, ``extra_objects``, ``extra_compile_args``,
-``extra_link_args``, ``export_symbols``, ``swig_opts``, ``depends``,
-``language``, ``f2py_options``, ``module_dirs``, ``extra_info``,
-``extra_f77_compile_args``, ``extra_f90_compile_args``.
+- ``config.add_include_dirs(*paths)``-在前面加上``paths``要
+ ``include_dirs``列出。该列表将对当前软件包的所有扩展模块可见。
+- ``config.add_headers(*files)``-在前面加上``files``要``headers``
+列出。默认情况下，头文件将安装在``/include/pythonX.X//``
+目录下
+ 。如果``files``item是一个元组，则它的第一个参数指定相对于``/include/pythonX.X/``path 的安装后缀
+ 。这是Python的distutils方法；不建议NumPy和SciPy使用它，而推荐使用
+ ``config.add_data_files(*files)``。
+- ``config.add_scripts(*files)``-在前面加上``files``要``scripts``
+列出。脚本将安装在``/bin/``目录下。
+- ``config.add_extension(name,sources,**kw)``—创建``Extension``实例并将其添加
+ 到``ext_modules``列表。第一个参数
+ ``name``定义将在``config.name``软件包下安装的扩展模块的名称。第二个参数是来源列表。``add_extension``方法还接受传递给``Extension``构造函数的关键字参数。允许关键字的列表如下所示：``include_dirs``，
+ ``define_macros``，``undef_macros``，``library_dirs``，``libraries``，
+ ``runtime_library_dirs``，``extra_objects``，``extra_compile_args``，
+ ``extra_link_args``，``export_symbols``，``swig_opts``，``depends``，
+ ``language``，``f2py_options``，``module_dirs``，``extra_info``，
+ ``extra_f77_compile_args``，``extra_f90_compile_args``。
 
-Note that ``config.paths`` method is applied to all lists that
-may contain paths. ``extra_info`` is a dictionary or a list
-of dictionaries that content will be appended to keyword arguments.
-The list ``depends`` contains paths to files or directories
-that the sources of the extension module depend on. If any path
-in the ``depends`` list is newer than the extension module, then
-the module will be rebuilt.
+请注意，该``config.paths``方法将应用于可能包含路径的所有列表。``extra_info``是将内容添加到关键字参数的字典或词典列表。该列表``depends``包含扩展模块源所依赖的文件或目录的路径。如果``depends``列表中的任何路径比扩展模块新，则将重建该模块。
 
-The list of sources may contain functions (‘source generators’)
-with a pattern ``def (ext, build_dir): return
-``. If ``funcname`` returns ``None``, no sources
-are generated. And if the ``Extension`` instance has no sources
-after processing all source generators, no extension module will
-be built. This is the recommended way to conditionally define
-extension modules. Source generator functions are called by the
-``build_src`` command of ``numpy.distutils``.
+源列表可能包含带有模式的函数（“源生成器”）。如果返回，则不生成任何源。并且，如果实例在处理完所有源生成器之后没有源，则不会构建扩展模块。这是建议的有条件定义扩展模块的方法。源生成器函数由的子命令调用
+ 。``def (ext, build_dir): return
+``funcname``None``Extension``build_src``numpy.distutils``
 
-For example, here is a typical source generator function:
+例如，这是典型的源生成器函数：
 
 ``` python
 def generate_source(ext,build_dir):
@@ -234,151 +184,74 @@ def generate_source(ext,build_dir):
     return target
 ```
 
-The first argument contains the Extension instance that can be
-useful to access its attributes like ``depends``, ``sources``,
-etc. lists and modify them during the building process.
-The second argument gives a path to a build directory that must
-be used when creating files to a disk.
-- ``config.add_library(name, sources, **build_info)`` — add a
-library to ``libraries`` list. Allowed keywords arguments are
-``depends``, ``macros``, ``include_dirs``, ``extra_compiler_args``,
-``f2py_options``, ``extra_f77_compile_args``,
-``extra_f90_compile_args``.  See ``.add_extension()`` method for
-more information on arguments.
-- ``config.have_f77c()`` — return True if Fortran 77 compiler is
-available (read: a simple Fortran 77 code compiled successfully).
-- ``config.have_f90c()`` — return True if Fortran 90 compiler is
-available (read: a simple Fortran 90 code compiled successfully).
-- ``config.get_version()`` — return version string of the current package,
-``None`` if version information could not be detected. This methods
-scans files ``__version__.py``, ``_version.py``,
-``version.py``, ``__svn_version__.py`` for string variables
-``version``, ``__version__``, ``_version``.
-- ``config.make_svn_version_py()`` — appends a data function to
-``data_files`` list that will generate ``__svn_version__.py`` file
-to the current package directory. The file will be removed from
-the source directory when Python exits.
-- ``config.get_build_temp_dir()`` — return a path to a temporary
-directory. This is the place where one should build temporary
-files.
-- ``config.get_distribution()`` — return distutils ``Distribution``
-instance.
-- ``config.get_config_cmd()`` — returns ``numpy.distutils`` config
-command instance.
-- ``config.get_info(*names)`` —
+第一个参数包含扩展实例可能是有用的访问它的属性一样``depends``，``sources``在建设过程中，等名单，并对其进行修改。第二个参数提供了到磁盘创建文件时必须使用的构建目录的路径。
+- ``config.add_library(name, sources, **build_info)``—将库添加到``libraries``列表。允许关键字参数是
+ ``depends``，``macros``，``include_dirs``，``extra_compiler_args``，
+ ``f2py_options``，``extra_f77_compile_args``，
+ ``extra_f90_compile_args``。有关``.add_extension()``参数的更多信息，请参见method。
+- ``config.have_f77c()`` —如果有Fortran 77编译器可用，则返回True（阅读：成功编译的简单Fortran 77代码）。
+- ``config.have_f90c()`` —如果有Fortran 90编译器可用，则返回True（阅读：成功编译的简单Fortran 90代码）。
+- ``config.get_version()``— ``None``如果无法检测到版本信息，则返回当前软件包的版本字符串
+ 。这种方法扫描文件``__version__.py``，``_version.py``，
+ ``version.py``，``__svn_version__.py``对于字符串变量
+ ``version``，``__version__``，``_version``。
+- ``config.make_svn_version_py()``—将数据功能追加到
+ ``data_files``列表，该列表将生成``__svn_version__.py``文件到当前程序包目录。Python退出时，该文件将从源目录中删除。
+- ``config.get_build_temp_dir()``—返回临时目录的路径。在这里应该建立临时文件。
+- ``config.get_distribution()``—返回distutils ``Distribution``
+实例。
+- ``config.get_config_cmd()``—返回``numpy.distutils``配置命令实例。
+- ``config.get_info(*names)`` -
 
-### Conversion of ``.src`` files using Templates
+### 转换``.src``使用模板文件
 
-NumPy distutils supports automatic conversion of source files named
-\<somefile>.src. This facility can be used to maintain very similar
-code blocks requiring only simple changes between blocks. During the
-build phase of setup, if a template file named \<somefile>.src is
-encountered, a new file named \<somefile> is constructed from the
-template and placed in the build directory to be used instead. Two
-forms of template conversion are supported. The first form occurs for
-files named \<file>.ext.src where ext is a recognized Fortran
-extension (f, f90, f95, f77, for, ftn, pyf). The second form is used
-for all other cases.
+NumPy distutils支持自动转换名为 ``<somefile>.src`` 的源文件。此功能可用于维护非常相似的代码块，仅需在块之间进行简单更改即可。在安装程序的构建阶段，如果遇到名为 ``<somefile>.src`` 的模板文件，则将从模板中构建一个名为 ``<somefile>`` 的新文件，并将其放置在构建目录中以供使用。支持两种形式的模板转换。第一种形式出现在名为 ``<file>.ext.src`` 的文件中，其中ext是公认的Fortran扩展名（f，f90，f95，f77，用于ftn，pyf）。第二种形式用于所有其他情况。
 
-### Fortran files
+### Fortran文件
 
-This template converter will replicate all **function** and
-**subroutine** blocks in the file with names that contain ‘<…>’
-according to the rules in ‘<…>’. The number of comma-separated words
-in ‘<…>’ determines the number of times the block is repeated. What
-these words are indicates what that repeat rule, ‘<…>’, should be
-replaced with in each block. All of the repeat rules in a block must
-contain the same number of comma-separated words indicating the number
-of times that block should be repeated. If the word in the repeat rule
-needs a comma, leftarrow, or rightarrow, then prepend it with a
-backslash ‘ ‘. If a word in the repeat rule matches ‘ \<index>’ then
-it will be replaced with the \<index>-th word in the same repeat
-specification. There are two forms for the repeat rule: named and
-short.
+该模板转换器将复制所有**功能**和
+ **子例程**根据“ <…>”中的规则，使用名称包含“ <…>”的文件中的块。“ <…>”中逗号分隔的单词数决定了该块重复的次数。这些词表示在每个块中应将重复规则“ <…>”替换为什么。块中的所有重复规则必须包含相同数量的逗号分隔的单词，以指示该块应重复的次数。如果重复规则中的单词需要逗号，左箭头或右箭头，则在其前面加上反斜杠“”。如果重复规则中的单词与 “ \  ``<index>`` ” 匹配，则它将被同一重复规范中的第 ``<index>`` 个单词替换。重复规则有两种形式：named和short。
 
-#### Named repeat rule
+#### 命名重复规则
 
-A named repeat rule is useful when the same set of repeats must be
-used several times in a block. It is specified using <rule1=item1,
-item2, item3,…, itemN>, where N is the number of times the block
-should be repeated. On each repeat of the block, the entire
-expression, ‘<…>’ will be replaced first with item1, and then with
-item2, and so forth until N repeats are accomplished. Once a named
-repeat specification has been introduced, the same repeat rule may be
-used **in the current block** by referring only to the name
-(i.e. \<rule1>.
+当同一重复块必须在一个块中多次使用时，命名重复规则很有用。它使用<rule1 = item1，item2，item3，…，itemN>指定，其中N是应重复执行块的次数。在该块的每个重复中，整个表达式“ <…>”将首先被item1替换，然后被item2替换，依此类推，直到完成N次重复。一旦引入了命名的重复规范，就可以通过仅引用名称（即 ``<rule1>`` ）**在当前块中**使用相同的重复规则。
 
-#### Short repeat rule
+#### 短重复规则
 
-A short repeat rule looks like <item1, item2, item3, …, itemN>. The
-rule specifies that the entire expression, ‘<…>’ should be replaced
-first with item1, and then with item2, and so forth until N repeats
-are accomplished.
+一个简短的重复规则看起来像<item1，item2，item3，…，itemN>。该规则指定整个表达式“ <…>”应首先用item1替换，然后再用item2替换，依此类推，直到完成N次重复为止。
 
-#### Pre-defined names
+#### 预先定义的名称
 
-The following predefined named repeat rules are available:
+可以使用以下预定义的命名重复规则：
 
-- <prefix=s,d,c,z>
-- <_c=s,d,c,z>
-- <_t=real, double precision, complex, double complex>
-- <ftype=real, double precision, complex, double complex>
-- <ctype=float, double, complex_float, complex_double>
-- <ftypereal=float, double precision, \0, \1>
-- <ctypereal=float, double, \0, \1>
+- \<prefix=s,d,c,z>
+- \<_c=s,d,c,z>
+- \<_t=real, double precision, complex, double complex>
+- \<ftype=real, double precision, complex, double complex>
+- \<ctype=float, double, complex_float, complex_double>
+- \<ftypereal=float, double precision, \0, \1>
+- \<ctypereal=float, double, \0, \1>
 
-### Other files
+### 其他文件
 
-Non-Fortran files use a separate syntax for defining template blocks
-that should be repeated using a variable expansion similar to the
-named repeat rules of the Fortran-specific repeats.
+非Fortran文件使用单独的语法来定义模板块，应使用类似于Fortran特定重复的命名重复规则的变量扩展来重复这些模板块。
 
-NumPy Distutils preprocesses C source files (extension: ``.c.src``) written
-in a custom templating language to generate C code. The ``@`` symbol is
-used to wrap macro-style variables to empower a string substitution mechanism
-that might describe (for instance) a set of data types.
+NumPy Distutils预处理``.c.src``以自定义模板语言编写的C源文件（扩展名：）以生成C代码。该``@``符号用于包装宏样式变量，以启用可能描述（例如）一组数据类型的字符串替换机制。
 
-The template language blocks are delimited by ``/**begin repeat``
-and ``/**end repeat**/`` lines, which may also be nested using
-consecutively numbered delimiting lines such as ``/**begin repeat1``
-and ``/**end repeat1**/``:
+模板语言块由 **/\*\*begin repeat** 和 **/\*\*end repeat\*\*/** 行分隔，也可以使用  **/\*\*begin repeat1** 和  **/\*\*end repeat1\*\*/** 等连续编号的定界行进行嵌套：
 
-1. “/\*\*begin repeat ”on a line by itself marks the beginning of
-a segment that should be repeated.
+1. 在一行上的 “/\*\*begin repeat “ 本身标志着应重复的片段的开始。
+2. 命名变量扩展使用 ``#name=item1, item2, item3, ..., itemN#`` 定义，并放置在连续的行上。在每个重复块中用相应的字替换这些变量。同一重复块中的所有命名变量必须定义相同的字数。
+3. 在为命名变量指定重复规则时，``item*N`` 是重复N次的简称。此外，圆括号与 \*N 结合可用于对应重复的几个项目进行分组。因此，``＃name =（item1，item2）* 4＃`` 等效于 ``#name=item1, item2, item1, item2, item1, item2, item1, item2#``
+4. 一行上的 “\*/” 本身标志着变量扩展命名的结束。下一行是将使用命名规则重复的第一行。
+5. 在要重复的块内，应扩展的变量指定为 ``@name@``。
+6. 一行上的 “/\*\*end repeat\*\*/” 本身将前一行标记为要重复的块的最后一行。
+7. NumPy C源代码中的循环可能具有 ``@TYPE@`` 目标为字符串替换的变量，该变量已预处理为多个带有几个字符串（如INT，LONG，UINT，ULONG）的其他相同循环。因此， ``@TYPE@``样式语法通过模仿具有通用类型支持的语言来减少代码重复和维护负担。
 
-2. Named variable expansions are defined using ``#name=item1, item2, item3,
-..., itemN#`` and placed on successive lines. These variables are
-replaced in each repeat block with corresponding word. All named
-variables in the same repeat block must define the same number of
-words.
+在以下模板源示例中，上述规则可能更清晰：
 
-3. In specifying the repeat rule for a named variable, ``item*N`` is short-
-hand for ``item, item, ..., item`` repeated N times. In addition,
-parenthesis in combination with *N can be used for grouping several
-items that should be repeated. Thus, #name=(item1, item2)*4# is
-equivalent to #name=item1, item2, item1, item2, item1, item2, item1,
-item2#
-
-4. “*/ “on a line by itself marks the end of the variable expansion
-naming. The next line is the first line that will be repeated using
-the named rules.
-
-5. Inside the block to be repeated, the variables that should be expanded
-are specified as ``@name@``
-
-6. “/\*\*end repeat\*\*/ ”on a line by itself marks the previous line
-as the last line of the block to be repeated.
-
-7. A loop in the NumPy C source code may have a ``@TYPE@`` variable, targeted
-for string substitution, which is preprocessed to a number of otherwise
-identical loops with several strings such as INT, LONG, UINT, ULONG. The
-``@TYPE@`` style syntax thus reduces code duplication and maintenance burden by
-mimicking languages that have generic type support.
-
-The above rules may be clearer in the following template source example:
-
-``` C
-/* TIMEDELTA to non-float types */
+``` NumPyC
+ /* TIMEDELTA to non-float types */
 
  /**begin repeat
   *
@@ -411,38 +284,26 @@ The above rules may be clearer in the following template source example:
  /**end repeat**/
 ```
 
-The preprocessing of generically typed C source files (whether in NumPy
-proper or in any third party package using NumPy Distutils) is performed
-by [conv_template.py](https://github.com/numpy/numpy/blob/master/numpy/distutils/conv_template.py).
-The type specific C files generated (extension: .c)
-by these modules during the build process are ready to be compiled. This
-form of generic typing is also supported for C header files (preprocessed
-to produce .h files).
+通用类型的C源文件的预处理（无论是使用NumPy还是使用NumPy Distutils的任何第三方软件包）由[conv_template.py进行](https://github.com/numpy/numpy/blob/master/numpy/distutils/conv_template.py)。这些模块在构建过程中生成的特定于类型的C文件（扩展名：.c）已准备好进行编译。C头文件（经过预处理可生成.h文件）也支持这种形式的通用类型。
 
-### Useful functions in ``numpy.distutils.misc_util``
+### 在有用的功能``numpy.distutils.misc_util``
 
-- ``get_numpy_include_dirs()`` — return a list of NumPy base
-include directories. NumPy base include directories contain
-header files such as ``numpy/arrayobject.h``, ``numpy/funcobject.h``
-etc. For installed NumPy the returned list has length 1
-but when building NumPy the list may contain more directories,
-for example, a path to ``config.h`` file that
-``numpy/base/setup.py`` file generates and is used by ``numpy``
-header files.
-- ``append_path(prefix,path)`` — smart append ``path`` to ``prefix``.
-- ``gpaths(paths, local_path='')`` — apply glob to paths and prepend
-``local_path`` if needed.
-- ``njoin(*path)`` — join pathname components + convert ``/``-separated path
-to ``os.sep``-separated path and resolve ``..``, ``.`` from paths.
-Ex. ``njoin('a',['b','./c'],'..','g') -> os.path.join('a','b','g')``.
-- ``minrelpath(path)`` — resolves dots in ``path``.
-- ``rel_path(path, parent_path)`` — return ``path`` relative to ``parent_path``.
-- ``def get_cmd(cmdname,_cache={})`` — returns ``numpy.distutils``
-command instance.
+- ``get_numpy_include_dirs()``—返回NumPy基本包含目录的列表。NumPy基本包含目录包含头文件，例如``numpy/arrayobject.h``，``numpy/funcobject.h``
+等。对于已安装的NumPy，返回的列表的长度为1，但是在构建NumPy时，列表可能包含更多目录，例如，``config.h``该``numpy/base/setup.py``文件生成的文件
+ 路径，并且``numpy``
+由头文件使用。
+- ``append_path(prefix,path)``—聪明地附加``path``到``prefix``。
+- ``gpaths(paths, local_path='')``-将glob应用于路径，并``local_path``在需要时添加前缀
+ 。
+- ``njoin(*path)``-加入路径组件+转换``/``-分隔路径``os.sep``-分隔路径和解决``..``，``.``从路径。防爆。。``njoin('a',['b','./c'],'..','g') -> os.path.join('a','b','g')``
+- ``minrelpath(path)``—解析中的点``path``。
+- ``rel_path(path, parent_path)``— ``path``相对于返回``parent_path``。
+- ``def get_cmd(cmdname,_cache={})``—返回``numpy.distutils``
+命令实例。
 - ``all_strings(lst)``
 - ``has_f_sources(sources)``
 - ``has_cxx_sources(sources)``
-- ``filter_sources(sources)`` — return ``c_sources, cxx_sources,
+- ``filter_sources(sources)`` —返回 ``c_sources, cxx_sources,
 f_sources, fmodule_sources``
 - ``get_dependencies(sources)``
 - ``is_local_src_dir(directory)``
@@ -450,42 +311,41 @@ f_sources, fmodule_sources``
 - ``get_script_files(scripts)``
 - ``get_lib_source_files(lib)``
 - ``get_data_files(data)``
-- ``dot_join(*args)`` — join non-zero arguments with a dot.
-- ``get_frame(level=0)`` — return frame object from call stack with given level.
+- ``dot_join(*args)`` —将非零参数加一个点。
+- ``get_frame(level=0)`` —从调用堆栈返回给定级别的框架对象。
 - ``cyg2win32(path)``
-- ``mingw32()`` — return ``True`` when using mingw32 environment.
-- ``terminal_has_colors()``, ``red_text(s)``, ``green_text(s)``,
-``yellow_text(s)``, ``blue_text(s)``, ``cyan_text(s)``
-- ``get_path(mod_name,parent_path=None)`` — return path of a module
-relative to parent_path when given. Handles also ``__main__`` and
-``__builtin__`` modules.
-- ``allpath(name)`` — replaces ``/`` with ``os.sep`` in ``name``.
-- ``cxx_ext_match``, ``fortran_ext_match``, ``f90_ext_match``,
+- ``mingw32()``— ``True``使用mingw32环境时返回。
+- ``terminal_has_colors()``，``red_text(s)``，``green_text(s)``，
+ ``yellow_text(s)``，``blue_text(s)``，``cyan_text(s)``
+- ``get_path(mod_name,parent_path=None)``—给定的相对于parent_path的模块的返回路径。还处理``__main__``和
+ ``__builtin__``模块。
+- ``allpath(name)``—替换``/``为``os.sep``in ``name``。
+- ``cxx_ext_match``，``fortran_ext_match``，``f90_ext_match``，
 ``f90_module_name_match``
 
-### ``numpy.distutils.system_info`` module
+### ``numpy.distutils.system_info`` 模块
 
 - ``get_info(name,notfound_action=0)``
 - ``combine_paths(*args,**kws)``
 - ``show_all()``
 
-### ``numpy.distutils.cpuinfo`` module
+### ``numpy.distutils.cpuinfo`` 模块
 
 - ``cpuinfo``
 
-### ``numpy.distutils.log`` module
+### ``numpy.distutils.log`` 模块
 
 - ``set_verbosity(v)``
 
-### ``numpy.distutils.exec_command`` module
+### ``numpy.distutils.exec_command`` 模块
 
 - ``get_pythonexe()``
 - ``find_executable(exe, path=None)``
 - ``exec_command( command, execute_in='', use_shell=None, use_tee=None, **env )``
 
-## The ``__init__.py`` file
+## ``__init__.py`` 文件
 
-The header of a typical SciPy ``__init__.py`` is:
+典型的SciPy的标头``__init__.py``是：
 
 ``` python
 """
@@ -506,40 +366,31 @@ test = Tester().test
 bench = Tester().bench
 ```
 
-Note that NumPy submodules still use a file named ``info.py`` in which the
-module docstring and ``__all__`` dict are defined.  These files will be removed
-at some point.
+请注意，NumPy子模块仍使用名为的文件``info.py``，该文件``__all__``中定义了模块docstring和dict。这些文件有时会被删除。
 
-## Extra features in NumPy Distutils
+## NumPy Distutils中的附加功能
 
-### Specifying config_fc options for libraries in setup.py script
+### 在setup.py脚本中为库指定config_fc选项
 
-It is possible to specify config_fc options in setup.py scripts.
-For example, using
+可以在setup.py脚本中指定config_fc选项。例如，使用：
 
 ``` python
 config.add_library(‘library’,
   sources=[…], config_fc={‘noopt’:(__file__,1)})
 ```
 
-will compile the ``library`` sources without optimization flags.
+将编译``library``没有优化标志的源代码。
 
-It’s recommended to specify only those config_fc options in such a way
-that are compiler independent.
+建议仅以与编译器无关的方式指定那些config_fc选项。
 
-### Getting extra Fortran 77 compiler options from source
+### 从源代码获取额外的Fortran 77编译器选项
 
-Some old Fortran codes need special compiler options in order to
-work correctly. In order to specify compiler options per source
-file, ``numpy.distutils`` Fortran compiler looks for the following
-pattern:
+一些旧的Fortran代码需要特殊的编译器选项才能正常工作。为了指定每个源文件的编译器选项，``numpy.distutils``Fortran编译器将寻找以下模式：
 
 ``` python
 CF77FLAGS(<fcompiler type>) = <fcompiler f77flags>
 ```
 
-in the first 20 lines of the source and use the ``f77flags`` for
-specified type of the fcompiler (the first character ``C`` is optional).
+在源代码的前20行中，并使用``f77flags``fcompiler的指定类型（第一个字符``C``是可选的）。
 
-TODO: This feature can be easily extended for Fortran 90 codes as
-well. Let us know if you would need such a feature.
+待办事项：此功能也可以轻松扩展为Fortran 90代码。让我们知道您是否需要这样的功能。

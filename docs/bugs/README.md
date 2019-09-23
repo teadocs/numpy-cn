@@ -1,6 +1,11 @@
 ---
 sidebarDepth: 3
 sidebar: auto
+meta:
+  - name: keywords
+    content: 报告错误 NumPy 错误
+  - name: description
+    content: 通过在GitHub上打开“新问题”来文件错误报告或功能请求，并做出贡献（例如代码补丁）...
 ---
 
 # 报告错误

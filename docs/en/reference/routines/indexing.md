@@ -43,9 +43,10 @@ method | description
 
 ## Inserting data into arrays
 
-[place](https://numpy.org/devdocs/reference/generated/numpy.place.html#numpy.place)(arr, mask, vals) | Change elements of an array based on conditional and in[put](https://numpy.org/devdocs/reference/generated/numpy.put.html#numpy.put) values.
+method | description
 ---|---
-put(a, ind, v[, mode]) | Replaces specified elements of an array with given values.
+[place](https://numpy.org/devdocs/reference/generated/numpy.place.html#numpy.place)(arr, mask, vals) | Change elements of an array based on conditional and in[put](https://numpy.org/devdocs/reference/generated/numpy.put.html#numpy.put) values.
+[put](https://numpy.org/devdocs/reference/generated/numpy.put.html#numpy.put)(a, ind, v[, mode]) | Replaces specified elements of an array with given values.
 [put_along_axis](https://numpy.org/devdocs/reference/generated/numpy.put_along_axis.html#numpy.put_along_axis)(arr, indices, values, axis) | Put values into the destination array by matching 1d index and data slices.
 [putmask](https://numpy.org/devdocs/reference/generated/numpy.putmask.html#numpy.putmask)(a, mask, values) | Changes elements of an array based on conditional and input values.
 [fill_diagonal](https://numpy.org/devdocs/reference/generated/numpy.fill_diagonal.html#numpy.fill_diagonal)(a, val[, wrap]) | Fill the main diagonal of the given array of any dimensionality.

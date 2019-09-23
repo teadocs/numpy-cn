@@ -1,12 +1,21 @@
+---
+meta:
+  - name: keywords
+    content: 使用 ``numpy.distutils`` 模块
+  - name: description
+    content: numpy.distutils 是NumPy扩展标准Python distutils的一部分，用于处理Fortran源代码和F2PY签名文件...
+---
+
 # 使用 ``numpy.distutils`` 模块
 
-[``numpy.distutils``](https://numpy.org/devdocs/reference/distutils.html#module-numpy.distutils) 
-是NumPy扩展标准 Python ``distutils`` 以处理 Fortran 源和 F2PY 签名文件的一部分，例如编译Fortran源，调用F2PY构建扩展模块等。
-sources, call F2PY to construct extension modules, etc.
+[``numpy.distutils``](https://numpy.org/devdocs/reference/distutils.html#module-numpy.distutils)
+是NumPy扩展标准Python distutils的一部分，
+用于处理Fortran源代码和F2PY签名文件，
+例如编译Fortran源代码，调用F2PY构造扩展模块等。
 
 **示例**
 
-请思考下面的[setup 文件](setup_example.py):
+请思考下面的``setup 文件``：
 
 ``` python
 from __future__ import division, absolute_import, print_function

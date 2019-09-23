@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy C风格指南
+  - name: description
+    content: NumPy C编码约定基于Guido van Rossum的Python PEP-0007，并增加了一些限制。
+---
+
 # NumPy C风格指南
 
 NumPy C编码约定基于Guido van Rossum的Python PEP-0007，并增加了一些限制。有许多C编码惯例，必须强调的是，NumPy惯例的主要目标不是选择“最佳”，但肯定存在分歧，而是要达到一致性。由于NumPy约定与PEP-0007中的约定非常接近，因此将PEP用作下面的模板，其中NumPy在适当的位置添加和变化。

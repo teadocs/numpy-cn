@@ -1,68 +1,61 @@
-# Discrete Fourier Transform (``numpy.fft``)
+# 离散傅立叶变换（``numpy.fft``）
 
-## Standard FFTs
+## 标准 FFTs
 
-method | description
+方法 | 描述
 ---|---
-[fft](https://numpy.org/devdocs/reference/generated/numpy.fft.fft.html#numpy.fft.fft)(a[, n, axis, norm]) | Compute the one-dimensional discrete Fourier Transform.
-[ifft](https://numpy.org/devdocs/reference/generated/numpy.fft.ifft.html#numpy.fft.ifft)(a[, n, axis, norm]) | Compute the one-dimensional inverse discrete Fourier Transform.
-[fft2](https://numpy.org/devdocs/reference/generated/numpy.fft.fft2.html#numpy.fft.fft2)(a[, s, axes, norm]) | Compute the 2-dimensional discrete Fourier Transform
-[ifft2](https://numpy.org/devdocs/reference/generated/numpy.fft.ifft2.html#numpy.fft.ifft2)(a[, s, axes, norm]) | Compute the 2-dimensional inverse discrete Fourier Transform.
-[fftn](https://numpy.org/devdocs/reference/generated/numpy.fft.fftn.html#numpy.fft.fftn)(a[, s, axes, norm]) | Compute the N-dimensional discrete Fourier Transform.
-[ifftn](https://numpy.org/devdocs/reference/generated/numpy.fft.ifftn.html#numpy.fft.ifftn)(a[, s, axes, norm]) | Compute the N-dimensional inverse discrete Fourier Transform.
+[fft](https://numpy.org/devdocs/reference/generated/numpy.fft.fft.html#numpy.fft.fft)(a[, n, axis, norm]) | 计算一维离散傅立叶变换。
+[ifft](https://numpy.org/devdocs/reference/generated/numpy.fft.ifft.html#numpy.fft.ifft)(a[, n, axis, norm]) | 计算一维离散傅立叶逆变换。
+[fft2](https://numpy.org/devdocs/reference/generated/numpy.fft.fft2.html#numpy.fft.fft2)(a[, s, axes, norm]) | 计算二维离散傅立叶变换
+[ifft2](https://numpy.org/devdocs/reference/generated/numpy.fft.ifft2.html#numpy.fft.ifft2)(a[, s, axes, norm]) | 计算二维离散傅立叶逆变换。
+[fftn](https://numpy.org/devdocs/reference/generated/numpy.fft.fftn.html#numpy.fft.fftn)(a[, s, axes, norm]) | 计算N维离散傅立叶变换。
+[ifftn](https://numpy.org/devdocs/reference/generated/numpy.fft.ifftn.html#numpy.fft.ifftn)(a[, s, axes, norm]) | 计算N维逆离散傅立叶变换。
 
-## Real FFTs
+## 实际 FFTs
 
-method | description
+方法 | 描述
 ---|---
-[rfft](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft.html#numpy.fft.rfft)(a[, n, axis, norm]) | Compute the one-dimensional discrete Fourier Transform for real input.
-[irfft](https://numpy.org/devdocs/reference/generated/numpy.fft.irfft.html#numpy.fft.irfft)(a[, n, axis, norm]) | Compute the inverse of the n-point DFT for real input.
-[rfft2](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft2.html#numpy.fft.rfft2)(a[, s, axes, norm]) | Compute the 2-dimensional FFT of a real array.
-[irfft2](https://numpy.org/devdocs/reference/generated/numpy.fft.irfft2.html#numpy.fft.irfft2)(a[, s, axes, norm]) | Compute the 2-dimensional inverse FFT of a real array.
-[rfftn](https://numpy.org/devdocs/reference/generated/numpy.fft.rfftn.html#numpy.fft.rfftn)(a[, s, axes, norm]) | Compute the N-dimensional discrete Fourier Transform for real input.
-[irfftn](https://numpy.org/devdocs/reference/generated/numpy.fft.irfftn.html#numpy.fft.irfftn)(a[, s, axes, norm]) | Compute the inverse of the N-dimensional FFT of real input.
+[rfft](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft.html#numpy.fft.rfft)(a[, n, axis, norm]) | 计算实数输入的一维离散傅立叶变换。
+[irfft](https://numpy.org/devdocs/reference/generated/numpy.fft.irfft.html#numpy.fft.irfft)(a[, n, axis, norm]) | 对于实输入，计算n点DFT的逆。
+[rfft2](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft2.html#numpy.fft.rfft2)(a[, s, axes, norm]) | 计算实数组的二维FFT。
+[irfft2](https://numpy.org/devdocs/reference/generated/numpy.fft.irfft2.html#numpy.fft.irfft2)(a[, s, axes, norm]) | 计算实数组的二维逆FFT。
+[rfftn](https://numpy.org/devdocs/reference/generated/numpy.fft.rfftn.html#numpy.fft.rfftn)(a[, s, axes, norm]) | 计算实输入的N维离散傅立叶变换。
+[irfftn](https://numpy.org/devdocs/reference/generated/numpy.fft.irfftn.html#numpy.fft.irfftn)(a[, s, axes, norm]) | 计算实输入的N维FFT的逆。
 
-## Hermitian FFTs
+## 厄米特 FFTs
 
-method | description
+方法 | 描述
 ---|---
-[hfft](https://numpy.org/devdocs/reference/generated/numpy.fft.hfft.html#numpy.fft.hfft)(a[, n, axis, norm]) | Compute the FFT of a signal that has Hermitian symmetry, i.e., a real spectrum.
-[ihfft](https://numpy.org/devdocs/reference/generated/numpy.fft.ihfft.html#numpy.fft.ihfft)(a[, n, axis, norm]) | Compute the inverse FFT of a signal that has Hermitian symmetry.
+[hfft](https://numpy.org/devdocs/reference/generated/numpy.fft.hfft.html#numpy.fft.hfft)(a[, n, axis, norm]) | 计算具有厄米特对称性的信号的FFT，即实谱。
+[ihfft](https://numpy.org/devdocs/reference/generated/numpy.fft.ihfft.html#numpy.fft.ihfft)(a[, n, axis, norm]) | 计算具有厄米特对称性的信号的逆FFT。
 
-## Helper routines
+## 帮助
 
-method | description
+方法 | 描述
 ---|---
-[fftfreq](https://numpy.org/devdocs/reference/generated/numpy.fft.fftfreq.html#numpy.fft.fftfreq)(n[, d]) | Return the Discrete Fourier Transform sample frequencies.
-[rfftfreq](https://numpy.org/devdocs/reference/generated/numpy.fft.rfftfreq.html#numpy.fft.rfftfreq)(n[, d]) | Return the Discrete Fourier Transform sample frequencies (for usage with rfft, irfft).
-[fftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift)(x[, axes]) | Shift the zero-frequency component to the center of the spectrum.
-[ifftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.ifftshift.html#numpy.fft.ifftshift)(x[, axes]) | The inverse of [fftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift).
+[fftfreq](https://numpy.org/devdocs/reference/generated/numpy.fft.fftfreq.html#numpy.fft.fftfreq)(n[, d]) | 返回离散傅立叶变换采样频率。
+[rfftfreq](https://numpy.org/devdocs/reference/generated/numpy.fft.rfftfreq.html#numpy.fft.rfftfreq)(n[, d]) | 返回离散傅立叶变换采样频率(用于rfft、irfft)。
+[fftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift)(x[, axes]) | 将零频率分量移至频谱中心。
+[ifftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.ifftshift.html#numpy.fft.ifftshift)(x[, axes]) | [fftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift)的逆。
 
-## Background information
+## 背景资料
 
-Fourier analysis is fundamentally a method for expressing a function as a
-sum of periodic components, and for recovering the function from those
-components.  When both the function and its Fourier transform are
-replaced with discretized counterparts, it is called the discrete Fourier
-transform (DFT).  The DFT has become a mainstay of numerical computing in
-part because of a very fast algorithm for computing it, called the Fast
-Fourier Transform (FFT), which was known to Gauss (1805) and was brought
-to light in its current form by Cooley and Tukey [[CT]](#rfb1dc64dd6a5-ct).  Press et al. [[NR]](#rfb1dc64dd6a5-nr)
-provide an accessible introduction to Fourier analysis and its
-applications.
+傅立叶分析基本上是一种方法，用于将函数表示为周期分量之和，
+并用于从这些分量中恢复函数。当函数及其傅立叶变换都被离散化的对应物替换时，
+它被称为离散傅立叶变换(DFT)。DFT已成为数值计算的支柱，
+部分原因是因为有一种计算它的非常快的算法，称为快速傅立叶变换(FFT)，
+高斯(1805)已知，并由Cooley和Tukey[CT]以其当前形式曝光。
+Press et al.。[NR]提供傅立叶分析及其应用的易懂介绍。
 
-Because the discrete Fourier transform separates its input into
-components that contribute at discrete frequencies, it has a great number
-of applications in digital signal processing, e.g., for filtering, and in
-this context the discretized input to the transform is customarily
-referred to as a *signal*, which exists in the *time domain*.  The output
-is called a *spectrum* or *transform* and exists in the *frequency domain*.
+因为离散傅立叶变换将其输入分离成在离散频率上贡献的分量，
+所以它在数字信号处理中具有大量的应用，
+例如用于滤波，并且在这种情况下，
+对变换的离散化输入通常被称为*信号*，
+其存在于时域中。输出被称为*频谱* 或 *变换*，并且存在于 *频域* 中。
 
-## Implementation details
+## 实施细节
 
-There are many ways to define the DFT, varying in the sign of the
-exponent, normalization, etc.  In this implementation, the DFT is defined
-as
+有许多方法来定义DFT，在指数符号、归一化等方面有所不同。在此实现中，DFT被定义为：
 
 <center>
 <img src="/static/images/math/c3e12e4fbd5334e071b7dfdd4d059fc3584b81e8.svg" alt="A_k =  \sum_{m=0}^{n-1} a_m \exp\left\{-2\pi i{mk \over n}\right\}
@@ -136,24 +129,23 @@ also be a faster way to compute large convolutions, using the property
 that a convolution in the time domain is equivalent to a point-by-point
 multiplication in the frequency domain.
 
-## Higher dimensions
+## 高维度
 
-In two dimensions, the DFT is defined as
+在二维中，DFT定义为：
 
 <center>
 <img src="/static/images/math/abfed18222e3312d95d1597d08c38d85847a8ad5.svg" alt="a_m = \frac{1}{n}\sum_{k=0}^{n-1}A_k\exp\left\{2\pi i{mk\over n}\right\}
 \qquad m = 0,\ldots,n-1.">
 </center>
 
-which extends in the obvious way to higher dimensions, and the inverses
-in higher dimensions also extend in the same way.
+它以明显的方式延伸到更高的维度，并且在更高维度中的倒数也以同样的方式延伸。
 
-## References
+## 参考文献
 
 [[CT]](#id1)Cooley, James W., and John W. Tukey, 1965, “An algorithm for the machine calculation of complex Fourier series,” Math. Comput. 19: 297-301.
 
 [[NR]](#id2)Press, W., Teukolsky, S., Vetterline, W.T., and Flannery, B.P., 2007, Numerical Recipes: The Art of Scientific Computing, ch. 12-13. Cambridge Univ. Press, Cambridge, UK.
 
-## Examples
+## 示例
 
-For examples, see the various functions.
+有关示例，请参见各种函数。

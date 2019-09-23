@@ -1,104 +1,104 @@
-# Array manipulation routines
+# 数组处理程序
 
-## Basic operations
+## 基本操作
 
-method | description
+方法 | 描述
 ---|---
-[copyto](https://numpy.org/devdocs/reference/generated/numpy.copyto.html#numpy.copyto)(dst, src[, casting, where]) | Copies values from one array to another, broadcasting as necessary.
+[copyto](https://numpy.org/devdocs/reference/generated/numpy.copyto.html#numpy.copyto)(dst, src[, casting, where]) | 将值从一个数组复制到另一个数组，并根据需要进行广播。
 
-## Changing array shape
+## 改变数组形状
 
-method | description
+方法 | 描述
 ---|---
-[reshape](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)(a, newshape[, order]) | Gives a new shape to an array without changing its data.
-[ravel](https://numpy.org/devdocs/reference/generated/numpy.ravel.html#numpy.ravel)(a[, order]) | Return a contiguous flattened array.
-[ndarray.flat](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | A 1-D iterator over the array.
-[ndarray.flatten](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten)([order]) | Return a copy of the array collapsed into one dimension.
+[reshape](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)(a, newshape[, order]) | 在不更改数据的情况下为数组赋予新的形状。
+[ravel](https://numpy.org/devdocs/reference/generated/numpy.ravel.html#numpy.ravel)(a[, order]) | 返回一个连续的扁平数组。
+[ndarray.flat](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flat.html#numpy.ndarray.flat) | 数组上的一维迭代器。
+[ndarray.flatten](https://numpy.org/devdocs/reference/generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten)([order]) | 返回折叠成一维的数组副本。
 
-## Transpose-like operations
+## 类转置操作
 
-method | description
+方法 | 描述
 ---|---
-[moveaxis](https://numpy.org/devdocs/reference/generated/numpy.moveaxis.html#numpy.moveaxis)(a, source, destination) | Move axes of an array to new positions.
-[rollaxis](https://numpy.org/devdocs/reference/generated/numpy.rollaxis.html#numpy.rollaxis)(a, axis[, start]) | Roll the specified axis backwards, until it lies in a given position.
-[swapaxes](https://numpy.org/devdocs/reference/generated/numpy.swapaxes.html#numpy.swapaxes)(a, axis1, axis2) | Interchange two axes of an array.
-[ndarray.T](https://numpy.org/devdocs/reference/generated/numpy.ndarray.T.html#numpy.ndarray.T) | The [transpose](https://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose)d array.
-transpose(a[, axes]) | Permute the dimensions of an array.
+[moveaxis](https://numpy.org/devdocs/reference/generated/numpy.moveaxis.html#numpy.moveaxis)(a, source, destination) | 将数组的轴移到新位置。
+[rollaxis](https://numpy.org/devdocs/reference/generated/numpy.rollaxis.html#numpy.rollaxis)(a, axis[, start]) | 向后滚动指定的轴，直到其位于给定的位置。
+[swapaxes](https://numpy.org/devdocs/reference/generated/numpy.swapaxes.html#numpy.swapaxes)(a, axis1, axis2) | 互换数组的两个轴。
+[ndarray.T](https://numpy.org/devdocs/reference/generated/numpy.ndarray.T.html#numpy.ndarray.T) | 转置数组。
+[transpose](https://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose)(a[, axes]) | 排列数组的尺寸。
 
-## Changing number of dimensions
+## 更改维度数
 
-method | description
+方法 | 描述
 ---|---
-[atleast_1d](https://numpy.org/devdocs/reference/generated/numpy.atleast_1d.html#numpy.atleast_1d)(\*arys) | Convert inputs to arrays with at least one dimension.
-[atleast_2d](https://numpy.org/devdocs/reference/generated/numpy.atleast_2d.html#numpy.atleast_2d)(\*arys) | View inputs as arrays with at least two dimensions.
-[atleast_3d](https://numpy.org/devdocs/reference/generated/numpy.atleast_3d.html#numpy.atleast_3d)(\*arys) | View inputs as arrays with at least three dimensions.
-[broadcast](https://numpy.org/devdocs/reference/generated/numpy.broadcast.html#numpy.broadcast) | Produce an object that mimics broadcasting.
-[broadcast_to](https://numpy.org/devdocs/reference/generated/numpy.broadcast_to.html#numpy.broadcast_to)(array, shape[, subok]) | Broadcast an array to a new shape.
-[broadcast_arrays](https://numpy.org/devdocs/reference/generated/numpy.broadcast_arrays.html#numpy.broadcast_arrays)(\*args, \*\*kwargs) | Broadcast any number of arrays against each other.
-[expand_dims](https://numpy.org/devdocs/reference/generated/numpy.expand_dims.html#numpy.expand_dims)(a, axis) | Expand the shape of an array.
-[squeeze](https://numpy.org/devdocs/reference/generated/numpy.squeeze.html#numpy.squeeze)(a[, axis]) | Remove single-dimensional entries from the shape of an array.
+[atleast_1d](https://numpy.org/devdocs/reference/generated/numpy.atleast_1d.html#numpy.atleast_1d)(\*arys) | 将输入转换为至少一维的数组。
+[atleast_2d](https://numpy.org/devdocs/reference/generated/numpy.atleast_2d.html#numpy.atleast_2d)(\*arys) | 将输入视为至少具有二维的数组。
+[atleast_3d](https://numpy.org/devdocs/reference/generated/numpy.atleast_3d.html#numpy.atleast_3d)(\*arys) | 以至少三个维度的数组形式查看输入。
+[broadcast](https://numpy.org/devdocs/reference/generated/numpy.broadcast.html#numpy.broadcast) | 产生模仿广播的对象。
+[broadcast_to](https://numpy.org/devdocs/reference/generated/numpy.broadcast_to.html#numpy.broadcast_to)(array, shape[, subok]) | 将数组广播为新形状。
+[broadcast_arrays](https://numpy.org/devdocs/reference/generated/numpy.broadcast_arrays.html#numpy.broadcast_arrays)(\*args, \*\*kwargs) | 互相广播任意数量的阵列。
+[expand_dims](https://numpy.org/devdocs/reference/generated/numpy.expand_dims.html#numpy.expand_dims)(a, axis) | 扩展数组的形状。
+[squeeze](https://numpy.org/devdocs/reference/generated/numpy.squeeze.html#numpy.squeeze)(a[, axis]) | 从数组形状中删除一维条目。
 
-## Changing kind of array
+## 改变数组的种类
 
-method | description
+方法 | 描述
 ---|---
-[asarray](https://numpy.org/devdocs/reference/generated/numpy.asarray.html#numpy.asarray)(a[, dtype, order]) | Convert the input to an array.
-[asanyarray](https://numpy.org/devdocs/reference/generated/numpy.asanyarray.html#numpy.asanyarray)(a[, dtype, order]) | Convert the input to an ndarray, but pass ndarray subclasses through.
-[asmatrix](https://numpy.org/devdocs/reference/generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | Interpret the input as a matrix.
-[asfarray](https://numpy.org/devdocs/reference/generated/numpy.asfarray.html#numpy.asfarray)(a[, dtype]) | Return an array converted to a float type.
-[asfortranarray](https://numpy.org/devdocs/reference/generated/numpy.asfortranarray.html#numpy.asfortranarray)(a[, dtype]) | Return an array (ndim >= 1) laid out in Fortran order in memory.
-[ascontiguousarray](https://numpy.org/devdocs/reference/generated/numpy.ascontiguousarray.html#numpy.ascontiguousarray)(a[, dtype]) | Return a contiguous array (ndim >= 1) in memory (C order).
-[asarray_chkfinite](https://numpy.org/devdocs/reference/generated/numpy.asarray_chkfinite.html#numpy.asarray_chkfinite)(a[, dtype, order]) | Convert the input to an array, checking for NaNs or Infs.
-[asscalar](https://numpy.org/devdocs/reference/generated/numpy.asscalar.html#numpy.asscalar)(a) | Convert an array of size 1 to its scalar equivalent.
-[require](https://numpy.org/devdocs/reference/generated/numpy.require.html#numpy.require)(a[, dtype, requirements]) | Return an ndarray of the provided type that satisfies requirements.
+[asarray](https://numpy.org/devdocs/reference/generated/numpy.asarray.html#numpy.asarray)(a[, dtype, order]) | 将输入转换为数组。
+[asanyarray](https://numpy.org/devdocs/reference/generated/numpy.asanyarray.html#numpy.asanyarray)(a[, dtype, order]) | 将输入转换为ndarray，但通过ndarray子类。
+[asmatrix](https://numpy.org/devdocs/reference/generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | 将输入解释为矩阵。
+[asfarray](https://numpy.org/devdocs/reference/generated/numpy.asfarray.html#numpy.asfarray)(a[, dtype]) | 返回转换为浮点类型的数组。
+[asfortranarray](https://numpy.org/devdocs/reference/generated/numpy.asfortranarray.html#numpy.asfortranarray)(a[, dtype]) | 返回以Fortran顺序排列在内存中的数组（ndim> = 1）。
+[ascontiguousarray](https://numpy.org/devdocs/reference/generated/numpy.ascontiguousarray.html#numpy.ascontiguousarray)(a[, dtype]) | 返回内存中的连续数组（ndim> = 1）（C顺序）。
+[asarray_chkfinite](https://numpy.org/devdocs/reference/generated/numpy.asarray_chkfinite.html#numpy.asarray_chkfinite)(a[, dtype, order]) | 将输入转换为数组，检查NaN或Infs。
+[asscalar](https://numpy.org/devdocs/reference/generated/numpy.asscalar.html#numpy.asscalar)(a) | 将大小为1的数组转换为其等效的标量。
+[require](https://numpy.org/devdocs/reference/generated/numpy.require.html#numpy.require)(a[, dtype, requirements]) | 返回提供的类型满足要求的ndarray。
 
-## Joining arrays
+## 组合数组
 
-method | description
+方法 | 描述
 ---|---
-[concatenate](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)((a1, a2, …)[, axis, out]) | Join a sequence of arrays along an existing axis.
-[stack](https://numpy.org/devdocs/reference/generated/numpy.stack.html#numpy.stack)(arrays[, axis, out]) | Join a sequence of arrays along a new axis.
-[column_stack](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)(tup) | Stack 1-D arrays as columns into a 2-D array.
-[dstack](https://numpy.org/devdocs/reference/generated/numpy.dstack.html#numpy.dstack)(tup) | Stack arrays in sequence depth wise (along third axis).
-[hstack](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)(tup) | Stack arrays in sequence horizontally (column wise).
-[vstack](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)(tup) | Stack arrays in sequence vertically (row wise).
-[block](https://numpy.org/devdocs/reference/generated/numpy.block.html#numpy.block)(arrays) | Assemble an nd-array from nested lists of blocks.
+[concatenate](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)((a1, a2, …) | 沿现有轴连接一系列数组。
+[stack](https://numpy.org/devdocs/reference/generated/numpy.stack.html#numpy.stack)(arrays[, axis, out]) | 沿新轴连接一系列数组。
+[column_stack](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)(tup) | 将一维数组作为列堆叠到二维数组中。
+[dstack](https://numpy.org/devdocs/reference/generated/numpy.dstack.html#numpy.dstack)(tup) | 沿深度方向（沿第三轴）按顺序堆叠数组。
+[hstack](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)(tup) | 水平（按列）顺序堆叠数组。
+[vstack](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)(tup) | 垂直（行）按顺序堆叠数组。
+[block](https://numpy.org/devdocs/reference/generated/numpy.block.html#numpy.block)(arrays) | 从块的嵌套列表中组装一个nd数组。
 
-## Splitting arrays
+## 拆分数组
 
-method | description
+方法 | 描述
 ---|---
-[split](https://numpy.org/devdocs/reference/generated/numpy.split.html#numpy.split)(ary, indices_or_sections[, axis]) | Split an array into multiple sub-arrays.
-[array_split](https://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split)(ary, indices_or_sections[, axis]) | Split an array into multiple sub-arrays.
-[dsplit](https://numpy.org/devdocs/reference/generated/numpy.dsplit.html#numpy.dsplit)(ary, indices_or_sections) | Split array into multiple sub-arrays along the 3rd axis (depth).
-[hsplit](https://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit)(ary, indices_or_sections) | Split an array into multiple sub-arrays horizontally (column-wise).
-[vsplit](https://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit)(ary, indices_or_sections) | Split an array into multiple sub-arrays vertically (row-wise).
+[split](https://numpy.org/devdocs/reference/generated/numpy.split.html#numpy.split)(ary, indices_or_sections[, axis]) | 将数组拆分为多个子数组，作为ary的视图。
+[array_split](https://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split)(ary, indices_or_sections[, axis]) | 将一个数组拆分为多个子数组。
+[dsplit](https://numpy.org/devdocs/reference/generated/numpy.dsplit.html#numpy.dsplit)(ary, indices_or_sections) | 沿第3轴（深度）将数组拆分为多个子数组。
+[hsplit](https://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit)(ary, indices_or_sections) | 水平（按列）将一个数组拆分为多个子数组。
+[vsplit](https://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit)(ary, indices_or_sections) | 垂直（行）将数组拆分为多个子数组。
 
-## Tiling arrays
+## 平铺数组
 
-method | description
+方法 | 描述
 ---|---
-[tile](https://numpy.org/devdocs/reference/generated/numpy.tile.html#numpy.tile)(A, reps) | Construct an array by [repeat](https://numpy.org/devdocs/reference/generated/numpy.repeat.html#numpy.repeat)ing A the number of times given by reps.
-repeat(a, repeats[, axis]) | Repeat elements of an array.
+[tile](https://numpy.org/devdocs/reference/generated/numpy.tile.html#numpy.tile)(A, reps) | 通过重复A代表次数来构造一个数组。
+[repeat](https://numpy.org/devdocs/reference/generated/numpy.repeat.html#numpy.repeat)(a, repeats[, axis]) | 重复数组的元素。
 
-## Adding and removing elements
+## 添加和删除元素
 
-method | description
+方法 | 描述
 ---|---
-[delete](https://numpy.org/devdocs/reference/generated/numpy.delete.html#numpy.delete)(arr, obj[, axis]) | Return a new array with sub-arrays along an axis deleted.
-[insert](https://numpy.org/devdocs/reference/generated/numpy.insert.html#numpy.insert)(arr, obj, values[, axis]) | Insert values along the given axis before the given indices.
-[append](https://numpy.org/devdocs/reference/generated/numpy.append.html#numpy.append)(arr, values[, axis]) | Append values to the end of an array.
-[resize](https://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize)(a, new_shape) | Return a new array with the specified shape.
-[trim_zeros](https://numpy.org/devdocs/reference/generated/numpy.trim_zeros.html#numpy.trim_zeros)(filt[, trim]) | Trim the leading and/or trailing zeros from a 1-D array or sequence.
-[unique](https://numpy.org/devdocs/reference/generated/numpy.unique.html#numpy.unique)(ar[, return_index, return_inverse, …]) | Find the unique elements of an array.
+[delete](https://numpy.org/devdocs/reference/generated/numpy.delete.html#numpy.delete)(arr, obj[, axis]) | 返回一个新的数组，该数组具有沿删除的轴的子数组。
+[insert](https://numpy.org/devdocs/reference/generated/numpy.insert.html#numpy.insert)(arr, obj, values[, axis]) | 沿给定轴在给定索引之前插入值。
+[append](https://numpy.org/devdocs/reference/generated/numpy.append.html#numpy.append)(arr, values[, axis]) | 将值附加到数组的末尾。
+[resize](https://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize)(a, new_shape) | 返回具有指定形状的新数组。
+[trim_zeros](https://numpy.org/devdocs/reference/generated/numpy.trim_zeros.html#numpy.trim_zeros)s(filt[, trim]) | 修剪一维数组或序列中的前导和/或尾随零。
+[unique](https://numpy.org/devdocs/reference/generated/numpy.unique.html#numpy.unique)(ar[, return_index, return_inverse, …]) | 查找数组的唯一元素。
 
-## Rearranging elements
+## 重新排列元素
 
-method | description
+方法 | 描述
 ---|---
-[flip](https://numpy.org/devdocs/reference/generated/numpy.flip.html#numpy.flip)(m[, axis]) | Reverse the order of elements in an array along the given axis.
-[fliplr](https://numpy.org/devdocs/reference/generated/numpy.fliplr.html#numpy.fliplr)(m) | Flip array in the left/right direction.
-[flipud](https://numpy.org/devdocs/reference/generated/numpy.flipud.html#numpy.flipud)(m) | Flip array in the up/down direction.
-[reshape](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)(a, newshape[, order]) | Gives a new shape to an array without changing its data.
-[roll](https://numpy.org/devdocs/reference/generated/numpy.roll.html#numpy.roll)(a, shift[, axis]) | Roll array elements along a given axis.
-[rot90](https://numpy.org/devdocs/reference/generated/numpy.rot90.html#numpy.rot90)(m[, k, axes]) | Rotate an array by 90 degrees in the plane specified by axes.
+[flip](https://numpy.org/devdocs/reference/generated/numpy.flip.html#numpy.flip)(m[, axis]) | 沿给定轴颠倒数组中元素的顺序。
+[fliplr](https://numpy.org/devdocs/reference/generated/numpy.fliplr.html#numpy.fliplr)(m) | 左右翻转数组。
+[flipud](https://numpy.org/devdocs/reference/generated/numpy.flipud.html#numpy.flipud)(m) | 上下翻转阵列。
+[reshape](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)(a, newshape[, order])	| 在不更改数据的情况下为数组赋予新的形状。
+[roll](https://numpy.org/devdocs/reference/generated/numpy.roll.html#numpy.roll)(a, shift[, axis]) | 沿给定轴滚动数组元素。
+[rot90](https://numpy.org/devdocs/reference/generated/numpy.rot90.html#numpy.rot90)(m[, k, axes]) | 在轴指定的平面中将阵列旋转90度。

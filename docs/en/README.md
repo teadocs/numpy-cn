@@ -2,74 +2,80 @@
 home: true
 meta:
   - name: keywords
-    content: numpy中文文档,numpy中文api,numpy中文手册,numpy教程,numpy下载安装,numpy
+    content: numpy
   - name: description
-    content: 这是NumPy官方的中文文档，NumPy是用Python进行科学计算的基础软件包。
+    content: New numpy English official website.
 heroImage: /logo.png
-actionText: 快速开始 →
-actionLink: /docs/
-footer: 署名-非商业性使用-相同方式共享 3.0 中国大陆 (CC BY-NC-SA 3.0 CN) | Copyright © 2019-present Zhi Bing
+actionText: Get Started →
+actionLink: /en/user/
+footer: Attribution-NonCommercial-ShareAlike 3.0 China Mainland (CC BY-NC-SA 3.0 CN) | Copyright © 2019-present Zhi Bing
 ---
 
 <div class="features">
   <div class="feature">
-    <h2>NumPy 是什么？</h2>
+    <h2>What is NumPy?</h2>
     <p>
-      NumPy是使用Python进行科学计算的基础软件包。除其他外，它包括：
+      NumPy is the basic package for scientific computing using Python. Among other things, it includes:
     </p>
     <ul>
       <li>
-        功能强大的N维数组对象。
+        A powerful N-dimensional array of objects.
       </li>
       <li>
-        精密广播功能函数。
+        Precision broadcast function.
       </li>
       <li>
-        集成 C/C+和Fortran 代码的工具。
+        A tool that integrates C/C+ and Fortran code.
       </li>
       <li>
-        强大的线性代数、傅立叶变换和随机数功能。
+        Powerful linear algebra, Fourier transform and random number functions.
       </li>
     </ul>
   </div>
   <div class="feature">
-    <h2>利器之一：Ndarray</h2>
-    <p>NumPy 最重要的一个特点是其 N 维数组对象 ndarray，它是一系列同类型数据的集合，以 0 下标为开始进行集合中元素的索引。ndarray 对象是用于存放同类型元素的多维数组。ndarray 中的每个元素在内存中都有相同存储大小的区域。</p>
+    <h2>Ndarray?</h2>
+    <p>One of the most important features of NumPy is its N-dimensional array object, ndarray, which is a collection of data of the same type, starting with an index of the elements in the collection with a 0 subscript. A ndarray object is a multidimensional array used to hold elements of the same type. Each element in ndarray has an area of the same storage size in memory.</p>
   </div>
   <div class="feature">
-    <h2>利器之一：切片和索引</h2>
-    <p>ndarray对象的内容可以通过索引或切片来访问和修改，与 Python 中 list 的切片操作一样。ndarray 数组可以基于 0 - n 的下标进行索引，切片对象可以通过内置的 slice 函数，并设置 start, stop 及 step 参数进行，从原数组中切割出一个新数组。</p>
+    <h2>Slice and index</h2>
+    <p>The contents of a ndarray object can be accessed and modified by indexing or slicing, just like the slicing of a list in Python. Ndarray arrays can be indexed based on 0 - n subscripts. Slice objects can be cut from the original array by using the built-in slice function and setting the start, stop and step parameters.</p>
   </div>
 </div>
 
-### 就像1、2、3 一样简单
+### As Easy as 1, 2, 3
 
 ``` bash
-# 1、安装包
+# 1. installation package
 $ pip install numpy
 
-# 2、进入python的交互式界面
+# 2. enter python's interactive interface
 $ python -i
 
-# 3、使用Numpy
+# 3. Use Numpy
 >>> from numpy import *
 >>> eye(4)
 
-# 4、输出结果
+# 4. Output result
 array([[1., 0., 0., 0.],
        [0., 1., 0., 0.],
        [0., 0., 1., 0.],
        [0., 0., 0., 1.]])
 ```
 
-::: warning 提醒
+### Contact information
+
+- 📮**Email**: l@numpy.org.cn
+- 📩**WeChat**: iamnotahacker(If you want to join our group)
+
+::: warning NOTE
 
 Change the world from **Python**.
 
-本网站推荐使用[Python3.x](https://www.python.org/downloads/)及以上版本。
+This site is recommended to use [Python 3.x](https://www.python.org/downloads/) and above.
 
 :::
 
-<ahome-nav></ahome-nav>
+### Brothers
 
-<ahome-footer></ahome-footer>
+- [Pandas of Chinese documents](https://www.pypandas.cn/)
+- [Matplotlibof Chinese documents](https://www.matplotlib.org.cn/)

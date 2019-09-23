@@ -1,100 +1,98 @@
-# Array creation routines
+# 创建数组
 
-::: tip See also
+::: tip 另见
 
-[Array creation](https://numpy.org/devdocs/user/basics.creation.html#arrays-creation)
-
-:::
-
-## Ones and zeros
-
-method | description
----|---
-[empty](https://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty)(shape[, dtype, order]) | Return a new array of given shape and type, without initializing entries.
-[empty_like](https://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like)(prototype[, dtype, order, subok, …]) | Return a new array with the same shape and type as a given array.
-[eye](https://numpy.org/devdocs/reference/generated/numpy.eye.html#numpy.eye)(N[, M, k, dtype, order]) | Return a 2-D array with [ones](https://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones) on the diagonal and [zeros](https://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros) elsewhere.
-[identity](https://numpy.org/devdocs/reference/generated/numpy.identity.html#numpy.identity)(n[, dtype]) | Return the identity array.
-ones(shape[, dtype, order]) | Return a new array of given shape and type, filled with ones.
-[ones_like](https://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like)(a[, dtype, order, subok, shape]) | Return an array of ones with the same shape and type as a given array.
-zeros(shape[, dtype, order]) | Return a new array of given shape and type, filled with zeros.
-[zeros_like](https://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like)(a[, dtype, order, subok, shape]) | Return an array of zeros with the same shape and type as a given array.
-[full](https://numpy.org/devdocs/reference/generated/numpy.full.html#numpy.full)(shape, fill_value[, dtype, order]) | Return a new array of given shape and type, filled with fill_value.
-[full_like](https://numpy.org/devdocs/reference/generated/numpy.full_like.html#numpy.full_like)(a, fill_value[, dtype, order, …]) | Return a full array with the same shape and type as a given array.
-
-## From existing data
-
-method | description
----|---
-[array](https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array)(object[, dtype, [copy](https://numpy.org/devdocs/reference/generated/numpy.copy.html#numpy.copy), order, subok, ndmin]) | Create an array.
-[asarray](https://numpy.org/devdocs/reference/generated/numpy.asarray.html#numpy.asarray)(a[, dtype, order]) | Convert the input to an array.
-[asanyarray](https://numpy.org/devdocs/reference/generated/numpy.asanyarray.html#numpy.asanyarray)(a[, dtype, order]) | Convert the input to an ndarray, but pass ndarray subclasses through.
-[ascontiguousarray](https://numpy.org/devdocs/reference/generated/numpy.ascontiguousarray.html#numpy.ascontiguousarray)(a[, dtype]) | Return a contiguous array (ndim >= 1) in memory (C order).
-[asmatrix](https://numpy.org/devdocs/reference/generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | Interpret the input as a matrix.
-copy(a[, order]) | Return an array copy of the given object.
-[frombuffer](https://numpy.org/devdocs/reference/generated/numpy.frombuffer.html#numpy.frombuffer)(buffer[, dtype, count, offset]) | Interpret a buffer as a 1-dimensional array.
-[fromfile](https://numpy.org/devdocs/reference/generated/numpy.fromfile.html#numpy.fromfile)(file[, dtype, count, sep, offset]) | Construct an array from data in a text or binary file.
-[fromfunction](https://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction)(function, shape, \*\*kwargs) | Construct an array by executing a function over each coordinate.
-[fromiter](https://numpy.org/devdocs/reference/generated/numpy.fromiter.html#numpy.fromiter)(iterable, dtype[, count]) | Create a new 1-dimensional array from an iterable object.
-[fromstring](https://numpy.org/devdocs/reference/generated/numpy.fromstring.html#numpy.fromstring)(string[, dtype, count, sep]) | A new 1-D array initialized from text data in a string.
-[loadtxt](https://numpy.org/devdocs/reference/generated/numpy.loadtxt.html#numpy.loadtxt)(fname[, dtype, comments, delimiter, …]) | Load data from a text file.
-
-## Creating record arrays (``numpy.rec``)
-
-::: tip Note
-
-``numpy.rec`` is the preferred alias for
-``numpy.core.records``.
+[数组创建](/user/basics/creation.html)
 
 :::
 
-method | description
+## Ones 和 zeros 填充方式
+
+方法 | 描述
 ---|---
-[core.records.array](https://numpy.org/devdocs/reference/generated/numpy.core.records.array.html#numpy.core.records.array)(obj[, dtype, shape, …]) | Construct a record array from a wide-variety of objects.
-[core.records.fromarrays](https://numpy.org/devdocs/reference/generated/numpy.core.records.fromarrays.html#numpy.core.records.fromarrays)(arrayList[, dtype, …]) | create a record array from a (flat) list of arrays
-[core.records.fromrecords](https://numpy.org/devdocs/reference/generated/numpy.core.records.fromrecords.html#numpy.core.records.fromrecords)(recList[, dtype, …]) | create a recarray from a list of records in text form
-[core.records.fromstring](https://numpy.org/devdocs/reference/generated/numpy.core.records.fromstring.html#numpy.core.records.fromstring)(datastring[, dtype, …]) | create a (read-only) record array from binary data contained in a string
-[core.records.fromfile](https://numpy.org/devdocs/reference/generated/numpy.core.records.fromfile.html#numpy.core.records.fromfile)(fd[, dtype, shape, …]) | Create an array from binary file data
+[empty](https://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty)(shape[, dtype, order]) | 返回给定形状和类型的新数组，而无需初始化条目。
+[empty_like](https://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like)(prototype[, dtype, order, subok, …]) | 返回形状和类型与给定数组相同的新数组。
+[eye](https://numpy.org/devdocs/reference/generated/numpy.eye.html#numpy.eye)(N[, M, k, dtype, order]) | 返回一个二维数组，对角线上有一个，其他地方为零。
+[identity](https://numpy.org/devdocs/reference/generated/numpy.identity.html#numpy.identity)(n[, dtype]) | 返回标识数组。
+[ones](https://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones)(shape[, dtype, order]) | 返回给定形状和类型的新数组，并填充为1。
+[ones_like](https://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like)(a[, dtype, order, subok, shape]) | 返回形状与类型与给定数组相同的数组。
+[zeros](https://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros)(shape[, dtype, order]) | 返回给定形状和类型的新数组，并用零填充。
+[zeros_like](https://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like)(a[, dtype, order, subok, shape]) | 返回形状与类型与给定数组相同的零数组。
+[full](https://numpy.org/devdocs/reference/generated/numpy.full.html#numpy.full)(shape, fill_value[, dtype, order]) | 返回给定形状和类型的新数组，并用fill_value填充。
+[full_like](https://numpy.org/devdocs/reference/generated/numpy.full_like.html#numpy.full_like)(a, fill_value[, dtype, order, …]) | 返回形状和类型与给定数组相同的完整数组。
 
-## Creating character arrays (``numpy.char``)
+## 从现有的数据创建
 
-::: tip Note
+方法 | 描述
+---|---
+[array](https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array)(object[, dtype, copy, order, subok, ndmin]) | 创建一个数组。
+[asarray](https://numpy.org/devdocs/reference/generated/numpy.asarray.html#numpy.asarray)(a[, dtype, order]) | 将输入转换为数组。
+[asanyarray](https://numpy.org/devdocs/reference/generated/numpy.asanyarray.html#numpy.asanyarray)(a[, dtype, order]) | 将输入转换为ndarray，但通过ndarray子类。
+[ascontiguousarray](https://numpy.org/devdocs/reference/generated/numpy.ascontiguousarray.html#numpy.ascontiguousarray)(a[, dtype]) | 返回内存中的连续数组（ndim > = 1）（C顺序）。
+[asmatrix](https://numpy.org/devdocs/reference/generated/numpy.asmatrix.html#numpy.asmatrix)(data[, dtype]) | 将输入解释为矩阵。
+[copy](https://numpy.org/devdocs/reference/generated/numpy.copy.html#numpy.copy)(a[, order]) | 返回给定对象的数组副本。
+[frombuffer](https://numpy.org/devdocs/reference/generated/numpy.frombuffer.html#numpy.frombuffer)(buffer[, dtype, count, offset]) | 将缓冲区解释为一维数组。
+[fromfile](https://numpy.org/devdocs/reference/generated/numpy.fromfile.html#numpy.fromfile)(file[, dtype, count, sep, offset]) | 根据文本或二进制文件中的数据构造一个数组。
+[fromfunction](https://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction)(function, shape, \*\*kwargs) | 通过在每个坐标上执行一个函数来构造一个数组。
+[fromiter](https://numpy.org/devdocs/reference/generated/numpy.fromiter.html#numpy.fromiter)(iterable, dtype[, count]) | 从可迭代对象创建一个新的一维数组。
+[fromstring](https://numpy.org/devdocs/reference/generated/numpy.fromstring.html#numpy.fromstring)(string[, dtype, count, sep]) | 从字符串中的文本数据初始化的新一维数组。
+[loadtxt](https://numpy.org/devdocs/reference/generated/numpy.loadtxt.html#numpy.loadtxt)(fname[, dtype, comments, delimiter, …]) | 从文本文件加载数据。
 
-[``numpy.char``](routines.char.html#module-numpy.char) is the preferred alias for
-``numpy.core.defchararray``.
+## 创建记录数组（``numpy.rec``）
+
+::: tip 注意
+
+``numpy.rec`` 是的首选别名 ``numpy.core.records``。
 
 :::
 
-method | description
+方法 | 描述
 ---|---
-[core.defchararray.array](https://numpy.org/devdocs/reference/generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array)(obj[, itemsize, …]) | Create a chararray.
-[core.defchararray.asarray](https://numpy.org/devdocs/reference/generated/numpy.core.defchararray.asarray.html#numpy.core.defchararray.asarray)(obj[, itemsize, …]) | Convert the input to a chararray, copying the data only if necessary.
+[core.records.array](https://numpy.org/devdocs/reference/generated/numpy.core.records.array.html#numpy.core.records.array)(obj[, dtype, shape, …]) | 从各种各样的对象构造一个记录数组。
+[core.records.fromarrays](https://numpy.org/devdocs/reference/generated/numpy.core.records.fromarrays.html#numpy.core.records.fromarrays)(arrayList[, dtype, …]) | 从（平面）数组列表创建记录数组
+[core.records.fromrecords](https://numpy.org/devdocs/reference/generated/numpy.core.records.fromrecords.html#numpy.core.records.fromrecords)(recList[, dtype, …]) | 从文本格式的记录列表创建一个rearray
+[core.records.fromstring](https://numpy.org/devdocs/reference/generated/numpy.core.records.fromstring.html#numpy.core.records.fromstring)(datastring[, dtype, …])	 | 根据字符串中包含的二进制数据创建（只读）记录数组
+[core.records.fromfile](https://numpy.org/devdocs/reference/generated/numpy.core.records.fromfile.html#numpy.core.records.fromfile)(fd[, dtype, shape, …]) | 根据二进制文件数据创建数组
 
-## Numerical ranges
+## 创建字符数组（``numpy.char``）
 
-method | description
+::: tip 注意
+
+[``numpy.char``](char.html)是的首选别名 ``numpy.core.defchararray``。
+
+:::
+
+方法 | 描述
 ---|---
-[arange](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange)([start,] stop[, step,][, dtype]) | Return evenly spaced values within a given interval.
-[linspace](https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace)(start, stop[, num, endpoint, …]) | Return evenly spaced numbers over a specified interval.
-[logspace](https://numpy.org/devdocs/reference/generated/numpy.logspace.html#numpy.logspace)(start, stop[, num, endpoint, base, …]) | Return numbers spaced evenly on a log scale.
-[geomspace](https://numpy.org/devdocs/reference/generated/numpy.geomspace.html#numpy.geomspace)(start, stop[, num, endpoint, …]) | Return numbers spaced evenly on a log scale (a geometric progression).
-[meshgrid](https://numpy.org/devdocs/reference/generated/numpy.meshgrid.html#numpy.meshgrid)(\*xi, \*\*kwargs) | Return coordinate matrices from coordinate vectors.
-[mgrid](https://numpy.org/devdocs/reference/generated/numpy.mgrid.html#numpy.mgrid) | nd_grid instance which returns a dense multi-dimensional “meshgrid”.
-[ogrid](https://numpy.org/devdocs/reference/generated/numpy.ogrid.html#numpy.ogrid) | nd_grid instance which returns an open multi-dimensional “meshgrid”.
+[core.defchararray.array](https://numpy.org/devdocs/reference/generated/numpy.core.defchararray.array.html#numpy.core.defchararray.array)(obj[, itemsize, …]) | 创建一个chararray。
+[core.defchararray.asarray](https://numpy.org/devdocs/reference/generated/numpy.core.defchararray.asarray.html#numpy.core.defchararray.asarray)(obj[, itemsize, …]) | 将输入转换为chararray，仅在必要时复制数据。
 
-## Building matrices
+## 数值范围
 
-method | description
+方法 | 描述
 ---|---
-[diag](https://numpy.org/devdocs/reference/generated/numpy.diag.html#numpy.diag)(v[, k]) | Extract a diagonal or construct a diagonal array.
-[diagflat](https://numpy.org/devdocs/reference/generated/numpy.diagflat.html#numpy.diagflat)(v[, k]) | Create a two-dimensional array with the flattened input as a diagonal.
-[tri](https://numpy.org/devdocs/reference/generated/numpy.tri.html#numpy.tri)(N[, M, k, dtype]) | An array with ones at and below the given diagonal and zeros elsewhere.
-[tril](https://numpy.org/devdocs/reference/generated/numpy.tril.html#numpy.tril)(m[, k]) | Lower triangle of an array.
-[triu](https://numpy.org/devdocs/reference/generated/numpy.triu.html#numpy.triu)(m[, k]) | Upper triangle of an array.
-[vander](https://numpy.org/devdocs/reference/generated/numpy.vander.html#numpy.vander)(x[, N, increasing]) | Generate a Vandermonde matrix.
+[arange](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange)([start,] stop[, step,][, dtype]) | 返回给定间隔内的均匀间隔的值。
+[linspace](https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace)(start, stop[, num, endpoint, …]) | 返回指定间隔内的等间隔数字。
+[logspace](https://numpy.org/devdocs/reference/generated/numpy.logspace.html#numpy.logspace)(start, stop[, num, endpoint, base, …]) | 返回数以对数刻度均匀分布。
+[geomspace](https://numpy.org/devdocs/reference/generated/numpy.geomspace.html#numpy.geomspace)(start, stop[, num, endpoint, …]) | 返回数字以对数刻度（几何级数）均匀分布。
+[meshgrid](https://numpy.org/devdocs/reference/generated/numpy.meshgrid.html#numpy.meshgrid)(\*xi, \*\*kwargs) | 从坐标向量返回坐标矩阵。
+[mgrid](https://numpy.org/devdocs/reference/generated/numpy.mgrid.html#numpy.mgrid) | nd_grid实例，它返回一个密集的多维“ meshgrid”。
+[ogrid](https://numpy.org/devdocs/reference/generated/numpy.ogrid.html#numpy.ogrid) | nd_grid实例，它返回一个开放的多维“ meshgrid”。
 
-## The Matrix class
+## 创建矩阵
 
-method | description
+方法 | 描述
 ---|---
-[mat](https://numpy.org/devdocs/reference/generated/numpy.mat.html#numpy.mat)(data[, dtype]) | Interpret the input as a matrix.
-[bmat](https://numpy.org/devdocs/reference/generated/numpy.bmat.html#numpy.bmat)(obj[, ldict, gdict]) | Build a matrix object from a string, nested sequence, or array.
+[diag](https://numpy.org/devdocs/reference/generated/numpy.diag.html#numpy.diag)(v[, k]) | 提取对角线或构造对角线数组。
+[diagflat](https://numpy.org/devdocs/reference/generated/numpy.diagflat.html#numpy.diagflat)(v[, k]) | 使用展平的输入作为对角线创建二维数组。
+[tri](https://numpy.org/devdocs/reference/generated/numpy.tri.html#numpy.tri)(N[, M, k, dtype]) | 在给定对角线处及以下且在其他位置为零的数组。
+[tril](https://numpy.org/devdocs/reference/generated/numpy.tril.html#numpy.tril)(m[, k]) | 数组的下三角。
+[triu](https://numpy.org/devdocs/reference/generated/numpy.triu.html#numpy.triu)(m[, k]) | 数组的上三角。
+[vander](https://numpy.org/devdocs/reference/generated/numpy.vander.html#numpy.vander)(x[, N, increasing]) | 生成范德蒙矩阵。
+
+## 矩阵类
+
+方法 | 描述
+---|---
+[mat](https://numpy.org/devdocs/reference/generated/numpy.mat.html#numpy.mat)(data[, dtype]) | 将输入解释为矩阵。
+[bmat](https://numpy.org/devdocs/reference/generated/numpy.bmat.html#numpy.bmat)(obj[, ldict, gdict])	 | 从字符串，嵌套序列或数组构建矩阵对象。

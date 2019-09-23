@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 在Python中使用F2PY构建 NumPy
+  - name: description
+    content: Fortran / C例程，公共块或F2PY生成的Fortran 90模块数据的所有包装器都作为fortran 类型对象公开给Python。
+---
+
 # 在Python中使用F2PY构建
 
 Fortran / C例程，公共块或F2PY生成的Fortran 90模块数据的所有包装器都作为``fortran`` 类型对象公开给Python 。
@@ -499,18 +507,18 @@ fun_extra_args = (e_1,...,e_p)
 如果使用Fortran或C函数调用回调参数，则应用以下规则``gun``：
 
 - 如果那时被调用，这里
- 。``p == 0````gun(a_1, ..., a_q)````q = min(m, n)``
-- 如果那时被召唤。``n + p <= m````gun(a_1, ..., a_n, e_1, ..., e_p)``
+ 。``p == 0``gun(a_1, ..., a_q)``q = min(m, n)``
+- 如果那时被召唤。``n + p <= m``gun(a_1, ..., a_n, e_1, ..., e_p)``
 - 如果那时被调用，这里
- 。``p <= m < n + p````gun(a_1, ..., a_q, e_1, ..., e_p)````q=m-p``
-- 如果那时被召唤。``p > m````gun(e_1, ..., e_m)``
+ 。``p <= m < n + p``gun(a_1, ..., a_q, e_1, ..., e_p)``q=m-p``
+- 如果那时被召唤。``p > m``gun(e_1, ..., e_m)``
 - 如果小于所需参数的数量，
-则引发异常。``n + p````gun``
+则引发异常。``n + p``gun``
 
 该函数``gun``可以将任意数量的对象作为元组返回。然后应用以下规则：
 
-- 如果，则忽略。``k < l````y_{k + 1}, ..., y_l``
-- 如果，那么只设置。``k > l````x_1, ..., x_l``
+- 如果，则忽略。``k < l``y_{k + 1}, ..., y_l``
+- 如果，那么只设置。``k > l``x_1, ..., x_l``
 
 ## 常用块
 

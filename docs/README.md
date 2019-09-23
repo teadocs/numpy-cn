@@ -42,6 +42,17 @@ footer: 署名-非商业性使用-相同方式共享 3.0 中国大陆 (CC BY-NC-
   </div>
 </div>
 
+
+### 网站阅读导航
+
+- 如果使用手机预览，请点击**左上角**的菜单图标展开文档的菜单。
+- 假设你是新手同学，推荐阅读基础文章中的：[理解Numpy](/article/basics/understanding_numpy.html)、[NumPy简单入门教程](/article/basics/an_introduction_to_scientific_python_numpy.html)、[创建Numpy数组的不同方式](/article/basics/different_ways_create_numpy_arrays.html)。还有中文文档提供的[精选资源](/awesome/)。
+- 想了解**神经网络**或者**强化学习**相关的可以参看 [NumPy 与 神经网络](/article/advanced/numpy_kmeans.html)、[ NumPy实现DNC、RNN和LSTM神经网络算法](/article/advanced/dnc_rnn_lstm.html)。
+- 想查找手册？请指教点击左上角的搜索框进行搜索。
+- 想系统的学习NumPy？请直接从本文档第一篇一直阅读到最后一篇，你可能不需要为任何教程/内容付费就可以学会。
+- 如果有疑问请在右侧**快捷留言板**留言 或者 加入**NumPy 中文社区**的QQ/微信群。
+- 另外，**捐赠**可以点击下面**捐赠网站**按钮。🙏
+
 ### 就像1、2、3 一样简单
 
 ``` bash

@@ -1,4 +1,4 @@
-# NumPy internals
+# NumPy 的内部
 
 - [NumPy C Code Explanations](internals.code-explanations.html)
   - [Memory model](internals.code-explanations.html#memory-model)
@@ -25,49 +25,49 @@
   - [Variables in Numpy which control and describe alignment](alignment.html#variables-in-numpy-which-control-and-describe-alignment)
   - [Consequences of alignment](alignment.html#consequences-of-alignment)
 
-## Internal organization of numpy arrays
+## NumPy 数组的内部组织结构
 
-It helps to understand a bit about how numpy arrays are handled under the covers to help understand numpy better. This section will not go into great detail. Those wishing to understand the full details are referred to Travis Oliphant’s book “Guide to NumPy”.
+这有助于您了解一些有关如何处理numpy数组的知识，以帮助您更好地理解numpy。本节将不会详细介绍。那些希望了解全部细节的人可以参考Travis Oliphant的书“ NumPy指南”。
 
-NumPy arrays consist of two major components, the raw array data (from now on, referred to as the data buffer), and the information about the raw array data. The data buffer is typically what people think of as arrays in C or Fortran, a contiguous (and fixed) block of memory containing fixed sized data items. NumPy also contains a significant set of data that describes how to interpret the data in the data buffer. This extra information contains (among other things):
+NumPy数组由两个主要组件组成，原始数组数据（从现在开始，称为数据缓冲区），以及有关原始数组数据的信息。人们通常认为数据缓冲区是C或Fortran中的数组，这是包含固定大小的数据项的连续（固定）内存块。NumPy还包含一组重要的数据，这些数据描述了如何解释数据缓冲区中的数据。此额外信息包含（除其他事项外）：
 
-1. The basic data element’s size in bytes
-1. The start of the data within the data buffer (an offset relative to the beginning of the data buffer).
-1. The number of dimensions and the size of each dimension
-1. The separation between elements for each dimension (the ‘stride’). This does not have to be a multiple of the element size
-1. The byte order of the data (which may not be the native byte order)
-1. Whether the buffer is read-only
-1. Information (via the dtype object) about the interpretation of the basic data element. The basic data element may be as simple as a int or a float, or it may be a compound object (e.g., struct-like), a fixed character field, or Python object pointers.
-1. Whether the array is to interpreted as C-order or Fortran-order.
+1. 基本数据元素的大小（以字节为单位）
+1. 数据缓冲区中数据的起始位置（相对于数据缓冲区起始位置的偏移量）。
+1. 尺寸数和每个尺寸的大小
+1. 每个维度的元素之间的分隔（“跨度”）。这不必是元素大小的倍数
+1. 数据的字节顺序（可能不是本机字节顺序）
+1. 缓冲区是否为只读
+1. 有关基本数据元素解释的信息（通过dtype对象）。基本数据元素可以像int或float一样简单，也可以是复合对象（例如，类似于struct的对象），固定字符字段或Python对象指针。
+1. 数组是解释为C顺序还是Fortran顺序。
 
-This arrangement allow for very flexible use of arrays. One thing that it allows is simple changes of the metadata to change the interpretation of the array buffer. Changing the byteorder of the array is a simple change involving no rearrangement of the data. The shape of the array can be changed very easily without changing anything in the data buffer or any data copying at all
+这种布置允许非常灵活地使用阵列。它允许的一件事是对元数据的简单更改即可更改数组缓冲区的解释。更改数组的字节顺序是一个简单的更改，不涉及数据的重新排列。可以很容易地更改数组的形状，而无需更改数据缓冲区中的任何内容或进行任何数据复制
 
-Among other things that are made possible is one can create a new array metadata object that uses the same data buffer to create a new view of that data buffer that has a different interpretation of the buffer (e.g., different shape, offset, byte order, strides, etc) but shares the same data bytes. Many operations in numpy do just this such as slices. Other operations, such as transpose, don’t move data elements around in the array, but rather change the information about the shape and strides so that the indexing of the array changes, but the data in the doesn’t move.
+除其他外，可以创建一个新的数组元数据对象，该对象使用相同的数据缓冲区来创建该数据缓冲区的新视图，该视图对缓冲区的解释不同（例如，形状，偏移量，字节顺序，跨步等），但共享相同的数据字节。numpy中的许多操作就是这样做的，例如切片。其他操作（例如转置）不会在数组中四处移动数据元素，而是会更改有关形状和步幅的信息，以使数组的索引发生变化，但数组中的数据不会移动。
 
-Typically these new versions of the array metadata but the same data buffer are new ‘views’ into the data buffer. There is a different ndarray object, but it uses the same data buffer. This is why it is necessary to force copies through use of the .copy() method if one really wants to make a new and independent copy of the data buffer.
+通常，这些新版本的数组元数据和相同的数据缓冲区是数据缓冲区的新“视图”。有一个不同的ndarray对象，但是它使用相同的数据缓冲区。这就是为什么如果一个人真的想创建数据缓冲区的新的独立副本，则必须通过使用.copy（）方法来强制进行复制。
 
-New views into arrays mean the object reference counts for the data buffer increase. Simply doing away with the original array object will not remove the data buffer if other views of it still exist.
+数组中的新视图意味着数据缓冲区的对象引用计数增加。如果仍然保留原始数组对象的其他视图，则仅删除原始数组对象将不会删除该数据缓冲区。
 
-## Multidimensional Array Indexing Order Issues
+## 多维数组索引顺序问题
 
-What is the right way to index multi-dimensional arrays? Before you jump to conclusions about the one and true way to index multi-dimensional arrays, it pays to understand why this is a confusing issue. This section will try to explain in detail how numpy indexing works and why we adopt the convention we do for images, and when it may be appropriate to adopt other conventions.
+索引多维数组的正确方法是什么？在得出关于索引多维数组的一种真实方法的结论之前，有必要了解为什么这是一个令人困惑的问题。本节将尝试详细解释numpy索引的工作方式，为什么我们采用对图像的约定，以及何时适合采用其他约定。
 
-The first thing to understand is that there are two conflicting conventions for indexing 2-dimensional arrays. Matrix notation uses the first index to indicate which row is being selected and the second index to indicate which column is selected. This is opposite the geometrically oriented-convention for images where people generally think the first index represents x position (i.e., column) and the second represents y position (i.e., row). This alone is the source of much confusion; matrix-oriented users and image-oriented users expect two different things with regard to indexing.
+首先要了解的是，索引二维数组有两种冲突的约定。矩阵表示法使用第一个索引指示正在选择的行，使用第二个索引指示选择的列。这与图像的几何定向惯例相反，人们通常认为第一个索引代表x位置（即列），第二个索引代表y位置（即行）。仅此一项就造成了很多混乱。面向矩阵的用户和面向图像的用户期望在索引方面有两件事。
 
-The second issue to understand is how indices correspond to the order the array is stored in memory. In Fortran the first index is the most rapidly varying index when moving through the elements of a two dimensional array as it is stored in memory. If you adopt the matrix convention for indexing, then this means the matrix is stored one column at a time (since the first index moves to the next row as it changes). Thus Fortran is considered a Column-major language. C has just the opposite convention. In C, the last index changes most rapidly as one moves through the array as stored in memory. Thus C is a Row-major language. The matrix is stored by rows. Note that in both cases it presumes that the matrix convention for indexing is being used, i.e., for both Fortran and C, the first index is the row. Note this convention implies that the indexing convention is invariant and that the data order changes to keep that so.
+要了解的第二个问题是索引如何与数组在内存中存储的顺序相对应。在Fortran中，第一个索引是在存储于内存中的二维数组中移动时变化最快的索引。如果采用矩阵约定进行索引，则这意味着矩阵一次存储一列（因为第一个索引随着更改而移动到下一行）。因此，Fortran被认为是列主要语言。C有相反的约定。在C语言中，最后一个索引随着存储在内存中的数组的移动而变化最快。因此，C是行专用语言。矩阵按行存储。请注意，在这两种情况下，都假定使用了索引的矩阵约定，即对于Fortran和C，第一个索引是行。
 
-But that’s not the only way to look at it. Suppose one has large two-dimensional arrays (images or matrices) stored in data files. Suppose the data are stored by rows rather than by columns. If we are to preserve our index convention (whether matrix or image) that means that depending on the language we use, we may be forced to reorder the data if it is read into memory to preserve our indexing convention. For example if we read row-ordered data into memory without reordering, it will match the matrix indexing convention for C, but not for Fortran. Conversely, it will match the image indexing convention for Fortran, but not for C. For C, if one is using data stored in row order, and one wants to preserve the image index convention, the data must be reordered when reading into memory.
+但这不是观察它的唯一方法。假设其中有一个大型的二维数组（图像或矩阵）存储在数据文件中。假设数据是按行而不是按列存储的。如果我们要保留索引约定（无论是矩阵还是图像），这意味着取决于我们使用的语言，如果将数据读入内存以保留索引约定，我们可能会被迫重新排序数据。例如，如果我们将行排序的数据读入内存而不进行重新排序，则它将匹配C的矩阵索引约定，但不匹配Fortran。相反，它将与Fortran的图像索引约定匹配，但与C不匹配。对于C，如果使用的是按行顺序存储的数据，并且希望保留图像索引约定，则在读入内存时必须对数据重新排序。
 
-In the end, which you do for Fortran or C depends on which is more important, not reordering data or preserving the indexing convention. For large images, reordering data is potentially expensive, and often the indexing convention is inverted to avoid that.
+最后，您对Fortran或C进行的操作取决于哪个更重要，而不是对数据重新排序或保留索引约定。对于大图像，对数据进行重新排序可能会非常昂贵，并且通常会颠倒索引约定以避免这种情况。
 
-The situation with numpy makes this issue yet more complicated. The internal machinery of numpy arrays is flexible enough to accept any ordering of indices. One can simply reorder indices by manipulating the internal stride information for arrays without reordering the data at all. NumPy will know how to map the new index order to the data without moving the data.
+numpy的情况使此问题更加复杂。numpy数组的内部机制足够灵活，可以接受索引的任何排序。可以通过处理数组的内部步幅信息来简单地对索引进行重新排序，而根本不需要对数据进行重新排序。NumPy将知道如何在不移动数据的情况下将新索引顺序映射到数据。
 
-So if this is true, why not choose the index order that matches what you most expect? In particular, why not define row-ordered images to use the image convention? (This is sometimes referred to as the Fortran convention vs the C convention, thus the ‘C’ and ‘FORTRAN’ order options for array ordering in numpy.) The drawback of doing this is potential performance penalties. It’s common to access the data sequentially, either implicitly in array operations or explicitly by looping over rows of an image. When that is done, then the data will be accessed in non-optimal order. As the first index is incremented, what is actually happening is that elements spaced far apart in memory are being sequentially accessed, with usually poor memory access speeds. For example, for a two dimensional image ‘im’ defined so that im[0, 10] represents the value at x=0, y=10. To be consistent with usual Python behavior then im[0] would represent a column at x=0. Yet that data would be spread over the whole array since the data are stored in row order. Despite the flexibility of numpy’s indexing, it can’t really paper over the fact basic operations are rendered inefficient because of data order or that getting contiguous subarrays is still awkward (e.g., im[:,0] for the first row, vs im[0]), thus one can’t use an idiom such as for row in im; for col in im does work, but doesn’t yield contiguous column data.
+因此，如果这是真的，为什么不选择与您最期望的匹配的索引顺序？特别是，为什么不定义按行排序的图像以使用图像约定？（这有时被称为Fortran约定与C约定，因此以numpy进行数组排序的'C'和'FORTRAN'排序选项。）这样做的缺点是潜在的性能损失。顺序访问数据是很常见的，既可以在数组操作中隐式地进行，也可以通过循环遍历图像的行来显式地进行。完成此操作后，将以非最佳顺序访问数据。随着第一个索引的增加，实际上发生的是顺序访问内存中间隔很远的元素，通常访问内存的速度较差。例如，对于定义为使im [0，10]表示x = 0处的值的二维图像“ im”，Y = 10。为了与通常的Python行为保持一致，则im [0]将在x = 0处表示一列。但是，由于数据按行顺序存储，因此该数据将散布在整个阵列上。尽管numpy的索引具有灵活性，但它无法真正说明由于数据顺序使基本操作效率低下或获取连续子数组仍然很尴尬的事实（例如，第一行的im [：，0]与im [ 0]），因此不能使用诸如im中的row这样的惯用语；for im in col可以工作，但不会产生连续的列数据。它不能真正地说明由于数据顺序使基本操作效率低下或获得连续子数组仍然很尴尬的事实（例如，第一行的im [：，0]与im [0]），因此可以不要在im中使用诸如for的成语；for im in col可以工作，但不会产生连续的列数据。它不能真正地说明由于数据顺序使基本操作效率低下或获得连续子数组仍然很尴尬的事实（例如，第一行的im [：，0]与im [0]），因此可以不要在im中使用诸如for的成语；for im in col可以工作，但不会产生连续的列数据。
 
-As it turns out, numpy is smart enough when dealing with ufuncs to determine which index is the most rapidly varying one in memory and uses that for the innermost loop. Thus for ufuncs there is no large intrinsic advantage to either approach in most cases. On the other hand, use of .flat with an FORTRAN ordered array will lead to non-optimal memory access as adjacent elements in the flattened array (iterator, actually) are not contiguous in memory.
+事实证明，在处理ufunc时，numpy足够聪明，可以确定哪个索引是内存中变化最快的索引，并将其用于最内层的循环。因此，对于ufunc，在大多数情况下，这两种方法都没有很大的固有优势。另一方面，将.flat与FORTRAN有序数组一起使用将导致非最佳内存访问，因为在扁平化数组中的相邻元素（实际上是迭代器）在内存中不连续。
 
-Indeed, the fact is that Python indexing on lists and other sequences naturally leads to an outside-to inside ordering (the first index gets the largest grouping, the next the next largest, and the last gets the smallest element). Since image data are normally stored by rows, this corresponds to position within rows being the last item indexed.
+确实，事实是Python在列表和其他序列上建立索引自然会导致从外到内的排序（第一个索引获得最大的分组，第二个索引获得最大的分组，最后一个索引获得最小的元素）。由于图像数据通常按行存储，因此这对应于最后索引的行在行中的位置。
 
-If you do want to use Fortran ordering realize that there are two approaches to consider: 1) accept that the first index is just not the most rapidly changing in memory and have all your I/O routines reorder your data when going from memory to disk or visa versa, or use numpy’s mechanism for mapping the first index to the most rapidly varying data. We recommend the former if possible. The disadvantage of the latter is that many of numpy’s functions will yield arrays without Fortran ordering unless you are careful to use the ‘order’ keyword. Doing this would be highly inconvenient.
+如果您确实想使用Fortran排序，请意识到有两种方法可以考虑：1）接受第一个索引并不是内存中变化最快的索引，并让所有I / O例程在从内存到磁盘的过程中对数据进行重新排序反之亦然，或者使用numpy的机制将第一个索引映射到变化最快的数据。如果可能，我们建议使用前者。后者的缺点是，除非小心使用'order'关键字，否则许多numpy函数都会产生没有Fortran排序的数组。这样做非常不方便。
 
-Otherwise we recommend simply learning to reverse the usual order of indices when accessing elements of an array. Granted, it goes against the grain, but it is more in line with Python semantics and the natural order of the data.
+否则，我们建议您简单地学习在访问数组元素时反转索引的通常顺序。诚然，它违背了原则，但更符合Python语义和数据的自然顺序。

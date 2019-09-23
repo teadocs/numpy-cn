@@ -1,8 +1,16 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 发布版本
+  - name: description
+    content: 此页概述了为NumPy构建二进制版本所需的内容。
+---
+
 # 发布版本
 
 ## 如何准备发布
 
-此文件概述了为NumPy构建二进制版本所需的内容。
+此页概述了为NumPy构建二进制版本所需的内容。
 
 ### 当前构建和发布信息
 
@@ -99,7 +107,7 @@ NumPy发行版中的``.c``文件编译为文件。
 #### 生成 作者/pr 列表
 
 您将需要一个个人访问令牌
- [https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/，](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) 
+ [https://help.github.com/article/creating-a-personal-access-token-for-the-command-line/，](https://help.github.com/article/creating-a-personal-access-token-for-the-command-line/) 
 以便脚本可以访问github NumPy存储库。
 
 - gitpython（pip）
@@ -575,7 +583,7 @@ tag``
 #### 上传文件numpy.org 
 
 此步骤仅适用于最终版本，可以跳过预发布版本。克隆repo
- 并使用新文档更新它：``make merge-doc````numpy/doc````doc/build/merge``
+ 并使用新文档更新它：``make merge-doc``numpy/doc``doc/build/merge``
 
 ``` python
 $ pushd doc

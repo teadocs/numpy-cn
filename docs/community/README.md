@@ -1,6 +1,11 @@
 ---
 sidebarDepth: 3
 sidebar: auto
+meta:
+  - name: keywords
+    content: NumPy 的社区
+  - name: description
+    content: NumPy用户和开发人员社区规模庞大且分散。我们尝试将某些讨论和交流引导至某些第三方渠道...
 ---
 
 # NumPy 的社区
@@ -21,4 +26,6 @@ NumPy用户和开发人员社区规模庞大且分散。我们尝试将某些讨
     1. NumPy发布和开发人员会议的公告
     1. ...
 
-要了解有关如何为 *NumPy* 的持续发展做出贡献的更多信息，请查看我们的[贡献指南](/dev/#contributing-to-numpy)。有关项目方向的深入开发讨论，您可以加入[邮件列表](https://mail.python.org/mailman/listinfo/numpy-discussion)。
+要了解有关如何为 *NumPy* 的持续发展做出贡献的更多信息，请查看我们的[贡献指南](/dev/)。
+有关项目方向的深入开发讨论，
+您可以加入[邮件列表](https://mail.python.org/mailman/listinfo/numpy-discussion)讨论。

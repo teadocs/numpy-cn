@@ -1,6 +1,14 @@
-# Numpy 中的矩阵和向量
+---
+meta:
+  - name: keywords
+    content: NumPy 中的矩阵和向量
+  - name: description
+    content: numpy的``ndarray``类用于表示矩阵和向量。要在numpy中构造矩阵，我们在列表中列出矩阵的行，并将该列表传递给numpy数组构造函数。
+---
 
-numpy``ndarray``类用于表示矩阵和向量。
+# NumPy 中的矩阵和向量
+
+numpy的``ndarray``类用于表示矩阵和向量。
 要在numpy中构造矩阵，我们在列表中列出矩阵的行，
 并将该列表传递给numpy数组构造函数。
 

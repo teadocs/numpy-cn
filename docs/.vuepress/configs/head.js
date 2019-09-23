@@ -54,7 +54,7 @@ module.exports = [
   }],
   ['meta', {
     name: 'theme-color',
-    content: '#3eaf7c'
+    content: '#489dc1'
   }],
   ['meta', {
     name: 'apple-mobile-web-app-capable',

@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 常量
+  - name: description
+    content: NumPy包括几个常量：
+---
+
 # 常量
 
 NumPy包括几个常量：

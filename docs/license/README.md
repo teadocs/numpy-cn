@@ -1,6 +1,11 @@
 ---
 sidebarDepth: 3
 sidebar: auto
+meta:
+  - name: keywords
+    content: NumPy 的许可证
+  - name: description
+    content: Copyright (c) 2005, NumPy Developers...
 ---
 
 # NumPy 的许可证

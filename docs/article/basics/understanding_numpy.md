@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 理解 NumPy
+  - name: description
+    content: 在这篇文章中，我们将介绍使用NumPy的基础知识，NumPy是一个功能强大的Python库，允许更高级的数据操作和数学计算。
+---
+
 # 理解 NumPy
 
 在这篇文章中，我们将介绍使用NumPy的基础知识，NumPy是一个功能强大的Python库，允许更高级的数据操作和数学计算。
@@ -180,4 +188,4 @@ print "Matrix Product = ", matrix_product
 
 ## 文章出处
 
-由NumPy中文文档翻译，原作者为 [Vijay Singh](https://dzone.com/users/3404598/vijayhackr.html)，翻译至：[https://dzone.com/articles/understanding-numpy](https://dzone.com/articles/understanding-numpy)。
+由NumPy中文文档翻译，原作者为 [Vijay Singh](https://dzone.com/users/3404598/vijayhackr.html)，翻译至：[https://dzone.com/article/understanding-numpy](https://dzone.com/article/understanding-numpy)。

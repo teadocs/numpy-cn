@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 从源码构建
+  - name: description
+    content: 此处给出了从源代码构建NumPy的一般概述，以及单独给出的特定平台的详细说明。
+---
+
 # 从源码构建
 
 此处给出了从源代码构建NumPy的一般概述，以及单独给出的特定平台的详细说明。

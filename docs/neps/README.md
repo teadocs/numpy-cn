@@ -1,11 +1,18 @@
 ---
 sidebarDepth: 3
 sidebar: auto
+meta:
+  - name: keywords
+    content: 开发计划 和 NumPy改进建议
+  - name: description
+    content: 此页概述了NumPy的开发优先级。具体地说，它包含一个路线图，具有更高级别的概述，以及NumPy增强建议(NEP)-对库的建议更改...
 ---
 
 # 开发计划 和 NumPy改进建议
 
-This page provides an overview of development priorities for NumPy. Specifically, it contains a roadmap with a higher-level overview, as well as NumPy Enhancement Proposals (NEPs)—suggested changes to the library—in various stages of discussion or completion (see [NEP 0](https://numpy.org/neps/nep-0000)).
+此页概述了NumPy的开发优先级。具体地说，它包含一个路线图，
+具有更高级别的概述，以及NumPy增强建议(NEP)-对库的建议更改-
+在讨论或完成的不同阶段（参见[NEP 0](https://numpy.org/neps/nep-0000)）.
 
 ## 路线图
 

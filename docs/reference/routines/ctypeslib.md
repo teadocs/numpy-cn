@@ -1,122 +1,126 @@
-# C-Types Foreign Function Interface (``numpy.ctypeslib``)
+# C-Types外部函数接口（``numpy.ctypeslib``）
 
-- ``numpy.ctypeslib.``as_array``(*obj*, *shape=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L505-L523)
+  从ctypes数组或指针创建numpy数组。
 
-  Create a numpy array from a ctypes array or POINTER.
+  numpy数组与ctypes对象共享内存。
 
-  The numpy array shares the memory with the ctypes object.
+  如果从ctypes指针转换，则必须给定Shape参数。
+  如果从ctypes数组转换，则忽略shape参数
 
-  The shape parameter must be given if converting from a ctypes POINTER.
-  The shape parameter is ignored if converting from a ctypes array
+- ``numpy.ctypeslib.``as_ctypes(*obj*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L526-L541)[¶](#numpy.ctypeslib.as_ctypes)
 
-- ``numpy.ctypeslib.``as_ctypes``(*obj*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L526-L541)[¶](#numpy.ctypeslib.as_ctypes)
+  从numpy数组创建并返回ctypes对象。
+  实际上，任何公开 \_\_array_interface__的内容都是可以接受的。
 
-  Create and return a ctypes object from a numpy array.  Actually
-  anything that exposes the __array_interface__ is accepted.
+- ``numpy.ctypeslib.``as_ctypes_type(*dtype*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L464-L502)
 
-- ``numpy.ctypeslib.``as_ctypes_type``(*dtype*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L464-L502)
+  将数据类型转换为ctype类型。
 
-  Convert a dtype into a ctypes type.
+  **参数：**
 
-  **Parameters:**
-
-  type | description
+  类型 | 描述
   ---|---
-  dtype : dtype | The dtype to convert
+  dtype : dtype | 转换的dtype
 
-  **Returns:**
+  **返回：**
 
-  type | description
+  类型 | 描述
   ---|---
-  ctype | A ctype scalar, union, array, or struct
+  ctype | ctype标量，并集，数组或结构
 
-  **Raises:**
+  **异常：**
 
-  type | description
+  类型 | 描述
   ---|---
-  NotImplementedError | If the conversion is not possible
+  NotImplementedError | 如果无法进行转换
 
-  ::: tip Notes
+  ::: tip 注意
 
-  This function does not losslessly round-trip in either direction.
+  此功能不会在两个方向上无损地往返。
 
-  - ``np.dtype(as_ctypes_type(dt))`` will:
-    - insert padding fields
-    - reorder fields to be sorted by offset
-    - discard field titles
-  - ``as_ctypes_type(np.dtype(ctype))`` will:
-    - discard the class names of [``ctypes.Structure``](https://docs.python.org/dev/library/ctypes.html#ctypes.Structure)s and[``ctypes.Union``](https://docs.python.org/dev/library/ctypes.html#ctypes.Union)s
-    - convert single-element [``ctypes.Union``](https://docs.python.org/dev/library/ctypes.html#ctypes.Union)s into single-element[``ctypes.Structure``](https://docs.python.org/dev/library/ctypes.html#ctypes.Structure)s
-    - insert padding fields
+  - ``np.dtype(as_ctypes_type(dt))`` 将会:
+    - 插入填充字段
+    - 按偏移量对要排序的字段进行重新排序
+    - 放弃字段标题
 
-- ``numpy.ctypeslib.``ctypes_load_library``(**args*, ***kwds*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/lib/utils.py#L98-L101)
+  - ``as_ctypes_type(np.dtype(ctype))`` 将会:
+    - 丢弃 [``ctypes.Structures``](https://docs.python.org/dev/library/ctypes.html#ctypes.Structure) 和 [``ctypes.Union``](https://docs.python.org/dev/library/ctypes.html#ctypes.Union) 的类名
+    - 将单元素[``ctypes.Unions``](https://docs.python.org/dev/library/ctypes.html#ctypes.Union) 转换为单元素 [``ctypes.Structures``](https://docs.python.org/dev/library/ctypes.html#ctypes.Structure)。
+    - 插入填充字段
 
-  [``ctypes_load_library``](#numpy.ctypeslib.ctypes_load_library) is deprecated, use [``load_library``](#numpy.ctypeslib.load_library) instead!
+  :::
 
-  It is possible to load a library using \>\>\> lib = ctypes.cdll[<full_path_name>] # doctest: +SKIP
+- ``numpy.ctypeslib.``ctypes_load_library(*\*args*, *\*\*kwds*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/lib/utils.py#L98-L101)
+  
+  ``ctypes_load_library`` 已弃用，请改用 ``load_library``！
+  
+  可以使用 \>\>\> lib = ctypes.cdll[\<full_path_name\>] \# doctest: +SKIP 加载库
 
-  But there are cross-platform considerations, such as library file extensions,
-  plus the fact Windows will just load the first library it finds with that name.  
-  NumPy supplies the load_library function as a convenience.
+  但是有跨平台的考虑，例如库文件扩展名，
+  此外，Windows将只加载它找到的具有该名称的第一个库。
 
-  **Parameters:**
-  type | description
+  为方便起见，NumPy提供了load_library函数。
+
+  **参数：**
+  类型 | 描述
   ---|---
-  libname : str | Name of the library, which can have ‘lib’ as a prefix, but without an extension.
-  loader_path : str | Where the library can be found.
+  libname : str | 库的名称，可以使用‘lib’作为前缀，但不带扩展名。
+  loader_path : str | 可以找到库的路径。
 
-  **Returns:**
-  type | description
+  **返回：**
+  类型 | 描述
   ---|---
-  ctypes.cdll[libpath] : library object | A ctypes library object
+  ctypes.cdll[libpath] : library object | 一个 ctypes 库对象
 
-  **Raises:**
-  type | description
+  **异常：**
+  类型 | 描述
   ---|---
-  OSError | If there is no library with the expected extension, or the library is defective and cannot be loaded.
+  OSError | 如果没有具有预期扩展名的库，或者库有缺陷且无法加载。
 
-- ``numpy.ctypeslib.``load_library``(*libname*, *loader_path*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L93-L157)
-  It is possible to load a library using  \>\>\> lib = ctypes.cdll[<full_path_name>] # doctest: +SKIP
+- ``numpy.ctypeslib.``load_library(*libname*, *loader_path*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L93-L157)
 
-  But there are cross-platform considerations, such as library file extensions,
-  plus the fact Windows will just load the first library it finds with that name.  
-  NumPy supplies the load_library function as a convenience.
+  可以使用 \>\>\> lib = ctypes.cdll[\<full_path_name\>] \# doctest: +SKIP 加载库
 
-  **Parameters:**
-  type | description
+  但是有跨平台的考虑，例如库文件扩展名，
+  此外，Windows将只加载它找到的具有该名称的第一个库。
+
+  为方便起见，NumPy提供了load_library函数。
+
+  **参数：**
+  类型 | 描述
   ---|---
-  libname : str | Name of the library, which can have ‘lib’ as a prefix, but without an extension.
-  loader_path : str | Where the library can be found.
+  libname : str | 库的名称，可以使用‘lib’作为前缀，但不带扩展名。
+  loader_path : str | 可以找到库的路径。
 
-  **Returns:**
-  type | description
+  **返回：**
+  类型 | 描述
   ---|---
-  ctypes.cdll[libpath] : library object | A ctypes library object
+  ctypes.cdll[libpath] : library object | 一个 ctypes 库对象
 
-  **Raises:**
-  type | description
+  **异常：**
+  类型 | 描述
   ---|---
-  OSError | If there is no library with the expected extension, or the library is defective and cannot be loaded.
+  OSError | 如果没有具有预期扩展名的库，或者库有缺陷且无法加载。
 
-- ``numpy.ctypeslib.``ndpointer``(*dtype=None*, *ndim=None*, *shape=None*, *flags=None*)[[source]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L231-L346)
+- ``numpy.ctypeslib.``ndpointer(*dtype=None*, *ndim=None*, *shape=None*, *flags=None*)[[点击查看源码]](https://github.com/numpy/numpy/blob/master/numpy/ctypeslib.py#L231-L346)
 
-  Array-checking restype/argtypes.
+  数组检查restype/argtypes。
 
-  An ndpointer instance is used to describe an ndarray in restypes
-  and argtypes specifications.  This approach is more flexible than
-  using, for example, ``POINTER(c_double)``, since several restrictions
-  can be specified, which are verified upon calling the ctypes function.
-  These include data type, number of dimensions, shape and flags.  If a
-  given array does not satisfy the specified restrictions,
-  a ``TypeError`` is raised.
+  在restypes和argtypes规范中，ndpoint实例用于描述ndarray。
+  这种方法比使用 ``POINTER(c_double)`` 更灵活，因为可以指定几个限制，
+  这些限制在调用ctypes函数时进行验证。这些包括数据类型、维度数量、形状和标志。
+  如果给定的数组不满足指定的限制，则引发``TypeError``。
 
-  **Parameters:**
-  type | description
+  **参数：**
+
+  类型 | 描述
   ---|---
-  dtype : data-type, optional | Array data-type.
-  ndim : int, optional | Number of array dimensions.
-  shape : tuple of ints, optional | Array shape.
-  flags : str or tuple of str | Array flags; may be one or more of:
+  dtype : data-type, optional | 数组数据类型。
+  ndim : int, optional | 数组维数。
+  shape : tuple of ints, optional | 数组形状。
+  flags : str or tuple of str | A数组标志；可能是以下一项或多项：
+
+  flags 的可能项：
     - C_CONTIGUOUS / C / CONTIGUOUS
     - F_CONTIGUOUS / F / FORTRAN
     - OWNDATA / O
@@ -125,17 +129,17 @@
     - WRITEBACKIFCOPY / X
     - UPDATEIFCOPY / U
 
-  **Returns:**
-  type | description
+  **返回：**
+  类型 | 描述
   ---|---
-  klass : ndpointer type object | A type object, which is an _ndtpr instance containing dtype, ndim, shape and flags information.
+  klass : ndpointer type object | 类型对象，它是一个_ndtpr实例，包含dtype，ndim，shape和flags信息。
 
-  **Raises:**
-  type | description
+  **异常：**
+  类型 | 描述
   ---|---
-  TypeError | If a given array does not satisfy the specified restrictions.
+  TypeError | 如果给定数组不满足指定限制。
 
-  **Examples:**
+  **示例：**
 
   ``` python
   >>> clib.somefunc.argtypes = [np.ctypeslib.ndpointer(dtype=np.float64,

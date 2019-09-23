@@ -8,6 +8,7 @@
         </li>
       </ul>
     </div>
+
     <div class="left-box item">
       <h4>👥兄弟文档</h4>
       <ul>
@@ -19,6 +20,16 @@
         </li>
       </ul>
     </div>
+
+    <div class="left-box item">
+      <h4>👬合作伙伴</h4>
+      <ul>
+        <li>
+          <a href="https://bigquant.com/" target="_blank">BigQuant人工智能量化投资平台</a>
+        </li>
+      </ul>
+    </div>
+
     <div class="right-box item friends">
       <h4>👬友情链接</h4>
       <ul>
@@ -69,7 +80,7 @@
     visibility hidden
   
   .item
-    width 33.3%
+    width 25%
     ul
       padding 0px
       list-style none

@@ -5,7 +5,7 @@ module.exports = [
   },
   {
     text: 'NumPy 文章',
-    link: '/articles/'
+    link: '/article/'
   },
   {
     text: '用户指南',

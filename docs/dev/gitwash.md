@@ -1,34 +1,47 @@
-# Git for development
+---
+meta:
+  - name: keywords
+    content: NumPy Git 教程
+  - name: description
+    content: 这个章节描述了一般的 git 和 github 工作流。
+---
 
-These pages describe a general [git](https://git-scm.com/) and [github](https://github.com/numpy/numpy) workflow.
+# Git 教程
 
-This is not a comprehensive [git](https://git-scm.com/) reference. It’s tailored to the [github](https://github.com/numpy/numpy) hosting service. You may well find better or quicker ways of getting stuff done with [git](https://git-scm.com/), but these should get you started.
+这个章节描述了一般的 [git](https://git-scm.com/) 和 [github](https://github.com/numpy/numpy) 工作流。
 
-For general resources for learning [git](https://git-scm.com/) see [Additional Git Resources](https://numpy.org/devdocs/dev/gitwash/git_resources.html#git-resources).
+这不是全面的 [git](https://git-scm.com/) 参考。
+它是为 [github](https://github.com/numpy/numpy) 托管服务量身定制的。
+您可能会找到更好或更快的方法来完成[git](https://git-scm.com/)的工作，但这些应该可以让您开始。
 
-Have a look at the [github](https://github.com/numpy/numpy) install help pages available from [github help](https://help.github.com/)
+有关学习 [git](https://git-scm.com/) 的一般资源，请参阅[其他git资源](https://numpy.org/devdocs/dev/gitwash/git_resources.html#git-resources)。
 
-## Install git
+查看[GitHub帮助](https://help.github.com/)中提供的[github](https://github.com/numpy/numpy)安装帮助页面
 
-Developing with git can be done entirely without github. Git is a distributed version control system. In order to use git on your machine you must [install it](https://git-scm.com/downloads).
+## 安装 git
 
-## Get the local copy of the code
+使用git进行开发完全不需要github。
+Git是一个分布式版本控制系统。
+为了在您的机器上使用git，您必须[安装它](https://git-scm.com/downloads)。
 
-From the command line:
+## 获取代码的本地副本
+
+在命令行中：
 
 ``` bash
 git clone git://github.com/numpy/numpy.git
 ```
 
-You now have a copy of the code tree in the new numpy directory. If this doesn’t work you can try the alternative read-only url:
+现在，您在新的numpy目录中有了代码树的副本。
+如果这样不起作用，您可以尝试使用其他只读网址：
 
 ``` bash
 git clone https://github.com/numpy/numpy.git
 ```
 
-## Updating the code
+## 更新代码
 
-From time to time you may want to pull down the latest code. Do this with:
+您可能不时需要提取最新的代码。 为此，请执行以下操作：
 
 ``` bash
 cd numpy
@@ -36,47 +49,51 @@ git fetch
 git merge --ff-only
 ```
 
-The tree in ``numpy`` will now have the latest changes from the initial repository.
+现在，``numpy`` 中的分支树将具有初始存储库中的最新更改记录。
 
-## Getting started with Git development
+## Git开发入门
 
-This section and the next describe in detail how to set up git for working with the NumPy source code. If you have git already set up, skip to [Development workflow](https://numpy.org/devdocs/dev/development_workflow.html#development-workflow).
+本节和下一节将详细描述如何设置git以使用NumPy源代码。
+如果您已经设置了git，
+请跳至[开发工作流程](development_workflow.html)。
 
-### Basic Git setup
+### 基本的Git设置
 
-- [Install git](https://matplotlib.org/devel/gitwash/git_install.html#install-git).
-- Introduce yourself to Git:
+- [安装 git](https://matplotlib.org/devel/gitwash/git_install.html#install-git).
+- 向Git介绍你自己：
 
 ``` bash
 git config --global user.email you@yourdomain.example.com
 git config --global user.name "Your Name Comes Here"
 ```
 
-### Making your own copy (fork) of NumPy
+### 创建属于你自己的 NumPy 代码
 
-You need to do this only once. The instructions here are very similar to the instructions at [http://help.github.com/forking/](https://help.github.com/forking/) - please see that page for more detail. We’re repeating some of it here just to give the specifics for the [NumPy](https://www.numpy.org/) project, and to suggest some default names.
+您只需要这样做一次。
+这里的说明与 [http://help.github.com/forking/](http://help.github.com/forking/) 上的说明非常相似 - 请参阅该页面以获取更多详细信息。
+我们在这里重复其中的一些只是为了提供 [NumPy](https://www.numpy.org/) 项目的细节，并建议一些默认名称。
 
-#### Set up and configure a github account
+#### 设置和配置github帐户
 
-If you don’t have a [github](https://github.com/numpy/numpy) account, go to the [github](https://github.com/numpy/numpy) page, and make one.
+如果您没有 [github](https://github.com/numpy/numpy) 帐户，请转到 [github](https://github.com/numpy/numpy) 页面并创建一个。
 
-You then need to configure your account to allow write access - see the ``Generating SSH keys`` help on [github help](https://help.github.com/).
+然后，您需要配置您的帐户以允许写访问-请参阅[github帮助](https://help.github.com/)上的 ``生成SSH密钥`` 帮助。
 
-#### Create your own forked copy of NumPy
+#### 创建自己的 NumPy 分叉副本
 
-1. Log into your [github](https://github.com/numpy/numpy) account.
-1. Go to the [NumPy](https://www.numpy.org/) github home at [NumPy github](https://github.com/numpy/numpy).
-1. Click on the *fork* button:
+1. 登录到您的 [github](https://github.com/numpy/numpy) 帐户。
+1. 转到位于[NumPy](https://www.numpy.org/) github上的 [NumPy github](https://github.com/numpy/numpy) 主页。
+1. 点击页面上名为 *fork* 的按钮:
 
 ![fork](/static/images/forking_button.png)
 
-After a short pause, you should find yourself at the home page for your own forked copy of [NumPy](https://www.numpy.org/).
+稍等片刻后，您应该就能在你自己的主页上找到你自己的 [NumPy](https://www.numpy.org/) 分叉副本。
 
-### Set up your fork
+### 设置你的Fork
 
-First you follow the instructions for [Making your own copy (fork) of NumPy](https://numpy.org/devdocs/dev/gitwash/development_setup.html#forking).
+首先，您要遵循有关[创建属于你自己的 NumPy 代码](#创建属于你自己的-numpy-代码)说明。
 
-#### Overview
+#### 概览
 
 ``` bash
 git clone https://github.com/your-user-name/numpy.git
@@ -84,32 +101,34 @@ cd numpy
 git remote add upstream https://github.com/numpy/numpy.git
 ```
 
-#### In detail
+#### 详细
 
-##### Clone your fork
+##### 克隆你的fork仓库
 
-1. Clone your fork to the local computer with git clone https://github.com/your-user-name/numpy.git
-1. Investigate. Change directory to your new repo: cd numpy. Then git branch -a to show you all branches. You’ll get something like:
+1. 使用 ``git clone https://github.com/your-user-name/numpy.git`` 将分叉克隆到你的本地计算机。
+1. 查看一下，然后将目录更改为新的repo：``cd numpy``。然后 ``git branch -a``向您显示所有分支。您将得到如下内容：
 
     ``` bash
     * master
     remotes/origin/master
     ```
 
-    This tells you that you are currently on the ``master`` branch, and that you also have a ``remote`` connection to ``origin/master``. What remote repository is ``remote/origin``? Try ``git remote -v`` to see the URLs for the remote. They will point to your [github](https://github.com/numpy/numpy) fork.
+    这告诉您您当前在 ``master`` 分支上，并且还具有到 ``origin/master`` 的远程连接。
+    哪个远程存储库是 ``origin/master`` ？尝试使用 ``git remote -v`` 查看远程URL。
+    他们将指向您的 [github](https://github.com/numpy/numpy) 分支。
 
-    Now you want to connect to the upstream [NumPy github](https://github.com/numpy/numpy) repository, so you can merge in changes from trunk.
+    现在，您想连接到上游的 [NumPy github](https://github.com/numpy/numpy) 存储库，以便可以合并主干中的更改。
 
-##### Linking your repository to the upstream repo
+##### 将您的存储库链接到上游仓库
 
 ``` bash
 cd numpy
 git remote add upstream https://github.com/numpy/numpy.git
 ```
 
-``upstream`` here is just the arbitrary name we’re using to refer to the main [NumPy](https://www.numpy.org/) repository at [NumPy github](https://github.com/numpy/numpy).
+``上游（upstream）`` 只是我们用来引用 [NumPy github](https://github.com/numpy/numpy) 上主要 [NumPy](https://www.numpy.org/) 存储库的任意名称。
 
-Just for your own satisfaction, show yourself that you now have a new ‘remote’, with ``git remote -v show``, giving you something like:
+只是为了您自己的满意，请使用 ``git remote -v show`` 向您展示一个新的 'remote'，为您提供以下信息：
 
 ``` bash
 upstream     https://github.com/numpy/numpy.git (fetch)
@@ -118,14 +137,14 @@ origin       https://github.com/your-user-name/numpy.git (fetch)
 origin       https://github.com/your-user-name/numpy.git (push)
 ```
 
-To keep in sync with changes in NumPy, you want to set up your repository so it pulls from ``upstream`` by default. This can be done with:
+为了与NumPy中的更改保持同步，您需要设置存储库，以使其默认情况下从“上游”提取。 这可以通过以下方式完成：
 
 ``` bash
 git config branch.master.remote upstream
 git config branch.master.merge refs/heads/master
 ```
 
-You may also want to have easy access to all pull requests sent to the NumPy repository:
+您可能还想轻松访问发送到NumPy存储库的所有拉取请求：
 
 ``` bash
 git config --add remote.upstream.fetch '+refs/pull/*/head:refs/remotes/upstream/pr/*'
@@ -152,11 +171,11 @@ Your config file should now look something like (from ``$ cat .git/config``):
         merge = refs/heads/master
 ```
 
-## Git configuration
+## Git 配置
 
-### Overview
+### 概览
 
-Your personal [git](https://git-scm.com/) configurations are saved in the ``.gitconfig`` file in your home directory. Here is an example ``.gitconfig`` file:
+您的个人 [git](https://git-scm.com/) 配置将保存在主目录的 ``.gitconfig`` 文件中。 这是一个示例 ``.gitconfig`` 文件：
 
 ```
 [user]
@@ -178,7 +197,7 @@ Your personal [git](https://git-scm.com/) configurations are saved in the ``.git
         summary = true
 ```
 
-You can edit this file directly or you can use the git config --global command:
+您可以直接编辑此文件，也可以使用 ``git config --global`` 命令：
 
 ``` bash
 git config --global user.name "Your Name"
@@ -193,20 +212,20 @@ git config --global core.editor vim
 git config --global merge.summary true
 ```
 
-To set up on another computer, you can copy your ``~/.gitconfig`` file, or run the commands above.
+要在另一台计算机上进行设置，您可以复制 ``~/.gitconfig`` 文件，或运行上面的命令。
 
-### In detail
+### 细节
 
-#### user.name and user.email
+#### 配置 user.name 和 user.email
 
-It is good practice to tell [git](https://git-scm.com/) who you are, for labeling any changes you make to the code. The simplest way to do this is from the command line:
+最好告诉 [git](https://git-scm.com/) 您是谁，以标记您对代码所做的任何更改。 最简单的方法是从命令行：
 
 ``` bash
 git config --global user.name "Your Name"
 git config --global user.email you@yourdomain.example.com
 ```
 
-This will write the settings into your git configuration file, which should now contain a user section with your name and email:
+这会将设置写入您的git配置文件，该文件现在应包含带有您的姓名和电子邮件的用户部分：
 
 ```
 [user]
@@ -214,15 +233,16 @@ This will write the settings into your git configuration file, which should now 
       email = you@yourdomain.example.com
 ```
 
-Of course you’ll need to replace ``Your Name`` and ``you@yourdomain.example.com`` with your actual name and email address.
+当然，您需要用您的实际姓名和电子邮件地址替换 ``Your Name`` 和 ``you@yourdomain.example.com``。
 
-#### Aliases
+#### 别名
 
-You might well benefit from some aliases to common commands.
+您可能会受益于一些常用命令的别名。
 
-For example, you might well want to be able to shorten ``git checkout`` to ``git co``. Or you may want to alias ``git diff --color-words`` (which gives a nicely formatted output of the diff) to ``git wdiff``
+例如，您可能希望能够将 ``git checkout`` 缩短为 ``git co``。
+或者您可能想将 ``git diff --color-words`` 别名（给出diff格式正确的输出）的别名为 ``git wdiff``
 
-The following ``git config --global`` commands:
+以下 ``git config --global`` 命令：
 
 ``` bash
 git config --global alias.ci "commit -a"
@@ -233,7 +253,7 @@ git config --global alias.br branch
 git config --global alias.wdiff "diff --color-words"
 ```
 
-will create an alias section in your .gitconfig file with contents like this:
+将在您的.gitconfig文件中创建一个别名部分，其内容如下：
 
 ```
 [alias]
@@ -245,34 +265,36 @@ will create an alias section in your .gitconfig file with contents like this:
         wdiff = diff --color-words
 ```
 
-#### Editor
+#### 编辑器
 
-You may also want to make sure that your editor of choice is used
+您可能还需要确保使用了您选择的编辑器
 
 ``` bash
 git config --global core.editor vim
 ```
 
-#### Merging
+#### 合并
 
-To enforce summaries when doing merges (~/.gitconfig file again):
+在合并时要强制执行摘要（再次需要 ``~/.gitconfig`` 文件）：
 
 ``` bash
 [merge]
    log = true
 ```
 
-Or from the command line:
+或从命令行：
 
 ``` bash
 git config --global merge.log true
 ```
 
-## Two and three dots in difference specs
+## 差异规格中的两个和三个点
 
-Thanks to Yarik Halchenko for this explanation.
+感谢Yarik Halchenko的解释。
 
-Imagine a series of commits A, B, C, D… Imagine that there are two branches, topic and master. You branched topic off master when master was at commit ‘E’. The graph of the commits looks like this:
+想象一下一系列的提交A，B，C，D ...想象有两个分支，主题和母版。
+当母版处于提交 “E” 状态时，您从母版中分离了主题。
+提交的图形如下所示：
 
 ```
      A---B---C topic
@@ -280,56 +302,51 @@ Imagine a series of commits A, B, C, D… Imagine that there are two branches, t
 D---E---F---G master
 ```
 
-Then:
+然后：
 
 ``` bash
 git diff master..topic
 ```
 
-will output the difference from G to C (i.e. with effects of F and G), while:
+将输出从G到C的差（即受F和G的影响），而：
 
 ``` bash
 git diff master...topic
 ```
 
-would output just differences in the topic branch (i.e. only A, B, and C).
+只会在主题分支中输出差异（即仅A、B和C）。
 
-## Additional Git Resources
+## 其他Git资源
 
-### Tutorials and summaries
+### 教程和摘要
 
-- [github help](https://help.github.com) has an excellent series of how-to guides.
-- [learn.github](https://learn.github.com/) has an excellent series of tutorials
-- The [pro git book](https://git-scm.com/book/) is a good in-depth book on git.
-- A [git cheat sheet](http://cheat.errtheblog.com/s/git) is a page giving summaries of common commands.
-- The [git user manual](https://www.kernel.org/pub/software/scm/git/docs/user-manual.html)
-- The [git tutorial](https://www.kernel.org/pub/software/scm/git/docs/gittutorial.html)
-- The [git community book](https://book.git-scm.com/)
-- [git ready](http://www.gitready.com/) - a nice series of tutorials
-- [git casts](http://www.gitcasts.com/) - video snippets giving git how-tos.
-- [git magic](http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html) - extended introduction with intermediate detail
-- The [git parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html) is an easy read explaining the concepts behind git.
-- Our own [git foundation](https://matthew-brett.github.com/pydagogue/foundation.html) expands on the [git parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html).
-- Fernando Perez’ git page - [Fernando’s git page](http://www.fperez.org/py4science/git.html) - many links and tips
-- A good but technical page on [git concepts](http://www.eecs.harvard.edu/~cduan/technical/git/)
-- [git svn crash course](https://git-scm.com/course/svn.html): [git](https://git-scm.com/) for those of us used to [subversion](http://subversion.tigris.org/)
+- [github 帮助](https://help.github.com) 提供了一系列出色的操作指南。
+- [learn.github](https://learn.github.com/) 提供了一系列出色的教程。
+- [git 深入书籍](https://git-scm.com/book/) 是一本很好的有关git的深入书籍。
+- [git 备忘录](http://cheat.errtheblog.com/s/git) 是一个页面，其中提供了常用命令的摘要。
+- [git 用户手册](https://www.kernel.org/pub/software/scm/git/docs/user-manual.html)
+- [git 教程](https://www.kernel.org/pub/software/scm/git/docs/gittutorial.html)
+- [git 社区书籍](https://book.git-scm.com/)
+- [git ready](http://www.gitready.com/) - 一系列不错的教程
+- [git casts](http://www.gitcasts.com/) - 提供git操作方法的视频片段。
+- [git magic](http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html) - 具有中间细节的扩展介绍
+- [git parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html) 易于阅读，解释了git背后的概念。
+- 我们自己的 [git foundation](https://matthew-brett.github.com/pydagogue/foundation.html) 借鉴了 [git parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html).
+- Fernando Perez 的 git 页面 - [Fernando’s git page](http://www.fperez.org/py4science/git.html) - 包含了许多链接和提示。
+- 一个很好的但技术性的页面 [git concepts](http://www.eecs.harvard.edu/~cduan/technical/git/)
+- [git svn 速成课程](https://git-scm.com/course/svn.html): [git](https://git-scm.com/) 还有 [subversion](http://subversion.tigris.org/)
 
-### Advanced git workflow
+### 进阶git工作流程
 
-There are many ways of working with [git](https://git-scm.com/); here are some posts on the
-rules of thumb that other projects have come up with:
+有很多使用 [git](https://git-scm.com/) 的方法。这是其他项目提出的一些经验法则：
 
-- Linus Torvalds on [git management](http://kerneltrap.org/Linux/Git_Management)
-- Linus Torvalds on [linux git workflow](https://www.mail-archive.com/dri-devel@lists.sourceforge.net/msg39091.html) .  Summary; use the git tools
-to make the history of your edits as clean as possible; merge from
-upstream edits as little as possible in branches where you are doing
-active development.
+- Linus Torvalds 的 [git 管理](http://kerneltrap.org/Linux/Git_Management)
+- Linus Torvalds 的 [linux git 工作流](https://www.mail-archive.com/dri-devel@lists.sourceforge.net/msg39091.html)。摘要：使用git工具使您的编辑历史尽可能清晰；在您进行主动开发的分支中，尽可能少地从上游编辑中合并。
 
-### Manual pages online
+### 在线手册页
 
-You can get these on your own machine with (e.g) ``git help push`` or
-(same thing) ``git push --help``, but, for convenience, here are the
-online manual pages for some common commands:
+您可以使用（例如 ``git help push`` 或（类似的东西）``git push --help``）在自己的机器上获取这些信息，
+但是为了方便起见，以下是一些常用命令的在线手册页：
 
 - [git add](https://www.kernel.org/pub/software/scm/git/docs/git-add.html)
 - [git branch](https://www.kernel.org/pub/software/scm/git/docs/git-branch.html)

@@ -121,7 +121,7 @@ all to avoid aggravation.
 #### Generating author/pr lists
 
 You will need a personal access token
-[https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
+[https://help.github.com/article/creating-a-personal-access-token-for-the-command-line/](https://help.github.com/article/creating-a-personal-access-token-for-the-command-line/)
 so that scripts can access the github NumPy repository.
 
 - gitpython (pip)

@@ -1,6 +1,11 @@
 ---
 sidebarDepth: 3
 sidebar: auto
+meta:
+  - name: keywords
+    content: NumPy 基准测试
+  - name: description
+    content: 除非另有说明，否则 A​​irspeed Velocity 会自行管理构建和 Python virtualenvs....
 ---
 
 # NumPy 基准测试

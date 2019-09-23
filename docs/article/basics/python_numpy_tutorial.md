@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: Python、Numpy 教程
+  - name: description
+    content: 我们将在本课程的所有作业中使用Python编程语言。Python本身就是一种伟大的通用编程语言，并且它在一些其...
+---
+
 # Python、Numpy 教程
 
 我们将在本课程的所有作业中使用Python编程语言。Python本身就是一种伟大的通用编程语言，并且它在一些其他流行的Python库(numpy、sciy、matplotlib)的帮助下，它成为了一个强大的科学计算环境。

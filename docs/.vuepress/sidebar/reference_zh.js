@@ -47,8 +47,8 @@ module.exports = function () {
       ['/reference/routines/err', '浮点错误处理'],
       ['/reference/routines/fft', '离散傅立叶变换(numpy.fft)'],
       ['/reference/routines/financial', '财金相关'],
-      ['/reference/routines/functional', '功能的编写'],
-      ['/reference/routines/help', 'NumPy特别的帮助功能'],
+      ['/reference/routines/functional', '实用的功能'],
+      ['/reference/routines/help', '特殊的NumPy帮助功能'],
       ['/reference/routines/indexing', '索引相关'],
       ['/reference/routines/io', '输入和输出'],
       ['/reference/routines/linalg', '线性代数(numpy.linalg)'],
@@ -92,7 +92,7 @@ module.exports = function () {
       ['/reference/c-api/array', '数组API'],
       ['/reference/c-api/iterator', '数组迭代API'],
       ['/reference/c-api/ufunc', 'UFunc API'],
-      ['/reference/c-api/generalized-ufuncs', '通常通函数API'],
+      ['/reference/c-api/generalized-ufuncs', '一般的通函数API'],
       ['/reference/c-api/coremath', 'NumPy核心库'],
       ['/reference/c-api/deprecations', '弃用的 C API ']
     ]

@@ -1,6 +1,11 @@
 ---
 sidebarDepth: 3
 sidebar: auto
+meta:
+  - name: keywords
+    content: 关于 NumPy
+  - name: description
+    content: NumPy是使用Python进行科学计算的基础包。它包含如下的内容：
 ---
 
 # 关于 NumPy

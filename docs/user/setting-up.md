@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 介绍
+  - name: description
+    content: NumPy是Python中科学计算的基础包。它是一个Python库，提供多维数组对象...
+---
+
 # NumPy 介绍
 
 ## 什么是 NumPy?

@@ -69,7 +69,7 @@
 
         This is an example of a func specialized for addition of doubles returning doubles.
 
-        ```` c
+        `` c
         static void
         double_add(char **args, npy_intp *dimensions, npy_intp *steps,
           void *extra)

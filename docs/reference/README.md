@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 参考手册
+  - name: description
+    content: 本参考手册详细介绍了NumPy中包含的函数、模块和对象，描述了它们是什么以及它们做什么。了解如何使用NumPy，另请参阅NumPy用户指南。
+---
+
 # NumPy 参考手册
 
 - **发行版本**:	1.18.dev0

@@ -1,11 +1,11 @@
 module.exports = function () {
   return [
     {
-      title: 'NumPy 的代码规范',
+      title: 'NumPy 行为准则',
       collapsable: true,
       sidebarDepth: 3,
       children: [
-        ['/dev/code_of_conduct', 'NumPy 的代码规范']
+        ['/dev/code_of_conduct', 'NumPy 行为准则']
       ]
     },
     {

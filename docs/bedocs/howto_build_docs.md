@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 构建NumPy API和参考文档
+  - name: description
+    content: 我们目前使用Sphinx为NumPy生成API和参考文档。您将需要Sphinx 1.8.3或更高版本。
+---
+
 # 构建NumPy API和参考文档
 
 我们目前使用[Sphinx](https://www.sphinx-doc.org/)为NumPy生成API和参考文档。您将需要Sphinx 1.8.3或更高版本。

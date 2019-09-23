@@ -1,6 +1,14 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 基准测试
+  - name: description
+    content: 用 ​​irspeed Velocity 对 NumPy 进行基准测试...
+---
+
 # NumPy 基准测试
 
-用空速速度对NumPy进行基准测试。
+用 ​​irspeed Velocity 对 NumPy 进行基准测试。
 
 ## 用法
 

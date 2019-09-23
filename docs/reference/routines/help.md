@@ -1,14 +1,14 @@
-# NumPy-specific help functions
+# 特殊的NumPy帮助功能
 
-## Finding help
+## 查找帮助
 
-method | description
+方法 | 描述
 ---|---
-[lookfor](https://numpy.org/devdocs/reference/generated/numpy.lookfor.html#numpy.lookfor)(what[, module, import_modules, …]) | Do a keyword search on docstrings.
+[lookfor](https://numpy.org/devdocs/reference/generated/numpy.lookfor.html#numpy.lookfor)(what[, module, import_modules, …]) | 对文档字符串执行关键字搜索。
 
-## Reading help
+## 阅读帮助
 
-method | description
+方法 | 描述
 ---|---
-[info](https://numpy.org/devdocs/reference/generated/numpy.info.html#numpy.info)([object, maxwidth, output, toplevel]) | Get help information for a function, class, or module.
-[source](https://numpy.org/devdocs/reference/generated/numpy.source.html#numpy.source)(object[, output]) | Print or write to a file the source code for a NumPy object.
+[info](https://numpy.org/devdocs/reference/generated/numpy.info.html#numpy.info)([object, maxwidth, output, toplevel]) | 获取函数、类或模块的帮助信息。
+[source](https://numpy.org/devdocs/reference/generated/numpy.source.html#numpy.source)(object[, output]) | 打印NumPy对象的源代码或将其写入文件。

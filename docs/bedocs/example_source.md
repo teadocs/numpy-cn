@@ -1,4 +1,12 @@
-# Example Source
+---
+meta:
+  - name: keywords
+    content: NumPy 示例来源
+  - name: description
+    content: NumPy 示例来源
+---
+
+# 示例来源
 
 ```
 """This is the docstring for the example.py module.  Modules names should

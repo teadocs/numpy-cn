@@ -1,4 +1,12 @@
-# NumPy数据分析练习
+---
+meta:
+  - name: keywords
+    content: NumPy 数据分析练习
+  - name: description
+    content: Numpy练习的目标仅作为学习numpy的参考，并让你脱离基础性的NumPy使用。这些问题有4个级别的难度，其中L1是最容易的...
+---
+
+# NumPy 数据分析练习
 
 Numpy练习的目标仅作为学习numpy的参考，并让你脱离基础性的NumPy使用。这些问题有4个级别的难度，其中L1是最容易的，L4是最难的。
 

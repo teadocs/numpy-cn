@@ -660,7 +660,7 @@ To avoid this problem, use the inline hyperlink form:
 For paragraphs, indentation is significant and indicates indentation in the
 output. New paragraphs are marked with a blank line.
 
-Use ``*italics*``, ``**bold**`` and ````monospace```` if needed in any
+Use ``*italics*``, ``**bold**`` and ``monospace`` if needed in any
 explanations
 (but not for variable names and doctest code or multi-line code).
 Variable, module, function, and class names should be written between

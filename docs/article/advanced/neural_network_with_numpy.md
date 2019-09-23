@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 与 神经网络
+  - name: description
+    content: 对我来说用于分类的神经网络是一种非常可怕的机器学习算法。学习神经网络算法时，会给人一种望而生畏的感觉，但当我最终妥协并陷入其中无法自拔的时候...
+---
+
 # NumPy 与 神经网络
 
 对我来说用于分类的神经网络是一种非常可怕的机器学习算法。学习神经网络算法时，会给人一种望而生畏的感觉，但当我最终妥协并陷入其中无法自拔的时候，才发现其实它并没有想象中的那么可怕。它们被称为神经网络，是因为它们松散地建立在人类大脑神经元以及神经元工作原理的基础上。但是，它们本质上是一组线性模型。关于这些算法的数学和结构有很多很好的文章来解释它们，所以这些部分我的这篇文章不会提及。相反，我将详细的用numpy库在python中编写一个一个的步骤，并非常清楚地解释它的。这篇文章的代码很大程度上基于[《集体智慧编程》](https://s.click.taobao.com/t?e=m%3D2%26s%3DXIetsYhTCu8cQipKwQzePOeEDrYVVa64K7Vc7tFgwiHjf2vlNIV67pZpQLiTO%2BhgmSMhGfkQJ77VdTmGfLKGc3msngnYL0uHYhNjQr6GXJQ0IVmWuK%2BMt0g0aHp6CeiC6hqtRuAxoUJbnlHS8Kikd9qH4uMbv1iQxgxdTc00KD8%3D&pvid=10_183.14.30.247_9333_1539405668948)中提供的神经网络代码，只要输入数据格式正确，我就稍微调整它以使其可用于任何数据集。

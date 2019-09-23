@@ -226,7 +226,7 @@ may change in the future.
 
 Fortran to Python Interface Generator.
 
-- ``numpy.f2py.````run_main``( *comline_list* )[[source]](https://github.com/numpy/numpy/blob/master/numpy/f2py/f2py2e.py#L398-L461)
+- ``numpy.f2py.``run_main``( *comline_list* )[[source]](https://github.com/numpy/numpy/blob/master/numpy/f2py/f2py2e.py#L398-L461)
 
     Equivalent to running:
 
@@ -262,7 +262,7 @@ Fortran to Python Interface Generator.
                       '/home/users/pearu/src_cvs/f2py/src/fortranobject.c']}}
     ```
 
-- ``numpy.f2py.````compile``( *source* ,  *modulename='untitled'* ,  *extra_args=''* ,  *verbose=True* ,  *source_fn=None* ,  *extension='.f'* )[[source]](https://github.com/numpy/numpy/blob/master/numpy/f2py/__init__.py#L23-L117)
+- ``numpy.f2py.``compile``( *source* ,  *modulename='untitled'* ,  *extra_args=''* ,  *verbose=True* ,  *source_fn=None* ,  *extension='.f'* )[[source]](https://github.com/numpy/numpy/blob/master/numpy/f2py/__init__.py#L23-L117)
 
     Build extension module from a Fortran 77 source string with f2py.
 

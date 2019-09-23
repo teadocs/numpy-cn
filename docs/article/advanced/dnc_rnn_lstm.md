@@ -1,6 +1,14 @@
+---
+meta:
+  - name: keywords
+    content: NumPy 中的微分神经计算
+  - name: description
+    content: 可微分神经计算的实现尽可能接近于本文的描述。任务：char-level 预测。报告还包括简单RNN(RNN-numpy.py)和LSTM(LSTM-numpy.py)。
+---
+
 # NumPy 中的微分神经计算
 
-可微分神经计算 https://www.nature.com/articles/nature20101 的实现尽可能接近于本文的描述。任务：char-level 预测。报告还包括简单RNN(RNN-numpy.py)和LSTM(LSTM-numpy.py)。一些外部数据(ptb、wiki)需要单独下载。
+可微分神经计算 https://www.nature.com/article/nature20101 的实现尽可能接近于本文的描述。任务：char-level 预测。报告还包括简单RNN(RNN-numpy.py)和LSTM(LSTM-numpy.py)。一些外部数据(ptb、wiki)需要单独下载。
 
 ## 译者前言
 

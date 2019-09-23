@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: NumPy F2PY用户指南和参考手册
+  - name: description
+    content: 该的目的 F2PY —— Fortran 语言Python接口生成器 —— 是提供的Python和Fortran语言之间的连接。 F2PY是 NumPy（numpy.f2py）的一部分...
+---
+
 # F2PY用户指南和参考手册
 
 该的目的 ``F2PY`` —— *Fortran 语言Python接口生成器* —— 是提供的Python和Fortran语言之间的连接。

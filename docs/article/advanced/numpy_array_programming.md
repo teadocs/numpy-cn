@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 使用 NumPy 进行数组编程
+  - name: description
+    content: 人们有时会说，与C++这种低级语言相比，Python以运行速度为代价改善了开发时间和效率。幸运的是...
+---
+
 # 使用 NumPy 进行数组编程
 
 ## 前言
