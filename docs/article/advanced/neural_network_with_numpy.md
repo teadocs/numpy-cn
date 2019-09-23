@@ -1,5 +1,10 @@
-<title>numpy神经网络 - <%-__DOC_NAME__ %></title>
-<meta name="keywords" content="numpy神经网络,numpy实现神经网络" />
+---
+meta:
+  - name: keywords
+    content: NumPy 与 神经网络
+  - name: description
+    content: 对我来说用于分类的神经网络是一种非常可怕的机器学习算法。学习神经网络算法时，会给人一种望而生畏的感觉，但当我最终妥协并陷入其中无法自拔的时候...
+---
 
 # NumPy 与 神经网络
 

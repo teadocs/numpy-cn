@@ -1,5 +1,10 @@
-<title>理解numpy - <%-__DOC_NAME__ %></title>
-<meta name="keywords" content="理解numpy,什么是numpy,numpy入门" />
+---
+meta:
+  - name: keywords
+    content: 理解 NumPy
+  - name: description
+    content: 在这篇文章中，我们将介绍使用NumPy的基础知识，NumPy是一个功能强大的Python库，允许更高级的数据操作和数学计算。
+---
 
 # 理解 NumPy
 
@@ -133,7 +138,7 @@ print my_array_column_2
 
 注意，我们使用了冒号(``:``)而不是行号，而对于列号，我们使用了值``1``，最终输出是：``[5, 1]``。
 
-我们可以类似地从多维NumPy数组中提取一行。现在，让我们看看NumPy在多个阵列上执行计算时提供的强大功能。
+我们可以类似地从多维NumPy数组中提取一行。现在，让我们看看NumPy在多个数组上执行计算时提供的强大功能。
 
 ## NumPy中的数组操作
 
@@ -183,4 +188,4 @@ print "Matrix Product = ", matrix_product
 
 ## 文章出处
 
-由NumPy中文文档翻译，原作者为 [Vijay Singh](https://dzone.com/users/3404598/vijayhackr.html)，翻译至：[https://dzone.com/articles/understanding-numpy](https://dzone.com/articles/understanding-numpy)。
+由NumPy中文文档翻译，原作者为 [Vijay Singh](https://dzone.com/users/3404598/vijayhackr.html)，翻译至：[https://dzone.com/article/understanding-numpy](https://dzone.com/article/understanding-numpy)。

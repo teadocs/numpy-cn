@@ -1,0 +1,17 @@
+# NumPy 治理
+
+- [NumPy项目治理和决策](governance.html)
+  - [摘要](governance.html#摘要)
+  - [项目](governance.html#项目)
+  - [治理](governance.html#治理)
+    - [基于共识的社区决策](governance.html#基于共识的社区决策)
+    - [指导委员会](governance.html#指导委员会)
+  - [机构合作伙伴和资助](governance.html#机构合作伙伴和资助)
+  - [文档历史](governance.html#文档历史)
+  - [致谢](governance.html#致谢)
+  - [许可证](governance.html#许可证)
+  - [现任指导委员会和机构合作伙伴](people.html)
+    - [指导委员会](people.html#steering-council)
+    - [名誉会员](people.html#emeritus-members)
+    - [NumFOCUS小组委员会](people.html#numfocus-subcommittee)
+    - [机构合作伙伴](people.html#institutional-partners)

@@ -1,4 +1,10 @@
-<meta name="keywords" content="MXNet,符号编程,命令式编程,MinPy" />
+---
+meta:
+  - name: keywords
+    content: MinPy：MXNet后端的NumPy接口
+  - name: description
+    content: 机器学习现在正处于黄金时期。在过去的几年中，它的有效性已经被计算机视觉和自然语言处理中的许多传统难题所证明。同时，出现了不同的机器学习框架来证明不同的需求。这些框架一般分为两类：``符号编程(Symbolic)`` 和 ``命令式编程(Imperative Programming)``。
+---
 
 # MinPy：MXNet后端的NumPy接口
 

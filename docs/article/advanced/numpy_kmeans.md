@@ -1,4 +1,12 @@
-# NumPy实现k均值聚类算法（k-means）
+---
+meta:
+  - name: keywords
+    content: NumPy 实现k均值聚类算法
+  - name: description
+    content: 机器学习算法与Python实践这个系列主要是参考《机器学习实战》这本书。因为自己想学习Python，然后也想对一些机器学习算法加深下了解，所以就想通过Python来...
+---
+
+# NumPy 实现k均值聚类算法（k-means）
 
 机器学习算法与Python实践这个系列主要是参考《机器学习实战》这本书。因为自己想学习Python，然后也想对一些机器学习算法加深下了解，所以就想通过Python来实现几个比较常用的机器学习算法。恰好遇见这本同样定位的书籍，所以就参考这本书的过程来学习了。
 

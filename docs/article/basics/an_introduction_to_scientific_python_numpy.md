@@ -1,4 +1,12 @@
-# NumPy简单入门教程
+---
+meta:
+  - name: keywords
+    content: NumPy 简单入门教程
+  - name: description
+    content: NumPy是Python中的一个运算速度非常快的一个数学库，它非常重视数组。它允许你在Python中进行向量和矩阵计算，并且由于许...
+---
+
+# NumPy 简单入门教程
 
 NumPy是Python中的一个运算速度非常快的一个数学库，它非常重视数组。它允许你在Python中进行向量和矩阵计算，并且由于许多底层函数实际上是用C编写的，因此你可以体验在原生Python中永远无法体验到的速度。
 

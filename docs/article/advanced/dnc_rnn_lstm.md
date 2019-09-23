@@ -1,16 +1,20 @@
-<title>NumPy实现DNC、RNN和LSTM神经网络算法 - <%-__DOC_NAME__ %></title>
-<meta name="keywords" content="numpy实现DNC,numpy实现RNN,numpy实现LSTM,numpy实现神经网络" />
-<meta name="description" content="NumPy实现DNC、RNN和LSTM神经网络算法，可微分神经计算 https://www.nature.com/articles/nature20101 的实现尽可能接近于本文的描述。任务：char-level 预测。报告还包括简单RNN(RNN-numpy.py)和LSTM(LSTM-numpy.py)。一些外部数据(ptb、wiki)需要单独下载。">
+---
+meta:
+  - name: keywords
+    content: NumPy 中的微分神经计算
+  - name: description
+    content: 可微分神经计算的实现尽可能接近于本文的描述。任务：char-level 预测。报告还包括简单RNN(RNN-numpy.py)和LSTM(LSTM-numpy.py)。
+---
 
-# 译者的话
+# NumPy 中的微分神经计算
+
+可微分神经计算 https://www.nature.com/article/nature20101 的实现尽可能接近于本文的描述。任务：char-level 预测。报告还包括简单RNN(RNN-numpy.py)和LSTM(LSTM-numpy.py)。一些外部数据(ptb、wiki)需要单独下载。
+
+## 译者前言
 
 本文的项目的作者是一个老外 [krocki](https://github.com/krocki)，关于dnc、rnn、lstm 的实现源码都在他的github仓库 [https://github.com/krocki/dnc](https://github.com/krocki/dnc)。
 
-# NumPy中的微分神经计算
-
-可微分神经计算 https://www.nature.com/articles/nature20101 的实现尽可能接近于本文的描述。任务：char-level 预测。报告还包括简单RNN(RNN-numpy.py)和LSTM(LSTM-numpy.py)。一些外部数据(ptb、wiki)需要单独下载。
-
-### 快速开始
+## 快速开始
 
 ```python
 python dnc-debug.py
@@ -24,7 +28,7 @@ python lstm-numpy.py
 python dnc-numpy.py
 ```
 
-#### 积分
+### 积分
 
 RNN代码基于A.Karpath(min-char-rnn.py)的原始工作
 
@@ -44,7 +48,7 @@ gist: https://gist.github.com/karpathy/d4dee566867f8291f086
 **实施**
 
 - LSTM控制器
-- 2D存储器阵列
+- 2D存储器数组
 - 内容可寻址的读/写
 
 **问题**

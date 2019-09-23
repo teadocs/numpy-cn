@@ -1,4 +1,12 @@
-# 创建Numpy数组的不同方式
+---
+meta:
+  - name: keywords
+    content: 创建 Numpy 数组的不同方式
+  - name: description
+    content: Numpy库的核心是数组对象或ndarray对象（n维数组）。你将使用Numpy数组执行逻辑，统计和傅里叶变换等运算。作为...
+---
+
+# 创建 Numpy 数组的不同方式
 
 Numpy库的核心是数组对象或ndarray对象（n维数组）。你将使用Numpy数组执行逻辑，统计和傅里叶变换等运算。作为使用Numpy的一部分，你要做的第一件事就是创建Numpy数组。本指南的主要目的是帮助数据科学爱好者了解可用于创建Numpy数组的不同方式。
 

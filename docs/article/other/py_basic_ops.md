@@ -1,4 +1,10 @@
-<meta name="keywords" content="OpenCV,OpenCV使用numpy操作图像" />
+---
+meta:
+  - name: keywords
+    content: OpenCV中的图像的基本操作
+  - name: description
+    content: 本节中的几乎所有操作都主要与 Numpy 有关，而不是OpenCV。要使用OpenCV编写更好的优...
+---
 
 # OpenCV中的图像的基本操作
 

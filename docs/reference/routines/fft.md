@@ -1,84 +1,151 @@
-# 离散傅里叶变换
+# 离散傅立叶变换（``numpy.fft``）
 
-## 标准的 FFTs
+## 标准 FFTs
 
-- fft(a[, n, axis, norm])	计算一维离散傅立叶变换。
-- ifft(a[, n, axis, norm])	计算一维离散傅立叶逆变换。
-- fft2(a[, s, axes, norm])	计算二维离散傅立叶变换
-- ifft2(a[, s, axes, norm])	计算二维逆离散傅立叶变换。
-- fftn(a[, s, axes, norm])	计算二维逆离散傅立叶变换。
-- ifftn(a[, s, axes, norm])	计算N维逆离散傅立叶变换。
+方法 | 描述
+---|---
+[fft](https://numpy.org/devdocs/reference/generated/numpy.fft.fft.html#numpy.fft.fft)(a[, n, axis, norm]) | 计算一维离散傅立叶变换。
+[ifft](https://numpy.org/devdocs/reference/generated/numpy.fft.ifft.html#numpy.fft.ifft)(a[, n, axis, norm]) | 计算一维离散傅立叶逆变换。
+[fft2](https://numpy.org/devdocs/reference/generated/numpy.fft.fft2.html#numpy.fft.fft2)(a[, s, axes, norm]) | 计算二维离散傅立叶变换
+[ifft2](https://numpy.org/devdocs/reference/generated/numpy.fft.ifft2.html#numpy.fft.ifft2)(a[, s, axes, norm]) | 计算二维离散傅立叶逆变换。
+[fftn](https://numpy.org/devdocs/reference/generated/numpy.fft.fftn.html#numpy.fft.fftn)(a[, s, axes, norm]) | 计算N维离散傅立叶变换。
+[ifftn](https://numpy.org/devdocs/reference/generated/numpy.fft.ifftn.html#numpy.fft.ifftn)(a[, s, axes, norm]) | 计算N维逆离散傅立叶变换。
 
-## 真实的 FFTs
+## 实际 FFTs
 
-- rfft(a[, n, axis, norm])	计算一维离散傅立叶变换用于实际输入。
-- irfft(a[, n, axis, norm])	计算实际输入的n点DFT的倒数。
-- rfft2(a[, s, axes, norm])	计算实阵列的二维FFT.
-- irfft2(a[, s, axes, norm])	计算实数组的二维逆FFT。
-- rfftn(a[, s, axes, norm])	计算实输入的N维离散傅立叶变换.
-- irfftn(a[, s, axes, norm])	求实输入的N维FFT的逆运算.
+方法 | 描述
+---|---
+[rfft](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft.html#numpy.fft.rfft)(a[, n, axis, norm]) | 计算实数输入的一维离散傅立叶变换。
+[irfft](https://numpy.org/devdocs/reference/generated/numpy.fft.irfft.html#numpy.fft.irfft)(a[, n, axis, norm]) | 对于实输入，计算n点DFT的逆。
+[rfft2](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft2.html#numpy.fft.rfft2)(a[, s, axes, norm]) | 计算实数组的二维FFT。
+[irfft2](https://numpy.org/devdocs/reference/generated/numpy.fft.irfft2.html#numpy.fft.irfft2)(a[, s, axes, norm]) | 计算实数组的二维逆FFT。
+[rfftn](https://numpy.org/devdocs/reference/generated/numpy.fft.rfftn.html#numpy.fft.rfftn)(a[, s, axes, norm]) | 计算实输入的N维离散傅立叶变换。
+[irfftn](https://numpy.org/devdocs/reference/generated/numpy.fft.irfftn.html#numpy.fft.irfftn)(a[, s, axes, norm]) | 计算实输入的N维FFT的逆。
 
-## 埃尔米特快速傅里叶变换
+## 厄米特 FFTs
 
-- hfft(a[, n, axis, norm])	计算具有厄米对称性的信号的FFT，即实际频谱。
-- ihfft(a[, n, axis, norm])	计算具有Hermitian对称性的信号的反FFT。
+方法 | 描述
+---|---
+[hfft](https://numpy.org/devdocs/reference/generated/numpy.fft.hfft.html#numpy.fft.hfft)(a[, n, axis, norm]) | 计算具有厄米特对称性的信号的FFT，即实谱。
+[ihfft](https://numpy.org/devdocs/reference/generated/numpy.fft.ihfft.html#numpy.fft.ihfft)(a[, n, axis, norm]) | 计算具有厄米特对称性的信号的逆FFT。
 
-## 辅助相关api
+## 帮助
 
-- fftfreq(n[, d])	返回离散傅里叶变换采样频率。
-- rfftfreq(n[, d])	返回离散傅立叶变换采样频率(用于rfft、irfft)。
-- fftshift(x[, axes])	将零频率分量移到频谱的中心。
-- ifftshift(x[, axes])	反移的反义词。
+方法 | 描述
+---|---
+[fftfreq](https://numpy.org/devdocs/reference/generated/numpy.fft.fftfreq.html#numpy.fft.fftfreq)(n[, d]) | 返回离散傅立叶变换采样频率。
+[rfftfreq](https://numpy.org/devdocs/reference/generated/numpy.fft.rfftfreq.html#numpy.fft.rfftfreq)(n[, d]) | 返回离散傅立叶变换采样频率(用于rfft、irfft)。
+[fftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift)(x[, axes]) | 将零频率分量移至频谱中心。
+[ifftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.ifftshift.html#numpy.fft.ifftshift)(x[, axes]) | [fftshift](https://numpy.org/devdocs/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift)的逆。
 
 ## 背景资料
 
-傅立叶分析基本上是一种将函数表示为周期性分量之和以及从这些分量中恢复函数的方法。当函数及其傅里叶变换都被离散化的对应物替换时，它被称为离散傅里叶变换（DFT）。DFT已经成为数值计算的支柱，部分原因在于它的计算速度非常快，称为快速傅里叶变换（FFT），高斯（1805）已知并且由Cooley以其当前形式揭示。 Tukey [CT309]。按等人。[NR309]提供了傅里叶分析及其应用的可访问介绍。
+傅立叶分析基本上是一种方法，用于将函数表示为周期分量之和，
+并用于从这些分量中恢复函数。当函数及其傅立叶变换都被离散化的对应物替换时，
+它被称为离散傅立叶变换(DFT)。DFT已成为数值计算的支柱，
+部分原因是因为有一种计算它的非常快的算法，称为快速傅立叶变换(FFT)，
+高斯(1805)已知，并由Cooley和Tukey[CT]以其当前形式曝光。
+Press et al.。[NR]提供傅立叶分析及其应用的易懂介绍。
 
-由于离散傅里叶变换将其输入分离为在离散频率下贡献的分量，因此它在数字信号处理中具有大量应用，例如用于滤波，并且在这种情况下，变换的离散化输入通常被称为信号。 ，存在于时域中。输出称为频谱或变换，存在于频域中。
+因为离散傅立叶变换将其输入分离成在离散频率上贡献的分量，
+所以它在数字信号处理中具有大量的应用，
+例如用于滤波，并且在这种情况下，
+对变换的离散化输入通常被称为*信号*，
+其存在于时域中。输出被称为*频谱* 或 *变换*，并且存在于 *频域* 中。
 
 ## 实施细节
 
-定义DFT的方法有很多种，如指数变化、归一化等。在这个实现中，DFT被定义为
+有许多方法来定义DFT，在指数符号、归一化等方面有所不同。在此实现中，DFT被定义为：
 
-![公式](/static/images/c3e12e4fbd5334e071b7dfdd4d059fc3584b81e8.svg)
+<center>
+<img src="/static/images/math/c3e12e4fbd5334e071b7dfdd4d059fc3584b81e8.svg" alt="A_k =  \sum_{m=0}^{n-1} a_m \exp\left\{-2\pi i{mk \over n}\right\}
+\qquad k = 0,\ldots,n-1.">
+</center>
 
-DFT一般定义为复输入和复输出，线性频率f上的单频分量用复指数 ![公式](/static/images/9127ee37034ef9c70d96a488f67e0c82f9e92ff8.svg)  表示，其中Δt是采样间隔。
+The DFT is in general defined for complex inputs and outputs, and a
+single-frequency component at linear frequency  is
+represented by a complex exponential <img class="math" src="/static/images/math/9127ee37034ef9c70d96a488f67e0c82f9e92ff8.svg" alt="a_m = \exp\{2\pi i\,f m\Delta t\}">
+, where <img class="math" src="/static/images/math/ec002955bdf95ee9869878fbad4f80fc98539359.svg" alt="\Delta t">
+is the sampling interval.
 
-结果中的值遵循所谓的“标准”顺序：如果``A=fft(a, n)``，则``A[0]``包含零频率项(信号的和)，对于实际输入，该项总是纯实的。然后``A[1:n/2]``包含正频率项，``A[n/2+1:]``包含负频率项，按负频率递减的顺序排列。对于偶数个输入点，``A[n/2]``表示正负奈奎斯特频率，对于实际输入也是纯实的。对于奇数个输入点，``A[(n-1)/2]``的正频率最大，``A[(n+1)/2]``的负频率最大。方法 ``np.fft.fftfreq(N)`` 返回一个数组，给出输出中相应元素的频率。常规的``np.fft.fftShift(A)``变换和它们的频率将零频率分量放在中间，``np.fft.ifftShift(A)``取消这一移位。
+The values in the result follow so-called “standard” order: If ``A =
+fft(a, n)``, then ``A[0]`` contains the zero-frequency term (the sum of
+the signal), which is always purely real for real inputs. Then ``A[1:n/2]``
+contains the positive-frequency terms, and ``A[n/2+1:]`` contains the
+negative-frequency terms, in order of decreasingly negative frequency.
+For an even number of input points, ``A[n/2]`` represents both positive and
+negative Nyquist frequency, and is also purely real for real input.  For
+an odd number of input points, ``A[(n-1)/2]`` contains the largest positive
+frequency, while ``A[(n+1)/2]`` contains the largest negative frequency.
+The routine ``np.fft.fftfreq(n)`` returns an array giving the frequencies
+of corresponding elements in the output.  The routine
+``np.fft.fftshift(A)`` shifts transforms and their frequencies to put the
+zero-frequency components in the middle, and ``np.fft.ifftshift(A)`` undoes
+that shift.
 
-当输入a为时域信号且``A=FFT(A)``时，``np.abs(A)``为其幅度谱，``np.abs(A)*2``为其功率谱。相位谱由 ``np.angle(A)``得到。
+When the input *a* is a time-domain signal and ``A = fft(a)``, ``np.abs(A)``
+is its amplitude spectrum and ``np.abs(A)**2`` is its power spectrum.
+The phase spectrum is obtained by ``np.angle(A)``.
 
-逆DFT定义为
+The inverse DFT is defined as
 
-![公式](/static/images/25d7a89b77473363cb4da8b11ca853073f63729f.svg)
+<center>
+<img src="/static/images/math/25d7a89b77473363cb4da8b11ca853073f63729f.svg" alt="a_m = \frac{1}{n}\sum_{k=0}^{n-1}A_k\exp\left\{2\pi i{mk\over n}\right\}
+\qquad m = 0,\ldots,n-1.">
+</center>
 
-与正向变换不同的是，它的符号是指数型参数，默认的归一化是1/n。
+It differs from the forward transform by the sign of the exponential
+argument and the default normalization by 1/n.
 
-## 正常化
+## Normalization
 
-默认规范化具有未缩放的直接变换，并且逆变换按 1/n 缩放。 通过将关键字参数``norm``设置为``"ortho"``（默认为None）可以获得单一变换，这样直接变换和逆变换都将被![公式](/static/images/f780dc84ea49c387f9417b50f0619e404d91c28a.svg)缩放。
+The default normalization has the direct transforms unscaled and the inverse
+transforms are scaled by 1/n. It is possible to obtain unitary
+transforms by setting the keyword argument ``norm`` to ``"ortho"`` (default is
+*None*) so that both direct and inverse transforms will be scaled by <img class="math" src="/static/images/math/f780dc84ea49c387f9417b50f0619e404d91c28a.svg" alt="1/\sqrt{n}">.
 
-## 实变换和厄米特变换
+## Real and Hermitian transforms
 
-当输入是纯实的时，它的变换是厄米变换，即fk频率上的分量是频率fk上分量的复共轭，这意味着对于实际输入，负频率分量中没有正频率分量不能提供的信息。rfft函数族被设计为对实际输入进行运算，并通过只计算正频率分量(直到并包括Nyquist频率)来利用这种对称性。因此，n个输入点产生``n/2+1``个复输出点。这个族的逆假设它的输入具有相同的对称性，并且对于n个点的输出使用``n/2+1``个输入点。
+When the input is purely real, its transform is Hermitian, i.e., the
+component at frequency  is the complex conjugate of the
+component at frequency , which means that for real
+inputs there is no information in the negative frequency components that
+is not already available from the positive frequency components.
+The family of [``rfft``](https://numpy.org/devdocs/reference/generated/numpy.fft.rfft.html#numpy.fft.rfft) functions is
+designed to operate on real inputs, and exploits this symmetry by
+computing only the positive frequency components, up to and including the
+Nyquist frequency.  Thus, ``n`` input points produce ``n/2+1`` complex
+output points.  The inverses of this family assumes the same symmetry of
+its input, and for an output of ``n`` points uses ``n/2+1`` input points.
 
-相应地，当光谱是纯实的时，信号是厄密的。hfft函数族利用了这种对称性，在输入(时间)域中使用``n/2+1``个复点作为频域上的n个实点。
+Correspondingly, when the spectrum is purely real, the signal is
+Hermitian.  The [``hfft``](https://numpy.org/devdocs/reference/generated/numpy.fft.hfft.html#numpy.fft.hfft) family of functions exploits this symmetry by
+using ``n/2+1`` complex points in the input (time) domain for ``n`` real
+points in the frequency domain.
 
-在更高的维度上，使用FFT，例如用于图像分析和滤波。FFT的计算效率意味着它也可以是计算大卷积的一种更快的方法，它利用了时域卷积等效于频域逐点乘法的特性。
+In higher dimensions, FFTs are used, e.g., for image analysis and
+filtering.  The computational efficiency of the FFT means that it can
+also be a faster way to compute large convolutions, using the property
+that a convolution in the time domain is equivalent to a point-by-point
+multiplication in the frequency domain.
 
-## 更高的维度
+## 高维度
 
-在二维中，DFT定义为
+在二维中，DFT定义为：
 
-![公式](/static/images/abfed18222e3312d95d1597d08c38d85847a8ad5.svg)
+<center>
+<img src="/static/images/math/abfed18222e3312d95d1597d08c38d85847a8ad5.svg" alt="a_m = \frac{1}{n}\sum_{k=0}^{n-1}A_k\exp\left\{2\pi i{mk\over n}\right\}
+\qquad m = 0,\ldots,n-1.">
+</center>
 
-它以明显的方式延伸到更高的尺寸，而更高尺寸的倒置也以相同的方式延伸。
+它以明显的方式延伸到更高的维度，并且在更高维度中的倒数也以同样的方式延伸。
 
 ## 参考文献
 
-[CT309]	Cooley, James W., and John W. Tukey, 1965, “An algorithm for the machine calculation of complex Fourier series,” Math. Comput. 19: 297-301.
-[NR309]	Press, W., Teukolsky, S., Vetterline, W.T., and Flannery, B.P., 2007, Numerical Recipes: The Art of Scientific Computing, ch. 12-13. Cambridge Univ. Press, Cambridge, UK.
+[[CT]](#id1)Cooley, James W., and John W. Tukey, 1965, “An algorithm for the machine calculation of complex Fourier series,” Math. Comput. 19: 297-301.
 
-## 例子
+[[NR]](#id2)Press, W., Teukolsky, S., Vetterline, W.T., and Flannery, B.P., 2007, Numerical Recipes: The Art of Scientific Computing, ch. 12-13. Cambridge Univ. Press, Cambridge, UK.
 
-例如，请参阅各种功能api。
+## 示例
+
+有关示例，请参见各种函数。
