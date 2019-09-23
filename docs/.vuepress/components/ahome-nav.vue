@@ -15,9 +15,9 @@
         <p>掌上中文数据科学社区，关注公众号获取各种Python的奇淫技巧、赚钱技巧，更有机会获得大厂内推。</p>
       </div>
       <div class="qr-item">
-        <img src="/home/wx-gzh.png" alt />
+        <img src="https://extraimage.net/images/2019/09/23/ddf886b34735a450f51e5612681c1c18.png" alt="数量集公众号二维码" />
         <span class="text">或搜索“<b>数量集</b>”</span>
-      </div>
+      </div> 
     </div>
 
     <!-- 加入群聊 -->
@@ -26,11 +26,11 @@
         <p>欢迎加入 <b>NumPy 中文社区</b> 群聊，群内有BAT公司大牛、常春藤校友、中国顶尖高校的各类学霸，以及众多大佬！</p>
       </div>
       <div class="qr-item">
-        <img src="/home/wx-qr.jpg" alt />
+        <img src="https://extraimage.net/images/2019/09/23/ab21cd448bc5613ef9dbba4e4286ac32.jpg" alt="站长微信二维码" />
         <span class="text">站长微信（可拉微信群，备注：numpy）</span>
       </div>
       <div class="qr-item">
-        <img src="/home/qqqun-qr.jpg" alt />
+        <img src="https://extraimage.net/images/2019/09/23/68ef79d67d2d47c3453edbeee47712b5.jpg" alt="qq群二维码" />
         <span class="text">QQ群二维码（群号：294639068）</span>
       </div>
     </div>
@@ -62,13 +62,13 @@
       </p>
       <p>捐赠数额不限，特大数额可以加入网站鸣谢列表或全站推荐。</p>
       <div class="qr-item">
-        <img src="/home/wx-qr.jpg" alt />
+        <img src="https://extraimage.net/images/2019/09/23/b23a24d371aeacdc1be5eb110436ecb9.jpg" alt="微信付款码" />
         <span class="text">
           <b>微信</b> 捐赠
         </span>
       </div>
       <div class="qr-item">
-        <img src="/home/alipay-qr.jpg" alt />
+        <img src="https://extraimage.net/images/2019/09/23/4136d66b8cad62517838b702f57ac7da.jpg" alt="支付宝付款码" />
         <span class="text">
           <b>支付宝</b> 捐赠
         </span>

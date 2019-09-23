@@ -2,7 +2,7 @@ module.exports = {
   logo: {
     text: 'NumPy',
     subText: '中文网',
-    image: '/logo.svg'
+    image: 'https://extraimage.net/images/2019/09/23/5ac6e9d90002903efacacdcb8182b8ed.png'
   },
   alert: [{
     id: '2019-7-29',

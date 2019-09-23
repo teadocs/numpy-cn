@@ -20,22 +20,22 @@ export default {
     return {
       recommend: [
         {
-          poster: "https://www.pypandas.cn/static/images/recommend/01.jpeg",
+          poster: "https://extraimage.net/images/2019/09/23/12a103eb0e87862b65879e7b1e6faaca.jpg",
           title: "不要再去报班啦！纯新手入门机器/深度学习自学指南（附一个月速成方案）",
           url: "https://mp.weixin.qq.com/s/VYUGU2S-dWDCQfsl6C7oGQ"
-        }, 
+        },
         {
-          poster: "https://www.pypandas.cn/static/images/recommend/02.jpeg",
+          poster: "https://extraimage.net/images/2019/09/23/1f16b487646cad220a131d55feeaa446.jpg",
           title: "可能是最通俗易懂的Python入门资料整理和最优学习路线推荐。",
           url: "https://mp.weixin.qq.com/s/QUUYEimknwt5v3RUxIf8kQ"
         },
         {
-          poster: "https://www.pypandas.cn/static/images/recommend/05.jpeg",
+          poster: "https://extraimage.net/images/2019/09/23/ce093461c1b901ac2ce6d05959ad4379.jpg",
           title: "几百个不同领域的数据集分享给你，别让巧妇难为无米之炊。",
           url: "https://mp.weixin.qq.com/s/lVKa2j2yXbjpjom4GD5Btw"
         },
         {
-          poster: "https://www.pypandas.cn/static/images/recommend/04.jpeg",
+          poster: "https://extraimage.net/images/2019/09/23/3d45b5bc575aac8bfdd22443d612c7e9.jpg",
           title: "刚刚，我用Python做了个七夕礼物，差点被女朋友打死",
           url: "https://mp.weixin.qq.com/s/i2UQOqBr8zGqtgqTaHh3mg"
         }
