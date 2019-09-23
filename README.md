@@ -1,7 +1,7 @@
 # NumPy 中文文档
 
 <p align="center">
-    <img width="200" height="200" src="./_logo/logo_large.svg" alt="numpy中文文档logo" />
+    <img width="200" height="200" src="./_logo/logo.png" alt="numpy中文文档logo" />
 </p>
 
 > Chinese (zh-cn) translation of the NumPy docs
