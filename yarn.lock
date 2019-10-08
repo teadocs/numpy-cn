@@ -7284,15 +7284,10 @@ vuepress-plugin-flowchart@^1.4.2:
   dependencies:
     flowchart.js "^1.11.3"
 
-vuepress-plugin-named-chunks@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/vuepress-plugin-named-chunks/-/vuepress-plugin-named-chunks-1.0.2.tgz#0f201c4ea0df0baba6978895c8f46486216865c2"
-  integrity sha512-U7Ufi2ZjkXdlAORzIliK+4YY29nfqwYZ4AvSPCov7oyi1Pf5YZNDjrqoeJSVqll649RUhSgGS7HthY8HQMgs1w==
-
-vuepress-theme-teadocs@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/vuepress-theme-teadocs/-/vuepress-theme-teadocs-1.2.6.tgz#b44966cf97d83dfe4e9732eb845b2978c9e456ed"
-  integrity sha512-6I99F61GqSRNwV/G2/UF2enWBFwzBL37skPkwT2TMqz1QkcUeBXxbYgA3GnwsbfFSw+gK/LD3TWzMICoxIOXdQ==
+vuepress-theme-teadocs@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/vuepress-theme-teadocs/-/vuepress-theme-teadocs-1.2.7.tgz#3bc5c4583913c5c605c13ac270969bd0912211f0"
+  integrity sha512-TS7uEhJUbJqDiP2inob8db12YKeEUuk2K4e4peNswKEHvBiwpz61gUsBqjxq8aPE4ho3G5xez6ikTNo492fo2w==
   dependencies:
     "@vuepress/plugin-active-header-links" "^1.0.2"
     "@vuepress/plugin-nprogress" "^1.0.2"

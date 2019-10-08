@@ -34,6 +34,6 @@
     "vue-toasted": "^1.1.25",
     "vuepress": "^1.0.2",
     "vuepress-plugin-flowchart": "^1.4.2",
-    "vuepress-theme-teadocs": "^1.2.6"
+    "vuepress-theme-teadocs": "^1.2.7"
   }
 }
