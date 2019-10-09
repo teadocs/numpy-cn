@@ -27,6 +27,11 @@ sidebar: auto
     tag: '知乎',
     name: 'CS231n课程笔记翻译：Python Numpy教程',
     href: 'https://zhuanlan.zhihu.com/p/20878530'
+  },
+  {
+    tag: '程序员虾说',
+    name: 'numpy 系列教程',
+    href: 'http://www.ysir308.com/archives/category/tutorial/numpy-tutorial'
   }
 ]"></awesome>
 
