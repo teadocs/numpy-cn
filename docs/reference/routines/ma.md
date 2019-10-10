@@ -169,63 +169,63 @@
 [ma.asanyarray](https://numpy.org/devdocs/reference/generated/numpy.ma.asanyarray.html#numpy.ma.asanyarray)(a[, dtype]) | 将输入转换为掩码数组，从而保留子类。
 [ma.fix_invalid](https://numpy.org/devdocs/reference/generated/numpy.ma.fix_invalid.html#numpy.ma.fix_invalid)(a[, mask, copy, fill_value]) | 返回带有无效数据的输入，该数据被掩盖并替换为填充值。
 [ma.masked_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_equal.html#numpy.ma.masked_equal)(x, value[, copy]) | 掩码数组等于给定值。
-[ma.masked_greater](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_greater.html#numpy.ma.masked_greater)(x, value[, copy]) | Mask an array where greater than a given value.
-[ma.masked_greater_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_greater_equal.html#numpy.ma.masked_greater_equal)(x, value[, copy]) | Mask an array where greater than or equal to a given value.
-[ma.masked_inside](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_inside.html#numpy.ma.masked_inside)(x, v1, v2[, copy]) | Mask an array inside a given interval.
-[ma.masked_invalid](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_invalid.html#numpy.ma.masked_invalid)(a[, copy]) | Mask an array where invalid values occur (NaNs or infs).
-[ma.masked_less](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_less.html#numpy.ma.masked_less)(x, value[, copy]) | Mask an array where less than a given value.
-[ma.masked_less_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_less_equal.html#numpy.ma.masked_less_equal)(x, value[, copy]) | Mask an array where less than or equal to a given value.
-[ma.masked_not_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_not_equal.html#numpy.ma.masked_not_equal)(x, value[, copy]) | Mask an array where not equal to a given value.
-[ma.masked_object](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_object.html#numpy.ma.masked_object)(x, value[, copy, shrink]) | Mask the array x where the data are exactly equal to value.
-[ma.masked_outside](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_outside.html#numpy.ma.masked_outside)(x, v1, v2[, copy]) | Mask an array outside a given interval.
-[ma.masked_values](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_values.html#numpy.ma.masked_values)(x, value[, rtol, atol, …]) | Mask using floating point equality.
-[ma.masked_where](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_where.html#numpy.ma.masked_where)(condition, a[, copy]) | Mask an array where a condition is met.
+[ma.masked_greater](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_greater.html#numpy.ma.masked_greater)(x, value[, copy]) | 掩盖大于给定值的数组。
+[ma.masked_greater_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_greater_equal.html#numpy.ma.masked_greater_equal)(x, value[, copy]) | 掩盖大于或等于给定值的数组。
+[ma.masked_inside](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_inside.html#numpy.ma.masked_inside)(x, v1, v2[, copy]) | 在给定间隔内屏蔽数组。
+[ma.masked_invalid](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_invalid.html#numpy.ma.masked_invalid)(a[, copy]) | 掩盖发生无效值（NaNs或infs）的数组。
+[ma.masked_less](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_less.html#numpy.ma.masked_less)(x, value[, copy]) | 掩盖小于给定值的数组。
+[ma.masked_less_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_less_equal.html#numpy.ma.masked_less_equal)(x, value[, copy]) | 掩盖小于或等于给定值的数组。
+[ma.masked_not_equal](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_not_equal.html#numpy.ma.masked_not_equal)(x, value[, copy]) | 掩盖不等于给定值的数组。
+[ma.masked_object](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_object.html#numpy.ma.masked_object)(x, value[, copy, shrink]) | 在数据完全等于值的地方掩盖数组x。
+[ma.masked_outside](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_outside.html#numpy.ma.masked_outside)(x, v1, v2[, copy]) | 在给定间隔之外对数组进行掩盖。
+[ma.masked_values](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_values.html#numpy.ma.masked_values)(x, value[, rtol, atol, …]) | 掩码使用浮点数相等。
+[ma.masked_where](https://numpy.org/devdocs/reference/generated/numpy.ma.masked_where.html#numpy.ma.masked_where)(condition, a[, copy]) | 掩盖满足条件的数组。
 
 ### 输出为一个ndarray
 
 方法 | 描述
 ---|---
-[ma.compress_cols](https://numpy.org/devdocs/reference/generated/numpy.ma.compress_cols.html#numpy.ma.compress_cols)(a) | Suppress whole columns of a 2-D array that contain masked values.
-[ma.compress_rowcols](https://numpy.org/devdocs/reference/generated/numpy.ma.compress_rowcols.html#numpy.ma.compress_rowcols)(x[, axis]) | Suppress the rows and/or columns of a 2-D array that contain masked values.
-[ma.compress_rows](https://numpy.org/devdocs/reference/generated/numpy.ma.compress_rows.html#numpy.ma.compress_rows)(a) | Suppress whole rows of a 2-D array that contain masked values.
-[ma.compressed](https://numpy.org/devdocs/reference/generated/numpy.ma.compressed.html#numpy.ma.compressed)(x) | Return all the non-masked data as a 1-D array.
-[ma.filled](https://numpy.org/devdocs/reference/generated/numpy.ma.filled.html#numpy.ma.filled)(a[, fill_value]) | Return input as an array with masked data replaced by a fill value.
-[ma.MaskedArray.compressed](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.compressed.html#numpy.ma.MaskedArray.compressed)(self) | Return all the non-masked data as a 1-D array.
-[ma.MaskedArray.filled](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.filled.html#numpy.ma.MaskedArray.filled)(self[, fill_value]) | Return a copy of self, with masked values filled with a given value.
+[ma.compress_cols](https://numpy.org/devdocs/reference/generated/numpy.ma.compress_cols.html#numpy.ma.compress_cols)(a) | 禁止包含掩码值的二维数组的整个列。
+[ma.compress_rowcols](https://numpy.org/devdocs/reference/generated/numpy.ma.compress_rowcols.html#numpy.ma.compress_rowcols)(x[, axis]) | 禁止包含掩码值的二维数组的行和/或列。
+[ma.compress_rows](https://numpy.org/devdocs/reference/generated/numpy.ma.compress_rows.html#numpy.ma.compress_rows)(a) | 禁止包含掩码值的二维数组的整个行。
+[ma.compressed](https://numpy.org/devdocs/reference/generated/numpy.ma.compressed.html#numpy.ma.compressed)(x) | 将所有非掩码数据作为一维数组返回。
+[ma.filled](https://numpy.org/devdocs/reference/generated/numpy.ma.filled.html#numpy.ma.filled)(a[, fill_value]) | 以数组形式返回输入，其中掩码数据被填充值替换。
+[ma.MaskedArray.compressed](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.compressed.html#numpy.ma.MaskedArray.compressed)(self) | 将所有非屏蔽数据作为一维数组返回。
+[ma.MaskedArray.filled](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.filled.html#numpy.ma.MaskedArray.filled)(self[, fill_value]) | 返回self的副本，其中掩码值填充有给定值。
 
 ### 输出到其他对象
 
 方法 | 描述
 ---|---
-[ma.MaskedArray.tofile](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.tofile.html#numpy.ma.MaskedArray.tofile)(self, fid[, sep, format]) | Save a masked array to a file in binary format.
-[ma.MaskedArray.tolist](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.tolist.html#numpy.ma.MaskedArray.tolist)(self[, fill_value]) | Return the data portion of the masked array as a hierarchical Python list.
-[ma.MaskedArray.torecords](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.torecords.html#numpy.ma.MaskedArray.torecords)(self) | Transforms a masked array into a flexible-type array.
-[ma.MaskedArray.tobytes](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.tobytes.html#numpy.ma.MaskedArray.tobytes)(self[, fill_value, order]) | Return the array data as a string containing the raw bytes in the array.
+[ma.MaskedArray.tofile](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.tofile.html#numpy.ma.MaskedArray.tofile)(self, fid[, sep, format]) | 将掩码数组以二进制格式保存到文件。
+[ma.MaskedArray.tolist](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.tolist.html#numpy.ma.MaskedArray.tolist)(self[, fill_value]) | 返回屏蔽数组的数据部分作为分层Python列表。
+[ma.MaskedArray.torecords](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.torecords.html#numpy.ma.MaskedArray.torecords)(self) | 将掩码数组转换为灵活类型的数组。
+[ma.MaskedArray.tobytes](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.tobytes.html#numpy.ma.MaskedArray.tobytes)(self[, fill_value, order]) | 将数组数据作为包含数组中原始字节的字符串返回。
 
 ### 酸洗和解酸
 
 方法 | 描述
 ---|---
-[ma.dump](https://numpy.org/devdocs/reference/generated/numpy.ma.dump.html#numpy.ma.dump)(a, F) | Pickle a masked array to a file.
-[ma.dumps](https://numpy.org/devdocs/reference/generated/numpy.ma.dumps.html#numpy.ma.dumps)(a) | Return a string corresponding to the pickling of a masked array.
-[ma.load](https://numpy.org/devdocs/reference/generated/numpy.ma.load.html#numpy.ma.load)(F) | Wrapper around cPickle.load which accepts either a file-like object or a filename.
-[ma.loads](https://numpy.org/devdocs/reference/generated/numpy.ma.loads.html#numpy.ma.loads)(strg) | Load a pickle from the current string.
+[ma.dump](https://numpy.org/devdocs/reference/generated/numpy.ma.dump.html#numpy.ma.dump)(a, F) | 将掩码数组腌制到文件中。
+[ma.dumps](https://numpy.org/devdocs/reference/generated/numpy.ma.dumps.html#numpy.ma.dumps)(a) | 返回与蒙版数组的酸洗相对应的字符串。
+[ma.load](https://numpy.org/devdocs/reference/generated/numpy.ma.load.html#numpy.ma.load)(F) | cPickle.load周围的包装器，它可以接受类似文件的对象或文件名。
+[ma.loads](https://numpy.org/devdocs/reference/generated/numpy.ma.loads.html#numpy.ma.loads)(strg) | 从当前字符串中加载一个泡菜。
 
 ### 填充掩码数组
 
 方法 | 描述
 ---|---
-[ma.common_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.common_fill_value.html#numpy.ma.common_fill_value)(a, b) | Return the common filling value of two masked arrays, if any.
-[ma.default_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.default_fill_value.html#numpy.ma.default_fill_value)(obj) | Return the default fill value for the argument object.
-[ma.maximum_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.maximum_fill_value.html#numpy.ma.maximum_fill_value)(obj) | Return the minimum value that can be represented by the dtype of an object.
-[ma.maximum_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.maximum_fill_value.html#numpy.ma.maximum_fill_value)(obj) | Return the minimum value that can be represented by the dtype of an object.
-[ma.set_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.set_fill_value.html#numpy.ma.set_fill_value)(a, fill_value) | Set the filling value of a, if a is a masked array.
-[ma.MaskedArray.get_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.get_fill_value.html#numpy.ma.MaskedArray.get_fill_value)(self) | The filling value of the masked array is a scalar.
+[ma.common_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.common_fill_value.html#numpy.ma.common_fill_value)(a, b) | 返回两个掩码数组的通用填充值（如果有）。
+[ma.default_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.default_fill_value.html#numpy.ma.default_fill_value)(obj) | 返回参数对象的默认填充值。
+[ma.maximum_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.maximum_fill_value.html#numpy.ma.maximum_fill_value)(obj) | 返回可以由对象的dtype表示的最小值。
+[ma.maximum_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.maximum_fill_value.html#numpy.ma.maximum_fill_value)(obj) | 返回可以由对象的dtype表示的最小值。
+[ma.set_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.set_fill_value.html#numpy.ma.set_fill_value)(a, fill_value) | 如果a是掩码数组，则设置a的填充值。
+[ma.MaskedArray.get_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.get_fill_value.html#numpy.ma.MaskedArray.get_fill_value)(self) | 掩码数组的填充值为标量。
 [ma.MaskedArray.set_fill_value](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.set_fill_value.html#numpy.ma.MaskedArray.set_fill_value)(self[, value]) | 
 
 方法 | 描述
 ---|---
-[ma.MaskedArray.fill_value](maskedarray.baseclass.html#numpy.ma.MaskedArray.fill_value) | The filling value of the masked array is a scalar.
+[ma.MaskedArray.fill_value](maskedarray.baseclass.html#numpy.ma.MaskedArray.fill_value) | 掩码数组的填充值为标量。
 
 ## 掩码数组算法
 
@@ -244,85 +244,85 @@
 [ma.mean](https://numpy.org/devdocs/reference/generated/numpy.ma.mean.html#numpy.ma.mean)(self[, axis, dtype, out, keepdims]) | 返回沿给定轴的数组元素的平均值。
 [ma.median](https://numpy.org/devdocs/reference/generated/numpy.ma.median.html#numpy.ma.median)(a[, axis, out, overwrite_input, …]) | 计算沿指定轴的中位数。
 [ma.power](https://numpy.org/devdocs/reference/generated/numpy.ma.power.html#numpy.ma.power)(a, b[, third]) | 返回从第二个数组提升为幂的逐元素基本数组。
-[ma.prod](https://numpy.org/devdocs/reference/generated/numpy.ma.prod.html#numpy.ma.prod)(self[, axis, dtype, out, keepdims]) | Return the product of the array elements over the given axis.
-[ma.std](https://numpy.org/devdocs/reference/generated/numpy.ma.std.html#numpy.ma.std)(self[, axis, dtype, out, ddof, keepdims]) | Returns the standard deviation of the array elements along given axis.
-[ma.sum](https://numpy.org/devdocs/reference/generated/numpy.ma.sum.html#numpy.ma.sum)(self[, axis, dtype, out, keepdims]) | Return the sum of the array elements over the given axis.
-[ma.var](https://numpy.org/devdocs/reference/generated/numpy.ma.var.html#numpy.ma.var)(self[, axis, dtype, out, ddof, keepdims]) | Compute the variance along the specified axis.
-[ma.MaskedArray.anom](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.anom.html#numpy.ma.MaskedArray.anom)(self[, axis, dtype]) | Compute the anomalies (deviations from the arithmetic mean) along the given axis.
-[ma.MaskedArray.cumprod](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.cumprod.html#numpy.ma.MaskedArray.cumprod)(self[, axis, dtype, out]) | Return the cumulative product of the array elements over the given axis.
-[ma.MaskedArray.cumsum](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.cumsum.html#numpy.ma.MaskedArray.cumsum)(self[, axis, dtype, out]) | Return the cumulative sum of the array elements over the given axis.
-[ma.MaskedArray.mean](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.mean.html#numpy.ma.MaskedArray.mean)(self[, axis, dtype, …]) | Returns the average of the array elements along given axis.
-[ma.MaskedArray.prod](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.prod.html#numpy.ma.MaskedArray.prod)(self[, axis, dtype, …]) | Return the product of the array elements over the given axis.
-[ma.MaskedArray.std](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.std.html#numpy.ma.MaskedArray.std)(self[, axis, dtype, out, …]) | Returns the standard deviation of the array elements along given axis.
-[ma.MaskedArray.sum](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.sum.html#numpy.ma.MaskedArray.sum)(self[, axis, dtype, out, …]) | Return the sum of the array elements over the given axis.
-[ma.MaskedArray.var](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.var.html#numpy.ma.MaskedArray.var)(self[, axis, dtype, out, …]) | Compute the variance along the specified axis.
+[ma.prod](https://numpy.org/devdocs/reference/generated/numpy.ma.prod.html#numpy.ma.prod)(self[, axis, dtype, out, keepdims]) | 返回给定轴上数组元素的乘积。
+[ma.std](https://numpy.org/devdocs/reference/generated/numpy.ma.std.html#numpy.ma.std)(self[, axis, dtype, out, ddof, keepdims]) | 返回沿给定轴的数组元素的标准偏差。
+[ma.sum](https://numpy.org/devdocs/reference/generated/numpy.ma.sum.html#numpy.ma.sum)(self[, axis, dtype, out, keepdims]) | 返回给定轴上数组元素的总和。
+[ma.var](https://numpy.org/devdocs/reference/generated/numpy.ma.var.html#numpy.ma.var)(self[, axis, dtype, out, ddof, keepdims]) | 计算沿指定轴的方差。
+[ma.MaskedArray.anom](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.anom.html#numpy.ma.MaskedArray.anom)(self[, axis, dtype]) | 沿给定轴计算异常（与算术平均值的偏差）。
+[ma.MaskedArray.cumprod](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.cumprod.html#numpy.ma.MaskedArray.cumprod)(self[, axis, dtype, out]) | 返回给定轴上数组元素的累积乘积。
+[ma.MaskedArray.cumsum](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.cumsum.html#numpy.ma.MaskedArray.cumsum)(self[, axis, dtype, out]) | 返回给定轴上数组元素的累积和。
+[ma.MaskedArray.mean](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.mean.html#numpy.ma.MaskedArray.mean)(self[, axis, dtype, …]) | 返回沿给定轴的数组元素的平均值。
+[ma.MaskedArray.prod](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.prod.html#numpy.ma.MaskedArray.prod)(self[, axis, dtype, …]) | 返回给定轴上数组元素的乘积。
+[ma.MaskedArray.std](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.std.html#numpy.ma.MaskedArray.std)(self[, axis, dtype, out, …]) | 返回沿给定轴的数组元素的标准偏差。
+[ma.MaskedArray.sum](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.sum.html#numpy.ma.MaskedArray.sum)(self[, axis, dtype, out, …]) | 返回给定轴上数组元素的总和。
+[ma.MaskedArray.var](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.var.html#numpy.ma.MaskedArray.var)(self[, axis, dtype, out, …]) | 计算沿指定轴的方差。
 
 ### 最小/最大
 
 方法 | 描述
 ---|---
-[ma.argmax](https://numpy.org/devdocs/reference/generated/numpy.ma.argmax.html#numpy.ma.argmax)(self[, axis, fill_value, out]) | Returns array of indices of the maximum values along the given axis.
-[ma.argmin](https://numpy.org/devdocs/reference/generated/numpy.ma.argmin.html#numpy.ma.argmin)(self[, axis, fill_value, out]) | Return array of indices to the minimum values along the given axis.
-[ma.max](https://numpy.org/devdocs/reference/generated/numpy.ma.max.html#numpy.ma.max)(obj[, axis, out, fill_value, keepdims]) | Return the maximum along a given axis.
-[ma.min](https://numpy.org/devdocs/reference/generated/numpy.ma.min.html#numpy.ma.min)(obj[, axis, out, fill_value, keepdims]) | Return the minimum along a given axis.
-[ma.ptp](https://numpy.org/devdocs/reference/generated/numpy.ma.ptp.html#numpy.ma.ptp)(obj[, axis, out, fill_value, keepdims]) | Return (maximum - minimum) along the given dimension (i.e.
-[ma.MaskedArray.argmax](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.argmax.html#numpy.ma.MaskedArray.argmax)(self[, axis, …]) | Returns array of indices of the maximum values along the given axis.
-[ma.MaskedArray.argmin](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.argmin.html#numpy.ma.MaskedArray.argmin)(self[, axis, …]) | Return array of indices to the minimum values along the given axis.
-[ma.MaskedArray.max](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.max.html#numpy.ma.MaskedArray.max)(self[, axis, out, …]) | Return the maximum along a given axis.
-[ma.MaskedArray.min](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.min.html#numpy.ma.MaskedArray.min)(self[, axis, out, …]) | Return the minimum along a given axis.
-[ma.MaskedArray.ptp](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.ptp.html#numpy.ma.MaskedArray.ptp)(self[, axis, out, …]) | Return (maximum - minimum) along the given dimension (i.e.
+[ma.argmax](https://numpy.org/devdocs/reference/generated/numpy.ma.argmax.html#numpy.ma.argmax)(self[, axis, fill_value, out]) | 返回沿给定轴的最大值的索引数组。
+[ma.argmin](https://numpy.org/devdocs/reference/generated/numpy.ma.argmin.html#numpy.ma.argmin)(self[, axis, fill_value, out]) | 将索引数组沿给定轴返回最小值。
+[ma.max](https://numpy.org/devdocs/reference/generated/numpy.ma.max.html#numpy.ma.max)(obj[, axis, out, fill_value, keepdims]) | 沿给定轴返回最大值。
+[ma.min](https://numpy.org/devdocs/reference/generated/numpy.ma.min.html#numpy.ma.min)(obj[, axis, out, fill_value, keepdims]) | 沿给定轴返回最小值。
+[ma.ptp](https://numpy.org/devdocs/reference/generated/numpy.ma.ptp.html#numpy.ma.ptp)(obj[, axis, out, fill_value, keepdims]) | 沿给定维度（即
+[ma.MaskedArray.argmax](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.argmax.html#numpy.ma.MaskedArray.argmax)(self[, axis, …]) | 返回沿给定轴的最大值的索引数组。
+[ma.MaskedArray.argmin](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.argmin.html#numpy.ma.MaskedArray.argmin)(self[, axis, …]) | 将索引数组沿给定轴返回最小值。
+[ma.MaskedArray.max](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.max.html#numpy.ma.MaskedArray.max)(self[, axis, out, …]) | 沿给定轴返回最大值。
+[ma.MaskedArray.min](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.min.html#numpy.ma.MaskedArray.min)(self[, axis, out, …]) | 沿给定轴返回最小值。
+[ma.MaskedArray.ptp](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.ptp.html#numpy.ma.MaskedArray.ptp)(self[, axis, out, …]) | 沿给定维度（即
 
 ### 排序
 
 方法 | 描述
 ---|---
-[ma.argsort](https://numpy.org/devdocs/reference/generated/numpy.ma.argsort.html#numpy.ma.argsort)(a[, axis, kind, order, endwith, …]) | Return an ndarray of indices that sort the array along the specified axis.
-[ma.sort](https://numpy.org/devdocs/reference/generated/numpy.ma.sort.html#numpy.ma.sort)(a[, axis, kind, order, endwith, …]) | Sort the array, in-place
-[ma.MaskedArray.argsort](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.argsort.html#numpy.ma.MaskedArray.argsort)(self[, axis, kind, …]) | Return an ndarray of indices that sort the array along the specified axis.
-[ma.MaskedArray.sort](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.sort.html#numpy.ma.MaskedArray.sort)(self[, axis, kind, …]) | Sort the array, in-place
+[ma.argsort](https://numpy.org/devdocs/reference/generated/numpy.ma.argsort.html#numpy.ma.argsort)(a[, axis, kind, order, endwith, …]) | 返回索引的ndarray，该索引沿指定的轴对数组进行排序。
+[ma.sort](https://numpy.org/devdocs/reference/generated/numpy.ma.sort.html#numpy.ma.sort)(a[, axis, kind, order, endwith, …]) | 就地对数组排序
+[ma.MaskedArray.argsort](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.argsort.html#numpy.ma.MaskedArray.argsort)(self[, axis, kind, …]) | 返回索引的ndarray，该索引沿指定的轴对数组进行排序。
+[ma.MaskedArray.sort](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.sort.html#numpy.ma.MaskedArray.sort)(self[, axis, kind, …]) | 就地对数组排序
 
 ### 代数
 
 方法 | 描述
 ---|---
-[ma.diag](https://numpy.org/devdocs/reference/generated/numpy.ma.diag.html#numpy.ma.diag)(v[, k]) | Extract a diagonal or construct a diagonal array.
-[ma.dot](https://numpy.org/devdocs/reference/generated/numpy.ma.dot.html#numpy.ma.dot)(a, b[, strict, out]) | Return the dot product of two arrays.
-[ma.identity](https://numpy.org/devdocs/reference/generated/numpy.ma.identity.html#numpy.ma.identity)(n[, dtype]) | Return the identity array.
-[ma.inner](https://numpy.org/devdocs/reference/generated/numpy.ma.inner.html#numpy.ma.inner)(a, b) | Inner product of two arrays.
-[ma.innerproduct](https://numpy.org/devdocs/reference/generated/numpy.ma.innerproduct.html#numpy.ma.innerproduct)(a, b) | Inner product of two arrays.
-[ma.outer](https://numpy.org/devdocs/reference/generated/numpy.ma.outer.html#numpy.ma.outer)(a, b) | Compute the outer product of two vectors.
-[ma.outerproduct](https://numpy.org/devdocs/reference/generated/numpy.ma.outerproduct.html#numpy.ma.outerproduct)(a, b) | Compute the outer product of two vectors.
-[ma.trace](https://numpy.org/devdocs/reference/generated/numpy.ma.trace.html#numpy.ma.trace)(self[, offset, axis1, axis2, …]) | Return the sum along diagonals of the array.
-[ma.transpose](https://numpy.org/devdocs/reference/generated/numpy.ma.transpose.html#numpy.ma.transpose)(a[, axes]) | Permute the dimensions of an array.
-[ma.MaskedArray.trace](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.trace.html#numpy.ma.MaskedArray.trace)([offset, axis1, axis2, …]) | Return the sum along diagonals of the array.
-[ma.MaskedArray.transpose](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.transpose.html#numpy.ma.MaskedArray.transpose)(*axes) | Returns a view of the array with axes transposed.
+[ma.diag](https://numpy.org/devdocs/reference/generated/numpy.ma.diag.html#numpy.ma.diag)(v[, k]) | 提取对角线或构造对角线数组。
+[ma.dot](https://numpy.org/devdocs/reference/generated/numpy.ma.dot.html#numpy.ma.dot)(a, b[, strict, out]) | 返回两个数组的点积。
+[ma.identity](https://numpy.org/devdocs/reference/generated/numpy.ma.identity.html#numpy.ma.identity)(n[, dtype]) | 返回标识数组。
+[ma.inner](https://numpy.org/devdocs/reference/generated/numpy.ma.inner.html#numpy.ma.inner)(a, b) | 两个数组的内积。
+[ma.innerproduct](https://numpy.org/devdocs/reference/generated/numpy.ma.innerproduct.html#numpy.ma.innerproduct)(a, b) | 两个数组的内积。
+[ma.outer](https://numpy.org/devdocs/reference/generated/numpy.ma.outer.html#numpy.ma.outer)(a, b) | 计算两个向量的外积。
+[ma.outerproduct](https://numpy.org/devdocs/reference/generated/numpy.ma.outerproduct.html#numpy.ma.outerproduct)(a, b) | 计算两个向量的外积。
+[ma.trace](https://numpy.org/devdocs/reference/generated/numpy.ma.trace.html#numpy.ma.trace)(self[, offset, axis1, axis2, …]) | 返回数组对角线的和。
+[ma.transpose](https://numpy.org/devdocs/reference/generated/numpy.ma.transpose.html#numpy.ma.transpose)(a[, axes]) | 排列数组的尺寸。
+[ma.MaskedArray.trace](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.trace.html#numpy.ma.MaskedArray.trace)([offset, axis1, axis2, …]) | 返回数组对角线的和。
+[ma.MaskedArray.transpose](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.transpose.html#numpy.ma.MaskedArray.transpose)(*axes) | 返回轴已转置的数组视图。
 
 ### 多项式拟合
 
 方法 | 描述
 ---|---
-[ma.vander](https://numpy.org/devdocs/reference/generated/numpy.ma.vander.html#numpy.ma.vander)(x[, n]) | Generate a Vandermonde matrix.
-[ma.polyfit](https://numpy.org/devdocs/reference/generated/numpy.ma.polyfit.html#numpy.ma.polyfit)(x, y, deg[, rcond, full, w, cov]) | Least squares polynomial fit.
+[ma.vander](https://numpy.org/devdocs/reference/generated/numpy.ma.vander.html#numpy.ma.vander)(x[, n]) | 生成范德蒙矩阵。
+[ma.polyfit](https://numpy.org/devdocs/reference/generated/numpy.ma.polyfit.html#numpy.ma.polyfit)(x, y, deg[, rcond, full, w, cov]) | 最小二乘多项式拟合。
 
 ### 修剪和舍入
 
 方法 | 描述
 ---|---
-[ma.around](https://numpy.org/devdocs/reference/generated/numpy.ma.around.html#numpy.ma.around)(a, \*args, \*\*kwargs) | Round an array to the given number of decimals.
-[ma.clip](https://numpy.org/devdocs/reference/generated/numpy.ma.clip.html#numpy.ma.clip)(a, a_min, a_max[, out]) | Clip (limit) the values in an array.
-[ma.round](https://numpy.org/devdocs/reference/generated/numpy.ma.round.html#numpy.ma.round)(a[, decimals, out]) | Return a copy of a, rounded to ‘decimals’ places.
-[ma.MaskedArray.clip](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.clip.html#numpy.ma.MaskedArray.clip)([min, max, out]) | Return an array whose values are limited to [min, max].
-[ma.MaskedArray.round](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.round.html#numpy.ma.MaskedArray.round)(self[, decimals, out]) | Return each element rounded to the given number of decimals.
+[ma.around](https://numpy.org/devdocs/reference/generated/numpy.ma.around.html#numpy.ma.around)(a, \*args, \*\*kwargs) | 将数组舍入到给定的小数位数。
+[ma.clip](https://numpy.org/devdocs/reference/generated/numpy.ma.clip.html#numpy.ma.clip)(a, a_min, a_max[, out]) | 裁剪（限制）数组中的值。
+[ma.round](https://numpy.org/devdocs/reference/generated/numpy.ma.round.html#numpy.ma.round)(a[, decimals, out]) | 返回a的副本，四舍五入到“小数”位。
+[ma.MaskedArray.clip](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.clip.html#numpy.ma.MaskedArray.clip)([min, max, out]) | 返回其值限制为[min, max]的数组。
+[ma.MaskedArray.round](https://numpy.org/devdocs/reference/generated/numpy.ma.MaskedArray.round.html#numpy.ma.MaskedArray.round)(self[, decimals, out]) | 返回四舍五入到给定小数位数的每个元素。
 
 ### 杂项
 
 方法 | 描述
 ---|---
-[ma.allequal](https://numpy.org/devdocs/reference/generated/numpy.ma.allequal.html#numpy.ma.allequal)(a, b[, fill_value]) | Return True if all entries of a and b are equal, using fill_value as a truth value where either or both are masked.
-[ma.allclose](https://numpy.org/devdocs/reference/generated/numpy.ma.allclose.html#numpy.ma.allclose)(a, b[, masked_equal, rtol, atol]) | Returns True if two arrays are element-wise equal within a tolerance.
-[ma.apply_along_axis](https://numpy.org/devdocs/reference/generated/numpy.ma.apply_along_axis.html#numpy.ma.apply_along_axis)(func1d, axis, arr, …) | Apply a function to 1-D slices along the given axis.
-[ma.arange](https://numpy.org/devdocs/reference/generated/numpy.ma.arange.html#numpy.ma.arange)([start,] stop[, step,][, dtype]) | Return evenly spaced values within a given interval.
-[ma.choose](https://numpy.org/devdocs/reference/generated/numpy.ma.choose.html#numpy.ma.choose)(indices, choices[, out, mode]) | Use an index array to construct a new array from a set of choices.
-[ma.ediff1d](https://numpy.org/devdocs/reference/generated/numpy.ma.ediff1d.html#numpy.ma.ediff1d)(arr[, to_end, to_begin]) | Compute the differences between consecutive elements of an array.
-[ma.indices](https://numpy.org/devdocs/reference/generated/numpy.ma.indices.html#numpy.ma.indices)(dimensions[, dtype, sparse]) | Return an array representing the indices of a grid.
-[ma.where](https://numpy.org/devdocs/reference/generated/numpy.ma.where.html#numpy.ma.where)(condition[, x, y]) | Return a masked array with elements from x or y, depending on condition.
+[ma.allequal](https://numpy.org/devdocs/reference/generated/numpy.ma.allequal.html#numpy.ma.allequal)(a, b[, fill_value]) | 如果a和b的所有条目都相等，则使用fill_value作为其中一个或两个都被屏蔽的真值，返回True。
+[ma.allclose](https://numpy.org/devdocs/reference/generated/numpy.ma.allclose.html#numpy.ma.allclose)(a, b[, masked_equal, rtol, atol]) | 如果两个数组在公差范围内按元素方式相等，则返回True。
+[ma.apply_along_axis](https://numpy.org/devdocs/reference/generated/numpy.ma.apply_along_axis.html#numpy.ma.apply_along_axis)(func1d, axis, arr, …) | 将函数应用于沿给定轴的一维切片。
+[ma.arange](https://numpy.org/devdocs/reference/generated/numpy.ma.arange.html#numpy.ma.arange)([start,] stop[, step,][, dtype]) | 返回给定间隔内的均匀间隔的值。
+[ma.choose](https://numpy.org/devdocs/reference/generated/numpy.ma.choose.html#numpy.ma.choose)(indices, choices[, out, mode]) | 使用索引数组从一组选择中构造一个新数组。
+[ma.ediff1d](https://numpy.org/devdocs/reference/generated/numpy.ma.ediff1d.html#numpy.ma.ediff1d)(arr[, to_end, to_begin]) | 计算数组的连续元素之间的差异。
+[ma.indices](https://numpy.org/devdocs/reference/generated/numpy.ma.indices.html#numpy.ma.indices)(dimensions[, dtype, sparse]) | 返回表示网格索引的数组。
+[ma.where](https://numpy.org/devdocs/reference/generated/numpy.ma.where.html#numpy.ma.where)(condition[, x, y]) | 根据条件返回带有x或y元素的掩码数组。
