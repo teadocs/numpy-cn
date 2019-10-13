@@ -87,4 +87,4 @@ module.exports = [
     defer: 'defer',
     async: 'true'
   }]
-];
+]
