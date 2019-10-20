@@ -20,9 +20,9 @@ export default {
     return {
       recommend: [
         {
-          poster: "https://extraimage.net/images/2019/09/23/12a103eb0e87862b65879e7b1e6faaca.jpg",
-          title: "不要再去报班啦！纯新手入门机器/深度学习自学指南（附一个月速成方案）",
-          url: "https://mp.weixin.qq.com/s/VYUGU2S-dWDCQfsl6C7oGQ"
+          poster: "https://paddlepaddle-org-cn.bj.bcebos.com/paddle-site-front/static/media/banner.a53a5ad414cd2bc5e0f6d00cc4f53f50.png",
+          title: "免费深度学习模型库（覆盖图像、自然语言处理、推荐等多种方向的官方模型）",
+          url: "https://www.paddlepaddle.org.cn/modelbase?from=numpy-cn"
         },
         {
           poster: "https://extraimage.net/images/2019/09/23/1f16b487646cad220a131d55feeaa446.jpg",

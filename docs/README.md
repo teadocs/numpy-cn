@@ -6,8 +6,10 @@ meta:
   - name: description
     content: 这是NumPy官方的中文文档，NumPy是用Python进行科学计算的基础软件包。
 heroImage: https://extraimage.net/images/2019/09/23/5ac6e9d90002903efacacdcb8182b8ed.png
-actionText: 快速开始 →
+actionText: 快速了解 →
 actionLink: /user/
+action2Text: 学习深度学习 →
+action2Link: /deep/
 footer: 署名-非商业性使用-相同方式共享 3.0 中国大陆 (CC BY-NC-SA 3.0 CN) | Copyright © 2019-present Zhi Bing
 ---
 

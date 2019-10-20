@@ -22,6 +22,7 @@ module.exports = ctx => ({
     '.vuepress/sidebar/article_zh.js',
     '.vuepress/sidebar/bedocs_en.js',
     '.vuepress/sidebar/bedocs_zh.js',
+    '.vuepress/sidebar/deep_zh.js',
     '.vuepress/sidebar/dev_en.js',
     '.vuepress/sidebar/dev_zh.js',
     '.vuepress/sidebar/f2py_zh.js',

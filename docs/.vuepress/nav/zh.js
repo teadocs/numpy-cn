@@ -4,8 +4,13 @@ module.exports = [
     link: '/about/'
   },
   {
-    text: 'NumPy 文章',
+    text: '文章',
     link: '/article/'
+  },
+  {
+    text: '深度学习',
+    link: '/deep/',
+    important: true
   },
   {
     text: '用户指南',
