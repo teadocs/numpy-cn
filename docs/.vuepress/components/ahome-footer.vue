@@ -19,7 +19,7 @@
           <a href="https://www.pypandas.cn/" target="_blank">Pandas 中文网</a>
         </li>
         <li>
-          <a href="https://www.matplotlib.org.cn/" target="_blank">Matplotlib 中文文档</a>
+          <a href="https://www.matplotlib.org.cn/" target="_blank">Matplotlib 中文网</a>
         </li>
       </ul>
     </div>
