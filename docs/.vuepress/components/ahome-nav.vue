@@ -44,7 +44,7 @@
       <p>
         贡献翻译不需要太多门槛，想参与翻译的小伙伴，可以先查看
         <a
-          href="https://github.com/teadocs/numpy-cn/blob/v0.25.0/Contribution.md"
+          href="https://github.com/teadocs/numpy-cn/blob/v1.17/Contribution.md"
           target="_blank"
         >《本文档翻译贡献指南》</a>。
       </p>
