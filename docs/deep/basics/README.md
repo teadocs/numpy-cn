@@ -9,14 +9,14 @@
 您现在在看的这本书是一本“交互式”电子书 —— 每一章都可以运行在一个Jupyter Notebook里。
 
 - [线性回归](fit_a_line)
-- [数字识别](fit_a_line)
-- [图像分类](fit_a_line)
-- [词向量](fit_a_line)
-- [个性化推荐](fit_a_line)
-- [情感分析](fit_a_line)
-- [语义角色标注](fit_a_line)
-- [机器翻译](fit_a_line)
-- [生成对抗网络](fit_a_line)
+- [数字识别](recognize_digits)
+- [图像分类](image_classification)
+- [词向量](word2vec)
+- [个性化推荐](recommender_system)
+- [情感分析](understand_sentiment)
+- [语义角色标注](label_semantic_roles)
+- [机器翻译](machine_translation)
+- [生成对抗网络](gan)
 
 我们把[NumPy](https://www.numpy.org.cn/)、Jupyter、PaddlePaddle、以及各种被依赖的软件都打包进一个Docker image了。
 所以您不需要自己来安装各种软件，只需要安装Docker即可。
