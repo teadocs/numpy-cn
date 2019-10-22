@@ -7,6 +7,7 @@
       <a class="btn-home-nav" :class="{'active': navId === 3}" @click="navId=3">贡献翻译</a>
       <a class="btn-home-nav donation" :class="{'active': navId === 4}" @click="navId=4">捐赠网站</a>
       <a class="btn-home-nav" :class="{'active': navId === 5}" @click="navId=5">其他事宜</a>
+      <a class="btn-home-nav" :class="{'active': navId === 6}" @click="navId=6">深度学习资料</a>
     </div>
 
     <!-- 关注公众号 -->
@@ -83,6 +84,25 @@
         <li>🍁QQ号：17560235</li>
         <li>🌿邮箱：l@numpy.org.cn</li>
       </ul>
+    </div>
+
+    <!-- 深度学习资料 -->
+    <div class="block" :class="{'show': navId === 6}">
+      <div class>
+        <p>扫码获取深度学习资料</p>
+      </div>
+      <div class="qr-item">
+        <img src="https://extraimage.net/images/2019/10/22/72234564897704dd05071e01f113fc62.png" alt="paddle微信公众号" />
+        <span class="text">Paddle官方微信公众号</span>
+      </div>
+      <div class="qr-item">
+        <img src="https://extraimage.net/images/2019/10/22/62197b85a4b835ce06c8453c048bb651.jpg" alt="qq群二维码" />
+        <span class="text">QQ群二维码（群号：796771754）</span>
+      </div>
+      <div class="qr-item">
+        <img src="https://extraimage.net/images/2019/10/22/132a76d4fa4b09f92f4d88bf9f0740ab.png" alt="paddle的github地址" />
+        <span class="text">Paddle的GitHub地址</span>
+      </div>
     </div>
   </div>
 </template>
