@@ -250,7 +250,7 @@ NumPy Distutils预处理``.c.src``以自定义模板语言编写的C源文件（
 
 在以下模板源示例中，上述规则可能更清晰：
 
-``` NumPyC
+``` C
  /* TIMEDELTA to non-float types */
 
  /**begin repeat
