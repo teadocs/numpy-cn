@@ -16,6 +16,19 @@ module.exports = function () {
         ['/deep/basics/machine_translation', '机器翻译'],
         ['/deep/basics/gan', '生成对抗网络']
       ]
+    },
+    {
+      title: '七日入门深度学习',
+      collapsable: true,
+      sidebarDepth: 3,
+      children: [
+        ['/deep/videos/day1_01', 'Day 1：初识深度学习'],
+        ['/deep/videos/day1_02', 'Day 1：如何快速入门深度学习？'],
+        ['/deep/videos/day2_01', 'Day 2：图像识别基础与实战'],
+        ['/deep/videos/day3_01', 'Day 3：目标检测基础与实践（一）'],
+        ['/deep/videos/day3_02', 'Day 3：目标检测实战-RCNN算法讲解'],
+        ['/deep/videos/day3_03', 'Day 3：目标检测实战-YOLOv3检测物体']
+      ]
     }
   ]
 }
