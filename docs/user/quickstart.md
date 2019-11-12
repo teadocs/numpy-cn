@@ -150,19 +150,19 @@ array([ 0.  ,  0.25,  0.5 ,  0.75,  1.  ,  1.25,  1.5 ,  1.75,  2.  ])
 
 ::: tip 另见这些API
 
-[``array``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array)，
- [``zeros``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros)，
- [``zeros_like``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like)，
- [``ones``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones)，
- [``ones_like``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like)，
- [``empty``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty)，
- [``empty_like``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like)，
- [``arange``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange)，
- [``linspace``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace)，
+[``array``](https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array)，
+ [``zeros``](https://numpy.org/devdocs/reference/generated/numpy.zeros.html#numpy.zeros)，
+ [``zeros_like``](https://numpy.org/devdocs/reference/generated/numpy.zeros_like.html#numpy.zeros_like)，
+ [``ones``](https://numpy.org/devdocs/reference/generated/numpy.ones.html#numpy.ones)，
+ [``ones_like``](https://numpy.org/devdocs/reference/generated/numpy.ones_like.html#numpy.ones_like)，
+ [``empty``](https://numpy.org/devdocs/reference/generated/numpy.empty.html#numpy.empty)，
+ [``empty_like``](https://numpy.org/devdocs/reference/generated/numpy.empty_like.html#numpy.empty_like)，
+ [``arange``](https://numpy.org/devdocs/reference/generated/numpy.arange.html#numpy.arange)，
+ [``linspace``](https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace)，
  [``numpy.random.mtrand.RandomState.rand``](https://numpy.org/devdocs/reference/random/generated/numpy.random.mtrand.RandomState.rand.html#numpy.random.mtrand.RandomState.rand)，
  [``numpy.random.mtrand.RandomState.randn``](https://numpy.org/devdocs/reference/random/generated/numpy.random.mtrand.RandomState.randn.html#numpy.random.mtrand.RandomState.randn)，
- [``fromfunction``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction)，
-[``fromfile``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.fromfile.html#numpy.fromfile)
+ [``fromfunction``](https://numpy.org/devdocs/reference/generated/numpy.fromfunction.html#numpy.fromfunction)，
+[``fromfile``](https://numpy.org/devdocs/reference/generated/numpy.fromfile.html#numpy.fromfile)
 
 :::
 
@@ -355,48 +355,48 @@ array([ 2.,  0.,  6.])
 
 ::: tip 另见这些通函数
 
-[``all``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.all.html#numpy.all)，
- [``any``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.any.html#numpy.any)，
- [``apply_along_axis``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.apply_along_axis.html#numpy.apply_along_axis)，
- [``argmax``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.argmax.html#numpy.argmax)，
- [``argmin``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.argmin.html#numpy.argmin)，
- [``argsort``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort)，
- [``average``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.average.html#numpy.average)，
- [``bincount``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.bincount.html#numpy.bincount)，
- [``ceil``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil)，
- [``clip``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip)，
- [``conj``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.conj.html#numpy.conj)，
- [``corrcoef``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.corrcoef.html#numpy.corrcoef)，
- [``cov``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.cov.html#numpy.cov)，
- [``cross``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross)，
- [``cumprod``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod)，
- [``cumsum``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum)，
- [``diff``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.diff.html#numpy.diff)，
- [``dot``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.dot.html#numpy.dot)，
- [``floor``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.floor.html#numpy.floor)，
- [``inner``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.inner.html#numpy.inner)，
+[``all``](https://numpy.org/devdocs/reference/generated/numpy.all.html#numpy.all)，
+ [``any``](https://numpy.org/devdocs/reference/generated/numpy.any.html#numpy.any)，
+ [``apply_along_axis``](https://numpy.org/devdocs/reference/generated/numpy.apply_along_axis.html#numpy.apply_along_axis)，
+ [``argmax``](https://numpy.org/devdocs/reference/generated/numpy.argmax.html#numpy.argmax)，
+ [``argmin``](https://numpy.org/devdocs/reference/generated/numpy.argmin.html#numpy.argmin)，
+ [``argsort``](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort)，
+ [``average``](https://numpy.org/devdocs/reference/generated/numpy.average.html#numpy.average)，
+ [``bincount``](https://numpy.org/devdocs/reference/generated/numpy.bincount.html#numpy.bincount)，
+ [``ceil``](https://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil)，
+ [``clip``](https://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip)，
+ [``conj``](https://numpy.org/devdocs/reference/generated/numpy.conj.html#numpy.conj)，
+ [``corrcoef``](https://numpy.org/devdocs/reference/generated/numpy.corrcoef.html#numpy.corrcoef)，
+ [``cov``](https://numpy.org/devdocs/reference/generated/numpy.cov.html#numpy.cov)，
+ [``cross``](https://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross)，
+ [``cumprod``](https://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod)，
+ [``cumsum``](https://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum)，
+ [``diff``](https://numpy.org/devdocs/reference/generated/numpy.diff.html#numpy.diff)，
+ [``dot``](https://numpy.org/devdocs/reference/generated/numpy.dot.html#numpy.dot)，
+ [``floor``](https://numpy.org/devdocs/reference/generated/numpy.floor.html#numpy.floor)，
+ [``inner``](https://numpy.org/devdocs/reference/generated/numpy.inner.html#numpy.inner)，
   *INV* ，
- [``lexsort``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.lexsort.html#numpy.lexsort)，
+ [``lexsort``](https://numpy.org/devdocs/reference/generated/numpy.lexsort.html#numpy.lexsort)，
  [``max``](https://docs.python.org/dev/library/functions.html#max)，
- [``maximum``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.maximum.html#numpy.maximum)，
- [``mean``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.mean.html#numpy.mean)，
- [``median``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.median.html#numpy.median)，
+ [``maximum``](https://numpy.org/devdocs/reference/generated/numpy.maximum.html#numpy.maximum)，
+ [``mean``](https://numpy.org/devdocs/reference/generated/numpy.mean.html#numpy.mean)，
+ [``median``](https://numpy.org/devdocs/reference/generated/numpy.median.html#numpy.median)，
  [``min``](https://docs.python.org/dev/library/functions.html#min)，
- [``minimum``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.minimum.html#numpy.minimum)，
- [``nonzero``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.nonzero.html#numpy.nonzero)，
- [``outer``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer)，
- [``prod``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod)，
+ [``minimum``](https://numpy.org/devdocs/reference/generated/numpy.minimum.html#numpy.minimum)，
+ [``nonzero``](https://numpy.org/devdocs/reference/generated/numpy.nonzero.html#numpy.nonzero)，
+ [``outer``](https://numpy.org/devdocs/reference/generated/numpy.outer.html#numpy.outer)，
+ [``prod``](https://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod)，
  [``re``](https://docs.python.org/dev/library/re.html#module-re)，
  [``round``](https://docs.python.org/dev/library/functions.html#round)，
- [``sort``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort)，
- [``std``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.std.html#numpy.std)，
- [``sum``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum)，
- [``trace``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.trace.html#numpy.trace)，
- [``transpose``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose)，
- [``var``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.var.html#numpy.var)，
- [``vdot``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.vdot.html#numpy.vdot)，
- [``vectorize``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.vectorize.html#numpy.vectorize)，
-[``where``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.where.html#numpy.where)
+ [``sort``](https://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort)，
+ [``std``](https://numpy.org/devdocs/reference/generated/numpy.std.html#numpy.std)，
+ [``sum``](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum)，
+ [``trace``](https://numpy.org/devdocs/reference/generated/numpy.trace.html#numpy.trace)，
+ [``transpose``](https://numpy.org/devdocs/reference/generated/numpy.transpose.html#numpy.transpose)，
+ [``var``](https://numpy.org/devdocs/reference/generated/numpy.var.html#numpy.var)，
+ [``vdot``](https://numpy.org/devdocs/reference/generated/numpy.vdot.html#numpy.vdot)，
+ [``vectorize``](https://numpy.org/devdocs/reference/generated/numpy.vectorize.html#numpy.vectorize)，
+[``where``](https://numpy.org/devdocs/reference/generated/numpy.where.html#numpy.where)
 
 :::
 
@@ -532,8 +532,8 @@ array([[  2,  13],
 [Indexing](basics.indexing.html#basics-indexing),
 [Indexing](https://numpy.org/devdocs/reference/arrays.indexing.html#arrays-indexing) (reference),
 [``newaxis``](https://numpy.org/devdocs/reference/constants.html#numpy.newaxis),
-[``ndenumerate``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.ndenumerate.html#numpy.ndenumerate),
-[``indices``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.indices.html#numpy.indices)
+[``ndenumerate``](https://numpy.org/devdocs/reference/generated/numpy.ndenumerate.html#numpy.ndenumerate),
+[``indices``](https://numpy.org/devdocs/reference/generated/numpy.indices.html#numpy.indices)
 
 :::
 
@@ -578,8 +578,8 @@ array([[ 2.,  4.,  8.],
 
 由 ravel() 产生的数组中元素的顺序通常是“C风格”，也就是说，最右边的索引“变化最快”，因此[0,0]之后的元素是[0,1] 。如果将数组重新整形为其他形状，则该数组将被视为“C风格”。NumPy通常创建按此顺序存储的数组，因此 ravel() 通常不需要复制其参数，但如果数组是通过获取另一个数组的切片或使用不常见的选项创建的，则可能需要复制它。还可以使用可选参数指示函数 ravel() 和 reshape()，以使用FORTRAN样式的数组，其中最左边的索引变化最快。
 
-该[``reshape``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)函数返回带有修改形状的参数，而该
-[``ndarray.resize``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.ndarray.resize.html#numpy.ndarray.resize)方法会修改数组本身：
+该[``reshape``](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)函数返回带有修改形状的参数，而该
+[``ndarray.resize``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.resize.html#numpy.ndarray.resize)方法会修改数组本身：
 
 ``` python
 >>> a
@@ -603,10 +603,10 @@ array([[ 2.,  8.,  0.,  6.],
 
 ::: tip 另见
 
-[``ndarray.shape``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape)，
- [``reshape``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)，
- [``resize``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize)，
-[``ravel``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.ravel.html#numpy.ravel)
+[``ndarray.shape``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape)，
+ [``reshape``](https://numpy.org/devdocs/reference/generated/numpy.reshape.html#numpy.reshape)，
+ [``resize``](https://numpy.org/devdocs/reference/generated/numpy.resize.html#numpy.resize)，
+[``ravel``](https://numpy.org/devdocs/reference/generated/numpy.ravel.html#numpy.ravel)
 
 :::
 
@@ -633,9 +633,9 @@ array([[ 8.,  8.,  1.,  8.],
        [ 0.,  0.,  0.,  4.]])
 ```
 
-该函数将[``column_stack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)
+该函数将[``column_stack``](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)
 1D数组作为列堆叠到2D数组中。它仅相当于
- [``hstack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)2D数组：
+ [``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)2D数组：
 
 ``` python
 >>> from numpy import newaxis
@@ -660,36 +660,36 @@ array([[ 4.,  3.],
        [ 2.,  8.]])
 ```
 
-另一方面，该函数[``ma.row_stack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.ma.row_stack.html#numpy.ma.row_stack)等效[``vstack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)
+另一方面，该函数[``ma.row_stack``](https://numpy.org/devdocs/reference/generated/numpy.ma.row_stack.html#numpy.ma.row_stack)等效[``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)
 于任何输入数组。通常，对于具有两个以上维度的数组，
- [``hstack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)沿其第二轴[``vstack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)堆叠，沿其第一轴堆叠，并[``concatenate``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)
+ [``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)沿其第二轴[``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)堆叠，沿其第一轴堆叠，并[``concatenate``](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)
 允许可选参数给出连接应发生的轴的编号。
 
 **注意**
 
-在复杂的情况下，[``r_``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_)和c [``c_``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_)于通过沿一个轴堆叠数字来创建数组很有用。它们允许使用范围操作符(“：”)。
+在复杂的情况下，[``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_)和c [``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_)于通过沿一个轴堆叠数字来创建数组很有用。它们允许使用范围操作符(“：”)。
 
 ``` python
 >>> np.r_[1:4,0,4]
 array([1, 2, 3, 0, 4])
 ```
 
-与数组一起用作参数时， [``r_``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_) 和 [``c_``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_) 在默认行为上类似于 [``vstack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack) 和 [``hstack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) ，但允许使用可选参数给出要连接的轴的编号。
+与数组一起用作参数时， [``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_) 和 [``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_) 在默认行为上类似于 [``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack) 和 [``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack) ，但允许使用可选参数给出要连接的轴的编号。
 
 ::: tip 另见
 
-[``hstack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)，
- [``vstack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)，
- [``column_stack``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)，
- [``concatenate``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)，
- [``c_``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_)，
-[``r_``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_)
+[``hstack``](https://numpy.org/devdocs/reference/generated/numpy.hstack.html#numpy.hstack)，
+ [``vstack``](https://numpy.org/devdocs/reference/generated/numpy.vstack.html#numpy.vstack)，
+ [``column_stack``](https://numpy.org/devdocs/reference/generated/numpy.column_stack.html#numpy.column_stack)，
+ [``concatenate``](https://numpy.org/devdocs/reference/generated/numpy.concatenate.html#numpy.concatenate)，
+ [``c_``](https://numpy.org/devdocs/reference/generated/numpy.c_.html#numpy.c_)，
+[``r_``](https://numpy.org/devdocs/reference/generated/numpy.r_.html#numpy.r_)
 
 :::
 
 ### 将一个数组拆分成几个较小的数组
 
-使用[``hsplit``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit)，可以沿数组的水平轴拆分数组，方法是指定要返回的形状相等的数组的数量，或者指定应该在其之后进行分割的列：
+使用[``hsplit``](https://numpy.org/devdocs/reference/generated/numpy.hsplit.html#numpy.hsplit)，可以沿数组的水平轴拆分数组，方法是指定要返回的形状相等的数组的数量，或者指定应该在其之后进行分割的列：
 
 ``` python
 >>> a = np.floor(10*np.random.random((2,12)))
@@ -708,7 +708,7 @@ array([[ 9.,  5.,  6.,  3.,  6.,  8.,  0.,  7.,  9.,  7.,  2.,  7.],
        [ 2.,  1.,  0.,  6.,  2.,  2.,  4.,  0.]])]
 ```
 
-[``vsplit``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit)沿垂直轴分割，并[``array_split``](https://numpy.org/devdocshttps://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split)允许指定要分割的轴。
+[``vsplit``](https://numpy.org/devdocs/reference/generated/numpy.vsplit.html#numpy.vsplit)沿垂直轴分割，并[``array_split``](https://numpy.org/devdocs/reference/generated/numpy.array_split.html#numpy.array_split)允许指定要分割的轴。
 
 ## 拷贝和视图
 
