@@ -2156,7 +2156,7 @@ peak_locations
 
 ```python
 a_2d = np.array([[3,3,3],[4,4,4],[5,5,5]])
-b_1d = np.array([1,1,1]
+b_1d = np.array([1,2,3])
 ```
 
 **期望的输出：**
