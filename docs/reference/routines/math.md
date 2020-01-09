@@ -11,12 +11,12 @@ method | description
 [arccos](https://numpy.org/devdocs/reference/generated/numpy.arccos.html#numpy.arccos)(x, /[, out, where, casting, order, …]) | 反余弦函数, element-wise.
 [arctan](https://numpy.org/devdocs/reference/generated/numpy.arctan.html#numpy.arctan)(x, /[, out, where, casting, order, …]) | 反正切函数, element-wise.
 [hypot](https://numpy.org/devdocs/reference/generated/numpy.hypot.html#numpy.hypot)(x1, x2, /[, out, where, casting, …]) | 传入直角三角形的“直角边”，返回其斜边。
-[arctan2](https://numpy.org/devdocs/reference/generated/numpy.arctan2.html#numpy.arctan2)(x1, x2, /[, out, where, casting, …]) | x1 / x2的逐元素圆弧切线可正确选择象限。Element-wise arc tangent of x1/x2 choosing the quadrant correctly.
-[degrees](https://numpy.org/devdocs/reference/generated/numpy.degrees.html#numpy.degrees)(x, /[, out, where, casting, order, …]) | Convert angles from [radians](https://numpy.org/devdocs/reference/generated/numpy.radians.html#numpy.radians) to degrees.
-radians(x, /[, out, where, casting, order, …]) | Convert angles from degrees to radians.
-[unwrap](https://numpy.org/devdocs/reference/generated/numpy.unwrap.html#numpy.unwrap)(p[, discont, axis]) | Unwrap by changing deltas between values to 2*pi complement.
-[deg2rad](https://numpy.org/devdocs/reference/generated/numpy.deg2rad.html#numpy.deg2rad)(x, /[, out, where, casting, order, …]) | Convert angles from degrees to radians.
-[rad2deg](https://numpy.org/devdocs/reference/generated/numpy.rad2deg.html#numpy.rad2deg)(x, /[, out, where, casting, order, …]) | Convert angles from radians to degrees.
+[arctan2](https://numpy.org/devdocs/reference/generated/numpy.arctan2.html#numpy.arctan2)(x1, x2, /[, out, where, casting, …]) | x1 / x2的 Element-wise 反正切线正确选择象限。
+[degrees](https://numpy.org/devdocs/reference/generated/numpy.degrees.html#numpy.degrees)(x, /[, out, where, casting, order, …]) | 将角度从[弧度](https://numpy.org/devdocs/reference/generated/numpy.radians.html#numpy.radians)转换为度。
+radians(x, /[, out, where, casting, order, …]) | 将角度从度转换为弧度。
+[unwrap](https://numpy.org/devdocs/reference/generated/numpy.unwrap.html#numpy.unwrap)(p[, discont, axis]) | 通过将值之间的增量更改为2 * pi来展开。
+[deg2rad](https://numpy.org/devdocs/reference/generated/numpy.deg2rad.html#numpy.deg2rad)(x, /[, out, where, casting, order, …]) | 将角度从度转换为弧度。
+[rad2deg](https://numpy.org/devdocs/reference/generated/numpy.rad2deg.html#numpy.rad2deg)(x, /[, out, where, casting, order, …]) | 将角度从弧度转换为度。
 
 ## Hyperbolic functions
 
