@@ -18,28 +18,28 @@ radians(x, /[, out, where, casting, order, …]) | 将角度从度转换�
 [deg2rad](https://numpy.org/devdocs/reference/generated/numpy.deg2rad.html#numpy.deg2rad)(x, /[, out, where, casting, order, …]) | 将角度从度转换为弧度。
 [rad2deg](https://numpy.org/devdocs/reference/generated/numpy.rad2deg.html#numpy.rad2deg)(x, /[, out, where, casting, order, …]) | 将角度从弧度转换为度。
 
-## Hyperbolic functions
+## 双曲函数
 
 method | description
 ---|---
-[sinh](https://numpy.org/devdocs/reference/generated/numpy.sinh.html#numpy.sinh)(x, /[, out, where, casting, order, …]) | Hyperbolic sine, element-wise.
-[cosh](https://numpy.org/devdocs/reference/generated/numpy.cosh.html#numpy.cosh)(x, /[, out, where, casting, order, …]) | Hyperbolic cosine, element-wise.
-[tanh](https://numpy.org/devdocs/reference/generated/numpy.tanh.html#numpy.tanh)(x, /[, out, where, casting, order, …]) | Compute hyperbolic tangent element-wise.
-[arcsinh](https://numpy.org/devdocs/reference/generated/numpy.arcsinh.html#numpy.arcsinh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic sine element-wise.
-[arccosh](https://numpy.org/devdocs/reference/generated/numpy.arccosh.html#numpy.arccosh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic cosine, element-wise.
-[arctanh](https://numpy.org/devdocs/reference/generated/numpy.arctanh.html#numpy.arctanh)(x, /[, out, where, casting, order, …]) | Inverse hyperbolic tangent element-wise.
+[sinh](https://numpy.org/devdocs/reference/generated/numpy.sinh.html#numpy.sinh)(x, /[, out, where, casting, order, …]) | 双曲正弦, element-wise.
+[cosh](https://numpy.org/devdocs/reference/generated/numpy.cosh.html#numpy.cosh)(x, /[, out, where, casting, order, …]) | 双曲余弦, element-wise.
+[tanh](https://numpy.org/devdocs/reference/generated/numpy.tanh.html#numpy.tanh)(x, /[, out, where, casting, order, …]) | 计算双曲正切 element-wise.
+[arcsinh](https://numpy.org/devdocs/reference/generated/numpy.arcsinh.html#numpy.arcsinh)(x, /[, out, where, casting, order, …]) | 反双曲正弦 element-wise.
+[arccosh](https://numpy.org/devdocs/reference/generated/numpy.arccosh.html#numpy.arccosh)(x, /[, out, where, casting, order, …]) | 反双曲余弦, element-wise.
+[arctanh](https://numpy.org/devdocs/reference/generated/numpy.arctanh.html#numpy.arctanh)(x, /[, out, where, casting, order, …]) | 反双曲正切 element-wise.
 
-## Rounding
+## 四舍五入
 
 method | description
 ---|---
-[around](https://numpy.org/devdocs/reference/generated/numpy.around.html#numpy.around)(a[, decimals, out]) | Evenly round to the given number of decimals.
-[round_](https://numpy.org/devdocs/reference/generated/numpy.round_.html#numpy.round_)(a[, decimals, out]) | Round an array to the given number of decimals.
-[rint](https://numpy.org/devdocs/reference/generated/numpy.rint.html#numpy.rint)(x, /[, out, where, casting, order, …]) | Round elements of the array to the nearest integer.
-[fix](https://numpy.org/devdocs/reference/generated/numpy.fix.html#numpy.fix)(x[, out]) | Round to nearest integer towards zero.
-[floor](https://numpy.org/devdocs/reference/generated/numpy.floor.html#numpy.floor)(x, /[, out, where, casting, order, …]) | Return the floor of the input, element-wise.
-[ceil](https://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil)(x, /[, out, where, casting, order, …]) | Return the ceiling of the input, element-wise.
-[trunc](https://numpy.org/devdocs/reference/generated/numpy.trunc.html#numpy.trunc)(x, /[, out, where, casting, order, …]) | Return the truncated value of the input, element-wise.
+[around](https://numpy.org/devdocs/reference/generated/numpy.around.html#numpy.around)(a[, decimals, out]) | 平均舍入到给定的小数位数。
+[round_](https://numpy.org/devdocs/reference/generated/numpy.round_.html#numpy.round_)(a[, decimals, out]) | 将数组舍入到给定的小数位数。
+[rint](https://numpy.org/devdocs/reference/generated/numpy.rint.html#numpy.rint)(x, /[, out, where, casting, order, …]) | 将数组的元素四舍五入到最接近的整数。
+[fix](https://numpy.org/devdocs/reference/generated/numpy.fix.html#numpy.fix)(x[, out]) | 四舍五入为零。
+[floor](https://numpy.org/devdocs/reference/generated/numpy.floor.html#numpy.floor)(x, /[, out, where, casting, order, …]) | 返回输入的底限, element-wise.
+[ceil](https://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil)(x, /[, out, where, casting, order, …]) | 返回输入的上限, element-wise.
+[trunc](https://numpy.org/devdocs/reference/generated/numpy.trunc.html#numpy.trunc)(x, /[, out, where, casting, order, …]) | 返回输入的截断值, element-wise.
 
 ## Sums, products, differences
 
