@@ -1,24 +1,21 @@
 # N维数组（``ndarray``）
 
 一个 [``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)是具有相同类型和大小的项目的（通常是固定大小的）多维容器。
-尺寸和数组中的项目的数量是由它的定义[``shape``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape)，
-它是一种[``tuple``](https://docs.python.org/dev/library/stdtypes.html#tuple)的 *Ñ* 指定每一维的尺寸非负整数。
-数组中的项类型由单独的[数据类型对象（dtype）指定](dtypes.html)，
+尺寸和数组中的项目的数量是由它的[``shape``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape)定义，
+它是由N个非负整数组成的[``tuple``](https://docs.python.org/dev/library/stdtypes.html#tuple)（元组），用于指定每个维度的大小。
+数组中项目的类型由单独的[``data-type object (dtype)``](https://numpy.org/doc/1.17/reference/arrays.dtypes.html#arrays-dtypes)指定，
 其中一个与每个ndarray相关联。
 
-与Python中的其他容器对象一样，[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)
-可以通过[索引或切片](indexing.html)
-数组（例如，使用 *N个* 整数）
-以及通过方法和属性来访问和修改an的内容[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)。
+与Python中的其他容器对象一样，可以通过对数组进行[索引或切片](https://numpy.org/doc/1.17/reference/arrays.indexing.html#arrays-indexing)（例如，使用N个整数）以及通过[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)的方法和属性来访问和修改[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)的内容。
 
-不同[``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)可以共享相同的数据，
-因此在一个中[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)进行的更改可能在另一个中可见。
+不同的是,[``ndarrays``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)可以共享相同的数据，
+因此在一个[``ndarray``](https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray)中进行的更改可能在另一个中可见。
 也就是说，ndarray可以是另一个ndarray 的 *“view”* ，它所指的数据由 *“base”*  ndarray处理。
 ndarrays也可以是Python拥有的内存[``strings``](https://docs.python.org/dev/library/stdtypes.html#str)或实现 ``buffer`` 或[数组接口](interface.html)的对象的视图。
 
 **例子**：
 
-尺寸为2 x 3的二维数组，由4字节整数元素组成：
+尺寸为2 x 3的二维数组，由4个字节的整数元素组成：
 
 ``` python
 >>> x = np.array([[1, 2, 3], [4, 5, 6]], np.int32)
@@ -381,7 +378,7 @@ array（``bool``）的真值：
 ---|---
 [ndarray.\_\_neg__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__neg__.html#numpy.ndarray.__neg__)(self, /) | -self
 [ndarray.\_\_pos__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__pos__.html#numpy.ndarray.__pos__)(self, /) | +self
-[ndarray.\_\_abs__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__abs__.html#numpy.ndarray.__abs__)(self) | 
+[ndarray.\_\_abs__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__abs__.html#numpy.ndarray.__abs__)(self) |
 [ndarray.\_\_invert__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__invert__.html#numpy.ndarray.__invert__)(self, /) | ~self
 
 算术：
@@ -470,7 +467,7 @@ Matrix 运算符 ``@`` 和 ``@=`` 是在PEP465之后的Python 3.5中引入的。
 ---|---
 [ndarray.\_\_new__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__new__.html#numpy.ndarray.__new__)(\*args, \*\*kwargs) | 创建并返回一个新对象。
 [ndarray.\_\_array__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__array__.html#numpy.ndarray.__array__)() | 如果没有给出dtype，则返回对self的新引用;如果dtype与数组的当前dtype不同，则返回提供的数据类型的新数组。
-[ndarray.\_\_array_wrap__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__array_wrap__.html#numpy.ndarray.__array_wrap__)() | 
+[ndarray.\_\_array_wrap__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__array_wrap__.html#numpy.ndarray.__array_wrap__)() |
 
 容器定制:（参见[索引](indexing.html)）
 
@@ -496,4 +493,3 @@ Matrix 运算符 ``@`` 和 ``@=`` 是在PEP465之后的Python 3.5中引入的。
 ---|---
 [ndarray.\_\_str__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__str__.html#numpy.ndarray.__str__)(self, /) | 返回 str(self)。
 [ndarray.\_\_repr__](https://numpy.org/devdocs/reference/generated/numpy.ndarray.__repr__.html#numpy.ndarray.__repr__)(self, /) | 返回 repr(self)。
-
