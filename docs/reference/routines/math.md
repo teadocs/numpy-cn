@@ -63,61 +63,61 @@ method | description
 
 method | description
 ---|---
-[exp](https://numpy.org/devdocs/reference/generated/numpy.exp.html#numpy.exp)(x, /[, out, where, casting, order, …]) | Calculate the exponential of all elements in the input array.
-[expm1](https://numpy.org/devdocs/reference/generated/numpy.expm1.html#numpy.expm1)(x, /[, out, where, casting, order, …]) | Calculate exp(x) - 1 for all elements in the array.
-[exp2](https://numpy.org/devdocs/reference/generated/numpy.exp2.html#numpy.exp2)(x, /[, out, where, casting, order, …]) | Calculate 2**p for all p in the input array.
-[log](https://numpy.org/devdocs/reference/generated/numpy.log.html#numpy.log)(x, /[, out, where, casting, order, …]) | Natural logarithm, element-wise.
-[log10](https://numpy.org/devdocs/reference/generated/numpy.log10.html#numpy.log10)(x, /[, out, where, casting, order, …]) | Return the base 10 logarithm of the input array, element-wise.
-[log2](https://numpy.org/devdocs/reference/generated/numpy.log2.html#numpy.log2)(x, /[, out, where, casting, order, …]) | Base-2 logarithm of x.
-[log1p](https://numpy.org/devdocs/reference/generated/numpy.log1p.html#numpy.log1p)(x, /[, out, where, casting, order, …]) | Return the natural logarithm of one plus the input array, element-wise.
-[logaddexp](https://numpy.org/devdocs/reference/generated/numpy.logaddexp.html#numpy.logaddexp)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs.
-[logaddexp2](https://numpy.org/devdocs/reference/generated/numpy.logaddexp2.html#numpy.logaddexp2)(x1, x2, /[, out, where, casting, …]) | Logarithm of the sum of exponentiations of the inputs in base-2.
+[exp](https://numpy.org/devdocs/reference/generated/numpy.exp.html#numpy.exp)(x, /[, out, where, casting, order, …]) | 计算输入数组中所有元素的指数。
+[expm1](https://numpy.org/devdocs/reference/generated/numpy.expm1.html#numpy.expm1)(x, /[, out, where, casting, order, …]) | 为数组中的所有元素计算exp（x）-1。
+[exp2](https://numpy.org/devdocs/reference/generated/numpy.exp2.html#numpy.exp2)(x, /[, out, where, casting, order, …]) | 为输入数组中的所有p计算2 ** p。
+[log](https://numpy.org/devdocs/reference/generated/numpy.log.html#numpy.log)(x, /[, out, where, casting, order, …]) | 自然对数, element-wise.
+[log10](https://numpy.org/devdocs/reference/generated/numpy.log10.html#numpy.log10)(x, /[, out, where, casting, order, …]) | 返回输入数组的以10为底的对数, element-wise.
+[log2](https://numpy.org/devdocs/reference/generated/numpy.log2.html#numpy.log2)(x, /[, out, where, casting, order, …]) | x的以2为底的对数。
+[log1p](https://numpy.org/devdocs/reference/generated/numpy.log1p.html#numpy.log1p)(x, /[, out, where, casting, order, …]) | 返回元素加一个输入数组的自然对数。
+[logaddexp](https://numpy.org/devdocs/reference/generated/numpy.logaddexp.html#numpy.logaddexp)(x1, x2, /[, out, where, casting, …]) | 输入取幂之和的对数。
+[logaddexp2](https://numpy.org/devdocs/reference/generated/numpy.logaddexp2.html#numpy.logaddexp2)(x1, x2, /[, out, where, casting, …]) | 以2为底的输入的幂和的对数。
 
-## Other special functions
-
-method | description
----|---
-[i0](https://numpy.org/devdocs/reference/generated/numpy.i0.html#numpy.i0)(x) | Modified Bessel function of the first kind, order 0.
-[sinc](https://numpy.org/devdocs/reference/generated/numpy.sinc.html#numpy.sinc)(x) | Return the sinc function.
-
-## Floating point routines
+## 其他特殊函数
 
 method | description
 ---|---
-[signbit](https://numpy.org/devdocs/reference/generated/numpy.signbit.html#numpy.signbit)(x, /[, out, where, casting, order, …]) | Returns element-wise True where signbit is set (less than zero).
-[copysign](https://numpy.org/devdocs/reference/generated/numpy.copysign.html#numpy.copysign)(x1, x2, /[, out, where, casting, …]) | Change the sign of x1 to that of x2, element-wise.
-[frexp](https://numpy.org/devdocs/reference/generated/numpy.frexp.html#numpy.frexp)(x[, out1, out2], / [[, out, where, …]) | Decompose the elements of x into mantissa and twos exponent.
-[ldexp](https://numpy.org/devdocs/reference/generated/numpy.ldexp.html#numpy.ldexp)(x1, x2, /[, out, where, casting, …]) | Returns x1 * 2**x2, element-wise.
-[nextafter](https://numpy.org/devdocs/reference/generated/numpy.nextafter.html#numpy.nextafter)(x1, x2, /[, out, where, casting, …]) | Return the next floating-point value after x1 towards x2, element-wise.
-[spacing](https://numpy.org/devdocs/reference/generated/numpy.spacing.html#numpy.spacing)(x, /[, out, where, casting, order, …]) | Return the distance between x and the nearest adjacent number.
+[i0](https://numpy.org/devdocs/reference/generated/numpy.i0.html#numpy.i0)(x) | 第一种修改的Bessel函数，阶数为0。
+[sinc](https://numpy.org/devdocs/reference/generated/numpy.sinc.html#numpy.sinc)(x) | 返回sinc函数。
 
-## Rational routines
+## 浮点例程
 
 method | description
 ---|---
-[lcm](https://numpy.org/devdocs/reference/generated/numpy.lcm.html#numpy.lcm)(x1, x2, /[, out, where, casting, order, …]) | Returns the lowest common multiple of 1 and x2
-[gcd](https://numpy.org/devdocs/reference/generated/numpy.gcd.html#numpy.gcd)(x1, x2, /[, out, where, casting, order, …]) | Returns the greatest common divisor of x1 and x2
+[signbit](https://numpy.org/devdocs/reference/generated/numpy.signbit.html#numpy.signbit)(x, /[, out, where, casting, order, …]) | 在设置了符号位（小于零）的情况下返回 element-wise True。
+[copysign](https://numpy.org/devdocs/reference/generated/numpy.copysign.html#numpy.copysign)(x1, x2, /[, out, where, casting, …]) | 将x1的符号更改为x2的符号, element-wise.
+[frexp](https://numpy.org/devdocs/reference/generated/numpy.frexp.html#numpy.frexp)(x[, out1, out2], / [[, out, where, …]) | 将x的元素分解为尾数和二进制指数。
+[ldexp](https://numpy.org/devdocs/reference/generated/numpy.ldexp.html#numpy.ldexp)(x1, x2, /[, out, where, casting, …]) | 返回x1 * 2 ** x2, element-wise.
+[nextafter](https://numpy.org/devdocs/reference/generated/numpy.nextafter.html#numpy.nextafter)(x1, x2, /[, out, where, casting, …]) | 向x2返回x1之后的下一个浮点值, element-wise.
+[spacing](https://numpy.org/devdocs/reference/generated/numpy.spacing.html#numpy.spacing)(x, /[, out, where, casting, order, …]) | 返回x与最近的相邻数字之间的距离。
 
-## Arithmetic operations
+## 理性例程
 
 method | description
 ---|---
-[add](https://numpy.org/devdocs/reference/generated/numpy.add.html#numpy.add)(x1, x2, /[, out, where, casting, order, …]) | Add arguments element-wise.
-[reciprocal](https://numpy.org/devdocs/reference/generated/numpy.reciprocal.html#numpy.reciprocal)(x, /[, out, where, casting, …]) | Return the reciprocal of the argument, element-wise.
-[positive](https://numpy.org/devdocs/reference/generated/numpy.positive.html#numpy.positive)(x, /[, out, where, casting, order, …]) | Numerical positive, element-wise.
-[negative](https://numpy.org/devdocs/reference/generated/numpy.negative.html#numpy.negative)(x, /[, out, where, casting, order, …]) | Numerical negative, element-wise.
-[multiply](https://numpy.org/devdocs/reference/generated/numpy.multiply.html#numpy.multiply)(x1, x2, /[, out, where, casting, …]) | Multiply arguments element-wise.
-[divide](https://numpy.org/devdocs/reference/generated/numpy.divide.html#numpy.divide)(x1, x2, /[, out, where, casting, …]) | Returns a true division of the inputs, element-wise.
-[power](https://numpy.org/devdocs/reference/generated/numpy.power.html#numpy.power)(x1, x2, /[, out, where, casting, …]) | First array elements raised to powers from second array, element-wise.
-[subtract](https://numpy.org/devdocs/reference/generated/numpy.subtract.html#numpy.subtract)(x1, x2, /[, out, where, casting, …]) | Subtract arguments, element-wise.
-[true_divide](https://numpy.org/devdocs/reference/generated/numpy.true_divide.html#numpy.true_divide)(x1, x2, /[, out, where, …]) | Returns a true division of the inputs, element-wise.
-[floor_divide](https://numpy.org/devdocs/reference/generated/numpy.floor_divide.html#numpy.floor_divide)(x1, x2, /[, out, where, …]) | Return the largest integer smaller or equal to the division of the inputs.
-[float_power](https://numpy.org/devdocs/reference/generated/numpy.float_power.html#numpy.float_power)(x1, x2, /[, out, where, …]) | First array elements raised to powers from second array, element-wise.
-[fmod](https://numpy.org/devdocs/reference/generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, casting, …]) | Return the element-wise [remainder](https://numpy.org/devdocs/reference/generated/numpy.remainder.html#numpy.remainder) of division.
-[mod](https://numpy.org/devdocs/reference/generated/numpy.mod.html#numpy.mod)(x1, x2, /[, out, where, casting, order, …]) | Return element-wise remainder of division.
-[modf](https://numpy.org/devdocs/reference/generated/numpy.modf.html#numpy.modf)(x[, out1, out2], / [[, out, where, …]) | Return the fractional and integral parts of an array, element-wise.
-remainder(x1, x2, /[, out, where, casting, …]) | Return element-wise remainder of division.
-[divmod](https://numpy.org/devdocs/reference/generated/numpy.divmod.html#numpy.divmod)(x1, x2[, out1, out2], / [[, out, …]) | Return element-wise quotient and remainder simultaneously.
+[lcm](https://numpy.org/devdocs/reference/generated/numpy.lcm.html#numpy.lcm)(x1, x2, /[, out, where, casting, order, …]) | 返回1和x2的最小公倍数
+[gcd](https://numpy.org/devdocs/reference/generated/numpy.gcd.html#numpy.gcd)(x1, x2, /[, out, where, casting, order, …]) | 返回x1和x2的最大公约数
+
+## 算术运算
+
+method | description
+---|---
+[add](https://numpy.org/devdocs/reference/generated/numpy.add.html#numpy.add)(x1, x2, /[, out, where, casting, order, …]) | 按元素添加参数。
+[reciprocal](https://numpy.org/devdocs/reference/generated/numpy.reciprocal.html#numpy.reciprocal)(x, /[, out, where, casting, …]) | 以元素为单位返回参数的倒数。
+[positive](https://numpy.org/devdocs/reference/generated/numpy.positive.html#numpy.positive)(x, /[, out, where, casting, order, …]) | 数值正, element-wise.
+[negative](https://numpy.org/devdocs/reference/generated/numpy.negative.html#numpy.negative)(x, /[, out, where, casting, order, …]) | 数值负数, element-wise.
+[multiply](https://numpy.org/devdocs/reference/generated/numpy.multiply.html#numpy.multiply)(x1, x2, /[, out, where, casting, …]) |逐个乘以参数。
+[divide](https://numpy.org/devdocs/reference/generated/numpy.divide.html#numpy.divide)(x1, x2, /[, out, where, casting, …]) | 返回输入的真实除法, element-wise.
+[power](https://numpy.org/devdocs/reference/generated/numpy.power.html#numpy.power)(x1, x2, /[, out, where, casting, …]) | 第一阵列元素从第二阵列提升为幂, element-wise.
+[subtract](https://numpy.org/devdocs/reference/generated/numpy.subtract.html#numpy.subtract)(x1, x2, /[, out, where, casting, …]) | 逐个元素地减去参数。
+[true_divide](https://numpy.org/devdocs/reference/generated/numpy.true_divide.html#numpy.true_divide)(x1, x2, /[, out, where, …]) | 返回输入的真实除法, element-wise.
+[floor_divide](https://numpy.org/devdocs/reference/generated/numpy.floor_divide.html#numpy.floor_divide)(x1, x2, /[, out, where, …]) | 返回小于或等于输入的除法的最大整数。
+[float_power](https://numpy.org/devdocs/reference/generated/numpy.float_power.html#numpy.float_power)(x1, x2, /[, out, where, …]) | 第一阵列元素从第二阵列提升为幂, element-wise.
+[fmod](https://numpy.org/devdocs/reference/generated/numpy.fmod.html#numpy.fmod)(x1, x2, /[, out, where, casting, …]) | 返回元素的除法 [remainder](https://numpy.org/devdocs/reference/generated/numpy.remainder.html#numpy.remainder)。
+[mod](https://numpy.org/devdocs/reference/generated/numpy.mod.html#numpy.mod)(x1, x2, /[, out, where, casting, order, …]) | 返回元素的除法余数。
+[modf](https://numpy.org/devdocs/reference/generated/numpy.modf.html#numpy.modf)(x[, out1, out2], / [[, out, where, …]) | 返回数组的分数和整数部分, element-wise.
+remainder(x1, x2, /[, out, where, casting, …]) | 返回元素的除法余数。
+[divmod](https://numpy.org/devdocs/reference/generated/numpy.divmod.html#numpy.divmod)(x1, x2[, out1, out2], / [[, out, …]) | 同时返回按元素商和余数。
 
 ## Handling complex numbers
 
