@@ -41,25 +41,25 @@ method | description
 [ceil](https://numpy.org/devdocs/reference/generated/numpy.ceil.html#numpy.ceil)(x, /[, out, where, casting, order, …]) | 返回输入的上限, element-wise.
 [trunc](https://numpy.org/devdocs/reference/generated/numpy.trunc.html#numpy.trunc)(x, /[, out, where, casting, order, …]) | 返回输入的截断值, element-wise.
 
-## Sums, products, differences
+## 加法函数, 乘法函数, 减法函数
 
 method | description
 ---|---
-[prod](https://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod)(a[, axis, dtype, out, keepdims, …]) | Return the product of array elements over a given axis.
-[sum](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum)(a[, axis, dtype, out, keepdims, …]) | Sum of array elements over a given axis.
-[nanprod](https://numpy.org/devdocs/reference/generated/numpy.nanprod.html#numpy.nanprod)(a[, axis, dtype, out, keepdims]) | Return the product of array elements over a given axis treating Not a Numbers (NaNs) as ones.
-[nansum](https://numpy.org/devdocs/reference/generated/numpy.nansum.html#numpy.nansum)(a[, axis, dtype, out, keepdims]) | Return the sum of array elements over a given axis treating Not a Numbers (NaNs) as zero.
-[cumprod](https://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod)(a[, axis, dtype, out]) | Return the cumulative product of elements along a given axis.
-[cumsum](https://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum)(a[, axis, dtype, out]) | Return the cumulative sum of the elements along a given axis.
-[nancumprod](https://numpy.org/devdocs/reference/generated/numpy.nancumprod.html#numpy.nancumprod)(a[, axis, dtype, out]) | Return the cumulative product of array elements over a given axis treating Not a Numbers (NaNs) as one.
-[nancumsum](https://numpy.org/devdocs/reference/generated/numpy.nancumsum.html#numpy.nancumsum)(a[, axis, dtype, out]) | Return the cumulative sum of array elements over a given axis treating Not a Numbers (NaNs) as zero.
-[diff](https://numpy.org/devdocs/reference/generated/numpy.diff.html#numpy.diff)(a[, n, axis, prepend, append]) | Calculate the n-th discrete difference along the given axis.
-[ediff1d](https://numpy.org/devdocs/reference/generated/numpy.ediff1d.html#numpy.ediff1d)(ary[, to_end, to_begin]) | The differences between consecutive elements of an array.
-[gradient](https://numpy.org/devdocs/reference/generated/numpy.gradient.html#numpy.gradient)(f, \*varargs, \*\*kwargs) | Return the gradient of an N-dimensional array.
-[cross](https://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross)(a, b[, axisa, axisb, axisc, axis]) | Return the cross product of two (arrays of) vectors.
-[trapz](https://numpy.org/devdocs/reference/generated/numpy.trapz.html#numpy.trapz)(y[, x, dx, axis]) | Integrate along the given axis using the composite trapezoidal rule.
+[prod](https://numpy.org/devdocs/reference/generated/numpy.prod.html#numpy.prod)(a[, axis, dtype, out, keepdims, …]) | 返回给定轴上数组元素的乘积。
+[sum](https://numpy.org/devdocs/reference/generated/numpy.sum.html#numpy.sum)(a[, axis, dtype, out, keepdims, …]) | 给定轴上的数组元素的总和。
+[nanprod](https://numpy.org/devdocs/reference/generated/numpy.nanprod.html#numpy.nanprod)(a[, axis, dtype, out, keepdims]) | 返回数组元素在给定轴上的乘积，将非数字（NaNs）视为一个。
+[nansum](https://numpy.org/devdocs/reference/generated/numpy.nansum.html#numpy.nansum)(a[, axis, dtype, out, keepdims]) | 返回给定轴上的数组元素的总和，将非数字（NaNs）视为零。
+[cumprod](https://numpy.org/devdocs/reference/generated/numpy.cumprod.html#numpy.cumprod)(a[, axis, dtype, out]) | 返回沿给定轴的元素的累加乘积。
+[cumsum](https://numpy.org/devdocs/reference/generated/numpy.cumsum.html#numpy.cumsum)(a[, axis, dtype, out]) | 返回沿给定轴的元素的累加和。
+[nancumprod](https://numpy.org/devdocs/reference/generated/numpy.nancumprod.html#numpy.nancumprod)(a[, axis, dtype, out]) | 返回数组元素在给定轴上的累积乘积，将非数字（NaNs）视为一个。
+[nancumsum](https://numpy.org/devdocs/reference/generated/numpy.nancumsum.html#numpy.nancumsum)(a[, axis, dtype, out]) | 返回在给定轴上将非数字（NaNs）视为零的数组元素的累积总和。
+[diff](https://numpy.org/devdocs/reference/generated/numpy.diff.html#numpy.diff)(a[, n, axis, prepend, append]) | 计算沿给定轴的第n个离散差。
+[ediff1d](https://numpy.org/devdocs/reference/generated/numpy.ediff1d.html#numpy.ediff1d)(ary[, to_end, to_begin]) | 数组的连续元素之间的差值。
+[gradient](https://numpy.org/devdocs/reference/generated/numpy.gradient.html#numpy.gradient)(f, \*varargs, \*\*kwargs) | 返回N维数组的梯度。
+[cross](https://numpy.org/devdocs/reference/generated/numpy.cross.html#numpy.cross)(a, b[, axisa, axisb, axisc, axis]) | 返回两个（数组）向量的叉积。
+[trapz](https://numpy.org/devdocs/reference/generated/numpy.trapz.html#numpy.trapz)(y[, x, dx, axis]) | 使用复合梯形规则沿给定轴积分。
 
-## Exponents and logarithms
+## 指数和对数
 
 method | description
 ---|---
