@@ -119,33 +119,33 @@ method | description
 remainder(x1, x2, /[, out, where, casting, …]) | 返回元素的除法余数。
 [divmod](https://numpy.org/devdocs/reference/generated/numpy.divmod.html#numpy.divmod)(x1, x2[, out1, out2], / [[, out, …]) | 同时返回按元素商和余数。
 
-## Handling complex numbers
+## 处理复数
 
 method | description
 ---|---
-[angle](https://numpy.org/devdocs/reference/generated/numpy.angle.html#numpy.angle)(z[, deg]) | Return the angle of the complex argument.
-[real](https://numpy.org/devdocs/reference/generated/numpy.real.html#numpy.real)(val) | Return the real part of the complex argument.
-[imag](https://numpy.org/devdocs/reference/generated/numpy.imag.html#numpy.imag)(val) | Return the imaginary part of the complex argument.
-[conj](https://numpy.org/devdocs/reference/generated/numpy.conj.html#numpy.conj)(x, /[, out, where, casting, order, …]) | Return the complex [conjugate](https://numpy.org/devdocs/reference/generated/numpy.conjugate.html#numpy.conjugate), element-wise.
-[conjugate](https://numpy.org/devdocs/reference/generated/numpy.conjugate.html#numpy.conjugate)(x, /[, out, where, casting, …]) | Return the complex conjugate, element-wise.
+[angle](https://numpy.org/devdocs/reference/generated/numpy.angle.html#numpy.angle)(z[, deg]) | 返回复杂参数的角度。
+[real](https://numpy.org/devdocs/reference/generated/numpy.real.html#numpy.real)(val) | 返回复杂参数的实部。
+[imag](https://numpy.org/devdocs/reference/generated/numpy.imag.html#numpy.imag)(val) | 返回复杂参数的虚部。
+[conj](https://numpy.org/devdocs/reference/generated/numpy.conj.html#numpy.conj)(x, /[, out, where, casting, order, …]) | 返回 complex [conjugate](https://numpy.org/devdocs/reference/generated/numpy.conjugate.html#numpy.conjugate), element-wise.
+[conjugate](https://numpy.org/devdocs/reference/generated/numpy.conjugate.html#numpy.conjugate)(x, /[, out, where, casting, …]) | 返回复共轭, element-wise.
 
-## Miscellaneous
+## 杂项
 
 method | description
 ---|---
-[convolve](https://numpy.org/devdocs/reference/generated/numpy.convolve.html#numpy.convolve)(a, v[, mode]) | Returns the discrete, linear convolution of two one-dimensional sequences.
-[clip](https://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip)(a, a_min, a_max[, out]) | Clip (limit) the values in an array.
-[sqrt](https://numpy.org/devdocs/reference/generated/numpy.sqrt.html#numpy.sqrt)(x, /[, out, where, casting, order, …]) | Return the non-negative [square](https://numpy.org/devdocs/reference/generated/numpy.square.html#numpy.square)-root of an array, element-wise.
-[cbrt](https://numpy.org/devdocs/reference/generated/numpy.cbrt.html#numpy.cbrt)(x, /[, out, where, casting, order, …]) | Return the cube-root of an array, element-wise.
-[square](https://numpy.org/devdocs/reference/generated/numpy.square.html#numpy.square)(x, /[, out, where, casting, order, …]) | Return the element-wise square of the input.
-[absolute](https://numpy.org/devdocs/reference/generated/numpy.absolute.html#numpy.absolute)(x, /[, out, where, casting, order, …]) | Calculate the absolute value element-wise.
-[fabs](https://numpy.org/devdocs/reference/generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, casting, order, …]) | Compute the absolute values element-wise.
-[sign](https://numpy.org/devdocs/reference/generated/numpy.sign.html#numpy.sign)(x, /[, out, where, casting, order, …]) | Returns an element-wise indication of the sign of a number.
-[heaviside](https://numpy.org/devdocs/reference/generated/numpy.heaviside.html#numpy.heaviside)(x1, x2, /[, out, where, casting, …]) | Compute the Heaviside step function.
-[maximum](https://numpy.org/devdocs/reference/generated/numpy.maximum.html#numpy.maximum)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
-[minimum](https://numpy.org/devdocs/reference/generated/numpy.minimum.html#numpy.minimum)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
-[fmax](https://numpy.org/devdocs/reference/generated/numpy.fmax.html#numpy.fmax)(x1, x2, /[, out, where, casting, …]) | Element-wise maximum of array elements.
-[fmin](https://numpy.org/devdocs/reference/generated/numpy.fmin.html#numpy.fmin)(x1, x2, /[, out, where, casting, …]) | Element-wise minimum of array elements.
-[nan_to_num](https://numpy.org/devdocs/reference/generated/numpy.nan_to_num.html#numpy.nan_to_num)(x[, copy, nan, posinf, neginf]) | Replace NaN with zero and infinity with large finite numbers (default behaviour) or with the numbers defined by the user using the nan, posinf and/or neginf keywords.
-[real_if_close](https://numpy.org/devdocs/reference/generated/numpy.real_if_close.html#numpy.real_if_close)(a[, tol]) | If complex input returns a real array if complex parts are close to zero.
-[interp](https://numpy.org/devdocs/reference/generated/numpy.interp.html#numpy.interp)(x, xp, fp[, left, right, period]) | One-dimensional linear interpolation.
+[convolve](https://numpy.org/devdocs/reference/generated/numpy.convolve.html#numpy.convolve)(a, v[, mode]) | 返回两个一维序列的离散线性卷积。
+[clip](https://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip)(a, a_min, a_max[, out]) | 裁剪（限制）数组中的值。
+[sqrt](https://numpy.org/devdocs/reference/generated/numpy.sqrt.html#numpy.sqrt)(x, /[, out, where, casting, order, …]) |返回数组的非负 [平方](https://numpy.org/devdocs/reference/generated/numpy.square.html#numpy.square)根, element-wise.
+[cbrt](https://numpy.org/devdocs/reference/generated/numpy.cbrt.html#numpy.cbrt)(x, /[, out, where, casting, order, …]) | 返回数组的立方根, element-wise.
+[square](https://numpy.org/devdocs/reference/generated/numpy.square.html#numpy.square)(x, /[, out, where, casting, order, …]) | 返回输入的元素方平方。
+[absolute](https://numpy.org/devdocs/reference/generated/numpy.absolute.html#numpy.absolute)(x, /[, out, where, casting, order, …]) | 计算绝对值 element-wise.
+[fabs](https://numpy.org/devdocs/reference/generated/numpy.fabs.html#numpy.fabs)(x, /[, out, where, casting, order, …]) | 计算绝对值 element-wise.
+[sign](https://numpy.org/devdocs/reference/generated/numpy.sign.html#numpy.sign)(x, /[, out, where, casting, order, …]) | 返回数字符号的逐元素指示。
+[heaviside](https://numpy.org/devdocs/reference/generated/numpy.heaviside.html#numpy.heaviside)(x1, x2, /[, out, where, casting, …]) | 计算Heaviside阶跃函数。
+[maximum](https://numpy.org/devdocs/reference/generated/numpy.maximum.html#numpy.maximum)(x1, x2, /[, out, where, casting, …]) | 数组元素的逐元素最大值。
+[minimum](https://numpy.org/devdocs/reference/generated/numpy.minimum.html#numpy.minimum)(x1, x2, /[, out, where, casting, …]) | 数组元素的按元素最小值。
+[fmax](https://numpy.org/devdocs/reference/generated/numpy.fmax.html#numpy.fmax)(x1, x2, /[, out, where, casting, …]) | 数组元素的逐元素最大值。
+[fmin](https://numpy.org/devdocs/reference/generated/numpy.fmin.html#numpy.fmin)(x1, x2, /[, out, where, casting, …]) | 数组元素的按元素最小值。
+[nan_to_num](https://numpy.org/devdocs/reference/generated/numpy.nan_to_num.html#numpy.nan_to_num)(x[, copy, nan, posinf, neginf]) | 用较大的有限数字（默认行为）或使用用户定义的nan，posinf和/或neginf关键字定义的数字将NaN替换为零和无穷大。
+[real_if_close](https://numpy.org/devdocs/reference/generated/numpy.real_if_close.html#numpy.real_if_close)(a[, tol]) | 如果复杂输入接近实数，则返回复杂数组。
+[interp](https://numpy.org/devdocs/reference/generated/numpy.interp.html#numpy.interp)(x, xp, fp[, left, right, period]) | 一维线性插值。
