@@ -1,6 +1,6 @@
-# Testing the numpy.i Typemaps
+# 测试numpy.i Typemap
 
-## Introduction
+## 介绍
 
 Writing tests for the ``numpy.i`` [SWIG](http://www.swig.org)
 interface file is a combinatorial headache.  At present, 12 different

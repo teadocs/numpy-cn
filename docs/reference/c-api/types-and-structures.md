@@ -1,18 +1,17 @@
-# Python Types and C-Structures
+---
+meta:
+  - name: keywords
+    content: Python类型和C结构
+  - name: description
+    content: NumPy是使用Python进行科学计算的基础包。它包含如下的内容：
+---
 
-Several new types are defined in the C-code. Most of these are
-accessible from Python, but a few are not exposed due to their limited
-use. Every new Python type has an associated [``PyObject *``](https://docs.python.org/dev/c-api/structures.html#c.PyObject) with an
-internal structure that includes a pointer to a “method table” that
-defines how the new object behaves in Python. When you receive a
-Python object into C code, you always get a pointer to a
-[``PyObject``](https://docs.python.org/dev/c-api/structures.html#c.PyObject) structure. Because a [``PyObject``](https://docs.python.org/dev/c-api/structures.html#c.PyObject) structure is
-very generic and defines only [``PyObject_HEAD``](https://docs.python.org/dev/c-api/structures.html#c.PyObject_HEAD), by itself it
-is not very interesting. However, different objects contain more
-details after the [``PyObject_HEAD``](https://docs.python.org/dev/c-api/structures.html#c.PyObject_HEAD) (but you have to cast to the
-correct type to access them — or use accessor functions or macros).
+# Python类型和C结构
 
-## New Python Types Defined
+C代码中定义了几个新类型。其中大部分可以从Python访问，但有一些由于使用有限而未公开。
+每种新的Python类型都有一个关联的 [``PyObject *``](https://docs.python.org/dev/c-api/structures.html#c.PyObject) 和一个内部结构，该内部结构包括一个指向“方法表”的指针，该“方法表”定义了新对象在Python中的行为方式。当您将Python对象接收到C代码中时，您总是获得指向 [``PyObject``](https://docs.python.org/dev/c-api/structures.html#c.PyObject) 结构的指针。因为  [``PyObject``](https://docs.python.org/dev/c-api/structures.html#c.PyObject) 结构非常通用，并且只定义了[``PyObject_HEAD``](https://docs.python.org/dev/c-api/structures.html#c.PyObject_HEAD)，所以它本身并不是很有趣。但是，不同的对象在 [``PyObject_HEAD``](https://docs.python.org/dev/c-api/structures.html#c.PyObject_HEAD) 之后包含更多细节(但是您必须强制转换为正确的类型才能访问它们-或者使用访问器函数或宏)。
+
+## 定义了新的Python类型
 
 Python types are the functional equivalent in C of classes in Python.
 By constructing a new Python type you make available a new object for
