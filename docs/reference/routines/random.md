@@ -17,11 +17,13 @@ Numpy的随机数例程使用 BitGenerator 和 [``Generator``](generator.html#nu
 
 为了方便和向后兼容，单个[``RandomState``](legacy.html#numpy.random.mtrand.RandomState)实例的方法被导入到numpy.Random命名空间中，有关完整列表，请参阅[遗留随机生成](legacy.html#legacy)。
 
-## Quick Start
+## 快速开始
 
-By default, [``Generator``](generator.html#numpy.random.Generator) uses bits provided by [``PCG64``](bit_generators/pcg64.html#numpy.random.pcg64.PCG64) which
-has better statistical properties than the legacy mt19937 random
-number generator in [``RandomState``](legacy.html#numpy.random.mtrand.RandomState).
+默认情况下，[Generator](generator.html#numpy.random.Generator)使用[PCG64](bit_generators/pcg64.html#numpy.random.pcg64.PCG64)提供的位，
+具有比传统mt19937
+[``RandomState``](legacy.html#numpy.random.mtrand.RandomState)中的随机数字生成器更好的统计属性
+
+
 
 ``` python
 # Uses the old numpy.random.RandomState
