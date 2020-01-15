@@ -1,25 +1,21 @@
-# Random sampling (``numpy.random``)
+---
+meta:
+  - name: keywords
+    content: 随机抽样
+  - name: description
+    content: Numpy的随机数例程使用 BitGenerator 和 Generator 的组合来生成伪随机数以创建序列，并使用这些序列从不同的统计分布中进行采样：
+---
 
-Numpy’s random number routines produce pseudo random numbers using
-combinations of a *BitGenerator* to create sequences and a [``Generator``](generator.html#numpy.random.Generator)
-to use those sequences to sample from different statistical distributions:
+# 随机抽样 (``numpy.random``)
 
-- BitGenerators: Objects that generate random numbers. These are typically
-unsigned integer words filled with sequences of either 32 or 64 random bits.
-- Generators: Objects that transform sequences of random bits from a
-BitGenerator into sequences of numbers that follow a specific probability
-distribution (such as uniform, Normal or Binomial) within a specified
-interval.
+Numpy的随机数例程使用 BitGenerator 和 [``Generator``](generator.html#numpy.random.Generator) 的组合来生成伪随机数以创建序列，并使用这些序列从不同的统计分布中进行采样：
 
-Since Numpy version 1.17.0 the Generator can be initialized with a
-number of different BitGenerators. It exposes many different probability
-distributions. See [NEP 19](https://www.numpy.org/neps/nep-0019-rng-policy.html) for context on the updated random Numpy number
-routines. The legacy [``RandomState``](legacy.html#numpy.random.mtrand.RandomState) random number routines are still
-available, but limited to a single BitGenerator.
+- BitGenerators：生成随机数的对象。这些通常是填充有32或64随机位序列的无符号整数字。
+- 生成器：将来自BitGenerator的随机位序列转换为在指定间隔内遵循特定概率分布(如均匀、正态或二项式)的数字序列的对象。
 
-For convenience and backward compatibility, a single [``RandomState``](legacy.html#numpy.random.mtrand.RandomState)
-instance’s methods are imported into the numpy.random namespace, see
-[Legacy Random Generation](legacy.html#legacy) for the complete list.
+从Numpy版本1.17.0开始，Generator可以使用许多不同的BitGenerator进行初始化。它暴露了许多不同的概率分布。有关更新的随机Numpy数例程的上下文，请参见[NEP 19](https://www.numpy.org/neps/nep-0019-rng-policy.html)。遗留的 [``RandomState``](legacy.html#numpy.random.mtrand.RandomState) 随机数例程仍然可用，但仅限于单个BitGenerator。
+
+为了方便和向后兼容，单个[``RandomState``](legacy.html#numpy.random.mtrand.RandomState)实例的方法被导入到numpy.Random命名空间中，有关完整列表，请参阅[遗留随机生成](legacy.html#legacy)。
 
 ## Quick Start
 

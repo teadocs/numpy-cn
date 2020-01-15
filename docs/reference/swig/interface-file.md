@@ -1,12 +1,18 @@
-# numpy.i: a SWIG Interface File for NumPy
+---
+meta:
+  - name: keywords
+    content: NumPy,SWIG,接口
+  - name: description
+    content: Simple Wrapper and Interface Generator(或SWIG)是一个功能强大的工具，用于生成用于与多种脚本语言接口的包装器代码。
+---
 
-## Introduction
+# numpy.i：一个NumPy的SWIG接口文件
 
-The Simple Wrapper and Interface Generator (or [SWIG](http://www.swig.org)) is a powerful tool for generating wrapper
-code for interfacing to a wide variety of scripting languages.
-[SWIG](http://www.swig.org) can parse header files, and using only the code prototypes,
-create an interface to the target language.  But [SWIG](http://www.swig.org) is not
-omnipotent.  For example, it cannot know from the prototype:
+## 介绍
+
+Simple Wrapper and Interface Generator(或SWIG)是一个功能强大的工具，用于生成用于与多种脚本语言接口的包装器代码。
+SWIG可以解析头文件，并且只使用代码原型创建与目标语言的接口。
+但 [SWIG](http://www.swig.org) 并不是万能的。、例如，它无法从原型获知：
 
 ``` python
 double rms(double* seq, int n);

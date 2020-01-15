@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 操作掩码数组
+  - name: description
+    content: 这里介绍的是使用numpy来操作掩码数组的一些API方法。
+---
+
 # 操作掩码数组
 
 ## 常量

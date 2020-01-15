@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 生成对抗网络
+  - name: description
+    content: 本教程源代码目录在book/09.gan，初次使用请您参考Book文档使用说明。
+---
+
 # 生成对抗网络
 
 本教程源代码目录在book/09.gan，初次使用请您参考Book文档使用说明。

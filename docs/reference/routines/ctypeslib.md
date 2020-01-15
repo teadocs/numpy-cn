@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: C-Types,cnumpy,外部接口
+  - name: description
+    content: 从ctypes数组或指针创建numpy数组。numpy数组与ctypes对象共享内存。如果从ctypes指针转换，则必须给定Shape参数。如果从ctypes数组转换，则忽略shape参数
+---
+
 # C-Types外部函数接口（``numpy.ctypeslib``）
 
   从ctypes数组或指针创建numpy数组。

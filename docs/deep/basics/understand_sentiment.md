@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 情感分析,电影评论
+  - name: description
+    content: 在网络技术不断发展和电子商务规模不断扩大的背景下，商品数量和种类快速增长，用户需要花费大量时间才能找到自己想买的商品，这就是信息超载问题。为了解决这个难题，个性化推荐系统（Recommender System）应运而生。
+---
+
 # 情感分析
 
 本教程源代码目录在[book/understand_sentiment](https://github.com/PaddlePaddle/book/tree/develop/06.understand_sentiment),初次使用请您参考[Book文档使用说明](https://github.com/PaddlePaddle/book/blob/develop/README.cn.md#运行这本书)。
@@ -391,7 +399,7 @@ inference_scope = fluid.core.Scope()
 ### 生成测试用输入数据
 
 为了进行预测，我们任意选取3个评论。请随意选取您看好的3个。我们把评论中的每个词对应到`word_dict`中的id。如果词典中没有这个词，则设为`unknown`。
-然后我们用`create_lod_tensor`来创建细节层次的张量，关于该函数的详细解释请参照[API文档](http://paddlepaddle.org/documentation/docs/zh/1.2/user_guides/howto/basic_concept/lod_tensor.html?from=numpy-cn)。
+然后我们用`create_lod_tensor`来创建细节层次的张量，关于该函数的详细解释请参照[API文档](http://paddlepaddle.org/documentation/docs/zh/1.2/user_guides/howto/basic_concept/lod_tensor.html?from=pandas-cn)。
 
 ```python
 reviews_str = [
@@ -449,4 +457,4 @@ with fluid.scope_guard(inference_scope):
 9. Zhou J, Xu W. [End-to-end learning of semantic role labeling using recurrent neural networks](http://www.aclweb.org/anthology/P/P15/P15-1109.pdf)[C]//Proceedings of the Annual Meeting of the Association for Computational Linguistics. 2015.
 
 <br/>
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://paddlepaddleimage.cdn.bcebos.com/bookimage/camo.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">本教程</span> 由 <a xmlns:cc="http://creativecommons.org/ns#" href="http://book.paddlepaddle.org/?from=numpy-cn" property="cc:attributionName" rel="cc:attributionURL">PaddlePaddle</a> 创作，采用 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享 署名-相同方式共享 4.0 国际 许可协议</a>进行许可。
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://paddlepaddleimage.cdn.bcebos.com/bookimage/camo.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">本教程</span> 由 <a xmlns:cc="http://creativecommons.org/ns#" href="http://book.paddlepaddle.org/?from=pandas-cn" property="cc:attributionName" rel="cc:attributionURL">PaddlePaddle</a> 创作，采用 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享 署名-相同方式共享 4.0 国际 许可协议</a>进行许可。
