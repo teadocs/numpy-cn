@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 数字识别
+  - name: description
+    content: 当我们学习编程的时候，编写的第一个程序一般是实现打印"Hello World"。
+---
+
 # 数字识别
 
 本教程源代码目录在[book/recognize_digits](https://github.com/PaddlePaddle/book/tree/develop/02.recognize_digits),初次使用请您参考[Book文档使用说明](https://github.com/PaddlePaddle/book/blob/develop/README.cn.md#运行这本书)。
@@ -166,7 +174,7 @@ PaddlePaddle在API中提供了自动加载[MNIST](http://yann.lecun.com/exdb/mni
 
 ## Fluid API 概述
 
-演示将使用最新的 [Fluid API](http://paddlepaddle.org/documentation/docs/zh/1.2/api_cn/index_cn.html?from=numpy-cn)。Fluid API是最新的 PaddlePaddle API。它在不牺牲性能的情况下简化了模型配置。
+演示将使用最新的 [Fluid API](http://paddlepaddle.org/documentation/docs/zh/1.2/api_cn/index_cn.html?from=pandas-cn)。Fluid API是最新的 PaddlePaddle API。它在不牺牲性能的情况下简化了模型配置。
 我们建议使用 Fluid API，它易学易用的特性将帮助您快速完成机器学习任务。。
 
 下面是 Fluid API 中几个重要概念的概述：
@@ -592,4 +600,4 @@ with fluid.scope_guard(inference_scope):
 10. Bishop, Christopher M. ["Pattern recognition."](http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf) Machine Learning 128 (2006): 1-58.
 
 <br/>
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://paddlepaddleimage.cdn.bcebos.com/bookimage/camo.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">本教程</span> 由 <a xmlns:cc="http://creativecommons.org/ns#" href="http://book.paddlepaddle.org/?from=numpy-cn" property="cc:attributionName" rel="cc:attributionURL">PaddlePaddle</a> 提供，采用 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享 署名-相同方式共享 4.0 国际 许可协议</a>进行许可。
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://paddlepaddleimage.cdn.bcebos.com/bookimage/camo.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">本教程</span> 由 <a xmlns:cc="http://creativecommons.org/ns#" href="http://book.paddlepaddle.org/?from=pandas-cn" property="cc:attributionName" rel="cc:attributionURL">PaddlePaddle</a> 提供，采用 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">知识共享 署名-相同方式共享 4.0 国际 许可协议</a>进行许可。

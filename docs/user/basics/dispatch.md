@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: 自定义数组,容器
+  - name: description
+    content: NumPy 的分派机制(在numpy版本v1.16中引入)是编写与numpy API兼容并提供numpy功能的自定义实现的自定义N维数组容器的推荐方法。
+---
+
 # 编写自定义数组容器
 
 NumPy 的分派机制(在numpy版本v1.16中引入)是编写与numpy API兼容并提供numpy功能的自定义实现的自定义N维数组容器的推荐方法。

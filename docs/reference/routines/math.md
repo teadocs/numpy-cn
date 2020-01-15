@@ -18,8 +18,8 @@ radians(x, /[, out, where, casting, order, …]) | 将角度从度转换�
 [deg2rad](https://numpy.org/devdocs/reference/generated/numpy.deg2rad.html#numpy.deg2rad)(x, /[, out, where, casting, order, …]) | 将角度从度转换为弧度。
 [rad2deg](https://numpy.org/devdocs/reference/generated/numpy.rad2deg.html#numpy.rad2deg)(x, /[, out, where, casting, order, …]) | 将角度从弧度转换为度。
 
-## 双曲函数
 
+## 双曲函数
 method | description
 ---|---
 [sinh](https://numpy.org/devdocs/reference/generated/numpy.sinh.html#numpy.sinh)(x, /[, out, where, casting, order, …]) | 双曲正弦, element-wise.

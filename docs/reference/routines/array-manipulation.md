@@ -1,3 +1,11 @@
+---
+meta:
+  - name: keywords
+    content: numpy数组,数组处理
+  - name: description
+    content: NumPy的数组处理程序，它的api包含以下内容。
+---
+
 # 数组处理程序
 
 ## 基本操作
