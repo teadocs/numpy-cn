@@ -23,32 +23,14 @@ Numpy的随机数例程使用 BitGenerator 和 [``Generator``](generator.html#nu
 具有比传统mt19937
 [``RandomState``](legacy.html#numpy.random.mtrand.RandomState)中的随机数字生成器更好的统计属性
 
-
-
 ``` python
 # Uses the old numpy.random.RandomState
 from numpy import random
 random.standard_normal()
 ```
+尽管随机值是由[`PCG64`](https://numpy.org/doc/1.17/reference/random/bit_generators/pcg64.html#numpy.random.pcg64.PCG64)生成的，但是[`Generator`](https://numpy.org/doc/1.17/reference/random/generator.html#numpy.random.Generator)可以直接替代RandomState。 [`Generator`](https://numpy.org/doc/1.17/reference/random/generator.html#numpy.random.Generator)包含一个BitGenerator的实例。 可以通过gen.bit_generator来访问。
 
-[``Generator``](generator.html#numpy.random.Generator) can be used as a replacement for [``RandomState``](legacy.html#numpy.random.mtrand.RandomState). Both class
-instances now hold a internal *BitGenerator* instance to provide the bit
-stream, it is accessible as ``gen.bit_generator``. Some long-overdue API
-cleanup means that legacy and compatibility methods have been removed from
-[``Generator``](generator.html#numpy.random.Generator)
-
-[RandomState](legacy.html#numpy.random.mtrand.RandomState) | [Generator](generator.html#numpy.random.Generator) | Notes
----|---|---
-random_sample, | random | Compatible with [random.random](https://docs.python.org/dev/library/random.html#random.random)
-rand |   |  
-randint, | integers | Add an endpoint kwarg
-random_integers |   |  
-tomaxint | removed | Use integers(0, np.iinfo(np.int).max,endpoint=False)
-seed | removed | Use [spawn](bit_generators/generated/numpy.random.SeedSequence.spawn.html#numpy.random.SeedSequence.spawn)
-
-See *new-or-different* for more information
-
-``` python
+```Python
 # As replacement for RandomState(); default_rng() instantiates Generator with
 # the default PCG64 BitGenerator.
 from numpy.random import default_rng
@@ -56,48 +38,25 @@ rg = default_rng()
 rg.standard_normal()
 rg.bit_generator
 ```
+Seeds可以传递给任何BitGenerator。 所提供的值通过[`SeedSequence`](https://numpy.org/doc/1.17/reference/random/bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence)进行混合，以将可能的seeds序列分布在BitGenerator的更广泛的初始化状态中。 这里使用[`PCG64`](https://numpy.org/doc/1.17/reference/random/bit_generators/pcg64.html#numpy.random.pcg64.PCG64)并用[`Generator`](https://numpy.org/doc/1.17/reference/random/generator.html#numpy.random.Generator)包裹。
 
-Something like the following code can be used to support both ``RandomState``
-and ``Generator``, with the understanding that the interfaces are slightly
-different
-
-``` python
-try:
-    rg_integers = rg.integers
-except AttributeError:
-    rg_integers = rg.randint
-a = rg_integers(1000)
-```
-
-Seeds can be passed to any of the BitGenerators. The provided value is mixed
-via [``SeedSequence``](bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence) to spread a possible sequence of seeds across a wider
-range of initialization states for the BitGenerator. Here [``PCG64``](bit_generators/pcg64.html#numpy.random.pcg64.PCG64) is used and
-is wrapped with a [``Generator``](generator.html#numpy.random.Generator).
-
-``` python
+```python
 from numpy.random import Generator, PCG64
 rg = Generator(PCG64(12345))
 rg.standard_normal()
 ```
 
-## Introduction
+## 介绍(`Introduction`)
 
-The new infrastructure takes a different approach to producing random numbers
-from the [``RandomState``](legacy.html#numpy.random.mtrand.RandomState) object.  Random number generation is separated into
-two components, a bit generator and a random generator.
+新的基础架构采用了不同的方法来产生随机数
+来自[``RandomState``](legacy.html＃numpy.random.mtrand.RandomState)对象。 随机数生成分为两个组件，一个`bit generator`和一个`random generator`。
 
-The *BitGenerator* has a limited set of responsibilities. It manages state
-and provides functions to produce random doubles and random unsigned 32- and
-64-bit values.
+*BitGenerator*具有有限的职责集。 它管理状态并提供产生随机双精度和随机无符号32位和64位值。
 
-The [``random generator``](generator.html#numpy.random.Generator) takes the
-bit generator-provided stream and transforms them into more useful
-distributions, e.g., simulated normal random values. This structure allows
-alternative bit generators to be used with little code duplication.
+[`random generator`](generator.html＃numpy.random.Generator)将bit generator提供的流并将其转换为更有用的分布，例如模拟的正常随机值。 这种结构允许备用bit generator，几乎不需要代码重复。
 
-The [``Generator``](generator.html#numpy.random.Generator) is the user-facing object that is nearly identical to
-[``RandomState``](legacy.html#numpy.random.mtrand.RandomState). The canonical method to initialize a generator passes a
-[``PCG64``](bit_generators/pcg64.html#numpy.random.pcg64.PCG64) bit generator as the sole argument.
+[``Generator``](generator.html＃numpy.random.Generator)是面向用户的对象，几乎与
+[``RandomState``](legacy.html＃numpy.random.mtrand.RandomState)相同。 初始化生成器的规范方法通过[``PCG64``](bit_generators/pcg64.html#numpy.random.pcg64.PCG64)  bit generator作为唯一的参数。
 
 ``` python
 from numpy.random import default_rng
