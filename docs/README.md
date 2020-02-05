@@ -40,7 +40,7 @@ footer: 署名-非商业性使用-相同方式共享 3.0 中国大陆 (CC BY-NC-
   </div>
   <div class="feature">
     <h2>利器之二：索引和切片</h2>
-    <p>可通过索引和切片来访问、修改 ndarray 对象，与 Python 中的 list 一样。ndarray 数组可以使用 0~n 的下标进行索引，也可以通过内置的 slice 函数切片，即通过设置 start, stop 及 step 参数从原数组中提取出一个新数组。</p>
+    <p>可通过索引和切片来访问、修改 ndarray 对象，与 Python 中的 list 一样。ndarray 数组可以使用 0~n 的下标进行索引，也可以通过内置的 slice 函数切片，即通过设置 start, stop 和 step 参数从原数组中提取出一个新数组。</p>
   </div>
 </div>
 
@@ -79,7 +79,7 @@ array([[1., 0., 0., 0.],
 
 改变世界，从 **Python** 开始。
 
-本网站推荐使用 [Python3.x](https://www.python.org/downloads/) 及以上版本。
+本网站推荐使用 [Python3.x](https://www.python.org/downloads/) 或更高版本。
 
 :::
 
