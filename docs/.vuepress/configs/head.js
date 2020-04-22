@@ -86,5 +86,24 @@ module.exports = [
     src: 'https://hm.baidu.com/hm.js?a809b6f7e6517af8c15c6076273e80fe',
     defer: 'defer',
     async: 'true'
-  }]
+  }],
+  // 谷歌统计
+  ['script', {
+    src: 'https://www.googletagmanager.com/gtag/js?id=UA-163860037-1',
+    defer: 'defer',
+    async: 'true'
+  }],
+  // 谷歌统计第二段代码
+  ['script', {}, `
+  (function() {
+    document.onreadystatechange = function() {
+      if (document.readyState == 'complete') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-163860037-1');
+      }
+    }
+  })();
+`]
 ]
