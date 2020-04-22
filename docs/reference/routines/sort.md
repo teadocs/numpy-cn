@@ -1,17 +1,17 @@
-# Sorting, searching, and counting
+# 排序，搜索和计数(`Sorting, searching, and counting`)
 
-## Sorting
+## 排序(`Sorting`)
 
 method | description
 ---|---
-[sort](https://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort)(a[, axis, kind, order]) | Return a sorted copy of an array.
-[lexsort](https://numpy.org/devdocs/reference/generated/numpy.lexsort.html#numpy.lexsort)(keys[, axis]) | Perform an indirect stable sort using a sequence of keys.
-[argsort](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort)(a[, axis, kind, order]) | Returns the indices that would sort an array.
-[ndarray.sort](https://numpy.org/devdocs/reference/generated/numpy.ndarray.sort.html#numpy.ndarray.sort)([axis, kind, order]) | Sort an array in-place.
-[msort](https://numpy.org/devdocs/reference/generated/numpy.msort.html#numpy.msort)(a) | Return a copy of an array sorted along the first axis.
-[sort_complex](https://numpy.org/devdocs/reference/generated/numpy.sort_complex.html#numpy.sort_complex)(a) | Sort a complex array using the real part first, then the imaginary part.
-[partition](https://numpy.org/devdocs/reference/generated/numpy.partition.html#numpy.partition)(a, kth[, axis, kind, order]) | Return a partitioned copy of an array.
-[argpartition](https://numpy.org/devdocs/reference/generated/numpy.argpartition.html#numpy.argpartition)(a, kth[, axis, kind, order]) | Perform an indirect partition along the given axis using the algorithm specified by the kind keyword.
+[sort](https://numpy.org/devdocs/reference/generated/numpy.sort.html#numpy.sort)(a[, axis, kind, order]) | 返回数组的排序副本。
+[lexsort](https://numpy.org/devdocs/reference/generated/numpy.lexsort.html#numpy.lexsort)(keys[, axis]) | 使用键的序列执行间接稳定排序。
+[argsort](https://numpy.org/devdocs/reference/generated/numpy.argsort.html#numpy.argsort)(a[, axis, kind, order]) | 返回将对数组进行排序的索引。
+[ndarray.sort](https://numpy.org/devdocs/reference/generated/numpy.ndarray.sort.html#numpy.ndarray.sort)([axis, kind, order]) | 就地排序数组。
+[msort](https://numpy.org/devdocs/reference/generated/numpy.msort.html#numpy.msort)(a) | 返回沿第一个指针排序的数组的副本。
+[sort_complex](https://numpy.org/devdocs/reference/generated/numpy.sort_complex.html#numpy.sort_complex)(a) | 首先使用实部，然后使用虚部对复杂数组进行排序。
+[partition](https://numpy.org/devdocs/reference/generated/numpy.partition.html#numpy.partition)(a, kth[, axis, kind, order]) | 返回数组的分区副本。
+[argpartition](https://numpy.org/devdocs/reference/generated/numpy.argpartition.html#numpy.argpartition)(a, kth[, axis, kind, order]) | 使用kind关键字指定的算法，沿给定的指针执行间接分区。
 
 ## Searching
 
