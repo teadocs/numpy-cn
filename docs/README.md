@@ -83,7 +83,7 @@ array([[1., 0., 0., 0.],
 
 :::
 
-<ahome-wxpub></ahome-wxpub>
+<ahome-article></ahome-article>
 
 <ahome-nav></ahome-nav>
 

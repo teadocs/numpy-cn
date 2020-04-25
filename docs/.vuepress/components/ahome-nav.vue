@@ -1,7 +1,7 @@
 <template>
   <div class="ahome-nav">
     <div class="nav-bar">
-      <b class="name">我想要</b>
+      <b class="name">点击我想要</b>
       <a class="btn-home-nav" :class="{'active': navId === 1}" @click="navId=1">关注公众号</a>
       <a class="btn-home-nav" :class="{'active': navId === 2}" @click="navId=2">加入群聊</a>
       <a class="btn-home-nav" :class="{'active': navId === 3}" @click="navId=3">贡献翻译</a>
@@ -16,7 +16,7 @@
         <p>掌上中文数据科学社区，关注公众号获取各种Python的奇淫技巧、赚钱技巧，更有机会获得大厂内推。</p>
       </div>
       <div class="qr-item mpqr-item">
-        <img src="https://static.numpy.org.cn/qrcode/mp_mydataset.png@qrcode" alt="数量集公众号二维码" />
+        <img :src="staticDomain + 'qrcode/mp_mydataset.png/qrcode'" alt="DATA中文公众号二维码" />
       </div>
     </div>
 
@@ -25,22 +25,22 @@
       <div class>
         <p>
           欢迎加入
-          <b>NumPy 中文社区</b> 群聊，群内有BAT公司大牛、常春藤校友、中国顶尖高校的各类学霸，以及众多大佬！
+          <b>{{name}} 中文社区</b> 群聊，群内有BAT公司大牛、常春藤校友、中国顶尖高校的各类学霸，以及众多大佬！
         </p>
       </div>
       <div class="qr-item">
         <img
-          src="https://static.numpy.org.cn/qrcode/wx_master.jpg@qrcode"
+          :src="staticDomain + 'qrcode/wx_master.jpg@qrcode'"
           alt="站长微信二维码"
         />
-        <span class="text">站长微信（可拉微信群，备注：numpy）</span>
+        <span class="text">站长微信（可拉微信群，备注：{{name | lowercase}}）</span>
       </div>
       <div class="qr-item">
         <img
-          src="https://static.numpy.org.cn/qrcode/qq_group_numpy.jpg@qrcode"
+          :src="staticDomain + 'qrcode/qq_group_' + lowercase(name) + '.jpg@qrcode'"
           alt="QQ群二维码（群号：294639068）"
         />
-        <span class="text">QQ群二维码（群号：294639068）</span>
+        <span class="text">QQ群二维码（群号：{{qqGroupNumber}}）</span>
       </div>
     </div>
 
@@ -48,12 +48,12 @@
     <div class="block" :class="{'show': navId === 3}">
       <p>
         首先感谢
-        <a href="https://github.com/teadocs/numpy-cn/graphs/contributors" target="_blank">这些小伙伴</a> 对数据科学汉化事业的做出的翻译贡献！🙏
+        <a :href="'https://github.com/teadocs/' + lowercase(name) + '-cn/graphs/contributors'" target="_blank">这些小伙伴</a> 对数据科学汉化事业的做出的翻译贡献！🙏
       </p>
       <p>
         贡献翻译不需要太多门槛，想参与翻译的小伙伴，可以先查看
         <a
-          href="https://github.com/teadocs/numpy-cn/blob/v1.17/Contribution.md"
+          :href="'https://github.com/teadocs/' + lowercase(name) + '-cn/blob/' + version + '/Contribution.md'"
           target="_blank"
         >《本文档翻译贡献指南》</a>。
       </p>
@@ -76,7 +76,7 @@
       <p>捐赠数额不限，特大数额可以加入网站鸣谢列表或全站推荐。</p>
       <div class="qr-item">
         <img
-          src="https://static.numpy.org.cn/qrcode/wechat_payee.jpeg@qrcode"
+          :src="staticDomain + 'qrcode/wechat_payee.jpeg@qrcode'"
           alt="微信付款码"
         />
         <span class="text">
@@ -85,7 +85,7 @@
       </div>
       <div class="qr-item">
         <img
-          src="https://static.numpy.org.cn/qrcode/alipay_payee.jpg@qrcode"
+          :src="staticDomain + 'qrcode/alipay_payee.jpg@qrcode'"
           alt="支付宝付款码"
         />
         <span class="text">
@@ -111,21 +111,21 @@
       </div>
       <div class="qr-item">
         <img
-          src="https://static.numpy.org.cn/qrcode/paddlepaddle_mp.png@qrcode"
+          :src="staticDomain + 'qrcode/paddlepaddle_mp.png@qrcode'"
           alt="paddle微信公众号"
         />
         <span class="text">Paddle官方微信公众号</span>
       </div>
       <div class="qr-item">
         <img
-          src="https://static.numpy.org.cn/qrcode/paddlepaddle_qq_group.jpg@qrcode"
+          :src="staticDomain + 'qrcode/paddlepaddle_qq_group.jpg@qrcode'"
           alt="qq群二维码"
         />
         <span class="text">QQ群二维码（群号：796771754）</span>
       </div>
       <div class="qr-item">
         <img
-          src="https://static.numpy.org.cn/qrcode/paddlepaddle_github.png@qrcode"
+          :src="staticDomain + 'qrcode/paddlepaddle_github.png@qrcode'"
           alt="Paddle的github地址"
         />
         <span class="text">Paddle的GitHub地址</span>
@@ -135,11 +135,34 @@
 </template>
 
 <script>
+// 名称
+const name = 'NumPy';
+// 静态文件地址
+const staticDomain = 'https://static.numpy.org.cn/';
+// qq群号码
+const qqGroupNumber = '294639068';
+// 版本
+const version = 'v1.17';
+
+const lowercase = str => str.toLowerCase();
+
 export default {
+  filters: {
+    lowercase
+  },
+
   data() {
     return {
-      navId: 0
+      navId: 1,
+      name,
+      staticDomain,
+      qqGroupNumber,
+      version
     };
+  },
+
+  methods: {
+    lowercase
   }
 };
 </script>
@@ -178,7 +201,10 @@ export default {
       }
 
       &.donation {
-        border: 2px solid $accentColor;
+        background: -webkit-gradient(linear, left top, right top, from(#ffe4b2), to(#c79354));
+        background: linear-gradient(90deg, #ffe4b2, #c79354);
+        color: #333333;
+        border-color: gray;
       }
     }
   }

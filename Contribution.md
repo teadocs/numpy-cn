@@ -24,7 +24,7 @@
 
 ## 文档如何在本地跑起来？
 
-Pandas 中文文档的最新版本使用的是 [VuePress](https://v1.vuepress.vuejs.org/zh/) 文档生成工具来驱动的。
+本中文文档的最新版本使用的是 [VuePress](https://v1.vuepress.vuejs.org/zh/) 文档生成工具来驱动的。
 
 由于 [VuePress](https://v1.vuepress.vuejs.org/zh/) 是基于 [Nodejs](https://zh.wikipedia.org/wiki/Node.js) 编写的工具，如果你想让文档在本地运行调试，你首先需要安装 [Nodejs](http://nodejs.cn/)  在你的电脑上，非Windows操作系统推荐使用 [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) 来安装 [Nodejs](http://nodejs.cn/) ，Windows操作系统的小伙伴可以直接下载最新版本的 Nodejs 的 [Windows 安装包](http://nodejs.cn/download/) 。
 
