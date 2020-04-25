@@ -105,5 +105,11 @@ module.exports = [
       }
     }
   })();
-`]
-]
+`],
+// 广告系统
+['script', {}, `
+  (function() {
+    document.write("<s"+"cript defer='defer' type='text/javascript' src='https://analytics.numpy.org.cn/public/ad.js?"+Math.random()+"'></scr"+"ipt>"); 
+  })();
+`],
+] 

@@ -35,6 +35,6 @@
     "vuepress": "^1.0.2",
     "vuepress-plugin-comment": "^0.7.0-beta.1",
     "vuepress-plugin-flowchart": "^1.4.2",
-    "vuepress-theme-teadocs": "^1.3.7"
+    "vuepress-theme-teadocs": "^1.3.9"
   }
 }
