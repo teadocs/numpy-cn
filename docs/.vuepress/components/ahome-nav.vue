@@ -15,23 +15,31 @@
       <div class>
         <p>掌上中文数据科学社区，关注公众号获取各种Python的奇淫技巧、赚钱技巧，更有机会获得大厂内推。</p>
       </div>
-      <div class="qr-item">
-        <img src="https://extraimage.net/images/2019/09/23/ddf886b34735a450f51e5612681c1c18.png" alt="数量集公众号二维码" />
-        <span class="text">或搜索“<b>数量集</b>”</span>
-      </div> 
+      <div class="qr-item mpqr-item">
+        <img src="https://static.numpy.org.cn/qrcode/mp_mydataset.png@qrcode" alt="数量集公众号二维码" />
+      </div>
     </div>
 
     <!-- 加入群聊 -->
     <div class="block" :class="{'show': navId === 2}">
       <div class>
-        <p>欢迎加入 <b>NumPy 中文社区</b> 群聊，群内有BAT公司大牛、常春藤校友、中国顶尖高校的各类学霸，以及众多大佬！</p>
+        <p>
+          欢迎加入
+          <b>NumPy 中文社区</b> 群聊，群内有BAT公司大牛、常春藤校友、中国顶尖高校的各类学霸，以及众多大佬！
+        </p>
       </div>
       <div class="qr-item">
-        <img src="https://extraimage.net/images/2019/09/23/ab21cd448bc5613ef9dbba4e4286ac32.jpg" alt="站长微信二维码" />
+        <img
+          src="https://static.numpy.org.cn/qrcode/wx_master.jpg@qrcode"
+          alt="站长微信二维码"
+        />
         <span class="text">站长微信（可拉微信群，备注：numpy）</span>
       </div>
       <div class="qr-item">
-        <img src="https://extraimage.net/images/2019/09/23/68ef79d67d2d47c3453edbeee47712b5.jpg" alt="qq群二维码" />
+        <img
+          src="https://static.numpy.org.cn/qrcode/qq_group_numpy.jpg@qrcode"
+          alt="QQ群二维码（群号：294639068）"
+        />
         <span class="text">QQ群二维码（群号：294639068）</span>
       </div>
     </div>
@@ -54,7 +62,11 @@
 
     <!-- 捐赠网站 -->
     <div class="block" :class="{'show': navId === 4}">
-      <p>1、你的捐赠会帮助更多的国人看到优质的保持<b>免费</b>且<b>无广告</b>的内容！</p>
+      <p>
+        1、你的捐赠会帮助更多的国人看到优质的保持
+        <b>免费</b>且
+        <b>无广告</b>的内容！
+      </p>
       <p>
         2、维护公益项目不易，你们的支持是我
         <b>坚持翻译</b>，不断优化
@@ -63,13 +75,19 @@
       </p>
       <p>捐赠数额不限，特大数额可以加入网站鸣谢列表或全站推荐。</p>
       <div class="qr-item">
-        <img src="https://extraimage.net/images/2019/09/23/b23a24d371aeacdc1be5eb110436ecb9.jpg" alt="微信付款码" />
+        <img
+          src="https://static.numpy.org.cn/qrcode/wechat_payee.jpeg@qrcode"
+          alt="微信付款码"
+        />
         <span class="text">
           <b>微信</b> 捐赠
         </span>
       </div>
       <div class="qr-item">
-        <img src="https://extraimage.net/images/2019/09/23/4136d66b8cad62517838b702f57ac7da.jpg" alt="支付宝付款码" />
+        <img
+          src="https://static.numpy.org.cn/qrcode/alipay_payee.jpg@qrcode"
+          alt="支付宝付款码"
+        />
         <span class="text">
           <b>支付宝</b> 捐赠
         </span>
@@ -92,15 +110,24 @@
         <p>扫码获取深度学习资料</p>
       </div>
       <div class="qr-item">
-        <img src="https://extraimage.net/images/2019/10/22/72234564897704dd05071e01f113fc62.png" alt="paddle微信公众号" />
+        <img
+          src="https://static.numpy.org.cn/qrcode/paddlepaddle_mp.png@qrcode"
+          alt="paddle微信公众号"
+        />
         <span class="text">Paddle官方微信公众号</span>
       </div>
       <div class="qr-item">
-        <img src="https://extraimage.net/images/2019/10/22/62197b85a4b835ce06c8453c048bb651.jpg" alt="qq群二维码" />
+        <img
+          src="https://static.numpy.org.cn/qrcode/paddlepaddle_qq_group.jpg@qrcode"
+          alt="qq群二维码"
+        />
         <span class="text">QQ群二维码（群号：796771754）</span>
       </div>
       <div class="qr-item">
-        <img src="https://extraimage.net/images/2019/10/22/132a76d4fa4b09f92f4d88bf9f0740ab.png" alt="paddle的github地址" />
+        <img
+          src="https://static.numpy.org.cn/qrcode/paddlepaddle_github.png@qrcode"
+          alt="Paddle的github地址"
+        />
         <span class="text">Paddle的GitHub地址</span>
       </div>
     </div>
@@ -177,6 +204,16 @@ export default {
       width: 150px;
       float: left;
 
+      &.mpqr-item {
+        text-align: left;
+        width: 100% !important;
+
+        img {
+          heigth: 150px !important;
+          width: auto !important;
+        }
+      }
+
       img {
         height: 150px;
         width: 150px;
@@ -221,7 +258,7 @@ export default {
     a {
       &.btn-home-nav {
         margin: 2px;
-        margin-bottom 6px;
+        margin-bottom: 6px;
       }
     }
   }

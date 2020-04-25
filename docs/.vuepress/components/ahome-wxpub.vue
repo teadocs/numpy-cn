@@ -25,17 +25,17 @@ export default {
           url: "https://www.paddlepaddle.org.cn/modelbase?from=numpy-cn"
         },
         {
-          poster: "https://extraimage.net/images/2019/09/23/1f16b487646cad220a131d55feeaa446.jpg",
+          poster: "https://static.numpy.org.cn/home/article_poster_02.jpg@w300h300",
           title: "可能是最通俗易懂的Python入门资料整理和最优学习路线推荐。",
           url: "https://mp.weixin.qq.com/s/QUUYEimknwt5v3RUxIf8kQ"
         },
         {
-          poster: "https://extraimage.net/images/2019/09/23/ce093461c1b901ac2ce6d05959ad4379.jpg",
+          poster: "https://static.numpy.org.cn/home/article_poster_02.jpg@w300h300",
           title: "几百个不同领域的数据集分享给你，别让巧妇难为无米之炊。",
           url: "https://mp.weixin.qq.com/s/lVKa2j2yXbjpjom4GD5Btw"
         },
         {
-          poster: "https://extraimage.net/images/2019/09/23/3d45b5bc575aac8bfdd22443d612c7e9.jpg",
+          poster: "https://static.numpy.org.cn/home/article_poster_04.jpg@w300h300",
           title: "刚刚，我用Python做了个七夕礼物，差点被女朋友打死",
           url: "https://mp.weixin.qq.com/s/i2UQOqBr8zGqtgqTaHh3mg"
         }

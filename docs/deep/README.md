@@ -9,7 +9,7 @@ meta:
 # NumPy 与深度学习
 
 <a href="https://www.paddlepaddle.org.cn/?from=pandas-cn" target="_blank">
-  <img src="https://extraimage.net/images/2019/10/20/9d3fe9e349990cba65902826dda16f11.png">
+  <img src="https://static.numpy.org.cn/inside/9d3fe9e349990cba65902826dda16f11.png@w800h800">
 </a>
 
 欢迎来到 NumPy 与深度学习栏目！
