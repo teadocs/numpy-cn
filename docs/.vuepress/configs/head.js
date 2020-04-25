@@ -96,14 +96,15 @@ module.exports = [
   // 谷歌统计第二段代码
   ['script', {}, `
   (function() {
-    document.onreadystatechange = function() {
+    document.addEventListener('readystatechange', function (e) {
       if (document.readyState == 'complete') {
+        console.log('google init.');
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-163860037-1');
       }
-    }
+    });
   })();
 `],
 // 广告系统
