@@ -54,6 +54,12 @@
         <li>
           <a href="https://www.quantinfo.com/" target="_blank">宽客在线</a>
         </li>
+        <li>
+          <a href="https://www.leiphone.com/?from=numpy.org.cn" target="_blank">雷锋网</a>
+        </li>
+        <li>
+          <a href="https://www.yanxishe.com/?from=numpy.org.cn" target="_blank">AI研习社</a>
+        </li>
       </ul>
     </div>
   </div>
