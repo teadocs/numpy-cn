@@ -113,4 +113,68 @@ module.exports = [
     document.write("<s"+"cript defer='defer' type='text/javascript' src='https://analytics.numpy.org.cn/public/ad.js?"+Math.random()+"'></scr"+"ipt>"); 
   })();
 `],
+// 屏蔽评论
+['script', {}, `
+(function () {
+  let styleContent = \`
+  .forum-tips {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  \`
+  let divContent = \`
+    <a href="https://www.kuxai.com/f/numpy" target="_blank">
+      评论系统已退役，点击进入<b>Numpy中文社区</b>，体验功能更强大的交流社区。
+    </a>
+  \`
+  function asyncQuerySelector(selector, callback) {
+    let el = '';
+    let timer = window.setInterval(function() {
+      el = document.querySelector(selector);
+      if (el) {
+        window.clearInterval(timer);
+        callback(el);
+      }
+    });
+  }
+  function init() {
+    asyncQuerySelector('#valine-vuepress-comment > .vwrap', function (parentNode) {
+      if (!document.querySelector('.forum-tips')) {
+        let newStyle = document.createElement('style');
+        newStyle.innerHTML = styleContent;
+        parentNode.appendChild(newStyle);
+        let newDiv = document.createElement('div');
+        newDiv.className = 'forum-tips';
+        newDiv.innerHTML = divContent;
+        parentNode.appendChild(newDiv);
+      }
+    });
+  }
+  document.addEventListener('readystatechange', function (e) {
+    if (document.readyState == 'complete') {
+      init();
+    }
+  });
+  (function() {
+    var url1 = window.location.href;
+    var url2 = window.location.href;
+    setInterval(function() {
+      if (url1 === url2) {
+        url2 = window.location.href;
+      } else {
+        url1 = url2;
+        init();
+      }
+    }, 200);
+  })();
+})();
+`]
 ] 

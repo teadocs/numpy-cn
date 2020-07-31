@@ -21,8 +21,8 @@ module.exports = [
     link: '/reference/'
   },
   {
-    text: '精选资源',
-    link: '/awesome/'
+    text: '社区',
+    link: 'https://www.kuxai.com/f/numpy'
   },
   {
     text: '其他文档',
