@@ -1672,11 +1672,8 @@ arr
 
 # Solution:
 def one_hot_encodings(arr):
-    uniqs = np.unique(arr)
-    out = np.zeros((arr.shape[0], uniqs.shape[0]))
-    for i, k in enumerate(arr):
-        out[i, k-1] = 1
-    return out
+    maxv = np.max(arr)
+    return np.array([[1 if v==i else 0 for i in range(1,maxv+1)]for v in arr])
 
 one_hot_encodings(arr)
 # > array([[ 0.,  1.,  0.],
