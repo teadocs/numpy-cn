@@ -2143,8 +2143,13 @@ a = np.array([1, 3, 7, 1, 2, 6, 0, 1])
 
 ```python
 a = np.array([1, 3, 7, 1, 2, 6, 0, 1])
+#solution1
 doublediff = np.diff(np.sign(np.diff(a)))
 peak_locations = np.where(doublediff == -2)[0] + 1
+
+#solution2
+peak_locations = np.array([i for i in range(1,a.size - 1) if a[i]>a[i-1] and a[i] > a[i+1]])
+
 peak_locations
 # > array([2, 5])
 ```
