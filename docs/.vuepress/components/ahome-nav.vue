@@ -7,7 +7,7 @@
       <a class="btn-home-nav" :class="{'active': navId === 3}" @click="navId=3">贡献翻译</a>
       <a class="btn-home-nav donation" :class="{'active': navId === 4}" @click="navId=4">捐赠网站</a>
       <a class="btn-home-nav" :class="{'active': navId === 5}" @click="navId=5">其他事宜</a>
-      <a class="btn-home-nav" :class="{'active': navId === 6}" @click="navId=6">深度学习资料</a>
+      <!-- <a class="btn-home-nav" :class="{'active': navId === 6}" @click="navId=6">深度学习资料</a> -->
     </div>
 
     <!-- 关注公众号 -->

@@ -12,9 +12,9 @@
     <div class="left-box item">
       <h4>👥兄弟文档</h4>
       <ul>
-        <li>
+        <!-- <li>
           <a href="https://www.paddlepaddle.org.cn/?from=numpy-cn" target="_blank">PaddlePaddle 中文文档</a>
-        </li>
+        </li> -->
         <li>
           <a href="https://www.pypandas.cn/" target="_blank">Pandas 中文网</a>
         </li>

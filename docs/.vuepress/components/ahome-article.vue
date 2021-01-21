@@ -22,9 +22,9 @@ export default {
     return {
       recommend: [
         {
-          poster: "https://paddlepaddle-org-cn.bj.bcebos.com/paddle-site-front/static/media/banner.a53a5ad414cd2bc5e0f6d00cc4f53f50.png",
-          title: "免费深度学习模型库（覆盖图像、自然语言处理、推荐等多种方向的官方模型）",
-          url: "https://www.paddlepaddle.org.cn/modelbase?from=numpy-cn"
+          poster: staticDomain + "home/li.jpg@w300h300",
+          title: "你离开学只差这个视频：李宏毅机器学习2020版正式开放上线",
+          url: "https://www.kuxai.com/article/2"
         },
         {
           poster: staticDomain + "home/article_poster_02.jpg@w300h300",

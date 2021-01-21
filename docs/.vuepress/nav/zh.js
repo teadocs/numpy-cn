@@ -7,11 +7,11 @@ module.exports = [
     text: '文章',
     link: '/article/'
   },
-  {
-    text: '深度学习',
-    link: '/deep/',
-    important: true
-  },
+  // {
+  //   text: '深度学习',
+  //   link: '/deep/',
+  //   important: true
+  // },
   {
     text: '用户指南',
     link: '/user/'
