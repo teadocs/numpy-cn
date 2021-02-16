@@ -11,7 +11,7 @@ In a nutshell, ``genfromtxt`` runs two main loops. 第一个循环以字符串�
 
 ```python
 >>> import numpy as np
->>> from io import BytesIO
+>>> from io import StringIO
 ```
 
 ### 定义输入
@@ -29,7 +29,7 @@ In a nutshell, ``genfromtxt`` runs two main loops. 第一个循环以字符串�
 
 ```python
 >>> data = "1, 2, 3\n4, 5, 6"
->>> np.genfromtxt(BytesIO(data), delimiter=",")
+>>> np.genfromtxt(StringIO(data), delimiter=",")
 array([[ 1.,  2.,  3.],
        [ 4.,  5.,  6.]])
 ```
@@ -40,12 +40,12 @@ array([[ 1.,  2.,  3.],
 
 ```python
 >>> data = "  1  2  3\n  4  5 67\n890123  4"
->>> np.genfromtxt(BytesIO(data), delimiter=3)
+>>> np.genfromtxt(StringIO(data), delimiter=3)
 array([[   1.,    2.,    3.],
        [   4.,    5.,   67.],
        [ 890.,  123.,    4.]])
 >>> data = "123456789\n   4  7 9\n   4567 9"
->>> np.genfromtxt(BytesIO(data), delimiter=(4, 3, 2))
+>>> np.genfromtxt(StringIO(data), delimiter=(4, 3, 2))
 array([[ 1234.,   567.,    89.],
        [    4.,     7.,     9.],
        [    4.,   567.,     9.]])
@@ -58,12 +58,12 @@ array([[ 1234.,   567.,    89.],
 ```python
 >>> data = "1, abc , 2\n 3, xxx, 4"
 >>> # Without autostrip
->>> np.genfromtxt(BytesIO(data), delimiter=",", dtype="|S5")
+>>> np.genfromtxt(StringIO(data), delimiter=",", dtype="|S5")
 array([['1', ' abc ', ' 2'],
        ['3', ' xxx', ' 4']],
       dtype='|S5')
 >>> # With autostrip
->>> np.genfromtxt(BytesIO(data), delimiter=",", dtype="|S5", autostrip=True)
+>>> np.genfromtxt(StringIO(data), delimiter=",", dtype="|S5", autostrip=True)
 array([['1', 'abc', '2'],
        ['3', 'xxx', '4']],
       dtype='|S5')
@@ -84,7 +84,7 @@ array([['1', 'abc', '2'],
 ... # And here comes the last line
 ... 9, 0
 ... """
->>> np.genfromtxt(BytesIO(data), comments="#", delimiter=",")
+>>> np.genfromtxt(StringIO(data), comments="#", delimiter=",")
 [[ 1.  2.]
  [ 3.  4.]
  [ 5.  6.]
@@ -106,9 +106,9 @@ array([['1', 'abc', '2'],
 
 ```python
 >>> data = "\n".join(str(i) for i in range(10))
->>> np.genfromtxt(BytesIO(data),)
+>>> np.genfromtxt(StringIO(data),)
 array([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9.])
->>> np.genfromtxt(BytesIO(data),
+>>> np.genfromtxt(StringIO(data),
 ...               skip_header=3, skip_footer=5)
 array([ 3.,  4.])
 ```
@@ -123,7 +123,7 @@ array([ 3.,  4.])
 
 ```python
 >>> data = "1 2 3\n4 5 6"
->>> np.genfromtxt(BytesIO(data), usecols=(0, -1))
+>>> np.genfromtxt(StringIO(data), usecols=(0, -1))
 array([[ 1.,  3.],
        [ 4.,  6.]])
 ```
@@ -132,11 +132,11 @@ array([[ 1.,  3.],
 
 ```python
 >>> data = "1 2 3\n4 5 6"
->>> np.genfromtxt(BytesIO(data),
+>>> np.genfromtxt(StringIO(data),
 ...               names="a, b, c", usecols=("a", "c"))
 array([(1.0, 3.0), (4.0, 6.0)],
       dtype=[('a', '<f8'), ('c', '<f8')])
->>> np.genfromtxt(BytesIO(data),
+>>> np.genfromtxt(StringIO(data),
 ...               names="a, b, c", usecols=("a, c"))
     array([(1.0, 3.0), (4.0, 6.0)],
           dtype=[('a', '<f8'), ('c', '<f8')])
@@ -167,7 +167,7 @@ array([(1.0, 3.0), (4.0, 6.0)],
 处理表格数据时的一种自然方法是为每列分配一个名称。如前所述，第一种可能性是使用明确的结构化dtype。
 
 ```python
->>> data = BytesIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, dtype=[(_, int) for _ in "abc"])
 array([(1, 2, 3), (4, 5, 6)],
       dtype=[('a', '<i8'), ('b', '<i8'), ('c', '<i8')])
@@ -176,7 +176,7 @@ array([(1, 2, 3), (4, 5, 6)],
 另一种更简单的可能性是将``names``关键字与一系列字符串或逗号分隔的字符串一起使用：
 
 ```python
->>> data = BytesIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, names="A, B, C")
 array([(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
       dtype=[('A', '<f8'), ('B', '<f8'), ('C', '<f8')])
@@ -187,7 +187,7 @@ array([(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
 我们有时可能需要从数据本身定义列名。在这种情况下，我们必须使用``names``关键字的值为``True``。这些名字将从第一行（在``skip_header``之后）被读取，即使该行被注释掉：
 
 ```python
->>> data = BytesIO("So it goes\n#a b c\n1 2 3\n 4 5 6")
+>>> data = StringIO("So it goes\n#a b c\n1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, skip_header=1, names=True)
 array([(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
       dtype=[('a', '<f8'), ('b', '<f8'), ('c', '<f8')])
@@ -196,7 +196,7 @@ array([(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
 ``names``的默认值为``None``。如果我们给关键字赋予任何其他值，新名称将覆盖我们可能用dtype定义的字段名称：
 
 ```python
->>> data = BytesIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> ndtype=[('a',int), ('b', float), ('c', int)]
 >>> names = ["A", "B", "C"]
 >>> np.genfromtxt(data, names=names, dtype=ndtype)
@@ -209,7 +209,7 @@ array([(1, 2.0, 3), (4, 5.0, 6)],
 如果 ``names=None`` 的时候，只是预计会有一个结构化的dtype，它的名称将使用标准的NumPy默认值 ``"f%i"``来定义，会产生例如``f0``，``f1``等名称：
 
 ```python
->>> data = BytesIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, dtype=(int, float, int))
 array([(1, 2.0, 3), (4, 5.0, 6)],
       dtype=[('f0', '<i8'), ('f1', '<f8'), ('f2', '<i8')])
@@ -218,7 +218,7 @@ array([(1, 2.0, 3), (4, 5.0, 6)],
 同样，如果我们没有提供足够的名称来匹配dtype的长度，缺少的名称将使用此默认模板进行定义：
 
 ```python
->>> data = BytesIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, dtype=(int, float, int), names="a")
 array([(1, 2.0, 3), (4, 5.0, 6)],
       dtype=[('a', '<i8'), ('f0', '<f8'), ('f1', '<i8')])
@@ -227,7 +227,7 @@ array([(1, 2.0, 3), (4, 5.0, 6)],
 我们可以使用``defaultfmt``参数覆盖此默认值，该参数采用任何格式字符串：
 
 ```python
->>> data = BytesIO("1 2 3\n 4 5 6")
+>>> data = StringIO("1 2 3\n 4 5 6")
 >>> np.genfromtxt(data, dtype=(int, float, int), defaultfmt="var_%02i")
 array([(1, 2.0, 3), (4, 5.0, 6)],
       dtype=[('var_00', '<i8'), ('var_01', '<f8'), ('var_02', '<i8')])
@@ -259,7 +259,7 @@ array([(1, 2.0, 3), (4, 5.0, 6)],
 >>> data = "1, 2.3%, 45.\n6, 78.9%, 0"
 >>> names = ("i", "p", "n")
 >>> # General case .....
->>> np.genfromtxt(BytesIO(data), delimiter=",", names=names)
+>>> np.genfromtxt(StringIO(data), delimiter=",", names=names)
 array([(1.0, nan, 45.0), (6.0, nan, 0.0)],
       dtype=[('i', '<f8'), ('p', '<f8'), ('n', '<f8')])
 ```
@@ -268,7 +268,7 @@ array([(1.0, nan, 45.0), (6.0, nan, 0.0)],
 
 ```python
 >>> # Converted case ...
->>> np.genfromtxt(BytesIO(data), delimiter=",", names=names,
+>>> np.genfromtxt(StringIO(data), delimiter=",", names=names,
 ...               converters={1: convertfunc})
 array([(1.0, 0.023, 45.0), (6.0, 0.78900000000000003, 0.0)],
       dtype=[('i', '<f8'), ('p', '<f8'), ('n', '<f8')])
@@ -278,7 +278,7 @@ array([(1.0, 0.023, 45.0), (6.0, 0.78900000000000003, 0.0)],
 
 ```python
 >>> # Using a name for the converter ...
->>> np.genfromtxt(BytesIO(data), delimiter=",", names=names,
+>>> np.genfromtxt(StringIO(data), delimiter=",", names=names,
 ...               converters={"p": convertfunc})
 array([(1.0, 0.023, 45.0), (6.0, 0.78900000000000003, 0.0)],
       dtype=[('i', '<f8'), ('p', '<f8'), ('n', '<f8')])
@@ -289,7 +289,7 @@ array([(1.0, 0.023, 45.0), (6.0, 0.78900000000000003, 0.0)],
 ```python
 >>> data = "1, , 3\n 4, 5, 6"
 >>> convert = lambda x: float(x.strip() or -999)
->>> np.genfromtxt(BytesIO(data), delimiter=",",
+>>> np.genfromtxt(StringIO(data), delimiter=",",
 ...               converters={1: convert})
 array([[   1., -999.,    3.],
        [   4.,    5.,    6.]])
@@ -338,7 +338,7 @@ array([[   1., -999.,    3.],
 ...               names="a,b,c",
 ...               missing_values={0:"N/A", 'b':" ", 2:"???"},
 ...               filling_values={0:0, 'b':0, 2:-999})
->>> np.genfromtxt(BytesIO(data), **kwargs)
+>>> np.genfromtxt(StringIO(data), **kwargs)
 array([(0, 2, 3), (4, 0, -999)],
       dtype=[('a', '<i8'), ('b', '<i8'), ('c', '<i8')])
 ```
