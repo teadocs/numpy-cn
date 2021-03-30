@@ -8,7 +8,7 @@ meta:
 
 # 天元 MegEngine 基础概念
 
-本文章原文链接：[https://megengine.org.cn/doc/stable/zh/getting-started/beginner/megengine-basic-concepts.html](https://megengine.org.cn/doc/stable/zh/getting-started/beginner/megengine-basic-concepts.html?from=numpy-cn)
+本文章原文链接：[https://megengine.org.cn/doc/stable/zh/getting-started/beginner/megengine-basic-concepts.html](https://megengine.org.cn/doc/stable/zh/getting-started/beginner/megengine-basic-concepts.html?id=NumpyBasis_page1_docstart_01)
 
 我们为第一次接触天元 MegEngine 框架的用户提供了此系列教程，通过本部分的学习，你将会：
 
@@ -16,7 +16,7 @@ meta:
 - 对深度学习中的前向传播、反向传播和参数更新的具体过程有更加清晰的认识；
 - 通过写代码训练一个线性回归模型，对上面提到的这些概念进行具体的实践，加深理解。
 
-请先运行下面的代码，检验你的环境中是否已经安装好 MegEngine（[访问官网安装教程](https://megengine.org.cn/install?from=numpy-cn)）：
+请先运行下面的代码，检验你的环境中是否已经安装好 MegEngine（[访问官网安装教程](https://megengine.org.cn/install/?id=NumpyBasis_page1_install_01)）：
 
 ```python
 import megengine
@@ -29,6 +29,8 @@ print(megengine.__version__)
 ```
 1.2.0
 ```
+
+或者你可以可前往 **MegStudio**，fork 公开项目，无需本地安装，直接线上体验（[前往学习](https://studio.brainpp.com/project/2/?id=NumpyBasis_page1_studio_01)）
 
 接下来，我们将学习框架中一些基本模块的使用，先从最基础的张量（Tensor）和算子（Operator）开始吧～
 
@@ -462,7 +464,7 @@ print(w, w.grad)
 Tensor([2.98], device=xpux:0) None
 ```
 
-**提示：**多次实践表明，用户经常忘记在更新参数后做梯度清空操作，因此推荐使用这样的写法：`optimizer.step().clear_grad()`
+**提示：** 多次实践表明，用户经常忘记在更新参数后做梯度清空操作，因此推荐使用这样的写法：`optimizer.step().clear_grad()`
 
 我们使用 Numpy 来手动模拟一次参数 `w` 的更新过程：
 
@@ -485,8 +487,6 @@ print(w)                        # 和 optimizer.step() 更新后得到的 w 应�
 
 ## 损失函数（Loss Function）
 
-## 损失函数（Loss Function）
-
 深度神经网络模型的优化过程，实际上就是使用梯度下降算法来优化一个目标函数，从而更新网络模型中的参数。
 
 但请注意，上面用于举例的表达式的输出值其实并不是需要被优化的对象，我们的目标是：模型预测的输出结果和真实标签尽可能一致。
@@ -498,10 +498,10 @@ MegEngine 的 `functional` 模块提供了各种常见的损失函数，具体�
 对于 $w * x + b$ 这样的范围在实数域 $\mathbb R$ 上的输出，我们可以使用均方误差（Mean Squared Error, MSE）表示模型输出 $y_{pred}$ 和实际值 $y_{real}$ 的差距：
 
 $$
-\ell(y_{pred}, y_{real})= \frac{1}{n }\sum_{i=1}^{n}\left(\hat{y}_{i}-{y}_{i}\right)^{2}
+\ell(y_{pred}, y_{real})= \frac{1}{n }\sum_{i=1}^{n}\left(\hat{y}\_{i}-{y}_{i}\right)^{2}
 $$
 
-注：在上面的公式中 $\left(\hat{y}_{i}-{y}_{i}\right)^{2}$ 计算的是单个样本 $x_{i}$ 输入模型后得到的输出 $\hat{y}_{i}$ 和实际标签值 ${y}_{i}$ 的差异，数据集中有 $n$ 个样本。
+注：在上面的公式中 $\left(\hat{y}\_{i}-{y}\_{i}\right)^{2}$ 计算的是单个样本 $x_{i}$ 输入模型后得到的输出 $\hat{y}\_{i}$ 和实际标签值 ${y}_{i}$ 的差异，数据集中有 $n$ 个样本。
 
 ```python
 import megengine.functional as F
@@ -526,9 +526,9 @@ print(loss)
 选定损失函数作为优化目标后，我们便可在训练的过程中通过梯度下降不断地更新参数 $w$ 和 $b$, 从而达到模型优化的效果：
 
 $$
-w^{*}, b^{*}=\underset{w, b}{\operatorname{argmin}} \ell\left(w, b\right) .
+w^{\*}, b^{\*}=\underset{w, b}{\operatorname{argmin}} \ell\left(w, b\right) .
 $$
- 
+
 ## 练习：线性回归
 
 接下来，我们用一个非常简单的例子，帮助你将前面提到的概念给联系起来。
@@ -813,4 +813,4 @@ plt.show()
 
 深度学习，简单开发。我们鼓励你在实践中不断思考，并启发自己去探索直觉性或理论性的解释。
 
-本文章原文链接：[https://megengine.org.cn/doc/stable/zh/getting-started/beginner/megengine-basic-concepts.html](https://megengine.org.cn/doc/stable/zh/getting-started/beginner/megengine-basic-concepts.html?from=numpy-cn)
+本文章原文链接：[https://megengine.org.cn/doc/stable/zh/getting-started/beginner/megengine-basic-concepts.html](https://megengine.org.cn/doc/stable/zh/getting-started/beginner/megengine-basic-concepts.html?id=NumpyBasis_page1_docstart_01)

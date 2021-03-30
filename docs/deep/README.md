@@ -10,7 +10,7 @@ meta:
 
 <p></p><p></p>
 
-<a href="https://megengine.org.cn/?from=numpy-cn" target="_blank">
+<a href="https://megengine.org.cn/?id=NumpyDeep_pic_index_01" target="_blank">
   <img src="https://static.numpy.org.cn/inside/megengin_0001.png">
 </a>
 
@@ -18,7 +18,7 @@ meta:
 
 欢迎来到 NumPy 与深度学习栏目！
 
-本栏目会指导你如何使用 [NumPy](https://www.numpy.org.cn/)、[Matplotlib](https://www.matplotlib.org.cn/)、[Pandas](https://www.pypandas.cn/) 和 国产深度学习框架[MegEngine](https://megengine.org.cn/?from=numpy-cn) 进行深度学习的入门。
+本栏目会指导你如何使用 [NumPy](https://www.numpy.org.cn/)、[Matplotlib](https://www.matplotlib.org.cn/)、[Pandas](https://www.pypandas.cn/) 和 国产深度学习框架[MegEngine](https://megengine.org.cn/?id=NumpyDeep_pic_index_01) 进行深度学习的入门。
 
 ## 为深度学习新手准备的教程目录
 

@@ -5,10 +5,9 @@ meta:
   - name: description
     content: 回归和分类问题在机器学习中十分常见，我们接触过了线性回归，那么线性模型是否可用于分类任务呢？本次教程中，我们将：接触经典的 MNIST 数据集和对应的分类任务，对计算机视觉领域的图像编码有一个基础认知...
 ---
-
 # 从线性回归到线性分类
 
-本文章原文链接：[https://megengine.org.cn/doc/stable/zh/getting-started/beginner/from-linear-regression-to-linear-classification.html](https://megengine.org.cn/doc/stable/zh/getting-started/beginner/from-linear-regression-to-linear-classification.html?from=numpy-cn)
+本文章原文链接：[https://megengine.org.cn/doc/stable/zh/getting-started/beginner/from-linear-regression-to-linear-classification.html](https://megengine.org.cn/doc/stable/zh/getting-started/beginner/from-linear-regression-to-linear-classification.html?id=NumpyClassification_page3_studio_01)
 
 回归和分类问题在机器学习中十分常见，我们接触过了线性回归，那么线性模型是否可用于分类任务呢？本次教程中，我们将：
 
@@ -16,7 +15,7 @@ meta:
 - 将线性回归经过“简单改造”，则可以用来解决分类问题——我们将接触到 Logistic 回归和 Softmax 回归；
 - 结合之前的学习，**实现一个最简单的线性分类器，并尝试用它来识别手写数字。**
 
-请先运行下面的代码，检验你的环境中是否已经安装好 MegEngine（[访问官网安装教程](https://megengine.org.cn/install?from=numpy-cn)）：
+请先运行下面的代码，检验你的环境中是否已经安装好 MegEngine（[访问官网安装教程](https://megengine.org.cn/install/?id=NumpyClassification_page3_install_01)）：
 
 ```python
 import megengine
@@ -29,6 +28,8 @@ print(megengine.__version__)
 ```
 1.2.0
 ```
+
+或者你可以可前往 **MegStudio**，fork 公开项目，无需本地安装，直接线上体验（[前往学习](https://studio.brainpp.com/project/4643/?id=NumpyClassification_page3_docstart_01)）
 
 接下来，我们将先了解一下这次要使用到的分类问题经典数据集：[MNIST 手写数字数据集](http://yann.lecun.com/exdb/mnist/)。
 
@@ -623,4 +624,4 @@ Accuracy = 91.700
 
 深度学习，简单开发。我们鼓励你在实践中不断思考，并启发自己去探索直觉性或理论性的解释。
 
-本文章原文链接：[https://megengine.org.cn/doc/stable/zh/getting-started/beginner/from-linear-regression-to-linear-classification.html](https://megengine.org.cn/doc/stable/zh/getting-started/beginner/from-linear-regression-to-linear-classification.html?from=numpy-cn)
+本文章原文链接：[https://megengine.org.cn/doc/stable/zh/getting-started/beginner/from-linear-regression-to-linear-classification.html](https://megengine.org.cn/doc/stable/zh/getting-started/beginner/from-linear-regression-to-linear-classification.html?id=NumpyClassification_page3_studio_01)
