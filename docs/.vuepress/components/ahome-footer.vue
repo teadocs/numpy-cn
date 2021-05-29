@@ -13,9 +13,6 @@
       <h4>👥兄弟文档</h4>
       <ul>
         <li>
-          <a href="https://megengine.org.cn/doc/stable/zh/getting-started/index.html?from=numpy-cn" target="_blank">MegEngine (๑•̀ㅂ•́)و 中文文档</a>
-        </li>
-        <li>
           <a href="https://www.pypandas.cn/" target="_blank">Pandas 中文网</a>
         </li>
         <li>
@@ -29,6 +26,9 @@
       <ul>
         <li>
           <a href="http://www.numpy.org/" target="_blank">NumPy 英文</a>
+        </li>
+        <li>
+          <a href="http://www.kuxai.com/" target="_blank">AIHUB社区</a>
         </li>
         <li>
           <a href="http://tushare.org/" target="_blank">Tushare</a>
