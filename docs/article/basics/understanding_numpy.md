@@ -33,7 +33,7 @@ NumPy提供的最重要的数据结构是一个称为NumPy数组的强大对象�
 ```python
 import numpy as np 
 my_array = np.array([1, 2, 3, 4, 5]) 
-print my_array
+print(my_array)
 ```
 
 在上面的简单示例中，我们首先使用import numpy作为np导入NumPy库。然后，我们创建了一个包含5个整数的简单NumPy数组，然后我们将其打印出来。继续在自己的机器上试一试。在看 “NumPy安装” 部分下面的步骤的时候，请确保已在计算机中安装了NumPy。
@@ -41,7 +41,7 @@ print my_array
 现在让我们看看我们可以用这个特定的NumPy数组能做些什么。
 
 ```python
-print my_array.shape
+print(my_array.shape)
 ```
 
 它会打印我们创建的数组的形状：``(5, )``。意思就是 my_array 是一个包含5个元素的数组。
@@ -49,15 +49,15 @@ print my_array.shape
 我们也可以打印各个元素。就像普通的Python数组一样，NumPy数组的起始索引编号为0。
 
 ```python
-print my_array[0]
-print my_array[1]
+print(my_array[0])
+print(my_array[1])
 ```
 
 上述命令将分别在终端上打印1和2。我们还可以修改NumPy数组的元素。例如，假设我们编写以下2个命令：
 
 ```python
 my_array[0] = -1
-print my_array
+print(my_array)
 ```
 
 我们将在屏幕上看到：``[-1,2,3,4,5]``。
@@ -66,14 +66,14 @@ print my_array
 
 ```python
 my_new_array = np.zeros((5)) 
-print my_new_array
+print(my_new_array)
 ```
 
 我们将看到输出了 ``[0., 0., 0., 0., 0.] ``。与 ``np.zeros`` 类似，我们也有 ``np.ones``。 如果我们想创建一个随机值数组怎么办？
 
 ```python
 my_random_array = np.random.random((5))
-print my_random_array
+print(my_random_array)
 ```
 
 我们得到的输出看起来像 [0.22051844 0.35278286 0.11342404 0.79671772 0.62263151] 这样的数据。你获得的输出可能会有所不同，因为我们使用的是随机函数，它为每个元素分配0到1之间的随机值。
@@ -81,7 +81,8 @@ print my_random_array
 现在让我们看看如何使用NumPy创建二维数组。
 
 ```python
-my_2d_array = np.zeros((2, 3)) print my_2d_array
+my_2d_array = np.zeros((2, 3)) 
+print(my_2d_array)
 ```
 
 这将在屏幕上打印以下内容：
@@ -95,7 +96,8 @@ my_2d_array = np.zeros((2, 3)) print my_2d_array
 猜猜以下代码的输出结果如何：
 
 ```python
-my_2d_array_new = np.ones((2, 4)) print my_2d_array_new
+my_2d_array_new = np.ones((2, 4)) 
+print(my_2d_array_new)
 ```
 
 这里是：
@@ -110,7 +112,7 @@ my_2d_array_new = np.ones((2, 4)) print my_2d_array_new
 
 ```python
 my_array = np.array([[4, 5], [6, 1]])
-print my_array[0][1]
+print(my_array[0][1])
 ```
 
 上面的代码片段的输出是5，因为它是索引0行和索引1列中的元素。
@@ -118,7 +120,7 @@ print my_array[0][1]
 你还可以按如下方式打印my_array的形状：
 
 ```python
-print my_array.shape
+print(my_array.shape)
 ```
 
 输出为(2, 2)，表示数组中有2行2列。
@@ -133,7 +135,7 @@ NumPy提供了一种提取多维数组的行/列的强大方法。例如，考�
 
 ```python
 my_array_column_2 = my_array[:, 1] 
-print my_array_column_2
+print(my_array_column_2)
 ```
 
 注意，我们使用了冒号(``:``)而不是行号，而对于列号，我们使用了值``1``，最终输出是：``[5, 1]``。
@@ -152,10 +154,10 @@ sum = a + b
 difference = a - b 
 product = a * b 
 quotient = a / b 
-print "Sum = \n", sum 
-print "Difference = \n", difference 
-print "Product = \n", product 
-print "Quotient = \n", quotient 
+print("Sum = \n", sum)
+print("Difference = \n", difference)
+print("Product = \n", product)
+print("Quotient = \n", quotient)
 
 # The output will be as follows: 
 
@@ -169,7 +171,7 @@ Quotient = [[0.2 0.33333333] [0.42857143 0.5 ]]
 
 ```python
 matrix_product = a.dot(b) 
-print "Matrix Product = ", matrix_product
+print("Matrix Product = ", matrix_product)
 ```
 
 输出将是：
