@@ -4,7 +4,7 @@
       <h4>🌐站点相关</h4>
       <ul>
         <li>
-          <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备16025085号-3</a>
+          <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备16025085号-3</a>
         </li>
       </ul>
     </div>
