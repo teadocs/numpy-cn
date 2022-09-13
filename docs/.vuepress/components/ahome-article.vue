@@ -15,7 +15,7 @@
 </template>
 
 <script>
-const staticDomain = 'https://static.numpy.org.cn/';
+const staticDomain = 'https://static.numpy.thto.net/';
 
 export default {
   data() {

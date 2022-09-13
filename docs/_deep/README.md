@@ -11,7 +11,7 @@ meta:
 <p></p><p></p>
 
 <a href="https://megengine.org.cn/?id=NumpyDeep_pic_index_01" target="_blank">
-  <img src="https://static.numpy.org.cn/inside/megengin_0001.png">
+  <img src="https://static.numpy.thto.net/inside/megengin_0001.png">
 </a>
 
 <p></p><p></p>

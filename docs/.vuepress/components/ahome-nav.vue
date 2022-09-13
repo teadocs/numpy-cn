@@ -138,7 +138,7 @@
 // 名称
 const name = 'NumPy';
 // 静态文件地址
-const staticDomain = 'https://static.numpy.org.cn/';
+const staticDomain = 'https://static.numpy.thto.net/';
 // qq群号码
 const qqGroupNumber = '294639068';
 // 版本

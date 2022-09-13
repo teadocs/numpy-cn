@@ -1,7 +1,7 @@
 module.exports = [
   ['@vuepress/back-to-top', true],
   ['@vuepress/pwa', {
-    serviceWorker: true,
+    serviceWorker: false,
     updatePopup: {
       '/': {
         message: "更新了新内容呢！",

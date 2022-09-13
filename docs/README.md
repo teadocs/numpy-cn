@@ -5,7 +5,7 @@ meta:
     content: numpy中文文档,numpy中文api,numpy中文手册,numpy教程,numpy下载安装,numpy
   - name: description
     content: 这是NumPy官方的中文文档，NumPy是用Python进行科学计算的基础软件包。
-heroImage: https://static.numpy.org.cn/site/logo.png
+heroImage: https://static.numpy.thto.net/site/logo.png
 actionText: 快速了解 →
 actionLink: /user/
 action2Text: 开始深度学习

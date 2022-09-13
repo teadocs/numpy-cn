@@ -5,7 +5,7 @@ meta:
     content: numpy
   - name: description
     content: New numpy English official website.
-heroImage: https://static.numpy.org.cn/site/logo.png
+heroImage: https://static.numpy.thto.net/site/logo.png
 actionText: Get Started →
 actionLink: /en/user/
 footer: Attribution-NonCommercial-ShareAlike 3.0 China Mainland (CC BY-NC-SA 3.0 CN) | Copyright © 2019-present Zhi Bing
