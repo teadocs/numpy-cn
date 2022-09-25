@@ -10,3 +10,6 @@ static/images/.DS_Store
 node_modules
 package-lock.json
 yarn.lock
+.cache
+docs/.vuepress/.cache
+docs/.vuepress/.ctemp

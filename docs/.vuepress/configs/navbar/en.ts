@@ -1,4 +1,6 @@
-module.exports = [
+import type { NavbarConfig } from 'vuepress-theme-teadocs'
+
+export const navbarEn: NavbarConfig = [
   {
     text: 'About',
     link: '/en/about/'
@@ -17,17 +19,17 @@ module.exports = [
   },
   {
     text: 'Other Document',
-    items: [
+    children: [
       { text: 'Benchmarking', link: '/en/benchmarking/' },
       { text: 'NumPy Developer Guide', link: '/en/dev/' },
       { text: 'F2Py Guide', link: '/en/f2py/' },
-      { text: 'Building and Extending the Documentation', link: '/en/bedocs/'}
+      { text: 'Building and Extending the Documentation', link: '/en/bedocs/' }
     ]
   },
   {
     text: 'Learn More',
-    items: [
-      { text: 'Community', link: '/en/community/'},
+    children: [
+      { text: 'Community', link: '/en/community/' },
       { text: 'Reporting bugs', link: '/en/bugs/' },
       { text: 'Release Notes', link: 'https://numpy.org/devdocs/release.html' },
       { text: 'License of NumPy', link: '/en/license/' },

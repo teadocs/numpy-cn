@@ -5,8 +5,11 @@
       <ul>
         <li v-for="(item, index) in recommend" :key="index">
           <a :href="item.url" :title="item.title" target="_blank">
-            <div class="poster" :style="{'background-image': 'url(' + item.poster + ')'}"></div>
-            <div class="title">{{item.title}}</div>
+            <div
+              class="poster"
+              :style="{ 'background-image': 'url(' + item.poster + ')' }"
+            ></div>
+            <div class="title">{{ item.title }}</div>
           </a>
         </li>
       </ul>
@@ -15,7 +18,7 @@
 </template>
 
 <script>
-const staticDomain = 'https://static.numpy.thto.net/';
+const staticDomain = "https://static.numpy.thto.net/";
 
 export default {
   data() {
@@ -24,37 +27,42 @@ export default {
         {
           poster: staticDomain + "home/li.jpg@w300h300",
           title: "你离开学只差这个视频：李宏毅机器学习2020版正式开放上线",
-          url: "https://www.kuxai.com/article/2"
+          url: "https://www.kuxai.com/article/2",
         },
         {
           poster: staticDomain + "home/article_poster_02.jpg@w300h300",
           title: "可能是最通俗易懂的Python入门资料整理和最优学习路线推荐。",
-          url: "https://mp.weixin.qq.com/s/QUUYEimknwt5v3RUxIf8kQ"
+          url: "https://mp.weixin.qq.com/s/QUUYEimknwt5v3RUxIf8kQ",
         },
         {
           poster: staticDomain + "home/article_poster_03.jpg@w300h300",
           title: "几百个不同领域的数据集分享给你，别让巧妇难为无米之炊。",
-          url: "https://mp.weixin.qq.com/s/lVKa2j2yXbjpjom4GD5Btw"
+          url: "https://mp.weixin.qq.com/s/lVKa2j2yXbjpjom4GD5Btw",
         },
         {
           poster: staticDomain + "home/article_poster_04.jpg@w300h300",
           title: "刚刚，我用Python做了个七夕礼物，差点被女朋友打死",
-          url: "https://mp.weixin.qq.com/s/i2UQOqBr8zGqtgqTaHh3mg"
-        }
-      ]
+          url: "https://mp.weixin.qq.com/s/i2UQOqBr8zGqtgqTaHh3mg",
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .home-wxpub {
   margin-top: 2rem;
   margin-bottom: 1rem;
 
   h3 {
-    border-left: 0.4rem solid $accentColor;
+    border-left: 0.4rem solid var(--c-text-accent);
     padding-left: 0.6rem;
+    padding-top: 0;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
   }
 
   .recommend {
@@ -64,7 +72,7 @@ export default {
       padding-left: 0px;
 
       &::after {
-        content: '.';
+        content: ".";
         display: block;
         height: 0;
         clear: both;
@@ -81,7 +89,7 @@ export default {
 
         a {
           display: block;
-          color: $textColor;
+          color: var(--c-text);
           font-size: 16px;
           font-weight: normal;
           padding: 8px;
